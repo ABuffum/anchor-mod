@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+	"haven:potted_black_carnation",
+	"haven:potted_blue_carnation",
+	"haven:potted_brown_carnation",
+	"haven:potted_cyan_carnation",
+	"haven:potted_gray_carnation",
+	"haven:potted_green_carnation",
+	"haven:potted_light_blue_carnation",
+	"haven:potted_light_gray_carnation",
+	"haven:potted_lime_carnation",
+	"haven:potted_magenta_carnation",
+	"haven:potted_orange_carnation",
+	"haven:potted_pink_carnation",
+	"haven:potted_purple_carnation",
+	"haven:potted_red_carnation",
+	"haven:potted_white_carnation",
+	"haven:potted_yellow_carnation"
+  ]
+}

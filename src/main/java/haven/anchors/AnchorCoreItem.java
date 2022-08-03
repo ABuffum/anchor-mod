@@ -1,5 +1,7 @@
 package haven.anchors;
 
+import haven.HavenMod;
+
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,7 +20,7 @@ import net.minecraft.world.World;
 public class AnchorCoreItem extends Item {
 	public final int owner;
 	public AnchorCoreItem(int owner) {
-		super(new FabricItemSettings().group(ItemGroup.MISC));
+		super(HavenMod.ITEM_SETTINGS);
 		this.owner = owner;
 	}
 	

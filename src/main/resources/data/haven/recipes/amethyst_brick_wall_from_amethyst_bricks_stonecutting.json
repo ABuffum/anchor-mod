@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "haven:amethyst_bricks"
+  },
+  "result": "haven:amethyst_brick_wall"
+}

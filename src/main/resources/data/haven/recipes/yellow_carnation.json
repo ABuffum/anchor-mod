@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:yellow_carnation"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:yellow_dye"
+  }
+}

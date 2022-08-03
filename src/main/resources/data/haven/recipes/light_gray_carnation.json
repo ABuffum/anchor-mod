@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:light_gray_carnation"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:light_gray_dye"
+  }
+}

@@ -1,5 +1,12 @@
 package haven.anchors;
 
+import haven.HavenMod;
+
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.network.MessageType;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Identifier;
+import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.Nullable;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -7,25 +14,17 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.state.*;
 import net.minecraft.state.property.*;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.*;
 import net.minecraft.world.*;
 
+import java.util.UUID;
+
 public class AnchorBlock extends BlockWithEntity implements BlockEntityProvider {
 	public static final IntProperty OWNER = IntProperty.of("owner", 0, 50);
-	
-	public static final AnchorBlock ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 	
 	public AnchorBlock(Settings settings) {
 		super(settings.nonOpaque());
@@ -60,15 +59,25 @@ public class AnchorBlock extends BlockWithEntity implements BlockEntityProvider 
 	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		int owner = state.get(OWNER);
 		super.afterBreak(world, player, pos, state, blockEntity, stack);
-		if (Anchors.ANCHOR_MAP.containsKey(owner)) {
-			ItemStack otherStack = new ItemStack(Anchors.ANCHOR_CORES.get(owner), 1);
+		if (HavenMod.ANCHOR_MAP.containsKey(owner)) {
+			ItemStack otherStack = new ItemStack(HavenMod.ANCHOR_CORES.get(owner), 1);
 			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX(), pos.getY(), pos.getZ(), otherStack);
 		    player.world.spawnEntity(itemEntity);
 		}
+		LOGGER.log(Level.ALL, "[Haven] The loot table id is: " + HavenMod.BONE_TORCH_BLOCK.getLootTableId().toString());
+		MinecraftClient mc = MinecraftClient.getInstance();
+		UUID uuid = mc.player.getUuid();
+		String message;
+		message = "[Haven] The id is: " + new Identifier(HavenMod.NAMESPACE, "bone_torch").toString();
+		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
+		message = "[Haven] The toString is: " + HavenMod.BONE_TORCH_BLOCK.toString();
+		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
+		message = "[Haven] The loot table id is: " + HavenMod.BONE_TORCH_BLOCK.getLootTableId().toString();
+		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
 	}
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return checkType(type, Anchors.ANCHOR_BLOCK_ENTITY, (world1, pos, state1, be) -> AnchorBlockEntity.tick(world1, pos, state1, be));
+		return checkType(type, HavenMod.ANCHOR_BLOCK_ENTITY, (world1, pos, state1, be) -> AnchorBlockEntity.tick(world1, pos, state1, be));
 	}
 }

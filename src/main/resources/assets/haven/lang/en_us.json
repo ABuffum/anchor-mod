@@ -1,5 +1,8 @@
 {
+	"itemGroup.haven.general": "Haven",
+
 	"block.haven.anchor": "Respawn Anchor",
+
 	"item.haven.jackdaw_core": "Jackdaw's Anchor Core",
 	"item.haven.august_core": "August's Anchor Core",
 	"item.haven.bird_core": "Bird's Anchor Core",
@@ -17,10 +20,65 @@
 	"item.haven.oz_core": "Oz's Anchor Core",
 	"item.haven.navn_core": "Navn's Anchor Core",
 	"item.haven.amber_core": "Amber's Anchor Core",
-	"item.haven.kota_core": "Kota's Anchor Core",
+	"item.haven.kota_core": "Dakota's Anchor Core",
 	"item.haven.rhys_core": "Rhys's Anchor Core",
 	"item.haven.soleil_core": "Soleil's Anchor Core",
-	"item.haven.dj_core": "DJ's Anchor Core",
+	"item.haven.dj_core": "Dr. Dae's Anchor Core",
 	"item.haven.miasma_core": "Miasma's Anchor Core",
-	"item.haven.k_core": "Digger Krozhul's Anchor Core"
+	"item.haven.k_core": "Digger Krozhul's Anchor Core",
+
+	"block.haven.bone_torch": "Bone Torch",
+	"block.haven.bone_wall_torch": "Bone Wall Torch",
+	"item.haven.bone_torch": "Bone Torch",
+
+	"item.haven.tinker_toy": "Tinker Toy",
+
+	"block.haven.charcoal_block": "Charcoal Block",
+
+	"block.haven.amethyst_crystal_block": "Amethyst Crystal Block",
+
+	"block.haven.amethyst_bricks": "Amethyst Bricks",
+	"block.haven.amethyst_brick_slab": "Amethyst Brick Slab",
+	"block.haven.amethyst_brick_stairs": "Amethyst Brick Stairs",
+	"block.haven.amethyst_brick_wall": "Amethyst Brick Wall",
+
+	"block.haven.amethyst_slab": "Amethyst Slab",
+	"block.haven.amethyst_stairs": "Amethyst Stairs",
+	"block.haven.amethyst_wall": "Amethyst Wall",
+
+	"block.haven.black_carnation": "Black Carnation",
+	"block.haven.potted_black_carnation": "Potted Black Carnation",
+	"block.haven.blue_carnation": "Blue Carnation",
+	"block.haven.potted_blue_carnation": "Potted Blue Carnation",
+	"block.haven.brown_carnation": "Brown Carnation",
+	"block.haven.potted_brown_carnation": "Potted Brown Carnation",
+	"block.haven.cyan_carnation": "Cyan Carnation",
+	"block.haven.potted_cyan_carnation": "Potted Cyan Carnation",
+	"block.haven.gray_carnation": "Gray Carnation",
+	"block.haven.potted_gray_carnation": "Potted Gray Carnation",
+	"block.haven.green_carnation": "Green Carnation",
+	"block.haven.potted_green_carnation": "Potted Green Carnation",
+	"block.haven.light_blue_carnation": "Light Blue Carnation",
+	"block.haven.potted_light_blue_carnation": "Potted Light Blue Carnation",
+	"block.haven.light_gray_carnation": "Light Gray Carnation",
+	"block.haven.potted_light_gray_carnation": "Potted Light Gray Carnation",
+	"block.haven.lime_carnation": "Lime Carnation",
+	"block.haven.potted_lime_carnation": "Potted Lime Carnation",
+	"block.haven.magenta_carnation": "Magenta Carnation",
+	"block.haven.potted_magenta_carnation": "Potted Magenta Carnation",
+	"block.haven.orange_carnation": "Orange Carnation",
+	"block.haven.potted_orange_carnation": "Potted Orange Carnation",
+	"block.haven.pink_carnation": "Pink Carnation",
+	"block.haven.potted_pink_carnation": "Potted Pink Carnation",
+	"block.haven.purple_carnation": "Purple Carnation",
+	"block.haven.potted_purple_carnation": "Potted Purple Carnation",
+	"block.haven.red_carnation": "Red Carnation",
+	"block.haven.potted_red_carnation": "Potted Red Carnation",
+	"block.haven.white_carnation": "White Carnation",
+	"block.haven.potted_white_carnation": "Potted White Carnation",
+	"block.haven.yellow_carnation": "Yellow Carnation",
+	"block.haven.potted_yellow_carnation": "Potted Yellow Carnation",
+
+	"item.haven.pteror": "Pteror",
+	"item.haven.sbehesohe": "Sbehésóhe"
 }

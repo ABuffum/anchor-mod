@@ -1,5 +1,7 @@
 package haven.anchors;
 
+import haven.HavenMod;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +15,7 @@ import net.minecraft.world.World;
 
 public class AnchorBlockEntity extends BlockEntity {
     public AnchorBlockEntity(BlockPos pos, BlockState state) {
-        super(Anchors.ANCHOR_BLOCK_ENTITY, pos, state);
+        super(HavenMod.ANCHOR_BLOCK_ENTITY, pos, state);
         this.pos = pos;
         update(state);
     }

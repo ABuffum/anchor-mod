@@ -3,10 +3,10 @@
   "id": "haven-anchors",
   "version": "${version}",
 
-  "name": "Haven Anchors",
-  "description": "Custom blocks & items for Haven SMP's respawn anchors & respawn anchor cores.",
+  "name": "Haven Pack",
+  "description": "Mod Suite for the Haven SMP",
   "authors": [
-    "mouse"
+    "mousewich"
   ],
   "contact": {
     "homepage": "",
@@ -19,13 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "haven.anchors.Anchors"
+      "haven.HavenMod"
     ],
     "client" : [
-      "haven.anchors.AnchorsClient"
+      "haven.HavenModClient"
     ]
   },
-  "accessWidener" : "anchors.accesswidener",
+  "accessWidener" : "havenmod.accesswidener",
   "depends": {
     "fabricloader": ">=0.11.3",
     "fabric": "*",

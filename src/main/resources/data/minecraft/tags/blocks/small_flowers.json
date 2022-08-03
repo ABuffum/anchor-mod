@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "haven:black_carnation",
+    "haven:blue_carnation",
+    "haven:brown_carnation",
+    "haven:cyan_carnation",
+    "haven:gray_carnation",
+    "haven:green_carnation",
+    "haven:light_blue_carnation",
+    "haven:light_gray_carnation",
+    "haven:lime_carnation",
+    "haven:magenta_carnation",
+    "haven:orange_carnation",
+    "haven:pink_carnation",
+    "haven:purple_carnation",
+    "haven:red_carnation",
+    "haven:white_carnation",
+    "haven:yellow_carnation"
+  ]
+}
