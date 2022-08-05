@@ -2,30 +2,38 @@ package haven;
 
 import haven.anchors.*;
 import haven.blocks.*;
+import haven.entities.*;
+import haven.items.*;
 
-import haven.items.TinkerToy;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.*;
+import net.minecraft.client.render.entity.model.EntityModelLayer;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.vehicle.TntMinecartEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Map;
 import java.util.HashMap;
 import static java.util.Map.entry;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
+import org.apache.logging.log4j.*;
 
 @SuppressWarnings("deprecation")
 public class HavenMod implements ModInitializer {
@@ -125,8 +133,14 @@ public class HavenMod implements ModInitializer {
 	public static final Item YELLOW_CARNATION_ITEM = new BlockItem(YELLOW_CARNATION_BLOCK, new Item.Settings().group(ITEM_GROUP));
 	public static final Block POTTED_YELLOW_CARNATION = new FlowerPotBlock(YELLOW_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
-	public static final Item PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, (new Item.Settings()).group(ITEM_GROUP).fireproof());
-	public static final Item SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, (new Item.Settings()).group(ITEM_GROUP));
+	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
+	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
+
+	public static final Block SOFT_TNT_BLOCK = new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS));
+	public static final Item SOFT_TNT_ITEM = new BlockItem(SOFT_TNT_BLOCK, new Item.Settings().group(ITEM_GROUP));
+	public static final EntityModelLayer SOFT_TNT_LAYER = new EntityModelLayer(new Identifier(HavenMod.NAMESPACE, "soft_tnt"), "main");
+	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
 	@Override
 	public void onInitialize() {
@@ -226,6 +240,24 @@ public class HavenMod implements ModInitializer {
 		//Reskins
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pteror"), PTEROR);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "sbehesohe"), SBEHESOHE);
+
+		//Soft TNT
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_ITEM);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_ENTITY);
+
+		DispenserBlock.registerBehavior(SOFT_TNT_BLOCK, new ItemDispenserBehavior() {
+			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				World world = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+				SoftTntEntity tntEntity = new SoftTntEntity(world, (double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D, (LivingEntity)null);
+				world.spawnEntity(tntEntity);
+				world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				world.emitGameEvent((Entity)null, GameEvent.ENTITY_PLACE, blockPos);
+				stack.decrement(1);
+				return stack;
+			}
+		});
 
 		/*
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {

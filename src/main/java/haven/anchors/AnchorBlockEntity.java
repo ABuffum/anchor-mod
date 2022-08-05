@@ -20,7 +20,7 @@ public class AnchorBlockEntity extends BlockEntity {
         update(state);
     }
     
-    private static final Identifier ERROR_TEXTURE = new Identifier("haven", "textures/anchor/0.png");
+    private static final Identifier ERROR_TEXTURE = new Identifier(HavenMod.NAMESPACE, "textures/anchor/0.png");
     
     private int owner = 0;
     public final BlockPos pos;
@@ -32,7 +32,7 @@ public class AnchorBlockEntity extends BlockEntity {
     	if (owner != this.owner) {
     		this.owner = owner;
             if (!TEXTURE_IDS.containsKey(owner)) {
-            	if (Identifier.isValid("haven:textures/anchor/" + owner + ".png")) {
+            	if (Identifier.isValid(HavenMod.NAMESPACE + ":textures/anchor/" + owner + ".png")) {
                 	TEXTURE_IDS.put(owner, new Identifier("haven", "textures/anchor/" + owner + ".png"));
             	}
             }

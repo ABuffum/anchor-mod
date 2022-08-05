@@ -64,16 +64,6 @@ public class AnchorBlock extends BlockWithEntity implements BlockEntityProvider 
 			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX(), pos.getY(), pos.getZ(), otherStack);
 		    player.world.spawnEntity(itemEntity);
 		}
-		LOGGER.log(Level.ALL, "[Haven] The loot table id is: " + HavenMod.BONE_TORCH_BLOCK.getLootTableId().toString());
-		MinecraftClient mc = MinecraftClient.getInstance();
-		UUID uuid = mc.player.getUuid();
-		String message;
-		message = "[Haven] The id is: " + new Identifier(HavenMod.NAMESPACE, "bone_torch").toString();
-		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
-		message = "[Haven] The toString is: " + HavenMod.BONE_TORCH_BLOCK.toString();
-		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
-		message = "[Haven] The loot table id is: " + HavenMod.BONE_TORCH_BLOCK.getLootTableId().toString();
-		mc.inGameHud.addChatMessage(MessageType.SYSTEM, new LiteralText(message), uuid);
 	}
 
 	@Nullable

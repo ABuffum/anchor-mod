@@ -80,5 +80,9 @@
 	"block.haven.potted_yellow_carnation": "Potted Yellow Carnation",
 
 	"item.haven.pteror": "Pteror",
-	"item.haven.sbehesohe": "Sbehésóhe"
+	"item.haven.sbehesohe": "Sbehésóhe",
+
+    "block.haven.soft_tnt": "Soft TNT",
+    "entity.haven.soft_tnt": "Primed Soft TNT",
+    "subtitles.entity.soft_tnt.primed": "Soft TNT fizzes"
 }

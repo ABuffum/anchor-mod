@@ -3,11 +3,14 @@ package haven;
 import haven.HavenMod;
 
 import haven.anchors.AnchorBlockEntityRenderer;
+import haven.entities.SoftTntEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -53,5 +56,7 @@ public class HavenModClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_WHITE_CARNATION, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.YELLOW_CARNATION_BLOCK, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_YELLOW_CARNATION, RenderLayer.getCutout());
+		//Soft TNT
+		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
     }
 }
