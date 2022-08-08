@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top",
+  "textures": {
+    "top": "haven:block/cassia_door_top",
+    "bottom": "haven:block/cassia_door_bottom"
+  }
+}

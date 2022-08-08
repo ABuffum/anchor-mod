@@ -82,7 +82,28 @@
 	"item.haven.pteror": "Pteror",
 	"item.haven.sbehesohe": "Sbehésóhe",
 
-    "block.haven.soft_tnt": "Soft TNT",
-    "entity.haven.soft_tnt": "Primed Soft TNT",
-    "subtitles.entity.soft_tnt.primed": "Soft TNT fizzes"
+	"block.haven.soft_tnt": "Soft TNT",
+	"entity.haven.soft_tnt": "Primed Soft TNT",
+	"subtitles.entity.soft_tnt.primed": "Soft TNT fizzes",
+
+	"item.haven.cinnamon": "Cinnamon",
+	"block.haven.cassia_planks": "Cassia Planks",
+	"block.haven.cassia_sapling": "Cassia Sapling",
+	"block.haven.cassia_door": "Cassia Door",
+	"block.haven.cassia_wood": "Cassia Wood",
+	"block.haven.cassia_log": "Cassia Log",
+	"block.haven.stripped_cassia_log": "Stripped Cassia Log",
+	"block.haven.stripped_cassia_wood": "Stripped Cassia Wood",
+	"block.haven.cassia_leaves": "Cassia Leaves",
+	"block.haven.flowering_cassia_leaves": "Flowering Cassia Leaves",
+	"block.haven.cassia_slab": "Cassia Slab",
+	"block.haven.cassia_stairs": "Cassia Stairs",
+	"block.haven.cassia_sign": "Cassia Sign",
+	"block.haven.cassia_wall_sign": "Cassia Wall Sign",
+	"block.haven.cassia_pressure_plate": "Cassia Pressure Plate",
+	"block.haven.cassia_button": "Cassia Button",
+	"block.haven.cassia_fence": "Cassia Fence",
+	"block.haven.cassia_fence_gate": "Cassia Fence Gate",
+	"block.haven.cassia_trapdoor": "Cassia Trapdoor",
+	"block.haven.potted_cassia_sapling": "Potted Cassia Sapling"
 }

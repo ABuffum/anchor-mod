@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "haven.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AxeMixin",
+    "CompostMixin",
+    "EntityModelLayersMixin",
+    "SignTypeAccessor"
+  ],
+  "client": [
+    "AxeMixin",
+    "CompostMixin",
+    "EntityModelLayersMixin",
+    "SignTypeAccessor",
+    "TexturedRenderLayersMixin"
+  ],
+  "server": [],
+  "injectors": {
+	"defaultRequire": 1
+  }
+}
