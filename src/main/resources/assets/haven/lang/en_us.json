@@ -81,6 +81,7 @@
 
 	"item.haven.pteror": "Pteror",
 	"item.haven.sbehesohe": "Sbehésóhe",
+	"item.haven.pride_trident": "Pride",
 
 	"block.haven.soft_tnt": "Soft TNT",
 	"entity.haven.soft_tnt": "Primed Soft TNT",
@@ -105,5 +106,13 @@
 	"block.haven.cassia_fence": "Cassia Fence",
 	"block.haven.cassia_fence_gate": "Cassia Fence Gate",
 	"block.haven.cassia_trapdoor": "Cassia Trapdoor",
-	"block.haven.potted_cassia_sapling": "Potted Cassia Sapling"
+	"block.haven.potted_cassia_sapling": "Potted Cassia Sapling",
+
+	"block.haven.coffee_plant": "Coffee Plant",
+
+	"item.haven.snickerdoodle": "Snickerdoodle",
+	"item.haven.cinnamon_roll": "Cinnamon Roll",
+
+	"item.haven.throwable_tomato": "Throwable Tomato",
+	"effect.haven.boo": "Boo!"
 }

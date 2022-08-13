@@ -2,18 +2,15 @@ package haven.anchors;
 
 import haven.HavenMod;
 
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.RespawnAnchorBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,23 +35,28 @@ public class AnchorCoreItem extends Item {
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
 		PlayerEntity player =	context.getPlayer();
-		//if (!world.isClient) {
-			BlockPos pos = context.getBlockPos();
-			BlockState state = world.getBlockState(pos);
-			Block block = state.getBlock();
-			if (block instanceof AnchorBlock) {
-				int owner = state.get(AnchorBlock.OWNER);
-				if (owner == 0) {
-		        	world.setBlockState(pos, state.with(AnchorBlock.OWNER, this.owner));
-		        	Hand hand = context.getHand();
-					ItemStack itemStack = player.getStackInHand(hand);
-					itemStack.decrement(1);
-		        	return ActionResult.SUCCESS;
-					//return ActionResult.PASS;
-				}
+		BlockPos pos = context.getBlockPos();
+		BlockState state = world.getBlockState(pos);
+		Block block = state.getBlock();
+		Boolean anchor = block instanceof AnchorBlock, substitute = block instanceof SubstituteAnchorBlock;
+		if (anchor || substitute) {
+			int owner = state.get(AnchorBlock.OWNER);
+			if (owner == 0) {
+		       	world.setBlockState(pos, state.with(AnchorBlock.OWNER, this.owner));
+		       	Hand hand = context.getHand();
+				ItemStack itemStack = player.getStackInHand(hand);
+				itemStack.decrement(1);
+		       	return ActionResult.SUCCESS;
 			}
-		//}
-		//else player.sendMessage(Text.of("is client"), true);
+		}
+		else if (block instanceof RespawnAnchorBlock) {
+			BlockState newState = HavenMod.SUBSTITUTE_ANCHOR_BLOCK.getDefaultState();
+			world.setBlockState(pos, newState.with(AnchorBlock.OWNER, this.owner));
+			Hand hand = context.getHand();
+			ItemStack itemStack = player.getStackInHand(hand);
+			itemStack.decrement(1);
+			return ActionResult.SUCCESS;
+		}
 		return ActionResult.FAIL;
 	}
 }

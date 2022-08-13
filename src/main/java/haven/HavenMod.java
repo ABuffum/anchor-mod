@@ -2,6 +2,7 @@ package haven;
 
 import haven.anchors.*;
 import haven.blocks.*;
+import haven.effects.BooEffect;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
@@ -9,18 +10,21 @@ import haven.items.*;
 import haven.mixins.SignTypeAccessor;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.*;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.entity.*;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.*;
 import net.minecraft.util.Identifier;
@@ -55,6 +59,7 @@ public class HavenMod implements ModInitializer {
 	
 	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY;
 	public static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
+	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(NAMESPACE, "general"), () -> new ItemStack(ANCHOR_BLOCK));
 	public static final Item.Settings ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP);
@@ -69,7 +74,7 @@ public class HavenMod implements ModInitializer {
 	}).sounds(BlockSoundGroup.WOOD), ParticleTypes.FLAME);
 	public static final BlockItem BONE_TORCH_ITEM = new WallStandingBlockItem(BONE_TORCH_BLOCK, BONE_WALL_TORCH_BLOCK, ITEM_SETTINGS);
 
-	public static final Item TINKER_TOY_ITEM = new TinkerToy(ITEM_SETTINGS);
+	public static final Item TINKER_TOY = new TinkerToy(ITEM_SETTINGS);
 
 	public static final Block CHARCOAL_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F));
 	public static final Item CHARCOAL_BLOCK_ITEM = new BlockItem(CHARCOAL_BLOCK, ITEM_SETTINGS);
@@ -147,14 +152,26 @@ public class HavenMod implements ModInitializer {
 
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
+	public static final TridentItem PRIDE_TRIDENT = new TridentItem(new Item.Settings().group(ITEM_GROUP).fireproof());
 
 	public static final Block SOFT_TNT_BLOCK = new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final Item SOFT_TNT_ITEM = new BlockItem(SOFT_TNT_BLOCK, ITEM_SETTINGS);
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
+	public static final Block COFFEE_PLANT = new CoffeePlantBlock(AbstractBlock.Settings.of(Material.PLANT).ticksRandomly().noCollision().sounds(BlockSoundGroup.CROP));
+	public static final Item COFFEE_CHERRY = new AliasedBlockItem(COFFEE_PLANT, (new Item.Settings()).group(ITEM_GROUP).food(FoodComponents.SWEET_BERRIES));
+	public static final Item COFFEE_BEANS = new Item(ITEM_SETTINGS);
+	public static final Item COFFEE = new CoffeeItem((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder())
+			.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0), 1.0F)
+			.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0), 1.0F)
+			.build()));
+	public static final Item BLACK_COFFEE = new CoffeeItem((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder())
+			.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 1), 1.0F)
+			.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 1), 1.0F)
+			.build()));
 
-	public static final Item CINNAMON_ITEM = new Cinnamon(ITEM_SETTINGS);
+	public static final Item CINNAMON = new Cinnamon(ITEM_SETTINGS);
 
 	public static final Block CASSIA_LOG_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	public static final Item CASSIA_LOG_ITEM = new BlockItem(CASSIA_LOG_BLOCK, ITEM_SETTINGS);
@@ -220,32 +237,25 @@ public class HavenMod implements ModInitializer {
 	public static final Block CASSIA_BUTTON_BLOCK = new CassiaButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public static final Item CASSIA_BUTTON_ITEM = new BlockItem(CASSIA_BUTTON_BLOCK, ITEM_SETTINGS);
 
-	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
-	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
-	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
+	public static final Item SNICKERDOODLE = new Item((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder()).hunger(2).saturationModifier(0.1F).build()));
+	public static final Item CINNAMON_ROLL = new Item((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder()).hunger(2).saturationModifier(0.2F).build()));
 
-	static {
-		STRIPPED_BLOCKS.put(CASSIA_WOOD_BLOCK, STRIPPED_CASSIA_WOOD_BLOCK);
-		STRIPPED_BLOCKS.put(CASSIA_LOG_BLOCK, STRIPPED_CASSIA_LOG_BLOCK);
-
-		COMPOSTABLE_ITEMS.put(CASSIA_SAPLING_ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(CASSIA_LEAVES_ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(FLOWERING_CASSIA_LEAVES_ITEM, 0.3f);
-
-		SIGN_TYPES.add(CASSIA_SIGN_TYPE);
-		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
-	}
+	public static final Item THROWABLE_TOMATO_ITEM = new ThrowableTomatoItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
+	public static final EntityType<ThrownTomatoEntity> THROWABLE_TOMATO_ENTITY = FabricEntityTypeBuilder.<ThrownTomatoEntity>create(SpawnGroup.MISC, ThrownTomatoEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
+	public static final DefaultParticleType TOMATO_PARTICLE = FabricParticleTypes.simple();
+	public static final StatusEffect BOO_EFFECT = new BooEffect();
 
 	@Override
 	public void onInitialize() {
-        Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "anchor"), ANCHOR_BLOCK);
-        Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "anchor"), ANCHOR_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "anchor"), ANCHOR_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "anchor"), ANCHOR_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "substitute_anchor"), SUBSTITUTE_ANCHOR_BLOCK);
 
-        ANCHOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, NAMESPACE + ":" + "anchor_block_entity", FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR_BLOCK).build(null));
-        
-        //Anchor core items
+		ANCHOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, NAMESPACE + ":" + "anchor_block_entity", FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR_BLOCK).build(null));
+		
+		//Anchor core items
 		for(Integer owner : ANCHOR_MAP.keySet()) {
-        	Registry.register(Registry.ITEM, new Identifier(NAMESPACE, ANCHOR_MAP.get(owner) + "_core"), ANCHOR_CORES.get(owner));
+			Registry.register(Registry.ITEM, new Identifier(NAMESPACE, ANCHOR_MAP.get(owner) + "_core"), ANCHOR_CORES.get(owner));
 		}
 
 		//Bone Torch
@@ -254,7 +264,7 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "bone_torch"), BONE_TORCH_ITEM);
 
 		//Tinker Toy
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "tinker_toy"), TINKER_TOY_ITEM);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "tinker_toy"), TINKER_TOY);
 
 		//Charcoal Block
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "charcoal_block"), CHARCOAL_BLOCK);
@@ -334,6 +344,7 @@ public class HavenMod implements ModInitializer {
 		//Reskins
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pteror"), PTEROR);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "sbehesohe"), SBEHESOHE);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pride_trident"), PRIDE_TRIDENT);
 
 		//Soft TNT
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_BLOCK);
@@ -352,8 +363,15 @@ public class HavenMod implements ModInitializer {
 			}
 		});
 
+		//Coffee
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "coffee_plant"), COFFEE_PLANT);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee_cherry"), COFFEE_CHERRY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee_beans"), COFFEE_BEANS);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee"), COFFEE);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_coffee"), BLACK_COFFEE);
+
 		//Cassia Trees & Cinnamon
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon"), CINNAMON_ITEM);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon"), CINNAMON);
 
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_log"), CASSIA_LOG_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_log"), CASSIA_LOG_ITEM);
@@ -397,6 +415,15 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_button"), CASSIA_BUTTON_BLOCK);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_button"), CASSIA_BUTTON_ITEM);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
+
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "snickerdoodle"), SNICKERDOODLE);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon_roll"), CINNAMON_ROLL);
+
+		//Throwable Tomatoes
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ITEM);
+		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ENTITY);
+		Registry.register(Registry.PARTICLE_TYPE, new Identifier(NAMESPACE, "thrown_tomato"), TOMATO_PARTICLE);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier(NAMESPACE, "boo"), BOO_EFFECT);
 
 		/*
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
@@ -446,14 +473,30 @@ public class HavenMod implements ModInitializer {
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES;
 
-	public static void log(Level level, String message){
-		LOGGER.log(level, "[Haven] " + message);
-	}
-	
+	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
+	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
+	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
+
 	static {
 		ANCHOR_CORES = new HashMap<Integer, AnchorCoreItem>();
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}
+
+		STRIPPED_BLOCKS.put(CASSIA_WOOD_BLOCK, STRIPPED_CASSIA_WOOD_BLOCK);
+		STRIPPED_BLOCKS.put(CASSIA_LOG_BLOCK, STRIPPED_CASSIA_LOG_BLOCK);
+
+		COMPOSTABLE_ITEMS.put(CASSIA_SAPLING_ITEM, 0.3f);
+		COMPOSTABLE_ITEMS.put(CASSIA_LEAVES_ITEM, 0.3f);
+		COMPOSTABLE_ITEMS.put(FLOWERING_CASSIA_LEAVES_ITEM, 0.3f);
+
+		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
+
+		SIGN_TYPES.add(CASSIA_SIGN_TYPE);
+		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
+	}
+
+	public static void log(Level level, String message){
+		LOGGER.log(level, "[Haven] " + message);
 	}
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_azalea",
+  "textures": {
+    "top": "haven:block/coffee_plant_top0",
+    "side": "haven:block/coffee_plant_side0"
+  }
+}

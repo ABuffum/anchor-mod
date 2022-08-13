@@ -1,20 +1,16 @@
 package haven.anchors;
 
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.model.ModelTransform;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+
 import static java.util.Map.entry;
 
 // Made with Blockbench 4.2.5
@@ -22,12 +18,12 @@ import static java.util.Map.entry;
 // Paste this class into your mod and generate all required imports
 
 
-public class custom_model<T extends Entity> extends EntityModel<T> {
+public class AnchorBlockModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 //	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "custom_model"), "main");
 	private final ModelPart bb_main;
 
-	public custom_model(ModelPart root) {
+	public AnchorBlockModel(ModelPart root) {
 		//this.bb_main = root.getChild("bb_main");
 		
 		ModelPart cube_r1 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(0, 97, -1.5F, -10.0F, -1.5F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.EMPTY_MAP);
