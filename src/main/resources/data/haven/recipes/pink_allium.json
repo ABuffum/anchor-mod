@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:pink_allium"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:pink_dye"
+  }
+}

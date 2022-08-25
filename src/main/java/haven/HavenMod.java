@@ -3,6 +3,7 @@ package haven;
 import haven.anchors.*;
 import haven.blocks.*;
 import haven.effects.BooEffect;
+import haven.effects.KilljoyEffect;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
@@ -101,54 +102,63 @@ public class HavenMod implements ModInitializer {
 	public static final Item AMETHYST_WALL_ITEM = new BlockItem(AMETHYST_WALL_BLOCK, ITEM_SETTINGS);
 
 	//Carnations
-	public static final Block BLACK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block.Settings CARNATION_SETTINGS = FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS);
+	public static final Block.Settings POTTED_CARNATION_SETTINGS = AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque();
+	public static final Block BLACK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item BLACK_CARNATION_ITEM = new BlockItem(BLACK_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BLACK_CARNATION = new FlowerPotBlock(BLACK_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_BLACK_CARNATION = new FlowerPotBlock(BLACK_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item BLUE_CARNATION_ITEM = new BlockItem(BLUE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BLUE_CARNATION = new FlowerPotBlock(BLUE_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block BROWN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_BLUE_CARNATION = new FlowerPotBlock(BLUE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block BROWN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item BROWN_CARNATION_ITEM = new BlockItem(BROWN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BROWN_CARNATION = new FlowerPotBlock(BROWN_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block CYAN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_BROWN_CARNATION = new FlowerPotBlock(BROWN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block CYAN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item CYAN_CARNATION_ITEM = new BlockItem(CYAN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_CYAN_CARNATION = new FlowerPotBlock(CYAN_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_CYAN_CARNATION = new FlowerPotBlock(CYAN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item GRAY_CARNATION_ITEM = new BlockItem(GRAY_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_GRAY_CARNATION = new FlowerPotBlock(GRAY_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block GREEN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_GRAY_CARNATION = new FlowerPotBlock(GRAY_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block GREEN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item GREEN_CARNATION_ITEM = new BlockItem(GREEN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_GREEN_CARNATION = new FlowerPotBlock(GREEN_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block LIGHT_BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_GREEN_CARNATION = new FlowerPotBlock(GREEN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block LIGHT_BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item LIGHT_BLUE_CARNATION_ITEM = new BlockItem(LIGHT_BLUE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIGHT_BLUE_CARNATION = new FlowerPotBlock(LIGHT_BLUE_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block LIGHT_GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_LIGHT_BLUE_CARNATION = new FlowerPotBlock(LIGHT_BLUE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block LIGHT_GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item LIGHT_GRAY_CARNATION_ITEM = new BlockItem(LIGHT_GRAY_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIGHT_GRAY_CARNATION = new FlowerPotBlock(LIGHT_GRAY_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block LIME_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_LIGHT_GRAY_CARNATION = new FlowerPotBlock(LIGHT_GRAY_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block LIME_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item LIME_CARNATION_ITEM = new BlockItem(LIME_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIME_CARNATION = new FlowerPotBlock(LIME_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block MAGENTA_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_LIME_CARNATION = new FlowerPotBlock(LIME_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block MAGENTA_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item MAGENTA_CARNATION_ITEM = new BlockItem(MAGENTA_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_MAGENTA_CARNATION = new FlowerPotBlock(MAGENTA_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block ORANGE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_MAGENTA_CARNATION = new FlowerPotBlock(MAGENTA_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block ORANGE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item ORANGE_CARNATION_ITEM = new BlockItem(ORANGE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_ORANGE_CARNATION = new FlowerPotBlock(ORANGE_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block PINK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_ORANGE_CARNATION = new FlowerPotBlock(ORANGE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block PINK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item PINK_CARNATION_ITEM = new BlockItem(PINK_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_PINK_CARNATION = new FlowerPotBlock(PINK_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block PURPLE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_PINK_CARNATION = new FlowerPotBlock(PINK_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block PURPLE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item PURPLE_CARNATION_ITEM = new BlockItem(PURPLE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_PURPLE_CARNATION = new FlowerPotBlock(PURPLE_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block RED_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_PURPLE_CARNATION = new FlowerPotBlock(PURPLE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block RED_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item RED_CARNATION_ITEM = new BlockItem(RED_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_RED_CARNATION = new FlowerPotBlock(RED_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block WHITE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_RED_CARNATION = new FlowerPotBlock(RED_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block WHITE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item WHITE_CARNATION_ITEM = new BlockItem(WHITE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_WHITE_CARNATION = new FlowerPotBlock(WHITE_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block YELLOW_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Block POTTED_WHITE_CARNATION = new FlowerPotBlock(WHITE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+	public static final Block YELLOW_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
 	public static final Item YELLOW_CARNATION_ITEM = new BlockItem(YELLOW_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_YELLOW_CARNATION = new FlowerPotBlock(YELLOW_CARNATION_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+	public static final Block POTTED_YELLOW_CARNATION = new FlowerPotBlock(YELLOW_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
+
+	public static final Block MARIGOLD_BLOCK = new FlowerBlock(StatusEffects.WITHER, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Item MARIGOLD_ITEM = new BlockItem(MARIGOLD_BLOCK, ITEM_SETTINGS);
+	public static final Block POTTED_MARIGOLD = new FlowerPotBlock(MARIGOLD_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+	public static final Block PINK_ALLIUM_BLOCK = new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 4, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
+	public static final Item PINK_ALLIUM_ITEM = new BlockItem(PINK_ALLIUM_BLOCK, ITEM_SETTINGS);
+	public static final Block POTTED_PINK_ALLIUM = new FlowerPotBlock(PINK_ALLIUM_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
@@ -160,7 +170,7 @@ public class HavenMod implements ModInitializer {
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
 	public static final Block COFFEE_PLANT = new CoffeePlantBlock(AbstractBlock.Settings.of(Material.PLANT).ticksRandomly().noCollision().sounds(BlockSoundGroup.CROP));
-	public static final Item COFFEE_CHERRY = new AliasedBlockItem(COFFEE_PLANT, (new Item.Settings()).group(ITEM_GROUP).food(FoodComponents.SWEET_BERRIES));
+	public static final Item COFFEE_CHERRY = new AliasedBlockItem(COFFEE_PLANT, new Item.Settings().group(ITEM_GROUP).food(FoodComponents.SWEET_BERRIES));
 	public static final Item COFFEE_BEANS = new Item(ITEM_SETTINGS);
 	public static final Item COFFEE = new CoffeeItem((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder())
 			.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0), 1.0F)
@@ -182,7 +192,8 @@ public class HavenMod implements ModInitializer {
 	public static final Block STRIPPED_CASSIA_WOOD_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
 	public static final Item STRIPPED_CASSIA_WOOD_ITEM = new BlockItem(STRIPPED_CASSIA_WOOD_BLOCK, ITEM_SETTINGS);
 
-	private static Boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
+	private static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
+	private static boolean always(BlockState state, BlockView world, BlockPos pos) { return true; }
 	private static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }
 
 	public static final Block CASSIA_LEAVES_BLOCK = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.AZALEA_LEAVES).nonOpaque().allowsSpawning(HavenMod::canSpawnOnLeaves).suffocates(HavenMod::never).blockVision(HavenMod::never));
@@ -237,13 +248,43 @@ public class HavenMod implements ModInitializer {
 	public static final Block CASSIA_BUTTON_BLOCK = new CassiaButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
 	public static final Item CASSIA_BUTTON_ITEM = new BlockItem(CASSIA_BUTTON_BLOCK, ITEM_SETTINGS);
 
-	public static final Item SNICKERDOODLE = new Item((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder()).hunger(2).saturationModifier(0.1F).build()));
-	public static final Item CINNAMON_ROLL = new Item((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder()).hunger(2).saturationModifier(0.2F).build()));
+	public static final Item SNICKERDOODLE = new Item(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.COOKIE));
+	public static final Item CINNAMON_ROLL = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build()));
+
+	public static final FoodComponent CANDY_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(0.1F).build();
+	public static final Item.Settings CANDY_ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP).food(CANDY_FOOD_COMPONENT);
+	public static final Item CINNAMON_BEAN = new Item(CANDY_ITEM_SETTINGS);
+	public static final Item PINK_COTTON_CANDY = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.1F).build()));
+	public static final Item BLUE_COTTON_CANDY = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.1F).build()));
+	public static final Item CANDY_CANE = new Item(CANDY_ITEM_SETTINGS);
+	public static final Item CARAMEL = new Item(CANDY_ITEM_SETTINGS);
+	public static final Item CARAMEL_APPLE = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.3F).build()));
+
+	public static final Item AMETHYST_CANDY = new Item(ITEM_SETTINGS); //not edible usually (it's rocks)
+	public static final Item.Settings ROCK_CANDY_SETTINGS = new Item.Settings().group(ITEM_GROUP).food(CANDY_FOOD_COMPONENT);
+	public static final Item BLACK_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item BLUE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item BROWN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item CYAN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item GRAY_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item GREEN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item LIGHT_BLUE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item LIGHT_GRAY_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item LIME_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item MAGENTA_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item ORANGE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item PINK_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item PURPLE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item RED_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item YELLOW_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Item WHITE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
 
 	public static final Item THROWABLE_TOMATO_ITEM = new ThrowableTomatoItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
 	public static final EntityType<ThrownTomatoEntity> THROWABLE_TOMATO_ENTITY = FabricEntityTypeBuilder.<ThrownTomatoEntity>create(SpawnGroup.MISC, ThrownTomatoEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final DefaultParticleType TOMATO_PARTICLE = FabricParticleTypes.simple();
 	public static final StatusEffect BOO_EFFECT = new BooEffect();
+	public static final StatusEffect KILLJOY_EFFECT = new KilljoyEffect();
+
 
 	@Override
 	public void onInitialize() {
@@ -341,6 +382,14 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "yellow_carnation"), YELLOW_CARNATION_ITEM);
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_yellow_carnation"), POTTED_YELLOW_CARNATION);
 
+		//Other Flowers
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "marigold"), MARIGOLD_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "marigold"), MARIGOLD_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_marigold"), POTTED_MARIGOLD);
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "pink_allium"), PINK_ALLIUM_BLOCK);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_allium"), PINK_ALLIUM_ITEM);
+		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_pink_allium"), POTTED_PINK_ALLIUM);
+
 		//Reskins
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pteror"), PTEROR);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "sbehesohe"), SBEHESOHE);
@@ -419,11 +468,37 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "snickerdoodle"), SNICKERDOODLE);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon_roll"), CINNAMON_ROLL);
 
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon_bean"), CINNAMON_BEAN);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_cotton_candy"), PINK_COTTON_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "blue_cotton_candy"), BLUE_COTTON_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "candy_cane"), CANDY_CANE);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "caramel"), CARAMEL);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "caramel_apple"), CARAMEL_APPLE);
+
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_candy"), AMETHYST_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_rock_candy"), BLACK_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "blue_rock_candy"), BLUE_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "brown_rock_candy"), BROWN_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cyan_rock_candy"), CYAN_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "gray_rock_candy"), GRAY_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "green_rock_candy"), GREEN_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_blue_rock_candy"), LIGHT_BLUE_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_gray_rock_candy"), LIGHT_GRAY_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "lime_rock_candy"), LIME_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "magenta_rock_candy"), MAGENTA_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "orange_rock_candy"), ORANGE_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_rock_candy"), PINK_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "purple_rock_candy"), PURPLE_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "red_rock_candy"), RED_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "yellow_rock_candy"), YELLOW_ROCK_CANDY);
+		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "white_rock_candy"), WHITE_ROCK_CANDY);
+
 		//Throwable Tomatoes
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ITEM);
 		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ENTITY);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(NAMESPACE, "thrown_tomato"), TOMATO_PARTICLE);
 		Registry.register(Registry.STATUS_EFFECT, new Identifier(NAMESPACE, "boo"), BOO_EFFECT);
+		Registry.register(Registry.STATUS_EFFECT, new Identifier(NAMESPACE, "killjoy"), KILLJOY_EFFECT);
 
 		/*
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {

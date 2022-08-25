@@ -79,6 +79,11 @@
 	"block.haven.yellow_carnation": "Yellow Carnation",
 	"block.haven.potted_yellow_carnation": "Potted Yellow Carnation",
 
+	"block.haven.marigold": "Marigold",
+	"block.haven.potted_marigold": "Potted Marigold",
+	"block.haven.pink_allium": "Pink Allium",
+	"block.haven.potted_pink_allium": "Potted Pink Allium",
+
 	"item.haven.pteror": "Pteror",
 	"item.haven.sbehesohe": "Sbehésóhe",
 	"item.haven.pride_trident": "Pride",
@@ -108,10 +113,39 @@
 	"block.haven.cassia_trapdoor": "Cassia Trapdoor",
 	"block.haven.potted_cassia_sapling": "Potted Cassia Sapling",
 
+	"item.haven.coffee_cherry": "Coffee Cherry",
 	"block.haven.coffee_plant": "Coffee Plant",
+	"item.haven.coffee_beans": "Coffee Beans",
+	"item.haven.coffee": "Coffee",
+	"item.haven.black_coffee": "Black Coffee",
 
 	"item.haven.snickerdoodle": "Snickerdoodle",
 	"item.haven.cinnamon_roll": "Cinnamon Roll",
+
+	"item.haven.cinnamon_bean": "Cinnamon Bean Candy",
+	"item.haven.pink_cotton_candy": "Pink Cotton Candy",
+	"item.haven.blue_cotton_candy": "Blue Cotton Candy",
+	"item.haven.candy_cane": "Candy Cane",
+	"item.haven.caramel": "Caramel",
+	"item.haven.caramel_apple": "Caramel Apple",
+
+	"item.haven.amethyst_candy": "Amethyst Candy",
+	"item.haven.black_rock_candy": "Black Rock Candy",
+	"item.haven.blue_rock_candy": "Blue Rock Candy",
+	"item.haven.brown_rock_candy": "Brown Rock Candy",
+	"item.haven.cyan_rock_candy": "Cyan Rock Candy",
+	"item.haven.gray_rock_candy": "Gray Rock Candy",
+	"item.haven.green_rock_candy": "Green Rock Candy",
+	"item.haven.light_blue_rock_candy": "Light Blue Rock Candy",
+	"item.haven.light_gray_rock_candy": "Light Gray Rock Candy",
+	"item.haven.lime_rock_candy": "Lime Rock Candy",
+	"item.haven.magenta_rock_candy": "Magenta Rock Candy",
+	"item.haven.orange_rock_candy": "Orange Rock Candy",
+	"item.haven.pink_rock_candy": "Pink Rock Candy",
+	"item.haven.purple_rock_candy": "Purple Rock Candy",
+	"item.haven.red_rock_candy": "Red Rock Candy",
+	"item.haven.white_rock_candy": "White Rock Candy",
+	"item.haven.yellow_rock_candy": "Yellow Rock Candy",
 
 	"item.haven.throwable_tomato": "Throwable Tomato",
 	"effect.haven.boo": "Boo!"

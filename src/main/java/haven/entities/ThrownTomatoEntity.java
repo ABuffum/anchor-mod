@@ -45,16 +45,15 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private ParticleEffect getParticleParameters() { // Not entirely sure, but probably has do to with the snowball's particles. (OPTIONAL)
+	private ParticleEffect getParticleParameters() {
 		ItemStack itemStack = this.getItem();
 		return (ParticleEffect)(itemStack.isEmpty() ? HavenMod.TOMATO_PARTICLE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack));
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void handleStatus(byte status) { // Also not entirely sure, but probably also has to do with the particles. This method (as well as the previous one) are optional, so if you don't understand, don't include this one.
+	public void handleStatus(byte status) {
 		if (status == 3) {
 			ParticleEffect particleEffect = this.getParticleParameters();
-
 			for(int i = 0; i < 8; ++i) {
 				this.world.addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
@@ -65,12 +64,12 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 	protected void onEntityHit(EntityHitResult entityHitResult) { // called on entity hit.
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity(); // sets a new Entity instance as the EntityHitResult (victim)
-		//int i = entity instanceof BlazeEntity ? 3 : 0; // sets i to 3 if the Entity instance is an instance of BlazeEntity
-		//entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), (float)i); // deals damage
+		entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 0F); // deals damage
 
 		if (entity instanceof LivingEntity livingEntity) { // checks if entity is an instance of LivingEntity (meaning it is not a boat or minecart)
 			MinecraftClient mc = MinecraftClient.getInstance();
 			livingEntity.addStatusEffect((new StatusEffectInstance(HavenMod.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
+
 		//	livingEntity.playSound(SoundEvents.BLOCK_MOSS_HIT, 2F, 1F); // plays a sound for the entity hit only
 		}
 	}

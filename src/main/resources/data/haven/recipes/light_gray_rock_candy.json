@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "X": {
+      "item": "minecraft:sugar"
+    },
+    "Y": {
+      "item": "minecraft:light_gray_dye"
+    }
+  },
+  "pattern": [
+    "  X",
+    " Y ",
+    "#  "
+  ],
+  "result": {
+    "count": 2,
+    "item": "haven:light_gray_rock_candy"
+  }
+}

@@ -75,6 +75,12 @@ public class HavenModClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_WHITE_CARNATION, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.YELLOW_CARNATION_BLOCK, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_YELLOW_CARNATION, RenderLayer.getCutout());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.MARIGOLD_BLOCK, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_MARIGOLD, RenderLayer.getCutout());
+
+		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.PINK_ALLIUM_BLOCK, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_PINK_ALLIUM, RenderLayer.getCutout());
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Cassia Trees & Cinnamon
