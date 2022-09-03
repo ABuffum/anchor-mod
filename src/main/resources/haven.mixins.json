@@ -11,11 +11,12 @@
   ],
   "client": [
     "AxeMixin",
+    "BatEntityRendererMixin",
+    "ChickenEntityModelAccessor",
     "CompostMixin",
     "EntityModelLayersMixin",
     "SignTypeAccessor",
-    "TexturedRenderLayersMixin",
-    "ChickenEntityModelAccessor"
+    "TexturedRenderLayersMixin"
   ],
   "server": [],
   "injectors": {

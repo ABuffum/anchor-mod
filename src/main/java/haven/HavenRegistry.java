@@ -214,6 +214,11 @@ public class HavenRegistry {
 		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
 	}
+	public static void RegisterAngelBat() {
+		Register("angel_bat", ANGEL_BAT_ENTITY);
+		SpawnRestrictionAccessor.callRegister(ANGEL_BAT_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AngelBatEntity::CanSpawn);
+		FabricDefaultAttributeRegistry.register(ANGEL_BAT_ENTITY, AngelBatEntity.createBatAttributes());
+	}
 	public static void RegisterChickenVariants() {
 		Register("fancy_chicken", FANCY_CHICKEN_ENTITY);
 		SpawnRestrictionAccessor.callRegister(FANCY_CHICKEN_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
