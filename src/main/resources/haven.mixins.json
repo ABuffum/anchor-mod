@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AxeMixin",
+    "BoatEntityAccessor",
     "CompostMixin",
     "ExplosionAccessor",
     "ExplosionMixin",

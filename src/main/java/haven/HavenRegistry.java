@@ -1,6 +1,8 @@
 package haven;
 
 import haven.blocks.*;
+import haven.boats.HavenBoat;
+import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
 import haven.materials.WoodMaterial;
 import haven.util.*;
@@ -99,6 +101,12 @@ public class HavenRegistry {
 		//TODO: Signs don't work right (fail out of edit screens and go invisible)
 		//Register(name + "_sign", material.SIGN_BLOCK, material.SIGN_ITEM);
 		//Register(name + "_wall_sign", material.WALL_SIGN_BLOCK);
+
+		Register(material.BOAT);
+	}
+	public static void Register(HavenBoat boat) {
+		Register(boat.TYPE.getName() + "_boat", boat.ITEM);
+		DispenserBlock.registerBehavior(boat.ITEM, new HavenBoatDispenserBehavior(boat.TYPE));
 	}
 
 	public static void RegisterAnchors() {
@@ -333,8 +341,11 @@ public class HavenRegistry {
 		Register("emerald_locket", EMERALD_LOCKET);
 		RegisterSoftTNT();
 		RegisterCoffee();
+		Registry.register(Registry.ENTITY_TYPE, "haven_boat", BOAT_ENTITY);
 		RegisterCherry();
 		RegisterCinnamon();
+		Register(CRIMSON_BOAT);
+		Register(WARPED_BOAT);
 		Register("ramen", RAMEN);
 		Register("stir_fry", STIR_FRY);
 		RegisterCandy();

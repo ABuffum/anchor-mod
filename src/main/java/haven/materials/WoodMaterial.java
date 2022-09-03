@@ -1,12 +1,15 @@
 package haven.materials;
 
 import haven.blocks.*;
+import haven.boats.HavenBoat;
 import haven.util.HavenPair;
 import haven.util.HavenSapling;
 import haven.util.HavenSign;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -34,6 +37,8 @@ public class WoodMaterial {
 
 	public final HavenSign SIGN;
 
+	public final HavenBoat BOAT;
+
 	public WoodMaterial(String name, MapColor mapColor, Supplier<SaplingGenerator> saplingGenerator) {
 		this(name, mapColor, BlockSoundGroup.GRASS, saplingGenerator);
 	}
@@ -57,7 +62,8 @@ public class WoodMaterial {
 		BUTTON = new HavenPair(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
 
 		SIGN = new HavenSign(name, Material.WOOD, BlockSoundGroup.WOOD);
-		//TODO: Boats
+
+		BOAT = new HavenBoat(name, PLANKS.BLOCK);
 	}
 
 	private static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }

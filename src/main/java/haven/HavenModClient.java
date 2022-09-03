@@ -1,5 +1,7 @@
 package haven;
 
+import haven.boats.HavenBoatEntityRenderer;
+import haven.boats.HavenBoatType;
 import haven.entities.*;
 import haven.materials.WoodMaterial;
 import haven.particles.*;
@@ -18,6 +20,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.*;
+import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -38,6 +41,8 @@ import java.util.function.Function;
 @Environment(EnvType.CLIENT)
 public class HavenModClient implements ClientModInitializer {
 	public static final EntityModelLayer FANCY_CHICKEN_ENTITY_MODEL_LAYER = new EntityModelLayer(HavenMod.ID("fancy_chicken"), "main");
+
+	public static final EntityModelLayer BOAT_ENTITY_MODEL_LAYER = new EntityModelLayer(HavenMod.ID("boat"), "main");
 
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
@@ -111,6 +116,9 @@ public class HavenModClient implements ClientModInitializer {
 		//Bottled Confetti
 		EntityRendererRegistry.register(HavenMod.BOTTLED_CONFETTI_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
 		EntityRendererRegistry.register(HavenMod.CONFETTI_CLOUD_ENTITY, EmptyEntityRenderer::new);
+		//Custom Boats
+		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
+		EntityRendererRegistry.register(HavenMod.BOAT_ENTITY, HavenBoatEntityRenderer::new);
 	}
 
 	public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

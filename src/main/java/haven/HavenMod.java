@@ -1,6 +1,10 @@
 package haven;
 
 import haven.blocks.*;
+import haven.boats.HavenBoat;
+import haven.boats.HavenBoatEntity;
+import haven.boats.HavenBoatItem;
+import haven.boats.HavenBoatType;
 import haven.effects.BooEffect;
 import haven.effects.KilljoyEffect;
 import haven.entities.*;
@@ -266,6 +270,11 @@ public class HavenMod implements ModInitializer {
 	public static final EntityType<BottledConfettiEntity> BOTTLED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<BottledConfettiEntity>create(SpawnGroup.MISC, BottledConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
+	//Boats
+	public static final HavenBoat CRIMSON_BOAT = new HavenBoat("crimson", Blocks.CRIMSON_PLANKS);
+	public static final HavenBoat WARPED_BOAT = new HavenBoat("warped", Blocks.WARPED_PLANKS);
+	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
+
 	@Override
 	public void onInitialize() {
 		HavenRegistry.RegisterAll();
@@ -355,9 +364,9 @@ public class HavenMod implements ModInitializer {
 		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
 		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.65F);
 		COMPOSTABLE_ITEMS.put(CHERRY_ITEM, 0.65F);
-		//COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE, 1F);
-		//COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE, 1F);
-		//COMPOSTABLE_ITEMS.put(COFFEE_CAKE, 1F);
+		COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE.ITEM, 1F);
+		COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE.ITEM, 1F);
+		COMPOSTABLE_ITEMS.put(COFFEE_CAKE.ITEM, 1F);
 		//Sign Types
 		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
 	}
