@@ -226,6 +226,11 @@ public class HavenRegistry {
 		Register("fancy_chicken_spawn_egg", FANCY_CHICKEN_SPAWN_EGG);
 		Register("fancy_feather", FANCY_FEATHER);
 	}
+	public static void RegisterMilks() {
+		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
+		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
+		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
+	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -244,6 +249,8 @@ public class HavenRegistry {
 		RegisterCandy();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
+		RegisterAngelBat();
 		RegisterChickenVariants();
+		RegisterMilks();
 	}
 }

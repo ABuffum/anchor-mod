@@ -9,6 +9,7 @@
     "ExplosionAccessor",
     "ExplosionMixin",
     "GlassBottleItemMixin",
+    "RecipeManagerMixin",
     "SignTypeAccessor"
   ],
   "client": [

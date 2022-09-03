@@ -219,11 +219,16 @@ public class HavenMod implements ModInitializer {
 
 	//Angel Bat
 	public static final EntityType<AngelBatEntity> ANGEL_BAT_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelBatEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.9F)).trackRangeBlocks(5).build();
-	
+
 	//Chicken Variants
 	public static final EntityType<FancyChickenEntity> FANCY_CHICKEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, FancyChickenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeBlocks(10).build();
 	public static final Item FANCY_CHICKEN_SPAWN_EGG = new SpawnEggItem(FANCY_CHICKEN_ENTITY, 16777215, 16777215, ITEM_SETTINGS);
 	public static final Item FANCY_FEATHER = new Item(ITEM_SETTINGS);
+
+	//Flavored Milk
+	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 
 	@Override
 	public void onInitialize() {
