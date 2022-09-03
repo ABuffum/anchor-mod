@@ -2,8 +2,8 @@ package haven.blocks;
 
 import haven.HavenMod;
 import haven.util.Flavor;
-
 import net.minecraft.block.*;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,18 +12,30 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
-public class HavenCakeBlock extends CakeBlock {
+public class HavenCakeBlock extends Block {
 	public static final AbstractBlock.Settings SETTINGS = AbstractBlock.Settings.copy(Blocks.CAKE);
+
+	public static final int MAX_BITES = 6;
+	public static final IntProperty BITES;
+	public static final int DEFAULT_COMPARATOR_OUTPUT;
+	protected static final VoxelShape[] BITES_TO_SHAPE;
 	private final Flavor flavor;
 	public Flavor getFlavor() { return flavor; }
 	public HavenCakeBlock(Flavor flavor) {
@@ -34,7 +46,10 @@ public class HavenCakeBlock extends CakeBlock {
 		this.flavor = flavor;
 	}
 
-	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+		return BITES_TO_SHAPE[(Integer)state.get(BITES)];
+	}
+
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
@@ -44,23 +59,22 @@ public class HavenCakeBlock extends CakeBlock {
 				if (!player.isCreative()) {
 					itemStack.decrement(1);
 				}
-
 				world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				Block output;
 				if (block == Blocks.CANDLE) {
-//					if (flavor == 1) output = HavenMod.CHOCOLATE_CANDLE_CAKE_BLOCK;
-//					else if (flavor == 2) output = HavenMod.STRAWBERRY_CANDLE_CAKE_BLOCK;
-//					else if (flavor == 3) output = HavenMod.COFFEE_CANDLE_CAKE_BLOCK;
-//					else
-						output = Blocks.CANDLE_CAKE;
+					if (flavor == Flavor.CHOCOLATE) output = HavenMod.CHOCOLATE_CANDLE_CAKE;
+					else if (flavor == Flavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKE;
+					else if (flavor == Flavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKE;
+					else if (flavor == Flavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKE;
+					else output = Blocks.CANDLE_CAKE;
 				}
 				else {
-					DyeColor color = GetCandleColor((CandleBlock)block);
-//					if (flavor == 1) output = HavenMod.CHOCOLATE_CANDLE_CAKE_BLOCKS.get(color);
-//					else if (flavor == 2) output = HavenMod.STRAWBERRY_CANDLE_CAKE_BLOCKS.get(color);
-//					else if (flavor == 2) output = HavenMod.COFFEE_CANDLE_CAKE_BLOCKS.get(color);
-//					else
-						output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
+					DyeColor color = GetCandleColor(block);
+					if (flavor == Flavor.CHOCOLATE) output = HavenMod.CHOCOLATE_CANDLE_CAKES.get(color);
+					else if (flavor == Flavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKES.get(color);
+					else if (flavor == Flavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKES.get(color);
+					else if (flavor == Flavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKES.get(color);
+					else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
 				}
 				world.setBlockState(pos, output.getDefaultState());
 				world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
@@ -70,7 +84,7 @@ public class HavenCakeBlock extends CakeBlock {
 		}
 
 		if (world.isClient) {
-			if (tryEat(world, pos, state, player).isAccepted()) {
+			if (tryEat(world, pos, state, player, flavor).isAccepted()) {
 				return ActionResult.SUCCESS;
 			}
 
@@ -80,26 +94,6 @@ public class HavenCakeBlock extends CakeBlock {
 		}
 
 		return tryEat(world, pos, state, player, flavor);
-	}
-
-	private static DyeColor GetCandleColor(CandleBlock block) {
-		if (block == Blocks.BLACK_CANDLE) return DyeColor.BLACK;
-		else if (block == Blocks.BLUE_CANDLE) return DyeColor.BLUE;
-		else if (block == Blocks.BROWN_CANDLE) return DyeColor.BROWN;
-		else if (block == Blocks.CYAN_CANDLE) return DyeColor.CYAN;
-		else if (block == Blocks.GRAY_CANDLE) return DyeColor.GRAY;
-		else if (block == Blocks.GREEN_CANDLE) return DyeColor.GREEN;
-		else if (block == Blocks.LIGHT_BLUE_CANDLE) return DyeColor.LIGHT_BLUE;
-		else if (block == Blocks.LIGHT_GRAY_CANDLE) return DyeColor.LIGHT_GRAY;
-		else if (block == Blocks.LIME_CANDLE) return DyeColor.LIME;
-		else if (block == Blocks.MAGENTA_CANDLE) return DyeColor.MAGENTA;
-		else if (block == Blocks.ORANGE_CANDLE) return DyeColor.ORANGE;
-		else if (block == Blocks.PINK_CANDLE) return DyeColor.PINK;
-		else if (block == Blocks.PURPLE_CANDLE) return DyeColor.PURPLE;
-		else if (block == Blocks.RED_CANDLE) return DyeColor.RED;
-		else if (block == Blocks.WHITE_CANDLE) return DyeColor.WHITE;
-		else if (block == Blocks.YELLOW_CANDLE) return DyeColor.YELLOW;
-		else return DyeColor.WHITE;
 	}
 
 	protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, Flavor flavor) {
@@ -123,5 +117,59 @@ public class HavenCakeBlock extends CakeBlock {
 
 			return ActionResult.SUCCESS;
 		}
+	}
+
+	private static DyeColor GetCandleColor(Block block) {
+		if (block == Blocks.BLACK_CANDLE) return DyeColor.BLACK;
+		else if (block == Blocks.BLUE_CANDLE) return DyeColor.BLUE;
+		else if (block == Blocks.BROWN_CANDLE) return DyeColor.BROWN;
+		else if (block == Blocks.CYAN_CANDLE) return DyeColor.CYAN;
+		else if (block == Blocks.GRAY_CANDLE) return DyeColor.GRAY;
+		else if (block == Blocks.GREEN_CANDLE) return DyeColor.GREEN;
+		else if (block == Blocks.LIGHT_BLUE_CANDLE) return DyeColor.LIGHT_BLUE;
+		else if (block == Blocks.LIGHT_GRAY_CANDLE) return DyeColor.LIGHT_GRAY;
+		else if (block == Blocks.LIME_CANDLE) return DyeColor.LIME;
+		else if (block == Blocks.MAGENTA_CANDLE) return DyeColor.MAGENTA;
+		else if (block == Blocks.ORANGE_CANDLE) return DyeColor.ORANGE;
+		else if (block == Blocks.PINK_CANDLE) return DyeColor.PINK;
+		else if (block == Blocks.PURPLE_CANDLE) return DyeColor.PURPLE;
+		else if (block == Blocks.RED_CANDLE) return DyeColor.RED;
+		else if (block == Blocks.WHITE_CANDLE) return DyeColor.WHITE;
+		else if (block == Blocks.YELLOW_CANDLE) return DyeColor.YELLOW;
+		else return DyeColor.WHITE;
+	}
+
+	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+		return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+	}
+
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
+		return world.getBlockState(pos.down()).getMaterial().isSolid();
+	}
+
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(BITES);
+	}
+
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return getComparatorOutput((Integer)state.get(BITES));
+	}
+
+	public static int getComparatorOutput(int bites) {
+		return (7 - bites) * 2;
+	}
+
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
+
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+		return false;
+	}
+
+	static {
+		BITES = Properties.BITES;
+		DEFAULT_COMPARATOR_OUTPUT = getComparatorOutput(0);
+		BITES_TO_SHAPE = new VoxelShape[]{Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(3.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(5.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(7.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(9.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(11.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(13.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D)};
 	}
 }

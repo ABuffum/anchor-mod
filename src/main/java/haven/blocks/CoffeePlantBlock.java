@@ -34,7 +34,7 @@ public class CoffeePlantBlock extends PlantBlock implements Fertilizable {
 	}
 
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return new ItemStack(Items.SWEET_BERRIES);
+		return new ItemStack(HavenMod.COFFEE_CHERRY);
 	}
 
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

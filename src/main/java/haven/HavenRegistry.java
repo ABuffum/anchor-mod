@@ -300,8 +300,17 @@ public class HavenRegistry {
 	}
 	public static void RegisterCakes() {
 		Register("chocolate_cake", CHOCOLATE_CAKE);
+		Register("chocolate_candle_cake", CHOCOLATE_CANDLE_CAKE);
+		for(DyeColor color : COLORS) Register(color + "_chocolate_candle_cake", CHOCOLATE_CANDLE_CAKES.get(color));
 		Register("strawberry_cake", STRAWBERRY_CAKE);
+		Register("strawberry_candle_cake", STRAWBERRY_CANDLE_CAKE);
+		for(DyeColor color : COLORS) Register(color + "_strawberry_candle_cake", STRAWBERRY_CANDLE_CAKES.get(color));
 		Register("coffee_cake", COFFEE_CAKE);
+		Register("coffee_candle_cake", COFFEE_CANDLE_CAKE);
+		for(DyeColor color : COLORS) Register(color + "_coffee_candle_cake", COFFEE_CANDLE_CAKES.get(color));
+		Register("carrot_cake", CARROT_CAKE);
+		Register("carrot_candle_cake", CARROT_CANDLE_CAKE);
+		for(DyeColor color : COLORS) Register(color + "_carrot_candle_cake", CARROT_CANDLE_CAKES.get(color));
 	}
 	public static void RegisterBottledConfetti() {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
@@ -320,6 +329,8 @@ public class HavenRegistry {
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
 		Register("broken_bottle", BROKEN_BOTTLE);
+		Register("locket", LOCKET);
+		Register("emerald_locket", EMERALD_LOCKET);
 		RegisterSoftTNT();
 		RegisterCoffee();
 		RegisterCherry();

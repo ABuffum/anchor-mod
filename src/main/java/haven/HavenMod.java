@@ -16,22 +16,12 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
-import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.*;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
@@ -41,19 +31,14 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.*;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
 
 import java.util.*;
 import java.util.function.ToIntFunction;
 
 import static java.util.Map.entry;
 
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
@@ -71,7 +56,7 @@ public class HavenMod implements ModInitializer {
 	public static final String NAMESPACE = "haven";
 	public static Identifier ID(String path) { return new Identifier(NAMESPACE, path); }
 
-	public static final DyeColor[] COLORS = { DyeColor.BLACK, DyeColor.BLUE, DyeColor.BROWN, DyeColor.CYAN, DyeColor.GRAY, DyeColor.GREEN, DyeColor.LIGHT_BLUE, DyeColor.LIGHT_GRAY, DyeColor.LIME, DyeColor.MAGENTA, DyeColor.ORANGE, DyeColor.PINK, DyeColor.PURPLE, DyeColor.RED, DyeColor.WHITE, DyeColor.YELLOW };
+	public static final DyeColor[] COLORS = DyeColor.values();
 
 	private static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(NAMESPACE, "general"), () -> new ItemStack(ANCHOR_BLOCK));
@@ -117,6 +102,8 @@ public class HavenMod implements ModInitializer {
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final Item BROKEN_BOTTLE = new Item(ITEM_SETTINGS);
+	public static final Item LOCKET = new Item(ITEM_SETTINGS);
+	public static final Item EMERALD_LOCKET = new Item(ITEM_SETTINGS);
 
 	public static final HavenPair SOFT_TNT = new HavenPair(new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
@@ -263,6 +250,16 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair CHOCOLATE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CHOCOLATE));
 	public static final HavenPair STRAWBERRY_CAKE = new HavenPair(new HavenCakeBlock(Flavor.STRAWBERRY));
 	public static final HavenPair COFFEE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.COFFEE));
+	public static final HavenPair CARROT_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CARROT));
+	//Candle Cakes
+	public static final HavenCandleCakeBlock CHOCOLATE_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CHOCOLATE);
+	public static final Map<DyeColor, HavenCandleCakeBlock> CHOCOLATE_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CHOCOLATE));
+	public static final HavenCandleCakeBlock STRAWBERRY_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.STRAWBERRY);
+	public static final Map<DyeColor, HavenCandleCakeBlock> STRAWBERRY_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.STRAWBERRY));
+	public static final HavenCandleCakeBlock COFFEE_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.COFFEE);
+	public static final Map<DyeColor, HavenCandleCakeBlock> COFFEE_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.COFFEE));
+	public static final HavenCandleCakeBlock CARROT_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CARROT);
+	public static final Map<DyeColor, HavenCandleCakeBlock> CARROT_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CARROT));
 
 	//Bottled Confetti
 	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(ITEM_SETTINGS);
