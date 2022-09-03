@@ -6,16 +6,15 @@
   "mixins": [
     "AxeMixin",
     "CompostMixin",
-    "EntityModelLayersMixin",
+    "ExplosionAccessor",
+    "ExplosionMixin",
+    "GlassBottleItemMixin",
     "SignTypeAccessor"
   ],
   "client": [
-    "AxeMixin",
     "BatEntityRendererMixin",
     "ChickenEntityModelAccessor",
-    "CompostMixin",
     "EntityModelLayersMixin",
-    "SignTypeAccessor",
     "TexturedRenderLayersMixin"
   ],
   "server": [],
