@@ -1,44 +1,33 @@
 package haven;
 
-import haven.blocks.BloodCauldronBlock;
-import haven.entities.SoftTntEntity;
+import haven.blocks.*;
+import haven.entities.*;
 import haven.materials.WoodMaterial;
 import haven.util.*;
 
 import static haven.HavenMod.*;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
-import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.fluid.*;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.block.Block;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.LeveledCauldronBlock;
+import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.entity.*;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.item.*;
+import net.minecraft.sound.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.util.registry.*;
+import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 
 public class HavenRegistry {
@@ -225,6 +214,13 @@ public class HavenRegistry {
 		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
 	}
+	public static void RegisterChickenVariants() {
+		Register("fancy_chicken", FANCY_CHICKEN_ENTITY);
+		SpawnRestrictionAccessor.callRegister(FANCY_CHICKEN_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		FabricDefaultAttributeRegistry.register(FANCY_CHICKEN_ENTITY, FancyChickenEntity.createChickenAttributes());
+		Register("fancy_chicken_spawn_egg", FANCY_CHICKEN_SPAWN_EGG);
+		Register("fancy_feather", FANCY_FEATHER);
+	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -243,5 +239,6 @@ public class HavenRegistry {
 		RegisterCandy();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
+		RegisterChickenVariants();
 	}
 }

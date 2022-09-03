@@ -14,7 +14,8 @@
     "CompostMixin",
     "EntityModelLayersMixin",
     "SignTypeAccessor",
-    "TexturedRenderLayersMixin"
+    "TexturedRenderLayersMixin",
+    "ChickenEntityModelAccessor"
   ],
   "server": [],
   "injectors": {

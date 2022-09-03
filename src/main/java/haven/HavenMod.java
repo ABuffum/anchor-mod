@@ -217,6 +217,11 @@ public class HavenMod implements ModInitializer {
 	public static Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(1).group(ITEM_GROUP));
 	public static BucketItem BLOOD_BUCKET = new BucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 
+	//Chicken Variants
+	public static final EntityType<FancyChickenEntity> FANCY_CHICKEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, FancyChickenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeBlocks(10).build();
+	public static final Item FANCY_CHICKEN_SPAWN_EGG = new SpawnEggItem(FANCY_CHICKEN_ENTITY, 16777215, 16777215, ITEM_SETTINGS);
+	public static final Item FANCY_FEATHER = new Item(ITEM_SETTINGS);
+
 	@Override
 	public void onInitialize() {
 		HavenRegistry.RegisterAll();
