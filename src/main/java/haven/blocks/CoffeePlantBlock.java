@@ -25,8 +25,8 @@ import java.util.Random;
 public class CoffeePlantBlock extends PlantBlock implements Fertilizable {
 	public static final int MAX_AGE = 2;
 	public static final IntProperty AGE = IntProperty.of("age", 0, MAX_AGE);
-	private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 8.0, 13.0);
-	private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0, 8.0, 0.0, 16.0, 16.0, 16.0), Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
+	private static final VoxelShape SMALL_SHAPE = Block.createCuboidShape(3.0, 0.0, 3.0, 13.0, 14.0, 13.0);
+	private static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(0.0, 6.0, 0.0, 16.0, 16.0, 16.0), Block.createCuboidShape(6.0, 0.0, 6.0, 10.0, 8.0, 10.0));
 
 	public CoffeePlantBlock(AbstractBlock.Settings settings) {
 		super(settings);

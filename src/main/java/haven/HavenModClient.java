@@ -52,22 +52,14 @@ public class HavenModClient implements ClientModInitializer {
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
 	private static final List<Block> Cutout = new ArrayList(List.of(
-			//Bone Torch
-			HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
-			//Other Flowers
-			HavenMod.MARIGOLD.BLOCK, HavenMod.MARIGOLD.POTTED,
-			HavenMod.PINK_ALLIUM.BLOCK, HavenMod.PINK_ALLIUM.POTTED,
-			//Cherry Trees
-			HavenMod.PALE_CHERRY_LEAVES.BLOCK, HavenMod.PINK_CHERRY_LEAVES.BLOCK,
-			HavenMod.WHITE_CHERRY_LEAVES.BLOCK,
-			//Cassia Trees & Cinnamon
-			HavenMod.FLOWERING_CASSIA_LEAVES.BLOCK,
-			//Coffee
-			HavenMod.COFFEE_PLANT
+		//Bone Torch
+		HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
+		//Coffee
+		HavenMod.COFFEE_PLANT
 	));
 
 	private static final Block[] Translucent = {
-			HavenMod.SUBSTITUTE_ANCHOR_BLOCK
+		HavenMod.SUBSTITUTE_ANCHOR_BLOCK
 	};
 
 	static {
@@ -99,7 +91,6 @@ public class HavenModClient implements ClientModInitializer {
 		for(Block block : Translucent) {
 			inst.putBlock(block, translucent);
 		}
-
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes
