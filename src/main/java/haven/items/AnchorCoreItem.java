@@ -1,7 +1,9 @@
-package haven.anchors;
+package haven.items;
 
 import haven.HavenMod;
 
+import haven.blocks.AnchorBlock;
+import haven.blocks.SubstituteAnchorBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.RespawnAnchorBlock;

@@ -1,6 +1,5 @@
 package haven;
 
-import haven.anchors.*;
 import haven.blocks.*;
 import haven.effects.BooEffect;
 import haven.effects.KilljoyEffect;
@@ -28,6 +27,7 @@ import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.*;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.SignType;
 import net.minecraft.util.collection.DataPool;
@@ -57,12 +57,22 @@ public class HavenMod implements ModInitializer {
 	public static Logger LOGGER = LogManager.getLogger();
 
 	public static final String NAMESPACE = "haven";
-	
-	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY;
-	public static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
-	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
+	public static Identifier ID(String path) {
+		return new Identifier(NAMESPACE, path);
+	}
+	public static final DyeColor[] COLORS = {
+		DyeColor.BLACK, DyeColor.BLUE, DyeColor.BROWN, DyeColor.CYAN,
+		DyeColor.GRAY, DyeColor.GREEN, DyeColor.LIGHT_BLUE, DyeColor.LIGHT_GRAY,
+		DyeColor.LIME, DyeColor.MAGENTA, DyeColor.ORANGE, DyeColor.PINK,
+		DyeColor.PURPLE, DyeColor.RED, DyeColor.WHITE, DyeColor.YELLOW
+	};
 
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(NAMESPACE, "general"), () -> new ItemStack(ANCHOR_BLOCK));
+	public static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
+	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR_BLOCK).build(null);
+	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
+	public static BlockEntityType<SubstituteAnchorBlockEntity> SUBSTITUTE_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(SubstituteAnchorBlockEntity::new, SUBSTITUTE_ANCHOR_BLOCK).build(null);
+
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(ID("general"), () -> new ItemStack(ANCHOR_BLOCK));
 	public static final Item.Settings ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP);
 
 	public static final Item ANCHOR_ITEM = new BlockItem(ANCHOR_BLOCK, ITEM_SETTINGS);
@@ -285,18 +295,29 @@ public class HavenMod implements ModInitializer {
 	public static final StatusEffect BOO_EFFECT = new BooEffect();
 	public static final StatusEffect KILLJOY_EFFECT = new KilljoyEffect();
 
+	private static Block Register(String path, Block block) {
+		return Registry.register(Registry.BLOCK, ID(path), block);
+	}
+	private static Item Register(String path, Item item) {
+		return Registry.register(Registry.ITEM, ID(path), item);
+	}
+	private static void Register(String path, Block block, Item item) {
+		Identifier id = ID(path);
+		Registry.register(Registry.BLOCK, id, block);
+		Registry.register(Registry.ITEM, id, item);
+	}
+	private static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) { return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity); }
 
 	@Override
 	public void onInitialize() {
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "anchor"), ANCHOR_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "anchor"), ANCHOR_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "substitute_anchor"), SUBSTITUTE_ANCHOR_BLOCK);
+		Register("anchor", ANCHOR_BLOCK, ANCHOR_ITEM);
+		Register("anchor_block_entity", ANCHOR_BLOCK_ENTITY);
+		Register("substitute_anchor", SUBSTITUTE_ANCHOR_BLOCK);
+		Register("substitute_anchor_block_entity", SUBSTITUTE_ANCHOR_BLOCK_ENTITY);
 
-		ANCHOR_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, NAMESPACE + ":" + "anchor_block_entity", FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR_BLOCK).build(null));
-		
 		//Anchor core items
 		for(Integer owner : ANCHOR_MAP.keySet()) {
-			Registry.register(Registry.ITEM, new Identifier(NAMESPACE, ANCHOR_MAP.get(owner) + "_core"), ANCHOR_CORES.get(owner));
+			Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
 		}
 
 		//Bone Torch
@@ -546,14 +567,13 @@ public class HavenMod implements ModInitializer {
 		entry(22, "miasma"),
 		entry(23, "k")
 	);
-	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES;
+	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 
 	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
 	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
 
 	static {
-		ANCHOR_CORES = new HashMap<Integer, AnchorCoreItem>();
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}

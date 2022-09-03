@@ -1,15 +1,10 @@
-package haven.anchors;
+package haven.blocks;
 
 import haven.HavenMod;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.Level;
+import haven.entities.AnchorBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.ItemEntity;
@@ -20,8 +15,6 @@ import net.minecraft.state.property.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.*;
 import net.minecraft.world.*;
-
-import java.util.UUID;
 
 public class AnchorBlock extends BlockWithEntity implements BlockEntityProvider {
 	public static final IntProperty OWNER = IntProperty.of("owner", 0, 50);

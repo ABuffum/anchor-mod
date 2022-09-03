@@ -1,12 +1,11 @@
 package haven;
 
-import haven.HavenMod;
-
-import haven.anchors.*;
 import haven.entities.*;
 import haven.particles.*;
 
+import haven.rendering.AnchorBlockEntityRenderer;
 import haven.rendering.EntitySpawnPacket;
+import haven.rendering.SubstituteAnchorBlockEntityRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,16 +13,14 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -36,9 +33,22 @@ public class HavenModClient implements ClientModInitializer {
 
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
+	private static final Block[] Translucent = {
+			HavenMod.SUBSTITUTE_ANCHOR_BLOCK
+	};
+
 	@Override
 	public void onInitializeClient() {
 		BlockEntityRendererRegistry.register(HavenMod.ANCHOR_BLOCK_ENTITY, AnchorBlockEntityRenderer::new);
+
+		BlockEntityRendererRegistry.register(HavenMod.SUBSTITUTE_ANCHOR_BLOCK_ENTITY, SubstituteAnchorBlockEntityRenderer::new);
+
+		BlockRenderLayerMap inst = BlockRenderLayerMap.INSTANCE;
+		RenderLayer translucent = RenderLayer.getTranslucent();
+		for(Block block : Translucent) {
+			inst.putBlock(block, translucent);
+		}
+
 		//Bone Torch
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BONE_TORCH_BLOCK, RenderLayer.getCutout());
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BONE_WALL_TORCH_BLOCK, RenderLayer.getCutout());

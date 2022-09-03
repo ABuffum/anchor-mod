@@ -1,27 +1,21 @@
-package haven.anchors;
+package haven.rendering;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import static java.util.Map.entry;
 
+import haven.entities.AnchorBlockEntity;
 import net.fabricmc.api.*;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.*;
-import net.minecraft.client.render.model.json.*;
 import net.minecraft.client.util.math.*;
-import net.minecraft.entity.*;
-import net.minecraft.item.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.*;
 
 @Environment(EnvType.CLIENT)
 public class AnchorBlockEntityRenderer implements BlockEntityRenderer<AnchorBlockEntity> {
-    // A jukebox itemstack
-    //private static ItemStack stack = new ItemStack(Items.JUKEBOX, 1);
     private final ModelPart bb_main;
     private final ModelPart soul;
  
