@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+	"bottom": "haven:anchor/substitute_anchor_bottom",
+	"side": "haven:anchor/substitute_anchor_side",
+	"top": "haven:anchor/substitute_anchor_top"
+  }
+}

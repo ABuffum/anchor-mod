@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+	{
+	  "item": "haven:dried_blood_block"
+	},
+	{
+	  "tag": "minecraft:glass_pane"
+	}
+  ],
+  "result": {
+	"count": 1,
+	"item": "haven:dried_blood_pane"
+  }
+}

@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-	  "all": "haven:item/dj_core"
+	  "all": "haven:anchor/dj_core"
 	}
   }

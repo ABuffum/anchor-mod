@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-	  "all": "haven:item/sleep_core"
+	  "all": "haven:anchor/sleep_core"
 	}
   }

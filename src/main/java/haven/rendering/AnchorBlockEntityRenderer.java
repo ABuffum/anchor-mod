@@ -1,11 +1,10 @@
 package haven.rendering;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
+import haven.entities.AnchorBlockEntity;
+
+import java.util.*;
 import static java.util.Map.entry;
 
-import haven.entities.AnchorBlockEntity;
 import net.fabricmc.api.*;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
@@ -16,11 +15,11 @@ import net.minecraft.util.math.*;
 
 @Environment(EnvType.CLIENT)
 public class AnchorBlockEntityRenderer implements BlockEntityRenderer<AnchorBlockEntity> {
-    private final ModelPart bb_main;
-    private final ModelPart soul;
- 
-    public AnchorBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-    	ModelPart cube_r1 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(0, 97, -1.5F, -10.0F, -1.5F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
+	private final ModelPart bb_main;
+	private final ModelPart core;
+
+	public AnchorBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
+		ModelPart cube_r1 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(0, 97, -1.5F, -10.0F, -1.5F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
 		ModelPart cube_r2 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(12, 97, -1.5F, -10.0F, -1.5F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
 		ModelPart cube_r3 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(102, 89, -1.5F, -10.0F, -1.5F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
 		ModelPart cube_r4 = new ModelPart(Arrays.asList(new ModelPart.Cuboid(104, 26, -6.0F, 3.0F, -6.0F, 3.0F, 20.0F, 3.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
@@ -81,92 +80,90 @@ public class AnchorBlockEntityRenderer implements BlockEntityRenderer<AnchorBloc
 		cube_r28.setTransform(ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, -1.5708F, 0.0F));
 		cube_r29.setTransform(ModelTransform.of(0.0F, 0.0F, 0.0F, -3.1416F, 0.0F, 3.1416F));
 		cube_r30.setTransform(ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0F, 1.5708F, 0.0F));
-		
-		this.soul = new ModelPart(Arrays.asList(new ModelPart.Cuboid(79, 71, -5.0F, -29.0F, -46.0F, 9.0F, 9.0F, 9.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
-		this.soul.setTransform(ModelTransform.of(0.0F, 0.0F, 0.0F, -1.0472F, 1.0472F, 0.0F));
-		
+
+		this.core = new ModelPart(Arrays.asList(new ModelPart.Cuboid(79, 71, -5.0F, -29.0F, -46.0F, 9.0F, 9.0F, 9.0F, 0, 0, 0, false, 256, 256)), Collections.emptyMap());
+		this.core.setTransform(ModelTransform.of(0.0F, 0.0F, 0.0F, -1.0472F, 1.0472F, 0.0F));
+
 		this.bb_main = new ModelPart(
-		    Arrays.asList(
-				new ModelPart.Cuboid(38, 80, -5.0F, -15.0F, -5.0F, 10.0F, 3.0F, 10.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 85, -4.0F, -19.0F, -4.0F, 8.0F, 4.0F, 8.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(96, 0, -3.0F, -21.0F, -3.0F, 6.0F, 2.0F, 6.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(64, 38, -4.0F, -21.0F, -4.0F, 8.0F, 1.0F, 8.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(54, 21, -6.0F, -26.0F, -6.0F, 12.0F, 5.0F, 12.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(42, 47, -7.0F, -27.0F, -7.0F, 14.0F, 5.0F, 14.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 0, -9.0F, -30.0F, -9.0F, 18.0F, 3.0F, 18.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(111, 44, 4.0F, -33.0F, -9.0F, 5.0F, 3.0F, 5.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(68, 80, 7.0F, -38.0F, -9.0F, 2.0F, 5.0F, 2.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(109, 107, 4.0F, -33.0F, -9.0F, 5.0F, 3.0F, 5.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 21, -9.0F, -74.0F, -9.0F, 18.0F, 2.0F, 18.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(84, 54, -12.0F, -73.5F, -7.0F, 3.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(90, 21, -7.0F, -73.5F, -12.0F, 14.0F, 2.0F, 3.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(84, 38, 9.0F, -73.5F, -7.0F, 3.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(72, 16, -7.0F, -73.5F, 9.0F, 14.0F, 2.0F, 3.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(54, 0, -7.0F, -76.0F, -7.0F, 14.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(48, 66, -5.0F, -80.0F, -5.0F, 10.0F, 4.0F, 10.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 0, -2.0F, -84.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 34, -1.0F, -87.0F, -1.0F, 2.0F, 3.0F, 2.0F, 0, 0, 0, false, 256, 256),
-				new ModelPart.Cuboid(0, 41, -7.0F, -12.0F, -7.0F, 14.0F, 6.0F, 14.0F, 0, 0, 0, false, 256, 256)
-		    ),
-		    Map.ofEntries(
-		    	entry("cube_r1", cube_r1),
-		    	entry("cube_r2", cube_r2),
-		    	entry("cube_r3", cube_r3),
-		    	entry("cube_r4", cube_r4),
-		    	entry("cube_r5", cube_r5),
-		    	entry("cube_r6", cube_r6),
-		    	entry("cube_r7", cube_r7),
-		    	entry("cube_r8", cube_r8),
-		    	entry("cube_r9", cube_r9),
-		    	entry("cube_r10", cube_r10),
-		    	entry("cube_r11", cube_r11),
-		    	entry("cube_r12", cube_r12),
-		    	entry("cube_r13", cube_r13),
-		    	entry("cube_r14", cube_r14),
-		    	entry("cube_r15", cube_r15),
-		    	entry("cube_r16", cube_r16),
-		    	entry("cube_r17", cube_r17),
-		    	entry("cube_r18", cube_r18),
-		    	entry("cube_r19", cube_r19),
-		    	entry("cube_r20", cube_r20),
-		    	entry("cube_r21", cube_r21),
-		    	entry("cube_r22", cube_r22),
-		    	entry("cube_r23", cube_r23),
-		    	entry("cube_r24", cube_r24),
-		    	entry("cube_r25", cube_r25),
-		    	entry("cube_r26", cube_r26),
-		    	entry("cube_r27", cube_r27),
-		    	entry("cube_r28", cube_r28),
-		    	entry("cube_r29", cube_r29),
-		    	entry("cube_r30", cube_r30)
-		    )
+				Arrays.asList(
+						new ModelPart.Cuboid(38, 80, -5.0F, -15.0F, -5.0F, 10.0F, 3.0F, 10.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 85, -4.0F, -19.0F, -4.0F, 8.0F, 4.0F, 8.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(96, 0, -3.0F, -21.0F, -3.0F, 6.0F, 2.0F, 6.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(64, 38, -4.0F, -21.0F, -4.0F, 8.0F, 1.0F, 8.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(54, 21, -6.0F, -26.0F, -6.0F, 12.0F, 5.0F, 12.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(42, 47, -7.0F, -27.0F, -7.0F, 14.0F, 5.0F, 14.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 0, -9.0F, -30.0F, -9.0F, 18.0F, 3.0F, 18.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(111, 44, 4.0F, -33.0F, -9.0F, 5.0F, 3.0F, 5.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(68, 80, 7.0F, -38.0F, -9.0F, 2.0F, 5.0F, 2.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(109, 107, 4.0F, -33.0F, -9.0F, 5.0F, 3.0F, 5.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 21, -9.0F, -74.0F, -9.0F, 18.0F, 2.0F, 18.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(84, 54, -12.0F, -73.5F, -7.0F, 3.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(90, 21, -7.0F, -73.5F, -12.0F, 14.0F, 2.0F, 3.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(84, 38, 9.0F, -73.5F, -7.0F, 3.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(72, 16, -7.0F, -73.5F, 9.0F, 14.0F, 2.0F, 3.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(54, 0, -7.0F, -76.0F, -7.0F, 14.0F, 2.0F, 14.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(48, 66, -5.0F, -80.0F, -5.0F, 10.0F, 4.0F, 10.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 0, -2.0F, -84.0F, -2.0F, 4.0F, 4.0F, 4.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 34, -1.0F, -87.0F, -1.0F, 2.0F, 3.0F, 2.0F, 0, 0, 0, false, 256, 256),
+						new ModelPart.Cuboid(0, 41, -7.0F, -12.0F, -7.0F, 14.0F, 6.0F, 14.0F, 0, 0, 0, false, 256, 256)
+				),
+				Map.ofEntries(
+						entry("cube_r1", cube_r1),
+						entry("cube_r2", cube_r2),
+						entry("cube_r3", cube_r3),
+						entry("cube_r4", cube_r4),
+						entry("cube_r5", cube_r5),
+						entry("cube_r6", cube_r6),
+						entry("cube_r7", cube_r7),
+						entry("cube_r8", cube_r8),
+						entry("cube_r9", cube_r9),
+						entry("cube_r10", cube_r10),
+						entry("cube_r11", cube_r11),
+						entry("cube_r12", cube_r12),
+						entry("cube_r13", cube_r13),
+						entry("cube_r14", cube_r14),
+						entry("cube_r15", cube_r15),
+						entry("cube_r16", cube_r16),
+						entry("cube_r17", cube_r17),
+						entry("cube_r18", cube_r18),
+						entry("cube_r19", cube_r19),
+						entry("cube_r20", cube_r20),
+						entry("cube_r21", cube_r21),
+						entry("cube_r22", cube_r22),
+						entry("cube_r23", cube_r23),
+						entry("cube_r24", cube_r24),
+						entry("cube_r25", cube_r25),
+						entry("cube_r26", cube_r26),
+						entry("cube_r27", cube_r27),
+						entry("cube_r28", cube_r28),
+						entry("cube_r29", cube_r29),
+						entry("cube_r30", cube_r30)
+				)
 		);
-    }
- 
-    @Override
-    public void render(AnchorBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-    	matrices.push();
-    	// Fetch the appropriate texture
-    	Identifier textureId = blockEntity.getTextureId();
-    	//layer = RenderLayer.getSolid();
-    	// Calculate the current offset in the y value
-        double offset = Math.sin((blockEntity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
-        // Move the structure
-        matrices.translate(0.5, -0.375, 0.5);
-        // Flip it all right-side-up
-        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-        // Render the structure
-        this.bb_main.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(textureId)), light, overlay, 1f, 1f, 1f, 1f);
-        if (blockEntity.getOwner() != 0) {
-            // Move the soul
-            matrices.translate(0, offset, 0);
-            // Rotate the soul
-            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((blockEntity.getWorld().getTime() + tickDelta) * 4));
-            // Render the soul
-            this.soul.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(textureId, false)), light, overlay, 1f, 1f, 1f, 1f);
-        }
-        
-        // Mandatory call after GL calls
-        matrices.pop();
-    }
+	}
+
+	@Override
+	public void render(AnchorBlockEntity blockEntity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+		matrices.push();
+		// Fetch the appropriate texture
+		Identifier textureId = blockEntity.getTextureId();
+		//layer = RenderLayer.getSolid();
+		// Calculate the current offset in the y value
+		double offset = Math.sin((blockEntity.getWorld().getTime() + tickDelta) / 8.0) / 4.0;
+		// Move the structure
+		matrices.translate(0.5, -0.375, 0.5);
+		// Flip it all right-side-up
+		matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+		// Render the structure
+		this.bb_main.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntitySolid(textureId)), light, overlay, 1f, 1f, 1f, 1f);
+		if (blockEntity.getOwner() != 0) {
+			matrices.translate(0, offset, 0);
+			matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((blockEntity.getWorld().getTime() + tickDelta) * 4));
+			// Render the core
+			this.core.render(matrices, vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(textureId, false)), light, overlay, 1f, 1f, 1f, 1f);
+		}
+
+		// Mandatory call after GL calls
+		matrices.pop();
+	}
 }

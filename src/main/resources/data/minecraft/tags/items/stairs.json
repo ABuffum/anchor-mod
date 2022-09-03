@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "haven:amethyst_brick_stairs",
-    "haven:amethyst_stairs"
+    "haven:amethyst_stairs",
+    "haven:blood_stairs",
+    "haven:dried_blood_stairs"
   ]
 }

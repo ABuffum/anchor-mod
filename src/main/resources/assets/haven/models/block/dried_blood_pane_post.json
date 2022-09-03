@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+	"edge": "haven:block/dried_blood_pane_top",
+	"pane": "haven:block/dried_blood"
+  }
+}

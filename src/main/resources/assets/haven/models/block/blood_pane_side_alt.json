@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+	"edge": "haven:block/blood_pane_top",
+	"pane": "haven:block/blood"
+  }
+}

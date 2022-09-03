@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-	  "all": "haven:item/august_core"
+	  "all": "haven:anchor/august_core"
 	}
   }

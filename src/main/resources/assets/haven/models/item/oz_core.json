@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-	  "all": "haven:item/oz_core"
+	  "all": "haven:anchor/oz_core"
 	}
   }
