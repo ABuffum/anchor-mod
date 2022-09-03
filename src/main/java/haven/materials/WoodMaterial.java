@@ -43,7 +43,7 @@ public class WoodMaterial {
 		STRIPPED_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
 		WOOD = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
 		STRIPPED_WOOD = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
-		LEAVES = new HavenPair(new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(leafSounds).nonOpaque().allowsSpawning(WoodMaterial::canSpawnOnLeaves).suffocates(WoodMaterial::never).blockVision(WoodMaterial::never)));
+		LEAVES = new HavenPair(new HavenLeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(leafSounds).nonOpaque().allowsSpawning(WoodMaterial::canSpawnOnLeaves).suffocates(WoodMaterial::never).blockVision(WoodMaterial::never)));
 		SAPLING = new HavenSapling(saplingGenerator);
 
 		PLANKS = new HavenPair(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)));
@@ -56,8 +56,8 @@ public class WoodMaterial {
 		PRESSURE_PLATE = new HavenPair(new HavenPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, PLANKS.BLOCK.getDefaultMapColor()).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
 		BUTTON = new HavenPair(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
 
-		//TODO: Signs don't work right (fail out of edit screens and go invisible)
 		SIGN = new HavenSign(name, Material.WOOD, BlockSoundGroup.WOOD);
+		//TODO: Boats
 	}
 
 	private static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }

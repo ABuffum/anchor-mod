@@ -70,7 +70,7 @@ public class HavenMod implements ModInitializer {
 
 	public static final HavenTorch BONE_TORCH = new HavenTorch("bone_torch", "bone_wall_torch", FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
 
-	public static final Item TINKER_TOY = new TinkerToy(ITEM_SETTINGS);
+	public static final Item TINKER_TOY = new Item(ITEM_SETTINGS);
 
 	public static final HavenPair CHARCOAL_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
 
