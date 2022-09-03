@@ -123,16 +123,20 @@ public class HavenMod implements ModInitializer {
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
 	public static final Block COFFEE_PLANT = new CoffeePlantBlock(AbstractBlock.Settings.of(Material.PLANT).ticksRandomly().noCollision().sounds(BlockSoundGroup.CROP));
-	public static final Item COFFEE_CHERRY = new AliasedBlockItem(COFFEE_PLANT, new Item.Settings().group(ITEM_GROUP).food(FoodComponents.SWEET_BERRIES));
+	public static final Item COFFEE_CHERRY = new AliasedBlockItem(COFFEE_PLANT, new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder()
+		.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, 0), 1.0F)
+		.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 60, 0), 1.0F)
+		.hunger(2).saturationModifier(0.1F)
+		.build()));
 	public static final Item COFFEE_BEANS = new Item(ITEM_SETTINGS);
 	public static final Item COFFEE = new CoffeeItem((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder())
-			.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0), 1.0F)
-			.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0), 1.0F)
-			.build()));
+		.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0), 1.0F)
+		.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0), 1.0F)
+		.build()));
 	public static final Item BLACK_COFFEE = new CoffeeItem((new Item.Settings()).group(ITEM_GROUP).food((new FoodComponent.Builder())
-			.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 1), 1.0F)
-			.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 1), 1.0F)
-			.build()));
+		.statusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 1), 1.0F)
+		.statusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 1), 1.0F)
+		.build()));
 
 	public static final Item CINNAMON = new Item(ITEM_SETTINGS);
 
@@ -254,6 +258,11 @@ public class HavenMod implements ModInitializer {
 	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+
+	//Cakes
+	public static final HavenPair CHOCOLATE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CHOCOLATE));
+	public static final HavenPair STRAWBERRY_CAKE = new HavenPair(new HavenCakeBlock(Flavor.STRAWBERRY));
+	public static final HavenPair COFFEE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.COFFEE));
 
 	//Bottled Confetti
 	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(ITEM_SETTINGS);

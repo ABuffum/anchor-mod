@@ -86,8 +86,10 @@ public class HavenRegistry {
 		FlammableBlockRegistry.getDefaultInstance().add(material.SLAB.BLOCK, 5, 20);
 
 		Register(name + "_fence", material.FENCE);
+		FuelRegistry.INSTANCE.add(material.FENCE.ITEM, 300);
 		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE.BLOCK, 5, 20);
 		Register(name + "_fence_gate", material.FENCE_GATE);
+		FuelRegistry.INSTANCE.add(material.FENCE_GATE.ITEM, 300);
 		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE_GATE.BLOCK, 5, 20);
 		Register(name + "_door", material.DOOR);
 		Register(name + "_trapdoor", material.TRAPDOOR);
@@ -173,6 +175,7 @@ public class HavenRegistry {
 	}
 	public static void RegisterCoffee() {
 		Register("coffee_plant", COFFEE_PLANT);
+		FlammableBlockRegistry.getDefaultInstance().add(COFFEE_PLANT, 30, 60);
 		Register("coffee_cherry", COFFEE_CHERRY);
 		Register("coffee_beans", COFFEE_BEANS);
 		Register("coffee", COFFEE);
@@ -295,6 +298,11 @@ public class HavenRegistry {
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
 	}
+	public static void RegisterCakes() {
+		Register("chocolate_cake", CHOCOLATE_CAKE);
+		Register("strawberry_cake", STRAWBERRY_CAKE);
+		Register("coffee_cake", COFFEE_CAKE);
+	}
 	public static void RegisterBottledConfetti() {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
 		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
@@ -325,6 +333,7 @@ public class HavenRegistry {
 		RegisterChickenVariants();
 		RegisterCowVariants();
 		RegisterMilks();
+		RegisterCakes();
 		RegisterBottledConfetti();
 	}
 }
