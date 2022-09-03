@@ -221,6 +221,9 @@ public class HavenRegistry {
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(Items.GLASS_BOTTLE, BloodCauldronBlock.EMPTY_TO_BOTTLE);
 		Register("blood_bottle", BLOOD_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
+		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
+		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
+		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
 	}
 
 	public static void RegisterAll() {
