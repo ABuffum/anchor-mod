@@ -64,25 +64,17 @@ public class HavenMod implements ModInitializer {
 	public static Logger LOGGER = LogManager.getLogger();
 
 	public static final String NAMESPACE = "haven";
-	public static Identifier ID(String path) {
-		return new Identifier(NAMESPACE, path);
-	}
-	public static final DyeColor[] COLORS = {
-		DyeColor.BLACK, DyeColor.BLUE, DyeColor.BROWN, DyeColor.CYAN,
-		DyeColor.GRAY, DyeColor.GREEN, DyeColor.LIGHT_BLUE, DyeColor.LIGHT_GRAY,
-		DyeColor.LIME, DyeColor.MAGENTA, DyeColor.ORANGE, DyeColor.PINK,
-		DyeColor.PURPLE, DyeColor.RED, DyeColor.WHITE, DyeColor.YELLOW
-	};
+	public static Identifier ID(String path) { return new Identifier(NAMESPACE, path); }
 
-	public static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
-	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR_BLOCK).build(null);
+	public static final DyeColor[] COLORS = { DyeColor.BLACK, DyeColor.BLUE, DyeColor.BROWN, DyeColor.CYAN, DyeColor.GRAY, DyeColor.GREEN, DyeColor.LIGHT_BLUE, DyeColor.LIGHT_GRAY, DyeColor.LIME, DyeColor.MAGENTA, DyeColor.ORANGE, DyeColor.PINK, DyeColor.PURPLE, DyeColor.RED, DyeColor.WHITE, DyeColor.YELLOW };
+
+	private static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(NAMESPACE, "general"), () -> new ItemStack(ANCHOR_BLOCK));
+	public static final Item.Settings ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP);
+	public static final HavenPair ANCHOR = new HavenPair(ANCHOR_BLOCK);
+	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR.BLOCK).build(null);
 	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 	public static BlockEntityType<SubstituteAnchorBlockEntity> SUBSTITUTE_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(SubstituteAnchorBlockEntity::new, SUBSTITUTE_ANCHOR_BLOCK).build(null);
-
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(ID("general"), () -> new ItemStack(ANCHOR_BLOCK));
-	public static final Item.Settings ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP);
-
-	public static final Item ANCHOR_ITEM = new BlockItem(ANCHOR_BLOCK, ITEM_SETTINGS);
 
 	public static ToIntFunction<BlockState> luminance(int value) { return (state) -> value; }
 
@@ -115,8 +107,7 @@ public class HavenMod implements ModInitializer {
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 
-	public static final Block SOFT_TNT_BLOCK = new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final Item SOFT_TNT_ITEM = new BlockItem(SOFT_TNT_BLOCK, ITEM_SETTINGS);
+	public static final HavenPair SOFT_TNT = new HavenPair(new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
@@ -188,28 +179,27 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item AMETHYST_CANDY = new Item(ITEM_SETTINGS); //not edible usually (it's rocks)
 	public static final Item.Settings ROCK_CANDY_SETTINGS = new Item.Settings().group(ITEM_GROUP).food(CANDY_FOOD_COMPONENT);
-	public static final Item BLACK_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item BLUE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item BROWN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item CYAN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item GRAY_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item GREEN_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item LIGHT_BLUE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item LIGHT_GRAY_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item LIME_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item MAGENTA_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item ORANGE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item PINK_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item PURPLE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item RED_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item YELLOW_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
-	public static final Item WHITE_ROCK_CANDY = new Item(ROCK_CANDY_SETTINGS);
+	public static final Map<DyeColor, Item> ROCK_CANDIES = MapDyeColor((color) -> new Item(ROCK_CANDY_SETTINGS));
 
 	public static final Item THROWABLE_TOMATO_ITEM = new ThrowableTomatoItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
 	public static final EntityType<ThrownTomatoEntity> THROWABLE_TOMATO_ENTITY = FabricEntityTypeBuilder.<ThrownTomatoEntity>create(SpawnGroup.MISC, ThrownTomatoEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final DefaultParticleType TOMATO_PARTICLE = FabricParticleTypes.simple();
 	public static final StatusEffect BOO_EFFECT = new BooEffect();
 	public static final StatusEffect KILLJOY_EFFECT = new KilljoyEffect();
+
+	//Server Blood
+	public static final HavenPair BLOOD_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.RED).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)));
+	public static final HavenPair BLOOD_FENCE = new HavenPair(new HavenFenceBlock(BLOOD_BLOCK.BLOCK));
+	public static final HavenPair BLOOD_PANE = new HavenPair(new HavenPaneBlock(BLOOD_BLOCK.BLOCK));
+	public static final HavenPair BLOOD_SLAB = new HavenPair(new HavenSlabBlock(BLOOD_BLOCK.BLOCK));
+	public static final HavenPair BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(BLOOD_BLOCK.BLOCK));
+	public static final HavenPair BLOOD_WALL = new HavenPair(new HavenWallBlock(BLOOD_BLOCK.BLOCK));
+	public static final HavenPair DRIED_BLOOD_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(BLOOD_BLOCK.BLOCK)));
+	public static final HavenPair DRIED_BLOOD_FENCE = new HavenPair(new HavenFenceBlock(DRIED_BLOOD_BLOCK.BLOCK));
+	public static final HavenPair DRIED_BLOOD_PANE = new HavenPair(new HavenPaneBlock(DRIED_BLOOD_BLOCK.BLOCK));
+	public static final HavenPair DRIED_BLOOD_SLAB = new HavenPair(new HavenSlabBlock(DRIED_BLOOD_BLOCK.BLOCK));
+	public static final HavenPair DRIED_BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(DRIED_BLOOD_BLOCK.BLOCK));
+	public static final HavenPair DRIED_BLOOD_WALL = new HavenPair(new HavenWallBlock(DRIED_BLOOD_BLOCK.BLOCK));
 
 	private static Block Register(String path, Block block) {
 		return Registry.register(Registry.BLOCK, ID(path), block);
@@ -222,8 +212,15 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.BLOCK, id, block);
 		Registry.register(Registry.ITEM, id, item);
 	}
-	private static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) { return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity); }
-
+	private static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) {
+		return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity);
+	}
+	private static StatusEffect Register(String path, StatusEffect effect) {
+		return Registry.register(Registry.STATUS_EFFECT, ID(path), effect);
+	}
+	private static <T extends Entity> EntityType<T> Register(String path, EntityType entityType) {
+		return Registry.register(Registry.ENTITY_TYPE, ID(path), entityType);
+	}
 	private static void Register(String path, HavenPair pair) {
 		Identifier id = ID(path);
 		Registry.register(Registry.BLOCK, id, pair.BLOCK);
@@ -271,7 +268,7 @@ public class HavenMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		Register("anchor", ANCHOR_BLOCK, ANCHOR_ITEM);
+		Register("anchor", ANCHOR);
 		Register("anchor_block_entity", ANCHOR_BLOCK_ENTITY);
 		Register("substitute_anchor", SUBSTITUTE_ANCHOR_BLOCK);
 		Register("substitute_anchor_block_entity", SUBSTITUTE_ANCHOR_BLOCK_ENTITY);
@@ -285,7 +282,7 @@ public class HavenMod implements ModInitializer {
 		Register("bone_torch", "bone_wall_torch", BONE_TORCH);
 
 		//Tinker Toy
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "tinker_toy"), TINKER_TOY);
+		Register("tinker_toy", TINKER_TOY);
 
 		//Charcoal Block
 		Register("charcoal_block", CHARCOAL_BLOCK);
@@ -318,14 +315,13 @@ public class HavenMod implements ModInitializer {
 		Register("pink_allium", PINK_ALLIUM);
 
 		//Reskins
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pteror"), PTEROR);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "sbehesohe"), SBEHESOHE);
+		Register("pteror", PTEROR);
+		Register("sbehesohe", SBEHESOHE);
 
 		//Soft TNT
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_ITEM);
-		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_ENTITY);
-		DispenserBlock.registerBehavior(SOFT_TNT_BLOCK, new ItemDispenserBehavior() {
+		Register("soft_tnt", SOFT_TNT);
+		Register("soft_tnt", SOFT_TNT_ENTITY);
+		DispenserBlock.registerBehavior(SOFT_TNT.BLOCK, new ItemDispenserBehavior() {
 			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				World world = pointer.getWorld();
 				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
@@ -339,11 +335,11 @@ public class HavenMod implements ModInitializer {
 		});
 
 		//Coffee
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "coffee_plant"), COFFEE_PLANT);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee_cherry"), COFFEE_CHERRY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee_beans"), COFFEE_BEANS);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee"), COFFEE);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_coffee"), BLACK_COFFEE);
+		Register("coffee_plant", COFFEE_PLANT);
+		Register("coffee_cherry", COFFEE_CHERRY);
+		Register("coffee_beans", COFFEE_BEANS);
+		Register("coffee", COFFEE);
+		Register("black_coffee", BLACK_COFFEE);
 
 		//Cherry Trees
 		Register("cherry", CHERRY);
@@ -356,66 +352,49 @@ public class HavenMod implements ModInitializer {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
 
 		//Cassia Trees & Cinnamon
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon"), CINNAMON);
+		Register("cinnamon", CINNAMON);
 
 		Register("cassia", CASSIA);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
 
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "snickerdoodle"), SNICKERDOODLE);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon_roll"), CINNAMON_ROLL);
+		Register("snickerdoodle", SNICKERDOODLE);
+		Register("cinnamon_roll", CINNAMON_ROLL);
 
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon_bean"), CINNAMON_BEAN);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_cotton_candy"), PINK_COTTON_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "blue_cotton_candy"), BLUE_COTTON_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "candy_cane"), CANDY_CANE);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "caramel"), CARAMEL);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "caramel_apple"), CARAMEL_APPLE);
+		//Misc Candies
+		Register("cinnamon_bean", CINNAMON_BEAN);
+		Register("pink_cotton_candy", PINK_COTTON_CANDY);
+		Register("blue_cotton_candy", BLUE_COTTON_CANDY);
+		Register("candy_cane", CANDY_CANE);
+		Register("caramel", CARAMEL);
+		Register("caramel_apple", CARAMEL_APPLE);
 
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_candy"), AMETHYST_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_rock_candy"), BLACK_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "blue_rock_candy"), BLUE_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "brown_rock_candy"), BROWN_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cyan_rock_candy"), CYAN_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "gray_rock_candy"), GRAY_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "green_rock_candy"), GREEN_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_blue_rock_candy"), LIGHT_BLUE_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_gray_rock_candy"), LIGHT_GRAY_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "lime_rock_candy"), LIME_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "magenta_rock_candy"), MAGENTA_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "orange_rock_candy"), ORANGE_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_rock_candy"), PINK_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "purple_rock_candy"), PURPLE_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "red_rock_candy"), RED_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "yellow_rock_candy"), YELLOW_ROCK_CANDY);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "white_rock_candy"), WHITE_ROCK_CANDY);
+		//Amethyst & Rock Candy
+		Register("amethyst_candy", AMETHYST_CANDY);
+		for(DyeColor color : COLORS) {
+			Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
+		}
 
 		//Throwable Tomatoes
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ITEM);
-		Registry.register(Registry.ENTITY_TYPE, new Identifier(NAMESPACE, "throwable_tomato"), THROWABLE_TOMATO_ENTITY);
+		Register("throwable_tomato", THROWABLE_TOMATO_ITEM);
+		Register("throwable_tomato", THROWABLE_TOMATO_ENTITY);
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(NAMESPACE, "thrown_tomato"), TOMATO_PARTICLE);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier(NAMESPACE, "boo"), BOO_EFFECT);
-		Registry.register(Registry.STATUS_EFFECT, new Identifier(NAMESPACE, "killjoy"), KILLJOY_EFFECT);
+		Register("boo", BOO_EFFECT);
+		Register("killjoy", KILLJOY_EFFECT);
 
-		/*
-		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
-			@Override
-			public void reload(ResourceManager manager) {
-				// Clear Caches Here
-				for(Identifier id : manager.findResources("my_resource_folder", path -> path.endsWith(".json"))) {
-					try(InputStream stream = manager.getResource(id).getInputStream()) {
-						// Consume the stream however you want, medium, rare, or well done.
-					} catch(Exception e) {
-						log(Level.ERROR, "Error occurred while loading resource json " + id.toString() + "\n" + e.toString());
-					}
-				}
-			}
-
-			@Override
-			public Identifier getFabricId() {
-				return new Identifier("haven", "my_resources");
-			}
-		});*/
+		//Server Blood
+		Register("blood_block", BLOOD_BLOCK);
+		Register("blood_fence", BLOOD_FENCE);
+		Register("blood_pane", BLOOD_PANE);
+		Register("blood_slab", BLOOD_SLAB);
+		Register("blood_stairs", BLOOD_STAIRS);
+		Register("blood_wall", BLOOD_WALL);
+		Register("dried_blood_block", DRIED_BLOOD_BLOCK);
+		Register("dried_blood_fence", DRIED_BLOOD_FENCE);
+		Register("dried_blood_pane", DRIED_BLOOD_PANE);
+		Register("dried_blood_slab", DRIED_BLOOD_SLAB);
+		Register("dried_blood_stairs", DRIED_BLOOD_STAIRS);
+		Register("dried_blood_wall", DRIED_BLOOD_WALL);
 	}
 
 	public static <T> Map<DyeColor, T> MapDyeColor(DyeMapFunc<T> op) {
