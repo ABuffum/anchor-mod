@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_leaves",
-    "haven:flowering_cassia_leaves"
+    "#haven:cassia_leaves",
+    "#haven:cherry_leaves"
   ]
 }

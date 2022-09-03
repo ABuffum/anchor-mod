@@ -7,7 +7,10 @@ import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
 
+import haven.materials.WoodMaterial;
 import haven.mixins.SignTypeAccessor;
+import haven.util.HavenPair;
+import haven.util.PottedBlock;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -41,15 +44,16 @@ import java.util.*;
 
 import static java.util.Map.entry;
 
-import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
 import net.minecraft.world.gen.foliage.RandomSpreadFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
 import net.minecraft.world.gen.trunk.BendingTrunkPlacer;
+import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import org.apache.logging.log4j.*;
 
 @SuppressWarnings("deprecation")
@@ -193,70 +197,45 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item CINNAMON = new Cinnamon(ITEM_SETTINGS);
 
-	public static final Block CASSIA_LOG_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_LOG_ITEM = new BlockItem(CASSIA_LOG_BLOCK, ITEM_SETTINGS);
-	public static final Block STRIPPED_CASSIA_LOG_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item STRIPPED_CASSIA_LOG_ITEM = new BlockItem(STRIPPED_CASSIA_LOG_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_WOOD_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_WOOD_ITEM = new BlockItem(CASSIA_WOOD_BLOCK, ITEM_SETTINGS);
-	public static final Block STRIPPED_CASSIA_WOOD_BLOCK = new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item STRIPPED_CASSIA_WOOD_ITEM = new BlockItem(STRIPPED_CASSIA_WOOD_BLOCK, ITEM_SETTINGS);
+	public static final WoodMaterial CHERRY = new WoodMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new);
+	public static final HavenPair PALE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
+	public static final HavenPair PINK_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
+	public static final HavenPair WHITE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
 
-	private static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
-	private static boolean always(BlockState state, BlockView world, BlockPos pos) { return true; }
-	private static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }
+	private static ConfiguredFeature<TreeFeatureConfig, ?> CherryTreeFeature(Block leaves) {
+		return Feature.TREE.configure(
+				new TreeFeatureConfig.Builder(
+						new SimpleBlockStateProvider(CHERRY.LOG.BLOCK.getDefaultState()),
+						new ForkingTrunkPlacer(5, 2, 2),
+						new SimpleBlockStateProvider(leaves.getDefaultState()),
+						new SimpleBlockStateProvider(CHERRY.SAPLING.BLOCK.getDefaultState()),
+						new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)),
+						new TwoLayersFeatureSize(1, 0, 2)
+				).ignoreVines().build()
+		);
+	}
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> CHERRY_TREE = CherryTreeFeature(CHERRY.LEAVES.BLOCK);
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> PALE_CHERRY_TREE = CherryTreeFeature(PALE_CHERRY_LEAVES.BLOCK);
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> PINK_CHERRY_TREE = CherryTreeFeature(PINK_CHERRY_LEAVES.BLOCK);
+	public static final ConfiguredFeature<TreeFeatureConfig, ?> WHITE_CHERRY_TREE = CherryTreeFeature(WHITE_CHERRY_LEAVES.BLOCK);
 
-	public static final Block CASSIA_LEAVES_BLOCK = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.AZALEA_LEAVES).nonOpaque().allowsSpawning(HavenMod::canSpawnOnLeaves).suffocates(HavenMod::never).blockVision(HavenMod::never));
-	public static final Item CASSIA_LEAVES_ITEM = new BlockItem(CASSIA_LEAVES_BLOCK, ITEM_SETTINGS);
-	public static final Block FLOWERING_CASSIA_LEAVES_BLOCK = new LeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.AZALEA_LEAVES).nonOpaque().allowsSpawning(HavenMod::canSpawnOnLeaves).suffocates(HavenMod::never).blockVision(HavenMod::never));
-	public static final Item FLOWERING_CASSIA_LEAVES_ITEM = new BlockItem(FLOWERING_CASSIA_LEAVES_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_SAPLING_BLOCK = new CassiaSaplingBlock(new CassiaSaplingGenerator(), AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS));
-	public static final Item CASSIA_SAPLING_ITEM = new BlockItem(CASSIA_SAPLING_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_CASSIA_SAPLING_BLOCK = new FlowerPotBlock(CASSIA_SAPLING_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-
+	public static final WoodMaterial CASSIA = new WoodMaterial("cassia", MapColor.BROWN, BlockSoundGroup.AZALEA_LEAVES, CassiaSaplingGenerator::new);
+	public static final HavenPair FLOWERING_CASSIA_LEAVES = new HavenPair(new HavenLeavesBlock(CASSIA.LEAVES.BLOCK));
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CASSIA_TREE = Feature.TREE.configure(
-		(new TreeFeatureConfig.Builder(
-			new SimpleBlockStateProvider(CASSIA_LOG_BLOCK.getDefaultState()),
-				new BendingTrunkPlacer(4, 2, 0, 3, UniformIntProvider.create(1, 2)),
-				new WeightedBlockStateProvider(
-						new DataPool.Builder()
-						.add(CASSIA_LEAVES_BLOCK.getDefaultState(), 3)
-						.add(FLOWERING_CASSIA_LEAVES_BLOCK.getDefaultState(), 1)
-				),
-				new SimpleBlockStateProvider(CASSIA_SAPLING_BLOCK.getDefaultState()),
-				new RandomSpreadFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), ConstantIntProvider.create(2), 50),
-				new TwoLayersFeatureSize(1, 0, 1)
+			new TreeFeatureConfig.Builder(
+					new SimpleBlockStateProvider(CASSIA.LOG.BLOCK.getDefaultState()),
+					new BendingTrunkPlacer(4, 2, 0, 3, UniformIntProvider.create(1, 2)),
+					new WeightedBlockStateProvider(
+							new DataPool.Builder()
+									.add(CASSIA.LEAVES.BLOCK.getDefaultState(), 3)
+									.add(FLOWERING_CASSIA_LEAVES.BLOCK.getDefaultState(), 1)
+					),
+					new SimpleBlockStateProvider(CASSIA.SAPLING.BLOCK.getDefaultState()),
+					new RandomSpreadFoliagePlacer(ConstantIntProvider.create(3), ConstantIntProvider.create(0), ConstantIntProvider.create(2), 50),
+					new TwoLayersFeatureSize(1, 0, 1)
 			)
-		)
-		//.dirtProvider(new SimpleBlockStateProvider(Blocks.ROOTED_DIRT.getDefaultState()))
-		//.forceDirt()
-		.build()
+					.build()
 	);
-
-	public static final Block CASSIA_PLANKS_BLOCK = new Block(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_PLANKS_ITEM = new BlockItem(CASSIA_PLANKS_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_STAIRS_BLOCK = new CassiaStairsBlock(CASSIA_PLANKS_BLOCK.getDefaultState(), AbstractBlock.Settings.copy(CASSIA_PLANKS_BLOCK));
-	public static final Item CASSIA_STAIRS_ITEM = new BlockItem(CASSIA_STAIRS_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_SLAB_BLOCK = new SlabBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.BROWN).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_SLAB_ITEM = new BlockItem(CASSIA_SLAB_BLOCK, ITEM_SETTINGS);
-
-	public static final SignType CASSIA_SIGN_TYPE = new CassiaSignType("cassia");
-	public static final Block CASSIA_SIGN_BLOCK = new SignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD), CASSIA_SIGN_TYPE);
-	public static final Block CASSIA_WALL_SIGN_BLOCK = new WallSignBlock(AbstractBlock.Settings.of(Material.WOOD).noCollision().strength(1.0F).sounds(BlockSoundGroup.WOOD).dropsLike(CASSIA_SIGN_BLOCK), CASSIA_SIGN_TYPE);
-	public static final Item CASSIA_SIGN_ITEM = new SignItem((new Item.Settings()).maxCount(16).group(ITEM_GROUP), CASSIA_SIGN_BLOCK, CASSIA_WALL_SIGN_BLOCK);
-
-	public static final Block CASSIA_FENCE_BLOCK = new FenceBlock(AbstractBlock.Settings.of(Material.WOOD, CASSIA_PLANKS_BLOCK.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_FENCE_ITEM = new BlockItem(CASSIA_FENCE_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_FENCE_GATE_BLOCK = new FenceGateBlock(AbstractBlock.Settings.of(Material.WOOD, CASSIA_PLANKS_BLOCK.getDefaultMapColor()).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_FENCE_GATE_ITEM = new BlockItem(CASSIA_FENCE_GATE_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_DOOR_BLOCK = new CassiaDoorBlock(AbstractBlock.Settings.of(Material.WOOD, CASSIA_PLANKS_BLOCK.getDefaultMapColor()).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque());
-	public static final Item CASSIA_DOOR_ITEM = new TallBlockItem(CASSIA_DOOR_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_TRAPDOOR_BLOCK = new CassiaTrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.OAK_TAN).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning((a, b, c, d) -> false));
-	public static final Item CASSIA_TRAPDOOR_ITEM = new BlockItem(CASSIA_TRAPDOOR_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_PRESSURE_PLATE_BLOCK = new CassiaPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, CASSIA_PLANKS_BLOCK.getDefaultMapColor()).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_PRESSURE_PLATE_ITEM = new BlockItem(CASSIA_PRESSURE_PLATE_BLOCK, ITEM_SETTINGS);
-	public static final Block CASSIA_BUTTON_BLOCK = new CassiaButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD));
-	public static final Item CASSIA_BUTTON_ITEM = new BlockItem(CASSIA_BUTTON_BLOCK, ITEM_SETTINGS);
 
 	public static final Item SNICKERDOODLE = new Item(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.COOKIE));
 	public static final Item CINNAMON_ROLL = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build()));
@@ -307,6 +286,44 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.ITEM, id, item);
 	}
 	private static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) { return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity); }
+
+	private static void Register(String path, HavenPair pair) {
+		Identifier id = ID(path);
+		Registry.register(Registry.BLOCK, id, pair.BLOCK);
+		Registry.register(Registry.ITEM, id, pair.ITEM);
+	}
+
+	private static void Register(String path, PottedBlock potted) {
+		Identifier id = ID(path);
+		Registry.register(Registry.BLOCK, id, potted.BLOCK);
+		Registry.register(Registry.ITEM, id, potted.ITEM);
+		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
+	}
+
+	private static void Register(String name, WoodMaterial material) {
+		HavenMod.Register(name + "_log", material.LOG);
+		HavenMod.Register("stripped_" + name + "_log", material.STRIPPED_LOG);
+		HavenMod.Register(name + "_wood", material.WOOD);
+		HavenMod.Register("stripped_" + name + "_wood", material.STRIPPED_WOOD);
+
+		HavenMod.Register(name + "_leaves", material.LEAVES);
+		HavenMod.Register(name + "_sapling", material.SAPLING);
+
+		Register(name + "_planks", material.PLANKS);
+		Register(name + "_stairs", material.STAIRS);
+		Register(name + "_slab", material.SLAB);
+
+		Register(name + "_fence", material.FENCE);
+		Register(name + "_fence_gate", material.FENCE_GATE);
+		Register(name + "_door", material.DOOR);
+		Register(name + "_trapdoor", material.TRAPDOOR);
+		Register(name + "_pressure_plate", material.PRESSURE_PLATE);
+		Register(name + "_button", material.BUTTON);
+
+		//TODO: Signs don't work right (fail out of edit screens and go invisible)
+		//Register(name + "_sign", material.SIGN_BLOCK, material.SIGN_ITEM);
+		//Register(name + "_wall_sign", material.WALL_SIGN_BLOCK);
+	}
 
 	@Override
 	public void onInitialize() {
@@ -440,50 +457,21 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "coffee"), COFFEE);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_coffee"), BLACK_COFFEE);
 
+		//Cherry Trees
+		Register("cherry", CHERRY);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cherry_tree"), CHERRY_TREE);
+		Register("white_cherry_leaves", WHITE_CHERRY_LEAVES);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("white_cherry_tree"), WHITE_CHERRY_TREE);
+		Register("pale_cherry_leaves", PALE_CHERRY_LEAVES);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pale_cherry_tree"), PALE_CHERRY_TREE);
+		Register("pink_cherry_leaves", PINK_CHERRY_LEAVES);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
+
 		//Cassia Trees & Cinnamon
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cinnamon"), CINNAMON);
 
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_log"), CASSIA_LOG_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_log"), CASSIA_LOG_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "stripped_cassia_log"), STRIPPED_CASSIA_LOG_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "stripped_cassia_log"), STRIPPED_CASSIA_LOG_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_wood"), CASSIA_WOOD_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_wood"), CASSIA_WOOD_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "stripped_cassia_wood"), STRIPPED_CASSIA_WOOD_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "stripped_cassia_wood"), STRIPPED_CASSIA_WOOD_ITEM);
-
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_leaves"), CASSIA_LEAVES_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_leaves"), CASSIA_LEAVES_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "flowering_cassia_leaves"), FLOWERING_CASSIA_LEAVES_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "flowering_cassia_leaves"), FLOWERING_CASSIA_LEAVES_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_sapling"), CASSIA_SAPLING_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_sapling"), CASSIA_SAPLING_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_cassia_sapling"), POTTED_CASSIA_SAPLING_BLOCK);
-
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_planks"), CASSIA_PLANKS_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_planks"), CASSIA_PLANKS_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_stairs"), CASSIA_STAIRS_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_stairs"), CASSIA_STAIRS_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_slab"), CASSIA_SLAB_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_slab"), CASSIA_SLAB_ITEM);
-
-		//TODO: Cassia Signs don't work right (fail out of edit screens and go invisible)
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_sign"), CASSIA_SIGN_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_wall_sign"), CASSIA_WALL_SIGN_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_sign"), CASSIA_SIGN_ITEM);
-
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_fence"), CASSIA_FENCE_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_fence"), CASSIA_FENCE_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_fence_gate"), CASSIA_FENCE_GATE_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_fence_gate"), CASSIA_FENCE_GATE_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_door"), CASSIA_DOOR_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_door"), CASSIA_DOOR_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_trapdoor"), CASSIA_TRAPDOOR_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_trapdoor"), CASSIA_TRAPDOOR_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_pressure_plate"), CASSIA_PRESSURE_PLATE_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_pressure_plate"), CASSIA_PRESSURE_PLATE_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cassia_button"), CASSIA_BUTTON_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cassia_button"), CASSIA_BUTTON_ITEM);
+		Register("cassia", CASSIA);
+		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
 
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "snickerdoodle"), SNICKERDOODLE);
@@ -568,7 +556,7 @@ public class HavenMod implements ModInitializer {
 		entry(23, "k")
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
-
+	public static final List<WoodMaterial> WOOD_MATERIALS = new ArrayList<>();
 	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
 	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
@@ -577,17 +565,28 @@ public class HavenMod implements ModInitializer {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}
-
-		STRIPPED_BLOCKS.put(CASSIA_WOOD_BLOCK, STRIPPED_CASSIA_WOOD_BLOCK);
-		STRIPPED_BLOCKS.put(CASSIA_LOG_BLOCK, STRIPPED_CASSIA_LOG_BLOCK);
-
-		COMPOSTABLE_ITEMS.put(CASSIA_SAPLING_ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(CASSIA_LEAVES_ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(FLOWERING_CASSIA_LEAVES_ITEM, 0.3f);
-
+		//Wood Materials
+		WOOD_MATERIALS.add(CASSIA);
+		WOOD_MATERIALS.add(CHERRY);
+		//Compostable Items
+		COMPOSTABLE_ITEMS.put(PALE_CHERRY_LEAVES.ITEM, 0.3f);
+		COMPOSTABLE_ITEMS.put(PINK_CHERRY_LEAVES.ITEM, 0.3f);
+		COMPOSTABLE_ITEMS.put(WHITE_CHERRY_LEAVES.ITEM, 0.3f);
+		COMPOSTABLE_ITEMS.put(FLOWERING_CASSIA_LEAVES.ITEM, 0.3f);
 		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
-
-		SIGN_TYPES.add(CASSIA_SIGN_TYPE);
+		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
+		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.35F);
+		for(WoodMaterial material : WOOD_MATERIALS) {
+			//Stripped Blocks
+			STRIPPED_BLOCKS.put(material.WOOD.BLOCK, material.STRIPPED_WOOD.BLOCK);
+			STRIPPED_BLOCKS.put(material.LOG.BLOCK, material.STRIPPED_LOG.BLOCK);
+			//Compostable Items
+			COMPOSTABLE_ITEMS.put(material.SAPLING.ITEM, 0.3f);
+			COMPOSTABLE_ITEMS.put(material.LEAVES.ITEM, 0.3f);
+			//Sign Types
+			SIGN_TYPES.add(material.SIGN.TYPE);
+		}
+		//Sign Types
 		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
 	}
 

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_slab"
+    "haven:cassia_slab",
+    "haven:cherry_slab"
   ]
 }

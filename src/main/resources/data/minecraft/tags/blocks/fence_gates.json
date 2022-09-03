@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_fence_gate"
+    "haven:cassia_fence_gate",
+    "haven:cherry_fence_gate"
   ]
 }

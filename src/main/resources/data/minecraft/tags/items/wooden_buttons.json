@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_button"
+    "haven:cassia_button",
+    "haven:cherry_button"
   ]
 }

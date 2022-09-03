@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#haven:cassia_logs"
+    "#haven:cassia_logs",
+    "#haven:cherry_logs"
   ]
 }

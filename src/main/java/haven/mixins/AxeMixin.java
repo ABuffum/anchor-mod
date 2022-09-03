@@ -35,8 +35,8 @@ public class AxeMixin {
 		World world = context.getWorld();
 		BlockPos blockPos = context.getBlockPos();
 		Block block = world.getBlockState(blockPos).getBlock();
-		if (block == HavenMod.CASSIA_LOG_BLOCK) world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 4)));
-		else if (block == HavenMod.CASSIA_WOOD_BLOCK) world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 6)));
+		if (block == HavenMod.CASSIA.LOG.BLOCK) world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 4)));
+		else if (block == HavenMod.CASSIA.WOOD.BLOCK) world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 6)));
 	}
 
 	@Shadow private Optional<BlockState> getStrippedState(BlockState state) { return null; }

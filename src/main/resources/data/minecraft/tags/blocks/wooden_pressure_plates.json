@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_pressure_plate"
+    "haven:cassia_pressure_plate",
+    "haven:cherry_pressure_plate"
   ]
 }

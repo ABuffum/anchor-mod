@@ -1,6 +1,7 @@
 package haven;
 
 import haven.entities.*;
+import haven.materials.WoodMaterial;
 import haven.particles.*;
 
 import haven.rendering.AnchorBlockEntityRenderer;
@@ -26,6 +27,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Environment(EnvType.CLIENT)
@@ -33,9 +36,32 @@ public class HavenModClient implements ClientModInitializer {
 
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
+	private static final List<Block> Cutout = new ArrayList(List.of(
+			//Bone Torch
+			HavenMod.BONE_TORCH_BLOCK, HavenMod.BONE_WALL_TORCH_BLOCK,
+			//Other Flowers
+			HavenMod.MARIGOLD_BLOCK, HavenMod.POTTED_MARIGOLD,
+			HavenMod.PINK_ALLIUM_BLOCK, HavenMod.POTTED_PINK_ALLIUM,
+			//Cherry Trees
+			HavenMod.PALE_CHERRY_LEAVES.BLOCK, HavenMod.PINK_CHERRY_LEAVES.BLOCK,
+			HavenMod.WHITE_CHERRY_LEAVES.BLOCK,
+			//Cassia Trees & Cinnamon
+			HavenMod.FLOWERING_CASSIA_LEAVES.BLOCK,
+			//Coffee
+			HavenMod.COFFEE_PLANT
+	));
+
 	private static final Block[] Translucent = {
 			HavenMod.SUBSTITUTE_ANCHOR_BLOCK
 	};
+
+	static {
+		for(WoodMaterial material : HavenMod.WOOD_MATERIALS) {
+			Cutout.add(material.SAPLING.BLOCK);
+			Cutout.add(material.SAPLING.POTTED);
+			Cutout.add(material.LEAVES.BLOCK);
+		}
+	}
 
 	@Override
 	public void onInitializeClient() {
@@ -44,6 +70,10 @@ public class HavenModClient implements ClientModInitializer {
 		BlockEntityRendererRegistry.register(HavenMod.SUBSTITUTE_ANCHOR_BLOCK_ENTITY, SubstituteAnchorBlockEntityRenderer::new);
 
 		BlockRenderLayerMap inst = BlockRenderLayerMap.INSTANCE;
+		RenderLayer cutout = RenderLayer.getCutout();
+		for(Block block : Cutout) {
+			inst.putBlock(block, cutout);
+		}
 		RenderLayer translucent = RenderLayer.getTranslucent();
 		for(Block block : Translucent) {
 			inst.putBlock(block, translucent);
@@ -93,11 +123,6 @@ public class HavenModClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_PINK_ALLIUM, RenderLayer.getCutout());
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
-		//Cassia Trees & Cinnamon
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.CASSIA_SAPLING_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_CASSIA_SAPLING_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.CASSIA_LEAVES_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.FLOWERING_CASSIA_LEAVES_BLOCK, RenderLayer.getCutout());
 		//Throwable Tomatoes
 		EntityRendererRegistry.register(HavenMod.THROWABLE_TOMATO_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
 		receiveEntityPacket();
