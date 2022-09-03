@@ -26,6 +26,28 @@ repositories {
 		name = 'Curse Maven'
 		url = "https://www.cursemaven.com"
 	}
+	maven {
+		name = "Ladysnake Libs"
+		url = 'https://ladysnake.jfrog.io/artifactory/mods'
+	}
+	maven {
+		url = 'https://maven.cafeteria.dev/releases'
+		content {
+			includeGroup 'net.adriantodt.fabricmc'
+		}
+	}
+	maven {
+		url "https://maven.jamieswhiteshirt.com/libs-release"
+		content {
+			includeGroup "com.jamieswhiteshirt"
+		}
+	}
+	maven {
+		url "https://jitpack.io"
+	}
+	maven {
+		url "https://maven.terraformersmc.com/"
+	}
 }
 
 dependencies {
@@ -37,6 +59,9 @@ dependencies {
 	// Farmers Delight
 	modCompileOnly "curse.maven:farmers-delight-fabric-482834:3531640"
 	modRuntime "curse.maven:farmers-delight-fabric-482834:3531640"
+
+	//Origins
+	modImplementation "com.github.apace100:origins-fabric:${project.origins_version}"
 
 	//LibCD
 	modApi "io.github.cottonmc:LibCD:${project.libcd_version}"
