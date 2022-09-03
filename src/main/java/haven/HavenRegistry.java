@@ -231,6 +231,11 @@ public class HavenRegistry {
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
 	}
+	public static void RegisterBottledConfetti() {
+		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
+		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
+		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY);
+	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -252,5 +257,6 @@ public class HavenRegistry {
 		RegisterAngelBat();
 		RegisterChickenVariants();
 		RegisterMilks();
+		RegisterBottledConfetti();
 	}
 }

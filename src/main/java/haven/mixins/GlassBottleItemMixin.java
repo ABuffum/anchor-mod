@@ -2,6 +2,7 @@ package haven.mixins;
 
 import haven.HavenMod;
 //import haven.entities.ConfettiCloudEntity;
+import haven.entities.ConfettiCloudEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.GlassBottleItem;
@@ -36,7 +37,7 @@ public abstract class GlassBottleItemMixin extends Item {
 	@Inject(method = "use", at = @At("HEAD"), cancellable = true)
 	public void use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
 		//Fill bottle with confetti
-		/*List<ConfettiCloudEntity> list = world.getEntitiesByClass(ConfettiCloudEntity.class, user.getBoundingBox().expand(4.0D), (entity) -> {
+		List<ConfettiCloudEntity> list = world.getEntitiesByClass(ConfettiCloudEntity.class, user.getBoundingBox().expand(4.0D), (entity) -> {
 			return entity != null && entity.isAlive();
 		});
 		ItemStack itemStack = user.getStackInHand(hand);
@@ -48,7 +49,7 @@ public abstract class GlassBottleItemMixin extends Item {
 				cir.setReturnValue(TypedActionResult.success(this.fill(itemStack, user, new ItemStack(HavenMod.BOTTLED_CONFETTI_ITEM)), world.isClient()));
 				return;
 			}
-		}*/
+		}
 		//Fill bottle with Blood
 		BlockHitResult hitResult = Item.raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
 		BlockPos blockPos = hitResult.getBlockPos();

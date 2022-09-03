@@ -230,6 +230,11 @@ public class HavenMod implements ModInitializer {
 	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 
+	//Bottled Confetti
+	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(ITEM_SETTINGS);
+	public static final EntityType<BottledConfettiEntity> BOTTLED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<BottledConfettiEntity>create(SpawnGroup.MISC, BottledConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
+	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
+
 	@Override
 	public void onInitialize() {
 		HavenRegistry.RegisterAll();
