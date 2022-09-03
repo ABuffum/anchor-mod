@@ -7,6 +7,8 @@ import haven.particles.*;
 import haven.rendering.AnchorBlockEntityRenderer;
 import haven.rendering.EntitySpawnPacket;
 import haven.rendering.SubstituteAnchorBlockEntityRenderer;
+import haven.util.HavenFlower;
+import haven.util.HavenPair;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,10 +40,10 @@ public class HavenModClient implements ClientModInitializer {
 
 	private static final List<Block> Cutout = new ArrayList(List.of(
 			//Bone Torch
-			HavenMod.BONE_TORCH_BLOCK, HavenMod.BONE_WALL_TORCH_BLOCK,
+			HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
 			//Other Flowers
-			HavenMod.MARIGOLD_BLOCK, HavenMod.POTTED_MARIGOLD,
-			HavenMod.PINK_ALLIUM_BLOCK, HavenMod.POTTED_PINK_ALLIUM,
+			HavenMod.MARIGOLD.BLOCK, HavenMod.MARIGOLD.POTTED,
+			HavenMod.PINK_ALLIUM.BLOCK, HavenMod.PINK_ALLIUM.POTTED,
 			//Cherry Trees
 			HavenMod.PALE_CHERRY_LEAVES.BLOCK, HavenMod.PINK_CHERRY_LEAVES.BLOCK,
 			HavenMod.WHITE_CHERRY_LEAVES.BLOCK,
@@ -56,10 +58,16 @@ public class HavenModClient implements ClientModInitializer {
 	};
 
 	static {
-		for(WoodMaterial material : HavenMod.WOOD_MATERIALS) {
+		for (HavenFlower flower : HavenMod.FLOWERS) {
+			Cutout.add(flower.BLOCK);
+			Cutout.add(flower.POTTED);
+		}
+		for (HavenPair leaf : HavenMod.LEAVES) {
+			Cutout.add(leaf.BLOCK);
+		}
+		for (WoodMaterial material : HavenMod.WOOD_MATERIALS) {
 			Cutout.add(material.SAPLING.BLOCK);
 			Cutout.add(material.SAPLING.POTTED);
-			Cutout.add(material.LEAVES.BLOCK);
 		}
 	}
 
@@ -79,48 +87,6 @@ public class HavenModClient implements ClientModInitializer {
 			inst.putBlock(block, translucent);
 		}
 
-		//Bone Torch
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BONE_TORCH_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BONE_WALL_TORCH_BLOCK, RenderLayer.getCutout());
-		//Carnations
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BLACK_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_BLACK_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BLUE_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_BLUE_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.BROWN_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_BROWN_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.CYAN_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_CYAN_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.GRAY_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_GRAY_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.GREEN_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_GREEN_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.LIGHT_BLUE_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_LIGHT_BLUE_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.LIGHT_GRAY_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_LIGHT_GRAY_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.LIME_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_LIME_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.MAGENTA_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_MAGENTA_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.ORANGE_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_ORANGE_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.PINK_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_PINK_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.PURPLE_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_PURPLE_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.RED_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_RED_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.WHITE_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_WHITE_CARNATION, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.YELLOW_CARNATION_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_YELLOW_CARNATION, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.MARIGOLD_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_MARIGOLD, RenderLayer.getCutout());
-
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.PINK_ALLIUM_BLOCK, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(HavenMod.POTTED_PINK_ALLIUM, RenderLayer.getCutout());
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes

@@ -9,7 +9,9 @@ import haven.items.*;
 
 import haven.materials.WoodMaterial;
 import haven.mixins.SignTypeAccessor;
+import haven.util.HavenFlower;
 import haven.util.HavenPair;
+import haven.util.HavenTorch;
 import haven.util.PottedBlock;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -41,6 +43,7 @@ import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 
 import java.util.*;
+import java.util.function.ToIntFunction;
 
 import static java.util.Map.entry;
 
@@ -81,102 +84,36 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item ANCHOR_ITEM = new BlockItem(ANCHOR_BLOCK, ITEM_SETTINGS);
 
-	public static final Block BONE_TORCH_BLOCK = new BoneTorchBlock(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance((state) -> {
-		return 14;
-	}).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
-	public static final Block BONE_WALL_TORCH_BLOCK = new BoneWallTorchBlock(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance((state) -> {
-		return 14;
-	}).sounds(BlockSoundGroup.WOOD), ParticleTypes.FLAME);
-	public static final BlockItem BONE_TORCH_ITEM = new WallStandingBlockItem(BONE_TORCH_BLOCK, BONE_WALL_TORCH_BLOCK, ITEM_SETTINGS);
+	public static ToIntFunction<BlockState> luminance(int value) { return (state) -> value; }
+
+	public static final HavenTorch BONE_TORCH = new HavenTorch("bone_torch", "bone_wall_torch", FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
 
 	public static final Item TINKER_TOY = new TinkerToy(ITEM_SETTINGS);
 
-	public static final Block CHARCOAL_BLOCK = new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F));
-	public static final Item CHARCOAL_BLOCK_ITEM = new BlockItem(CHARCOAL_BLOCK, ITEM_SETTINGS);
+	public static final HavenPair CHARCOAL_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
 
-	public static final Block AMETHYST_CRYSTAL_BLOCK = new AmethystCrystalBlock(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance((state) -> {
-		return 5;
-	}));
-	public static final Item AMETHYST_CRYSTAL_BLOCK_ITEM = new BlockItem(AMETHYST_CRYSTAL_BLOCK, ITEM_SETTINGS);
+	public static final HavenPair AMETHYST_CRYSTAL_BLOCK = new HavenPair(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(luminance(5))));
+	public static final HavenPair AMETHYST_BRICKS = new HavenPair(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_BLOCK).strength(1.5f, 1.5f).requiresTool()));
+	public static final HavenPair AMETHYST_BRICK_SLAB = new HavenPair(new HavenSlabBlock(AMETHYST_BRICKS.BLOCK));
+	public static final HavenPair AMETHYST_BRICK_STAIRS = new HavenPair(new HavenStairsBlock(AMETHYST_BRICKS.BLOCK));
+	public static final HavenPair AMETHYST_BRICK_WALL = new HavenPair(new HavenWallBlock(AMETHYST_BRICKS.BLOCK));
+	public static final HavenPair AMETHYST_SLAB = new HavenPair(new HavenSlabBlock(Blocks.AMETHYST_BLOCK));
+	public static final HavenPair AMETHYST_STAIRS = new HavenPair(new HavenStairsBlock(Blocks.AMETHYST_BLOCK));
+	public static final HavenPair AMETHYST_WALL = new HavenPair(new HavenWallBlock(Blocks.AMETHYST_BLOCK));
 
-	public static final Block AMETHYST_BRICKS_BLOCK = new AmethystBricksBlock(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_BLOCK).strength(1.5f, 1.5f).requiresTool());
-	public static final Item AMETHYST_BRICKS_ITEM = new BlockItem(AMETHYST_BRICKS_BLOCK, ITEM_SETTINGS);
-	public static final Block AMETHYST_BRICK_SLAB_BLOCK = new AmethystBrickSlabBlock(AbstractBlock.Settings.copy(AMETHYST_BRICKS_BLOCK));
-	public static final Item AMETHYST_BRICK_SLAB_ITEM = new BlockItem(AMETHYST_BRICK_SLAB_BLOCK, ITEM_SETTINGS);
-	public static final Block AMETHYST_BRICK_STAIRS_BLOCK = new AmethystBrickStairsBlock(AMETHYST_BRICKS_BLOCK.getDefaultState(), AbstractBlock.Settings.copy(AMETHYST_BRICKS_BLOCK));
-	public static final Item AMETHYST_BRICK_STAIRS_ITEM = new BlockItem(AMETHYST_BRICK_STAIRS_BLOCK, ITEM_SETTINGS);
-	public static final Block AMETHYST_BRICK_WALL_BLOCK = new AmethystBrickWallBlock(AbstractBlock.Settings.copy(AMETHYST_BRICKS_BLOCK));
-	public static final Item AMETHYST_BRICK_WALL_ITEM = new BlockItem(AMETHYST_BRICK_WALL_BLOCK, ITEM_SETTINGS);
-
-	public static final Block AMETHYST_SLAB_BLOCK = new AmethystSlabBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
-	public static final Item AMETHYST_SLAB_ITEM = new BlockItem(AMETHYST_SLAB_BLOCK, ITEM_SETTINGS);
-	public static final Block AMETHYST_STAIRS_BLOCK = new AmethystStairsBlock(Blocks.AMETHYST_BLOCK.getDefaultState(), AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
-	public static final Item AMETHYST_STAIRS_ITEM = new BlockItem(AMETHYST_STAIRS_BLOCK, ITEM_SETTINGS);
-	public static final Block AMETHYST_WALL_BLOCK = new AmethystWallBlock(AbstractBlock.Settings.copy(Blocks.AMETHYST_BLOCK));
-	public static final Item AMETHYST_WALL_ITEM = new BlockItem(AMETHYST_WALL_BLOCK, ITEM_SETTINGS);
-
-	//Carnations
-	public static final Block.Settings CARNATION_SETTINGS = FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS);
-	public static final Block.Settings POTTED_CARNATION_SETTINGS = AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque();
-	public static final Block BLACK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item BLACK_CARNATION_ITEM = new BlockItem(BLACK_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BLACK_CARNATION = new FlowerPotBlock(BLACK_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item BLUE_CARNATION_ITEM = new BlockItem(BLUE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BLUE_CARNATION = new FlowerPotBlock(BLUE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block BROWN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item BROWN_CARNATION_ITEM = new BlockItem(BROWN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_BROWN_CARNATION = new FlowerPotBlock(BROWN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block CYAN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item CYAN_CARNATION_ITEM = new BlockItem(CYAN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_CYAN_CARNATION = new FlowerPotBlock(CYAN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item GRAY_CARNATION_ITEM = new BlockItem(GRAY_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_GRAY_CARNATION = new FlowerPotBlock(GRAY_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block GREEN_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item GREEN_CARNATION_ITEM = new BlockItem(GREEN_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_GREEN_CARNATION = new FlowerPotBlock(GREEN_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block LIGHT_BLUE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item LIGHT_BLUE_CARNATION_ITEM = new BlockItem(LIGHT_BLUE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIGHT_BLUE_CARNATION = new FlowerPotBlock(LIGHT_BLUE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block LIGHT_GRAY_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item LIGHT_GRAY_CARNATION_ITEM = new BlockItem(LIGHT_GRAY_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIGHT_GRAY_CARNATION = new FlowerPotBlock(LIGHT_GRAY_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block LIME_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item LIME_CARNATION_ITEM = new BlockItem(LIME_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_LIME_CARNATION = new FlowerPotBlock(LIME_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block MAGENTA_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item MAGENTA_CARNATION_ITEM = new BlockItem(MAGENTA_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_MAGENTA_CARNATION = new FlowerPotBlock(MAGENTA_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block ORANGE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item ORANGE_CARNATION_ITEM = new BlockItem(ORANGE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_ORANGE_CARNATION = new FlowerPotBlock(ORANGE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block PINK_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item PINK_CARNATION_ITEM = new BlockItem(PINK_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_PINK_CARNATION = new FlowerPotBlock(PINK_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block PURPLE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item PURPLE_CARNATION_ITEM = new BlockItem(PURPLE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_PURPLE_CARNATION = new FlowerPotBlock(PURPLE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block RED_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item RED_CARNATION_ITEM = new BlockItem(RED_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_RED_CARNATION = new FlowerPotBlock(RED_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block WHITE_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item WHITE_CARNATION_ITEM = new BlockItem(WHITE_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_WHITE_CARNATION = new FlowerPotBlock(WHITE_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-	public static final Block YELLOW_CARNATION_BLOCK = new FlowerBlock(StatusEffects.WEAKNESS, 5, CARNATION_SETTINGS);
-	public static final Item YELLOW_CARNATION_ITEM = new BlockItem(YELLOW_CARNATION_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_YELLOW_CARNATION = new FlowerPotBlock(YELLOW_CARNATION_BLOCK, POTTED_CARNATION_SETTINGS);
-
-	public static final Block MARIGOLD_BLOCK = new FlowerBlock(StatusEffects.WITHER, 5, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
-	public static final Item MARIGOLD_ITEM = new BlockItem(MARIGOLD_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_MARIGOLD = new FlowerPotBlock(MARIGOLD_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
-	public static final Block PINK_ALLIUM_BLOCK = new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 4, FabricBlockSettings.of(Material.PLANT).noCollision().breakInstantly().nonOpaque().sounds(BlockSoundGroup.GRASS));
-	public static final Item PINK_ALLIUM_ITEM = new BlockItem(PINK_ALLIUM_BLOCK, ITEM_SETTINGS);
-	public static final Block POTTED_PINK_ALLIUM = new FlowerPotBlock(PINK_ALLIUM_BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+	//Minecraft Earth Flowers
+	public static final HavenFlower BUTTERCUP = new HavenFlower(StatusEffects.BLINDNESS, 11);
+	public static final HavenFlower PINK_DAISY = new HavenFlower(StatusEffects.REGENERATION, 8);
+	//Other Flowers
+	public static final Map<DyeColor, HavenFlower> CARNATIONS = MapDyeColor((color) -> new HavenFlower(StatusEffects.WEAKNESS, 5));
+	public static final HavenFlower ROSE = new HavenFlower(StatusEffects.WEAKNESS, 9);
+	public static final HavenFlower BLUE_ROSE = new HavenFlower(StatusEffects.WEAKNESS, 9);
+	public static final HavenFlower MAGENTA_TULIP = new HavenFlower(StatusEffects.FIRE_RESISTANCE, 4);
+	public static final HavenFlower MARIGOLD = new HavenFlower(StatusEffects.WITHER, 5);
+	public static final HavenFlower PINK_ALLIUM = new HavenFlower(StatusEffects.FIRE_RESISTANCE, 4);
 
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
-	public static final TridentItem PRIDE_TRIDENT = new TridentItem(new Item.Settings().group(ITEM_GROUP).fireproof());
 
 	public static final Block SOFT_TNT_BLOCK = new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS));
 	public static final Item SOFT_TNT_ITEM = new BlockItem(SOFT_TNT_BLOCK, ITEM_SETTINGS);
@@ -300,6 +237,13 @@ public class HavenMod implements ModInitializer {
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
 	}
 
+	private static void Register(String path, String wallPath, HavenTorch torch) {
+		Identifier id = ID(path);
+		Registry.register(Registry.BLOCK, id, torch.BLOCK);
+		Registry.register(Registry.BLOCK, ID(wallPath), torch.WALL_BLOCK);
+		Registry.register(Registry.ITEM, id, torch.ITEM);
+	}
+
 	private static void Register(String name, WoodMaterial material) {
 		HavenMod.Register(name + "_log", material.LOG);
 		HavenMod.Register("stripped_" + name + "_log", material.STRIPPED_LOG);
@@ -338,100 +282,44 @@ public class HavenMod implements ModInitializer {
 		}
 
 		//Bone Torch
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "bone_torch"), BONE_TORCH_BLOCK);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "bone_wall_torch"), BONE_WALL_TORCH_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "bone_torch"), BONE_TORCH_ITEM);
+		Register("bone_torch", "bone_wall_torch", BONE_TORCH);
 
 		//Tinker Toy
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "tinker_toy"), TINKER_TOY);
 
 		//Charcoal Block
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "charcoal_block"), CHARCOAL_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "charcoal_block"), CHARCOAL_BLOCK_ITEM);
-		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK_ITEM, 16000);
+		Register("charcoal_block", CHARCOAL_BLOCK);
+		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
 
 		//Amethyst Crystal Block
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_crystal_block"), AMETHYST_CRYSTAL_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_crystal_block"), AMETHYST_CRYSTAL_BLOCK_ITEM);
+		Register("amethyst_crystal_block", AMETHYST_CRYSTAL_BLOCK);
 		//Amethyst Bricks
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_bricks"), AMETHYST_BRICKS_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_bricks"), AMETHYST_BRICKS_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_brick_slab"), AMETHYST_BRICK_SLAB_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_brick_slab"), AMETHYST_BRICK_SLAB_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_brick_stairs"), AMETHYST_BRICK_STAIRS_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_brick_stairs"), AMETHYST_BRICK_STAIRS_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_brick_wall"), AMETHYST_BRICK_WALL_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_brick_wall"), AMETHYST_BRICK_WALL_ITEM);
+		Register("amethyst_bricks", AMETHYST_BRICKS);
+		Register("amethyst_brick_slab", AMETHYST_BRICK_SLAB);
+		Register("amethyst_brick_stairs", AMETHYST_BRICK_STAIRS);
+		Register("amethyst_brick_wall", AMETHYST_BRICK_WALL);
 		//Amethyst Variants
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_slab"), AMETHYST_SLAB_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_slab"), AMETHYST_SLAB_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_stairs"), AMETHYST_STAIRS_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_stairs"), AMETHYST_STAIRS_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "amethyst_wall"), AMETHYST_WALL_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "amethyst_wall"), AMETHYST_WALL_ITEM);
+		Register("amethyst_slab", AMETHYST_SLAB);
+		Register("amethyst_stairs", AMETHYST_STAIRS);
+		Register("amethyst_wall", AMETHYST_WALL);
 
 		//Carnations
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "black_carnation"), BLACK_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "black_carnation"), BLACK_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_black_carnation"), POTTED_BLACK_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "blue_carnation"), BLUE_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "blue_carnation"), BLUE_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_blue_carnation"), POTTED_BLUE_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "brown_carnation"), BROWN_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "brown_carnation"), BROWN_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_brown_carnation"), POTTED_BROWN_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "cyan_carnation"), CYAN_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "cyan_carnation"), CYAN_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_cyan_carnation"), POTTED_CYAN_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "gray_carnation"), GRAY_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "gray_carnation"), GRAY_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_gray_carnation"), POTTED_GRAY_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "green_carnation"), GREEN_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "green_carnation"), GREEN_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_green_carnation"), POTTED_GREEN_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "light_blue_carnation"), LIGHT_BLUE_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_blue_carnation"), LIGHT_BLUE_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_light_blue_carnation"), POTTED_LIGHT_BLUE_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "light_gray_carnation"), LIGHT_GRAY_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "light_gray_carnation"), LIGHT_GRAY_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_light_gray_carnation"), POTTED_LIGHT_GRAY_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "lime_carnation"), LIME_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "lime_carnation"), LIME_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_lime_carnation"), POTTED_LIME_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "magenta_carnation"), MAGENTA_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "magenta_carnation"), MAGENTA_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_magenta_carnation"), POTTED_MAGENTA_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "orange_carnation"), ORANGE_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "orange_carnation"), ORANGE_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_orange_carnation"), POTTED_ORANGE_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "pink_carnation"), PINK_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_carnation"), PINK_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_pink_carnation"), POTTED_PINK_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "purple_carnation"), PURPLE_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "purple_carnation"), PURPLE_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_purple_carnation"), POTTED_PURPLE_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "red_carnation"), RED_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "red_carnation"), RED_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_red_carnation"), POTTED_RED_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "white_carnation"), WHITE_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "white_carnation"), WHITE_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_white_carnation"), POTTED_WHITE_CARNATION);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "yellow_carnation"), YELLOW_CARNATION_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "yellow_carnation"), YELLOW_CARNATION_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_yellow_carnation"), POTTED_YELLOW_CARNATION);
-
+		for (DyeColor color : COLORS) {
+			Register(color.getName() + "_carnation", CARNATIONS.get(color));
+		}
+		//Minecraft Earth Flowers
+		Register("buttercup", BUTTERCUP);
+		Register("pink_daisy", PINK_DAISY);
 		//Other Flowers
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "marigold"), MARIGOLD_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "marigold"), MARIGOLD_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_marigold"), POTTED_MARIGOLD);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "pink_allium"), PINK_ALLIUM_BLOCK);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pink_allium"), PINK_ALLIUM_ITEM);
-		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "potted_pink_allium"), POTTED_PINK_ALLIUM);
+		Register("rose", ROSE);
+		Register("blue_rose", BLUE_ROSE);
+		Register("magenta_tulip", MAGENTA_TULIP);
+		Register("marigold", MARIGOLD);
+		Register("pink_allium", PINK_ALLIUM);
 
 		//Reskins
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pteror"), PTEROR);
 		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "sbehesohe"), SBEHESOHE);
-		Registry.register(Registry.ITEM, new Identifier(NAMESPACE, "pride_trident"), PRIDE_TRIDENT);
 
 		//Soft TNT
 		Registry.register(Registry.BLOCK, new Identifier(NAMESPACE, "soft_tnt"), SOFT_TNT_BLOCK);
@@ -529,6 +417,15 @@ public class HavenMod implements ModInitializer {
 			}
 		});*/
 	}
+
+	public static <T> Map<DyeColor, T> MapDyeColor(DyeMapFunc<T> op) {
+		Map<DyeColor, T> output = new HashMap<>();
+		for(DyeColor c : COLORS) output.put(c, op.op(c));
+		return output;
+	}
+	public interface DyeMapFunc<T> {
+		public T op(DyeColor c);
+	}
 	
 	public static Map<Integer, String> ANCHOR_MAP = Map.ofEntries(
 		entry(1, "jackdaw"),
@@ -556,36 +453,49 @@ public class HavenMod implements ModInitializer {
 		entry(23, "k")
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
-	public static final List<WoodMaterial> WOOD_MATERIALS = new ArrayList<>();
+	public static final Set<WoodMaterial> WOOD_MATERIALS = Set.of(
+			CASSIA, CHERRY
+	);
 	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
 	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
+
+	public static final Set<HavenPair> LEAVES = new HashSet<HavenPair>(Set.of(
+			PALE_CHERRY_LEAVES, PINK_CHERRY_LEAVES, WHITE_CHERRY_LEAVES,
+			FLOWERING_CASSIA_LEAVES
+	));
+	public static final Set<HavenFlower> FLOWERS = new HashSet<HavenFlower>(Set.of(
+			BUTTERCUP, PINK_DAISY,
+			ROSE, BLUE_ROSE,
+			MAGENTA_TULIP,
+			MARIGOLD, PINK_ALLIUM
+	));
 
 	static {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}
 		//Wood Materials
-		WOOD_MATERIALS.add(CASSIA);
-		WOOD_MATERIALS.add(CHERRY);
-		//Compostable Items
-		COMPOSTABLE_ITEMS.put(PALE_CHERRY_LEAVES.ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(PINK_CHERRY_LEAVES.ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(WHITE_CHERRY_LEAVES.ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(FLOWERING_CASSIA_LEAVES.ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
-		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
-		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.35F);
 		for(WoodMaterial material : WOOD_MATERIALS) {
 			//Stripped Blocks
 			STRIPPED_BLOCKS.put(material.WOOD.BLOCK, material.STRIPPED_WOOD.BLOCK);
 			STRIPPED_BLOCKS.put(material.LOG.BLOCK, material.STRIPPED_LOG.BLOCK);
+			//Leaves
+			LEAVES.add(material.LEAVES);
 			//Compostable Items
 			COMPOSTABLE_ITEMS.put(material.SAPLING.ITEM, 0.3f);
-			COMPOSTABLE_ITEMS.put(material.LEAVES.ITEM, 0.3f);
 			//Sign Types
 			SIGN_TYPES.add(material.SIGN.TYPE);
 		}
+		//Flowers
+		for(DyeColor color : COLORS) FLOWERS.add(CARNATIONS.get(color));
+		//Compostable Items
+		for(HavenFlower flower : FLOWERS) COMPOSTABLE_ITEMS.put(flower.ITEM, 0.65F);
+		for (HavenPair leaf : LEAVES) COMPOSTABLE_ITEMS.put(leaf.ITEM, 0.3f);
+		//Extra Leaves
+		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
+		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
+		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.35F);
 		//Sign Types
 		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
 	}
