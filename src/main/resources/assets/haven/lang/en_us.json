@@ -93,12 +93,19 @@
   "block.haven.potted_marigold": "Potted Marigold",
   "block.haven.pink_allium": "Pink Allium",
   "block.haven.potted_pink_allium": "Potted Pink Allium",
+  "block.haven.tall_allium": "Tall Allium",
+  "block.haven.tall_pink_allium": "Tall Pink Allium",
   "block.haven.magenta_tulip": "Magenta Tulip",
   "block.haven.potted_magenta_tulip": "Potted Magenta Tulip",
+  "block.haven.amaranth": "Amaranth",
+  "block.haven.lavender": "Lavender",
+  "block.haven.potted_lavender": "Potted Lavender",
+  "block.haven.hydrangea": "Hydrangea",
+  "block.haven.potted_hydrangea": "Potted Hydrangea",
 
   "item.haven.pteror": "Pteror",
   "item.haven.sbehesohe": "Sbehésóhe",
-  "item.haven.pride_trident": "Pride",
+  "item.haven.broken_bottle": "Broken Bottle",
 
   "block.haven.soft_tnt": "Soft TNT",
   "entity.haven.soft_tnt": "Primed Soft TNT",
@@ -146,6 +153,11 @@
   "block.haven.cherry_fence_gate": "Cherry Fence Gate",
   "block.haven.cherry_trapdoor": "Cherry Trapdoor",
   "block.haven.potted_cherry_sapling": "Potted Cherry Sapling",
+  "item.haven.cherry": "Cherry",
+  
+  "item.haven.apple_cider": "Apple Cider",
+  "item.haven.ramen": "Ramen",
+  "item.haven.stir_fry": "Stir Fry",
 
   "item.haven.coffee_cherry": "Coffee Cherry",
   "block.haven.coffee_plant": "Coffee Plant",

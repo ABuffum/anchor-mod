@@ -8,6 +8,7 @@ import haven.util.*;
 import static haven.HavenMod.*;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
 import net.fabricmc.fabric.api.transfer.v1.fluid.*;
@@ -65,19 +66,29 @@ public class HavenRegistry {
 	}
 	public static void Register(String name, WoodMaterial material) {
 		Register(name + "_log", material.LOG);
+		FlammableBlockRegistry.getDefaultInstance().add(material.LOG.BLOCK, 5, 5);
 		Register("stripped_" + name + "_log", material.STRIPPED_LOG);
+		FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_LOG.BLOCK, 5, 5);
 		Register(name + "_wood", material.WOOD);
+		FlammableBlockRegistry.getDefaultInstance().add(material.WOOD.BLOCK, 5, 5);
 		Register("stripped_" + name + "_wood", material.STRIPPED_WOOD);
+		FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_WOOD.BLOCK, 5, 5);
 
 		Register(name + "_leaves", material.LEAVES);
+		FlammableBlockRegistry.getDefaultInstance().add(material.LEAVES.BLOCK, 30, 60);
 		Register(name + "_sapling", material.SAPLING);
 
 		Register(name + "_planks", material.PLANKS);
+		FlammableBlockRegistry.getDefaultInstance().add(material.PLANKS.BLOCK, 5, 20);
 		Register(name + "_stairs", material.STAIRS);
+		FlammableBlockRegistry.getDefaultInstance().add(material.STAIRS.BLOCK, 5, 20);
 		Register(name + "_slab", material.SLAB);
+		FlammableBlockRegistry.getDefaultInstance().add(material.SLAB.BLOCK, 5, 20);
 
 		Register(name + "_fence", material.FENCE);
+		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE.BLOCK, 5, 20);
 		Register(name + "_fence_gate", material.FENCE_GATE);
+		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE_GATE.BLOCK, 5, 20);
 		Register(name + "_door", material.DOOR);
 		Register(name + "_trapdoor", material.TRAPDOOR);
 		Register(name + "_pressure_plate", material.PRESSURE_PLATE);
@@ -113,17 +124,36 @@ public class HavenRegistry {
 	public static void RegisterFlowers() {
 		//Carnations
 		for (DyeColor color : COLORS) {
-			Register(color.getName() + "_carnation", CARNATIONS.get(color));
+			HavenFlower carnation = CARNATIONS.get(color);
+			Register(color.getName() + "_carnation", carnation);
+			FlammableBlockRegistry.getDefaultInstance().add(carnation.BLOCK, 60, 100);
 		}
 		//Minecraft Earth Flowers
 		Register("buttercup", BUTTERCUP);
+		FlammableBlockRegistry.getDefaultInstance().add(BUTTERCUP.BLOCK, 60, 100);
 		Register("pink_daisy", PINK_DAISY);
+		FlammableBlockRegistry.getDefaultInstance().add(PINK_DAISY.BLOCK, 60, 100);
 		//Other Flowers
 		Register("rose", ROSE);
+		FlammableBlockRegistry.getDefaultInstance().add(ROSE.BLOCK, 60, 100);
 		Register("blue_rose", BLUE_ROSE);
+		FlammableBlockRegistry.getDefaultInstance().add(BLUE_ROSE.BLOCK, 60, 100);
 		Register("magenta_tulip", MAGENTA_TULIP);
+		FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_TULIP.BLOCK, 60, 100);
 		Register("marigold", MARIGOLD);
+		FlammableBlockRegistry.getDefaultInstance().add(MARIGOLD.BLOCK, 60, 100);
 		Register("pink_allium", PINK_ALLIUM);
+		FlammableBlockRegistry.getDefaultInstance().add(PINK_ALLIUM.BLOCK, 60, 100);
+		Register("lavender", LAVENDER);
+		FlammableBlockRegistry.getDefaultInstance().add(LAVENDER.BLOCK, 60, 100);
+		Register("hydrangea", HYDRANGEA);
+		FlammableBlockRegistry.getDefaultInstance().add(HYDRANGEA.BLOCK, 60, 100);
+		Register("amaranth", AMARANTH);
+		FlammableBlockRegistry.getDefaultInstance().add(AMARANTH.BLOCK, 60, 100);
+		Register("tall_allium", TALL_ALLIUM);
+		FlammableBlockRegistry.getDefaultInstance().add(TALL_ALLIUM.BLOCK, 60, 100);
+		Register("tall_pink_allium", TALL_PINK_ALLIUM);
+		FlammableBlockRegistry.getDefaultInstance().add(TALL_PINK_ALLIUM.BLOCK, 60, 100);
 	}
 	public static void RegisterSoftTNT() {
 		Register("soft_tnt", SOFT_TNT);
@@ -152,20 +182,25 @@ public class HavenRegistry {
 		Register("cherry", CHERRY);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cherry_tree"), CHERRY_TREE);
 		Register("white_cherry_leaves", WHITE_CHERRY_LEAVES);
+		FlammableBlockRegistry.getDefaultInstance().add(WHITE_CHERRY_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("white_cherry_tree"), WHITE_CHERRY_TREE);
 		Register("pale_cherry_leaves", PALE_CHERRY_LEAVES);
+		FlammableBlockRegistry.getDefaultInstance().add(PALE_CHERRY_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pale_cherry_tree"), PALE_CHERRY_TREE);
 		Register("pink_cherry_leaves", PINK_CHERRY_LEAVES);
+		FlammableBlockRegistry.getDefaultInstance().add(PINK_CHERRY_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
-		//TODO: Cherry Fruit
+		Register("cherry", CHERRY_ITEM);
 	}
 	public static void RegisterCinnamon() {
 		Register("cinnamon", CINNAMON);
 		Register("cassia", CASSIA);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
+		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
 		Register("snickerdoodle", SNICKERDOODLE);
 		Register("cinnamon_roll", CINNAMON_ROLL);
+		Register("apple_cider", APPLE_CIDER);
 	}
 	public static void RegisterCandy() {
 		Register("cinnamon_bean", CINNAMON_BEAN);
@@ -276,10 +311,13 @@ public class HavenRegistry {
 		RegisterAmethyst();
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
+		Register("broken_bottle", BROKEN_BOTTLE);
 		RegisterSoftTNT();
 		RegisterCoffee();
 		RegisterCherry();
 		RegisterCinnamon();
+		Register("ramen", RAMEN);
+		Register("stir_fry", STIR_FRY);
 		RegisterCandy();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();

@@ -57,6 +57,9 @@ public class HavenModClient implements ClientModInitializer {
 			Cutout.add(flower.BLOCK);
 			Cutout.add(flower.POTTED);
 		}
+		for (HavenPair flower : HavenMod.TALL_FLOWERS) {
+			Cutout.add(flower.BLOCK);
+		}
 		for (HavenPair leaf : HavenMod.LEAVES) {
 			Cutout.add(leaf.BLOCK);
 		}

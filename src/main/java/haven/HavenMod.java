@@ -9,10 +9,7 @@ import haven.items.*;
 
 import haven.materials.WoodMaterial;
 import haven.mixins.SignTypeAccessor;
-import haven.util.HavenFlower;
-import haven.util.HavenPair;
-import haven.util.HavenTorch;
-import haven.util.PottedBlock;
+import haven.util.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -111,9 +108,15 @@ public class HavenMod implements ModInitializer {
 	public static final HavenFlower MAGENTA_TULIP = new HavenFlower(StatusEffects.FIRE_RESISTANCE, 4);
 	public static final HavenFlower MARIGOLD = new HavenFlower(StatusEffects.WITHER, 5);
 	public static final HavenFlower PINK_ALLIUM = new HavenFlower(StatusEffects.FIRE_RESISTANCE, 4);
+	public static final HavenFlower LAVENDER = new HavenFlower(StatusEffects.INVISIBILITY, 8);
+	public static final HavenFlower HYDRANGEA = new HavenFlower(StatusEffects.JUMP_BOOST, 7);
+	public static final HavenTallPair AMARANTH = new HavenTallPair(new TallFlowerBlock(HavenFlower.TALL_SETTINGS));
+	public static final HavenTallPair TALL_ALLIUM = new HavenTallPair(new TallFlowerBlock(HavenFlower.TALL_SETTINGS));
+	public static final HavenTallPair TALL_PINK_ALLIUM = new HavenTallPair(new TallFlowerBlock(HavenFlower.TALL_SETTINGS));
 
 	public static final ToolItem PTEROR = new SwordItem(ToolMaterials.NETHERITE, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, new Item.Settings().group(ITEM_GROUP).fireproof());
+	public static final Item BROKEN_BOTTLE = new Item(ITEM_SETTINGS);
 
 	public static final HavenPair SOFT_TNT = new HavenPair(new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
@@ -137,6 +140,7 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair PALE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
 	public static final HavenPair PINK_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
 	public static final HavenPair WHITE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
+	public static final Item CHERRY_ITEM = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(4).saturationModifier(0.3F).build()));
 
 	private static ConfiguredFeature<TreeFeatureConfig, ?> CherryTreeFeature(Block leaves) {
 		return Feature.TREE.configure(
@@ -175,6 +179,10 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item SNICKERDOODLE = new Item(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.COOKIE));
 	public static final Item CINNAMON_ROLL = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build()));
+
+	public static final Item APPLE_CIDER = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.5F).build()));
+	public static final Item RAMEN = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
+	public static final Item STIR_FRY = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 
 	public static final FoodComponent CANDY_FOOD_COMPONENT = new FoodComponent.Builder().hunger(1).saturationModifier(0.1F).build();
 	public static final Item.Settings CANDY_ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP).food(CANDY_FOOD_COMPONENT);
@@ -307,7 +315,11 @@ public class HavenMod implements ModInitializer {
 			BUTTERCUP, PINK_DAISY,
 			ROSE, BLUE_ROSE,
 			MAGENTA_TULIP,
-			MARIGOLD, PINK_ALLIUM
+			MARIGOLD, PINK_ALLIUM,
+			LAVENDER, HYDRANGEA
+	));
+	public static final Set<HavenPair> TALL_FLOWERS = new HashSet<HavenPair>(Set.of(
+		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM
 	));
 
 	static {
@@ -330,11 +342,16 @@ public class HavenMod implements ModInitializer {
 		for(DyeColor color : COLORS) FLOWERS.add(CARNATIONS.get(color));
 		//Compostable Items
 		for(HavenFlower flower : FLOWERS) COMPOSTABLE_ITEMS.put(flower.ITEM, 0.65F);
-		for (HavenPair leaf : LEAVES) COMPOSTABLE_ITEMS.put(leaf.ITEM, 0.3f);
-		//Extra Leaves
+		for(HavenPair flower : TALL_FLOWERS) COMPOSTABLE_ITEMS.put(flower.ITEM, 0.65F);
+		for(HavenPair leaf : LEAVES) COMPOSTABLE_ITEMS.put(leaf.ITEM, 0.3f);
 		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
+		COMPOSTABLE_ITEMS.put(SNICKERDOODLE, 0.85F);
 		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
-		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.35F);
+		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.65F);
+		COMPOSTABLE_ITEMS.put(CHERRY_ITEM, 0.65F);
+		//COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE, 1F);
+		//COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE, 1F);
+		//COMPOSTABLE_ITEMS.put(COFFEE_CAKE, 1F);
 		//Sign Types
 		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
 	}
