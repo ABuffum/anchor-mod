@@ -226,6 +226,35 @@ public class HavenRegistry {
 		Register("fancy_chicken_spawn_egg", FANCY_CHICKEN_SPAWN_EGG);
 		Register("fancy_feather", FANCY_FEATHER);
 	}
+	public static void RegisterCowVariants() {
+		Register("moobloom", MOOBLOOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(MOOBLOOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(MOOBLOOM_ENTITY, MoobloomEntity.createCowAttributes());
+		Register("moobloom_spawn_egg", MOOBLOOM_SPAWN_EGG);
+		Register("mooblossom", MOOBLOSSOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(MOOBLOSSOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MooblossomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(MOOBLOSSOM_ENTITY, MooblossomEntity.createCowAttributes());
+		Register("mooblossom_spawn_egg", MOOBLOSSOM_SPAWN_EGG);
+		Register("magenta_mooblossom_tulip", MAGENTA_MOOBLOSSOM_TULIP);
+		Register("moolip", MOOLIP_ENTITY);
+		SpawnRestrictionAccessor.callRegister(MOOLIP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoolipEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(MOOLIP_ENTITY, MoolipEntity.createCowAttributes());
+		Register("moolip_spawn_egg", MOOLIP_SPAWN_EGG);
+		Register("orange_mooblossom", ORANGE_MOOBLOSSOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(ORANGE_MOOBLOSSOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, OrangeMooblossomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(ORANGE_MOOBLOSSOM_ENTITY, OrangeMooblossomEntity.createCowAttributes());
+		Register("orange_mooblossom_spawn_egg", ORANGE_MOOBLOSSOM_SPAWN_EGG);
+		Register("orange_mooblossom_tulip", ORANGE_MOOBLOSSOM_TULIP);
+		//Nether Mooshrooms
+		Register("crimson_mooshroom", CRIMSON_MOOSHROOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(CRIMSON_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CrimsonMooshroomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(CRIMSON_MOOSHROOM_ENTITY, CrimsonMooshroomEntity.createCowAttributes());
+		Register("crimson_mooshroom_spawn_egg", CRIMSON_MOOSHROOM_SPAWN_EGG);
+		Register("warped_mooshroom", WARPED_MOOSHROOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(WARPED_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WarpedMooshroomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(WARPED_MOOSHROOM_ENTITY, WarpedMooshroomEntity.createCowAttributes());
+		Register("warped_mooshroom_spawn_egg", WARPED_MOOSHROOM_SPAWN_EGG);
+	}
 	public static void RegisterMilks() {
 		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
@@ -256,6 +285,7 @@ public class HavenRegistry {
 		RegisterServerBlood();
 		RegisterAngelBat();
 		RegisterChickenVariants();
+		RegisterCowVariants();
 		RegisterMilks();
 		RegisterBottledConfetti();
 	}
