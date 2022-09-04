@@ -15,4 +15,5 @@ public class Flavor {
 	public static final Flavor STRAWBERRY = new Flavor("strawberry");
 	public static final Flavor COFFEE = new Flavor("coffee");
 	public static final Flavor CARROT = new Flavor("carrot");
+	public static final Flavor CONFETTI = new Flavor("confetti");
 }

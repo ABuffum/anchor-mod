@@ -322,10 +322,14 @@ public class HavenRegistry {
 		Register("carrot_cake", CARROT_CAKE);
 		Register("carrot_candle_cake", CARROT_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_carrot_candle_cake", CARROT_CANDLE_CAKES.get(color));
+		Register("confetti_cake", CONFETTI_CAKE);
+		Register("confetti_candle_cake", CONFETTI_CANDLE_CAKE);
+		for(DyeColor color : COLORS) Register(color + "_confetti_candle_cake", CONFETTI_CANDLE_CAKES.get(color));
 	}
 	public static void RegisterBottledConfetti() {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
 		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
+		Register("dropped_confetti", DROPPED_CONFETTI_ENTITY);
 		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY);
 	}
 	public static void RegisterMoreCopper() {

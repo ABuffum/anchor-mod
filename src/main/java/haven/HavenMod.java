@@ -226,7 +226,7 @@ public class HavenMod implements ModInitializer {
 	public static final Item SNICKERDOODLE = new Item(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.COOKIE));
 	public static final Item CINNAMON_ROLL = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build()));
 
-	public static final Item APPLE_CIDER = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.5F).build()));
+	public static final Item APPLE_CIDER = new BottledDrinkItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.5F).build()).group(ITEM_GROUP));
 	public static final Item RAMEN = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 	public static final Item STIR_FRY = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 
@@ -306,6 +306,7 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair STRAWBERRY_CAKE = new HavenPair(new HavenCakeBlock(Flavor.STRAWBERRY));
 	public static final HavenPair COFFEE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.COFFEE));
 	public static final HavenPair CARROT_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CARROT));
+	public static final HavenPair CONFETTI_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CONFETTI));
 	//Candle Cakes
 	public static final HavenCandleCakeBlock CHOCOLATE_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CHOCOLATE);
 	public static final Map<DyeColor, HavenCandleCakeBlock> CHOCOLATE_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CHOCOLATE));
@@ -315,10 +316,13 @@ public class HavenMod implements ModInitializer {
 	public static final Map<DyeColor, HavenCandleCakeBlock> COFFEE_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.COFFEE));
 	public static final HavenCandleCakeBlock CARROT_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CARROT);
 	public static final Map<DyeColor, HavenCandleCakeBlock> CARROT_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CARROT));
+	public static final HavenCandleCakeBlock CONFETTI_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CONFETTI);
+	public static final Map<DyeColor, HavenCandleCakeBlock> CONFETTI_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CONFETTI));
 
 	//Bottled Confetti
-	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(ITEM_SETTINGS);
+	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(Items.GLASS_BOTTLE));
 	public static final EntityType<BottledConfettiEntity> BOTTLED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<BottledConfettiEntity>create(SpawnGroup.MISC, BottledConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
+	public static final EntityType<DroppedConfettiEntity> DROPPED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<DroppedConfettiEntity>create(SpawnGroup.MISC, DroppedConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
 	//Boats
@@ -433,6 +437,8 @@ public class HavenMod implements ModInitializer {
 		COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE.ITEM, 1F);
 		COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE.ITEM, 1F);
 		COMPOSTABLE_ITEMS.put(COFFEE_CAKE.ITEM, 1F);
+		COMPOSTABLE_ITEMS.put(CARROT_CAKE.ITEM, 1F);
+		COMPOSTABLE_ITEMS.put(CONFETTI_CAKE.ITEM, 1F);
 		//Oxidizable Blocks
 		OXIDIZABLE_BLOCKS.add(MEDIUM_WEIGHTED_PRESSURE_PLATE_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_LANTERN_OXIDATION);

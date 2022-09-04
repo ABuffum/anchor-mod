@@ -68,6 +68,7 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 				else if (flavor == Flavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CAKE.BLOCK;
 				else if (flavor == Flavor.COFFEE) output = HavenMod.COFFEE_CAKE.BLOCK;
 				else if (flavor == Flavor.CARROT) output = HavenMod.CARROT_CAKE.BLOCK;
+				else if (flavor == Flavor.CONFETTI) output = HavenMod.CONFETTI_CAKE.BLOCK;
 				else output = Blocks.CAKE;
 				ActionResult actionResult = HavenCakeBlock.tryEat(world, pos, output.getDefaultState(), player, flavor);
 				if (actionResult.isAccepted()) {
@@ -92,12 +93,13 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
 		Block block = state.getBlock();
 		Item item = Items.CAKE;
-		if (block instanceof HavenCakeBlock) {
-			Flavor flavor = ((HavenCakeBlock) block).getFlavor();
+		if (block instanceof HavenCandleCakeBlock) {
+			Flavor flavor = ((HavenCandleCakeBlock) block).getFlavor();
 			if (flavor == Flavor.CHOCOLATE) item = HavenMod.CHOCOLATE_CAKE.ITEM;
 			else if (flavor == Flavor.STRAWBERRY) item = HavenMod.STRAWBERRY_CAKE.ITEM;
 			else if (flavor == Flavor.COFFEE) item = HavenMod.COFFEE_CAKE.ITEM;
 			else if (flavor == Flavor.CARROT) item = HavenMod.CARROT_CAKE.ITEM;
+			else if (flavor == Flavor.CONFETTI) item = HavenMod.CONFETTI_CAKE.ITEM;
 		}
 		return new ItemStack(item);
 	}

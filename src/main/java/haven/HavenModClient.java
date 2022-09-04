@@ -130,6 +130,7 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.WARPED_MOOSHROOM_ENTITY, WarpedMooshroomEntityRenderer::new);
 		//Bottled Confetti
 		EntityRendererRegistry.register(HavenMod.BOTTLED_CONFETTI_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
+		EntityRendererRegistry.register(HavenMod.DROPPED_CONFETTI_ENTITY, EmptyEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.CONFETTI_CLOUD_ENTITY, EmptyEntityRenderer::new);
 		//Custom Boats
 		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);

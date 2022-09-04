@@ -66,6 +66,7 @@ public class HavenCakeBlock extends Block {
 					else if (flavor == Flavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKE;
 					else if (flavor == Flavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKE;
 					else if (flavor == Flavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKE;
+					else if (flavor == Flavor.CONFETTI) output = HavenMod.CONFETTI_CANDLE_CAKE;
 					else output = Blocks.CANDLE_CAKE;
 				}
 				else {
@@ -74,6 +75,7 @@ public class HavenCakeBlock extends Block {
 					else if (flavor == Flavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKES.get(color);
 					else if (flavor == Flavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKES.get(color);
 					else if (flavor == Flavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKES.get(color);
+					else if (flavor == Flavor.CONFETTI) output = HavenMod.CONFETTI_CANDLE_CAKES.get(color);
 					else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
 				}
 				world.setBlockState(pos, output.getDefaultState());

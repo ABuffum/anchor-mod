@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:cinnamon"
+    },
+    {
+      "item": "minecraft:apple"
+    },
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:apple_cider"
+  }
+}
