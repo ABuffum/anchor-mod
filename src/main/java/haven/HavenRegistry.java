@@ -68,31 +68,21 @@ public class HavenRegistry {
 	}
 	public static void Register(String name, WoodMaterial material) {
 		Register(name + "_log", material.LOG);
-		FlammableBlockRegistry.getDefaultInstance().add(material.LOG.BLOCK, 5, 5);
 		Register("stripped_" + name + "_log", material.STRIPPED_LOG);
-		FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_LOG.BLOCK, 5, 5);
 		Register(name + "_wood", material.WOOD);
-		FlammableBlockRegistry.getDefaultInstance().add(material.WOOD.BLOCK, 5, 5);
 		Register("stripped_" + name + "_wood", material.STRIPPED_WOOD);
-		FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_WOOD.BLOCK, 5, 5);
 
 		Register(name + "_leaves", material.LEAVES);
-		FlammableBlockRegistry.getDefaultInstance().add(material.LEAVES.BLOCK, 30, 60);
 		Register(name + "_sapling", material.SAPLING);
 
 		Register(name + "_planks", material.PLANKS);
-		FlammableBlockRegistry.getDefaultInstance().add(material.PLANKS.BLOCK, 5, 20);
 		Register(name + "_stairs", material.STAIRS);
-		FlammableBlockRegistry.getDefaultInstance().add(material.STAIRS.BLOCK, 5, 20);
 		Register(name + "_slab", material.SLAB);
-		FlammableBlockRegistry.getDefaultInstance().add(material.SLAB.BLOCK, 5, 20);
 
 		Register(name + "_fence", material.FENCE);
 		FuelRegistry.INSTANCE.add(material.FENCE.ITEM, 300);
-		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE.BLOCK, 5, 20);
 		Register(name + "_fence_gate", material.FENCE_GATE);
 		FuelRegistry.INSTANCE.add(material.FENCE_GATE.ITEM, 300);
-		FlammableBlockRegistry.getDefaultInstance().add(material.FENCE_GATE.BLOCK, 5, 20);
 		Register(name + "_door", material.DOOR);
 		Register(name + "_trapdoor", material.TRAPDOOR);
 		Register(name + "_pressure_plate", material.PRESSURE_PLATE);
@@ -103,6 +93,19 @@ public class HavenRegistry {
 		//Register(name + "_wall_sign", material.WALL_SIGN_BLOCK);
 
 		Register(material.BOAT);
+
+		if (material.isFlammable) {
+			FlammableBlockRegistry.getDefaultInstance().add(material.LOG.BLOCK, 5, 5);
+			FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_LOG.BLOCK, 5, 5);
+			FlammableBlockRegistry.getDefaultInstance().add(material.WOOD.BLOCK, 5, 5);
+			FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_WOOD.BLOCK, 5, 5);
+			FlammableBlockRegistry.getDefaultInstance().add(material.LEAVES.BLOCK, 30, 60);
+			FlammableBlockRegistry.getDefaultInstance().add(material.PLANKS.BLOCK, 5, 20);
+			FlammableBlockRegistry.getDefaultInstance().add(material.STAIRS.BLOCK, 5, 20);
+			FlammableBlockRegistry.getDefaultInstance().add(material.SLAB.BLOCK, 5, 20);
+			FlammableBlockRegistry.getDefaultInstance().add(material.FENCE.BLOCK, 5, 20);
+			FlammableBlockRegistry.getDefaultInstance().add(material.FENCE_GATE.BLOCK, 5, 20);
+		}
 	}
 	public static void Register(HavenBoat boat) {
 		Register(boat.TYPE.getName() + "_boat", boat.ITEM);
@@ -325,6 +328,59 @@ public class HavenRegistry {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
 		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY);
 	}
+	public static void RegisterMoreCopper() {
+		Register("copper_nugget", COPPER_NUGGET);
+		//Medium Weighted Pressure Plates
+		Register("medium_weighted_pressure_plate", MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("exposed_medium_weighted_pressure_plate", EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("weathered_medium_weighted_pressure_plate", WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("oxidized_medium_weighted_pressure_plate", OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("waxed_medium_weighted_pressure_plate", WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("waxed_exposed_medium_weighted_pressure_plate", WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("waxed_weathered_medium_weighted_pressure_plate", WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		Register("waxed_oxidized_medium_weighted_pressure_plate", WAXED_OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		//Lanterns
+		Register("copper_lantern", COPPER_LANTERN);
+		Register("exposed_copper_lantern", EXPOSED_COPPER_LANTERN);
+		Register("weathered_copper_lantern", WEATHERED_COPPER_LANTERN);
+		Register("oxidized_copper_lantern", OXIDIZED_COPPER_LANTERN);
+		Register("waxed_copper_lantern", WAXED_COPPER_LANTERN);
+		Register("waxed_exposed_copper_lantern", WAXED_EXPOSED_COPPER_LANTERN);
+		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN);
+		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN);
+		//Chains
+		Register("copper_chain", COPPER_CHAIN);
+		Register("exposed_copper_chain", EXPOSED_COPPER_CHAIN);
+		Register("weathered_copper_chain", WEATHERED_COPPER_CHAIN);
+		Register("oxidized_copper_chain", OXIDIZED_COPPER_CHAIN);
+		Register("waxed_copper_chain", WAXED_COPPER_CHAIN);
+		Register("waxed_exposed_copper_chain", WAXED_EXPOSED_COPPER_CHAIN);
+		Register("waxed_weathered_copper_chain", WAXED_WEATHERED_COPPER_CHAIN);
+		Register("waxed_oxidized_copper_chain", WAXED_OXIDIZED_COPPER_CHAIN);
+		//Bars
+		Register("copper_bars", COPPER_BARS);
+		Register("exposed_copper_bars", EXPOSED_COPPER_BARS);
+		Register("weathered_copper_bars", WEATHERED_COPPER_BARS);
+		Register("oxidized_copper_bars", OXIDIZED_COPPER_BARS);
+		Register("waxed_copper_bars", WAXED_COPPER_BARS);
+		Register("waxed_exposed_copper_bars", WAXED_EXPOSED_COPPER_BARS);
+		Register("waxed_weathered_copper_bars", WAXED_WEATHERED_COPPER_BARS);
+		Register("waxed_oxidized_copper_bars", WAXED_OXIDIZED_COPPER_BARS);
+		//Cut Copper Pillars
+		Register("cut_copper_pillar", CUT_COPPER_PILLAR);
+		Register("exposed_cut_copper_pillar", EXPOSED_CUT_COPPER_PILLAR);
+		Register("weathered_cut_copper_pillar", WEATHERED_CUT_COPPER_PILLAR);
+		Register("oxidized_cut_copper_pillar", OXIDIZED_CUT_COPPER_PILLAR);
+		Register("waxed_cut_copper_pillar", WAXED_CUT_COPPER_PILLAR);
+		Register("waxed_exposed_cut_copper_pillar", WAXED_EXPOSED_CUT_COPPER_PILLAR);
+		Register("waxed_weathered_cut_copper_pillar", WAXED_WEATHERED_CUT_COPPER_PILLAR);
+		Register("waxed_oxidized_cut_copper_pillar", WAXED_OXIDIZED_CUT_COPPER_PILLAR);
+	}
+	public static void RegisterMoreGold() {
+		Register("gold_lantern", GOLD_LANTERN);
+		Register("gold_chain", GOLD_CHAIN);
+		Register("gold_bars", GOLD_BARS);
+	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -357,5 +413,7 @@ public class HavenRegistry {
 		RegisterMilks();
 		RegisterCakes();
 		RegisterBottledConfetti();
+		RegisterMoreCopper();
+		RegisterMoreGold();
 	}
 }

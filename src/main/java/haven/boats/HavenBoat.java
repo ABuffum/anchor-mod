@@ -11,8 +11,8 @@ public class HavenBoat {
 	public final HavenBoatType TYPE;
 	public final HavenBoatItem ITEM;
 
-	public HavenBoat(String name, Block baseBlock) {
-		TYPE = HavenBoatType.Register(new HavenBoatType(baseBlock, name, () -> getItem()));
+	public HavenBoat(String name, Block baseBlock, boolean floatsOnLava) {
+		TYPE = HavenBoatType.Register(new HavenBoatType(baseBlock, name, () -> getItem(), floatsOnLava));
 		ITEM = new HavenBoatItem(TYPE, ITEM_SETTINGS);
 	}
 	private HavenBoatItem getItem() { return ITEM; }

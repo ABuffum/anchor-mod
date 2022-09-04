@@ -18,10 +18,13 @@ public class HavenBoatType {
 	private final int ordinal;
 	private static int ORDINAL_CTR = 0;
 
-	public HavenBoatType(Block baseBlock, String name, GetBoatItem item) {
+	public final boolean floatsOnLava;
+
+	public HavenBoatType(Block baseBlock, String name, GetBoatItem item, boolean floatsOnLava) {
 		this.name = name;
 		this.baseBlock = baseBlock;
 		this.item = item;
+		this.floatsOnLava = floatsOnLava;
 		ordinal = ORDINAL_CTR++;
 	}
 	public interface GetBoatItem {

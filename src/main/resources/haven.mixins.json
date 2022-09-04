@@ -10,6 +10,7 @@
     "ExplosionAccessor",
     "ExplosionMixin",
     "GlassBottleItemMixin",
+    "HoneycombItemMixin",
     "RecipeManagerMixin",
     "SignTypeAccessor"
   ],

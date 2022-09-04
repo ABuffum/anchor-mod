@@ -1,19 +1,16 @@
 package haven;
 
 import haven.blocks.*;
-import haven.boats.HavenBoat;
-import haven.boats.HavenBoatEntity;
-import haven.boats.HavenBoatItem;
-import haven.boats.HavenBoatType;
-import haven.effects.BooEffect;
-import haven.effects.KilljoyEffect;
+import haven.blocks.oxidizable.*;
+import haven.boats.*;
+import haven.effects.*;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
-
 import haven.materials.WoodMaterial;
 import haven.mixins.SignTypeAccessor;
 import haven.util.*;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -23,34 +20,24 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.effect.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.item.*;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.*;
 import net.minecraft.sound.*;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.SignType;
+import net.minecraft.util.*;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.math.intprovider.*;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
+import net.minecraft.world.gen.foliage.*;
+import net.minecraft.world.gen.stateprovider.*;
+import net.minecraft.world.gen.trunk.*;
 
 import java.util.*;
 import java.util.function.ToIntFunction;
 
 import static java.util.Map.entry;
-
-import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.AcaciaFoliagePlacer;
-import net.minecraft.world.gen.foliage.RandomSpreadFoliagePlacer;
-import net.minecraft.world.gen.stateprovider.SimpleBlockStateProvider;
-import net.minecraft.world.gen.stateprovider.WeightedBlockStateProvider;
-import net.minecraft.world.gen.trunk.BendingTrunkPlacer;
-import net.minecraft.world.gen.trunk.ForkingTrunkPlacer;
 import org.apache.logging.log4j.*;
 
 @SuppressWarnings("deprecation")
@@ -73,6 +60,63 @@ public class HavenMod implements ModInitializer {
 	public static ToIntFunction<BlockState> luminance(int value) { return (state) -> value; }
 
 	public static final HavenTorch BONE_TORCH = new HavenTorch("bone_torch", "bone_wall_torch", FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
+
+	//More Copper
+	public static final Item COPPER_NUGGET = new Item(ITEM_SETTINGS);
+	public static final HavenPair MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new OxidizableWeightedPressurePlateBlock(Oxidizable.OxidizationLevel.UNAFFECTED, 75, AbstractBlock.Settings.of(Material.METAL).requiresTool().noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
+	public static final HavenPair EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new OxidizableWeightedPressurePlateBlock(Oxidizable.OxidizationLevel.EXPOSED, 75, AbstractBlock.Settings.copy(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final HavenPair WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new OxidizableWeightedPressurePlateBlock(Oxidizable.OxidizationLevel.WEATHERED, 75, AbstractBlock.Settings.copy(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final HavenPair OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new OxidizableWeightedPressurePlateBlock(Oxidizable.OxidizationLevel.OXIDIZED, 75, AbstractBlock.Settings.copy(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final OxidationScale MEDIUM_WEIGHTED_PRESSURE_PLATE_OXIDATION = new OxidationScale(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
+	public static final HavenPair WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(75, AbstractBlock.Settings.copy(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final HavenPair WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(75, AbstractBlock.Settings.copy(WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final HavenPair WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(75, AbstractBlock.Settings.copy(WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+	public static final HavenPair WAXED_OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(75, AbstractBlock.Settings.copy(WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
+
+	public static final HavenPair COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque()));
+	public static final HavenPair EXPOSED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final HavenPair WEATHERED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final HavenPair OXIDIZED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final OxidationScale COPPER_LANTERN_OXIDATION = new OxidationScale(COPPER_LANTERN.BLOCK, EXPOSED_COPPER_LANTERN.BLOCK, WEATHERED_COPPER_LANTERN.BLOCK, OXIDIZED_COPPER_LANTERN.BLOCK);
+	public static final HavenPair WAXED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_EXPOSED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_WEATHERED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_OXIDIZED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+
+	public static final HavenPair COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
+	public static final HavenPair EXPOSED_COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
+	public static final HavenPair WEATHERED_COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
+	public static final HavenPair OXIDIZED_COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
+	public static final OxidationScale COPPER_CHAIN_OXIDATION = new OxidationScale(COPPER_CHAIN.BLOCK, EXPOSED_COPPER_CHAIN.BLOCK, WEATHERED_COPPER_CHAIN.BLOCK, OXIDIZED_COPPER_CHAIN.BLOCK);
+	public static final HavenPair WAXED_COPPER_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
+	public static final HavenPair WAXED_EXPOSED_COPPER_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.copy(WAXED_COPPER_CHAIN.BLOCK)));
+	public static final HavenPair WAXED_WEATHERED_COPPER_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.copy(WAXED_COPPER_CHAIN.BLOCK)));
+	public static final HavenPair WAXED_OXIDIZED_COPPER_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.copy(WAXED_COPPER_CHAIN.BLOCK)));
+
+	public static final HavenPair COPPER_BARS = new HavenPair(new OxidizablePaneBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+	public static final HavenPair EXPOSED_COPPER_BARS = new HavenPair(new OxidizablePaneBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_BARS.BLOCK)));
+	public static final HavenPair WEATHERED_COPPER_BARS = new HavenPair(new OxidizablePaneBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_BARS.BLOCK)));
+	public static final HavenPair OXIDIZED_COPPER_BARS = new HavenPair(new OxidizablePaneBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_BARS.BLOCK)));
+	public static final OxidationScale COPPER_BARS_OXIDATION = new OxidationScale(COPPER_BARS.BLOCK, EXPOSED_COPPER_BARS.BLOCK, WEATHERED_COPPER_BARS.BLOCK, OXIDIZED_COPPER_BARS.BLOCK);
+	public static final HavenPair WAXED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(COPPER_BARS.BLOCK)));
+	public static final HavenPair WAXED_EXPOSED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(WAXED_COPPER_BARS.BLOCK)));
+	public static final HavenPair WAXED_WEATHERED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(WAXED_COPPER_BARS.BLOCK)));
+	public static final HavenPair WAXED_OXIDIZED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(WAXED_COPPER_BARS.BLOCK)));
+
+	public static final HavenPair CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.copy(Blocks.CUT_COPPER)));
+	public static final HavenPair EXPOSED_CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(Blocks.EXPOSED_CUT_COPPER)));
+	public static final HavenPair WEATHERED_CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(Blocks.WEATHERED_CUT_COPPER)));
+	public static final HavenPair OXIDIZED_CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(Blocks.OXIDIZED_CUT_COPPER)));
+	public static final OxidationScale COPPER_PILLAR_OXIDATION = new OxidationScale(CUT_COPPER_PILLAR.BLOCK, EXPOSED_CUT_COPPER_PILLAR.BLOCK, WEATHERED_CUT_COPPER_PILLAR.BLOCK, OXIDIZED_CUT_COPPER_PILLAR.BLOCK);
+	public static final HavenPair WAXED_CUT_COPPER_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(Blocks.WAXED_CUT_COPPER)));
+	public static final HavenPair WAXED_EXPOSED_CUT_COPPER_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(Blocks.WAXED_EXPOSED_CUT_COPPER)));
+	public static final HavenPair WAXED_WEATHERED_CUT_COPPER_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(Blocks.WAXED_WEATHERED_CUT_COPPER)));
+	public static final HavenPair WAXED_OXIDIZED_CUT_COPPER_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(Blocks.WAXED_OXIDIZED_CUT_COPPER)));
+
+	//More Gold
+	public static final HavenPair GOLD_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
+	public static final HavenPair GOLD_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
+	public static final HavenPair GOLD_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
 
 	public static final Item TINKER_TOY = new Item(ITEM_SETTINGS);
 
@@ -271,8 +315,8 @@ public class HavenMod implements ModInitializer {
 	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
 	//Boats
-	public static final HavenBoat CRIMSON_BOAT = new HavenBoat("crimson", Blocks.CRIMSON_PLANKS);
-	public static final HavenBoat WARPED_BOAT = new HavenBoat("warped", Blocks.WARPED_PLANKS);
+	public static final HavenBoat CRIMSON_BOAT = new HavenBoat("crimson", Blocks.CRIMSON_PLANKS, true);
+	public static final HavenBoat WARPED_BOAT = new HavenBoat("warped", Blocks.WARPED_PLANKS, true);
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
 
 	@Override
@@ -315,25 +359,36 @@ public class HavenMod implements ModInitializer {
 		entry(23, "k")
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
-	public static final Set<WoodMaterial> WOOD_MATERIALS = Set.of(
-			CASSIA, CHERRY
+	public static final Set<WoodMaterial> WOOD_MATERIALS = Set.<WoodMaterial>of(
+		CASSIA, CHERRY
 	);
 	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
 	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
+	public static final Map<Block, Block> WAXED_BLOCKS = new HashMap<Block, Block>(Map.<Block, Block>ofEntries(
+		entry(Blocks.COPPER_BLOCK, Blocks.WAXED_COPPER_BLOCK), entry(Blocks.EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER),
+		entry(Blocks.WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER), entry(Blocks.OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_COPPER),
+		entry(Blocks.CUT_COPPER, Blocks.WAXED_CUT_COPPER), entry(Blocks.EXPOSED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER),
+		entry(Blocks.WEATHERED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER), entry(Blocks.OXIDIZED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER),
+		entry(Blocks.CUT_COPPER_SLAB, Blocks.WAXED_CUT_COPPER_SLAB), entry(Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB),
+		entry(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB), entry(Blocks.OXIDIZED_CUT_COPPER_SLAB, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB),
+		entry(Blocks.CUT_COPPER_STAIRS, Blocks.WAXED_CUT_COPPER_STAIRS), entry(Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS),
+		entry(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS), entry(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS)
+	));
+	public static final Set<OxidationScale> OXIDIZABLE_BLOCKS = new HashSet<OxidationScale>(Set.<OxidationScale>of(
+		OxidationScale.COPPER_BLOCK, OxidationScale.CUT_COPPER,
+		OxidationScale.CUT_COPPER_SLAB, OxidationScale.CUT_COPPER_STAIRS
+	));
 
-	public static final Set<HavenPair> LEAVES = new HashSet<HavenPair>(Set.of(
-			PALE_CHERRY_LEAVES, PINK_CHERRY_LEAVES, WHITE_CHERRY_LEAVES,
-			FLOWERING_CASSIA_LEAVES
+	public static final Set<HavenPair> LEAVES = new HashSet<HavenPair>(Set.<HavenPair>of(
+		PALE_CHERRY_LEAVES, PINK_CHERRY_LEAVES, WHITE_CHERRY_LEAVES,
+		FLOWERING_CASSIA_LEAVES
 	));
-	public static final Set<HavenFlower> FLOWERS = new HashSet<HavenFlower>(Set.of(
-			BUTTERCUP, PINK_DAISY,
-			ROSE, BLUE_ROSE,
-			MAGENTA_TULIP,
-			MARIGOLD, PINK_ALLIUM,
-			LAVENDER, HYDRANGEA
+	public static final Set<HavenFlower> FLOWERS = new HashSet<HavenFlower>(Set.<HavenFlower>of(
+		BUTTERCUP, PINK_DAISY, ROSE, BLUE_ROSE, MAGENTA_TULIP, MARIGOLD,
+		PINK_ALLIUM, LAVENDER, HYDRANGEA
 	));
-	public static final Set<HavenPair> TALL_FLOWERS = new HashSet<HavenPair>(Set.of(
+	public static final Set<HavenPair> TALL_FLOWERS = new HashSet<HavenPair>(Set.<HavenPair>of(
 		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM
 	));
 
@@ -367,6 +422,33 @@ public class HavenMod implements ModInitializer {
 		COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE.ITEM, 1F);
 		COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE.ITEM, 1F);
 		COMPOSTABLE_ITEMS.put(COFFEE_CAKE.ITEM, 1F);
+		//Oxidizable Blocks
+		OXIDIZABLE_BLOCKS.add(MEDIUM_WEIGHTED_PRESSURE_PLATE_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_LANTERN_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_CHAIN_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_BARS_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_PILLAR_OXIDATION);
+		//Waxed Blocks
+		WAXED_BLOCKS.put(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
+		WAXED_BLOCKS.put(COPPER_LANTERN.BLOCK, WAXED_COPPER_LANTERN.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_LANTERN.BLOCK, WAXED_EXPOSED_COPPER_LANTERN.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_LANTERN.BLOCK, WAXED_WEATHERED_COPPER_LANTERN.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_LANTERN.BLOCK, WAXED_OXIDIZED_COPPER_LANTERN.BLOCK);
+		WAXED_BLOCKS.put(COPPER_CHAIN.BLOCK, WAXED_COPPER_CHAIN.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_CHAIN.BLOCK, WAXED_EXPOSED_COPPER_CHAIN.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_CHAIN.BLOCK, WAXED_WEATHERED_COPPER_CHAIN.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_CHAIN.BLOCK, WAXED_OXIDIZED_COPPER_CHAIN.BLOCK);
+		WAXED_BLOCKS.put(COPPER_BARS.BLOCK, WAXED_COPPER_BARS.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_BARS.BLOCK, WAXED_EXPOSED_COPPER_BARS.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_BARS.BLOCK, WAXED_WEATHERED_COPPER_BARS.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_BARS.BLOCK, WAXED_OXIDIZED_COPPER_BARS.BLOCK);
+		WAXED_BLOCKS.put(CUT_COPPER_PILLAR.BLOCK, WAXED_CUT_COPPER_PILLAR.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_CUT_COPPER_PILLAR.BLOCK, WAXED_EXPOSED_CUT_COPPER_PILLAR.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_CUT_COPPER_PILLAR.BLOCK, WAXED_WEATHERED_CUT_COPPER_PILLAR.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_CUT_COPPER_PILLAR.BLOCK, WAXED_OXIDIZED_CUT_COPPER_PILLAR.BLOCK);
 		//Sign Types
 		SignTypeAccessor.getValues().addAll(SIGN_TYPES);
 	}

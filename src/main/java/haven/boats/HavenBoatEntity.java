@@ -1,39 +1,29 @@
 package haven.boats;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.UnmodifiableIterator;
-import java.util.Iterator;
-import java.util.List;
-
 import haven.HavenMod;
 import haven.mixins.BoatEntityAccessor;
+
 import net.minecraft.block.*;
-import net.minecraft.block.LilyPadBlock;
-import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.*;
 import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.Packet;
 import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
-import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.sound.*;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
-import net.minecraft.util.*;
-import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.*;
-import net.minecraft.util.shape.*;
 import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class HavenBoatEntity extends BoatEntity {
 	private static final TrackedData<Integer> BOAT_TYPE;
@@ -73,7 +63,7 @@ public class HavenBoatEntity extends BoatEntity {
 	}
 
 	public HavenBoatType getHavenBoatType() {
-		return HavenBoatType.getType((Integer)this.dataTracker.get(BOAT_TYPE));
+		return HavenBoatType.getType(this.dataTracker.get(BOAT_TYPE));
 	}
 
 	@Override
@@ -105,15 +95,37 @@ public class HavenBoatEntity extends BoatEntity {
 
 				this.fallDistance = 0.0F;
 			} else if (!this.world.getFluidState(this.getBlockPos().down()).isIn(FluidTags.WATER) && heightDifference < 0.0D) {
-				this.fallDistance = (float)((double)this.fallDistance - heightDifference);
+				if (!this.world.getFluidState(this.getBlockPos().down()).isIn(FluidTags.LAVA)) {
+					this.fallDistance = (float)((double)this.fallDistance - heightDifference);
+				}
 			}
 
 		}
 	}
 
+	public boolean floatsOnLava() { return getHavenBoatType().floatsOnLava; }
+
+	@Override
+	public boolean isInvulnerableTo(DamageSource damageSource) {
+		if (floatsOnLava()) {
+			//TODO: Nonflammable boats should float on lava but until that's working, they should be destroyed
+			//if (damageSource.isFire() || damageSource == DamageSource.LAVA) return true;
+		}
+		return super.isInvulnerableTo(damageSource);
+	}
+	@Override
+	public boolean doesRenderOnFire() {
+		return !floatsOnLava() && super.doesRenderOnFire();
+	}
+
 	@Override
 	public Item asItem() {
 		return getHavenBoatType().GetItem();
+	}
+
+	@Override
+	protected boolean canAddPassenger(Entity passenger) {
+		return this.getPassengerList().size() < 2 && !this.isSubmergedIn(FluidTags.WATER) && !this.isSubmergedIn(FluidTags.LAVA);
 	}
 
 	static {
