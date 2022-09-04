@@ -23,7 +23,7 @@ public class RecipeManagerMixin {
 		Optional<T> optional = ((RecipeManager)(Object)this).getFirstMatch(type, inventory, world);
 		if (optional.isPresent()) {
 			Item output = ((Recipe)optional.get()).getOutput().getItem();
-			if (output == HavenMod.CHOCOLATE_MILK_BUCKET || output == HavenMod.STRAWBERRY_MILK_BUCKET || output == HavenMod.COFFEE_MILK_BUCKET) {
+			if (HavenMod.FLAVORED_MILK_BUCKETS.contains(output)) {
 				DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 				for(int i = 0; i < defaultedList.size(); ++i) {
 					defaultedList.set(i, ItemStack.EMPTY);

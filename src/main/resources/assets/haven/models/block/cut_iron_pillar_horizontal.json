@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "haven:block/cut_iron",
+    "side": "haven:block/cut_iron_pillar_horizontal"
+  }
+}

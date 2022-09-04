@@ -13,10 +13,6 @@
 	"haven:amethyst_slab",
 	"haven:amethyst_stairs",
 	"haven:amethyst_wall",
-	
-	"haven:gold_lantern",
-	"haven:gold_chain",
-	"haven:gold_bars",
  
 	"haven:medium_weighted_pressure_plate",
 	"haven:exposed_medium_weighted_pressure_plate",
@@ -49,6 +45,15 @@
 	"haven:waxed_copper_bars",
 	"haven:waxed_exposed_copper_bars",
 	"haven:waxed_weathered_copper_bars",
-	"haven:waxed_oxidized_copper_bars"
+	"haven:waxed_oxidized_copper_bars",
+ 
+	"haven:gold_lantern",
+	"haven:gold_chain",
+	"haven:gold_bars",
+	"haven:cut_gold",
+	"haven:cut_gold_pillar",
+ 
+	"haven:cut_iron",
+	"haven:cut_iron_pillar"
   ]
 }

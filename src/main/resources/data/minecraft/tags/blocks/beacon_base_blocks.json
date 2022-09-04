@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven:cut_gold",
+    "haven:cut_gold_pillar",
+    "haven:cut_iron",
+    "haven:cut_iron_pillar"
+  ]
+}

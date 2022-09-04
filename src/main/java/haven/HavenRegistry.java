@@ -380,6 +380,12 @@ public class HavenRegistry {
 		Register("gold_lantern", GOLD_LANTERN);
 		Register("gold_chain", GOLD_CHAIN);
 		Register("gold_bars", GOLD_BARS);
+		Register("cut_gold", CUT_GOLD);
+		Register("cut_gold_pillar", CUT_GOLD_PILLAR);
+	}
+	public static void RegisterMoreIron() {
+		Register("cut_iron", CUT_IRON);
+		Register("cut_iron_pillar", CUT_IRON_PILLAR);
 	}
 
 	public static void RegisterAll() {
@@ -415,5 +421,6 @@ public class HavenRegistry {
 		RegisterBottledConfetti();
 		RegisterMoreCopper();
 		RegisterMoreGold();
+		RegisterMoreIron();
 	}
 }

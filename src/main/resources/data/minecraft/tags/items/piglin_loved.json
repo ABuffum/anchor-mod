@@ -3,6 +3,8 @@
   "values": [
     "haven:gold_lantern",
     "haven:gold_chain",
-    "haven:gold_bars"
+    "haven:gold_bars",
+    "haven:cut_gold",
+    "haven:cut_gold_pillar"
   ]
 }

@@ -311,10 +311,6 @@
   "item.haven.blood_bottle": "Bottle of Blood",
   "item.haven.blood_bucket": "Blood Bucket",
   
-  "block.haven.gold_lantern": "Gold Lantern",
-  "block.haven.gold_chain": "Gold Chain",
-  "block.haven.gold_bars": "Gold Bars",
-  
   "item.haven.copper_nugget": "Copper Nugget",
   
   "block.haven.medium_weighted_pressure_plate": "Medium Weighted Pressure Plate",
@@ -356,5 +352,14 @@
   "block.haven.waxed_cut_copper_pillar": "Waxed Cut Copper Pillar",
   "block.haven.waxed_exposed_cut_copper_pillar": "Waxed Exposed Cut Copper Pillar",
   "block.haven.waxed_weathered_cut_copper_pillar": "Waxed Weathered Cut Copper Pillar",
-  "block.haven.waxed_oxidized_cut_copper_pillar": "Waxed Oxidized Cut Copper Pillar"
+  "block.haven.waxed_oxidized_cut_copper_pillar": "Waxed Oxidized Cut Copper Pillar",
+  
+  "block.haven.gold_lantern": "Gold Lantern",
+  "block.haven.gold_chain": "Gold Chain",
+  "block.haven.gold_bars": "Gold Bars",
+  "block.haven.cut_gold": "Cut Gold",
+  "block.haven.cut_gold_pillar": "Cut Gold Pillar",
+  
+  "block.haven.cut_iron": "Cut Iron",
+  "block.haven.cut_iron_pillar": "Cut Iron Pillar"
 }

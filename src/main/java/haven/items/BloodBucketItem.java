@@ -6,21 +6,13 @@ import net.minecraft.block.CauldronBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
+import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.util.hit.*;
+import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
-
-import static net.minecraft.item.Items.BUCKET;
 
 public class BloodBucketItem extends BucketItem {
 	private boolean canDrink;
@@ -36,7 +28,7 @@ public class BloodBucketItem extends BucketItem {
 			canDrink = false;
 
 			if (world.getBlockState(hit.getBlockPos()).getBlock() instanceof CauldronBlock) {
-				user.setStackInHand(hand, new ItemStack(BUCKET));
+				user.setStackInHand(hand, new ItemStack(Items.BUCKET));
 				return TypedActionResult.success(this.getDefaultStack(), true);
 			}
 
@@ -68,11 +60,11 @@ public class BloodBucketItem extends BucketItem {
 
 		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
 			if (stack.isEmpty()) {
-				return new ItemStack(BUCKET);
+				return new ItemStack(Items.BUCKET);
 			}
 
 			if (playerEntity != null) {
-				playerEntity.getInventory().insertStack(new ItemStack(BUCKET));
+				playerEntity.getInventory().insertStack(new ItemStack(Items.BUCKET));
 			}
 		}
 

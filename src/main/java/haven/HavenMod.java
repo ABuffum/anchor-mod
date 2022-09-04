@@ -22,6 +22,7 @@ import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.*;
 import net.minecraft.fluid.FlowableFluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.particle.*;
 import net.minecraft.sound.*;
@@ -117,6 +118,12 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair GOLD_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
 	public static final HavenPair GOLD_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
 	public static final HavenPair GOLD_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+	public static final HavenPair CUT_GOLD = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK)));
+	public static final HavenPair CUT_GOLD_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_GOLD.BLOCK)));
+
+	//More Iron
+	public static final HavenPair CUT_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+	public static final HavenPair CUT_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_IRON.BLOCK)));
 
 	public static final Item TINKER_TOY = new Item(ITEM_SETTINGS);
 
@@ -260,9 +267,9 @@ public class HavenMod implements ModInitializer {
 	public static final FlowableFluid FLOWING_BLOOD_FLUID = new BloodFluid.Flowing();
 	public static final FluidBlock BLOOD_FLUID_BLOCK = new BloodFluidBlock(STILL_BLOOD_FLUID, FabricBlockSettings.copyOf(Blocks.WATER).mapColor(MapColor.RED));
 
-	public static Block BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
-	public static Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(1).group(ITEM_GROUP));
-	public static BucketItem BLOOD_BUCKET = new BucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Block BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
+	public static final Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(1).group(ITEM_GROUP));
+	public static final BucketItem BLOOD_BUCKET = new BloodBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 
 	//Angel Bat
 	public static final EntityType<AngelBatEntity> ANGEL_BAT_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelBatEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.9F)).trackRangeBlocks(5).build();
@@ -290,9 +297,9 @@ public class HavenMod implements ModInitializer {
 	public static final Item WARPED_MOOSHROOM_SPAWN_EGG = new SpawnEggItem(WARPED_MOOSHROOM_ENTITY, 16777215, 16777215, ITEM_SETTINGS);
 
 	//Flavored Milk
-	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
-	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
-	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem((new Item.Settings()).recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 
 	//Cakes
 	public static final HavenPair CHOCOLATE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CHOCOLATE));
@@ -390,6 +397,10 @@ public class HavenMod implements ModInitializer {
 	));
 	public static final Set<HavenPair> TALL_FLOWERS = new HashSet<HavenPair>(Set.<HavenPair>of(
 		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM
+	));
+
+	public static final Set<Item> FLAVORED_MILK_BUCKETS = new HashSet<Item>(Set.<Item>of(
+		CHOCOLATE_MILK_BUCKET, STRAWBERRY_MILK_BUCKET, COFFEE_MILK_BUCKET
 	));
 
 	static {
