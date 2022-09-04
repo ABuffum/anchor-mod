@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "haven:block/stripped_bamboo_log_top",
+    "side": "haven:block/stripped_bamboo_log"
+  }
+}

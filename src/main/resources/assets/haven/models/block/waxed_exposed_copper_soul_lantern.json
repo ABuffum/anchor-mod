@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "haven:block/exposed_copper_soul_lantern"
+  }
+}

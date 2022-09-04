@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "haven:block/dried_bamboo_planks"
+  }
+}

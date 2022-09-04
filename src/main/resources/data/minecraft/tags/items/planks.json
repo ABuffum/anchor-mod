@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "haven:cassia_planks",
-    "haven:cherry_planks"
+    "haven:cherry_planks",
+    "haven:bamboo_planks",
+    "haven:dried_bamboo_planks"
   ]
 }

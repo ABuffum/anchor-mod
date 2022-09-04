@@ -4,10 +4,12 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
+import haven.materials.TreeMaterial;
 import haven.materials.WoodMaterial;
 import haven.util.*;
 
 import static haven.HavenMod.*;
+import static haven.HavenMod.IRON_FLAME;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -60,20 +62,24 @@ public class HavenRegistry {
 		Registry.register(Registry.ITEM, id, potted.ITEM);
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
 	}
+	public static void Register(String name, HavenTorch torch) { Register(name + "_torch", name + "_wall_torch", torch); }
 	public static void Register(String path, String wallPath, HavenTorch torch) {
 		Identifier id = ID(path);
 		Registry.register(Registry.BLOCK, id, torch.BLOCK);
 		Registry.register(Registry.BLOCK, ID(wallPath), torch.WALL_BLOCK);
 		Registry.register(Registry.ITEM, id, torch.ITEM);
 	}
-	public static void Register(String name, WoodMaterial material) {
-		Register(name + "_log", material.LOG);
-		Register("stripped_" + name + "_log", material.STRIPPED_LOG);
-		Register(name + "_wood", material.WOOD);
-		Register("stripped_" + name + "_wood", material.STRIPPED_WOOD);
+	public static void Register(WoodMaterial material) {
+		String name = material.getName();
+		if (material instanceof TreeMaterial treeMaterial) {
+			Register(name + "_log", treeMaterial.LOG);
+			Register("stripped_" + name + "_log", treeMaterial.STRIPPED_LOG);
+			Register(name + "_wood", treeMaterial.WOOD);
+			Register("stripped_" + name + "_wood", treeMaterial.STRIPPED_WOOD);
 
-		Register(name + "_leaves", material.LEAVES);
-		Register(name + "_sapling", material.SAPLING);
+			Register(name + "_leaves", treeMaterial.LEAVES);
+			Register(name + "_sapling", treeMaterial.SAPLING);
+		}
 
 		Register(name + "_planks", material.PLANKS);
 		Register(name + "_stairs", material.STAIRS);
@@ -95,11 +101,13 @@ public class HavenRegistry {
 		Register(material.BOAT);
 
 		if (material.isFlammable) {
-			FlammableBlockRegistry.getDefaultInstance().add(material.LOG.BLOCK, 5, 5);
-			FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_LOG.BLOCK, 5, 5);
-			FlammableBlockRegistry.getDefaultInstance().add(material.WOOD.BLOCK, 5, 5);
-			FlammableBlockRegistry.getDefaultInstance().add(material.STRIPPED_WOOD.BLOCK, 5, 5);
-			FlammableBlockRegistry.getDefaultInstance().add(material.LEAVES.BLOCK, 30, 60);
+			if (material instanceof TreeMaterial treeMaterial) {
+				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.LOG.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.STRIPPED_LOG.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.WOOD.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.STRIPPED_WOOD.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.LEAVES.BLOCK, 30, 60);
+			}
 			FlammableBlockRegistry.getDefaultInstance().add(material.PLANKS.BLOCK, 5, 20);
 			FlammableBlockRegistry.getDefaultInstance().add(material.STAIRS.BLOCK, 5, 20);
 			FlammableBlockRegistry.getDefaultInstance().add(material.SLAB.BLOCK, 5, 20);
@@ -121,6 +129,28 @@ public class HavenRegistry {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
 		}
+	}
+	public static void RegisterTorches() {
+		Register("bone", BONE_TORCH);
+		Register("bamboo", BAMBOO_TORCH);
+		Register("dried_bamboo", DRIED_BAMBOO_TORCH);
+		//Metal Torches
+		Registry.register(Registry.PARTICLE_TYPE, ID("copper_flame"), COPPER_FLAME);
+		Register("copper", COPPER_TORCH);
+		Register("exposed_copper", EXPOSED_COPPER_TORCH);
+		Register("weathered_copper", WEATHERED_COPPER_TORCH);
+		Register("oxidized_copper", OXIDIZED_COPPER_TORCH);
+		Register("waxed_copper", WAXED_COPPER_TORCH);
+		Register("waxed_exposed_copper", WAXED_EXPOSED_COPPER_TORCH);
+		Register("waxed_weathered_copper", WAXED_WEATHERED_COPPER_TORCH);
+		Register("waxed_oxidized_copper", WAXED_OXIDIZED_COPPER_TORCH);
+		Registry.register(Registry.PARTICLE_TYPE, ID("gold_flame"), GOLD_FLAME);
+		Register("gold", GOLD_TORCH);
+		Registry.register(Registry.PARTICLE_TYPE, ID("iron_flame"), IRON_FLAME);
+		Register("iron", IRON_TORCH);
+		Register("dark_iron", DARK_IRON_TORCH);
+		Registry.register(Registry.PARTICLE_TYPE, ID("netherite_flame"), NETHERITE_FLAME);
+		Register("netherite", NETHERITE_TORCH);
 	}
 	public static void RegisterAmethyst() {
 		Register("amethyst_crystal_block", AMETHYST_CRYSTAL_BLOCK);
@@ -193,7 +223,7 @@ public class HavenRegistry {
 		Register("black_coffee", BLACK_COFFEE);
 	}
 	public static void RegisterCherry() {
-		Register("cherry", CHERRY);
+		Register(CHERRY);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cherry_tree"), CHERRY_TREE);
 		Register("white_cherry_leaves", WHITE_CHERRY_LEAVES);
 		FlammableBlockRegistry.getDefaultInstance().add(WHITE_CHERRY_LEAVES.BLOCK, 30, 60);
@@ -208,13 +238,38 @@ public class HavenRegistry {
 	}
 	public static void RegisterCinnamon() {
 		Register("cinnamon", CINNAMON);
-		Register("cassia", CASSIA);
+		Register(CASSIA);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
 		Register("snickerdoodle", SNICKERDOODLE);
 		Register("cinnamon_roll", CINNAMON_ROLL);
 		Register("apple_cider", APPLE_CIDER);
+	}
+	public static void RegisterBamboo() {
+		//Bamboo
+		Register(BAMBOO);
+		Register("bamboo_bundle", BAMBOO_BUNDLE);
+		FuelRegistry.INSTANCE.add(BAMBOO_BUNDLE.ITEM, 300);
+		Register("stripped_bamboo_bundle", STRIPPED_BAMBOO_BUNDLE);
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_BUNDLE.ITEM, 300);
+		Register("bamboo_log", BAMBOO_LOG);
+		FuelRegistry.INSTANCE.add(BAMBOO_LOG.ITEM, 300);
+		Register("stripped_bamboo_log", STRIPPED_BAMBOO_LOG);
+		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_LOG.ITEM, 300);
+		//Dried Bamboo
+		Register(DRIED_BAMBOO);
+		Register("dried_bamboo", DRIED_BAMBOO_BLOCK);
+		FuelRegistry.INSTANCE.add(DRIED_BAMBOO_BLOCK.ITEM, 50);
+		Register("potted_dried_bamboo", POTTED_DRIED_BAMBOO);
+		Register("dried_bamboo_bundle", DRIED_BAMBOO_BUNDLE);
+		FuelRegistry.INSTANCE.add(DRIED_BAMBOO_BUNDLE.ITEM, 300);
+		Register("stripped_dried_bamboo_bundle", STRIPPED_DRIED_BAMBOO_BUNDLE);
+		FuelRegistry.INSTANCE.add(STRIPPED_DRIED_BAMBOO_BUNDLE.ITEM, 300);
+		Register("dried_bamboo_log", DRIED_BAMBOO_LOG);
+		FuelRegistry.INSTANCE.add(DRIED_BAMBOO_LOG.ITEM, 300);
+		Register("stripped_dried_bamboo_log", STRIPPED_DRIED_BAMBOO_LOG);
+		FuelRegistry.INSTANCE.add(STRIPPED_DRIED_BAMBOO_LOG.ITEM, 300);
 	}
 	public static void RegisterCandy() {
 		Register("cinnamon_bean", CINNAMON_BEAN);
@@ -352,6 +407,14 @@ public class HavenRegistry {
 		Register("waxed_exposed_copper_lantern", WAXED_EXPOSED_COPPER_LANTERN);
 		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN);
 		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN);
+		Register("copper_soul_lantern", COPPER_SOUL_LANTERN);
+		Register("exposed_copper_soul_lantern", EXPOSED_COPPER_SOUL_LANTERN);
+		Register("weathered_copper_soul_lantern", WEATHERED_COPPER_SOUL_LANTERN);
+		Register("oxidized_copper_soul_lantern", OXIDIZED_COPPER_SOUL_LANTERN);
+		Register("waxed_copper_soul_lantern", WAXED_COPPER_SOUL_LANTERN);
+		Register("waxed_exposed_copper_soul_lantern", WAXED_EXPOSED_COPPER_SOUL_LANTERN);
+		Register("waxed_weathered_copper_soul_lantern", WAXED_WEATHERED_COPPER_SOUL_LANTERN);
+		Register("waxed_oxidized_copper_soul_lantern", WAXED_OXIDIZED_COPPER_SOUL_LANTERN);
 		//Chains
 		Register("copper_chain", COPPER_CHAIN);
 		Register("exposed_copper_chain", EXPOSED_COPPER_CHAIN);
@@ -382,19 +445,39 @@ public class HavenRegistry {
 	}
 	public static void RegisterMoreGold() {
 		Register("gold_lantern", GOLD_LANTERN);
+		Register("gold_soul_lantern", GOLD_SOUL_LANTERN);
 		Register("gold_chain", GOLD_CHAIN);
 		Register("gold_bars", GOLD_BARS);
 		Register("cut_gold", CUT_GOLD);
 		Register("cut_gold_pillar", CUT_GOLD_PILLAR);
 	}
 	public static void RegisterMoreIron() {
+		//Register("dark_iron_nugget", DARK_IRON_NUGGET);
+		//Register("dark_iron_ingot", DARK_IRON_INGOT);
+		Register("iron_lantern", IRON_LANTERN);
+		Register("iron_soul_lantern", IRON_SOUL_LANTERN);
+		Register("iron_chain", IRON_CHAIN);
+		Register("dark_iron_bars", DARK_IRON_BARS);
 		Register("cut_iron", CUT_IRON);
 		Register("cut_iron_pillar", CUT_IRON_PILLAR);
+		Register("dark_iron_block", DARK_IRON_BLOCK);
+		Register("cut_dark_iron", CUT_DARK_IRON);
+		Register("cut_dark_iron_pillar", CUT_DARK_IRON_PILLAR);
+	}
+	public static void RegisterMoreNetherite() {
+		Register("netherite_nugget", NETHERITE_NUGGET);
+		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
+		Register("netherite_lantern", NETHERITE_LANTERN);
+		Register("netherite_soul_lantern", NETHERITE_SOUL_LANTERN);
+		Register("netherite_chain", NETHERITE_CHAIN);
+		Register("netherite_bars", NETHERITE_BARS);
+		Register("cut_netherite", CUT_NETHERITE);
+		Register("cut_netherite_pillar", CUT_NETHERITE_PILLAR);
 	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
-		Register("bone_torch", "bone_wall_torch", BONE_TORCH);
+		RegisterTorches();
 		Register("tinker_toy", TINKER_TOY);
 		Register("charcoal_block", CHARCOAL_BLOCK);
 		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
@@ -410,6 +493,7 @@ public class HavenRegistry {
 		Registry.register(Registry.ENTITY_TYPE, "haven_boat", BOAT_ENTITY);
 		RegisterCherry();
 		RegisterCinnamon();
+		RegisterBamboo();
 		Register(CRIMSON_BOAT);
 		Register(WARPED_BOAT);
 		Register("ramen", RAMEN);
@@ -426,5 +510,6 @@ public class HavenRegistry {
 		RegisterMoreCopper();
 		RegisterMoreGold();
 		RegisterMoreIron();
+		RegisterMoreNetherite();
 	}
 }

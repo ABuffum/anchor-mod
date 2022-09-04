@@ -4,6 +4,11 @@
     "haven:cut_gold",
     "haven:cut_gold_pillar",
     "haven:cut_iron",
-    "haven:cut_iron_pillar"
+    "haven:cut_iron_pillar",
+    "haven:dark_iron_block",
+    "haven:cut_dark_iron",
+    "haven:cut_dark_iron_pillar",
+    "haven:cut_netherite",
+    "haven:cut_netherite_pillar"
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 4,
+  "ingredient": {
+    "item": "haven:cut_netherite"
+  },
+  "result": "haven:cut_netherite_pillar"
+}

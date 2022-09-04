@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "haven:block/gold_soul_lantern"
+    },
+    "hanging=true": {
+      "model": "haven:block/gold_soul_lantern_hanging"
+    }
+  }
+}

@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "haven:cassia_boat",
-    "haven:cherry_boat"
+    "haven:cherry_boat",
+    "haven:crimson_boat",
+    "haven:warped_boat",
+    "haven:bamboo_boat",
+    "haven:dried_bamboo_boat"
   ]
 }

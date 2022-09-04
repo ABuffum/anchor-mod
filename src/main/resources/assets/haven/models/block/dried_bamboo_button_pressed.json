@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "haven:block/dried_bamboo_planks"
+  }
+}

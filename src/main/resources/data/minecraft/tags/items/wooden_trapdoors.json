@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "haven:cassia_trapdoor",
-    "haven:cherry_trapdoor"
+    "haven:cherry_trapdoor",
+    "haven:bamboo_trapdoor",
+    "haven:dried_bamboo_trapdoor"
   ]
 }

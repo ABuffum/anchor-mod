@@ -1,0 +1,20 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "haven:block/dried_bamboo1"
+        },
+        {
+          "model": "haven:block/dried_bamboo2"
+        },
+        {
+          "model": "haven:block/dried_bamboo3"
+        },
+        {
+          "model": "haven:block/dried_bamboo4"
+        }
+      ]
+    }
+  ]
+}

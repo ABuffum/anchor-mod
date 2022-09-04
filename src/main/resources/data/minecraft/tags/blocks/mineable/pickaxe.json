@@ -30,6 +30,14 @@
 	"haven:waxed_exposed_copper_lantern",
 	"haven:waxed_weathered_copper_lantern",
 	"haven:waxed_oxidized_copper_lantern",
+	"haven:copper_soul_lantern",
+	"haven:exposed_copper_soul_lantern",
+	"haven:weathered_copper_soul_lantern",
+	"haven:oxidized_copper_soul_lantern",
+	"haven:waxed_copper_soul_lantern",
+	"haven:waxed_exposed_copper_soul_lantern",
+	"haven:waxed_weathered_copper_soul_lantern",
+	"haven:waxed_oxidized_copper_soul_lantern",
 	"haven:copper_chain",
 	"haven:exposed_copper_chain",
 	"haven:weathered_copper_chain",
@@ -48,12 +56,28 @@
 	"haven:waxed_oxidized_copper_bars",
  
 	"haven:gold_lantern",
+	"haven:gold_soul_lantern",
 	"haven:gold_chain",
 	"haven:gold_bars",
 	"haven:cut_gold",
 	"haven:cut_gold_pillar",
  
+	"haven:iron_lantern",
+	"haven:iron_soul_lantern",
+	"haven:iron_chain",
+	"haven:dark_iron_bars",
 	"haven:cut_iron",
-	"haven:cut_iron_pillar"
+	"haven:cut_iron_pillar",
+	"haven:dark_iron_block",
+	"haven:cut_dark_iron",
+	"haven:cut_dark_iron_pillar",
+ 
+	"haven:crushing_weighted_pressure_plate",
+	"haven:netherite_lantern",
+	"haven:netherite_soul_lantern",
+	"haven:netherite_chain",
+	"haven:netherite_bars",
+	"haven:cut_netherite",
+	"haven:cut_netherite_pillar"
   ]
 }

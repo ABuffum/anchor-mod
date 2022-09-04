@@ -1,5 +1,6 @@
 package haven;
 
+import com.sun.source.tree.Tree;
 import haven.blocks.*;
 import haven.blocks.oxidizable.*;
 import haven.boats.*;
@@ -7,6 +8,7 @@ import haven.effects.*;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
+import haven.materials.TreeMaterial;
 import haven.materials.WoodMaterial;
 import haven.mixins.SignTypeAccessor;
 import haven.util.*;
@@ -28,7 +30,9 @@ import net.minecraft.particle.*;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DataPool;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.intprovider.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.*;
@@ -60,7 +64,29 @@ public class HavenMod implements ModInitializer {
 
 	public static ToIntFunction<BlockState> luminance(int value) { return (state) -> value; }
 
-	public static final HavenTorch BONE_TORCH = new HavenTorch("bone_torch", "bone_wall_torch", FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
+	//More Torches
+	public static final HavenTorch BONE_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BONE), ParticleTypes.FLAME);
+	public static final HavenTorch BAMBOO_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BAMBOO), ParticleTypes.FLAME);
+	public static final HavenTorch DRIED_BAMBOO_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BAMBOO), ParticleTypes.FLAME);
+	//Metal Torches
+	public static final DefaultParticleType COPPER_FLAME = FabricParticleTypes.simple(false);
+	public static final HavenTorch COPPER_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(12)).sounds(BlockSoundGroup.COPPER), COPPER_FLAME);
+	public static final HavenTorch EXPOSED_COPPER_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch WEATHERED_COPPER_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch OXIDIZED_COPPER_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final OxidationScale COPPER_TORCH_OXIDATION = new OxidationScale(COPPER_TORCH.BLOCK, EXPOSED_COPPER_TORCH.BLOCK, WEATHERED_COPPER_TORCH.BLOCK, OXIDIZED_COPPER_TORCH.BLOCK);
+	public static final OxidationScale COPPER_WALL_TORCH_OXIDATION = new OxidationScale(COPPER_TORCH.WALL_BLOCK, EXPOSED_COPPER_TORCH.WALL_BLOCK, WEATHERED_COPPER_TORCH.WALL_BLOCK, OXIDIZED_COPPER_TORCH.WALL_BLOCK);
+	public static final HavenTorch WAXED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch WAXED_EXPOSED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch WAXED_WEATHERED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch WAXED_OXIDIZED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final DefaultParticleType GOLD_FLAME = FabricParticleTypes.simple(false);
+	public static final HavenTorch GOLD_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), GOLD_FLAME);
+	public static final DefaultParticleType IRON_FLAME = FabricParticleTypes.simple(false);
+	public static final HavenTorch IRON_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), IRON_FLAME);
+	public static final HavenTorch DARK_IRON_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), IRON_FLAME);
+	public static final DefaultParticleType NETHERITE_FLAME = FabricParticleTypes.simple(false);
+	public static final HavenTorch NETHERITE_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), NETHERITE_FLAME);
 
 	//More Copper
 	public static final Item COPPER_NUGGET = new Item(ITEM_SETTINGS);
@@ -83,6 +109,15 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair WAXED_EXPOSED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
 	public static final HavenPair WAXED_WEATHERED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
 	public static final HavenPair WAXED_OXIDIZED_COPPER_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final HavenPair COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
+	public static final HavenPair EXPOSED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final HavenPair WEATHERED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final HavenPair OXIDIZED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final OxidationScale COPPER_SOUL_LANTERN_OXIDATION = new OxidationScale(COPPER_SOUL_LANTERN.BLOCK, EXPOSED_COPPER_SOUL_LANTERN.BLOCK, WEATHERED_COPPER_SOUL_LANTERN.BLOCK, OXIDIZED_COPPER_SOUL_LANTERN.BLOCK);
+	public static final HavenPair WAXED_COPPER_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_EXPOSED_COPPER_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_WEATHERED_COPPER_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
+	public static final HavenPair WAXED_OXIDIZED_COPPER_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
 
 	public static final HavenPair COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
 	public static final HavenPair EXPOSED_COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
@@ -116,14 +151,33 @@ public class HavenMod implements ModInitializer {
 
 	//More Gold
 	public static final HavenPair GOLD_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
+	public static final HavenPair GOLD_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
 	public static final HavenPair GOLD_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
 	public static final HavenPair GOLD_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
 	public static final HavenPair CUT_GOLD = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK)));
 	public static final HavenPair CUT_GOLD_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_GOLD.BLOCK)));
 
 	//More Iron
+	public static final HavenPair IRON_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
+	public static final HavenPair IRON_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
+	public static final HavenPair IRON_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
+	public static final HavenPair DARK_IRON_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+	public static final HavenPair DARK_IRON_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+	public static final HavenPair CUT_DARK_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(DARK_IRON_BLOCK.BLOCK)));
+	public static final HavenPair CUT_DARK_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_DARK_IRON.BLOCK)));
 	public static final HavenPair CUT_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 	public static final HavenPair CUT_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_IRON.BLOCK)));
+
+	//More Netherite
+	public static final Item.Settings NETHERITE_ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP).fireproof();
+	public static final Item NETHERITE_NUGGET = new Item(NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair CRUSHING_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(300, AbstractBlock.Settings.of(Material.METAL).requiresTool().noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair NETHERITE_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair NETHERITE_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair NETHERITE_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair NETHERITE_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair CUT_NETHERITE = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair CUT_NETHERITE_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_NETHERITE.BLOCK)), NETHERITE_ITEM_SETTINGS);
 
 	public static final Item TINKER_TOY = new Item(ITEM_SETTINGS);
 
@@ -182,7 +236,7 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item CINNAMON = new Item(ITEM_SETTINGS);
 
-	public static final WoodMaterial CHERRY = new WoodMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new);
+	public static final TreeMaterial CHERRY = new TreeMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new);
 	public static final HavenPair PALE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
 	public static final HavenPair PINK_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
 	public static final HavenPair WHITE_CHERRY_LEAVES = new HavenPair(new HavenLeavesBlock(CHERRY.LEAVES.BLOCK));
@@ -205,7 +259,7 @@ public class HavenMod implements ModInitializer {
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> PINK_CHERRY_TREE = CherryTreeFeature(PINK_CHERRY_LEAVES.BLOCK);
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> WHITE_CHERRY_TREE = CherryTreeFeature(WHITE_CHERRY_LEAVES.BLOCK);
 
-	public static final WoodMaterial CASSIA = new WoodMaterial("cassia", MapColor.BROWN, BlockSoundGroup.AZALEA_LEAVES, CassiaSaplingGenerator::new);
+	public static final TreeMaterial CASSIA = new TreeMaterial("cassia", MapColor.BROWN, BlockSoundGroup.AZALEA_LEAVES, CassiaSaplingGenerator::new);
 	public static final HavenPair FLOWERING_CASSIA_LEAVES = new HavenPair(new HavenLeavesBlock(CASSIA.LEAVES.BLOCK));
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CASSIA_TREE = Feature.TREE.configure(
 			new TreeFeatureConfig.Builder(
@@ -225,8 +279,22 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item SNICKERDOODLE = new Item(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.COOKIE));
 	public static final Item CINNAMON_ROLL = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(3).saturationModifier(0.3F).build()));
-
 	public static final Item APPLE_CIDER = new BottledDrinkItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.5F).build()).group(ITEM_GROUP));
+
+	//Bamboo
+	public static final WoodMaterial BAMBOO = new WoodMaterial("bamboo", MapColor.DARK_GREEN);
+	public static final HavenPair BAMBOO_BUNDLE = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.DARK_GREEN).strength(2.0F).sounds(BlockSoundGroup.BAMBOO)));
+	public static final HavenPair STRIPPED_BAMBOO_BUNDLE = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(BAMBOO_BUNDLE.BLOCK)));
+	public static final HavenPair BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(BAMBOO_BUNDLE.BLOCK)));
+	public static final HavenPair STRIPPED_BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(BAMBOO_LOG.BLOCK)));
+	public static final WoodMaterial DRIED_BAMBOO = new WoodMaterial("dried_bamboo", MapColor.PALE_YELLOW);
+	public static final HavenPair DRIED_BAMBOO_BLOCK = new HavenPair(new DriedBambooBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO)));
+	public static final Block POTTED_DRIED_BAMBOO = new FlowerPotBlock(DRIED_BAMBOO_BLOCK.BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
+	public static final HavenPair DRIED_BAMBOO_BUNDLE = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.PALE_YELLOW).strength(2.0F).sounds(BlockSoundGroup.BAMBOO)));
+	public static final HavenPair STRIPPED_DRIED_BAMBOO_BUNDLE = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_BUNDLE.BLOCK)));
+	public static final HavenPair DRIED_BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_BUNDLE.BLOCK)));
+	public static final HavenPair STRIPPED_DRIED_BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_LOG.BLOCK)));
+
 	public static final Item RAMEN = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 	public static final Item STIR_FRY = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 
@@ -371,9 +439,12 @@ public class HavenMod implements ModInitializer {
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 	public static final Set<WoodMaterial> WOOD_MATERIALS = Set.<WoodMaterial>of(
-		CASSIA, CHERRY
+		CASSIA, CHERRY, BAMBOO
 	);
-	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>();
+	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>(Map.<Block,Block>ofEntries(
+		entry(BAMBOO_BUNDLE.BLOCK, STRIPPED_BAMBOO_BUNDLE.BLOCK), entry(BAMBOO_LOG.BLOCK, STRIPPED_BAMBOO_LOG.BLOCK),
+		entry(DRIED_BAMBOO_BUNDLE.BLOCK, STRIPPED_DRIED_BAMBOO_BUNDLE.BLOCK), entry(DRIED_BAMBOO_LOG.BLOCK, STRIPPED_DRIED_BAMBOO_LOG.BLOCK)
+	));
 	public static final Map<Item, Float> COMPOSTABLE_ITEMS = new HashMap<Item, Float>();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
 	public static final Map<Block, Block> WAXED_BLOCKS = new HashMap<Block, Block>(Map.<Block, Block>ofEntries(
@@ -387,8 +458,7 @@ public class HavenMod implements ModInitializer {
 		entry(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS), entry(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS)
 	));
 	public static final Set<OxidationScale> OXIDIZABLE_BLOCKS = new HashSet<OxidationScale>(Set.<OxidationScale>of(
-		OxidationScale.COPPER_BLOCK, OxidationScale.CUT_COPPER,
-		OxidationScale.CUT_COPPER_SLAB, OxidationScale.CUT_COPPER_STAIRS
+		OxidationScale.COPPER_BLOCK, OxidationScale.CUT_COPPER, OxidationScale.CUT_COPPER_SLAB, OxidationScale.CUT_COPPER_STAIRS
 	));
 
 	public static final Set<HavenPair> LEAVES = new HashSet<HavenPair>(Set.<HavenPair>of(
@@ -413,13 +483,15 @@ public class HavenMod implements ModInitializer {
 		}
 		//Wood Materials
 		for(WoodMaterial material : WOOD_MATERIALS) {
-			//Stripped Blocks
-			STRIPPED_BLOCKS.put(material.WOOD.BLOCK, material.STRIPPED_WOOD.BLOCK);
-			STRIPPED_BLOCKS.put(material.LOG.BLOCK, material.STRIPPED_LOG.BLOCK);
-			//Leaves
-			LEAVES.add(material.LEAVES);
-			//Compostable Items
-			COMPOSTABLE_ITEMS.put(material.SAPLING.ITEM, 0.3f);
+			if (material instanceof TreeMaterial treeMaterial) {
+				//Stripped Blocks
+				STRIPPED_BLOCKS.put(treeMaterial.WOOD.BLOCK, treeMaterial.STRIPPED_WOOD.BLOCK);
+				STRIPPED_BLOCKS.put(treeMaterial.LOG.BLOCK, treeMaterial.STRIPPED_LOG.BLOCK);
+				//Leaves
+				LEAVES.add(treeMaterial.LEAVES);
+				//Compostable Items
+				COMPOSTABLE_ITEMS.put(treeMaterial.SAPLING.ITEM, 0.3f);
+			}
 			//Sign Types
 			SIGN_TYPES.add(material.SIGN.TYPE);
 		}
@@ -440,12 +512,19 @@ public class HavenMod implements ModInitializer {
 		COMPOSTABLE_ITEMS.put(CARROT_CAKE.ITEM, 1F);
 		COMPOSTABLE_ITEMS.put(CONFETTI_CAKE.ITEM, 1F);
 		//Oxidizable Blocks
+		OXIDIZABLE_BLOCKS.add(COPPER_TORCH_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_WALL_TORCH_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(MEDIUM_WEIGHTED_PRESSURE_PLATE_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_LANTERN_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_SOUL_LANTERN_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_CHAIN_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_BARS_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_PILLAR_OXIDATION);
 		//Waxed Blocks
+		WAXED_BLOCKS.put(COPPER_TORCH.BLOCK, WAXED_COPPER_TORCH.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_TORCH.BLOCK, WAXED_EXPOSED_COPPER_TORCH.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_TORCH.BLOCK, WAXED_WEATHERED_COPPER_TORCH.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_TORCH.BLOCK, WAXED_OXIDIZED_COPPER_TORCH.BLOCK);
 		WAXED_BLOCKS.put(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
 		WAXED_BLOCKS.put(EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
 		WAXED_BLOCKS.put(WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);

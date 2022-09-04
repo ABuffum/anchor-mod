@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_bottom",
+  "textures": {
+    "texture": "haven:block/dried_bamboo_trapdoor"
+  }
+}

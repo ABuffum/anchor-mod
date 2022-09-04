@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "#haven:cassia_logs",
-    "#haven:cherry_logs"
+    "#haven:cherry_logs",
+    "#haven:bamboo_logs",
+    "#haven:dried_bamboo_logs"
   ]
 }

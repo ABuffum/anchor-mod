@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:soul_torch"
+    },
+    "X": {
+      "item": "haven:copper_nugget"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "item": "haven:gold_soul_lantern"
+  }
+}

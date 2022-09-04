@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "haven:block/cut_dark_iron",
+    "side": "haven:block/cut_dark_iron_pillar"
+  }
+}

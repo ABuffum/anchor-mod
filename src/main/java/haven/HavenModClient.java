@@ -3,6 +3,7 @@ package haven;
 import haven.boats.HavenBoatEntityRenderer;
 import haven.boats.HavenBoatType;
 import haven.entities.*;
+import haven.materials.TreeMaterial;
 import haven.materials.WoodMaterial;
 import haven.particles.*;
 import haven.rendering.*;
@@ -18,6 +19,7 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
@@ -47,8 +49,27 @@ public class HavenModClient implements ClientModInitializer {
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
-		//Bone Torch
+		//More Torches
 		HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
+		HavenMod.BAMBOO_TORCH.BLOCK, HavenMod.BAMBOO_TORCH.WALL_BLOCK,
+		HavenMod.DRIED_BAMBOO_TORCH.BLOCK, HavenMod.DRIED_BAMBOO_TORCH.WALL_BLOCK,
+		//Metal Torches
+		HavenMod.COPPER_TORCH.BLOCK, HavenMod.COPPER_TORCH.WALL_BLOCK,
+		HavenMod.EXPOSED_COPPER_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WEATHERED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.OXIDIZED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_COPPER_TORCH.BLOCK, HavenMod.WAXED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_EXPOSED_COPPER_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.GOLD_TORCH.BLOCK, HavenMod.GOLD_TORCH.WALL_BLOCK,
+		HavenMod.IRON_TORCH.BLOCK, HavenMod.IRON_TORCH.WALL_BLOCK,
+		HavenMod.DARK_IRON_TORCH.BLOCK, HavenMod.DARK_IRON_TORCH.WALL_BLOCK,
+		HavenMod.NETHERITE_TORCH.BLOCK, HavenMod.NETHERITE_TORCH.WALL_BLOCK,
+		//Bamboo & Dried Bamboo Doors
+		HavenMod.BAMBOO.DOOR.BLOCK, HavenMod.BAMBOO.TRAPDOOR.BLOCK,
+		HavenMod.DRIED_BAMBOO.DOOR.BLOCK, HavenMod.DRIED_BAMBOO.TRAPDOOR.BLOCK,
+		HavenMod.POTTED_DRIED_BAMBOO,
 		//Coffee
 		HavenMod.COFFEE_PLANT,
 		//More Copper
@@ -56,6 +77,10 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.WEATHERED_COPPER_LANTERN.BLOCK, HavenMod.OXIDIZED_COPPER_LANTERN.BLOCK,
 		HavenMod.WAXED_COPPER_LANTERN.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_LANTERN.BLOCK,
 		HavenMod.WAXED_WEATHERED_COPPER_LANTERN.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_LANTERN.BLOCK,
+		HavenMod.COPPER_SOUL_LANTERN.BLOCK, HavenMod.EXPOSED_COPPER_SOUL_LANTERN.BLOCK,
+		HavenMod.WEATHERED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.OXIDIZED_COPPER_SOUL_LANTERN.BLOCK,
+		HavenMod.WAXED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_SOUL_LANTERN.BLOCK,
+		HavenMod.WAXED_WEATHERED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_LANTERN.BLOCK,
 		HavenMod.COPPER_CHAIN.BLOCK, HavenMod.EXPOSED_COPPER_CHAIN.BLOCK,
 		HavenMod.WEATHERED_COPPER_CHAIN.BLOCK, HavenMod.OXIDIZED_COPPER_CHAIN.BLOCK,
 		HavenMod.WAXED_COPPER_CHAIN.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_CHAIN.BLOCK,
@@ -65,7 +90,11 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.WAXED_COPPER_BARS.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_BARS.BLOCK,
 		HavenMod.WAXED_WEATHERED_COPPER_BARS.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_BARS.BLOCK,
 		//More Gold
-		HavenMod.GOLD_LANTERN.BLOCK, HavenMod.GOLD_CHAIN.BLOCK, HavenMod.GOLD_BARS.BLOCK
+		HavenMod.GOLD_LANTERN.BLOCK, HavenMod.GOLD_SOUL_LANTERN.BLOCK, HavenMod.GOLD_CHAIN.BLOCK, HavenMod.GOLD_BARS.BLOCK,
+		//More Iron
+		HavenMod.IRON_LANTERN.BLOCK, HavenMod.IRON_SOUL_LANTERN.BLOCK, HavenMod.IRON_CHAIN.BLOCK, HavenMod.DARK_IRON_BARS.BLOCK,
+		//More Netherite
+		HavenMod.NETHERITE_LANTERN.BLOCK, HavenMod.NETHERITE_SOUL_LANTERN.BLOCK, HavenMod.NETHERITE_CHAIN.BLOCK, HavenMod.NETHERITE_BARS.BLOCK
 	));
 
 	private static final Block[] Translucent = {
@@ -84,8 +113,10 @@ public class HavenModClient implements ClientModInitializer {
 			Cutout.add(leaf.BLOCK);
 		}
 		for (WoodMaterial material : HavenMod.WOOD_MATERIALS) {
-			Cutout.add(material.SAPLING.BLOCK);
-			Cutout.add(material.SAPLING.POTTED);
+			if (material instanceof TreeMaterial treeMaterial) {
+				Cutout.add(treeMaterial.SAPLING.BLOCK);
+				Cutout.add(treeMaterial.SAPLING.POTTED);
+			}
 		}
 	}
 
@@ -104,6 +135,23 @@ public class HavenModClient implements ClientModInitializer {
 		for(Block block : Translucent) {
 			inst.putBlock(block, translucent);
 		}
+		//Flame Particles
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/copper_flame"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME, FlameParticle.Factory::new);
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/gold_flame"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME, FlameParticle.Factory::new);
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/iron_flame"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME, FlameParticle.Factory::new);
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/netherite_flame"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.NETHERITE_FLAME, FlameParticle.Factory::new);
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes

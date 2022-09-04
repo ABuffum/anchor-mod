@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "haven:cassia_stairs",
-    "haven:cherry_stairs"
+    "haven:cherry_stairs",
+    "haven:bamboo_stairs",
+    "haven:dried_bamboo_stairs"
   ]
 }
