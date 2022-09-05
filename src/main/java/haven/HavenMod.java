@@ -1,6 +1,5 @@
 package haven;
 
-import com.sun.source.tree.Tree;
 import haven.blocks.*;
 import haven.blocks.oxidizable.*;
 import haven.boats.*;
@@ -8,9 +7,10 @@ import haven.effects.*;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
-import haven.materials.TreeMaterial;
-import haven.materials.WoodMaterial;
+import haven.materials.*;
 import haven.mixins.SignTypeAccessor;
+import haven.sounds.HavenBlockSoundGroups;
+import haven.sounds.HavenSoundEvents;
 import haven.util.*;
 
 import net.fabricmc.api.ModInitializer;
@@ -23,16 +23,15 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.*;
-import net.minecraft.fluid.FlowableFluid;
-import net.minecraft.fluid.Fluids;
+import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.particle.*;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.*;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
 import net.minecraft.world.gen.foliage.*;
@@ -139,6 +138,16 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair WAXED_WEATHERED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(WAXED_COPPER_BARS.BLOCK)));
 	public static final HavenPair WAXED_OXIDIZED_COPPER_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.copy(WAXED_COPPER_BARS.BLOCK)));
 
+	public static final HavenPair COPPER_WALL = new HavenPair(new OxidizableWallBlock(Oxidizable.OxidizationLevel.UNAFFECTED, Blocks.COPPER_BLOCK));
+	public static final HavenPair EXPOSED_COPPER_WALL = new HavenPair(new OxidizableWallBlock(Oxidizable.OxidizationLevel.EXPOSED, Blocks.EXPOSED_COPPER));
+	public static final HavenPair WEATHERED_COPPER_WALL = new HavenPair(new OxidizableWallBlock(Oxidizable.OxidizationLevel.WEATHERED, Blocks.WEATHERED_COPPER));
+	public static final HavenPair OXIDIZED_COPPER_WALL = new HavenPair(new OxidizableWallBlock(Oxidizable.OxidizationLevel.OXIDIZED, Blocks.OXIDIZED_COPPER));
+	public static final OxidationScale COPPER_WALL_OXIDATION = new OxidationScale(COPPER_WALL.BLOCK, EXPOSED_COPPER_WALL.BLOCK, WEATHERED_COPPER_WALL.BLOCK, OXIDIZED_COPPER_WALL.BLOCK);
+	public static final HavenPair WAXED_COPPER_WALL = new HavenPair(new HavenWallBlock(Blocks.WAXED_COPPER_BLOCK));
+	public static final HavenPair WAXED_EXPOSED_COPPER_WALL = new HavenPair(new HavenWallBlock(Blocks.WAXED_EXPOSED_COPPER));
+	public static final HavenPair WAXED_WEATHERED_COPPER_WALL = new HavenPair(new HavenWallBlock(Blocks.WAXED_WEATHERED_COPPER));
+	public static final HavenPair WAXED_OXIDIZED_COPPER_WALL = new HavenPair(new HavenWallBlock(Blocks.WAXED_OXIDIZED_COPPER));
+
 	public static final HavenPair CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.copy(Blocks.CUT_COPPER)));
 	public static final HavenPair EXPOSED_CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(Blocks.EXPOSED_CUT_COPPER)));
 	public static final HavenPair WEATHERED_CUT_COPPER_PILLAR = new HavenPair(new OxidizablePillarBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(Blocks.WEATHERED_CUT_COPPER)));
@@ -154,19 +163,28 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair GOLD_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
 	public static final HavenPair GOLD_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
 	public static final HavenPair GOLD_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+	public static final HavenPair GOLD_WALL = new HavenPair(new HavenWallBlock(Blocks.GOLD_BLOCK));
 	public static final HavenPair CUT_GOLD = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK)));
 	public static final HavenPair CUT_GOLD_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_GOLD.BLOCK)));
+	public static final HavenPair CUT_GOLD_SLAB = new HavenPair(new HavenSlabBlock(CUT_GOLD.BLOCK));
+	public static final HavenPair CUT_GOLD_STAIRS = new HavenPair(new HavenStairsBlock(CUT_GOLD.BLOCK));
 
 	//More Iron
 	public static final HavenPair IRON_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
 	public static final HavenPair IRON_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
 	public static final HavenPair IRON_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
-	public static final HavenPair DARK_IRON_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
-	public static final HavenPair DARK_IRON_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
-	public static final HavenPair CUT_DARK_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(DARK_IRON_BLOCK.BLOCK)));
-	public static final HavenPair CUT_DARK_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_DARK_IRON.BLOCK)));
+	public static final HavenPair IRON_WALL = new HavenPair(new HavenWallBlock(Blocks.IRON_BLOCK));
 	public static final HavenPair CUT_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 	public static final HavenPair CUT_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_IRON.BLOCK)));
+	public static final HavenPair CUT_IRON_SLAB = new HavenPair(new HavenSlabBlock(CUT_IRON.BLOCK));
+	public static final HavenPair CUT_IRON_STAIRS = new HavenPair(new HavenStairsBlock(CUT_IRON.BLOCK));
+	public static final HavenPair DARK_IRON_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+	public static final HavenPair DARK_IRON_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+	public static final HavenPair DARK_IRON_WALL = new HavenPair(new HavenWallBlock(DARK_IRON_BLOCK.BLOCK));
+	public static final HavenPair CUT_DARK_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(DARK_IRON_BLOCK.BLOCK)));
+	public static final HavenPair CUT_DARK_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_DARK_IRON.BLOCK)));
+	public static final HavenPair CUT_DARK_IRON_SLAB = new HavenPair(new HavenSlabBlock(CUT_DARK_IRON.BLOCK));
+	public static final HavenPair CUT_DARK_IRON_STAIRS = new HavenPair(new HavenStairsBlock(CUT_DARK_IRON.BLOCK));
 
 	//More Netherite
 	public static final Item.Settings NETHERITE_ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP).fireproof();
@@ -176,8 +194,11 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair NETHERITE_SOUL_LANTERN = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), NETHERITE_ITEM_SETTINGS);
 	public static final HavenPair NETHERITE_CHAIN = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), NETHERITE_ITEM_SETTINGS);
 	public static final HavenPair NETHERITE_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair NETHERITE_WALL = new HavenPair(new HavenWallBlock(Blocks.NETHERITE_BLOCK), NETHERITE_ITEM_SETTINGS);
 	public static final HavenPair CUT_NETHERITE = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), NETHERITE_ITEM_SETTINGS);
 	public static final HavenPair CUT_NETHERITE_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_NETHERITE.BLOCK)), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair CUT_NETHERITE_SLAB = new HavenPair(new HavenSlabBlock(CUT_NETHERITE.BLOCK), NETHERITE_ITEM_SETTINGS);
+	public static final HavenPair CUT_NETHERITE_STAIRS = new HavenPair(new HavenStairsBlock(CUT_NETHERITE.BLOCK), NETHERITE_ITEM_SETTINGS);
 
 	public static final Item TINKER_TOY = new Item(ITEM_SETTINGS);
 
@@ -294,6 +315,30 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair STRIPPED_DRIED_BAMBOO_BUNDLE = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_BUNDLE.BLOCK)));
 	public static final HavenPair DRIED_BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_BUNDLE.BLOCK)));
 	public static final HavenPair STRIPPED_DRIED_BAMBOO_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(DRIED_BAMBOO_LOG.BLOCK)));
+
+	//Music Discs
+	public static final Item MUSIC_DISC_OTHERSIDE = new MusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, new Item.Settings().maxCount(1).group(ITEM_GROUP).rarity(Rarity.RARE));
+	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, new Item.Settings().maxCount(1).group(ITEM_GROUP).rarity(Rarity.RARE));
+	public static final Item DISC_FRAGMENT_5 = new DiscFragmentItem(ITEM_SETTINGS);
+	//Mud
+	public static final HavenPair MUD = new HavenPair(new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).allowsSpawning(HavenMod::always).solidBlock(HavenMod::always).blockVision(HavenMod::always).suffocates(HavenMod::always).sounds(HavenBlockSoundGroups.MUD)));
+	public static final HavenPair PACKED_MUD = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(1.0f, 3.0f).sounds(HavenBlockSoundGroups.PACKED_MUD)));
+	public static final HavenPair MUD_BRICKS = new HavenPair(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.TERRACOTTA_LIGHT_GRAY).requiresTool().strength(1.5f, 3.0f).sounds(HavenBlockSoundGroups.MUD_BRICKS)));
+	public static final HavenPair MUD_BRICK_STAIRS = new HavenPair(new HavenStairsBlock(MUD_BRICKS.BLOCK));
+	public static final HavenPair MUD_BRICK_SLAB = new HavenPair(new HavenSlabBlock(MUD_BRICKS.BLOCK));
+	public static final HavenPair MUD_BRICK_WALL = new HavenPair(new HavenWallBlock(MUD_BRICKS.BLOCK));
+	//Mangrove
+	public static final MangroveMaterial MANGROVE = new MangroveMaterial("mangrove", MapColor.RED);
+	public static final HavenPair MANGROVE_ROOTS = new HavenPair(new MangroveRootsBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(0.7f).ticksRandomly().sounds(HavenBlockSoundGroups.MANGROVE_ROOTS).nonOpaque().suffocates(BaseTreeMaterial::never).blockVision(BaseTreeMaterial::never).nonOpaque()));
+	public static final HavenPair MUDDY_MANGROVE_ROOTS = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(Material.SOIL, MapColor.SPRUCE_BROWN).strength(0.7f).sounds(HavenBlockSoundGroups.MUDDY_MANGROVE_ROOTS)));
+	//Frogs
+	public static final Material FROGLIGHT_MATERIAL = new Material.Builder(MapColor.CLEAR).build();
+	public static final HavenPair OCHRE_FROGLIGHT = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(FROGLIGHT_MATERIAL, MapColor.PALE_YELLOW).strength(0.3f).luminance(state -> 15).sounds(HavenBlockSoundGroups.FROGLIGHT)));
+	public static final HavenPair VERDANT_FROGLIGHT = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(FROGLIGHT_MATERIAL, MapColor.LICHEN_GREEN).strength(0.3f).luminance(state -> 15).sounds(HavenBlockSoundGroups.FROGLIGHT)));
+	public static final HavenPair PEARLESCENT_FROGLIGHT = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(FROGLIGHT_MATERIAL, MapColor.PINK).strength(0.3f).luminance(state -> 15).sounds(HavenBlockSoundGroups.FROGLIGHT)));
+	//Deep Dark
+	public static final HavenPair REINFORCED_DEEPSLATE = new HavenPair(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.DEEPSLATE).strength(55.0f, 1200.0f)));
+	public static final Item ECHO_SHARD = new Item(ITEM_SETTINGS);
 
 	public static final Item RAMEN = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 	public static final Item STIR_FRY = new MushroomStewItem(new Item.Settings().maxCount(1).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
@@ -439,7 +484,7 @@ public class HavenMod implements ModInitializer {
 	);
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 	public static final Set<WoodMaterial> WOOD_MATERIALS = Set.<WoodMaterial>of(
-		CASSIA, CHERRY, BAMBOO
+		CASSIA, CHERRY, BAMBOO, DRIED_BAMBOO, MANGROVE
 	);
 	public static final Map<Block, Block> STRIPPED_BLOCKS = new HashMap<Block, Block>(Map.<Block,Block>ofEntries(
 		entry(BAMBOO_BUNDLE.BLOCK, STRIPPED_BAMBOO_BUNDLE.BLOCK), entry(BAMBOO_LOG.BLOCK, STRIPPED_BAMBOO_LOG.BLOCK),
@@ -477,20 +522,30 @@ public class HavenMod implements ModInitializer {
 		CHOCOLATE_MILK_BUCKET, STRAWBERRY_MILK_BUCKET, COFFEE_MILK_BUCKET
 	));
 
+	public static final Set<Block> CONVERTIBLE_TO_MUD = new HashSet<Block>(Set.<Block>of(
+		Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.ROOTED_DIRT
+	));
+
 	static {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}
 		//Wood Materials
 		for(WoodMaterial material : WOOD_MATERIALS) {
-			if (material instanceof TreeMaterial treeMaterial) {
+			if (material instanceof BaseTreeMaterial baseTreeMaterial) {
 				//Stripped Blocks
-				STRIPPED_BLOCKS.put(treeMaterial.WOOD.BLOCK, treeMaterial.STRIPPED_WOOD.BLOCK);
-				STRIPPED_BLOCKS.put(treeMaterial.LOG.BLOCK, treeMaterial.STRIPPED_LOG.BLOCK);
+				STRIPPED_BLOCKS.put(baseTreeMaterial.WOOD.BLOCK, baseTreeMaterial.STRIPPED_WOOD.BLOCK);
+				STRIPPED_BLOCKS.put(baseTreeMaterial.LOG.BLOCK, baseTreeMaterial.STRIPPED_LOG.BLOCK);
 				//Leaves
-				LEAVES.add(treeMaterial.LEAVES);
+				LEAVES.add(baseTreeMaterial.LEAVES);
+			}
+			if (material instanceof TreeMaterial treeMaterial) {
 				//Compostable Items
 				COMPOSTABLE_ITEMS.put(treeMaterial.SAPLING.ITEM, 0.3f);
+			}
+			if (material instanceof MangroveMaterial mangroveMaterial) {
+				//Compostable Items
+				COMPOSTABLE_ITEMS.put(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
 			}
 			//Sign Types
 			SIGN_TYPES.add(material.SIGN.TYPE);
@@ -519,6 +574,7 @@ public class HavenMod implements ModInitializer {
 		OXIDIZABLE_BLOCKS.add(COPPER_SOUL_LANTERN_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_CHAIN_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_BARS_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_WALL_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_PILLAR_OXIDATION);
 		//Waxed Blocks
 		WAXED_BLOCKS.put(COPPER_TORCH.BLOCK, WAXED_COPPER_TORCH.BLOCK);
@@ -541,6 +597,10 @@ public class HavenMod implements ModInitializer {
 		WAXED_BLOCKS.put(EXPOSED_COPPER_BARS.BLOCK, WAXED_EXPOSED_COPPER_BARS.BLOCK);
 		WAXED_BLOCKS.put(WEATHERED_COPPER_BARS.BLOCK, WAXED_WEATHERED_COPPER_BARS.BLOCK);
 		WAXED_BLOCKS.put(OXIDIZED_COPPER_BARS.BLOCK, WAXED_OXIDIZED_COPPER_BARS.BLOCK);
+		WAXED_BLOCKS.put(COPPER_WALL.BLOCK, WAXED_COPPER_WALL.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_WALL.BLOCK, WAXED_EXPOSED_COPPER_WALL.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_WALL.BLOCK, WAXED_WEATHERED_COPPER_WALL.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_WALL.BLOCK, WAXED_OXIDIZED_COPPER_WALL.BLOCK);
 		WAXED_BLOCKS.put(CUT_COPPER_PILLAR.BLOCK, WAXED_CUT_COPPER_PILLAR.BLOCK);
 		WAXED_BLOCKS.put(EXPOSED_CUT_COPPER_PILLAR.BLOCK, WAXED_EXPOSED_CUT_COPPER_PILLAR.BLOCK);
 		WAXED_BLOCKS.put(WEATHERED_CUT_COPPER_PILLAR.BLOCK, WAXED_WEATHERED_CUT_COPPER_PILLAR.BLOCK);
@@ -551,5 +611,12 @@ public class HavenMod implements ModInitializer {
 
 	public static void log(Level level, String message){
 		LOGGER.log(level, "[Haven] " + message);
+	}
+
+	public static Boolean always(BlockState state, BlockView world, BlockPos pos) {
+		return true;
+	}
+	public static Boolean always(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) {
+		return true;
 	}
 }

@@ -5,6 +5,7 @@
 		"1": "haven:anchor/substitute_anchor_side",
 		"2": "haven:anchor/substitute_anchor_top",
 		"3": "haven:anchor/substitute_anchor_inside",
+		"missing": "haven:anchor/substitute_anchor_inside",
 		"particle": "haven:anchor/substitute_anchor_bottom"
 	},
 	"elements": [

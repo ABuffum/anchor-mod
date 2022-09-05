@@ -4,6 +4,11 @@
     "haven:amethyst_brick_slab",
     "haven:amethyst_slab",
     "haven:blood_slab",
-    "haven:dried_blood_slab"
+    "haven:dried_blood_slab",
+    
+    "haven:cut_iron_slab",
+    "haven:cut_dark_iron_slab",
+    "haven:cut_gold_slab",
+    "haven:cut_netherite_slab"
   ]
 }

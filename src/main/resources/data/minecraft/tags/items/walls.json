@@ -4,6 +4,19 @@
     "haven:amethyst_brick_wall",
     "haven:amethyst_wall",
     "haven:blood_wall",
-    "haven:dried_blood_wall"
+    "haven:dried_blood_wall",
+  
+    "haven:copper_wall",
+    "haven:exposed_copper_wall",
+    "haven:weathered_copper_wall",
+    "haven:oxidized_copper_wall",
+    "haven:waxed_copper_wall",
+    "haven:waxed_exposed_copper_wall",
+    "haven:waxed_weathered_copper_wall",
+    "haven:waxed_oxidized_copper_wall",
+    "haven:iron_wall",
+    "haven:dark_iron_wall",
+    "haven:gold_wall",
+    "haven:netherite_wall"
   ]
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "hanging=false": {
-      "model": "haven:block/exposed_copper_lantern.json"
+      "model": "haven:block/exposed_copper_lantern"
     },
     "hanging=true": {
       "model": "haven:block/exposed_copper_lantern_hanging"

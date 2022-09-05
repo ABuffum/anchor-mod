@@ -26,8 +26,13 @@
 	"haven:potted_magenta_tulip",
 	"haven:potted_buttercup",
 	"haven:potted_pink_daisy",
+	"haven:potted_lavender",
+	"haven:potted_hydrangea",
+	
+	"haven:potted_dried_bamboo",
 
 	"haven:potted_cassia_sapling",
-	"haven:potted_cherry_sapling"
+	"haven:potted_cherry_sapling",
+	"haven:potted_mangrove_propagule"
   ]
 }

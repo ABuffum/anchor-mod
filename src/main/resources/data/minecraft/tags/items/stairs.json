@@ -4,6 +4,11 @@
     "haven:amethyst_brick_stairs",
     "haven:amethyst_stairs",
     "haven:blood_stairs",
-    "haven:dried_blood_stairs"
+    "haven:dried_blood_stairs",
+  
+    "haven:cut_iron_stairs",
+    "haven:cut_dark_iron_stairs",
+    "haven:cut_gold_stairs",
+    "haven:cut_netherite_stairs"
   ]
 }

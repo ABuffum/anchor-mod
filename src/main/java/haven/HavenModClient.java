@@ -3,8 +3,7 @@ package haven;
 import haven.boats.HavenBoatEntityRenderer;
 import haven.boats.HavenBoatType;
 import haven.entities.*;
-import haven.materials.TreeMaterial;
-import haven.materials.WoodMaterial;
+import haven.materials.*;
 import haven.particles.*;
 import haven.rendering.*;
 import haven.util.*;
@@ -19,6 +18,7 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.*;
@@ -27,7 +27,9 @@ import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
+import net.minecraft.item.Items;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -117,6 +119,10 @@ public class HavenModClient implements ClientModInitializer {
 				Cutout.add(treeMaterial.SAPLING.BLOCK);
 				Cutout.add(treeMaterial.SAPLING.POTTED);
 			}
+			if (material instanceof MangroveMaterial mangroveMaterial) {
+				Cutout.add(mangroveMaterial.PROPAGULE.BLOCK);
+				Cutout.add(mangroveMaterial.PROPAGULE.POTTED);
+			}
 		}
 	}
 
@@ -183,6 +189,7 @@ public class HavenModClient implements ClientModInitializer {
 		//Custom Boats
 		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.BOAT_ENTITY, HavenBoatEntityRenderer::new);
+		//1.19 Backport
 	}
 
 	public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:mud"
+    },
+    {
+      "item": "haven:mangrove_roots"
+    }
+  ],
+  "result": {
+    "item": "haven:muddy_mangrove_roots"
+  }
+}

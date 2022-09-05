@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/waxed_copper_torch"
+      "model": "haven:block/copper_torch"
     }
   }
 }

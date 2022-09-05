@@ -15,7 +15,7 @@ public class TexturedRenderLayersMixin {
 	@Inject(method = "createSignTextureId", at = @At("HEAD"), cancellable = true)
 	private static void RetextureSigns(SignType type, CallbackInfoReturnable<SpriteIdentifier> cir) {
 		if (HavenMod.SIGN_TYPES.contains(type)) {
-			cir.setReturnValue(new SpriteIdentifier(new Identifier(HavenMod.NAMESPACE, "textures/atlas/signs.png"), new Identifier("entity/signs/" + type.getName())));
+			cir.setReturnValue(new SpriteIdentifier(HavenMod.ID("textures/atlas/signs.png"), HavenMod.ID("entity/signs/" + type.getName())));
 		}
 	}
 }

@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "haven:block/waxed_copper_chain",
+      "model": "haven:block/copper_chain",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "haven:block/waxed_copper_chain"
+      "model": "haven:block/copper_chain"
     },
     "axis=z": {
-      "model": "haven:block/waxed_copper_chain",
+      "model": "haven:block/copper_chain",
       "x": 90
     }
   }

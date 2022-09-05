@@ -1,18 +1,18 @@
 {
   "variants": {
     "facing=east": {
-      "model": "haven:block/waxed_copper_wall_torch"
+      "model": "haven:block/copper_wall_torch"
     },
     "facing=north": {
-      "model": "haven:block/waxed_copper_wall_torch",
+      "model": "haven:block/copper_wall_torch",
       "y": 270
     },
     "facing=south": {
-      "model": "haven:block/waxed_copper_wall_torch",
+      "model": "haven:block/copper_wall_torch",
       "y": 90
     },
     "facing=west": {
-      "model": "haven:block/waxed_copper_wall_torch",
+      "model": "haven:block/copper_wall_torch",
       "y": 180
     }
   }

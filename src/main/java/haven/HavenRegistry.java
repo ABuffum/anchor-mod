@@ -4,12 +4,8 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
-import haven.materials.TreeMaterial;
-import haven.materials.WoodMaterial;
+import haven.materials.*;
 import haven.util.*;
-
-import static haven.HavenMod.*;
-import static haven.HavenMod.IRON_FLAME;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -28,12 +24,19 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
+
+import static haven.HavenMod.*;
+import static haven.HavenMod.WAXED_OXIDIZED_COPPER_WALL;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -63,22 +66,28 @@ public class HavenRegistry {
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
 	}
 	public static void Register(String name, HavenTorch torch) { Register(name + "_torch", name + "_wall_torch", torch); }
-	public static void Register(String path, String wallPath, HavenTorch torch) {
+	public static void Register(String name, HavenSign sign) { Register(name + "_sign", name + "_wall_sign", sign); }
+	public static void Register(String path, String wallPath, WalledBlock walled) {
 		Identifier id = ID(path);
-		Registry.register(Registry.BLOCK, id, torch.BLOCK);
-		Registry.register(Registry.BLOCK, ID(wallPath), torch.WALL_BLOCK);
-		Registry.register(Registry.ITEM, id, torch.ITEM);
+		Registry.register(Registry.BLOCK, id, walled.BLOCK);
+		Registry.register(Registry.BLOCK, ID(wallPath), walled.WALL_BLOCK);
+		Registry.register(Registry.ITEM, id, walled.ITEM);
 	}
 	public static void Register(WoodMaterial material) {
 		String name = material.getName();
-		if (material instanceof TreeMaterial treeMaterial) {
-			Register(name + "_log", treeMaterial.LOG);
-			Register("stripped_" + name + "_log", treeMaterial.STRIPPED_LOG);
-			Register(name + "_wood", treeMaterial.WOOD);
-			Register("stripped_" + name + "_wood", treeMaterial.STRIPPED_WOOD);
+		if (material instanceof BaseTreeMaterial baseTreeMaterial) {
+			Register(name + "_log", baseTreeMaterial.LOG);
+			Register("stripped_" + name + "_log", baseTreeMaterial.STRIPPED_LOG);
+			Register(name + "_wood", baseTreeMaterial.WOOD);
+			Register("stripped_" + name + "_wood", baseTreeMaterial.STRIPPED_WOOD);
 
-			Register(name + "_leaves", treeMaterial.LEAVES);
+			Register(name + "_leaves", baseTreeMaterial.LEAVES);
+		}
+		if (material instanceof TreeMaterial treeMaterial) {
 			Register(name + "_sapling", treeMaterial.SAPLING);
+		}
+		if (material instanceof MangroveMaterial mangroveMaterial) {
+			Register(name + "_propagule", mangroveMaterial.PROPAGULE);
 		}
 
 		Register(name + "_planks", material.PLANKS);
@@ -95,18 +104,20 @@ public class HavenRegistry {
 		Register(name + "_button", material.BUTTON);
 
 		//TODO: Signs don't work right (fail out of edit screens and go invisible)
-		//Register(name + "_sign", material.SIGN_BLOCK, material.SIGN_ITEM);
-		//Register(name + "_wall_sign", material.WALL_SIGN_BLOCK);
+		Identifier id = ID(name + "_sign");
+		Registry.register(Registry.BLOCK, id, material.SIGN.BLOCK);
+		Registry.register(Registry.ITEM, id, material.SIGN.ITEM);
+		Register(name + "_wall_sign", material.SIGN.WALL_BLOCK);
 
 		Register(material.BOAT);
 
 		if (material.isFlammable) {
-			if (material instanceof TreeMaterial treeMaterial) {
-				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.LOG.BLOCK, 5, 5);
-				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.STRIPPED_LOG.BLOCK, 5, 5);
-				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.WOOD.BLOCK, 5, 5);
-				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.STRIPPED_WOOD.BLOCK, 5, 5);
-				FlammableBlockRegistry.getDefaultInstance().add(treeMaterial.LEAVES.BLOCK, 30, 60);
+			if (material instanceof BaseTreeMaterial baseTreeMaterial) {
+				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.LOG.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.STRIPPED_LOG.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.WOOD.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.STRIPPED_WOOD.BLOCK, 5, 5);
+				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.LEAVES.BLOCK, 30, 60);
 			}
 			FlammableBlockRegistry.getDefaultInstance().add(material.PLANKS.BLOCK, 5, 20);
 			FlammableBlockRegistry.getDefaultInstance().add(material.STAIRS.BLOCK, 5, 20);
@@ -271,6 +282,57 @@ public class HavenRegistry {
 		Register("stripped_dried_bamboo_log", STRIPPED_DRIED_BAMBOO_LOG);
 		FuelRegistry.INSTANCE.add(STRIPPED_DRIED_BAMBOO_LOG.ITEM, 300);
 	}
+	public static void Register119() {
+		//Music Discs
+		Register("music_disc_otherside", MUSIC_DISC_OTHERSIDE);
+		Register("music_disc_5", MUSIC_DISC_5);
+		Register("disc_fragment_5", DISC_FRAGMENT_5);
+		//Mud
+		Register("mud", MUD);
+		Register("packed_mud", PACKED_MUD);
+		Register("mud_bricks", MUD_BRICKS);
+		Register("mud_brick_slab", MUD_BRICK_SLAB);
+		Register("mud_brick_stairs", MUD_BRICK_STAIRS);
+		Register("mud_brick_wall", MUD_BRICK_WALL);
+
+		DispenserBlock.registerBehavior(Items.POTION, new ItemDispenserBehavior(){
+			private final ItemDispenserBehavior fallback = new ItemDispenserBehavior();
+
+			@Override
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				if (PotionUtil.getPotion(stack) != Potions.WATER) {
+					return this.fallback.dispense(pointer, stack);
+				}
+				ServerWorld serverWorld = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos();
+				BlockPos blockPos2 = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				if (HavenMod.CONVERTIBLE_TO_MUD.contains(serverWorld.getBlockState(blockPos2).getBlock())) {
+					if (!serverWorld.isClient) {
+						for (int i = 0; i < 5; ++i) {
+							serverWorld.spawnParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + serverWorld.random.nextDouble(), blockPos.getY() + 1, (double)blockPos.getZ() + serverWorld.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
+						}
+					}
+					serverWorld.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
+					serverWorld.emitGameEvent(null, GameEvent.FLUID_PLACE, blockPos);
+					serverWorld.setBlockState(blockPos2, HavenMod.MUD.BLOCK.getDefaultState());
+					return new ItemStack(Items.GLASS_BOTTLE);
+				}
+				return this.fallback.dispense(pointer, stack);
+			}
+		});
+		//Mangrove
+		Register(MANGROVE);
+		Register("mangrove_roots", MANGROVE_ROOTS);
+		FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_ROOTS.BLOCK, 5, 20);
+		Register("muddy_mangrove_roots", MUDDY_MANGROVE_ROOTS);
+		//Frogs
+		Register("ochre_froglight", OCHRE_FROGLIGHT);
+		Register("verdant_froglight", VERDANT_FROGLIGHT);
+		Register("pearlescent_froglight", PEARLESCENT_FROGLIGHT);
+		//Deep Dark
+		Register("reinforced_deepslate", REINFORCED_DEEPSLATE);
+		Register("echo_shard", ECHO_SHARD);
+	}
 	public static void RegisterCandy() {
 		Register("cinnamon_bean", CINNAMON_BEAN);
 		Register("pink_cotton_candy", PINK_COTTON_CANDY);
@@ -433,6 +495,15 @@ public class HavenRegistry {
 		Register("waxed_exposed_copper_bars", WAXED_EXPOSED_COPPER_BARS);
 		Register("waxed_weathered_copper_bars", WAXED_WEATHERED_COPPER_BARS);
 		Register("waxed_oxidized_copper_bars", WAXED_OXIDIZED_COPPER_BARS);
+		//Walls
+		Register("copper_wall", COPPER_WALL);
+		Register("exposed_copper_wall", EXPOSED_COPPER_WALL);
+		Register("weathered_copper_wall", WEATHERED_COPPER_WALL);
+		Register("oxidized_copper_wall", OXIDIZED_COPPER_WALL);
+		Register("waxed_copper_wall", WAXED_COPPER_WALL);
+		Register("waxed_exposed_copper_wall", WAXED_EXPOSED_COPPER_WALL);
+		Register("waxed_weathered_copper_wall", WAXED_WEATHERED_COPPER_WALL);
+		Register("waxed_oxidized_copper_wall", WAXED_OXIDIZED_COPPER_WALL);
 		//Cut Copper Pillars
 		Register("cut_copper_pillar", CUT_COPPER_PILLAR);
 		Register("exposed_cut_copper_pillar", EXPOSED_CUT_COPPER_PILLAR);
@@ -448,21 +519,30 @@ public class HavenRegistry {
 		Register("gold_soul_lantern", GOLD_SOUL_LANTERN);
 		Register("gold_chain", GOLD_CHAIN);
 		Register("gold_bars", GOLD_BARS);
+		Register("gold_wall", GOLD_WALL);
 		Register("cut_gold", CUT_GOLD);
 		Register("cut_gold_pillar", CUT_GOLD_PILLAR);
+		Register("cut_gold_slab", CUT_GOLD_SLAB);
+		Register("cut_gold_stairs", CUT_GOLD_STAIRS);
 	}
 	public static void RegisterMoreIron() {
-		//Register("dark_iron_nugget", DARK_IRON_NUGGET);
-		//Register("dark_iron_ingot", DARK_IRON_INGOT);
 		Register("iron_lantern", IRON_LANTERN);
 		Register("iron_soul_lantern", IRON_SOUL_LANTERN);
 		Register("iron_chain", IRON_CHAIN);
-		Register("dark_iron_bars", DARK_IRON_BARS);
+		Register("iron_wall", IRON_WALL);
 		Register("cut_iron", CUT_IRON);
 		Register("cut_iron_pillar", CUT_IRON_PILLAR);
+		Register("cut_iron_slab", CUT_IRON_SLAB);
+		Register("cut_iron_stairs", CUT_IRON_STAIRS);
+		//Register("dark_iron_nugget", DARK_IRON_NUGGET);
+		//Register("dark_iron_ingot", DARK_IRON_INGOT);
+		Register("dark_iron_bars", DARK_IRON_BARS);
 		Register("dark_iron_block", DARK_IRON_BLOCK);
+		Register("dark_iron_wall", DARK_IRON_WALL);
 		Register("cut_dark_iron", CUT_DARK_IRON);
 		Register("cut_dark_iron_pillar", CUT_DARK_IRON_PILLAR);
+		Register("cut_dark_iron_slab", CUT_DARK_IRON_SLAB);
+		Register("cut_dark_iron_stairs", CUT_DARK_IRON_STAIRS);
 	}
 	public static void RegisterMoreNetherite() {
 		Register("netherite_nugget", NETHERITE_NUGGET);
@@ -471,8 +551,11 @@ public class HavenRegistry {
 		Register("netherite_soul_lantern", NETHERITE_SOUL_LANTERN);
 		Register("netherite_chain", NETHERITE_CHAIN);
 		Register("netherite_bars", NETHERITE_BARS);
+		Register("netherite_wall", NETHERITE_WALL);
 		Register("cut_netherite", CUT_NETHERITE);
 		Register("cut_netherite_pillar", CUT_NETHERITE_PILLAR);
+		Register("cut_netherite_slab", CUT_NETHERITE_SLAB);
+		Register("cut_netherite_stairs", CUT_NETHERITE_STAIRS);
 	}
 
 	public static void RegisterAll() {
@@ -511,5 +594,6 @@ public class HavenRegistry {
 		RegisterMoreGold();
 		RegisterMoreIron();
 		RegisterMoreNetherite();
+		Register119();
 	}
 }

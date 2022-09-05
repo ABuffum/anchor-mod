@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "minecraft:dried_blood_block"
+      "item": "haven:dried_blood_block"
     }
   },
   "pattern": [

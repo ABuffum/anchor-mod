@@ -14,15 +14,7 @@ import net.minecraft.world.BlockView;
 
 import java.util.function.Supplier;
 
-public class TreeMaterial extends WoodMaterial {
-	private final String name;
-	public String getName() { return name; }
-
-	public final boolean isFlammable;
-
-	public final HavenPair LOG, STRIPPED_LOG;
-	public final HavenPair WOOD, STRIPPED_WOOD;
-	public final HavenPair LEAVES;
+public class TreeMaterial extends BaseTreeMaterial {
 	public final HavenSapling SAPLING;
 
 	public TreeMaterial(String name, MapColor mapColor, Supplier<SaplingGenerator> saplingGenerator) {
@@ -35,17 +27,7 @@ public class TreeMaterial extends WoodMaterial {
 		this(name, mapColor, leafSounds, saplingGenerator, true);
 	}
 	public TreeMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds, Supplier<SaplingGenerator> saplingGenerator, boolean isFlammable) {
-		super(name, mapColor, isFlammable);
-		this.name = name;
-		this.isFlammable = isFlammable;
-		LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)));
-		STRIPPED_LOG = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
-		WOOD = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
-		STRIPPED_WOOD = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(LOG.BLOCK)));
-		LEAVES = new HavenPair(new HavenLeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(leafSounds).nonOpaque().allowsSpawning(TreeMaterial::canSpawnOnLeaves).suffocates(TreeMaterial::never).blockVision(TreeMaterial::never)));
+		super(name, mapColor, leafSounds, isFlammable);
 		SAPLING = new HavenSapling(saplingGenerator);
 	}
-
-	private static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
-	private static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }
 }

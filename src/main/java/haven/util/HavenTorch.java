@@ -12,13 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.particle.ParticleEffect;
 
-public class HavenTorch {
-	public final Block BLOCK;
-	public final Item ITEM;
-	public final Block WALL_BLOCK;
+public class HavenTorch extends WalledBlock {
 
 	public HavenTorch(AbstractBlock.Settings settings, ParticleEffect particle) {
-		this( settings, particle, HavenMod.ITEM_SETTINGS);
+		this(settings, particle, HavenMod.ITEM_SETTINGS);
 	}
 
 	public HavenTorch(AbstractBlock.Settings blockSettings, ParticleEffect particle, Item.Settings itemSettings) {
@@ -26,9 +23,7 @@ public class HavenTorch {
 	}
 
 	private HavenTorch(Block block, Block wallBlock, Item.Settings itemSettings) {
-		BLOCK = block;
-		WALL_BLOCK = wallBlock;
-		ITEM = new WallStandingBlockItem(BLOCK, WALL_BLOCK, itemSettings);
+		super(block, wallBlock, new WallStandingBlockItem(block, wallBlock, itemSettings));
 	}
 
 	public static HavenTorch Oxidizable(Oxidizable.OxidizationLevel level, AbstractBlock.Settings settings, ParticleEffect particle) {

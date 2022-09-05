@@ -1,10 +1,10 @@
 {
   "variants": {
     "hanging=false": {
-      "model": "haven:block/waxed_exposed_copper_soul_lantern"
+      "model": "haven:block/exposed_copper_soul_lantern"
     },
     "hanging=true": {
-      "model": "haven:block/waxed_exposed_copper_soul_lantern_hanging"
+      "model": "haven:block/exposed_copper_soul_lantern_hanging"
     }
   }
 }

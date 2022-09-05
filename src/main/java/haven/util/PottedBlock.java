@@ -10,14 +10,14 @@ import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public abstract class PottedBlock {
+public class PottedBlock {
 	public final Block BLOCK;
 	public final Item ITEM;
 	public final Block POTTED;
 
 	public static final Block.Settings SETTINGS = AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque();
 
-	protected PottedBlock(Block block) {
+	public PottedBlock(Block block) {
 		BLOCK = block;
 		ITEM = new BlockItem(BLOCK, HavenMod.ITEM_SETTINGS);
 		POTTED = new FlowerPotBlock(BLOCK, SETTINGS);

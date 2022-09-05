@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "haven:dried_bamboo_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:dried_bamboo_button"
+  }
+}

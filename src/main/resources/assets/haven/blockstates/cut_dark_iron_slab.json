@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/cut_dark_iron_slab"
+    },
+    "type=double": {
+      "model": "haven:block/cut_dark_iron"
+    },
+    "type=top": {
+      "model": "haven:block/cut_dark_iron_slab_top"
+    }
+  }
+}

@@ -7,7 +7,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "waxed_exposed_haven:copper_torch"
+					"name": "haven:waxed_exposed_copper_torch"
 				}
 			],
 			"conditions": [
