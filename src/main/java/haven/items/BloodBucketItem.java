@@ -3,12 +3,16 @@ package haven.items;
 import haven.HavenMod;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.CauldronBlock;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.*;
 import net.minecraft.world.*;
@@ -45,33 +49,24 @@ public class BloodBucketItem extends BucketItem {
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-
 		PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity) user : null;
-		if (!world.isClient && (playerEntity == null || canDrink)) {
-			user.clearStatusEffects();
-		}
-
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 			if (!playerEntity.getAbilities().creativeMode) {
 				stack.decrement(1);
 			}
 		}
-
 		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
 			if (stack.isEmpty()) {
 				return new ItemStack(Items.BUCKET);
 			}
-
 			if (playerEntity != null) {
 				playerEntity.getInventory().insertStack(new ItemStack(Items.BUCKET));
 			}
 		}
-
 		if (playerEntity == null || canDrink) {
 			world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
 		}
-
 		return stack;
 	}
 

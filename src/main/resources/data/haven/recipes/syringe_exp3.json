@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "haven:secret_ingredient"
+        },
+        {
+            "item": "haven:syringe"
+        },
+        {
+            "item": "minecraft:poppy"
+        },
+        {
+            "item": "minecraft:iron_ingot"
+        },
+        {
+            "item": "minecraft:white_tulip"
+        }
+    ],
+    "result": {
+        "item": "haven:syringe_exp3",
+        "count": 1
+    }
+}

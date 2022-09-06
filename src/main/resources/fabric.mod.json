@@ -4,9 +4,9 @@
   "version": "${version}",
 
   "name": "Haven Pack",
-  "description": "Mod Suite for the Haven SMP",
+  "description": "Mod Suite for the Haven SMP. Uses assets from the Squirting Syringe Mod [https://github.com/ImExoOdeex/squirtingsyringe] and Jicklus Resource Pack [https://www.curseforge.com/minecraft/texture-packs/jicklus]",
   "authors": [
-    "mousewich"
+    "mousewich", "knife_moth", "swordcats", "madkiska", ""
   ],
   "contact": {
     "homepage": "",

@@ -19,9 +19,11 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.*;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
@@ -443,6 +445,27 @@ public class HavenMod implements ModInitializer {
 	public static final HavenBoat WARPED_BOAT = new HavenBoat("warped", Blocks.WARPED_PLANKS, true);
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
 
+	//Syringes
+	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
+	public static final Item SECRET_INGREDIENT = new Item(ITEM_SETTINGS);
+	public static final Item SYRINGE = new EmptySyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
+	public static final Item SYRINGE_BLINDNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 4, true, false));
+	public static final Item SYRINGE_MINING_FATIGUE = new SyringeItem(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, (600), 4, true, false));
+	public static final Item SYRINGE_POISON = new SyringeItem(new StatusEffectInstance(StatusEffects.POISON, 600, 4, true, false));
+	public static final Item SYRINGE_REGENERATION = new SyringeItem(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 4, true, false));
+	public static final Item SYRINGE_SATURATION = new SyringeItem(new StatusEffectInstance(StatusEffects.SATURATION, 600, 4, true, false));
+	public static final Item SYRINGE_SLOWNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 4, true, false));
+	public static final Item SYRINGE_WEAKNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 4, true, false));
+	public static final Item SYRINGE_WITHER = new SyringeItem(new StatusEffectInstance(StatusEffects.WITHER, 600, 4, true, false));
+	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+
+	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(1));
+	public static final Item GOO_BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(1));
+	public static final Item LAVA_SYRINGE = new LavaSyringeItem(ITEM_SETTINGS);
+	public static final Item WATER_SYRINGE = new WaterSyringeItem(ITEM_SETTINGS);
+
 	@Override
 	public void onInitialize() {
 		HavenRegistry.RegisterAll();
@@ -526,6 +549,10 @@ public class HavenMod implements ModInitializer {
 		Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.ROOTED_DIRT
 	));
 
+	public static final Set<StatusEffect> MILK_IMMUNE_EFFECTS = new HashSet<StatusEffect>(Set.<StatusEffect>of(
+		StatusEffects.GLOWING
+	));
+
 	static {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
@@ -541,11 +568,11 @@ public class HavenMod implements ModInitializer {
 			}
 			if (material instanceof TreeMaterial treeMaterial) {
 				//Compostable Items
-				COMPOSTABLE_ITEMS.put(treeMaterial.SAPLING.ITEM, 0.3f);
+				CompostingChanceRegistry.INSTANCE.add(treeMaterial.SAPLING.ITEM, 0.3f);
 			}
 			if (material instanceof MangroveMaterial mangroveMaterial) {
 				//Compostable Items
-				COMPOSTABLE_ITEMS.put(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
+				CompostingChanceRegistry.INSTANCE.add(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
 			}
 			//Sign Types
 			SIGN_TYPES.add(material.SIGN.TYPE);
@@ -553,19 +580,20 @@ public class HavenMod implements ModInitializer {
 		//Flowers
 		for(DyeColor color : COLORS) FLOWERS.add(CARNATIONS.get(color));
 		//Compostable Items
-		for(HavenFlower flower : FLOWERS) COMPOSTABLE_ITEMS.put(flower.ITEM, 0.65F);
-		for(HavenPair flower : TALL_FLOWERS) COMPOSTABLE_ITEMS.put(flower.ITEM, 0.65F);
-		for(HavenPair leaf : LEAVES) COMPOSTABLE_ITEMS.put(leaf.ITEM, 0.3f);
-		COMPOSTABLE_ITEMS.put(CINNAMON, 0.2f);
-		COMPOSTABLE_ITEMS.put(SNICKERDOODLE, 0.85F);
-		COMPOSTABLE_ITEMS.put(COFFEE_CHERRY, 0.65F);
-		COMPOSTABLE_ITEMS.put(COFFEE_BEANS, 0.65F);
-		COMPOSTABLE_ITEMS.put(CHERRY_ITEM, 0.65F);
-		COMPOSTABLE_ITEMS.put(CHOCOLATE_CAKE.ITEM, 1F);
-		COMPOSTABLE_ITEMS.put(STRAWBERRY_CAKE.ITEM, 1F);
-		COMPOSTABLE_ITEMS.put(COFFEE_CAKE.ITEM, 1F);
-		COMPOSTABLE_ITEMS.put(CARROT_CAKE.ITEM, 1F);
-		COMPOSTABLE_ITEMS.put(CONFETTI_CAKE.ITEM, 1F);
+		for(HavenFlower flower : FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
+		for(HavenPair flower : TALL_FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
+		for(HavenPair leaf : LEAVES) CompostingChanceRegistry.INSTANCE.add(leaf.ITEM, 0.3f);
+		CompostingChanceRegistry.INSTANCE.add(CINNAMON, 0.2f);
+		CompostingChanceRegistry.INSTANCE.add(CINNAMON, 0.2f);
+		CompostingChanceRegistry.INSTANCE.add(SNICKERDOODLE, 0.85F);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_CHERRY, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_BEANS, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(CHERRY_ITEM, 0.65F);
+		CompostingChanceRegistry.INSTANCE.add(CHOCOLATE_CAKE.ITEM, 1F);
+		CompostingChanceRegistry.INSTANCE.add(STRAWBERRY_CAKE.ITEM, 1F);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_CAKE.ITEM, 1F);
+		CompostingChanceRegistry.INSTANCE.add(CARROT_CAKE.ITEM, 1F);
+		CompostingChanceRegistry.INSTANCE.add(CONFETTI_CAKE.ITEM, 1F);
 		//Oxidizable Blocks
 		OXIDIZABLE_BLOCKS.add(COPPER_TORCH_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_WALL_TORCH_OXIDATION);

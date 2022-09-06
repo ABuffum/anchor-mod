@@ -30,11 +30,6 @@ public class CoffeeItem extends Item {
             Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
             serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
         }
-
-        if (!world.isClient) {
-            user.removeStatusEffect(StatusEffects.POISON);
-        }
-
         if (stack.isEmpty()) {
             return new ItemStack(Items.GLASS_BOTTLE);
         } else {
@@ -51,7 +46,7 @@ public class CoffeeItem extends Item {
     }
 
     public int getMaxUseTime(ItemStack stack) {
-        return 40;
+        return MAX_USE_TIME;
     }
 
     public UseAction getUseAction(ItemStack stack) {

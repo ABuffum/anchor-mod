@@ -752,5 +752,11 @@
 		"stream": true
 	  }
 	]
+  },
+  "item.syringe.inject": {
+	"subtitle": "Syringe Injected",
+	"sounds": [
+	  "haven:item/syringe/inject"
+	]
   }
 }

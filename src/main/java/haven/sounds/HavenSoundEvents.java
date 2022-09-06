@@ -57,6 +57,8 @@ public class HavenSoundEvents {
 	public static final SoundEvent MUSIC_DISC_OTHERSIDE = registerSoundEvent("music_disc.otherside");
 	public static final SoundEvent MUSIC_DISC_5 = registerSoundEvent("music_disc.5");
 
+	public static final SoundEvent SYRINGE_INJECTED = registerSoundEvent("item.syringe.inject");
+
 	public static SoundEvent registerSoundEvent(String name) {
 		Identifier id = HavenMod.ID(name);
 		return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(id));

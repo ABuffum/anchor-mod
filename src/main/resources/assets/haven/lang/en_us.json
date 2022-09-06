@@ -559,5 +559,24 @@
   "block.haven.sculk": "Sculk",
   "block.haven.sculk_catalyst": "Sculk Catalyst",
   "block.haven.sculk_shrieker": "Sculk Shrieker",
-  "block.haven.sculk_vein": "Sculk Vein"
+  "block.haven.sculk_vein": "Sculk Vein",
+  
+  "effect.haven.deteriorating": "Deteriorating",
+  "item.haven.syringe": "Syringe",
+  "item.haven.syringe_blindness": "Blindness Syringe",
+  "item.haven.syringe_mining_fatigue": "Syringe",
+  "item.haven.syringe_poison": "Poison Syringe",
+  "item.haven.syringe_regeneration": "Regeneration Syringe",
+  "item.haven.syringe_saturation": "Saturation Syringe",
+  "item.haven.syringe_slowness": "Slowness Syringe",
+  "item.haven.syringe_weakness": "Weakness Syringe",
+  "item.haven.syringe_wither": "Withering Syringe",
+  "item.haven.syringe_exp1": "Experimental Syringe 1",
+  "item.haven.syringe_exp2": "Experimental Syringe 2",
+  "item.haven.syringe_exp3": "Experimental Syringe 3",
+  
+  "item.haven.blood_syringe": "Blood Syringe",
+  "item.haven.goo_blood_syringe": "Goo Blood Syringe",
+  "item.haven.lava_syringe": "Lava Syringe",
+  "item.haven.water_syringe": "Water Syringe"
 }

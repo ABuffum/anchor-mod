@@ -14,7 +14,4 @@ public class KilljoyEffect extends StatusEffect {
 	public KilljoyEffect() {
 		super(StatusEffectType.NEUTRAL,0x1F8B33);
 	}
-
-	@Override
-	public void onApplied(LivingEntity livingEntity, AttributeContainer abstractEntityAttributeContainer, int i) { }
 }

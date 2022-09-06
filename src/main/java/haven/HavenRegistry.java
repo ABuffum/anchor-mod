@@ -4,6 +4,7 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
+import haven.items.*;
 import haven.materials.*;
 import haven.util.*;
 
@@ -21,6 +22,8 @@ import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -557,6 +560,28 @@ public class HavenRegistry {
 		Register("cut_netherite_slab", CUT_NETHERITE_SLAB);
 		Register("cut_netherite_stairs", CUT_NETHERITE_STAIRS);
 	}
+	public static void RegisterSyringes() {
+		Register("deteriorating", DETERIORATION_EFFECT);
+		Register("secret_ingredient", SECRET_INGREDIENT);
+
+		Register("syringe", SYRINGE);
+		Register("syringe_blindness", SYRINGE_BLINDNESS);
+		Register("syringe_mining_fatigue", SYRINGE_MINING_FATIGUE);
+		Register("syringe_poison", SYRINGE_POISON);
+		Register("syringe_regeneration", SYRINGE_REGENERATION);
+		Register("syringe_saturation", SYRINGE_SATURATION);
+		Register("syringe_slowness", SYRINGE_SLOWNESS);
+		Register("syringe_weakness", SYRINGE_WEAKNESS);
+		Register("syringe_wither", SYRINGE_WITHER);
+		Register("syringe_exp1", SYRINGE_EXP1);
+		Register("syringe_exp2", SYRINGE_EXP2);
+		Register("syringe_exp3", SYRINGE_EXP3);
+
+		Register("blood_syringe", BLOOD_SYRINGE);
+		Register("goo_blood_syringe", GOO_BLOOD_SYRINGE);
+		Register("lava_syringe", LAVA_SYRINGE);
+		Register("water_syringe", WATER_SYRINGE);
+	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -594,6 +619,7 @@ public class HavenRegistry {
 		RegisterMoreGold();
 		RegisterMoreIron();
 		RegisterMoreNetherite();
+		RegisterSyringes();
 		Register119();
 	}
 }

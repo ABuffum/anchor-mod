@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "haven:secret_ingredient"
+        },
+        {
+            "item": "haven:syringe"
+        },
+        {
+            "item": "minecraft:pufferfish"
+        },
+        {
+            "item": "minecraft:iron_ingot"
+        },
+        {
+            "item": "minecraft:ender_pearl"
+        }
+    ],
+    "result": {
+        "item": "haven:syringe_exp2",
+        "count": 1
+    }
+}

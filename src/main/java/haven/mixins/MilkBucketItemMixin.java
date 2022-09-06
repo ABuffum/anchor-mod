@@ -1,44 +1,41 @@
-package haven.items;
+package haven.mixins;
 
 import haven.util.MilkBucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.MilkBucketItem;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-public class CoffeeMilkBucketItem extends MilkBucketItem {
-	public CoffeeMilkBucketItem(Settings settings) {
+@Mixin(MilkBucketItem.class)
+public class MilkBucketItemMixin extends Item {
+	public MilkBucketItemMixin(Settings settings) {
 		super(settings);
 	}
 
-	@Override
-	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+	@Inject(method="finishUsing", at = @At("HEAD"), cancellable = true)
+	public void FinishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
 		if (user instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
 			stack.decrement(1);
 		}
-
 		if (!world.isClient) {
 			MilkBucketUtils.ClearStatusEffects(world, user);
-			if (user instanceof PlayerEntity) {
-				PlayerEntity player = (PlayerEntity)user;
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
-			}
+			user.clearStatusEffects();
 		}
-
-		return stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack;
+		cir.setReturnValue(stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack);
 	}
 }

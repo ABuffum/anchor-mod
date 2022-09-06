@@ -12,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -67,9 +68,12 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 		entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 0F); // deals damage
 
 		if (entity instanceof LivingEntity livingEntity) { // checks if entity is an instance of LivingEntity (meaning it is not a boat or minecart)
-			MinecraftClient mc = MinecraftClient.getInstance();
 			livingEntity.addStatusEffect((new StatusEffectInstance(HavenMod.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
-
+			if (livingEntity.getEntityWorld().isClient) {
+				if (livingEntity instanceof PlayerEntity player) {
+					player.sendMessage(Text.of("Boo!!!"), true);
+				}
+			}
 		//	livingEntity.playSound(SoundEvents.BLOCK_MOSS_HIT, 2F, 1F); // plays a sound for the entity hit only
 		}
 	}
