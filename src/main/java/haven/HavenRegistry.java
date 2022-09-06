@@ -563,8 +563,8 @@ public class HavenRegistry {
 	public static void RegisterSyringes() {
 		Register("deteriorating", DETERIORATION_EFFECT);
 		Register("secret_ingredient", SECRET_INGREDIENT);
-
 		Register("syringe", SYRINGE);
+		Register("dirty_syringe", DIRTY_SYRINGE);
 		Register("syringe_blindness", SYRINGE_BLINDNESS);
 		Register("syringe_mining_fatigue", SYRINGE_MINING_FATIGUE);
 		Register("syringe_poison", SYRINGE_POISON);
@@ -576,7 +576,6 @@ public class HavenRegistry {
 		Register("syringe_exp1", SYRINGE_EXP1);
 		Register("syringe_exp2", SYRINGE_EXP2);
 		Register("syringe_exp3", SYRINGE_EXP3);
-
 		Register("blood_syringe", BLOOD_SYRINGE);
 		Register("goo_blood_syringe", GOO_BLOOD_SYRINGE);
 		Register("lava_syringe", LAVA_SYRINGE);

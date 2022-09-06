@@ -8,5 +8,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(LivingEntity.class)
 public interface LivingEntityAccessor {
 	@Invoker("onStatusEffectRemoved")
-	public void onStatusEffectRemoved(StatusEffectInstance effect);
+	public void OnStatusEffectRemoved(StatusEffectInstance effect);
 }

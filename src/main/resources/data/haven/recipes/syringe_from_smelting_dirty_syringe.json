@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "count": 1,
+  "ingredient": {
+	"item": "haven:dirty_syringe"
+  },
+  "result": "haven:syringe",
+  "experience": 0.1,
+  "cookingtime": 200
+}

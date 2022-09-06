@@ -71,10 +71,11 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 			livingEntity.addStatusEffect((new StatusEffectInstance(HavenMod.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
 			if (livingEntity.getEntityWorld().isClient) {
 				if (livingEntity instanceof PlayerEntity player) {
-					player.sendMessage(Text.of("Boo!!!"), true);
+					if (player.hasStatusEffect(HavenMod.BOO_EFFECT)) player.sendMessage(Text.of("Boo!"), true);
+					else player.sendMessage(Text.of("Boo!!!"), true);
 				}
 			}
-		//	livingEntity.playSound(SoundEvents.BLOCK_MOSS_HIT, 2F, 1F); // plays a sound for the entity hit only
+			//TODO: Tomato Squelch sound on hit
 		}
 	}
 

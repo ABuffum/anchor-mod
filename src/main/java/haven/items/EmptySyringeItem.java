@@ -1,5 +1,6 @@
 package haven.items;
 
+import haven.HavenMod;
 import haven.sounds.HavenSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -18,8 +19,14 @@ public class EmptySyringeItem extends Item {
 	}
 
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-		//TODO: Determine what type of blood to give
+		//TODO: Determine what type of blood or fluid to fill the syringe with
 		entity.playSound(HavenSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
-		return ActionResult.PASS;
+		if (!user.getAbilities().creativeMode) {
+			user.getStackInHand(hand).decrement(1);
+			ItemStack newStack = new ItemStack(HavenMod.DIRTY_SYRINGE);
+			if (user.getStackInHand(hand).isEmpty()) user.setStackInHand(hand, newStack);
+			else user.getInventory().insertStack(newStack);
+		}
+		return ActionResult.CONSUME;
 	}
 }

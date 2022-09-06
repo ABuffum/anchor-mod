@@ -17,7 +17,7 @@ public class MilkBucketUtils {
 		for(bl = false; iterator.hasNext(); bl = true) {
 			StatusEffectInstance effect = (StatusEffectInstance)iterator.next();
 			if (!HavenMod.MILK_IMMUNE_EFFECTS.contains(effect.getEffectType())) {
-				lea.onStatusEffectRemoved(effect);
+				lea.OnStatusEffectRemoved(effect);
 			}
 			iterator.remove();
 		}

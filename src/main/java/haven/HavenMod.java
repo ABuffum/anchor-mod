@@ -449,22 +449,24 @@ public class HavenMod implements ModInitializer {
 	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
 	public static final Item SECRET_INGREDIENT = new Item(ITEM_SETTINGS);
 	public static final Item SYRINGE = new EmptySyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
-	public static final Item SYRINGE_BLINDNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 4, true, false));
-	public static final Item SYRINGE_MINING_FATIGUE = new SyringeItem(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, (600), 4, true, false));
-	public static final Item SYRINGE_POISON = new SyringeItem(new StatusEffectInstance(StatusEffects.POISON, 600, 4, true, false));
-	public static final Item SYRINGE_REGENERATION = new SyringeItem(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 4, true, false));
-	public static final Item SYRINGE_SATURATION = new SyringeItem(new StatusEffectInstance(StatusEffects.SATURATION, 600, 4, true, false));
-	public static final Item SYRINGE_SLOWNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 4, true, false));
-	public static final Item SYRINGE_WEAKNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 4, true, false));
-	public static final Item SYRINGE_WITHER = new SyringeItem(new StatusEffectInstance(StatusEffects.WITHER, 600, 4, true, false));
-	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
-	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
-	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+	public static final Item DIRTY_SYRINGE = new Item(ITEM_SETTINGS);
+	public static final Item.Settings SYRINGE_SETTINGS = new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1);
+	public static final Item SYRINGE_BLINDNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_MINING_FATIGUE = new SyringeItem(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, (600), 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_POISON = new SyringeItem(new StatusEffectInstance(StatusEffects.POISON, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_REGENERATION = new SyringeItem(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_SATURATION = new SyringeItem(new StatusEffectInstance(StatusEffects.SATURATION, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_SLOWNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_WEAKNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_WITHER = new SyringeItem(new StatusEffectInstance(StatusEffects.WITHER, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
+	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
 
-	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(1));
-	public static final Item GOO_BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(1));
-	public static final Item LAVA_SYRINGE = new LavaSyringeItem(ITEM_SETTINGS);
-	public static final Item WATER_SYRINGE = new WaterSyringeItem(ITEM_SETTINGS);
+	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1));
+	public static final Item GOO_BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1));
+	public static final Item LAVA_SYRINGE = new LavaSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE));
+	public static final Item WATER_SYRINGE = new WaterSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE));
 
 	@Override
 	public void onInitialize() {

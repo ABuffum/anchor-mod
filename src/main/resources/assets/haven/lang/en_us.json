@@ -561,8 +561,10 @@
   "block.haven.sculk_shrieker": "Sculk Shrieker",
   "block.haven.sculk_vein": "Sculk Vein",
   
+  "item.haven.secret_ingredient": "Secret Ingredient",
   "effect.haven.deteriorating": "Deteriorating",
   "item.haven.syringe": "Syringe",
+  "item.haven.dirty_syringe": "Dirty Syringe",
   "item.haven.syringe_blindness": "Blindness Syringe",
   "item.haven.syringe_mining_fatigue": "Syringe",
   "item.haven.syringe_poison": "Poison Syringe",
@@ -574,7 +576,6 @@
   "item.haven.syringe_exp1": "Experimental Syringe 1",
   "item.haven.syringe_exp2": "Experimental Syringe 2",
   "item.haven.syringe_exp3": "Experimental Syringe 3",
-  
   "item.haven.blood_syringe": "Blood Syringe",
   "item.haven.goo_blood_syringe": "Goo Blood Syringe",
   "item.haven.lava_syringe": "Lava Syringe",
