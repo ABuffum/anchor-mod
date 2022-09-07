@@ -92,6 +92,8 @@
 	"haven:dark_iron_bars",
 	"haven:dark_iron_block",
 	"haven:dark_iron_wall",
+	"haven:dark_iron_door",
+	"haven:dark_iron_trapdoor",
 	"haven:cut_dark_iron",
 	"haven:cut_dark_iron_pillar",
 	"haven:cut_dark_iron_slab",

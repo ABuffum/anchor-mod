@@ -1,15 +1,16 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "minecraft:iron_bars"
-    },
-    {
-      "item": "minecraft:black_dye"
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "haven:dark_iron_ingot"
     }
+  },
+  "pattern": [
+    "###",
+    "###"
   ],
   "result": {
-    "count": 1,
+    "count": 16,
     "item": "haven:dark_iron_bars"
   }
 }

@@ -84,13 +84,27 @@ public class HavenMod implements ModInitializer {
 	public static final HavenTorch WAXED_EXPOSED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
 	public static final HavenTorch WAXED_WEATHERED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
 	public static final HavenTorch WAXED_OXIDIZED_COPPER_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_TORCH.BLOCK), COPPER_FLAME);
+	public static final HavenTorch COPPER_SOUL_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.UNAFFECTED, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.COPPER), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch EXPOSED_COPPER_SOUL_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.EXPOSED, FabricBlockSettings.copy(COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch WEATHERED_COPPER_SOUL_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.WEATHERED, FabricBlockSettings.copy(COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch OXIDIZED_COPPER_SOUL_TORCH = HavenTorch.Oxidizable(Oxidizable.OxidizationLevel.OXIDIZED, FabricBlockSettings.copy(COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final OxidationScale COPPER_SOUL_TORCH_OXIDATION = new OxidationScale(COPPER_SOUL_TORCH.BLOCK, EXPOSED_COPPER_SOUL_TORCH.BLOCK, WEATHERED_COPPER_SOUL_TORCH.BLOCK, OXIDIZED_COPPER_SOUL_TORCH.BLOCK);
+	public static final OxidationScale COPPER_SOUL_WALL_TORCH_OXIDATION = new OxidationScale(COPPER_SOUL_TORCH.WALL_BLOCK, EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK, WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK, OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK);
+	public static final HavenTorch WAXED_COPPER_SOUL_TORCH = new HavenTorch(FabricBlockSettings.copy(COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch WAXED_EXPOSED_COPPER_SOUL_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch WAXED_WEATHERED_COPPER_SOUL_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
+	public static final HavenTorch WAXED_OXIDIZED_COPPER_SOUL_TORCH = new HavenTorch(FabricBlockSettings.copy(WAXED_COPPER_SOUL_TORCH.BLOCK), ParticleTypes.SOUL_FIRE_FLAME);
 	public static final DefaultParticleType GOLD_FLAME = FabricParticleTypes.simple(false);
 	public static final HavenTorch GOLD_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), GOLD_FLAME);
+	public static final HavenTorch GOLD_SOUL_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME);
 	public static final DefaultParticleType IRON_FLAME = FabricParticleTypes.simple(false);
 	public static final HavenTorch IRON_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), IRON_FLAME);
+	public static final HavenTorch IRON_SOUL_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME);
 	public static final HavenTorch DARK_IRON_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), IRON_FLAME);
+	public static final HavenTorch DARK_IRON_SOUL_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME);
 	public static final DefaultParticleType NETHERITE_FLAME = FabricParticleTypes.simple(false);
 	public static final HavenTorch NETHERITE_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), NETHERITE_FLAME);
+	public static final HavenTorch NETHERITE_SOUL_TORCH = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME);
 
 	//More Copper
 	public static final Item COPPER_NUGGET = new Item(ITEM_SETTINGS);
@@ -183,9 +197,13 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair CUT_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_IRON.BLOCK)));
 	public static final HavenPair CUT_IRON_SLAB = new HavenPair(new HavenSlabBlock(CUT_IRON.BLOCK));
 	public static final HavenPair CUT_IRON_STAIRS = new HavenPair(new HavenStairsBlock(CUT_IRON.BLOCK));
+	public static final Item DARK_IRON_NUGGET = new Item(ITEM_SETTINGS);
+	public static final Item DARK_IRON_INGOT = new Item(ITEM_SETTINGS);
 	public static final HavenPair DARK_IRON_BARS = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
 	public static final HavenPair DARK_IRON_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
 	public static final HavenPair DARK_IRON_WALL = new HavenPair(new HavenWallBlock(DARK_IRON_BLOCK.BLOCK));
+	public static final HavenPair DARK_IRON_DOOR = new HavenPair(new HavenDoorBlock(Blocks.IRON_DOOR));
+	public static final HavenPair DARK_IRON_TRAPDOOR = new HavenPair(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR));
 	public static final HavenPair CUT_DARK_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(DARK_IRON_BLOCK.BLOCK)));
 	public static final HavenPair CUT_DARK_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_DARK_IRON.BLOCK)));
 	public static final HavenPair CUT_DARK_IRON_SLAB = new HavenPair(new HavenSlabBlock(CUT_DARK_IRON.BLOCK));
@@ -816,6 +834,8 @@ public class HavenMod implements ModInitializer {
 		//Oxidizable Blocks
 		OXIDIZABLE_BLOCKS.add(COPPER_TORCH_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_WALL_TORCH_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_SOUL_TORCH_OXIDATION);
+		OXIDIZABLE_BLOCKS.add(COPPER_SOUL_WALL_TORCH_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(MEDIUM_WEIGHTED_PRESSURE_PLATE_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_LANTERN_OXIDATION);
 		OXIDIZABLE_BLOCKS.add(COPPER_SOUL_LANTERN_OXIDATION);
@@ -828,6 +848,18 @@ public class HavenMod implements ModInitializer {
 		WAXED_BLOCKS.put(EXPOSED_COPPER_TORCH.BLOCK, WAXED_EXPOSED_COPPER_TORCH.BLOCK);
 		WAXED_BLOCKS.put(WEATHERED_COPPER_TORCH.BLOCK, WAXED_WEATHERED_COPPER_TORCH.BLOCK);
 		WAXED_BLOCKS.put(OXIDIZED_COPPER_TORCH.BLOCK, WAXED_OXIDIZED_COPPER_TORCH.BLOCK);
+		WAXED_BLOCKS.put(COPPER_TORCH.WALL_BLOCK, WAXED_COPPER_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_TORCH.WALL_BLOCK, WAXED_EXPOSED_COPPER_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_TORCH.WALL_BLOCK, WAXED_WEATHERED_COPPER_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_TORCH.WALL_BLOCK, WAXED_OXIDIZED_COPPER_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(COPPER_SOUL_TORCH.BLOCK, WAXED_COPPER_SOUL_TORCH.BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_SOUL_TORCH.BLOCK, WAXED_EXPOSED_COPPER_SOUL_TORCH.BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_SOUL_TORCH.BLOCK, WAXED_WEATHERED_COPPER_SOUL_TORCH.BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_SOUL_TORCH.BLOCK, WAXED_OXIDIZED_COPPER_SOUL_TORCH.BLOCK);
+		WAXED_BLOCKS.put(COPPER_SOUL_TORCH.WALL_BLOCK, WAXED_COPPER_SOUL_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK, WAXED_EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK, WAXED_WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK);
+		WAXED_BLOCKS.put(OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK, WAXED_OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK);
 		WAXED_BLOCKS.put(MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
 		WAXED_BLOCKS.put(EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);
 		WAXED_BLOCKS.put(WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK, WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK);

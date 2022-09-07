@@ -9,8 +9,38 @@
     "haven:waxed_exposed_copper_soul_lantern",
     "haven:waxed_weathered_copper_soul_lantern",
     "haven:waxed_oxidized_copper_soul_lantern",
+    
+    "haven:copper_soul_torch",
+    "haven:exposed_copper_soul_torch",
+    "haven:weathered_copper_soul_torch",
+    "haven:oxidized_copper_soul_torch",
+    "haven:waxed_copper_soul_torch",
+    "haven:waxed_exposed_copper_soul_torch",
+    "haven:waxed_weathered_copper_soul_torch",
+    "haven:waxed_oxidized_copper_soul_torch",
+    
+    "haven:copper_soul_wall_torch",
+    "haven:exposed_copper_soul_wall_torch",
+    "haven:weathered_copper_soul_wall_torch",
+    "haven:oxidized_copper_soul_wall_torch",
+    "haven:waxed_copper_soul_wall_torch",
+    "haven:waxed_exposed_copper_soul_wall_torch",
+    "haven:waxed_weathered_copper_soul_wall_torch",
+    "haven:waxed_oxidized_copper_soul_wall_torch",
+    
+    "haven:gold_soul_torch",
+    "haven:gold_soul_wall_torch",
     "haven:gold_soul_lantern",
+    
+    "haven:iron_soul_torch",
+    "haven:iron_soul_wall_torch",
     "haven:iron_soul_lantern",
+  
+    "haven:dark_iron_soul_torch",
+    "haven:dark_iron_soul_wall_torch",
+    
+    "haven:netherite_soul_torch",
+    "haven:netherite_soul_wall_torch",
     "haven:netherite_soul_lantern"
   ]
 }

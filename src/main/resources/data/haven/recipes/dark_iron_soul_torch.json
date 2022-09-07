@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:soul_torch"
+    },
+    "Y": {
+      "item": "haven:dark_iron_nugget"
+    }
+  },
+  "pattern": [
+    "X",
+    "#",
+    "Y"
+  ],
+  "result": {
+    "count": 4,
+    "item": "haven:dark_iron_soul_torch"
+  }
+}

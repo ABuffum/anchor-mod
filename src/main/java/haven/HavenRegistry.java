@@ -4,7 +4,6 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
-import haven.items.blood.BloodSyringeItem;
 import haven.materials.*;
 import haven.origins.powers.BloodTypePower;
 import haven.util.*;
@@ -148,28 +147,6 @@ public class HavenRegistry {
 			Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
 		}
 	}
-	public static void RegisterTorches() {
-		Register("bone", BONE_TORCH);
-		Register("bamboo", BAMBOO_TORCH);
-		Register("dried_bamboo", DRIED_BAMBOO_TORCH);
-		//Metal Torches
-		Registry.register(Registry.PARTICLE_TYPE, ID("copper_flame"), COPPER_FLAME);
-		Register("copper", COPPER_TORCH);
-		Register("exposed_copper", EXPOSED_COPPER_TORCH);
-		Register("weathered_copper", WEATHERED_COPPER_TORCH);
-		Register("oxidized_copper", OXIDIZED_COPPER_TORCH);
-		Register("waxed_copper", WAXED_COPPER_TORCH);
-		Register("waxed_exposed_copper", WAXED_EXPOSED_COPPER_TORCH);
-		Register("waxed_weathered_copper", WAXED_WEATHERED_COPPER_TORCH);
-		Register("waxed_oxidized_copper", WAXED_OXIDIZED_COPPER_TORCH);
-		Registry.register(Registry.PARTICLE_TYPE, ID("gold_flame"), GOLD_FLAME);
-		Register("gold", GOLD_TORCH);
-		Registry.register(Registry.PARTICLE_TYPE, ID("iron_flame"), IRON_FLAME);
-		Register("iron", IRON_TORCH);
-		Register("dark_iron", DARK_IRON_TORCH);
-		Registry.register(Registry.PARTICLE_TYPE, ID("netherite_flame"), NETHERITE_FLAME);
-		Register("netherite", NETHERITE_TORCH);
-	}
 	public static void RegisterAmethyst() {
 		Register("amethyst_crystal_block", AMETHYST_CRYSTAL_BLOCK);
 		//Amethyst Bricks
@@ -266,6 +243,7 @@ public class HavenRegistry {
 	}
 	public static void RegisterBamboo() {
 		//Bamboo
+		Register("bamboo", BAMBOO_TORCH);
 		Register(BAMBOO);
 		Register("bamboo_bundle", BAMBOO_BUNDLE);
 		FuelRegistry.INSTANCE.add(BAMBOO_BUNDLE.ITEM, 300);
@@ -276,6 +254,7 @@ public class HavenRegistry {
 		Register("stripped_bamboo_log", STRIPPED_BAMBOO_LOG);
 		FuelRegistry.INSTANCE.add(STRIPPED_BAMBOO_LOG.ITEM, 300);
 		//Dried Bamboo
+		Register("dried_bamboo", DRIED_BAMBOO_TORCH);
 		Register(DRIED_BAMBOO);
 		Register("dried_bamboo", DRIED_BAMBOO_BLOCK);
 		FuelRegistry.INSTANCE.add(DRIED_BAMBOO_BLOCK.ITEM, 50);
@@ -530,6 +509,24 @@ public class HavenRegistry {
 	}
 	public static void RegisterMoreCopper() {
 		Register("copper_nugget", COPPER_NUGGET);
+		//Torches
+		Registry.register(Registry.PARTICLE_TYPE, ID("copper_flame"), COPPER_FLAME);
+		Register("copper", COPPER_TORCH);
+		Register("exposed_copper", EXPOSED_COPPER_TORCH);
+		Register("weathered_copper", WEATHERED_COPPER_TORCH);
+		Register("oxidized_copper", OXIDIZED_COPPER_TORCH);
+		Register("waxed_copper", WAXED_COPPER_TORCH);
+		Register("waxed_exposed_copper", WAXED_EXPOSED_COPPER_TORCH);
+		Register("waxed_weathered_copper", WAXED_WEATHERED_COPPER_TORCH);
+		Register("waxed_oxidized_copper", WAXED_OXIDIZED_COPPER_TORCH);
+		Register("copper_soul_torch", "copper_soul_wall_torch", COPPER_SOUL_TORCH);
+		Register("exposed_copper_soul_torch", "exposed_copper_soul_wall_torch", EXPOSED_COPPER_SOUL_TORCH);
+		Register("weathered_copper_soul_torch", "weathered_copper_soul_wall_torch", WEATHERED_COPPER_SOUL_TORCH);
+		Register("oxidized_copper_soul_torch", "oxidized_copper_soul_wall_torch", OXIDIZED_COPPER_SOUL_TORCH);
+		Register("waxed_copper_soul_torch", "waxed_copper_soul_wall_torch", WAXED_COPPER_SOUL_TORCH);
+		Register("waxed_exposed_copper_soul_torch", "waxed_exposed_copper_soul_wall_torch", WAXED_EXPOSED_COPPER_SOUL_TORCH);
+		Register("waxed_weathered_copper_soul_torch", "waxed_weathered_copper_soul_wall_torch", WAXED_WEATHERED_COPPER_SOUL_TORCH);
+		Register("waxed_oxidized_copper_soul_torch", "waxed_oxidized_copper_soul_wall_torch", WAXED_OXIDIZED_COPPER_SOUL_TORCH);
 		//Medium Weighted Pressure Plates
 		Register("medium_weighted_pressure_plate", MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("exposed_medium_weighted_pressure_plate", EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
@@ -594,6 +591,9 @@ public class HavenRegistry {
 		Register("waxed_oxidized_cut_copper_pillar", WAXED_OXIDIZED_CUT_COPPER_PILLAR);
 	}
 	public static void RegisterMoreGold() {
+		Registry.register(Registry.PARTICLE_TYPE, ID("gold_flame"), GOLD_FLAME);
+		Register("gold", GOLD_TORCH);
+		Register("gold_soul_torch", "gold_soul_wall_torch", GOLD_SOUL_TORCH);
 		Register("gold_lantern", GOLD_LANTERN);
 		Register("gold_soul_lantern", GOLD_SOUL_LANTERN);
 		Register("gold_chain", GOLD_CHAIN);
@@ -605,6 +605,9 @@ public class HavenRegistry {
 		Register("cut_gold_stairs", CUT_GOLD_STAIRS);
 	}
 	public static void RegisterMoreIron() {
+		Registry.register(Registry.PARTICLE_TYPE, ID("iron_flame"), IRON_FLAME);
+		Register("iron", IRON_TORCH);
+		Register("iron_soul_torch", "iron_soul_wall_torch", IRON_SOUL_TORCH);
 		Register("iron_lantern", IRON_LANTERN);
 		Register("iron_soul_lantern", IRON_SOUL_LANTERN);
 		Register("iron_chain", IRON_CHAIN);
@@ -613,17 +616,24 @@ public class HavenRegistry {
 		Register("cut_iron_pillar", CUT_IRON_PILLAR);
 		Register("cut_iron_slab", CUT_IRON_SLAB);
 		Register("cut_iron_stairs", CUT_IRON_STAIRS);
-		//Register("dark_iron_nugget", DARK_IRON_NUGGET);
-		//Register("dark_iron_ingot", DARK_IRON_INGOT);
+		Register("dark_iron", DARK_IRON_TORCH);
+		Register("dark_iron_soul_torch", "dark_iron_soul_wall_torch", DARK_IRON_SOUL_TORCH);
+		Register("dark_iron_nugget", DARK_IRON_NUGGET);
+		Register("dark_iron_ingot", DARK_IRON_INGOT);
 		Register("dark_iron_bars", DARK_IRON_BARS);
 		Register("dark_iron_block", DARK_IRON_BLOCK);
 		Register("dark_iron_wall", DARK_IRON_WALL);
+		Register("dark_iron_door", DARK_IRON_DOOR);
+		Register("dark_iron_trapdoor", DARK_IRON_TRAPDOOR);
 		Register("cut_dark_iron", CUT_DARK_IRON);
 		Register("cut_dark_iron_pillar", CUT_DARK_IRON_PILLAR);
 		Register("cut_dark_iron_slab", CUT_DARK_IRON_SLAB);
 		Register("cut_dark_iron_stairs", CUT_DARK_IRON_STAIRS);
 	}
 	public static void RegisterMoreNetherite() {
+		Registry.register(Registry.PARTICLE_TYPE, ID("netherite_flame"), NETHERITE_FLAME);
+		Register("netherite", NETHERITE_TORCH);
+		Register("netherite_soul_torch", "netherite_soul_wall_torch", NETHERITE_SOUL_TORCH);
 		Register("netherite_nugget", NETHERITE_NUGGET);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 		Register("netherite_lantern", NETHERITE_LANTERN);
@@ -639,7 +649,7 @@ public class HavenRegistry {
 
 	public static void RegisterAll() {
 		RegisterAnchors();
-		RegisterTorches();
+		Register("bone", BONE_TORCH);
 		Register("tinker_toy", TINKER_TOY);
 		Register("charcoal_block", CHARCOAL_BLOCK);
 		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
