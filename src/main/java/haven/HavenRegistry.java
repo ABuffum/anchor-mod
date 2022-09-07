@@ -625,6 +625,7 @@ public class HavenRegistry {
 		Register("dark_iron_wall", DARK_IRON_WALL);
 		Register("dark_iron_door", DARK_IRON_DOOR);
 		Register("dark_iron_trapdoor", DARK_IRON_TRAPDOOR);
+		Register("dark_heavy_weighted_pressure_plate", DARK_HEAVY_WEIGHTED_PRESSURE_PLATE);
 		Register("cut_dark_iron", CUT_DARK_IRON);
 		Register("cut_dark_iron_pillar", CUT_DARK_IRON_PILLAR);
 		Register("cut_dark_iron_slab", CUT_DARK_IRON_SLAB);

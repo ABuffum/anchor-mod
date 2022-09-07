@@ -450,6 +450,7 @@
   "block.haven.dried_blood_wall": "Dried Blood Wall",
   
   "block.haven.blood_cauldron": "Blood Cauldron",
+  "block.haven.blood_fluid_block": "Blood",
   "item.haven.blood_bottle": "Bottle of Blood",
   "item.haven.lava_bottle": "Lava Bottle",
   "item.haven.sugar_water_bottle": "Sugar Water Bottle",
@@ -612,6 +613,7 @@
   "block.haven.dark_iron_wall": "Dark Iron Wall",
   "block.haven.dark_iron_door": "Dark Iron Door",
   "block.haven.dark_iron_trapdoor": "Dark Iron Trapdoor",
+  "block.haven.dark_heavy_weighted_pressure_plate": "Dark Heavy Weighted Pressure Plate",
   "block.haven.cut_dark_iron": "Cut Dark Iron",
   "block.haven.cut_dark_iron_pillar": "Cut Dark Iron Pillar",
   "block.haven.cut_dark_iron_slab": "Cut Dark Iron Slab",

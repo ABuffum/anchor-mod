@@ -204,6 +204,7 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair DARK_IRON_WALL = new HavenPair(new HavenWallBlock(DARK_IRON_BLOCK.BLOCK));
 	public static final HavenPair DARK_IRON_DOOR = new HavenPair(new HavenDoorBlock(Blocks.IRON_DOOR));
 	public static final HavenPair DARK_IRON_TRAPDOOR = new HavenPair(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR));
+	public static final HavenPair DARK_HEAVY_WEIGHTED_PRESSURE_PLATE = new HavenPair(new HavenWeightedPressurePlateBlock(150, AbstractBlock.Settings.of(Material.METAL).requiresTool().noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
 	public static final HavenPair CUT_DARK_IRON = new HavenPair(new Block(AbstractBlock.Settings.copy(DARK_IRON_BLOCK.BLOCK)));
 	public static final HavenPair CUT_DARK_IRON_PILLAR = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(CUT_DARK_IRON.BLOCK)));
 	public static final HavenPair CUT_DARK_IRON_SLAB = new HavenPair(new HavenSlabBlock(CUT_DARK_IRON.BLOCK));

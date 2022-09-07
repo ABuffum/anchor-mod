@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "haven:dark_iron_ingot"
+      "item": "haven:dark_iron_trapdoor"
     },
     {
       "item": "minecraft:white_dye"
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "minecraft:iron_ingot"
+    "item": "minecraft:iron_trapdoor"
   }
 }
