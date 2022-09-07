@@ -4,10 +4,14 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
-import haven.items.*;
+import haven.items.blood.BloodSyringeItem;
 import haven.materials.*;
+import haven.origins.powers.BloodTypePower;
 import haven.util.*;
 
+import io.github.apace100.apoli.power.factory.PowerFactory;
+import io.github.apace100.apoli.power.factory.PowerFactorySupplier;
+import io.github.apace100.apoli.registry.ApoliRegistries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -22,8 +26,6 @@ import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -133,6 +135,8 @@ public class HavenRegistry {
 		Register(boat.TYPE.getName() + "_boat", boat.ITEM);
 		DispenserBlock.registerBehavior(boat.ITEM, new HavenBoatDispenserBehavior(boat.TYPE));
 	}
+	public static void Register(PowerFactory<?> powerFactory) { Registry.register(ApoliRegistries.POWER_FACTORY, powerFactory.getSerializerId(), powerFactory); }
+	public static void Register(PowerFactorySupplier<?> factorySupplier) { Register(factorySupplier.createFactory()); }
 
 	public static void RegisterAnchors() {
 		Register("anchor", ANCHOR);
@@ -369,7 +373,7 @@ public class HavenRegistry {
 		Register("dried_blood_slab", DRIED_BLOOD_SLAB);
 		Register("dried_blood_stairs", DRIED_BLOOD_STAIRS);
 		Register("dried_blood_wall", DRIED_BLOOD_WALL);
-
+		//Liquid Blood, Bucket, and Bottles
 		Register("blood_bucket", BLOOD_BUCKET);
 		Register("blood_cauldron", BLOOD_CAULDRON);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_BUCKET);
@@ -378,10 +382,80 @@ public class HavenRegistry {
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(Items.GLASS_BOTTLE, BloodCauldronBlock.EMPTY_TO_BOTTLE);
 		Register("blood_bottle", BLOOD_BOTTLE);
+		Register("lava_bottle", LAVA_BOTTLE);
+		Register("sugar_water_bottle", SUGAR_WATER_BOTTLE);
+		Register("ichor_bottle", ICHOR_BOTTLE);
+		Register("sludge_bottle", SLUDGE_BOTTLE);
+		Register("diseased_blood_bottle", DISEASED_BLOOD_BOTTLE);
+		Register("nephal_blood_bottle", NEPHAL_BLOOD_BOTTLE);
+		Register("rotten_blood_bottle", ROTTEN_BLOOD_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
 		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
 		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
+		//Blood Syringes
+		Register("blood_syringe", BLOOD_SYRINGE);
+		Register("lava_syringe", LAVA_SYRINGE);
+		Register("water_syringe", WATER_SYRINGE);
+		Register("sugar_water_syringe", SUGAR_WATER_SYRINGE);
+		Register("ichor_syringe", ICHOR_SYRINGE);
+		Register("magma_cream_syringe", MAGMA_CREAM_SYRINGE);
+		Register("slime_syringe", SLIME_SYRINGE);
+		Register("sludge_syringe", SLUDGE_SYRINGE);
+		Register("allay_blood_syringe", ALLAY_BLOOD_SYRINGE);
+		Register("avian_blood_syringe", AVIAN_BLOOD_SYRINGE);
+		Register("axolotl_blood_syringe", AXOLOTL_BLOOD_SYRINGE);
+		Register("bat_blood_syringe", BAT_BLOOD_SYRINGE);
+		Register("bear_blood_syringe", BEAR_BLOOD_SYRINGE);
+		Register("bee_blood_syringe", BEE_BLOOD_SYRINGE);
+		Register("bee_enderman_blood_syringe", BEE_ENDERMAN_BLOOD_SYRINGE);
+		Register("canine_blood_syringe", CANINE_BLOOD_SYRINGE);
+		Register("cow_blood_syringe", COW_BLOOD_SYRINGE);
+		Register("creeper_blood_syringe", CREEPER_BLOOD_SYRINGE);
+		Register("diseased_feline_blood_syringe", DISEASED_FELINE_BLOOD_SYRINGE);
+		Register("dolphin_blood_syringe", DOLPHIN_BLOOD_SYRINGE);
+		Register("dragon_blood_syringe", DRAGON_BLOOD_SYRINGE);
+		Register("enderman_blood_syringe", ENDERMAN_BLOOD_SYRINGE);
+		Register("equine_blood_syringe", EQUINE_BLOOD_SYRINGE);
+		Register("feline_blood_syringe", FELINE_BLOOD_SYRINGE);
+		Register("fish_blood_syringe", FISH_BLOOD_SYRINGE);
+		Register("goat_blood_syringe", GOAT_BLOOD_SYRINGE);
+		Register("insect_blood_syringe", INSECT_BLOOD_SYRINGE);
+		Register("llama_blood_syringe", LLAMA_BLOOD_SYRINGE);
+		Register("nephal_blood_syringe", NEPHAL_BLOOD_SYRINGE);
+		Register("nether_blood_syringe", NETHER_BLOOD_SYRINGE);
+		Register("phantom_blood_syringe", PHANTOM_BLOOD_SYRINGE);
+		Register("pig_blood_syringe", PIG_BLOOD_SYRINGE);
+		Register("rabbit_blood_syringe", RABBIT_BLOOD_SYRINGE);
+		Register("ravager_blood_syringe", RAVAGER_BLOOD_SYRINGE);
+		Register("sheep_blood_syringe", SHEEP_BLOOD_SYRINGE);
+		Register("spider_blood_syringe", SPIDER_BLOOD_SYRINGE);
+		Register("squid_blood_syringe", SQUID_BLOOD_SYRINGE);
+		Register("strider_blood_syringe", STRIDER_BLOOD_SYRINGE);
+		Register("turtle_blood_syringe", TURTLE_BLOOD_SYRINGE);
+		Register("vampire_blood_syringe", VAMPIRE_BLOOD_SYRINGE);
+		Register("vex_blood_syringe", VEX_BLOOD_SYRINGE);
+		Register("villager_blood_syringe", VILLAGER_BLOOD_SYRINGE);
+		Register("warden_blood_syringe", WARDEN_BLOOD_SYRINGE);
+		Register("zombie_blood_syringe", ZOMBIE_BLOOD_SYRINGE);
+		//Syringes
+		Register("deteriorating", DETERIORATION_EFFECT);
+		Register("secret_ingredient", SECRET_INGREDIENT);
+		Register("syringe", SYRINGE);
+		Register("dirty_syringe", DIRTY_SYRINGE);
+		Register("syringe_blindness", SYRINGE_BLINDNESS);
+		Register("syringe_mining_fatigue", SYRINGE_MINING_FATIGUE);
+		Register("syringe_poison", SYRINGE_POISON);
+		Register("syringe_regeneration", SYRINGE_REGENERATION);
+		Register("syringe_saturation", SYRINGE_SATURATION);
+		Register("syringe_slowness", SYRINGE_SLOWNESS);
+		Register("syringe_weakness", SYRINGE_WEAKNESS);
+		Register("syringe_wither", SYRINGE_WITHER);
+		Register("syringe_exp1", SYRINGE_EXP1);
+		Register("syringe_exp2", SYRINGE_EXP2);
+		Register("syringe_exp3", SYRINGE_EXP3);
+		//Origin Powers
+		Register(BloodTypePower::createFactory);
 	}
 	public static void RegisterAngelBat() {
 		Register("angel_bat", ANGEL_BAT_ENTITY);
@@ -451,6 +525,8 @@ public class HavenRegistry {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
 		Register("dropped_confetti", DROPPED_CONFETTI_ENTITY);
 		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY);
+		Register("dropped_dragon_breath", DROPPED_DRAGON_BREATH_ENTITY);
+		Register("dragon_breath_cloud", DRAGON_BREATH_CLOUD_ENTITY);
 	}
 	public static void RegisterMoreCopper() {
 		Register("copper_nugget", COPPER_NUGGET);
@@ -560,27 +636,6 @@ public class HavenRegistry {
 		Register("cut_netherite_slab", CUT_NETHERITE_SLAB);
 		Register("cut_netherite_stairs", CUT_NETHERITE_STAIRS);
 	}
-	public static void RegisterSyringes() {
-		Register("deteriorating", DETERIORATION_EFFECT);
-		Register("secret_ingredient", SECRET_INGREDIENT);
-		Register("syringe", SYRINGE);
-		Register("dirty_syringe", DIRTY_SYRINGE);
-		Register("syringe_blindness", SYRINGE_BLINDNESS);
-		Register("syringe_mining_fatigue", SYRINGE_MINING_FATIGUE);
-		Register("syringe_poison", SYRINGE_POISON);
-		Register("syringe_regeneration", SYRINGE_REGENERATION);
-		Register("syringe_saturation", SYRINGE_SATURATION);
-		Register("syringe_slowness", SYRINGE_SLOWNESS);
-		Register("syringe_weakness", SYRINGE_WEAKNESS);
-		Register("syringe_wither", SYRINGE_WITHER);
-		Register("syringe_exp1", SYRINGE_EXP1);
-		Register("syringe_exp2", SYRINGE_EXP2);
-		Register("syringe_exp3", SYRINGE_EXP3);
-		Register("blood_syringe", BLOOD_SYRINGE);
-		Register("goo_blood_syringe", GOO_BLOOD_SYRINGE);
-		Register("lava_syringe", LAVA_SYRINGE);
-		Register("water_syringe", WATER_SYRINGE);
-	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
@@ -618,7 +673,6 @@ public class HavenRegistry {
 		RegisterMoreGold();
 		RegisterMoreIron();
 		RegisterMoreNetherite();
-		RegisterSyringes();
 		Register119();
 	}
 }

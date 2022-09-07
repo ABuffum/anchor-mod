@@ -38,7 +38,6 @@ public class BottledDrinkItem extends Item {
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-
 		if (stack.isEmpty()) {
 			return new ItemStack(Items.GLASS_BOTTLE);
 		} else {
@@ -49,7 +48,6 @@ public class BottledDrinkItem extends Item {
 					playerEntity.dropItem(itemStack, false);
 				}
 			}
-
 			return stack;
 		}
 	}

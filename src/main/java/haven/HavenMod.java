@@ -3,10 +3,12 @@ package haven;
 import haven.blocks.*;
 import haven.blocks.oxidizable.*;
 import haven.boats.*;
+import haven.damage.HavenDamageSource;
 import haven.effects.*;
 import haven.entities.*;
 import haven.features.*;
 import haven.items.*;
+import haven.items.blood.*;
 import haven.materials.*;
 import haven.mixins.SignTypeAccessor;
 import haven.sounds.HavenBlockSoundGroups;
@@ -25,6 +27,7 @@ import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.particle.*;
@@ -56,7 +59,7 @@ public class HavenMod implements ModInitializer {
 	public static final DyeColor[] COLORS = DyeColor.values();
 
 	private static final Block ANCHOR_BLOCK = new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(new Identifier(NAMESPACE, "general"), () -> new ItemStack(ANCHOR_BLOCK));
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(HavenMod.ID("general"), () -> new ItemStack(ANCHOR_BLOCK));
 	public static final Item.Settings ITEM_SETTINGS = new Item.Settings().group(ITEM_GROUP);
 	public static final HavenPair ANCHOR = new HavenPair(ANCHOR_BLOCK);
 	public static BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR.BLOCK).build(null);
@@ -365,26 +368,261 @@ public class HavenMod implements ModInitializer {
 	public static final StatusEffect KILLJOY_EFFECT = new KilljoyEffect();
 
 	//Server Blood
-	public static final HavenPair BLOOD_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.RED).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)));
-	public static final HavenPair BLOOD_FENCE = new HavenPair(new HavenFenceBlock(BLOOD_BLOCK.BLOCK));
-	public static final HavenPair BLOOD_PANE = new HavenPair(new HavenPaneBlock(BLOOD_BLOCK.BLOCK));
-	public static final HavenPair BLOOD_SLAB = new HavenPair(new HavenSlabBlock(BLOOD_BLOCK.BLOCK));
-	public static final HavenPair BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(BLOOD_BLOCK.BLOCK));
-	public static final HavenPair BLOOD_WALL = new HavenPair(new HavenWallBlock(BLOOD_BLOCK.BLOCK));
-	public static final HavenPair DRIED_BLOOD_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(BLOOD_BLOCK.BLOCK)));
-	public static final HavenPair DRIED_BLOOD_FENCE = new HavenPair(new HavenFenceBlock(DRIED_BLOOD_BLOCK.BLOCK));
-	public static final HavenPair DRIED_BLOOD_PANE = new HavenPair(new HavenPaneBlock(DRIED_BLOOD_BLOCK.BLOCK));
-	public static final HavenPair DRIED_BLOOD_SLAB = new HavenPair(new HavenSlabBlock(DRIED_BLOOD_BLOCK.BLOCK));
-	public static final HavenPair DRIED_BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(DRIED_BLOOD_BLOCK.BLOCK));
-	public static final HavenPair DRIED_BLOOD_WALL = new HavenPair(new HavenWallBlock(DRIED_BLOOD_BLOCK.BLOCK));
+	private static final Block BLOOD_BLOCK_BLOCK = new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.RED).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
+	public static final ItemGroup BLOOD_ITEM_GROUP = FabricItemGroupBuilder.build(HavenMod.ID("blood"), () -> new ItemStack(BLOOD_BLOCK_BLOCK));
+	public static final Item.Settings BLOOD_ITEM_SETTINGS = new Item.Settings().group(BLOOD_ITEM_GROUP);
+	public static final HavenPair BLOOD_BLOCK = new HavenPair(BLOOD_BLOCK_BLOCK, BLOOD_ITEM_SETTINGS);
+	public static final HavenPair BLOOD_FENCE = new HavenPair(new HavenFenceBlock(BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair BLOOD_PANE = new HavenPair(new HavenPaneBlock(BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair BLOOD_SLAB = new HavenPair(new HavenSlabBlock(BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair BLOOD_WALL = new HavenPair(new HavenWallBlock(BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(BLOOD_BLOCK.BLOCK)), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_FENCE = new HavenPair(new HavenFenceBlock(DRIED_BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_PANE = new HavenPair(new HavenPaneBlock(DRIED_BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_SLAB = new HavenPair(new HavenSlabBlock(DRIED_BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_STAIRS = new HavenPair(new HavenStairsBlock(DRIED_BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
+	public static final HavenPair DRIED_BLOOD_WALL = new HavenPair(new HavenWallBlock(DRIED_BLOOD_BLOCK.BLOCK), BLOOD_ITEM_SETTINGS);
 
 	public static final FlowableFluid STILL_BLOOD_FLUID = new BloodFluid.Still();
 	public static final FlowableFluid FLOWING_BLOOD_FLUID = new BloodFluid.Flowing();
 	public static final FluidBlock BLOOD_FLUID_BLOCK = new BloodFluidBlock(STILL_BLOOD_FLUID, FabricBlockSettings.copyOf(Blocks.WATER).mapColor(MapColor.RED));
 
 	public static final Block BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
-	public static final Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(1).group(ITEM_GROUP));
-	public static final BucketItem BLOOD_BUCKET = new BloodBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final BucketItem BLOOD_BUCKET = new BloodBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(BLOOD_ITEM_GROUP));
+	public static final Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item LAVA_BOTTLE = new LavaBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
+	//TODO: WATER_BOTTLE
+	public static final Item SUGAR_WATER_BOTTLE = new BottledDrinkItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).build()));
+	public static final Item ICHOR_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item SLUDGE_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item DISEASED_BLOOD_BOTTLE = new DiseasedBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item NEPHAL_BLOOD_BOTTLE = new DiseasedBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item ROTTEN_BLOOD_BOTTLE = new RottenBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	//Syringes
+	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PLAYER) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.PLAYER || bloodType == BloodType.ZOMBIE) entity.heal(1);
+			else if (entity instanceof PlayerEntity && bloodType != BloodType.NONE) entity.heal(1);
+			else super.ApplyEffect(user, entity);
+		}
+	};
+	public static final Item LAVA_SYRINGE = new BloodSyringeItem(BloodType.LAVA) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.LAVA || bloodType == BloodType.MAGMA) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				if (bloodType.IsFireVulnerable()) {
+					entity.setOnFireFor(30);
+					entity.damage(DamageSource.LAVA, 4);
+				}
+				else entity.damage(HavenDamageSource.INCOMPATIBLE_BLOOD, 4);
+			}
+		}
+	};
+	public static final Item WATER_SYRINGE = new BloodSyringeItem(BloodType.WATER) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.WATER) entity.heal(1);
+			else if (bloodType != BloodType.SUGAR_WATER) {
+				super.ApplyEffect(user, entity);
+				//Put out fires
+				if (entity.isOnFire()) entity.setOnFire(false);
+				//Hurt water-vulnerable
+				if (bloodType.IsWaterVulnerable()) {
+					entity.damage(HavenDamageSource.INJECTED_WATER, 4);
+				}
+			}
+		}
+	};
+	public static final Item SUGAR_WATER_SYRINGE = new BloodSyringeItem(BloodType.SUGAR_WATER) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.SUGAR_WATER || bloodType == BloodType.WATER) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				//Put out fires
+				if (entity.isOnFire()) entity.setOnFire(false);
+				//Hurt water-vulnerable
+				if (bloodType.IsWaterVulnerable()) {
+					entity.damage(HavenDamageSource.INJECTED_WATER, 4);
+				}
+			}
+		}
+	};
+	public static final Item ICHOR_SYRINGE = new BloodSyringeItem(BloodType.ICHOR) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.ICHOR) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				if (bloodType.IsPoisonVulnerable()) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 1));
+				else if (bloodType.IsWitherVulnerable()) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 1));
+				entity.damage(HavenDamageSource.ICHOR, 3);
+			}
+		}
+	};
+	public static final Item MAGMA_CREAM_SYRINGE = new BloodSyringeItem(BloodType.MAGMA) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.LAVA || bloodType == BloodType.MAGMA) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				if (bloodType.IsFireVulnerable()) entity.setOnFireFor(5);
+			}
+		}
+	};
+	public static final Item SLIME_SYRINGE = new BloodSyringeItem(BloodType.SLIME) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.SLUDGE || bloodType == BloodType.MAGMA) entity.heal(1);
+			else super.ApplyEffect(user, entity);
+		}
+	};
+	public static final Item SLUDGE_SYRINGE = new BloodSyringeItem(BloodType.SLUDGE) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.SLUDGE) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				if (bloodType.IsPoisonVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 1));
+				else if (bloodType.IsWitherVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 1));
+				else user.damage(HavenDamageSource.INCOMPATIBLE_BLOOD, 3);
+			}
+		}
+	};
+	public static final Item ALLAY_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.ALLAY);
+	public static final Item AVIAN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.AVIAN);
+	public static final Item AXOLOTL_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.AXOLOTL);
+	public static final Item BAT_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.BAT);
+	public static final Item BEAR_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.BEAR);
+	public static final Item BEE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.BEE) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.BEE || bloodType == BloodType.BEE_ENDERMAN) entity.heal(1);
+			else {
+				super.ApplyEffect(user, entity);
+				if (bloodType.IsPoisonVulnerable()) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 1));
+			}
+		}
+	};
+	public static final Item BEE_ENDERMAN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.BEE_ENDERMAN) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.BEE || bloodType == BloodType.BEE_ENDERMAN) entity.heal(1);
+			else {
+				if (bloodType == BloodType.ENDERMAN || bloodType == BloodType.DRAGON) entity.heal(1);
+				else super.ApplyEffect(user, entity);
+				if (bloodType.IsPoisonVulnerable()) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 1));
+			}
+		}
+	};
+	public static final Item CANINE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.CANINE);
+	public static final Item COW_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.COW);
+	public static final Item CREEPER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.CREEPER);
+	public static final Item DISEASED_FELINE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.DISEASED_FELINE) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.DISEASED_FELINE) entity.heal(1);
+			else {
+				if (bloodType == BloodType.FELINE) entity.heal(1);
+				else super.ApplyEffect(user, entity);
+				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1));
+			}
+		}
+	};
+	public static final Item DOLPHIN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.DOLPHIN);
+	public static final Item DRAGON_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.DRAGON);
+	public static final Item ENDERMAN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.ENDERMAN) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.BEE_ENDERMAN || bloodType == BloodType.DRAGON) entity.heal(1);
+			else super.ApplyEffect(user, entity);
+		}
+	};
+	public static final Item EQUINE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.EQUINE);
+	public static final Item FELINE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.FELINE);
+	public static final Item FISH_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.FISH);
+	public static final Item GOAT_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.GOAT);
+	public static final Item INSECT_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.INSECT);
+	public static final Item LLAMA_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.LLAMA);
+	public static final Item NEPHAL_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.NEPHAL) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.NEPHAL) entity.heal(1);
+			else if (bloodType == BloodType.VAMPIRE) {
+				entity.heal(1);
+				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1));
+			}
+			else super.ApplyEffect(user, entity);
+		}
+	};
+	public static final Item NETHER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.NETHER);
+	public static final Item PHANTOM_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PHANTOM);
+	public static final Item PIG_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PIG);
+	public static final Item RABBIT_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.RABBIT);
+	public static final Item RAVAGER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.RAVAGER);
+	public static final Item SHEEP_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.SHEEP);
+	public static final Item SPIDER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.SPIDER);
+	public static final Item SQUID_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.SQUID);
+	public static final Item STRIDER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.STRIDER);
+	public static final Item TURTLE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.TURTLE);
+	public static final Item VAMPIRE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.VAMPIRE) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.VAMPIRE) entity.heal(1);
+			else {
+				entity.damage(HavenDamageSource.INCOMPATIBLE_BLOOD, 1);
+				if (bloodType.IsWitherVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 100, 1));
+			}
+		}
+	};
+	public static final Item VEX_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.VEX);
+	public static final Item VILLAGER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.VILLAGER);
+	public static final Item WARDEN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.WARDEN);
+	public static final Item ZOMBIE_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.ZOMBIE) {
+		@Override
+		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
+			BloodType bloodType = BloodType.Get(entity);
+			if (bloodType == BloodType.ZOMBIE) entity.heal(1);
+			else {
+				if(bloodType == BloodType.PLAYER) entity.heal(1);
+				else super.ApplyEffect(user, entity);
+				if (bloodType.IsPoisonVulnerable()) entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 1));
+			}
+		}
+	};
+	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
+	public static final Item SECRET_INGREDIENT = new Item(BLOOD_ITEM_SETTINGS);
+	public static final Item SYRINGE = new EmptySyringeItem(new Item.Settings().group(BLOOD_ITEM_GROUP).maxCount(16));
+	public static final Item DIRTY_SYRINGE = new Item(BLOOD_ITEM_SETTINGS);
+	public static final Item SYRINGE_BLINDNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 4, true, false));
+	public static final Item SYRINGE_MINING_FATIGUE = new SyringeItem(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, (600), 4, true, false));
+	public static final Item SYRINGE_POISON = new SyringeItem(new StatusEffectInstance(StatusEffects.POISON, 600, 4, true, false));
+	public static final Item SYRINGE_REGENERATION = new SyringeItem(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 4, true, false));
+	public static final Item SYRINGE_SATURATION = new SyringeItem(new StatusEffectInstance(StatusEffects.SATURATION, 600, 4, true, false));
+	public static final Item SYRINGE_SLOWNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 4, true, false));
+	public static final Item SYRINGE_WEAKNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 4, true, false));
+	public static final Item SYRINGE_WITHER = new SyringeItem(new StatusEffectInstance(StatusEffects.WITHER, 600, 4, true, false));
+	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
+	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
 
 	//Angel Bat
 	public static final EntityType<AngelBatEntity> ANGEL_BAT_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelBatEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.9F)).trackRangeBlocks(5).build();
@@ -434,39 +672,18 @@ public class HavenMod implements ModInitializer {
 	public static final HavenCandleCakeBlock CONFETTI_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CONFETTI);
 	public static final Map<DyeColor, HavenCandleCakeBlock> CONFETTI_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CONFETTI));
 
-	//Bottled Confetti
+	//Bottled Confetti & Dragon's Breath
 	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(Items.GLASS_BOTTLE));
 	public static final EntityType<BottledConfettiEntity> BOTTLED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<BottledConfettiEntity>create(SpawnGroup.MISC, BottledConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<DroppedConfettiEntity> DROPPED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<DroppedConfettiEntity>create(SpawnGroup.MISC, DroppedConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
+	public static final EntityType<DroppedConfettiEntity> DROPPED_DRAGON_BREATH_ENTITY = FabricEntityTypeBuilder.<DroppedConfettiEntity>create(SpawnGroup.MISC, DroppedConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
+	public static final EntityType<ConfettiCloudEntity> DRAGON_BREATH_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
 	//Boats
 	public static final HavenBoat CRIMSON_BOAT = new HavenBoat("crimson", Blocks.CRIMSON_PLANKS, true);
 	public static final HavenBoat WARPED_BOAT = new HavenBoat("warped", Blocks.WARPED_PLANKS, true);
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
-
-	//Syringes
-	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
-	public static final Item SECRET_INGREDIENT = new Item(ITEM_SETTINGS);
-	public static final Item SYRINGE = new EmptySyringeItem(new Item.Settings().group(ITEM_GROUP).maxCount(16));
-	public static final Item DIRTY_SYRINGE = new Item(ITEM_SETTINGS);
-	public static final Item.Settings SYRINGE_SETTINGS = new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1);
-	public static final Item SYRINGE_BLINDNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_MINING_FATIGUE = new SyringeItem(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, (600), 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_POISON = new SyringeItem(new StatusEffectInstance(StatusEffects.POISON, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_REGENERATION = new SyringeItem(new StatusEffectInstance(StatusEffects.REGENERATION, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_SATURATION = new SyringeItem(new StatusEffectInstance(StatusEffects.SATURATION, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_SLOWNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_WEAKNESS = new SyringeItem(new StatusEffectInstance(StatusEffects.WEAKNESS, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_WITHER = new SyringeItem(new StatusEffectInstance(StatusEffects.WITHER, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
-	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false), SYRINGE_SETTINGS);
-
-	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1));
-	public static final Item GOO_BLOOD_SYRINGE = new BloodSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE).maxCount(1));
-	public static final Item LAVA_SYRINGE = new LavaSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE));
-	public static final Item WATER_SYRINGE = new WaterSyringeItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(DIRTY_SYRINGE));
 
 	@Override
 	public void onInitialize() {

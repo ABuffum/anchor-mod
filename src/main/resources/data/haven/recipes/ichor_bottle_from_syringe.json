@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "haven:blood_syringes"
+      "item": "haven:ichor_syringe"
     },
     {
       "item": "minecraft:glass_bottle"
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "haven:blood_bottle"
+    "item": "haven:ichor_bottle"
   }
 }

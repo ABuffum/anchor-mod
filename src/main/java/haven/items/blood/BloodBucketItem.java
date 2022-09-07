@@ -1,4 +1,4 @@
-package haven.items;
+package haven.items.blood;
 
 import haven.HavenMod;
 import net.minecraft.advancement.criterion.Criteria;

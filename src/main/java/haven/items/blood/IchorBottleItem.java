@@ -1,7 +1,11 @@
-package haven.items;
+package haven.items.blood;
 
+import haven.util.BloodType;
+import haven.damage.HavenDamageSource;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,8 +21,8 @@ import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-public class BloodBottleItem extends Item {
-	public BloodBottleItem(Settings settings) {
+public class IchorBottleItem extends Item {
+	public IchorBottleItem(Settings settings) {
 		super(settings);
 	}
 
@@ -28,14 +32,19 @@ public class BloodBottleItem extends Item {
 		if (playerEntity instanceof ServerPlayerEntity player) {
 			Criteria.CONSUME_ITEM.trigger(player, stack);
 		}
-
+		if (!world.isClient) {
+			BloodType bloodType = BloodType.Get(user);
+			if (bloodType == BloodType.ICHOR) user.heal(1);
+			else if (bloodType.IsPoisonVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 200, 1));
+			else if (bloodType.IsWitherVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1));
+			else user.damage(HavenDamageSource.ICHOR, 3);
+		}
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 			if (!playerEntity.getAbilities().creativeMode) {
 				stack.decrement(1);
 			}
 		}
-
 		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
 			if (stack.isEmpty()) {
 				return new ItemStack(Items.GLASS_BOTTLE);
@@ -45,7 +54,6 @@ public class BloodBottleItem extends Item {
 				playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
 			}
 		}
-
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
 		return stack;
 	}

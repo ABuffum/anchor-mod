@@ -1,6 +1,6 @@
 package haven.mixins;
 
-import haven.items.SyringeItem;
+import haven.items.blood.BaseSyringeItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;
@@ -24,7 +24,7 @@ public abstract class MobEntityMixin extends LivingEntity {
 	@Inject(method="interactWithItem", at = @At("HEAD"), cancellable = true)
 	private void InteractWithItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.getItem() instanceof SyringeItem syringe) {
+		if (itemStack.getItem() instanceof BaseSyringeItem syringe) {
 			ActionResult result = itemStack.useOnEntity(player, this, hand);
 			if (result.isAccepted()) cir.setReturnValue(result);
 		}

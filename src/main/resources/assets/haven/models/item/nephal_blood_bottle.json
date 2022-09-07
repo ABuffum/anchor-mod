@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "haven:item/blood_syringe_goo"
+        "layer0": "haven:item/blood_bottle"
     }
 }
