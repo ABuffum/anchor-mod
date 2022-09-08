@@ -414,10 +414,6 @@ public class HavenMod implements ModInitializer {
 	//TODO: WATER_BOTTLE
 	public static final Item SUGAR_WATER_BOTTLE = new BottledDrinkItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).build()));
 	public static final Item ICHOR_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
-	public static final Item SLUDGE_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
-	public static final Item DISEASED_BLOOD_BOTTLE = new DiseasedBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
-	public static final Item NEPHAL_BLOOD_BOTTLE = new DiseasedBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
-	public static final Item ROTTEN_BLOOD_BOTTLE = new RottenBloodBottle(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
 	//Syringes
 	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PLAYER) {
 		@Override

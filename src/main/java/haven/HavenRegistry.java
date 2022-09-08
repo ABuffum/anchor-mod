@@ -364,10 +364,6 @@ public class HavenRegistry {
 		Register("lava_bottle", LAVA_BOTTLE);
 		Register("sugar_water_bottle", SUGAR_WATER_BOTTLE);
 		Register("ichor_bottle", ICHOR_BOTTLE);
-		Register("sludge_bottle", SLUDGE_BOTTLE);
-		Register("diseased_blood_bottle", DISEASED_BLOOD_BOTTLE);
-		Register("nephal_blood_bottle", NEPHAL_BLOOD_BOTTLE);
-		Register("rotten_blood_bottle", ROTTEN_BLOOD_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
 		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
 		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
