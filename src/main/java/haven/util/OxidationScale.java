@@ -8,8 +8,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
+
+import static java.util.Map.entry;
 
 public class OxidationScale {
 	public final Block UNAFFECTED;
@@ -22,6 +24,41 @@ public class OxidationScale {
 		EXPOSED = exposed;
 		WEATHERED = weathered;
 		OXIDIZED = oxidized;
+	}
+
+
+	public static final Set<OxidationScale> OXIDIZABLE_BLOCKS = new HashSet<OxidationScale>();
+
+	public static final OxidationScale COPPER_BLOCK = Register(Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER);
+	public static final OxidationScale CUT_COPPER = Register(Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER);
+	public static final OxidationScale CUT_COPPER_SLAB = Register(Blocks.CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB);
+	public static final OxidationScale CUT_COPPER_STAIRS = Register(Blocks.CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS);
+
+	public static final Map<Block, Block> WAXED_BLOCKS = new HashMap<Block, Block>(Map.<Block, Block>ofEntries(
+			entry(Blocks.COPPER_BLOCK, Blocks.WAXED_COPPER_BLOCK), entry(Blocks.EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER),
+			entry(Blocks.WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER), entry(Blocks.OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_COPPER),
+			entry(Blocks.CUT_COPPER, Blocks.WAXED_CUT_COPPER), entry(Blocks.EXPOSED_CUT_COPPER, Blocks.WAXED_EXPOSED_CUT_COPPER),
+			entry(Blocks.WEATHERED_CUT_COPPER, Blocks.WAXED_WEATHERED_CUT_COPPER), entry(Blocks.OXIDIZED_CUT_COPPER, Blocks.WAXED_OXIDIZED_CUT_COPPER),
+			entry(Blocks.CUT_COPPER_SLAB, Blocks.WAXED_CUT_COPPER_SLAB), entry(Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB),
+			entry(Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB), entry(Blocks.OXIDIZED_CUT_COPPER_SLAB, Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB),
+			entry(Blocks.CUT_COPPER_STAIRS, Blocks.WAXED_CUT_COPPER_STAIRS), entry(Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WAXED_EXPOSED_CUT_COPPER_STAIRS),
+			entry(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS), entry(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS)
+	));
+
+	public static OxidationScale Register(HavenPair unaffected, HavenPair exposed, HavenPair weathered, HavenPair oxidized) {
+		return Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
+	}
+	public static void Register(WalledBlock unaffected, WalledBlock exposed, WalledBlock weathered, WalledBlock oxidized) {
+		Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
+		Register(unaffected.WALL_BLOCK, exposed.WALL_BLOCK, weathered.WALL_BLOCK, oxidized.WALL_BLOCK);
+	}
+	public static OxidationScale Register(Block unaffected, Block exposed, Block weathered, Block oxidized) {
+		return Register(new OxidationScale(unaffected, exposed, weathered, oxidized));
+	}
+
+	public static OxidationScale Register(OxidationScale scale) {
+		if (scale != null) OXIDIZABLE_BLOCKS.add(scale);
+		return scale;
 	}
 
 	public static Optional<Block> getDecreasedOxidationBlock(Block block) {
@@ -55,7 +92,7 @@ public class OxidationScale {
 	private static Supplier<BiMap<Block, Block>> OxidationLevelIncreases() {
 		return Suppliers.memoize(() -> {
 			BiMap<Block, Block> map = HashBiMap.create();
-			for(OxidationScale scale : HavenMod.OXIDIZABLE_BLOCKS) {
+			for(OxidationScale scale : OXIDIZABLE_BLOCKS) {
 				map.put(scale.UNAFFECTED, scale.EXPOSED);
 				map.put(scale.EXPOSED, scale.WEATHERED);
 				map.put(scale.WEATHERED, scale.OXIDIZED);
@@ -78,8 +115,8 @@ public class OxidationScale {
 	private static Supplier<BiMap<Block, Block>> UnwaxedToWaxedBlocks() {
 		return Suppliers.memoize(() -> {
 			BiMap<Block, Block> map = HashBiMap.create();
-			for(Block unwaxed : HavenMod.WAXED_BLOCKS.keySet()) {
-				map.put(unwaxed, HavenMod.WAXED_BLOCKS.get(unwaxed));
+			for(Block unwaxed : WAXED_BLOCKS.keySet()) {
+				map.put(unwaxed, WAXED_BLOCKS.get(unwaxed));
 			}
 			return map;
 		});
@@ -89,9 +126,4 @@ public class OxidationScale {
 			return ((BiMap)UnwaxedToWaxedBlocks().get()).inverse();
 		});
 	}
-
-	public static final OxidationScale COPPER_BLOCK = new OxidationScale(Blocks.COPPER_BLOCK, Blocks.EXPOSED_COPPER, Blocks.WEATHERED_COPPER, Blocks.OXIDIZED_COPPER);
-	public static final OxidationScale CUT_COPPER = new OxidationScale(Blocks.CUT_COPPER, Blocks.EXPOSED_CUT_COPPER, Blocks.WEATHERED_CUT_COPPER, Blocks.OXIDIZED_CUT_COPPER);
-	public static final OxidationScale CUT_COPPER_SLAB = new OxidationScale(Blocks.CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB);
-	public static final OxidationScale CUT_COPPER_STAIRS = new OxidationScale(Blocks.CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS);
 }

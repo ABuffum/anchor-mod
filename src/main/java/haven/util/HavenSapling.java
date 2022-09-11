@@ -1,7 +1,6 @@
 package haven.util;
 
-import haven.HavenMod;
-import haven.blocks.HavenSaplingBlock;
+import haven.blocks.complex.HavenSaplingBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;

@@ -4,14 +4,17 @@ import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
+import haven.entities.blocks.SoftTntEntity;
 import haven.materials.*;
 import haven.origins.powers.BloodTypePower;
+import haven.origins.powers.UnfreezingPower;
 import haven.util.*;
 
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.apoli.power.factory.PowerFactorySupplier;
 import io.github.apace100.apoli.registry.ApoliRegistries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.transfer.v1.fluid.CauldronFluidContent;
@@ -40,7 +43,6 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 
 import static haven.HavenMod.*;
-import static haven.HavenMod.WAXED_OXIDIZED_COPPER_WALL;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -53,6 +55,10 @@ public class HavenRegistry {
 		Identifier id = ID(path);
 		Registry.register(Registry.BLOCK, id, pair.BLOCK);
 		Registry.register(Registry.ITEM, id, pair.ITEM);
+	}
+	public static void Register(String path, WaxedPair waxed) {
+		Register(path, (HavenPair)waxed);
+		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.BLOCK, waxed.BLOCK);
 	}
 	public static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) {
 		return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity);
@@ -70,6 +76,11 @@ public class HavenRegistry {
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
 	}
 	public static void Register(String name, HavenTorch torch) { Register(name + "_torch", name + "_wall_torch", torch); }
+	public static void Register(String name, WaxedTorch waxed) {
+		Register(name, (HavenTorch)waxed);
+		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.BLOCK, waxed.BLOCK);
+		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.WALL_BLOCK, waxed.WALL_BLOCK);
+	}
 	public static void Register(String name, HavenSign sign) { Register(name + "_sign", name + "_wall_sign", sign); }
 	public static void Register(String path, String wallPath, WalledBlock walled) {
 		Identifier id = ID(path);
@@ -84,14 +95,16 @@ public class HavenRegistry {
 			Register("stripped_" + name + "_log", baseTreeMaterial.STRIPPED_LOG);
 			Register(name + "_wood", baseTreeMaterial.WOOD);
 			Register("stripped_" + name + "_wood", baseTreeMaterial.STRIPPED_WOOD);
-
 			Register(name + "_leaves", baseTreeMaterial.LEAVES);
+			CompostingChanceRegistry.INSTANCE.add(baseTreeMaterial.LEAVES.ITEM, 0.3f);
 		}
 		if (material instanceof TreeMaterial treeMaterial) {
 			Register(name + "_sapling", treeMaterial.SAPLING);
+			CompostingChanceRegistry.INSTANCE.add(treeMaterial.SAPLING.ITEM, 0.3f);
 		}
 		if (material instanceof MangroveMaterial mangroveMaterial) {
 			Register(name + "_propagule", mangroveMaterial.PROPAGULE);
+			CompostingChanceRegistry.INSTANCE.add(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
 		}
 
 		Register(name + "_planks", material.PLANKS);
@@ -106,15 +119,11 @@ public class HavenRegistry {
 		Register(name + "_trapdoor", material.TRAPDOOR);
 		Register(name + "_pressure_plate", material.PRESSURE_PLATE);
 		Register(name + "_button", material.BUTTON);
-
-		//TODO: Signs don't work right (fail out of edit screens and go invisible)
-		Identifier id = ID(name + "_sign");
-		Registry.register(Registry.BLOCK, id, material.SIGN.BLOCK);
-		Registry.register(Registry.ITEM, id, material.SIGN.ITEM);
-		Register(name + "_wall_sign", material.SIGN.WALL_BLOCK);
-
+		//Sign
+		Register(name, material.SIGN);
+		//Boat
 		Register(material.BOAT);
-
+		//Flammable?
 		if (material.isFlammable) {
 			if (material instanceof BaseTreeMaterial baseTreeMaterial) {
 				FlammableBlockRegistry.getDefaultInstance().add(baseTreeMaterial.LOG.BLOCK, 5, 5);
@@ -213,7 +222,9 @@ public class HavenRegistry {
 		Register("coffee_plant", COFFEE_PLANT);
 		FlammableBlockRegistry.getDefaultInstance().add(COFFEE_PLANT, 30, 60);
 		Register("coffee_cherry", COFFEE_CHERRY);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_CHERRY, 0.65F);
 		Register("coffee_beans", COFFEE_BEANS);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_BEANS, 0.65F);
 		Register("coffee", COFFEE);
 		Register("black_coffee", BLACK_COFFEE);
 	}
@@ -230,16 +241,45 @@ public class HavenRegistry {
 		FlammableBlockRegistry.getDefaultInstance().add(PINK_CHERRY_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
 		Register("cherry", CHERRY_ITEM);
+		CompostingChanceRegistry.INSTANCE.add(CHERRY_ITEM, 0.65F);
 	}
 	public static void RegisterCinnamon() {
 		Register("cinnamon", CINNAMON);
+		CompostingChanceRegistry.INSTANCE.add(CINNAMON, 0.2f);
 		Register(CASSIA);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
 		Register("snickerdoodle", SNICKERDOODLE);
+		CompostingChanceRegistry.INSTANCE.add(SNICKERDOODLE, 0.85F);
 		Register("cinnamon_roll", CINNAMON_ROLL);
+	}
+	public static void RegisterStrawberries() {
+		Register("strawberry_bush", STRAWBERRY_BUSH);
+		FlammableBlockRegistry.getDefaultInstance().add(STRAWBERRY_BUSH, 60, 100);
+		Register("strawberry", STRAWBERRY);
+		CompostingChanceRegistry.INSTANCE.add(STRAWBERRY, 0.3F);
+	}
+	public static void RegisterJuice() {
 		Register("apple_cider", APPLE_CIDER);
+		Register("apple_juice", APPLE_JUICE);
+		Register("beetroot_juice", BEETROOT_JUICE);
+		Register("black_apple_juice", BLACK_APPLE_JUICE);
+		Register("cabbage_juice", CABBAGE_JUICE);
+		Register("cactus_juice", CACTUS_JUICE);
+		Register("carrot_juice", CARROT_JUICE);
+		Register("cherry_juice", CHERRY_JUICE);
+		Register("chorus_juice", CHORUS_JUICE);
+		Register("glow_berry_juice", GLOW_BERRY_JUICE);
+		Register("kelp_juice", KELP_JUICE);
+		Register("melon_juice", MELON_JUICE);
+		Register("onion_juice", ONION_JUICE);
+		Register("potato_juice", POTATO_JUICE);
+		Register("pumpkin_juice", PUMPKIN_JUICE);
+		Register("sea_pickle_juice", SEA_PICKLE_JUICE);
+		Register("strawberry_juice", STRAWBERRY_JUICE);
+		Register("sweet_berry_juice", SWEET_BERRY_JUICE);
+		Register("tomato_juice", TOMATO_JUICE);
 	}
 	public static void RegisterBamboo() {
 		//Bamboo
@@ -268,7 +308,9 @@ public class HavenRegistry {
 		Register("stripped_dried_bamboo_log", STRIPPED_DRIED_BAMBOO_LOG);
 		FuelRegistry.INSTANCE.add(STRIPPED_DRIED_BAMBOO_LOG.ITEM, 300);
 	}
-	public static void Register119() {
+	public static void RegisterBackport() {
+		//Goat Horn
+		Register("goat_horn", GOAT_HORN);
 		//Music Discs
 		Register("music_disc_otherside", MUSIC_DISC_OTHERSIDE);
 		Register("music_disc_5", MUSIC_DISC_5);
@@ -280,7 +322,6 @@ public class HavenRegistry {
 		Register("mud_brick_slab", MUD_BRICK_SLAB);
 		Register("mud_brick_stairs", MUD_BRICK_STAIRS);
 		Register("mud_brick_wall", MUD_BRICK_WALL);
-
 		DispenserBlock.registerBehavior(Items.POTION, new ItemDispenserBehavior(){
 			private final ItemDispenserBehavior fallback = new ItemDispenserBehavior();
 
@@ -309,6 +350,7 @@ public class HavenRegistry {
 		//Mangrove
 		Register(MANGROVE);
 		Register("mangrove_roots", MANGROVE_ROOTS);
+		CompostingChanceRegistry.INSTANCE.add(MANGROVE_ROOTS.ITEM, 0.3F);
 		FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_ROOTS.BLOCK, 5, 20);
 		Register("muddy_mangrove_roots", MUDDY_MANGROVE_ROOTS);
 		//Frogs
@@ -429,13 +471,33 @@ public class HavenRegistry {
 		Register("syringe_exp1", SYRINGE_EXP1);
 		Register("syringe_exp2", SYRINGE_EXP2);
 		Register("syringe_exp3", SYRINGE_EXP3);
-		//Origin Powers
+	}
+	public static void RegisterOriginPowers() {
 		Register(BloodTypePower::createFactory);
+		Register(UnfreezingPower::createFactory);
 	}
 	public static void RegisterAngelBat() {
 		Register("angel_bat", ANGEL_BAT_ENTITY);
 		SpawnRestrictionAccessor.callRegister(ANGEL_BAT_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AngelBatEntity::CanSpawn);
 		FabricDefaultAttributeRegistry.register(ANGEL_BAT_ENTITY, AngelBatEntity.createBatAttributes());
+	}
+	public static void RegisterMelonGolem() {
+		Register("melon_golem", MELON_GOLEM_ENTITY);
+		FabricDefaultAttributeRegistry.register(MELON_GOLEM_ENTITY, MelonGolemEntity.createMelonGolemAttributes());
+		Register("carved_melon", CARVED_MELON);
+		Register("melon_lantern", MELON_LANTERN);
+		CompostingChanceRegistry.INSTANCE.add(CARVED_MELON.ITEM, 0.65F);
+	}
+	public static void RegisterRainbow() {
+		Register("rainbow_sheep", RAINBOW_SHEEP_ENTITY);
+		SpawnRestrictionAccessor.callRegister(RAINBOW_SHEEP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		FabricDefaultAttributeRegistry.register(RAINBOW_SHEEP_ENTITY, RainbowSheepEntity.createSheepAttributes());
+		Register("rainbow_sheep_spawn_egg", RAINBOW_SHEEP_SPAWN_EGG);
+		Register("rainbow_wool", RAINBOW_WOOL);
+		FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_WOOL.BLOCK, 30, 60);
+		Register("rainbow_carpet", RAINBOW_CARPET);
+		FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_WOOL.BLOCK, 60, 20);
+		Register("rainbow_bed", RAINBOW_BED);
 	}
 	public static void RegisterChickenVariants() {
 		Register("fancy_chicken", FANCY_CHICKEN_ENTITY);
@@ -475,23 +537,31 @@ public class HavenRegistry {
 	}
 	public static void RegisterMilks() {
 		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
+		Register("chocolate_milk_bottle", CHOCOLATE_MILK_BOTTLE);
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
+		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
+		Register("coffee_milk_bottle", COFFEE_MILK_BOTTLE);
 	}
 	public static void RegisterCakes() {
 		Register("chocolate_cake", CHOCOLATE_CAKE);
+		CompostingChanceRegistry.INSTANCE.add(CHOCOLATE_CAKE.ITEM, 1F);
 		Register("chocolate_candle_cake", CHOCOLATE_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_chocolate_candle_cake", CHOCOLATE_CANDLE_CAKES.get(color));
 		Register("strawberry_cake", STRAWBERRY_CAKE);
+		CompostingChanceRegistry.INSTANCE.add(STRAWBERRY_CAKE.ITEM, 1F);
 		Register("strawberry_candle_cake", STRAWBERRY_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_strawberry_candle_cake", STRAWBERRY_CANDLE_CAKES.get(color));
 		Register("coffee_cake", COFFEE_CAKE);
+		CompostingChanceRegistry.INSTANCE.add(COFFEE_CAKE.ITEM, 1F);
 		Register("coffee_candle_cake", COFFEE_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_coffee_candle_cake", COFFEE_CANDLE_CAKES.get(color));
 		Register("carrot_cake", CARROT_CAKE);
+		CompostingChanceRegistry.INSTANCE.add(CARROT_CAKE.ITEM, 1F);
 		Register("carrot_candle_cake", CARROT_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_carrot_candle_cake", CARROT_CANDLE_CAKES.get(color));
 		Register("confetti_cake", CONFETTI_CAKE);
+		CompostingChanceRegistry.INSTANCE.add(CONFETTI_CAKE.ITEM, 1F);
 		Register("confetti_candle_cake", CONFETTI_CANDLE_CAKE);
 		for(DyeColor color : COLORS) Register(color + "_confetti_candle_cake", CONFETTI_CANDLE_CAKES.get(color));
 	}
@@ -511,23 +581,27 @@ public class HavenRegistry {
 		Register("exposed_copper", EXPOSED_COPPER_TORCH);
 		Register("weathered_copper", WEATHERED_COPPER_TORCH);
 		Register("oxidized_copper", OXIDIZED_COPPER_TORCH);
+		OxidationScale.Register(COPPER_TORCH, EXPOSED_COPPER_TORCH, WEATHERED_COPPER_TORCH, OXIDIZED_COPPER_TORCH);
 		Register("waxed_copper", WAXED_COPPER_TORCH);
 		Register("waxed_exposed_copper", WAXED_EXPOSED_COPPER_TORCH);
 		Register("waxed_weathered_copper", WAXED_WEATHERED_COPPER_TORCH);
 		Register("waxed_oxidized_copper", WAXED_OXIDIZED_COPPER_TORCH);
-		Register("copper_soul_torch", "copper_soul_wall_torch", COPPER_SOUL_TORCH);
-		Register("exposed_copper_soul_torch", "exposed_copper_soul_wall_torch", EXPOSED_COPPER_SOUL_TORCH);
-		Register("weathered_copper_soul_torch", "weathered_copper_soul_wall_torch", WEATHERED_COPPER_SOUL_TORCH);
-		Register("oxidized_copper_soul_torch", "oxidized_copper_soul_wall_torch", OXIDIZED_COPPER_SOUL_TORCH);
-		Register("waxed_copper_soul_torch", "waxed_copper_soul_wall_torch", WAXED_COPPER_SOUL_TORCH);
-		Register("waxed_exposed_copper_soul_torch", "waxed_exposed_copper_soul_wall_torch", WAXED_EXPOSED_COPPER_SOUL_TORCH);
-		Register("waxed_weathered_copper_soul_torch", "waxed_weathered_copper_soul_wall_torch", WAXED_WEATHERED_COPPER_SOUL_TORCH);
-		Register("waxed_oxidized_copper_soul_torch", "waxed_oxidized_copper_soul_wall_torch", WAXED_OXIDIZED_COPPER_SOUL_TORCH);
+		//Soul Torches
+		Register("copper_soul", COPPER_SOUL_TORCH);
+		Register("exposed_copper_soul", EXPOSED_COPPER_SOUL_TORCH);
+		Register("weathered_copper_soul", WEATHERED_COPPER_SOUL_TORCH);
+		Register("oxidized_copper_soul", OXIDIZED_COPPER_SOUL_TORCH);
+		OxidationScale.Register(COPPER_SOUL_TORCH, EXPOSED_COPPER_SOUL_TORCH, WEATHERED_COPPER_SOUL_TORCH, OXIDIZED_COPPER_SOUL_TORCH);
+		Register("waxed_copper_soul", WAXED_COPPER_SOUL_TORCH);
+		Register("waxed_exposed_copper_soul", WAXED_EXPOSED_COPPER_SOUL_TORCH);
+		Register("waxed_weathered_copper_soul", WAXED_WEATHERED_COPPER_SOUL_TORCH);
+		Register("waxed_oxidized_copper_soul", WAXED_OXIDIZED_COPPER_SOUL_TORCH);
 		//Medium Weighted Pressure Plates
 		Register("medium_weighted_pressure_plate", MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("exposed_medium_weighted_pressure_plate", EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("weathered_medium_weighted_pressure_plate", WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("oxidized_medium_weighted_pressure_plate", OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
+		OxidationScale.Register(MEDIUM_WEIGHTED_PRESSURE_PLATE, EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE, WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE, OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("waxed_medium_weighted_pressure_plate", WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("waxed_exposed_medium_weighted_pressure_plate", WAXED_EXPOSED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
 		Register("waxed_weathered_medium_weighted_pressure_plate", WAXED_WEATHERED_MEDIUM_WEIGHTED_PRESSURE_PLATE);
@@ -537,14 +611,17 @@ public class HavenRegistry {
 		Register("exposed_copper_lantern", EXPOSED_COPPER_LANTERN);
 		Register("weathered_copper_lantern", WEATHERED_COPPER_LANTERN);
 		Register("oxidized_copper_lantern", OXIDIZED_COPPER_LANTERN);
+		OxidationScale.Register(COPPER_LANTERN, EXPOSED_COPPER_LANTERN, WEATHERED_COPPER_LANTERN, OXIDIZED_COPPER_LANTERN);
 		Register("waxed_copper_lantern", WAXED_COPPER_LANTERN);
 		Register("waxed_exposed_copper_lantern", WAXED_EXPOSED_COPPER_LANTERN);
 		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN);
 		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN);
+		//Soul Lanterns
 		Register("copper_soul_lantern", COPPER_SOUL_LANTERN);
 		Register("exposed_copper_soul_lantern", EXPOSED_COPPER_SOUL_LANTERN);
 		Register("weathered_copper_soul_lantern", WEATHERED_COPPER_SOUL_LANTERN);
 		Register("oxidized_copper_soul_lantern", OXIDIZED_COPPER_SOUL_LANTERN);
+		OxidationScale.Register(COPPER_SOUL_LANTERN, EXPOSED_COPPER_SOUL_LANTERN, WEATHERED_COPPER_SOUL_LANTERN, OXIDIZED_COPPER_SOUL_LANTERN);
 		Register("waxed_copper_soul_lantern", WAXED_COPPER_SOUL_LANTERN);
 		Register("waxed_exposed_copper_soul_lantern", WAXED_EXPOSED_COPPER_SOUL_LANTERN);
 		Register("waxed_weathered_copper_soul_lantern", WAXED_WEATHERED_COPPER_SOUL_LANTERN);
@@ -554,6 +631,7 @@ public class HavenRegistry {
 		Register("exposed_copper_chain", EXPOSED_COPPER_CHAIN);
 		Register("weathered_copper_chain", WEATHERED_COPPER_CHAIN);
 		Register("oxidized_copper_chain", OXIDIZED_COPPER_CHAIN);
+		OxidationScale.Register(COPPER_CHAIN, EXPOSED_COPPER_CHAIN, WEATHERED_COPPER_CHAIN, OXIDIZED_COPPER_CHAIN);
 		Register("waxed_copper_chain", WAXED_COPPER_CHAIN);
 		Register("waxed_exposed_copper_chain", WAXED_EXPOSED_COPPER_CHAIN);
 		Register("waxed_weathered_copper_chain", WAXED_WEATHERED_COPPER_CHAIN);
@@ -563,6 +641,7 @@ public class HavenRegistry {
 		Register("exposed_copper_bars", EXPOSED_COPPER_BARS);
 		Register("weathered_copper_bars", WEATHERED_COPPER_BARS);
 		Register("oxidized_copper_bars", OXIDIZED_COPPER_BARS);
+		OxidationScale.Register(COPPER_BARS, EXPOSED_COPPER_BARS, WEATHERED_COPPER_BARS, OXIDIZED_COPPER_BARS);
 		Register("waxed_copper_bars", WAXED_COPPER_BARS);
 		Register("waxed_exposed_copper_bars", WAXED_EXPOSED_COPPER_BARS);
 		Register("waxed_weathered_copper_bars", WAXED_WEATHERED_COPPER_BARS);
@@ -572,6 +651,7 @@ public class HavenRegistry {
 		Register("exposed_copper_wall", EXPOSED_COPPER_WALL);
 		Register("weathered_copper_wall", WEATHERED_COPPER_WALL);
 		Register("oxidized_copper_wall", OXIDIZED_COPPER_WALL);
+		OxidationScale.Register(COPPER_WALL, EXPOSED_COPPER_WALL, WEATHERED_COPPER_WALL, OXIDIZED_COPPER_WALL);
 		Register("waxed_copper_wall", WAXED_COPPER_WALL);
 		Register("waxed_exposed_copper_wall", WAXED_EXPOSED_COPPER_WALL);
 		Register("waxed_weathered_copper_wall", WAXED_WEATHERED_COPPER_WALL);
@@ -581,6 +661,7 @@ public class HavenRegistry {
 		Register("exposed_cut_copper_pillar", EXPOSED_CUT_COPPER_PILLAR);
 		Register("weathered_cut_copper_pillar", WEATHERED_CUT_COPPER_PILLAR);
 		Register("oxidized_cut_copper_pillar", OXIDIZED_CUT_COPPER_PILLAR);
+		OxidationScale.Register(CUT_COPPER_PILLAR, EXPOSED_CUT_COPPER_PILLAR, WEATHERED_CUT_COPPER_PILLAR, OXIDIZED_CUT_COPPER_PILLAR);
 		Register("waxed_cut_copper_pillar", WAXED_CUT_COPPER_PILLAR);
 		Register("waxed_exposed_cut_copper_pillar", WAXED_EXPOSED_CUT_COPPER_PILLAR);
 		Register("waxed_weathered_cut_copper_pillar", WAXED_WEATHERED_CUT_COPPER_PILLAR);
@@ -589,7 +670,7 @@ public class HavenRegistry {
 	public static void RegisterMoreGold() {
 		Registry.register(Registry.PARTICLE_TYPE, ID("gold_flame"), GOLD_FLAME);
 		Register("gold", GOLD_TORCH);
-		Register("gold_soul_torch", "gold_soul_wall_torch", GOLD_SOUL_TORCH);
+		Register("gold_soul", GOLD_SOUL_TORCH);
 		Register("gold_lantern", GOLD_LANTERN);
 		Register("gold_soul_lantern", GOLD_SOUL_LANTERN);
 		Register("gold_chain", GOLD_CHAIN);
@@ -603,7 +684,7 @@ public class HavenRegistry {
 	public static void RegisterMoreIron() {
 		Registry.register(Registry.PARTICLE_TYPE, ID("iron_flame"), IRON_FLAME);
 		Register("iron", IRON_TORCH);
-		Register("iron_soul_torch", "iron_soul_wall_torch", IRON_SOUL_TORCH);
+		Register("iron_soul", IRON_SOUL_TORCH);
 		Register("iron_lantern", IRON_LANTERN);
 		Register("iron_soul_lantern", IRON_SOUL_LANTERN);
 		Register("iron_chain", IRON_CHAIN);
@@ -613,7 +694,7 @@ public class HavenRegistry {
 		Register("cut_iron_slab", CUT_IRON_SLAB);
 		Register("cut_iron_stairs", CUT_IRON_STAIRS);
 		Register("dark_iron", DARK_IRON_TORCH);
-		Register("dark_iron_soul_torch", "dark_iron_soul_wall_torch", DARK_IRON_SOUL_TORCH);
+		Register("dark_iron_soul", DARK_IRON_SOUL_TORCH);
 		Register("dark_iron_nugget", DARK_IRON_NUGGET);
 		Register("dark_iron_ingot", DARK_IRON_INGOT);
 		Register("dark_iron_bars", DARK_IRON_BARS);
@@ -630,7 +711,7 @@ public class HavenRegistry {
 	public static void RegisterMoreNetherite() {
 		Registry.register(Registry.PARTICLE_TYPE, ID("netherite_flame"), NETHERITE_FLAME);
 		Register("netherite", NETHERITE_TORCH);
-		Register("netherite_soul_torch", "netherite_soul_wall_torch", NETHERITE_SOUL_TORCH);
+		Register("netherite_soul", NETHERITE_SOUL_TORCH);
 		Register("netherite_nugget", NETHERITE_NUGGET);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 		Register("netherite_lantern", NETHERITE_LANTERN);
@@ -642,6 +723,12 @@ public class HavenRegistry {
 		Register("cut_netherite_pillar", CUT_NETHERITE_PILLAR);
 		Register("cut_netherite_slab", CUT_NETHERITE_SLAB);
 		Register("cut_netherite_stairs", CUT_NETHERITE_STAIRS);
+	}
+	public static void RegisterLiquidMud() {
+		Register("mud_bucket", MUD_BUCKET);
+		Registry.register(Registry.FLUID, ID("still_mud"), STILL_MUD_FLUID);
+		Registry.register(Registry.FLUID, ID("flowing_mud"), FLOWING_MUD_FLUID);
+		Register("mud_fluid_block", MUD_FLUID_BLOCK);
 	}
 
 	public static void RegisterAll() {
@@ -667,10 +754,15 @@ public class HavenRegistry {
 		Register(WARPED_BOAT);
 		Register("ramen", RAMEN);
 		Register("stir_fry", STIR_FRY);
+		RegisterStrawberries();
+		RegisterJuice();
 		RegisterCandy();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
+		RegisterOriginPowers();
 		RegisterAngelBat();
+		RegisterMelonGolem();
+		RegisterRainbow();
 		RegisterChickenVariants();
 		RegisterCowVariants();
 		RegisterMilks();
@@ -680,6 +772,11 @@ public class HavenRegistry {
 		RegisterMoreGold();
 		RegisterMoreIron();
 		RegisterMoreNetherite();
-		Register119();
+		Register("horn", HORN);
+		RegisterLiquidMud();
+		RegisterBackport();
+		//Compostable Items
+		for(HavenFlower flower : FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
+		for(HavenPair flower : TALL_FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
 	}
 }

@@ -1,16 +1,12 @@
 package haven.materials;
 
-import haven.blocks.HavenLeavesBlock;
+import haven.blocks.basic.HavenLeavesBlock;
 import haven.util.HavenPair;
-import haven.util.HavenSapling;
 import net.minecraft.block.*;
-import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.entity.EntityType;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-
-import java.util.function.Supplier;
 
 public class BaseTreeMaterial extends WoodMaterial {
 	public final HavenPair LOG, STRIPPED_LOG;

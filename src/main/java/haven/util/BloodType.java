@@ -5,6 +5,10 @@ import haven.items.blood.SyringeItem;
 import haven.origins.powers.BloodTypePower;
 import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.component.PowerHolderComponent;
+import net.minecraft.block.BeehiveBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -31,47 +35,22 @@ public class BloodType {
 	public static final Map<Identifier, BloodType> BLOOD_TYPES = new HashMap<Identifier, BloodType>();
 
 	public static final BloodType PLAYER = new BloodType("player");
-	public static final BloodType ICHOR = new BloodType("ichor") {
-		@Override
-		public boolean IsFireVulnerable() { return false; }
-	};
-	public static final BloodType LAVA = new BloodType("lava") {
-		@Override
-		public boolean IsFireVulnerable() { return false; }
-	};
-	public static final BloodType WATER = new BloodType("water");
-	public static final BloodType SUGAR_WATER = new BloodType("sugar_water");
-	public static final BloodType NEPHAL = new BloodType("nephal");
-	public static final BloodType NETHER = new BloodType("nether") {
-		@Override
-		public boolean IsFireVulnerable() { return false; }
-		@Override
-		public boolean IsWaterVulnerable() { return true; }
-	};
-	public static final BloodType BEE_ENDERMAN = new BloodType("bee_enderman") {
-		@Override
-		public boolean IsWaterVulnerable() { return true; }
-		@Override
-		public boolean IsPoisonVulnerable() { return false; }
-	};
-	public static final BloodType VAMPIRE = new BloodType("vampire");
-	public static final BloodType DISEASED_FELINE = new BloodType("diseased_feline");
-	public static final BloodType SLUDGE = new BloodType("sludge") {
-		@Override
-		public boolean IsPoisonVulnerable() { return false; }
-		@Override
-		public boolean IsWitherVulnerable() { return false; }
-	};
-	//Mob Types
 	public static final BloodType ALLAY = new BloodType("allay");
 	public static final BloodType AVIAN = new BloodType("avian");
 	public static final BloodType AXOLOTL = new BloodType("axolotl");
 	public static final BloodType BAT = new BloodType("bat");
 	public static final BloodType BEAR = new BloodType("bear");
 	public static final BloodType BEE = new BloodType("bee");
+	public static final BloodType BEE_ENDERMAN = new BloodType("bee_enderman") {
+		@Override
+		public boolean IsWaterVulnerable() { return true; }
+		@Override
+		public boolean IsPoisonVulnerable() { return false; }
+	};
 	public static final BloodType CANINE = new BloodType("canine");
 	public static final BloodType COW = new BloodType("cow");
 	public static final BloodType CREEPER = new BloodType("creeper");
+	public static final BloodType DISEASED_FELINE = new BloodType("diseased_feline");
 	public static final BloodType DOLPHIN = new BloodType("dolphin");
 	public static final BloodType DRAGON = new BloodType("dragon");
 	public static final BloodType ENDERMAN = new BloodType("enderman") {
@@ -82,11 +61,27 @@ public class BloodType {
 	public static final BloodType FELINE = new BloodType("feline");
 	public static final BloodType FISH = new BloodType("fish");
 	public static final BloodType GOAT = new BloodType("goat");
+	public static final BloodType HONEY = new BloodType("honey");
+	public static final BloodType ICHOR = new BloodType("ichor") {
+		@Override
+		public boolean IsFireVulnerable() { return false; }
+	};
 	public static final BloodType INSECT = new BloodType("insect");
+	public static final BloodType LAVA = new BloodType("lava") {
+		@Override
+		public boolean IsFireVulnerable() { return false; }
+	};
 	public static final BloodType LLAMA = new BloodType("llama");
 	public static final BloodType MAGMA = new BloodType("magma") {
 		@Override
 		public boolean IsFireVulnerable() { return false; }
+	};
+	public static final BloodType NEPHAL = new BloodType("nephal");
+	public static final BloodType NETHER = new BloodType("nether") {
+		@Override
+		public boolean IsFireVulnerable() { return false; }
+		@Override
+		public boolean IsWaterVulnerable() { return true; }
 	};
 	public static final BloodType PHANTOM = new BloodType("phantom");
 	public static final BloodType PIG = new BloodType("pig");
@@ -94,6 +89,12 @@ public class BloodType {
 	public static final BloodType RAVAGER = new BloodType("ravager");
 	public static final BloodType SHEEP = new BloodType("sheep");
 	public static final BloodType SLIME = new BloodType("slime");
+	public static final BloodType SLUDGE = new BloodType("sludge") {
+		@Override
+		public boolean IsPoisonVulnerable() { return false; }
+		@Override
+		public boolean IsWitherVulnerable() { return false; }
+	};
 	public static final BloodType SPIDER = new BloodType("spider");
 	public static final BloodType SQUID = new BloodType("squid");
 	public static final BloodType STRIDER = new BloodType("strider") {
@@ -102,10 +103,13 @@ public class BloodType {
 		@Override
 		public boolean IsWaterVulnerable() { return true; }
 	};
+	public static final BloodType SUGAR_WATER = new BloodType("sugar_water");
 	public static final BloodType TURTLE = new BloodType("turtle");
+	public static final BloodType VAMPIRE = new BloodType("vampire");
 	public static final BloodType VEX = new BloodType("vex");
 	public static final BloodType VILLAGER = new BloodType("villager");
 	public static final BloodType WARDEN = new BloodType("warden");
+	public static final BloodType WATER = new BloodType("water");
 	public static final BloodType ZOMBIE = new BloodType("zombie");
 	public static final BloodType NONE = new BloodType("none");
 
@@ -170,13 +174,6 @@ public class BloodType {
 	public static Item GetSyringe(LivingEntity livingEntity) { return GetSyringe(Get(livingEntity)); }
 	public static Item GetSyringe(BloodType type) {
 		if (type == PLAYER) return HavenMod.BLOOD_SYRINGE;
-		else if (type == LAVA) return HavenMod.LAVA_SYRINGE;
-		else if (type == WATER) return HavenMod.WATER_SYRINGE;
-		else if (type == SUGAR_WATER) return HavenMod.SUGAR_WATER_SYRINGE;
-		else if (type == ICHOR) return HavenMod.ICHOR_SYRINGE;
-		else if (type == MAGMA) return HavenMod.MAGMA_CREAM_SYRINGE;
-		else if (type == SLIME) return HavenMod.SLIME_SYRINGE;
-		else if (type == SLUDGE) return HavenMod.SLUDGE_SYRINGE;
 		else if (type == ALLAY) return HavenMod.ALLAY_BLOOD_SYRINGE;
 		else if (type == AVIAN) return HavenMod.AVIAN_BLOOD_SYRINGE;
 		else if (type == AXOLOTL) return HavenMod.AXOLOTL_BLOOD_SYRINGE;
@@ -195,8 +192,12 @@ public class BloodType {
 		else if (type == FELINE) return HavenMod.FELINE_BLOOD_SYRINGE;
 		else if (type == FISH) return HavenMod.FISH_BLOOD_SYRINGE;
 		else if (type == GOAT) return HavenMod.GOAT_BLOOD_SYRINGE;
+		else if (type == HONEY) return HavenMod.HONEY_SYRINGE;
+		else if (type == ICHOR) return HavenMod.ICHOR_SYRINGE;
 		else if (type == INSECT) return HavenMod.INSECT_BLOOD_SYRINGE;
+		else if (type == LAVA) return HavenMod.LAVA_SYRINGE;
 		else if (type == LLAMA) return HavenMod.LLAMA_BLOOD_SYRINGE;
+		else if (type == MAGMA) return HavenMod.MAGMA_CREAM_SYRINGE;
 		else if (type == NEPHAL) return HavenMod.NEPHAL_BLOOD_SYRINGE;
 		else if (type == NETHER) return HavenMod.NETHER_BLOOD_SYRINGE;
 		else if (type == PHANTOM) return HavenMod.PHANTOM_BLOOD_SYRINGE;
@@ -204,14 +205,18 @@ public class BloodType {
 		else if (type == RABBIT) return HavenMod.RABBIT_BLOOD_SYRINGE;
 		else if (type == RAVAGER) return HavenMod.RAVAGER_BLOOD_SYRINGE;
 		else if (type == SHEEP) return HavenMod.SHEEP_BLOOD_SYRINGE;
+		else if (type == SLIME) return HavenMod.SLIME_SYRINGE;
+		else if (type == SLUDGE) return HavenMod.SLUDGE_SYRINGE;
 		else if (type == SPIDER) return HavenMod.SPIDER_BLOOD_SYRINGE;
 		else if (type == SQUID) return HavenMod.SQUID_BLOOD_SYRINGE;
 		else if (type == STRIDER) return HavenMod.STRIDER_BLOOD_SYRINGE;
+		else if (type == SUGAR_WATER) return HavenMod.SUGAR_WATER_SYRINGE;
 		else if (type == TURTLE) return HavenMod.TURTLE_BLOOD_SYRINGE;
 		else if (type == VAMPIRE) return HavenMod.VAMPIRE_BLOOD_SYRINGE;
 		else if (type == VEX) return HavenMod.VEX_BLOOD_SYRINGE;
 		else if (type == VILLAGER) return HavenMod.VILLAGER_BLOOD_SYRINGE;
 		else if (type == WARDEN) return HavenMod.WARDEN_BLOOD_SYRINGE;
+		else if (type == WATER) return HavenMod.WATER_SYRINGE;
 		else if (type == ZOMBIE) return HavenMod.ZOMBIE_BLOOD_SYRINGE;
 		return HavenMod.DIRTY_SYRINGE;
 	}

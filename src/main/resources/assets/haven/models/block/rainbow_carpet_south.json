@@ -1,0 +1,12 @@
+{
+  "parent": "haven:block/multi_texture_carpet",
+  "textures": {
+    "particle": "haven:block/rainbow_wool_particle",
+    "up": "haven:block/rainbow_wool_vert_r_p",
+    "down": "haven:block/rainbow_wool_vert_p_r",
+    "south": "haven:block/rainbow_wool_p",
+    "north": "haven:block/rainbow_wool_r",
+    "west": "haven:block/rainbow_wool_horiz_r_p",
+    "east": "haven:block/rainbow_wool_horiz_p_r"
+  }
+}

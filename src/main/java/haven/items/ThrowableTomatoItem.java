@@ -1,6 +1,6 @@
 package haven.items;
 
-import haven.entities.ThrownTomatoEntity;
+import haven.entities.projectiles.ThrownTomatoEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

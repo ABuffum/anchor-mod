@@ -1,15 +1,7 @@
 package haven.boats;
 
-import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.util.Pair;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import haven.HavenMod;
 import haven.HavenModClient;
-import haven.rendering.FancyChickenModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
@@ -19,9 +11,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;

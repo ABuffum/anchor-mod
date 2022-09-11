@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "haven:block/strawberry_bush_stage1"
+  }
+}

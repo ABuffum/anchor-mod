@@ -1,20 +1,11 @@
 package haven.materials;
 
-import haven.blocks.*;
+import haven.blocks.basic.*;
 import haven.boats.HavenBoat;
 import haven.util.HavenPair;
-import haven.util.HavenSapling;
 import haven.util.HavenSign;
 import net.minecraft.block.*;
-import net.minecraft.block.sapling.SaplingGenerator;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-
-import java.util.function.Supplier;
 
 public class WoodMaterial {
 	private final String name;

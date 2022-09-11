@@ -1,11 +1,13 @@
 package haven;
 
 import haven.boats.HavenBoatEntityRenderer;
-import haven.boats.HavenBoatType;
-import haven.entities.*;
 import haven.materials.*;
 import haven.particles.*;
 import haven.rendering.*;
+import haven.rendering.block.AnchorBlockEntityRenderer;
+import haven.rendering.block.SubstituteAnchorBlockEntityRenderer;
+import haven.rendering.entities.*;
+import haven.rendering.models.FancyChickenModel;
 import haven.util.*;
 
 import net.fabricmc.api.*;
@@ -18,18 +20,16 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.particle.FlameParticle;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.*;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
-import net.minecraft.item.Items;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -84,6 +84,8 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.BAMBOO.DOOR.BLOCK, HavenMod.BAMBOO.TRAPDOOR.BLOCK,
 		HavenMod.DRIED_BAMBOO.DOOR.BLOCK, HavenMod.DRIED_BAMBOO.TRAPDOOR.BLOCK,
 		HavenMod.POTTED_DRIED_BAMBOO,
+		//Strawberries
+		HavenMod.STRAWBERRY_BUSH,
 		//Coffee
 		HavenMod.COFFEE_PLANT,
 		//More Copper
@@ -175,9 +177,8 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes
 		EntityRendererRegistry.register(HavenMod.THROWABLE_TOMATO_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
-		receiveEntityPacket();
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-			registry.register(new Identifier(HavenMod.NAMESPACE, "particle/thrown_tomato"));
+			registry.register(HavenMod.ID("particle/thrown_tomato"));
 		}));
 		ParticleFactoryRegistry.getInstance().register(HavenMod.TOMATO_PARTICLE, TomatoParticle.Factory::new);
 		//Server Blood
@@ -185,6 +186,20 @@ public class HavenModClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putFluids(translucent, HavenMod.STILL_BLOOD_FLUID, HavenMod.FLOWING_BLOOD_FLUID);
 		//Angel Bat
 		EntityRendererRegistry.register(HavenMod.ANGEL_BAT_ENTITY, BatEntityRenderer::new);
+		//Melon Golem
+		EntityRendererRegistry.register(HavenMod.MELON_SEED_PROJECTILE_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
+		EntityRendererRegistry.register(HavenMod.MELON_GOLEM_ENTITY, MelonGolemEntityRenderer::new);
+		//Rainbow Wool
+		EntityRendererRegistry.register(HavenMod.RAINBOW_SHEEP_ENTITY, RainbowSheepEntityRenderer::new);
+		//Custom Beds
+		for (HavenBed bed : HavenMod.BEDS) {
+			ClientSpriteRegistryCallback.event(TexturedRenderLayers.BEDS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+				registry.register(bed.GetTexture());
+			}));
+		}
+		//Liquid Mud
+		setupFluidRendering(HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID, HavenMod.ID("mud"), 0x472804);
+		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(), HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID);
 		//Chicken Variants
 		EntityModelLayerRegistry.registerModelLayer(FANCY_CHICKEN_ENTITY_MODEL_LAYER, FancyChickenModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.FANCY_CHICKEN_ENTITY, FancyChickenEntityRenderer::new);
@@ -204,7 +219,8 @@ public class HavenModClient implements ClientModInitializer {
 		//Custom Boats
 		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.BOAT_ENTITY, HavenBoatEntityRenderer::new);
-		//1.19 Backport
+		//
+		receiveEntityPacket();
 	}
 
 	public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

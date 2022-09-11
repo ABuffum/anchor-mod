@@ -1,8 +1,8 @@
 package haven.util;
 
 import haven.HavenMod;
-import haven.blocks.HavenTorchBlock;
-import haven.blocks.HavenWallTorchBlock;
+import haven.blocks.basic.HavenTorchBlock;
+import haven.blocks.basic.HavenWallTorchBlock;
 import haven.blocks.oxidizable.OxidizableTorchBlock;
 import haven.blocks.oxidizable.OxidizableWallTorchBlock;
 import net.minecraft.block.AbstractBlock;

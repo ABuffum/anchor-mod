@@ -24,7 +24,7 @@ public class MangroveRootsBlock extends Block implements Waterloggable {
 
 	public MangroveRootsBlock(AbstractBlock.Settings settings) {
 		super(settings);
-		this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(WATERLOGGED, false));
+		this.setDefaultState(this.stateManager.getDefaultState().with(WATERLOGGED, false));
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class MangroveRootsBlock extends Block implements Waterloggable {
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
 		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
 		boolean bl = fluidState.getFluid() == Fluids.WATER;
-		return (BlockState)super.getPlacementState(ctx).with(WATERLOGGED, bl);
+		return super.getPlacementState(ctx).with(WATERLOGGED, bl);
 	}
 
 	@Override

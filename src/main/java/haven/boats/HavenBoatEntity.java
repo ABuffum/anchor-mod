@@ -1,29 +1,18 @@
 package haven.boats;
 
 import haven.HavenMod;
-import haven.mixins.BoatEntityAccessor;
+import haven.mixins.entities.BoatEntityAccessor;
 
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.*;
-import net.minecraft.entity.mob.WaterCreatureEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.c2s.play.BoatPaddleStateC2SPacket;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class HavenBoatEntity extends BoatEntity {
 	private static final TrackedData<Integer> BOAT_TYPE;

@@ -1,7 +1,7 @@
 package haven.util;
 
 import haven.HavenMod;
-import haven.mixins.LivingEntityAccessor;
+import haven.mixins.entities.LivingEntityAccessor;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.world.World;

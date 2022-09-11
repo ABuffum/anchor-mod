@@ -37,7 +37,7 @@ public class IchorBottleItem extends Item {
 			if (bloodType == BloodType.ICHOR) user.heal(1);
 			else if (bloodType.IsPoisonVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 200, 1));
 			else if (bloodType.IsWitherVulnerable()) user.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 200, 1));
-			else user.damage(HavenDamageSource.ICHOR, 3);
+			else user.damage(HavenDamageSource.ICHOR, 8);
 		}
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));

@@ -28,6 +28,8 @@ public abstract class BloodFluid extends FlowableFluid {
 	@Override
 	public Item getBucketItem() { return HavenMod.BLOOD_BUCKET; }
 	@Override
+	public boolean isInfinite() { return false; }
+	@Override
 	protected int getFlowSpeed(WorldView worldView) { return 2; }
 	@Override
 	protected float getBlastResistance() { return 100.0F; }
@@ -42,8 +44,6 @@ public abstract class BloodFluid extends FlowableFluid {
 		final BlockEntity blockEntity = state.hasBlockEntity() ? world.getBlockEntity(pos) : null;
 		Block.dropStacks(state, world, pos, blockEntity);
 	}
-	@Override
-	protected boolean isInfinite() { return false; }
 	@Override
 	public boolean matchesType(Fluid fluid) { return fluid == getStill() || fluid == getFlowing(); }
 	@Override

@@ -1,7 +1,7 @@
 package haven.util;
 
 import haven.HavenMod;
-import haven.mixins.AbstractCauldronBlockInvoker;
+import haven.mixins.blocks.AbstractCauldronBlockInvoker;
 import haven.mixins.DimensionTypeAccessor;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.Thickness;
@@ -10,7 +10,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;

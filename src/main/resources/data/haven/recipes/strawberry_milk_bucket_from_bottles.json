@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+	"B": {
+	  "item": "haven:strawberry_milk_bottle"
+	},
+	"b": {
+	  "item": "minecraft:bucket"
+	}
+  },
+  "pattern": [
+	"BB",
+	"Bb"
+  ],
+  "result": {
+	"item": "haven:strawberry_milk_bucket"
+  }
+}

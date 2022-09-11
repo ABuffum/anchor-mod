@@ -1,6 +1,6 @@
 package haven.items;
 
-import haven.entities.BottledConfettiEntity;
+import haven.entities.projectiles.BottledConfettiEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "particle": "haven:block/rainbow_wool_particle",
+    "up": "haven:block/rainbow_wool_horiz_p_r",
+    "down": "haven:block/rainbow_wool_horiz_p_r",
+    "south": "haven:block/rainbow_wool_horiz_p_r",
+    "north": "haven:block/rainbow_wool_horiz_r_p",
+    "west": "haven:block/rainbow_wool_p",
+    "east": "haven:block/rainbow_wool_r"
+  }
+}

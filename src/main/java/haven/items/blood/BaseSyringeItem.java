@@ -27,7 +27,10 @@ public class BaseSyringeItem extends Item {
 	}
 	public void ReplaceSyringe(PlayerEntity user, Hand hand) { ReplaceSyringe(user, user, hand); }
 	public void ReplaceSyringe(PlayerEntity user, LivingEntity entity, Hand hand) {
-		ItemStack newStack = new ItemStack(GetReplacementSyringe(user, entity));
+		ReplaceSyringe(user, hand, GetReplacementSyringe(user, entity));
+	}
+	public void ReplaceSyringe(PlayerEntity user, Hand hand, Item replacement) {
+		ItemStack newStack = new ItemStack(replacement);
 		if (!user.getAbilities().creativeMode) {
 			user.getStackInHand(hand).decrement(1);
 			if (user.getStackInHand(hand).isEmpty()) user.setStackInHand(hand, newStack);
