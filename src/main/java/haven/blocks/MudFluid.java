@@ -10,13 +10,18 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
+
+import java.util.Optional;
 
 public class MudFluid extends FlowableFluid {
 
@@ -66,27 +71,26 @@ public class MudFluid extends FlowableFluid {
 	@Override
 	public int getLevel(FluidState state) { return state.get(LEVEL); }
 
-	private void playExtinguishEvent(WorldAccess world, BlockPos pos) {
-		world.syncWorldEvent(1501, pos, 0);
-	}
+	@Override
+	public Optional<SoundEvent> getBucketFillSound() { return Optional.of(SoundEvents.ITEM_BUCKET_FILL); }
 
 	@Override
-	protected void flow(WorldAccess worldIn, BlockPos pos, BlockState blockStateIn, Direction direction, FluidState fluidStateIn) {
+	protected void flow(WorldAccess world, BlockPos pos, BlockState blockStateIn, Direction direction, FluidState fluidStateIn) {
 		if (this.getFlowing() instanceof MudFluid) {
 			boolean flag = false;
 			for (Direction dir : Direction.values()) {
-				if (worldIn.getFluidState(pos.offset(dir)).isIn(FluidTags.LAVA)) {
+				if (world.getFluidState(pos.offset(dir)).isIn(FluidTags.LAVA)) {
 					flag = true;
 					break;
 				}
 			}
 			if (flag) {
-				worldIn.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
-				this.playExtinguishEvent(worldIn, pos);
+				world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
+				world.syncWorldEvent(WorldEvents.LAVA_EXTINGUISHED, pos, 0);
 				return;
 			}
 		}
-		super.flow(worldIn, pos, blockStateIn, direction, fluidStateIn);
+		super.flow(world, pos, blockStateIn, direction, fluidStateIn);
 	}
 
 
