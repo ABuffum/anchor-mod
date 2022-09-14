@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-	"all": "haven:block/curdled_milk"
+	"all": "haven:block/cottage_cheese"
   }
 }

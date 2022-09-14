@@ -1,7 +1,7 @@
 {
   "variants": {
 	"": {
-	  "model": "haven:block/milk_cauldron"
+	  "model": "haven:block/cheese_cauldron"
 	}
   }
 }

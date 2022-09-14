@@ -18,6 +18,8 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
+import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
+import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistrySpecificAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.FlameParticle;
@@ -28,8 +30,13 @@ import net.minecraft.client.render.entity.model.BoatEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.*;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
+import net.minecraft.item.FishingRodItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -219,8 +226,23 @@ public class HavenModClient implements ClientModInitializer {
 		//Custom Boats
 		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.BOAT_ENTITY, HavenBoatEntityRenderer::new);
+		//Grappling Rod
+		ModelPredicateProviderRegistrySpecificAccessor.callRegister(HavenMod.GRAPPLING_ROD, new Identifier("cast"), HavenModClient::castGrapplingRod);
 		//
 		receiveEntityPacket();
+	}
+	private static float castGrapplingRod(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
+		if (entity == null) {
+			return 0.0F;
+		} else {
+			boolean bl = entity.getMainHandStack() == stack;
+			boolean bl2 = entity.getOffHandStack() == stack;
+			if (entity.getMainHandStack().getItem() instanceof FishingRodItem) {
+				bl2 = false;
+			}
+
+			return (bl || bl2) && entity instanceof PlayerEntity && ((PlayerEntity)entity).fishHook != null ? 1.0F : 0.0F;
+		}
 	}
 
 	public static void setupFluidRendering(final Fluid still, final Fluid flowing, final Identifier textureFluidId, final int color) {

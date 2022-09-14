@@ -523,7 +523,7 @@ public class HavenMod implements ModInitializer {
 		@Override
 		public void ApplyEffect(PlayerEntity user, LivingEntity entity) {
 			BloodType bloodType = BloodType.Get(entity);
-			if (bloodType == BloodType.HONEY){
+			if (bloodType == BloodType.HONEY || bloodType == BloodType.BEE || bloodType == BloodType.BEE_ENDERMAN || bloodType == BloodType.BEAR){
 				entity.heal(1);
 			}
 			else {
@@ -723,6 +723,14 @@ public class HavenMod implements ModInitializer {
 	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
 	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
 	public static final Item COFFEE_MILK_BOTTLE = new CoffeeMilkBucketItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
+	//Cheese
+	public static final Block MILK_CAULDRON = new MilkCauldronBlock(0, AbstractBlock.Settings.copy(Blocks.WATER_CAULDRON));
+	public static final Block COTTAGE_CHEESE_CAULDRON = new MilkCauldronBlock(1, AbstractBlock.Settings.copy(MILK_CAULDRON));
+	public static final Block CHEESE_CAULDRON = new MilkCauldronBlock(2, AbstractBlock.Settings.copy(MILK_CAULDRON));
+	public static final Block COTTAGE_CHEESE_BLOCK = new CottageCheeseBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.OFF_WHITE).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
+	public static final Item COTTAGE_CHEESE_BUCKET = new CottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BUCKET));
+	public static final HavenPair CHEESE_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.YELLOW).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)));
+	public static final Item CHEESE = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.8F).build()));
 
 	//Cakes
 	public static final HavenPair CHOCOLATE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CHOCOLATE));
@@ -741,6 +749,9 @@ public class HavenMod implements ModInitializer {
 	public static final Map<DyeColor, HavenCandleCakeBlock> CARROT_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CARROT));
 	public static final HavenCandleCakeBlock CONFETTI_CANDLE_CAKE = new HavenCandleCakeBlock(Flavor.CONFETTI);
 	public static final Map<DyeColor, HavenCandleCakeBlock> CONFETTI_CANDLE_CAKES = MapDyeColor((color) -> new HavenCandleCakeBlock(Flavor.CONFETTI));
+
+	//Grappling Rod
+	public static final Item GRAPPLING_ROD = new GrapplingRodItem(new Item.Settings().maxDamage(256).group(ITEM_GROUP));
 
 	//Bottled Confetti & Dragon's Breath
 	public static final Item BOTTLED_CONFETTI_ITEM = new BottledConfettiItem(new Item.Settings().group(ITEM_GROUP).recipeRemainder(Items.GLASS_BOTTLE));

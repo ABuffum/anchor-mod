@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "haven:amethyst_bricks"
+      "item": "haven:cheese"
     }
   },
   "pattern": [
-    "###",
-    "###"
+    "##",
+    "##"
   ],
   "result": {
-    "count": 6,
-    "item": "haven:amethyst_brick_wall"
+    "count": 1,
+    "item": "haven:cheese_block"
   }
 }

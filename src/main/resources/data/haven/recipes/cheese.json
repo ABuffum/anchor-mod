@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "haven:amaranth"
+      "item": "haven:cheese_block"
     }
   ],
   "result": {
-    "count": 2,
-    "item": "minecraft:magenta_dye"
+    "count": 4,
+    "item": "haven:cheese"
   }
 }

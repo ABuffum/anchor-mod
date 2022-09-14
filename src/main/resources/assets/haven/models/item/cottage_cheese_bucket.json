@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "haven:block/amaranth_top"
+    "layer0": "haven:item/cottage_cheese_bucket"
   }
 }

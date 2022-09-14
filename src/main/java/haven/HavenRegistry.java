@@ -7,6 +7,7 @@ import haven.entities.*;
 import haven.entities.blocks.SoftTntEntity;
 import haven.materials.*;
 import haven.origins.powers.BloodTypePower;
+import haven.origins.powers.ChorusTeleportPower;
 import haven.origins.powers.UnfreezingPower;
 import haven.util.*;
 
@@ -103,8 +104,8 @@ public class HavenRegistry {
 			CompostingChanceRegistry.INSTANCE.add(treeMaterial.SAPLING.ITEM, 0.3f);
 		}
 		if (material instanceof MangroveMaterial mangroveMaterial) {
-			Register(name + "_propagule", mangroveMaterial.PROPAGULE);
-			CompostingChanceRegistry.INSTANCE.add(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
+		//	Register(name + "_propagule", mangroveMaterial.PROPAGULE);
+		//	CompostingChanceRegistry.INSTANCE.add(mangroveMaterial.PROPAGULE.ITEM, 0.3f);
 		}
 
 		Register(name + "_planks", material.PLANKS);
@@ -415,7 +416,6 @@ public class HavenRegistry {
 		Register("lava_syringe", LAVA_SYRINGE);
 		Register("water_syringe", WATER_SYRINGE);
 		Register("sugar_water_syringe", SUGAR_WATER_SYRINGE);
-		Register("ichor_syringe", ICHOR_SYRINGE);
 		Register("magma_cream_syringe", MAGMA_CREAM_SYRINGE);
 		Register("slime_syringe", SLIME_SYRINGE);
 		Register("sludge_syringe", SLUDGE_SYRINGE);
@@ -437,6 +437,8 @@ public class HavenRegistry {
 		Register("feline_blood_syringe", FELINE_BLOOD_SYRINGE);
 		Register("fish_blood_syringe", FISH_BLOOD_SYRINGE);
 		Register("goat_blood_syringe", GOAT_BLOOD_SYRINGE);
+		Register("honey_syringe", HONEY_SYRINGE);
+		Register("ichor_syringe", ICHOR_SYRINGE);
 		Register("insect_blood_syringe", INSECT_BLOOD_SYRINGE);
 		Register("llama_blood_syringe", LLAMA_BLOOD_SYRINGE);
 		Register("nephal_blood_syringe", NEPHAL_BLOOD_SYRINGE);
@@ -475,6 +477,7 @@ public class HavenRegistry {
 	public static void RegisterOriginPowers() {
 		Register(BloodTypePower::createFactory);
 		Register(UnfreezingPower::createFactory);
+		Register(ChorusTeleportPower::createFactory);
 	}
 	public static void RegisterAngelBat() {
 		Register("angel_bat", ANGEL_BAT_ENTITY);
@@ -542,6 +545,16 @@ public class HavenRegistry {
 		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
 		Register("coffee_milk_bottle", COFFEE_MILK_BOTTLE);
+
+		Register("milk_cauldron", MILK_CAULDRON);
+		Register("cottage_cheese_cauldron", COTTAGE_CHEESE_CAULDRON);
+		Register("cheese_cauldron", CHEESE_CAULDRON);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, MilkCauldronBlock.FILL_FROM_BUCKET);
+		Register("cottage_cheese_block", COTTAGE_CHEESE_BLOCK);
+		Register("cottage_cheese_bucket", COTTAGE_CHEESE_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_BUCKET);
+		Register("cheese_block", CHEESE_BLOCK);
+		Register("cheese", CHEESE);
 	}
 	public static void RegisterCakes() {
 		Register("chocolate_cake", CHOCOLATE_CAKE);
@@ -760,6 +773,7 @@ public class HavenRegistry {
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
 		RegisterOriginPowers();
+		Register("grappling_rod", GRAPPLING_ROD);
 		RegisterAngelBat();
 		RegisterMelonGolem();
 		RegisterRainbow();

@@ -3,7 +3,6 @@ package haven.mixins.entities;
 import haven.HavenMod;
 import haven.origins.powers.UnfreezingPower;
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import net.minecraft.block.AbstractSkullBlock;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;

@@ -17,6 +17,7 @@
     "blocks.TurtleEggBlockInvoker",
     "entities.BlockEntityTypeMixin",
     "entities.BoatEntityAccessor",
+    "entities.FishingBobberEntityMixin",
     "entities.LivingEntityAccessor",
     "entities.LivingEntityMixin",
     "entities.MobEntityMixin",

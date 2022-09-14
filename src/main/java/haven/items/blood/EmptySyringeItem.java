@@ -37,13 +37,18 @@ public class EmptySyringeItem extends BaseSyringeItem {
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		PlayerEntity player = context.getPlayer();
-		BloodType type = null;
-		if (block == Blocks.SLIME_BLOCK) type = BloodType.SLIME;
-		else if (block == Blocks.HONEY_BLOCK) type = BloodType.HONEY;
+		if (block == Blocks.SLIME_BLOCK) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.SLIME_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		else if (block == Blocks.HONEY_BLOCK) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.HONEY_SYRINGE);
+			return ActionResult.CONSUME;
+		}
 		else if (block instanceof BeehiveBlock beehive) {
 			int i = state.get(BeehiveBlock.HONEY_LEVEL);
 			if (i >= 5) {
-				type = BloodType.HONEY;
+				ReplaceSyringe(player, context.getHand(), HavenMod.HONEY_SYRINGE);
 				BeehiveBlockInvoker bbi = (BeehiveBlockInvoker)beehive;
 				if (!CampfireBlock.isLitCampfireInRange(world, pos)) {
 					if (bbi.InvokeHasBees(world, pos)) {
@@ -51,19 +56,26 @@ public class EmptySyringeItem extends BaseSyringeItem {
 					}
 					beehive.takeHoney(world, state, pos, player, BeehiveBlockEntity.BeeState.EMERGENCY);
 				}
+				return ActionResult.CONSUME;
 			}
 		}
-		else if (HavenMod.BLOOD_BLOCKS.contains(block)) type = BloodType.PLAYER;
-		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER) type = BloodType.WATER;
-		else if (block == Blocks.MAGMA_BLOCK) type = BloodType.MAGMA;
-		else if (block instanceof TurtleEggBlock turtleEgg) {
-			type = BloodType.TURTLE;
-			((TurtleEggBlockInvoker)turtleEgg).InvokeTryBreakEgg(world, state, pos, player, 100);
-		}
-		if (type != null) {
-			ReplaceSyringe(player, context.getHand(), BloodType.GetSyringe(type));
+		else if (HavenMod.BLOOD_BLOCKS.contains(block)) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.BLOOD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
-		else return ActionResult.PASS;
+		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.WATER_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		else if (block == Blocks.MAGMA_BLOCK) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.MAGMA_CREAM_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		else if (block instanceof TurtleEggBlock turtleEgg) {
+			((TurtleEggBlockInvoker)turtleEgg).InvokeTryBreakEgg(world, state, pos, player, 100);
+			ReplaceSyringe(player, context.getHand(), HavenMod.TURTLE_BLOOD_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		return ActionResult.PASS;
 	}
 }

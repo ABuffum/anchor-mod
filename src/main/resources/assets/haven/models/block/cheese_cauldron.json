@@ -2,7 +2,7 @@
   "parent": "minecraft:block/template_cauldron_full",
   "textures": {
     "bottom": "minecraft:block/cauldron_bottom",
-    "content": "haven:block/curdled_milk",
+    "content": "haven:block/cheese",
     "inside": "minecraft:block/cauldron_inner",
     "particle": "minecraft:block/cauldron_side",
     "side": "minecraft:block/cauldron_side",

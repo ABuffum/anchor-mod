@@ -352,6 +352,14 @@
   "item.haven.coffee_milk_bucket": "Coffee Milk Bucket",
   "item.haven.coffee_milk_bottle": "Coffee Milk Bottle",
   
+  "block.haven.milk_cauldron": "Milk Cauldron",
+  "block.haven.cottage_cheese_cauldron": "Cottage Cheese Cauldron",
+  "block.haven.cheese_cauldron": "Cheese Cauldron",
+  "item.haven.cottage_cheese_bucket": "Cottage Cheese Bucket",
+  "block.haven.cottage_cheese_block": "Cottage Cheese Block",
+  "block.haven.cheese_block": "Cheese Block",
+  "item.haven.cheese": "Cheese",
+  
   "block.haven.carrot_cake": "Carrot Cake",
   "block.minecraft.carrot_candle_cake": "Carrot Cake with Candle",
   "block.minecraft.white_carrot_candle_cake": "Carrot Cake with White Candle",
@@ -442,6 +450,8 @@
   "block.minecraft.green_strawberry_candle_cake": "Strawberry Cake with Green Candle",
   "block.minecraft.red_strawberry_candle_cake": "Strawberry Cake with Red Candle",
   "block.minecraft.black_strawberry_candle_cake": "Strawberry Cake with Black Candle",
+  
+  "item.haven.grappling_rod": "Grappling Rod",
 
   "item.haven.throwable_tomato": "Throwable Tomato",
   "effect.haven.boo": "Boo!",
