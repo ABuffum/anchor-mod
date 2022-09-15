@@ -63,7 +63,8 @@ public class EmptySyringeItem extends BaseSyringeItem {
 			ReplaceSyringe(player, context.getHand(), HavenMod.BLOOD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
-		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER) {
+		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER
+				|| block == Blocks.ICE || block == Blocks.BLUE_ICE || block == Blocks.FROSTED_ICE || block == Blocks.PACKED_ICE) {
 			ReplaceSyringe(player, context.getHand(), HavenMod.WATER_SYRINGE);
 			return ActionResult.CONSUME;
 		}

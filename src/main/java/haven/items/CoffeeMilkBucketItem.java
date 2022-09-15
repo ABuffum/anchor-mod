@@ -1,6 +1,6 @@
 package haven.items;
 
-import haven.util.MilkBucketUtils;
+import haven.util.BucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -31,7 +31,7 @@ public class CoffeeMilkBucketItem extends MilkBucketItem {
 		}
 
 		if (!world.isClient) {
-			MilkBucketUtils.ClearStatusEffects(world, user);
+			BucketUtils.ClearStatusEffects(world, user);
 			if (user instanceof PlayerEntity) {
 				PlayerEntity player = (PlayerEntity)user;
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));

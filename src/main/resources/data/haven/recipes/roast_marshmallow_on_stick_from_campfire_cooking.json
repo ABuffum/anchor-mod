@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "cookingtime": 600,
+  "experience": 0.1,
+  "ingredient": {
+	"item": "haven:marshmallow_on_stick"
+  },
+  "result": "haven:roast_marshmallow_on_stick"
+}

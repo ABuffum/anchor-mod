@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+	"A": {
+	  "item": "haven:milk_bowl"
+	},
+	"B": {
+	  "item": "haven:strawberry"
+	}
+  },
+  "pattern": [
+	"B",
+	"A"
+  ],
+  "result": {
+	"item": "haven:strawberry_milk_bowl"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+	"A": {
+	  "item": "haven:milk_bowl"
+	},
+	"B": {
+	  "item": "haven:coffee_beans"
+	}
+  },
+  "pattern": [
+	"B",
+	"A"
+  ],
+  "result": {
+	"item": "haven:coffee_milk_bowl"
+  }
+}

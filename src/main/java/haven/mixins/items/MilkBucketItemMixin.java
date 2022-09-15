@@ -1,6 +1,8 @@
 package haven.mixins.items;
 
-import haven.util.MilkBucketUtils;
+import haven.items.CopperMilkBucketItem;
+import haven.items.WoodMilkBucketItem;
+import haven.util.BucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,6 +26,8 @@ public class MilkBucketItemMixin extends Item {
 
 	@Inject(method="finishUsing", at = @At("HEAD"), cancellable = true)
 	public void FinishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+		Item item = stack.getItem();
+		if (item instanceof WoodMilkBucketItem || item instanceof CopperMilkBucketItem) return;
 		if (user instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
@@ -33,7 +37,7 @@ public class MilkBucketItemMixin extends Item {
 			stack.decrement(1);
 		}
 		if (!world.isClient) {
-			MilkBucketUtils.ClearStatusEffects(world, user);
+			BucketUtils.ClearStatusEffects(world, user);
 			user.clearStatusEffects();
 		}
 		cir.setReturnValue(stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack);

@@ -1,5 +1,6 @@
 package haven;
 
+import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import haven.blocks.*;
 import haven.blocks.basic.*;
 import haven.blocks.complex.HavenCakeBlock;
@@ -29,6 +30,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
@@ -232,6 +234,7 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair AMETHYST_SLAB = new HavenPair(new HavenSlabBlock(Blocks.AMETHYST_BLOCK));
 	public static final HavenPair AMETHYST_STAIRS = new HavenPair(new HavenStairsBlock(Blocks.AMETHYST_BLOCK));
 	public static final HavenPair AMETHYST_WALL = new HavenPair(new HavenWallBlock(Blocks.AMETHYST_BLOCK));
+	public static final Item AMETHYST_KNIFE = new KnifeItem(HavenToolMaterials.AMETHYST, ITEM_SETTINGS);
 	//Melon Golem
 	public static final EntityType<MelonSeedProjectileEntity> MELON_SEED_PROJECTILE_ENTITY = FabricEntityTypeBuilder.<MelonSeedProjectileEntity>create(SpawnGroup.MISC, MelonSeedProjectileEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<MelonGolemEntity> MELON_GOLEM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MISC, MelonGolemEntity::new).dimensions(EntityType.SNOW_GOLEM.getDimensions()).trackRangeBlocks(8).build();
@@ -336,6 +339,7 @@ public class HavenMod implements ModInitializer {
 	//Drinks & Juice
 	private static Item.Settings BOTTLED_DRINK_SETTINGS = new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(4).saturationModifier(0.5F).build()).group(ITEM_GROUP);
 	public static final Item APPLE_CIDER = new BottledDrinkItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.6F).build()).group(ITEM_GROUP));
+	public static final HavenPair JUICER = new HavenPair(new JuicerBlock(AbstractBlock.Settings.of(Material.STONE).requiresTool().strength(3.5F)), ITEM_SETTINGS);
 	public static final Item APPLE_JUICE = new BottledDrinkItem(BOTTLED_DRINK_SETTINGS);
 	public static final Item BEETROOT_JUICE = new BottledDrinkItem(BOTTLED_DRINK_SETTINGS);
 	public static final Item BLACK_APPLE_JUICE = new BottledDrinkItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(4).saturationModifier(0.5F).statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 2, 2), 1F).statusEffect(new StatusEffectInstance(StatusEffects.INSTANT_HEALTH, 1, 2), 1F).build()).group(ITEM_GROUP));
@@ -376,6 +380,7 @@ public class HavenMod implements ModInitializer {
 	public static final FlowableFluid FLOWING_MUD_FLUID = new MudFluid.Flowing();
 	public static final FluidBlock MUD_FLUID_BLOCK = new MudFluidBlock(STILL_MUD_FLUID, FabricBlockSettings.copyOf(Blocks.WATER).mapColor(MapColor.BROWN));
 	public static final BucketItem MUD_BUCKET = new MudBucketItem(STILL_MUD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Block MUD_CAULDRON = new MudCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
 	//Music Discs
 	public static final Item MUSIC_DISC_OTHERSIDE = new MusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, new Item.Settings().maxCount(1).group(ITEM_GROUP).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, new Item.Settings().maxCount(1).group(ITEM_GROUP).rarity(Rarity.RARE));
@@ -414,6 +419,11 @@ public class HavenMod implements ModInitializer {
 	public static final Item CARAMEL = new Item(CANDY_ITEM_SETTINGS);
 	public static final Item CARAMEL_APPLE = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(5).saturationModifier(0.3F).build()));
 
+	public static final Item MARSHMALLOW = new Item(CANDY_ITEM_SETTINGS);
+	public static final Item ROAST_MARSHMALLOW = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(1).saturationModifier(0.2F).build()));
+	public static final Item MARSHMALLOW_ON_STICK = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.2F).build()));
+	public static final Item ROAST_MARSHMALLOW_ON_STICK = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.2F).build()));
+
 	public static final Item AMETHYST_CANDY = new Item(ITEM_SETTINGS); //not edible usually (it's rocks)
 	public static final Item.Settings ROCK_CANDY_SETTINGS = new Item.Settings().group(ITEM_GROUP).food(CANDY_FOOD_COMPONENT);
 	public static final Map<DyeColor, Item> ROCK_CANDIES = MapDyeColor((color) -> new Item(ROCK_CANDY_SETTINGS));
@@ -423,6 +433,7 @@ public class HavenMod implements ModInitializer {
 	public static final DefaultParticleType TOMATO_PARTICLE = FabricParticleTypes.simple();
 	public static final StatusEffect BOO_EFFECT = new BooEffect();
 	public static final StatusEffect KILLJOY_EFFECT = new KilljoyEffect();
+	public static final Item TOMATO_SOUP = new MushroomStewItem(new Item.Settings().group(ITEM_GROUP).food(FoodComponents.BEETROOT_SOUP));
 
 	//Server Blood
 	private static final Block BLOOD_BLOCK_BLOCK = new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.RED).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
@@ -447,11 +458,13 @@ public class HavenMod implements ModInitializer {
 	public static final BucketItem BLOOD_BUCKET = new BloodBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(BLOOD_ITEM_GROUP));
 
 	public static final Block BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
-	public static final Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
-	public static final Item LAVA_BOTTLE = new LavaBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
+	public static final Item BLOOD_BOTTLE = new BloodBottleItem(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item LAVA_BOTTLE = new LavaBottleItem(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
 	//TODO: WATER_BOTTLE
-	public static final Item SUGAR_WATER_BOTTLE = new BottledDrinkItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).build()));
-	public static final Item ICHOR_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE).group(BLOOD_ITEM_GROUP));
+	public static final Item SUGAR_WATER_BOTTLE = new BottledDrinkItem(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).build()));
+	public static final Item ICHOR_BOTTLE = new IchorBottleItem(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
+	public static final Item SLIME_BOTTLE = new Item(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
+	public static final Item MAGMA_CREAM_BOTTLE = new Item(new Item.Settings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE).group(ITEM_GROUP));
 	//Syringes
 	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PLAYER) {
 		@Override
@@ -690,7 +703,7 @@ public class HavenMod implements ModInitializer {
 	public static final Item SYRINGE_EXP1 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
 	public static final Item SYRINGE_EXP2 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
 	public static final Item SYRINGE_EXP3 = new SyringeItem(new StatusEffectInstance(DETERIORATION_EFFECT, 600, 4, true, false));
-
+	
 	//Angel Bat
 	public static final EntityType<AngelBatEntity> ANGEL_BAT_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, AngelBatEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.9F)).trackRangeBlocks(5).build();
 
@@ -717,21 +730,49 @@ public class HavenMod implements ModInitializer {
 	public static final Item WARPED_MOOSHROOM_SPAWN_EGG = new SpawnEggItem(WARPED_MOOSHROOM_ENTITY, 16777215, 16777215, ITEM_SETTINGS);
 
 	//Flavored Milk
+	public static final Item MILK_BOWL = new MilkBowlItem(new Item.Settings().recipeRemainder(Items.BOWL).maxCount(16).group(ITEM_GROUP));
 	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
-	public static final Item CHOCOLATE_MILK_BOTTLE = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
+	public static final Item CHOCOLATE_MILK_BOWL = new MilkBowlItem(new Item.Settings().recipeRemainder(Items.BOWL).maxCount(16).group(ITEM_GROUP));
+	public static final Item CHOCOLATE_MILK_BOTTLE = new MilkBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
 	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
-	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBucketItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
+	public static final Item STRAWBERRY_MILK_BOWL = new MilkBowlItem(new Item.Settings().recipeRemainder(Items.BOWL).maxCount(16).group(ITEM_GROUP));
+	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBottleItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
 	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(new Item.Settings().recipeRemainder(Items.BUCKET).maxCount(1).group(ITEM_GROUP));
-	public static final Item COFFEE_MILK_BOTTLE = new CoffeeMilkBucketItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
+	public static final Item COFFEE_MILK_BOWL = new CoffeeMilkBowlItem(new Item.Settings().recipeRemainder(Items.BOWL).maxCount(16).group(ITEM_GROUP));
+	public static final Item COFFEE_MILK_BOTTLE = new CoffeeMilkBottlelItem(new Item.Settings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16).group(ITEM_GROUP));
 	//Cheese
 	public static final Block MILK_CAULDRON = new MilkCauldronBlock(0, AbstractBlock.Settings.copy(Blocks.WATER_CAULDRON));
 	public static final Block COTTAGE_CHEESE_CAULDRON = new MilkCauldronBlock(1, AbstractBlock.Settings.copy(MILK_CAULDRON));
 	public static final Block CHEESE_CAULDRON = new MilkCauldronBlock(2, AbstractBlock.Settings.copy(MILK_CAULDRON));
 	public static final Block COTTAGE_CHEESE_BLOCK = new CottageCheeseBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.OFF_WHITE).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
-	public static final Item COTTAGE_CHEESE_BUCKET = new CottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BUCKET));
+	public static final Item COTTAGE_CHEESE_BUCKET = new CottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
+	public static final Item COTTAGE_CHEESE_BOWL = new MushroomStewItem(new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BOWL).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
 	public static final HavenPair CHEESE_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.YELLOW).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)));
 	public static final Item CHEESE = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.8F).build()));
-
+	public static final Item GRILLED_CHEESE = new Item(new Item.Settings().group(ITEM_GROUP).food(new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).build()));
+	//Wood Buckets
+	public static final Item WOOD_BUCKET = new WoodBucketItem(Fluids.EMPTY, new Item.Settings().maxCount(16).group(ITEM_GROUP));
+	public static final Item WOOD_WATER_BUCKET = new WoodBucketItem(Fluids.WATER, new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_POWDER_SNOW_BUCKET = new WoodPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new Item.Settings().maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_MUD_BUCKET = new WoodBucketItem(STILL_MUD_FLUID, new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_BLOOD_BUCKET = new WoodBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_MILK_BUCKET = new WoodMilkBucketItem(new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_CHOCOLATE_MILK_BUCKET = new WoodMilkBucketItem(new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_STRAWBERRY_MILK_BUCKET = new WoodMilkBucketItem(new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_COFFEE_MILK_BUCKET = new WoodCoffeeMilkBucketItem(new Item.Settings().recipeRemainder(WOOD_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item WOOD_COTTAGE_CHEESE_BUCKET = new WoodCottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
+	//Copper Buckets
+	public static final Item COPPER_BUCKET = new CopperBucketItem(Fluids.EMPTY, new Item.Settings().maxCount(16).group(ITEM_GROUP));
+	public static final Item COPPER_WATER_BUCKET = new CopperBucketItem(Fluids.WATER, new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_LAVA_BUCKET = new CopperBucketItem(Fluids.LAVA, new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_POWDER_SNOW_BUCKET = new CopperPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, new Item.Settings().maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_MUD_BUCKET = new CopperBucketItem(STILL_MUD_FLUID, new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_BLOOD_BUCKET = new CopperBucketItem(STILL_BLOOD_FLUID, new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_MILK_BUCKET = new CopperMilkBucketItem(new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_CHOCOLATE_MILK_BUCKET = new CopperMilkBucketItem(new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_STRAWBERRY_MILK_BUCKET = new CopperMilkBucketItem(new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_COFFEE_MILK_BUCKET = new CopperCoffeeMilkBucketItem(new Item.Settings().recipeRemainder(COPPER_BUCKET).maxCount(1).group(ITEM_GROUP));
+	public static final Item COPPER_COTTAGE_CHEESE_BUCKET = new CopperCottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, new Item.Settings().group(ITEM_GROUP).maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
 	//Cakes
 	public static final HavenPair CHOCOLATE_CAKE = new HavenPair(new HavenCakeBlock(Flavor.CHOCOLATE));
 	public static final HavenPair STRAWBERRY_CAKE = new HavenPair(new HavenCakeBlock(Flavor.STRAWBERRY));

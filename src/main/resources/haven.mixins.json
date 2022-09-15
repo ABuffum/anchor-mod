@@ -22,6 +22,7 @@
     "entities.LivingEntityMixin",
     "entities.MobEntityMixin",
     "items.AxeItemMixin",
+    "items.BucketItemAccessor",
     "items.GlassBottleItemMixin",
     "items.HoneycombItemMixin",
     "items.MilkBucketItemMixin",
@@ -41,6 +42,7 @@
     "client.rendering.BuiltinModelItemRendererMixin",
     "client.rendering.ChickenEntityModelAccessor",
     "client.rendering.EntityModelLayersMixin",
+    "client.rendering.FishingBobberEntityRendererMixin",
     "client.rendering.TexturedRenderLayersMixin"
   ],
   "server": [],

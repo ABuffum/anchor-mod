@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+	"B": {
+	  "item": "haven:blood_bottle"
+	},
+	"b": {
+	  "item": "haven:copper_bucket"
+	}
+  },
+  "pattern": [
+	"BB",
+	"Bb"
+  ],
+  "result": {
+	"item": "haven:copper_blood_bucket"
+  }
+}

@@ -1,10 +1,13 @@
 package haven;
 
+import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import haven.blocks.*;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.entities.*;
 import haven.entities.blocks.SoftTntEntity;
+import haven.items.CopperBucketItem;
+import haven.items.WoodBucketItem;
 import haven.materials.*;
 import haven.origins.powers.BloodTypePower;
 import haven.origins.powers.ChorusTeleportPower;
@@ -42,6 +45,9 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static haven.HavenMod.*;
 
@@ -168,6 +174,8 @@ public class HavenRegistry {
 		Register("amethyst_slab", AMETHYST_SLAB);
 		Register("amethyst_stairs", AMETHYST_STAIRS);
 		Register("amethyst_wall", AMETHYST_WALL);
+		//Amethyst Knife
+		Register("amethyst_knife", AMETHYST_KNIFE);
 	}
 	public static void RegisterFlowers() {
 		//Carnations
@@ -261,26 +269,33 @@ public class HavenRegistry {
 		Register("strawberry", STRAWBERRY);
 		CompostingChanceRegistry.INSTANCE.add(STRAWBERRY, 0.3F);
 	}
+	public static Map<Item, Item> JUICE_MAP = new HashMap<Item, Item>();
+	public static void RegisterJuice(String path, Item juice, Item source) {
+		Register(path + "_juice", juice);
+		JUICE_MAP.put(source, juice);
+	}
 	public static void RegisterJuice() {
 		Register("apple_cider", APPLE_CIDER);
-		Register("apple_juice", APPLE_JUICE);
-		Register("beetroot_juice", BEETROOT_JUICE);
-		Register("black_apple_juice", BLACK_APPLE_JUICE);
-		Register("cabbage_juice", CABBAGE_JUICE);
-		Register("cactus_juice", CACTUS_JUICE);
-		Register("carrot_juice", CARROT_JUICE);
-		Register("cherry_juice", CHERRY_JUICE);
-		Register("chorus_juice", CHORUS_JUICE);
-		Register("glow_berry_juice", GLOW_BERRY_JUICE);
-		Register("kelp_juice", KELP_JUICE);
-		Register("melon_juice", MELON_JUICE);
-		Register("onion_juice", ONION_JUICE);
-		Register("potato_juice", POTATO_JUICE);
-		Register("pumpkin_juice", PUMPKIN_JUICE);
-		Register("sea_pickle_juice", SEA_PICKLE_JUICE);
-		Register("strawberry_juice", STRAWBERRY_JUICE);
-		Register("sweet_berry_juice", SWEET_BERRY_JUICE);
-		Register("tomato_juice", TOMATO_JUICE);
+		Register("juicer", JUICER);
+		RegisterJuice("apple", APPLE_JUICE, Items.APPLE);
+		RegisterJuice("beetroot", BEETROOT_JUICE, Items.BEETROOT);
+		Register("black_apple_juice", BLACK_APPLE_JUICE); //TODO: Hook into better nether explicitly
+		//JUICE_MAP.put(Items.APPLE, BLACK_APPLE_JUICE);
+		RegisterJuice("cabbage", CABBAGE_JUICE, ItemsRegistry.CABBAGE.get());
+		RegisterJuice("cactus", CACTUS_JUICE, Items.CACTUS);
+		RegisterJuice("carrot", CARROT_JUICE, Items.CARROT);
+		RegisterJuice("cherry", CHERRY_JUICE, CHERRY_ITEM);
+		RegisterJuice("chorus", CHORUS_JUICE, Items.CHORUS_FRUIT);
+		RegisterJuice("glow_berry", GLOW_BERRY_JUICE, Items.GLOW_BERRIES);
+		RegisterJuice("kelp", KELP_JUICE, Items.KELP);
+		RegisterJuice("melon", MELON_JUICE, Items.MELON_SLICE);
+		RegisterJuice("onion", ONION_JUICE, ItemsRegistry.ONION.get());
+		RegisterJuice("potato", POTATO_JUICE, Items.POTATO);
+		RegisterJuice("pumpkin", PUMPKIN_JUICE, Items.PUMPKIN);
+		RegisterJuice("sea_pickle", SEA_PICKLE_JUICE, Items.SEA_PICKLE);
+		RegisterJuice("strawberry", STRAWBERRY_JUICE, STRAWBERRY);
+		RegisterJuice("sweet_berry", SWEET_BERRY_JUICE, Items.SWEET_BERRIES);
+		RegisterJuice("tomato", TOMATO_JUICE, ItemsRegistry.TOMATO.get());
 	}
 	public static void RegisterBamboo() {
 		//Bamboo
@@ -369,11 +384,150 @@ public class HavenRegistry {
 		Register("candy_cane", CANDY_CANE);
 		Register("caramel", CARAMEL);
 		Register("caramel_apple", CARAMEL_APPLE);
+		//Marshmallows
+		Register("marshmallow", MARSHMALLOW);
+		Register("roast_marshmallow", ROAST_MARSHMALLOW);
+		Register("marshmallow_on_stick", MARSHMALLOW_ON_STICK);
+		Register("roast_marshmallow_on_stick", ROAST_MARSHMALLOW_ON_STICK);
 		//Amethyst & Rock Candy
 		Register("amethyst_candy", AMETHYST_CANDY);
 		for(DyeColor color : COLORS) {
 			Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
 		}
+	}
+	public static void RegisterWoodCopperBuckets() {
+		Register("wood_bucket", WOOD_BUCKET);
+		Register("wood_water_bucket", WOOD_WATER_BUCKET);
+		Register("wood_powder_snow_bucket", WOOD_POWDER_SNOW_BUCKET);
+		Register("wood_mud_bucket", WOOD_MUD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_MUD_BUCKET, MudCauldronBlock.FILL_FROM_WOOD_BUCKET);
+		Register("wood_blood_bucket", WOOD_BLOOD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_WOOD_BUCKET);
+		DispenserBlock.registerBehavior(HavenMod.WOOD_BUCKET, new ItemDispenserBehavior() {
+			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				WorldAccess worldAccess = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+				BlockState blockState = worldAccess.getBlockState(blockPos);
+				Block block = blockState.getBlock();
+				if (block instanceof FluidDrainable) {
+					ItemStack itemStack = ((FluidDrainable)block).tryDrainFluid(worldAccess, blockPos, blockState);
+					itemStack = WoodBucketItem.metalToWood(itemStack);
+					if (itemStack.isEmpty()) {
+						return super.dispenseSilently(pointer, stack);
+					} else {
+						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
+						Item item2 = itemStack.getItem();
+						stack.decrement(1);
+						if (stack.isEmpty()) {
+							return new ItemStack(item2);
+						} else {
+							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
+								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
+							}
+
+							return stack;
+						}
+					}
+				} else {
+					return super.dispenseSilently(pointer, stack);
+				}
+			}
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
+		});
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.WOOD_WATER_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL);
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, HavenMod.WOOD_BUCKET);
+		});
+		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(WOOD_POWDER_SNOW_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
+		});
+		Register("wood_milk_bucket", WOOD_MILK_BUCKET);
+		Register("wood_chocolate_milk_bucket", WOOD_CHOCOLATE_MILK_BUCKET);
+		Register("wood_strawberry_milk_bucket", WOOD_STRAWBERRY_MILK_BUCKET);
+		Register("wood_coffee_milk_bucket", WOOD_COFFEE_MILK_BUCKET);
+		Register("wood_cottage_cheese_bucket", WOOD_COTTAGE_CHEESE_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_WOOD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_WOOD_BUCKET);
+
+		Register("copper_bucket", COPPER_BUCKET);
+		Register("copper_water_bucket", COPPER_WATER_BUCKET);
+		Register("copper_lava_bucket", COPPER_LAVA_BUCKET);
+		Register("copper_powder_snow_bucket", COPPER_POWDER_SNOW_BUCKET);
+		Register("copper_mud_bucket", COPPER_MUD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MUD_BUCKET, MudCauldronBlock.FILL_FROM_COPPER_BUCKET);
+		Register("copper_blood_bucket", COPPER_BLOOD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_COPPER_BUCKET);
+		DispenserBlock.registerBehavior(HavenMod.COPPER_BUCKET, new ItemDispenserBehavior() {
+			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				WorldAccess worldAccess = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+				BlockState blockState = worldAccess.getBlockState(blockPos);
+				Block block = blockState.getBlock();
+				if (block instanceof FluidDrainable) {
+					ItemStack itemStack = ((FluidDrainable)block).tryDrainFluid(worldAccess, blockPos, blockState);
+					itemStack = CopperBucketItem.metalToCopper(itemStack);
+					if (itemStack.isEmpty()) {
+						return super.dispenseSilently(pointer, stack);
+					} else {
+						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
+						Item item2 = itemStack.getItem();
+						stack.decrement(1);
+						if (stack.isEmpty()) {
+							return new ItemStack(item2);
+						} else {
+							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
+								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
+							}
+
+							return stack;
+						}
+					}
+				} else {
+					return super.dispenseSilently(pointer, stack);
+				}
+			}
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
+		});
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.COPPER_WATER_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL);
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, HavenMod.COPPER_BUCKET);
+		});
+		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(COPPER_POWDER_SNOW_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
+		});
+		Register("copper_milk_bucket", COPPER_MILK_BUCKET);
+		Register("copper_chocolate_milk_bucket", COPPER_CHOCOLATE_MILK_BUCKET);
+		Register("copper_strawberry_milk_bucket", COPPER_STRAWBERRY_MILK_BUCKET);
+		Register("copper_coffee_milk_bucket", COPPER_COFFEE_MILK_BUCKET);
+		Register("copper_cottage_cheese_bucket", COPPER_COTTAGE_CHEESE_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_COPPER_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_COPPER_BUCKET);
 	}
 	public static void RegisterThrowableTomatoes() {
 		Register("throwable_tomato", THROWABLE_TOMATO_ITEM);
@@ -381,6 +535,7 @@ public class HavenRegistry {
 		Registry.register(Registry.PARTICLE_TYPE, new Identifier(NAMESPACE, "thrown_tomato"), TOMATO_PARTICLE);
 		Register("boo", BOO_EFFECT);
 		Register("killjoy", KILLJOY_EFFECT);
+		Register("tomato_soup", TOMATO_SOUP);
 	}
 	public static void RegisterServerBlood() {
 		Register("blood_block", BLOOD_BLOCK);
@@ -407,6 +562,8 @@ public class HavenRegistry {
 		Register("lava_bottle", LAVA_BOTTLE);
 		Register("sugar_water_bottle", SUGAR_WATER_BOTTLE);
 		Register("ichor_bottle", ICHOR_BOTTLE);
+		Register("slime_bottle", SLIME_BOTTLE);
+		Register("magma_cream_bottle", MAGMA_CREAM_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
 		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
 		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
@@ -539,13 +696,16 @@ public class HavenRegistry {
 		Register("warped_mooshroom_spawn_egg", WARPED_MOOSHROOM_SPAWN_EGG);
 	}
 	public static void RegisterMilks() {
+		Register("milk_bowl", MILK_BOWL);
 		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
+		Register("chocolate_milk_bowl", CHOCOLATE_MILK_BOWL);
 		Register("chocolate_milk_bottle", CHOCOLATE_MILK_BOTTLE);
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
+		Register("strawberry_milk_bowl", STRAWBERRY_MILK_BOWL);
 		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
+		Register("coffee_milk_bowl", COFFEE_MILK_BOWL);
 		Register("coffee_milk_bottle", COFFEE_MILK_BOTTLE);
-
 		Register("milk_cauldron", MILK_CAULDRON);
 		Register("cottage_cheese_cauldron", COTTAGE_CHEESE_CAULDRON);
 		Register("cheese_cauldron", CHEESE_CAULDRON);
@@ -553,8 +713,10 @@ public class HavenRegistry {
 		Register("cottage_cheese_block", COTTAGE_CHEESE_BLOCK);
 		Register("cottage_cheese_bucket", COTTAGE_CHEESE_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_BUCKET);
+		Register("cottage_cheese_bowl", COTTAGE_CHEESE_BOWL);
 		Register("cheese_block", CHEESE_BLOCK);
 		Register("cheese", CHEESE);
+		Register("grilled_cheese", GRILLED_CHEESE);
 	}
 	public static void RegisterCakes() {
 		Register("chocolate_cake", CHOCOLATE_CAKE);
@@ -739,6 +901,8 @@ public class HavenRegistry {
 	}
 	public static void RegisterLiquidMud() {
 		Register("mud_bucket", MUD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FILL_FROM_BUCKET);
+		Register("mud_cauldron", MUD_CAULDRON);
 		Registry.register(Registry.FLUID, ID("still_mud"), STILL_MUD_FLUID);
 		Registry.register(Registry.FLUID, ID("flowing_mud"), FLOWING_MUD_FLUID);
 		Register("mud_fluid_block", MUD_FLUID_BLOCK);
@@ -770,8 +934,12 @@ public class HavenRegistry {
 		RegisterStrawberries();
 		RegisterJuice();
 		RegisterCandy();
+		RegisterWoodCopperBuckets();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
+		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
+		JUICE_MAP.put(Items.SLIME_BLOCK, SLIME_BOTTLE);
+		JUICE_MAP.put(Items.MAGMA_BLOCK, MAGMA_CREAM_BOTTLE);
 		RegisterOriginPowers();
 		Register("grappling_rod", GRAPPLING_ROD);
 		RegisterAngelBat();

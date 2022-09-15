@@ -109,6 +109,8 @@
 	"haven:cut_netherite",
 	"haven:cut_netherite_pillar",
 	"haven:cut_netherite_slab",
-	"haven:cut_netherite_stairs"
+	"haven:cut_netherite_stairs",
+	
+	"haven:juicer"
   ]
 }

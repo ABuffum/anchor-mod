@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "item": "haven:strawberry_milk_bucket"
+      "tag": "haven:strawberry_milk_buckets"
     },
     "B": {
       "item": "minecraft:sugar"

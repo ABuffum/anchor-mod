@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "haven:magma_cream_syringe"
+      "item": "haven:slime_syringe"
     },
     {
       "item": "minecraft:glass_bottle"
@@ -10,6 +10,6 @@
   ],
   "result": {
     "count": 1,
-    "item": "minecraft:magma_cream"
+    "item": "haven:slime_bottle"
   }
 }

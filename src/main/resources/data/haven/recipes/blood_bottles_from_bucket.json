@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
 	{
-	  "item": "haven:blood_bucket"
+	  "tag": "haven:blood_buckets"
 	},
 	{
 	  "item": "minecraft:glass_bottle"
