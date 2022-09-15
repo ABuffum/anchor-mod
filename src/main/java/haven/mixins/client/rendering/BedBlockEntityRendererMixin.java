@@ -21,9 +21,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BedBlockEntityRenderer.class)
-public abstract class BedBlockEntityRendererMixin implements BlockEntityRenderer<BedBlockEntity> {
+public abstract class BedBlockEntityRendererMixin {
 	@Inject(method="render(Lnet/minecraft/block/entity/BedBlockEntity;FLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;II)V", at=@At("HEAD"), cancellable = true)
 	private void Render(BedBlockEntity bedBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, CallbackInfo ci) {
+		_render(bedBlockEntity, f, matrixStack, vertexConsumerProvider, i, j);
+		ci.cancel();
+	}
+
+	private void _render(BedBlockEntity bedBlockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
 		World world = bedBlockEntity.getWorld();
 		Block block = (world != null ? world.getBlockState(bedBlockEntity.getPos()) : bedBlockEntity.getCachedState()).getBlock();
 		SpriteIdentifier spriteIdentifier;
@@ -47,8 +52,5 @@ public abstract class BedBlockEntityRendererMixin implements BlockEntityRenderer
 			bberi.InvokeRenderPart(matrixStack, vertexConsumerProvider, bbera.getBedHead(), Direction.SOUTH, spriteIdentifier, i, j, false);
 			bberi.InvokeRenderPart(matrixStack, vertexConsumerProvider, bbera.getBedFoot(), Direction.SOUTH, spriteIdentifier, i, j, true);
 		}
-		ci.cancel();
 	}
-
-	public void render(BedBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) { }
 }
