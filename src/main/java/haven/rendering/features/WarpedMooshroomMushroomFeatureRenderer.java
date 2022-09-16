@@ -1,6 +1,6 @@
 package haven.rendering.features;
 
-import haven.entities.WarpedMooshroomEntity;
+import haven.entities.passive.WarpedMooshroomEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

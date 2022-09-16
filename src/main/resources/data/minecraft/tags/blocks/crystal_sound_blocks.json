@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "haven:amethyst_crystal_block",
+    "haven:amethyst_crystal_slab",
+    "haven:amethyst_crystal_stairs",
+    "haven:amethyst_crystal_wall",
 
     "haven:amethyst_bricks",
     "haven:amethyst_brick_slab",

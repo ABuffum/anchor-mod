@@ -1,12 +1,7 @@
 package haven.boats;
 
-import haven.materials.WoodMaterial;
 import net.minecraft.block.Block;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.BoatDispenserBehavior;
-import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -22,7 +22,7 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Iterator;
 
 public class BucketUtils {
-	public static boolean ClearStatusEffects(World world, LivingEntity entity) {
+	public static boolean milkClearStatusEffects(World world, LivingEntity entity) {
 		if (world.isClient) return false;
 		Iterator<StatusEffectInstance> iterator = entity.getActiveStatusEffects().values().iterator();
 		boolean bl;

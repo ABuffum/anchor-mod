@@ -1,11 +1,10 @@
 package haven.rendering.features;
 
 import haven.HavenMod;
-import haven.entities.MelonGolemEntity;
+import haven.entities.passive.MelonGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;

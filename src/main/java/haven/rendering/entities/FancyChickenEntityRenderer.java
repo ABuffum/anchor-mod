@@ -2,7 +2,7 @@ package haven.rendering.entities;
 
 import haven.HavenMod;
 import haven.HavenModClient;
-import haven.entities.FancyChickenEntity;
+import haven.entities.passive.FancyChickenEntity;
 import haven.rendering.models.FancyChickenModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

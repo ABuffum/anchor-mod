@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.RainbowSheepEntity;
+import haven.entities.passive.RainbowSheepEntity;
 import haven.rendering.features.RainbowSheepWoolFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

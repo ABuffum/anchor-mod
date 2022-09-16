@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_wall_side_tall",
   "textures": {
-    "wall": "haven:block/cut_emerald_block"
+    "wall": "haven:block/cut_emerald"
   }
 }

@@ -1,9 +1,8 @@
 package haven.mixins.blocks;
 
 import haven.HavenMod;
-import haven.blocks.BloodFluid;
-import haven.blocks.MudFluid;
-import haven.blocks.MudFluidBlock;
+import haven.blood.BloodFluid;
+import haven.blocks.mud.MudFluid;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

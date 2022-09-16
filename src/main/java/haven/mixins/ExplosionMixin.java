@@ -1,7 +1,7 @@
 package haven.mixins;
 
 import com.google.common.collect.Sets;
-import haven.entities.blocks.SoftTntEntity;
+import haven.entities.tnt.SoftTntEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.Entity;

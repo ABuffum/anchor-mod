@@ -1,7 +1,7 @@
 package haven.mixins.items;
 
-import haven.items.CopperMilkBucketItem;
-import haven.items.WoodMilkBucketItem;
+import haven.items.consumable.milk.CopperMilkBucketItem;
+import haven.items.consumable.milk.WoodMilkBucketItem;
 import haven.util.BucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +37,7 @@ public class MilkBucketItemMixin extends Item {
 			stack.decrement(1);
 		}
 		if (!world.isClient) {
-			BucketUtils.ClearStatusEffects(world, user);
+			BucketUtils.milkClearStatusEffects(world, user);
 			user.clearStatusEffects();
 		}
 		cir.setReturnValue(stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack);

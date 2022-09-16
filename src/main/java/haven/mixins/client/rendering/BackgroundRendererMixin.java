@@ -1,15 +1,14 @@
 package haven.mixins.client.rendering;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import haven.blocks.BloodFluid;
-import haven.blocks.MudFluid;
+import haven.blood.BloodFluid;
+import haven.blocks.mud.MudFluid;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;

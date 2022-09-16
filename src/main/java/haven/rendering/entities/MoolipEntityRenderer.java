@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.MoolipEntity;
+import haven.entities.passive.MoolipEntity;
 import haven.rendering.features.MoolipFlowerFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

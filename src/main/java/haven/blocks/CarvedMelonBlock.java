@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.function.Predicate;
 
 import haven.HavenMod;
-import haven.entities.MelonGolemEntity;
+import haven.entities.passive.MelonGolemEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;

@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.MelonGolemEntity;
+import haven.entities.passive.MelonGolemEntity;
 import haven.rendering.features.MelonGolemMelonFeature;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.WarpedMooshroomEntity;
+import haven.entities.passive.WarpedMooshroomEntity;
 import haven.rendering.features.WarpedMooshroomMushroomFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -4,6 +4,9 @@
 	"haven:charcoal_block",
 
 	"haven:amethyst_crystal_block",
+	"haven:amethyst_crystal_slab",
+	"haven:amethyst_crystal_stairs",
+	"haven:amethyst_crystal_wall",
 
 	"haven:amethyst_bricks",
 	"haven:amethyst_brick_slab",
@@ -18,7 +21,7 @@
 	"haven:emerald_brick_slab",
 	"haven:emerald_brick_stairs",
 	"haven:emerald_brick_wall",
-	"haven:cut_emerald_block",
+	"haven:cut_emerald",
 	"haven:cut_emerald_slab",
 	"haven:cut_emerald_stairs",
 	"haven:cut_emerald_wall",
@@ -87,6 +90,14 @@
 	"haven:waxed_exposed_cut_copper_pillar",
 	"haven:waxed_weathered_cut_copper_pillar",
 	"haven:waxed_oxidized_cut_copper_pillar",
+	"haven:cut_copper_wall",
+	"haven:exposed_cut_copper_wall",
+	"haven:weathered_cut_copper_wall",
+	"haven:oxidized_cut_copper_wall",
+	"haven:waxed_cut_copper_wall",
+	"haven:waxed_exposed_cut_copper_wall",
+	"haven:waxed_weathered_cut_copper_wall",
+	"haven:waxed_oxidized_cut_copper_wall",
  
 	"haven:gold_lantern",
 	"haven:gold_soul_lantern",
@@ -97,6 +108,7 @@
 	"haven:cut_gold_pillar",
 	"haven:cut_gold_slab",
 	"haven:cut_gold_stairs",
+	"haven:cut_gold_wall",
  
 	"haven:iron_lantern",
 	"haven:iron_soul_lantern",
@@ -106,6 +118,8 @@
 	"haven:cut_iron_pillar",
 	"haven:cut_iron_slab",
 	"haven:cut_iron_stairs",
+	"haven:cut_iron_wall",
+	
 	"haven:dark_iron_bars",
 	"haven:dark_iron_block",
 	"haven:dark_iron_wall",
@@ -116,6 +130,7 @@
 	"haven:cut_dark_iron_pillar",
 	"haven:cut_dark_iron_slab",
 	"haven:cut_dark_iron_stairs",
+	"haven:cut_dark_iron_wall",
  
 	"haven:crushing_weighted_pressure_plate",
 	"haven:netherite_lantern",
@@ -127,7 +142,13 @@
 	"haven:cut_netherite_pillar",
 	"haven:cut_netherite_slab",
 	"haven:cut_netherite_stairs",
+	"haven:cut_netherite_wall",
 	
-	"haven:juicer"
+	"haven:juicer",
+	
+	"haven:mud_bricks",
+	"haven:mud_brick_stairs",
+	"haven:mud_brick_slab",
+	"haven:packed_mud"
   ]
 }

@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
-    "haven:dried_bamboo"
+    "haven:dried_bamboo",
+    "haven:carved_melon",
+    "haven:melon_lantern",
+    "haven:coffee_plant",
+    "haven:strawberry_bush",
+    "haven:mangrove_roots"
   ]
 }

@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.CrimsonMooshroomEntity;
+import haven.entities.passive.CrimsonMooshroomEntity;
 import haven.rendering.features.CrimsonMooshroomMushroomFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

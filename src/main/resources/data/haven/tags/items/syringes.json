@@ -1,0 +1,25 @@
+{
+  "values": [
+	"#haven:blood_syringes",
+	"haven:syringe",
+	"haven:dirty_syringe",
+	"haven:syringe_blindness",
+	"haven:syringe_mining_fatigue",
+	"haven:syringe_poison",
+	"haven:syringe_regeneration",
+	"haven:syringe_saturation",
+	"haven:syringe_slowness",
+	"haven:syringe_weakness",
+	"haven:syringe_wither",
+	"haven:syringe_exp1",
+	"haven:syringe_exp2",
+	"haven:syringe_exp3",
+	"haven:honey_syringe",
+	"haven:lava_syringe",
+	"haven:magma_cream_syringe",
+	"haven:slime_syringe",
+	"haven:sludge_syringe",
+	"haven:sugar_water_syringe",
+	"haven:water_syringe"
+  ]
+}

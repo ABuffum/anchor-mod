@@ -1,7 +1,7 @@
 package haven.rendering.features;
 
 import haven.HavenMod;
-import haven.entities.RainbowSheepEntity;
+import haven.entities.passive.RainbowSheepEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;

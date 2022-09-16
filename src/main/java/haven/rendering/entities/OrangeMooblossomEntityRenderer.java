@@ -1,7 +1,7 @@
 package haven.rendering.entities;
 
 import haven.HavenMod;
-import haven.entities.OrangeMooblossomEntity;
+import haven.entities.passive.OrangeMooblossomEntity;
 import haven.rendering.features.OrangeMooblossomFlowerFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

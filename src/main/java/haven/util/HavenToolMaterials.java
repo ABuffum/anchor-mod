@@ -22,7 +22,10 @@ public enum HavenToolMaterials implements ToolMaterial {
     }),
     EMERALD(MiningLevels.STONE, 850, 4.0F, 2.5F, 10, () -> {
         return Ingredient.ofItems(Items.EMERALD);
-    });
+    }),
+    FLINT(1, 131, 4.0F, 1.0F, 5, () -> {
+        return Ingredient.ofItems(Items.FLINT);
+    });;
 
     private final int miningLevel;
     private final int itemDurability;

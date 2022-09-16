@@ -117,6 +117,9 @@
   "block.haven.charcoal_block": "Charcoal Block",
 
   "block.haven.amethyst_crystal_block": "Amethyst Crystal Block",
+  "block.haven.amethyst_crystal_slab": "Amethyst Crystal Slab",
+  "block.haven.amethyst_crystal_stairs": "Amethyst Crystal Stairs",
+  "block.haven.amethyst_crystal_wall": "Amethyst Crystal Wall",
 
   "block.haven.amethyst_bricks": "Amethyst Bricks",
   "block.haven.amethyst_brick_slab": "Amethyst Brick Slab",
@@ -143,7 +146,7 @@
   "block.haven.emerald_brick_slab": "Emerald Brick Slab",
   "block.haven.emerald_brick_stairs": "Emerald Brick Stairs",
   "block.haven.emerald_brick_wall": "Emerald Brick Wall",
-  "block.haven.cut_emerald_block": "Cut Emerald Block",
+  "block.haven.cut_emerald": "Cut Emerald",
   "block.haven.cut_emerald_slab": "Cut Emerald Slab",
   "block.haven.cut_emerald_stairs": "Cut Emerald Stairs",
   "block.haven.cut_emerald_wall": "Cut Emerald Wall",
@@ -675,6 +678,7 @@
   "item.haven.copper_leggings": "Copper Leggings",
   "item.haven.copper_boots": "Copper Boots",
   "item.haven.copper_horse_armor": "Copper Horse Armor",
+  "item.haven.copper_shears": "Copper Shears",
   "block.haven.medium_weighted_pressure_plate": "Medium Weighted Pressure Plate",
   "block.haven.exposed_medium_weighted_pressure_plate": "Exposed Medium Weighted Pressure Plate",
   "block.haven.weathered_medium_weighted_pressure_plate": "Weathered Medium Weighted Pressure Plate",
@@ -731,6 +735,14 @@
   "block.haven.waxed_exposed_cut_copper_pillar": "Waxed Exposed Cut Copper Pillar",
   "block.haven.waxed_weathered_cut_copper_pillar": "Waxed Weathered Cut Copper Pillar",
   "block.haven.waxed_oxidized_cut_copper_pillar": "Waxed Oxidized Cut Copper Pillar",
+  "block.haven.cut_copper_wall": "Cut Copper Wall",
+  "block.haven.exposed_cut_copper_wall": "Exposed Cut Copper Wall",
+  "block.haven.weathered_cut_copper_wall": "Weathered Cut Copper Wall",
+  "block.haven.oxidized_cut_copper_wall": "Oxidized Cut Copper Wall",
+  "block.haven.waxed_cut_copper_wall": "Waxed Cut Copper Wall",
+  "block.haven.waxed_exposed_cut_copper_wall": "Waxed Exposed Cut Copper Wall",
+  "block.haven.waxed_weathered_cut_copper_wall": "Waxed Weathered Cut Copper Wall",
+  "block.haven.waxed_oxidized_cut_copper_wall": "Waxed Oxidized Cut Copper Wall",
   
   "block.haven.gold_lantern": "Gold Lantern",
   "block.haven.gold_soul_lantern": "Gold Soul Lantern",
@@ -741,6 +753,7 @@
   "block.haven.cut_gold_pillar": "Cut Gold Pillar",
   "block.haven.cut_gold_slab": "Cut Gold Slab",
   "block.haven.cut_gold_stairs": "Cut Gold Stairs",
+  "block.haven.cut_gold_wall": "Cut Gold Wall",
   
   "block.haven.iron_lantern": "Iron Lantern",
   "block.haven.iron_soul_lantern": "Iron Soul Lantern",
@@ -750,6 +763,8 @@
   "block.haven.cut_iron_pillar": "Cut Iron Pillar",
   "block.haven.cut_iron_slab": "Cut Iron Slab",
   "block.haven.cut_iron_stairs": "Cut Iron Stairs",
+  "block.haven.cut_iron_wall": "Cut Iron Wall",
+  
   "item.haven.dark_iron_nugget": "Dark Iron Nugget",
   "item.haven.dark_iron_ingot": "Dark Iron Ingot",
   "item.haven.dark_iron_axe": "Dark Iron Axe",
@@ -773,6 +788,7 @@
   "block.haven.cut_dark_iron_pillar": "Cut Dark Iron Pillar",
   "block.haven.cut_dark_iron_slab": "Cut Dark Iron Slab",
   "block.haven.cut_dark_iron_stairs": "Cut Dark Iron Stairs",
+  "block.haven.cut_dark_iron_wall": "Cut Dark Iron Wall",
   
   "item.haven.netherite_nugget": "Netherite Nugget",
   "item.haven.netherite_horse_armor": "Netherite Horse Armor",

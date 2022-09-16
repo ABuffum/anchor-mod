@@ -1,7 +1,7 @@
 package haven.entities.projectiles;
 
 import haven.HavenMod;
-import haven.entities.DragonBreathCloudEntity;
+import haven.entities.cloud.DragonBreathCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;

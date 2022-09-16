@@ -1,7 +1,8 @@
 package haven;
 
 import haven.boats.HavenBoatEntityRenderer;
-import haven.materials.*;
+import haven.materials.base.BaseMaterial;
+import haven.materials.providers.*;
 import haven.particles.*;
 import haven.rendering.*;
 import haven.rendering.block.AnchorBlockEntityRenderer;
@@ -18,7 +19,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
-import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistryAccessor;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistrySpecificAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
@@ -36,7 +36,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -60,8 +59,6 @@ public class HavenModClient implements ClientModInitializer {
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
 		//More Torches
 		HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
-		HavenMod.BAMBOO_TORCH.BLOCK, HavenMod.BAMBOO_TORCH.WALL_BLOCK,
-		HavenMod.DRIED_BAMBOO_TORCH.BLOCK, HavenMod.DRIED_BAMBOO_TORCH.WALL_BLOCK,
 		//Metal Torches
 		HavenMod.COPPER_TORCH.BLOCK, HavenMod.COPPER_TORCH.WALL_BLOCK,
 		HavenMod.EXPOSED_COPPER_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_TORCH.WALL_BLOCK,
@@ -79,17 +76,9 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK,
 		HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK,
 		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.GOLD_TORCH.BLOCK, HavenMod.GOLD_TORCH.WALL_BLOCK,
-		HavenMod.GOLD_SOUL_TORCH.BLOCK, HavenMod.GOLD_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.IRON_TORCH.BLOCK, HavenMod.IRON_TORCH.WALL_BLOCK,
-		HavenMod.IRON_SOUL_TORCH.BLOCK, HavenMod.IRON_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.DARK_IRON_TORCH.BLOCK, HavenMod.DARK_IRON_TORCH.WALL_BLOCK,
-		HavenMod.DARK_IRON_SOUL_TORCH.BLOCK, HavenMod.DARK_IRON_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.NETHERITE_TORCH.BLOCK, HavenMod.NETHERITE_TORCH.WALL_BLOCK,
-		HavenMod.NETHERITE_SOUL_TORCH.BLOCK, HavenMod.NETHERITE_SOUL_TORCH.WALL_BLOCK,
 		//Bamboo & Dried Bamboo Doors
-		HavenMod.BAMBOO.DOOR.BLOCK, HavenMod.BAMBOO.TRAPDOOR.BLOCK,
-		HavenMod.DRIED_BAMBOO.DOOR.BLOCK, HavenMod.DRIED_BAMBOO.TRAPDOOR.BLOCK,
+		HavenMod.BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.BAMBOO_MATERIAL.getTrapdoor().BLOCK,
+		HavenMod.DRIED_BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.DRIED_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.POTTED_DRIED_BAMBOO,
 		//Strawberries
 		HavenMod.STRAWBERRY_BUSH,
@@ -112,15 +101,10 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.WEATHERED_COPPER_BARS.BLOCK, HavenMod.OXIDIZED_COPPER_BARS.BLOCK,
 		HavenMod.WAXED_COPPER_BARS.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_BARS.BLOCK,
 		HavenMod.WAXED_WEATHERED_COPPER_BARS.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_BARS.BLOCK,
-		//More Gold
-		HavenMod.GOLD_LANTERN.BLOCK, HavenMod.GOLD_SOUL_LANTERN.BLOCK, HavenMod.GOLD_CHAIN.BLOCK, HavenMod.GOLD_BARS.BLOCK,
 		//More Iron
-		HavenMod.IRON_LANTERN.BLOCK, HavenMod.IRON_SOUL_LANTERN.BLOCK, HavenMod.IRON_CHAIN.BLOCK,
-		HavenMod.DARK_IRON_BARS.BLOCK, HavenMod.DARK_IRON_DOOR.BLOCK, HavenMod.DARK_IRON_TRAPDOOR.BLOCK,
-		//More Netherite
-		HavenMod.NETHERITE_LANTERN.BLOCK, HavenMod.NETHERITE_SOUL_LANTERN.BLOCK, HavenMod.NETHERITE_CHAIN.BLOCK, HavenMod.NETHERITE_BARS.BLOCK,
+		HavenMod.DARK_IRON_MATERIAL.getDoor().BLOCK, HavenMod.DARK_IRON_MATERIAL.getTrapdoor().BLOCK,
 		//Backport
-		HavenMod.MANGROVE_ROOTS.BLOCK
+		HavenMod.MANGROVE_ROOTS.BLOCK, HavenMod.MANGROVE_MATERIAL.getTrapdoor().BLOCK
 	));
 
 	private static final Block[] Translucent = {
@@ -138,15 +122,31 @@ public class HavenModClient implements ClientModInitializer {
 		for (HavenPair leaf : HavenMod.LEAVES) {
 			Cutout.add(leaf.BLOCK);
 		}
-		for (WoodMaterial material : HavenMod.WOOD_MATERIALS) {
-			if (material instanceof TreeMaterial treeMaterial) {
-				Cutout.add(treeMaterial.SAPLING.BLOCK);
-				Cutout.add(treeMaterial.SAPLING.POTTED);
+		for (BaseMaterial material : HavenMod.MATERIALS) {
+			if (material instanceof TorchProvider torchProvider) {
+				HavenTorch torch = torchProvider.getTorch();
+				Cutout.add(torch.BLOCK);
+				Cutout.add(torch.WALL_BLOCK);
 			}
-			if (material instanceof MangroveMaterial mangroveMaterial) {
-				Cutout.add(mangroveMaterial.PROPAGULE.BLOCK);
-				Cutout.add(mangroveMaterial.PROPAGULE.POTTED);
+			if (material instanceof SoulTorchProvider soulTorchProvider) {
+				HavenTorch torch = soulTorchProvider.getSoulTorch();
+				Cutout.add(torch.BLOCK);
+				Cutout.add(torch.WALL_BLOCK);
 			}
+			if (material instanceof LanternProvider lantern) Cutout.add(lantern.getLantern().BLOCK);
+			if (material instanceof SoulLanternProvider soulLantern) Cutout.add(soulLantern.getSoulLantern().BLOCK);
+			if (material instanceof ChainProvider chain) Cutout.add(chain.getChain().BLOCK);
+			if (material instanceof BarsProvider bars) Cutout.add(bars.getBars().BLOCK);
+			if (material instanceof SaplingProvider saplingProvider) {
+				HavenSapling sapling = saplingProvider.getSapling();
+				Cutout.add(sapling.BLOCK);
+				Cutout.add(sapling.POTTED);
+			}
+			//if (material instanceof PropaguleProvider propaguleProvider) {
+			//	HavenPropagule propagule = propaguleProvider.getPropagule();
+			//	Cutout.add(propagule.BLOCK);
+			//	Cutout.add(propagule.POTTED);
+			//}
 		}
 	}
 

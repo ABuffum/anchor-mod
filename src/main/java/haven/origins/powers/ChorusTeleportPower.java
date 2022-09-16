@@ -1,7 +1,7 @@
 package haven.origins.powers;
 
 import haven.HavenMod;
-import haven.util.ChorusUtils;
+import haven.command.ChorusCommand;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.*;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -32,7 +32,7 @@ public class ChorusTeleportPower extends CooldownPower implements Active {
 	@Override
 	public void onUse() {
 		if(canUse()) {
-			ChorusUtils.TeleportEntity(entity);
+			ChorusCommand.TeleportEntity(entity);
 			use();
 		}
 	}

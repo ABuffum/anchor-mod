@@ -1,7 +1,8 @@
 package haven.blocks;
 
 import haven.HavenMod;
-import haven.util.BloodType;
+import haven.blood.BloodFluid;
+import haven.blood.BloodType;
 import haven.util.BucketUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

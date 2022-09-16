@@ -73,7 +73,7 @@ public class PropaguleBlock extends SaplingBlock implements Waterloggable {
 	@Override
 	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
 		if (PropaguleBlock.isHanging(state)) {
-			return world.getBlockState(pos.up()).isOf(HavenMod.MANGROVE.LEAVES.BLOCK);
+			return world.getBlockState(pos.up()).isOf(HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK);
 		}
 		return super.canPlaceAt(state, world, pos);
 	}
@@ -142,7 +142,7 @@ public class PropaguleBlock extends SaplingBlock implements Waterloggable {
 	}
 
 	public static BlockState getHangingState(int age) {
-		return (BlockState)((BlockState)HavenMod.MANGROVE.PROPAGULE.BLOCK.getDefaultState().with(HANGING, true)).with(AGE, age);
+		return (BlockState)((BlockState)HavenMod.MANGROVE_MATERIAL.PROPAGULE.BLOCK.getDefaultState().with(HANGING, true)).with(AGE, age);
 	}
 
 	public AbstractBlock.OffsetType getOffsetType() {

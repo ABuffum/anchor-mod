@@ -3,6 +3,7 @@ package haven.mixins.items;
 import com.google.common.collect.BiMap;
 import haven.HavenMod;
 import haven.util.OxidationScale;
+import haven.util.StrippedBlockUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,7 +38,7 @@ public class AxeItemMixin {
 	private static void AddStrippedBlocks(CallbackInfo ci) {
 		STRIPPED_BLOCKS = new HashMap<Block, Block>(STRIPPED_BLOCKS);
 		//Add our own stripped blocks
-		STRIPPED_BLOCKS.putAll(HavenMod.STRIPPED_BLOCKS);
+		STRIPPED_BLOCKS.putAll(StrippedBlockUtils.STRIPPED_BLOCKS);
 	}
 
 	@Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
@@ -47,11 +48,11 @@ public class AxeItemMixin {
 		Block block = world.getBlockState(blockPos).getBlock();
 		//Strip cassia logs for cinnamon
 		boolean optional1 = false;
-		if (block == HavenMod.CASSIA.LOG.BLOCK) {
+		if (block == HavenMod.CASSIA_MATERIAL.getLog().BLOCK) {
 			world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 4)));
 			optional1 = true;
 		}
-		else if (block == HavenMod.CASSIA.WOOD.BLOCK) {
+		else if (block == HavenMod.CASSIA_MATERIAL.getWood().BLOCK) {
 			world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 6)));
 			optional1 = true;
 		}

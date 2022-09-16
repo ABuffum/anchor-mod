@@ -1,7 +1,7 @@
 package haven.util;
 
 import haven.HavenMod;
-import haven.blocks.complex.HavenBedBlock;
+import haven.blocks.HavenBedBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;

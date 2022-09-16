@@ -1,8 +1,8 @@
 package haven.rendering.models;
 
 import com.google.common.collect.ImmutableList;
-import haven.entities.FancyChickenEntity;
-import haven.mixins.client.rendering.ChickenEntityModelAccessor;
+import haven.entities.passive.FancyChickenEntity;
+import haven.mixins.client.rendering.entity.ChickenEntityModelAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;

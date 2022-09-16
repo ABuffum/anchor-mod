@@ -1,7 +1,7 @@
 package haven.entities.projectiles;
 
 import haven.HavenMod;
-import haven.entities.ConfettiCloudEntity;
+import haven.entities.cloud.ConfettiCloudEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EntityType;

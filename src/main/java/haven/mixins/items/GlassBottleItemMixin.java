@@ -1,9 +1,9 @@
 package haven.mixins.items;
 
 import haven.HavenMod;
-//import haven.entities.ConfettiCloudEntity;
-import haven.entities.ConfettiCloudEntity;
-import haven.entities.DragonBreathCloudEntity;
+//import haven.entities.cloud.ConfettiCloudEntity;
+import haven.entities.cloud.ConfettiCloudEntity;
+import haven.entities.cloud.DragonBreathCloudEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -11,11 +11,8 @@ import net.minecraft.item.GlassBottleItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;

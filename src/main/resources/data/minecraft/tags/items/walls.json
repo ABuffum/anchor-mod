@@ -1,15 +1,17 @@
 {
   "replace": false,
   "values": [
+    "haven:amethyst_crystal_wall",
     "haven:amethyst_brick_wall",
     "haven:amethyst_wall",
     "haven:emerald_brick_wall",
     "haven:cut_emerald_wall",
     "haven:diamond_brick_wall",
-  
+    "haven:diamond_wall",
+    
     "haven:blood_wall",
     "haven:dried_blood_wall",
-  
+    
     "haven:copper_wall",
     "haven:exposed_copper_wall",
     "haven:weathered_copper_wall",
@@ -18,9 +20,21 @@
     "haven:waxed_exposed_copper_wall",
     "haven:waxed_weathered_copper_wall",
     "haven:waxed_oxidized_copper_wall",
+    "haven:cut_copper_wall",
+    "haven:exposed_cut_copper_wall",
+    "haven:weathered_cut_copper_wall",
+    "haven:oxidized_cut_copper_wall",
+    "haven:waxed_cut_copper_wall",
+    "haven:waxed_exposed_cut_copper_wall",
+    "haven:waxed_weathered_cut_copper_wall",
+    "haven:waxed_oxidized_cut_copper_wall",
     "haven:iron_wall",
+    "haven:cut_iron_wall",
     "haven:dark_iron_wall",
+    "haven:cut_dark_iron_wall",
     "haven:gold_wall",
-    "haven:netherite_wall"
+    "haven:cut_gold_wall",
+    "haven:netherite_wall",
+    "haven:cut_netherite_wall"
   ]
 }
