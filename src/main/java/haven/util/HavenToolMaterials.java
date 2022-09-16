@@ -1,5 +1,7 @@
 package haven.util;
 
+import haven.HavenMod;
+import net.fabricmc.yarn.constants.MiningLevels;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
@@ -9,8 +11,17 @@ import net.minecraft.util.Lazy;
 import java.util.function.Supplier;
 
 public enum HavenToolMaterials implements ToolMaterial {
-    AMETHYST(1, 1561, 4.0F, 3.0F, 10, () -> {
-        return Ingredient.ofItems(new ItemConvertible[]{Items.AMETHYST_SHARD});
+    AMETHYST(MiningLevels.STONE, 1561, 4.0F, 3.0F, 10, () -> {
+        return Ingredient.ofItems(Items.AMETHYST_SHARD);
+    }),
+    COPPER(MiningLevels.IRON, 200, 9.0F, 1.0F, 18, () -> {
+        return Ingredient.ofItems(Items.COPPER_INGOT);
+    }),
+    DARK_IRON(MiningLevels.IRON, 250, 6.0F, 2.0F, 14, () -> {
+        return Ingredient.ofItems(HavenMod.DARK_IRON_INGOT);
+    }),
+    EMERALD(MiningLevels.STONE, 850, 4.0F, 2.5F, 10, () -> {
+        return Ingredient.ofItems(Items.EMERALD);
     });
 
     private final int miningLevel;

@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class HavenBed extends HavenPair {
 	public HavenBed(String name) {
-		this(name, HavenMod.ITEM_SETTINGS);
+		this(name, HavenMod.ItemSettings().maxCount(1));
 	}
 	public HavenBed(String name, Item.Settings itemSettings) {
 		this(name, AbstractBlock.Settings.copy(Blocks.WHITE_BED), itemSettings);

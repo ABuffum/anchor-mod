@@ -19,7 +19,7 @@ public class PottedBlock {
 
 	public PottedBlock(Block block) {
 		BLOCK = block;
-		ITEM = new BlockItem(BLOCK, HavenMod.ITEM_SETTINGS);
+		ITEM = new BlockItem(BLOCK, HavenMod.ItemSettings());
 		POTTED = new FlowerPotBlock(BLOCK, SETTINGS);
 	}
 }

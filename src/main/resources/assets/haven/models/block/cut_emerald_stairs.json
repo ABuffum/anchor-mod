@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "haven:block/cut_emerald_block",
+    "side": "haven:block/cut_emerald_block",
+    "top": "haven:block/cut_emerald_block"
+  }
+}

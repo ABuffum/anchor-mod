@@ -34,6 +34,7 @@
     "SignTypeAccessor"
   ],
   "client": [
+    "client.rendering.ArmorFeatureRendererMixin",
     "client.rendering.BackgroundRendererMixin",
     "client.rendering.BatEntityRendererMixin",
     "client.rendering.BedBlockEntityRendererAccessor",

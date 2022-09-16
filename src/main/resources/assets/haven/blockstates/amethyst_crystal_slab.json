@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "haven:block/amethyst_crystal_slab"
+        },
+        "type=double": {
+            "model": "minecraft:block/amethyst_crystal_block"
+        },
+        "type=top": {
+            "model": "haven:block/amethyst_crystal_slab_top"
+        }
+    }
+}

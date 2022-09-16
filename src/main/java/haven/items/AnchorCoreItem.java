@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class AnchorCoreItem extends Item {
 	public final int owner;
 	public AnchorCoreItem(int owner) {
-		super(HavenMod.ITEM_SETTINGS);
+		super(HavenMod.ItemSettings());
 		this.owner = owner;
 	}
 	

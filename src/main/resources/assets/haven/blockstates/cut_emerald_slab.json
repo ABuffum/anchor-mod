@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "haven:block/cut_emerald_slab"
+        },
+        "type=double": {
+            "model": "haven:block/cut_emerald_block"
+        },
+        "type=top": {
+            "model": "haven:block/cut_emerald_slab_top"
+        }
+    }
+}

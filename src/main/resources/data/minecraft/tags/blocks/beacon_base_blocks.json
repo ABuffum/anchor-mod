@@ -9,6 +9,9 @@
     "haven:cut_dark_iron",
     "haven:cut_dark_iron_pillar",
     "haven:cut_netherite",
-    "haven:cut_netherite_pillar"
+    "haven:cut_netherite_pillar",
+    "haven:cut_emerald_block",
+    "haven:emerald_bricks",
+    "haven:diamond_bricks"
   ]
 }

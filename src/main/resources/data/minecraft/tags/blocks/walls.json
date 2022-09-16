@@ -3,6 +3,10 @@
   "values": [
     "haven:amethyst_brick_wall",
 	"haven:amethyst_wall",
+	"haven:emerald_brick_wall",
+	"haven:cut_emerald_wall",
+	"haven:diamond_brick_wall",
+ 
 	"haven:blood_wall",
 	"haven:dried_blood_wall",
  

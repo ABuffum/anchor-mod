@@ -14,6 +14,23 @@
 	"haven:amethyst_stairs",
 	"haven:amethyst_wall",
  
+	"haven:emerald_bricks",
+	"haven:emerald_brick_slab",
+	"haven:emerald_brick_stairs",
+	"haven:emerald_brick_wall",
+	"haven:cut_emerald_block",
+	"haven:cut_emerald_slab",
+	"haven:cut_emerald_stairs",
+	"haven:cut_emerald_wall",
+ 
+	"haven:diamond_bricks",
+	"haven:diamond_brick_slab",
+	"haven:diamond_brick_stairs",
+	"haven:diamond_brick_wall",
+	"haven:diamond_slab",
+	"haven:diamond_stairs",
+	"haven:diamond_wall",
+ 
 	"haven:medium_weighted_pressure_plate",
 	"haven:exposed_medium_weighted_pressure_plate",
 	"haven:weathered_medium_weighted_pressure_plate",

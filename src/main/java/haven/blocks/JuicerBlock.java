@@ -59,6 +59,7 @@ public class JuicerBlock extends Block {
 					else player.getInventory().insertStack(newStack);
 				}
 				else player.getInventory().insertStack(newStack);
+				world.playSound(player, pos, SoundEvents.BLOCK_HONEY_BLOCK_HIT, SoundCategory.BLOCKS, 1F, 1F);
 			}
 			else {
 				world.setBlockState(pos, state.with(HAS_BOTTLE, false));
@@ -69,6 +70,7 @@ public class JuicerBlock extends Block {
 		else if (itemStack.getItem() == Items.GLASS_BOTTLE) {
 			world.setBlockState(pos, state.with(HAS_BOTTLE, true));
 			if (!player.getAbilities().creativeMode) player.getStackInHand(hand).decrement(1);
+			world.playSound(player, pos, SoundEvents.BLOCK_GLASS_HIT, SoundCategory.BLOCKS, 1F, 1F);
 			return ActionResult.SUCCESS;
 		}
 		else return ActionResult.PASS;

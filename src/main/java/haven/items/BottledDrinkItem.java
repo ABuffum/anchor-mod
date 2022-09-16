@@ -1,5 +1,6 @@
 package haven.items;
 
+import haven.HavenMod;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
@@ -22,6 +23,9 @@ public class BottledDrinkItem extends Item {
 
 	private final SoundEvent drinkSound;
 
+	public BottledDrinkItem() {
+		this(HavenMod.BottledDrinkSettings());
+	}
 	public BottledDrinkItem(Item.Settings settings) {
 		this(SoundEvents.ITEM_BOTTLE_EMPTY, settings);
 	}

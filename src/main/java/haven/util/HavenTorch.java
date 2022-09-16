@@ -15,7 +15,7 @@ import net.minecraft.particle.ParticleEffect;
 public class HavenTorch extends WalledBlock {
 
 	public HavenTorch(AbstractBlock.Settings settings, ParticleEffect particle) {
-		this(settings, particle, HavenMod.ITEM_SETTINGS);
+		this(settings, particle, HavenMod.ItemSettings());
 	}
 
 	public HavenTorch(AbstractBlock.Settings blockSettings, ParticleEffect particle, Item.Settings itemSettings) {
@@ -27,7 +27,7 @@ public class HavenTorch extends WalledBlock {
 	}
 
 	public static HavenTorch Oxidizable(Oxidizable.OxidizationLevel level, AbstractBlock.Settings settings, ParticleEffect particle) {
-		return Oxidizable(level, settings, particle, HavenMod.ITEM_SETTINGS);
+		return Oxidizable(level, settings, particle, HavenMod.ItemSettings());
 	}
 	public static HavenTorch Oxidizable(Oxidizable.OxidizationLevel level, AbstractBlock.Settings blockSettings, ParticleEffect particle, Item.Settings itemSettings) {
 		Block block = new OxidizableTorchBlock(level, blockSettings, particle);

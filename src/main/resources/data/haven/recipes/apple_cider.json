@@ -5,10 +5,7 @@
       "item": "haven:cinnamon"
     },
     {
-      "item": "minecraft:apple"
-    },
-    {
-      "item": "minecraft:glass_bottle"
+      "item": "haven:apple_juice"
     }
   ],
   "result": {

@@ -50,6 +50,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static haven.HavenMod.*;
+import static haven.HavenMod.COPPER_HELMET;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -174,8 +175,53 @@ public class HavenRegistry {
 		Register("amethyst_slab", AMETHYST_SLAB);
 		Register("amethyst_stairs", AMETHYST_STAIRS);
 		Register("amethyst_wall", AMETHYST_WALL);
-		//Amethyst Knife
+		//Amethyst Tools
+		Register("amethyst_axe", AMETHYST_AXE);
+		Register("amethyst_hoe", AMETHYST_HOE);
+		Register("amethyst_pickaxe", AMETHYST_PICKAXE);
+		Register("amethyst_shovel", AMETHYST_SHOVEL);
+		Register("amethyst_sword", AMETHYST_SWORD);
 		Register("amethyst_knife", AMETHYST_KNIFE);
+		Register("amethyst_helmet", AMETHYST_HELMET);
+		Register("amethyst_chestplate", AMETHYST_CHESTPLATE);
+		Register("amethyst_leggings", AMETHYST_LEGGINGS);
+		Register("amethyst_boots", AMETHYST_BOOTS);
+		Register("amethyst_horse_armor", AMETHYST_HORSE_ARMOR);
+	}
+	public static void RegisterEmerald() {
+		//Emerald Bricks
+		Register("emerald_bricks", EMERALD_BRICKS);
+		Register("emerald_brick_slab", EMERALD_BRICK_SLAB);
+		Register("emerald_brick_stairs", EMERALD_BRICK_STAIRS);
+		Register("emerald_brick_wall", EMERALD_BRICK_WALL);
+		//Emerald Variants
+		Register("cut_emerald_block", CUT_EMERALD_BLOCK);
+		Register("cut_emerald_slab", CUT_EMERALD_SLAB);
+		Register("cut_emerald_stairs", CUT_EMERALD_STAIRS);
+		Register("cut_emerald_wall", CUT_EMERALD_WALL);
+		//Emerald Tools
+		Register("emerald_axe", EMERALD_AXE);
+		Register("emerald_hoe", EMERALD_HOE);
+		Register("emerald_pickaxe", EMERALD_PICKAXE);
+		Register("emerald_shovel", EMERALD_SHOVEL);
+		Register("emerald_sword", EMERALD_SWORD);
+		Register("emerald_knife", EMERALD_KNIFE);
+		Register("emerald_helmet", EMERALD_HELMET);
+		Register("emerald_chestplate", EMERALD_CHESTPLATE);
+		Register("emerald_leggings", EMERALD_LEGGINGS);
+		Register("emerald_boots", EMERALD_BOOTS);
+		Register("emerald_horse_armor", EMERALD_HORSE_ARMOR);
+	}
+	public static void RegisterDiamond() {
+		//Diamond Bricks
+		Register("diamond_bricks", DIAMOND_BRICKS);
+		Register("diamond_brick_slab", DIAMOND_BRICK_SLAB);
+		Register("diamond_brick_stairs", DIAMOND_BRICK_STAIRS);
+		Register("diamond_brick_wall", DIAMOND_BRICK_WALL);
+		//Diamond Variants
+		Register("diamond_slab", DIAMOND_SLAB);
+		Register("diamond_stairs", DIAMOND_STAIRS);
+		Register("diamond_wall", DIAMOND_WALL);
 	}
 	public static void RegisterFlowers() {
 		//Carnations
@@ -750,6 +796,17 @@ public class HavenRegistry {
 	}
 	public static void RegisterMoreCopper() {
 		Register("copper_nugget", COPPER_NUGGET);
+		Register("copper_axe", COPPER_AXE);
+		Register("copper_hoe", COPPER_HOE);
+		Register("copper_pickaxe", COPPER_PICKAXE);
+		Register("copper_shovel", COPPER_SHOVEL);
+		Register("copper_sword",COPPER_SWORD);
+		Register("copper_knife", COPPER_KNIFE);
+		Register("copper_helmet", COPPER_HELMET);
+		Register("copper_chestplate", COPPER_CHESTPLATE);
+		Register("copper_leggings", COPPER_LEGGINGS);
+		Register("copper_boots", COPPER_BOOTS);
+		Register("copper_horse_armor", COPPER_HORSE_ARMOR);
 		//Torches
 		Registry.register(Registry.PARTICLE_TYPE, ID("copper_flame"), COPPER_FLAME);
 		Register("copper", COPPER_TORCH);
@@ -872,6 +929,17 @@ public class HavenRegistry {
 		Register("dark_iron_soul", DARK_IRON_SOUL_TORCH);
 		Register("dark_iron_nugget", DARK_IRON_NUGGET);
 		Register("dark_iron_ingot", DARK_IRON_INGOT);
+		Register("dark_iron_axe", DARK_IRON_AXE);
+		Register("dark_iron_hoe", DARK_IRON_HOE);
+		Register("dark_iron_pickaxe", DARK_IRON_PICKAXE);
+		Register("dark_iron_shovel", DARK_IRON_SHOVEL);
+		Register("dark_iron_sword", DARK_IRON_SWORD);
+		Register("dark_iron_knife", DARK_IRON_KNIFE);
+		Register("dark_iron_helmet", DARK_IRON_HELMET);
+		Register("dark_iron_chestplate", DARK_IRON_CHESTPLATE);
+		Register("dark_iron_leggings", DARK_IRON_LEGGINGS);
+		Register("dark_iron_boots", DARK_IRON_BOOTS);
+		Register("dark_iron_horse_armor", DARK_IRON_HORSE_ARMOR);
 		Register("dark_iron_bars", DARK_IRON_BARS);
 		Register("dark_iron_block", DARK_IRON_BLOCK);
 		Register("dark_iron_wall", DARK_IRON_WALL);
@@ -888,6 +956,7 @@ public class HavenRegistry {
 		Register("netherite", NETHERITE_TORCH);
 		Register("netherite_soul", NETHERITE_SOUL_TORCH);
 		Register("netherite_nugget", NETHERITE_NUGGET);
+		Register("netherite_horse_armor", NETHERITE_HORSE_ARMOR);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 		Register("netherite_lantern", NETHERITE_LANTERN);
 		Register("netherite_soul_lantern", NETHERITE_SOUL_LANTERN);
@@ -916,6 +985,8 @@ public class HavenRegistry {
 		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
 		RegisterFlowers();
 		RegisterAmethyst();
+		RegisterEmerald();
+		RegisterDiamond();
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
 		Register("broken_bottle", BROKEN_BOTTLE);

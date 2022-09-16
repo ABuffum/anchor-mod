@@ -9,7 +9,7 @@ public class HavenTallPair extends HavenPair {
 
 	public HavenTallPair(Block block) {
 
-		this(block, HavenMod.ITEM_SETTINGS);
+		this(block, HavenMod.ItemSettings());
 	}
 	public HavenTallPair(Block block, Item.Settings settings) {
 		super(block, new TallBlockItem(block, settings));

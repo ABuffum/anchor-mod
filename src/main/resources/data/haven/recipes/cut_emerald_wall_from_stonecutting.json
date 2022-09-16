@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "haven:cut_emerald_block"
+  },
+  "result": "haven:cut_emerald_wall"
+}

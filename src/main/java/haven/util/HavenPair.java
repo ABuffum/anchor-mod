@@ -10,10 +10,12 @@ public class HavenPair {
 	public final Item ITEM;
 
 	public HavenPair(Block block) {
-		this(block, HavenMod.ITEM_SETTINGS);
+		BLOCK = block;
+		ITEM = new BlockItem(block, HavenMod.ItemSettings());
 	}
 	public HavenPair(Block block, Item.Settings settings) {
-		this(block, new BlockItem(block, settings));
+		BLOCK = block;
+		ITEM = new BlockItem(block, settings);
 	}
 	public HavenPair(Block block, Item item) {
 		BLOCK = block;
