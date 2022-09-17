@@ -25,6 +25,7 @@ public class BloodType {
 
 	public static final BloodType PLAYER = new BloodType("player");
 	public static final BloodType ALLAY = new BloodType("allay");
+	public static final BloodType ANEMIC = new BloodType("anemic");
 	public static final BloodType AVIAN = new BloodType("avian");
 	public static final BloodType AXOLOTL = new BloodType("axolotl");
 	public static final BloodType BAT = new BloodType("bat");
@@ -164,6 +165,7 @@ public class BloodType {
 	public static Item GetSyringe(BloodType type) {
 		if (type == PLAYER) return HavenMod.BLOOD_SYRINGE;
 		else if (type == ALLAY) return HavenMod.ALLAY_BLOOD_SYRINGE;
+		else if (type == ANEMIC) return HavenMod.ANEMIC_BLOOD_SYRINGE;
 		else if (type == AVIAN) return HavenMod.AVIAN_BLOOD_SYRINGE;
 		else if (type == AXOLOTL) return HavenMod.AXOLOTL_BLOOD_SYRINGE;
 		else if (type == BAT) return HavenMod.BAT_BLOOD_SYRINGE;

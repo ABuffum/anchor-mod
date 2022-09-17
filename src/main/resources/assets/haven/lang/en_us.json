@@ -613,6 +613,7 @@
   
   "item.haven.blood_syringe": "Blood Syringe",
   "item.haven.allay_blood_syringe": "Allay Blood Syringe",
+  "item.haven.anemic_blood_syringe": "Anemic Blood Syringe",
   "item.haven.avian_blood_syringe": "Avian Blood Syringe",
   "item.haven.axolotl_blood_syringe": "Axolotl Blood Syringe",
   "item.haven.bat_blood_syringe": "Bat Blood Syringe",
@@ -665,6 +666,8 @@
   "death.attack.incompatible_blood.player": "%1$s responded poorly to %2$s's experiment",
   "death.attack.injected_water": "%1$s succumbed to water poisoning",
   "death.attack.injected_water.player": "%1$s was a bit too hydrated whilst fighting %2$s",
+  "death.attack.deterioration": "%1$s lost integrity",
+  "death.attack.deterioration.player": "%2$s added insult to %1$s's injury",
   
   "item.haven.copper_nugget": "Copper Nugget",
   "item.haven.copper_axe": "Copper Axe",
@@ -802,6 +805,7 @@
   "block.haven.cut_netherite_pillar": "Cut Netherite Pillar",
   "block.haven.cut_netherite_slab": "Cut Netherite Slab",
   "block.haven.cut_netherite_stairs": "Cut Netherite Stairs",
+  "block.haven.cut_netherite_wall": "Cut Netherite Wall",
   
   "item.haven.goat_horn": "Goat Horn",
   

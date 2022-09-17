@@ -453,6 +453,7 @@ public class HavenMod implements ModInitializer {
 		}
 	};
 	public static final Item ALLAY_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.ALLAY);
+	public static final Item ANEMIC_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.ANEMIC);
 	public static final Item AVIAN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.AVIAN);
 	public static final Item AXOLOTL_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.AXOLOTL);
 	public static final Item BAT_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.BAT);

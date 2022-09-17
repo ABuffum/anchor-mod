@@ -4,6 +4,13 @@
   "package": "haven.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "DimensionTypeAccessor",
+    "EfficiencyEnchantmentMixin",
+    "ExplosionAccessor",
+    "ExplosionMixin",
+    "ItemStackMixin",
+    "RecipeManagerMixin",
+    "SignTypeAccessor",
     "blocks.AbstractCauldronBlockInvoker",
     "blocks.AbstractCauldronBlockMixin",
     "blocks.BeehiveBlockInvoker",
@@ -18,9 +25,9 @@
     "blocks.PumpkinBlockMixin",
     "blocks.TripwireBlockMixin",
     "blocks.TurtleEggBlockInvoker",
+    "client.rendering.entity.FishingBobberEntityMixin",
     "entities.BlockEntityTypeMixin",
     "entities.BoatEntityAccessor",
-    "entities.FishingBobberEntityMixin",
     "entities.LivingEntityAccessor",
     "entities.LivingEntityMixin",
     "entities.MobEntityMixin",
@@ -32,31 +39,24 @@
     "items.GlassBottleItemMixin",
     "items.HoneycombItemMixin",
     "items.MilkBucketItemMixin",
-    "items.PotionItemMixin",
-    "DimensionTypeAccessor",
-    "EfficiencyEnchantmentMixin",
-    "ExplosionAccessor",
-    "ExplosionMixin",
-    "RecipeManagerMixin",
-    "SignTypeAccessor"
+    "items.PotionItemMixin"
   ],
   "client": [
+    "client.rendering.ArmorFeatureRendererMixin",
+    "client.rendering.BackgroundRendererMixin",
+    "client.rendering.BuiltinModelItemRendererMixin",
+    "client.rendering.EntityModelLayersMixin",
+    "client.rendering.TexturedRenderLayersMixin",
     "client.rendering.entity.BatEntityModelAccessor",
     "client.rendering.entity.BatEntityModelMixin",
     "client.rendering.entity.BatEntityRendererMixin",
     "client.rendering.entity.BedBlockEntityRendererAccessor",
     "client.rendering.entity.BedBlockEntityRendererInvoker",
     "client.rendering.entity.BedBlockEntityRendererMixin",
-    "client.rendering.entity.ChickenEntityModelAccessor",
-    "client.rendering.entity.FishingBobberEntityRendererMixin",
-    "client.rendering.ArmorFeatureRendererMixin",
-    "client.rendering.BackgroundRendererMixin",
-    "client.rendering.BuiltinModelItemRendererMixin",
-    "client.rendering.EntityModelLayersMixin",
-    "client.rendering.TexturedRenderLayersMixin"
+    "client.rendering.entity.ChickenEntityModelAccessor"
   ],
   "server": [],
   "injectors": {
-	"defaultRequire": 1
+    "defaultRequire": 1
   }
 }
