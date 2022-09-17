@@ -30,9 +30,9 @@ public class GrapplingRodItem extends FishingRodItem {
 	public static boolean RemoveIfInvalid(PlayerEntity player, Entity entity) {
 		ItemStack itemStack = player.getMainHandStack();
 		ItemStack itemStack2 = player.getOffHandStack();
-		boolean bl = itemStack.isOf(Items.FISHING_ROD) || itemStack.isOf(HavenMod.GRAPPLING_ROD);
-		boolean bl2 = itemStack2.isOf(Items.FISHING_ROD) || itemStack2.isOf(HavenMod.GRAPPLING_ROD);
-		if (!player.isRemoved() && player.isAlive() && (bl || bl2) && !(entity.squaredDistanceTo(player) > 1024.0D)) {
+		boolean bl = itemStack.getItem() instanceof FishingRodItem;//isOf(Items.FISHING_ROD) || itemStack.isOf(HavenMod.GRAPPLING_ROD);
+		boolean bl2 = itemStack2.getItem() instanceof FishingRodItem;//isOf(Items.FISHING_ROD) || itemStack2.isOf(HavenMod.GRAPPLING_ROD);
+		if (!player.isRemoved() && player.isAlive() && bl != bl2 && !(entity.squaredDistanceTo(player) > 1024.0D)) {
 			return false;
 		} else {
 			entity.discard();

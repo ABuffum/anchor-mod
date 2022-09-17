@@ -41,6 +41,8 @@
     "SignTypeAccessor"
   ],
   "client": [
+    "client.rendering.entity.BatEntityModelAccessor",
+    "client.rendering.entity.BatEntityModelMixin",
     "client.rendering.entity.BatEntityRendererMixin",
     "client.rendering.entity.BedBlockEntityRendererAccessor",
     "client.rendering.entity.BedBlockEntityRendererInvoker",

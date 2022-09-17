@@ -699,6 +699,7 @@ public class HavenRegistry {
 		FabricDefaultAttributeRegistry.register(ANGEL_BAT_ENTITY, AngelBatEntity.createBatAttributes());
 	}
 	public static void RegisterMelonGolem() {
+		Register("melon_seeds_projectile", MELON_SEED_PROJECTILE_ENTITY);
 		Register("melon_golem", MELON_GOLEM_ENTITY);
 		FabricDefaultAttributeRegistry.register(MELON_GOLEM_ENTITY, MelonGolemEntity.createMelonGolemAttributes());
 		Register("carved_melon", CARVED_MELON);
