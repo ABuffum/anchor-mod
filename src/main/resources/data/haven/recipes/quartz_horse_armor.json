@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    "X X",
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "item": "haven:quartz_horse_armor"
+  }
+}

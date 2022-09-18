@@ -13,4 +13,11 @@ public class WalledBlock {
 		ITEM = item;
 		WALL_BLOCK = wallBlock;
 	}
+
+	public boolean contains(Block block) {
+		return block == BLOCK || block == WALL_BLOCK;
+	}
+	public boolean contains(Item item) {
+		return item == ITEM;
+	}
 }

@@ -2,6 +2,7 @@ package haven;
 
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import haven.blocks.*;
+import haven.blocks.cake.HavenCake;
 import haven.blocks.mud.MudCauldronBlock;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
@@ -9,6 +10,7 @@ import haven.command.ChorusCommand;
 import haven.entities.passive.*;
 import haven.entities.tnt.SoftTntEntity;
 import haven.items.buckets.CopperBucketItem;
+import haven.items.buckets.GoldBucketItem;
 import haven.items.buckets.WoodBucketItem;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -39,7 +41,9 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
@@ -73,8 +77,20 @@ public class HavenRegistry {
 	public static <T extends BlockEntity> BlockEntityType Register(String path, BlockEntityType<T> entity) {
 		return Registry.register(Registry.BLOCK_ENTITY_TYPE, ID(path), entity);
 	}
+	public static void Register(HavenCake cake) {
+		String name = cake.getFlavor().getName();
+		Register(name + "_cake", cake.getCake());
+		Register(name += "_candle_cake", cake.getCandleCake());
+		for(DyeColor color : DyeColor.values()) Register(color.getName() + "_" + name, cake.getCandleCake(color));
+	}
 	public static StatusEffect Register(String path, StatusEffect effect) {
 		return Registry.register(Registry.STATUS_EFFECT, ID(path), effect);
+	}
+	public static DefaultParticleType Register(String path, DefaultParticleType effect) {
+		return Registry.register(Registry.PARTICLE_TYPE, ID(path), effect);
+	}
+	public static Fluid Register(String path, Fluid fluid) {
+		return Registry.register(Registry.FLUID, ID(path), fluid);
 	}
 	public static <T extends Entity> EntityType<T> Register(String path, EntityType entityType) {
 		return Registry.register(Registry.ENTITY_TYPE, ID(path), entityType);
@@ -85,11 +101,23 @@ public class HavenRegistry {
 		Registry.register(Registry.ITEM, id, potted.ITEM);
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
 	}
-	public static void Register(String name, HavenTorch torch) { Register(name + "_torch", name + "_wall_torch", torch); }
+	public static void Register(String name, HavenTorch torch) {
+		Register(name + "_torch", name + "_wall_torch", torch);
+		Register("unlit_" + name, torch.UNLIT);
+	}
+	public static void Register(String name, HavenTorch.Unlit unlit) {
+		Register(name + "_torch", unlit.UNLIT);
+		Register(name + "_wall_torch", unlit.UNLIT_WALL);
+		HavenTorch.UNLIT_TORCHES.put(unlit.LIT, unlit.UNLIT);
+		HavenTorch.UNLIT_WALL_TORCHES.put(unlit.LIT_WALL, unlit.UNLIT_WALL);
+	}
 	public static void Register(String name, WaxedTorch waxed) {
 		Register(name, (HavenTorch)waxed);
 		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.BLOCK, waxed.BLOCK);
 		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.WALL_BLOCK, waxed.WALL_BLOCK);
+		//Unlit
+		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.UNLIT.UNLIT, waxed.UNLIT.UNLIT);
+		OxidationScale.WAXED_BLOCKS.put(waxed.UNWAXED.UNLIT.UNLIT_WALL, waxed.UNLIT.UNLIT_WALL);
 	}
 	public static void Register(String path, String wallPath, WalledBlock walled) {
 		Identifier id = ID(path);
@@ -100,6 +128,9 @@ public class HavenRegistry {
 	public static void Register(BaseMaterial material) {
 		String name = material.getName();
 		boolean flammable = material.isFlammable();
+		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
+		FuelRegistry FUEL = FuelRegistry.INSTANCE;
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		//Crafting
 		if (material instanceof NuggetProvider nugget) Register(name + "_nugget", nugget.getNugget());
 		//Tool
@@ -131,80 +162,80 @@ public class HavenRegistry {
 			HavenPair pair = bundle.getBundle();
 			Register(name + "_bundle", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof StrippedBundleProvider strippedBundle) {
 			HavenPair pair = strippedBundle.getStrippedBundle();
 			Register("stripped_" + name + "_bundle", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof LogProvider log) {
 			HavenPair pair = log.getLog();
 			Register(name + "_log", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof StrippedLogProvider strippedLog) {
 			HavenPair pair = strippedLog.getStrippedLog();
 			Register("stripped_" + name + "_log", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof WoodProvider wood) {
 			HavenPair pair = wood.getWood();
 			Register(name + "_wood", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof StrippedWoodProvider strippedWood) {
 			HavenPair pair = strippedWood.getStrippedWood();
 			Register("stripped_" + name + "_wood", pair);
 			if (flammable) {
-				FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 5);
-				FuelRegistry.INSTANCE.add(pair.ITEM, 300);
+				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FUEL.add(pair.ITEM, 300);
 			}
 		}
 		if (material instanceof LeavesProvider leaves) {
 			HavenPair pair = leaves.getLeaves();
 			Register(name + "_leaves", pair);
-			CompostingChanceRegistry.INSTANCE.add(pair.ITEM, 0.3f);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 30, 60);
+			COMPOST.add(pair.ITEM, 0.3f);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 30, 60);
 		}
 		if (material instanceof SaplingProvider saplingProvider) {
 			HavenSapling sapling = saplingProvider.getSapling();
 			Register(name + "_sapling", sapling);
-			CompostingChanceRegistry.INSTANCE.add(sapling.ITEM, 0.3f);
+			COMPOST.add(sapling.ITEM, 0.3f);
 		}
 		//if (material instanceof PropaguleProvider propaguleProvider) {
 		//	HavenPropagule propagule = propaguleProvider.getPropagule();
 		//	Register(name + "_propagule", sapling);
-		//	CompostingChanceRegistry.INSTANCE.add(propagule.ITEM, 0.3f);
+		//	COMPOST.add(propagule.ITEM, 0.3f);
 		//}
 		if (material instanceof PlanksProvider planks) {
 			HavenPair pair = planks.getPlanks();
 			Register(name + "_planks", pair);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 20);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof StairsProvider stairs) {
 			HavenPair pair = stairs.getStairs();
 			Register(name + "_stairs", pair);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 20);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof SlabProvider slab) {
 			HavenPair pair = slab.getSlab();
 			Register(name + "_slab", pair);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 20);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof DoorProvider door) Register(name + "_door", door.getDoor());
 		if (material instanceof TrapdoorProvider trapdoor) Register(name + "_trapdoor", trapdoor.getTrapdoor());
@@ -213,17 +244,22 @@ public class HavenRegistry {
 		if (material instanceof FenceProvider fence) {
 			HavenPair pair = fence.getFence();
 			Register(name + "_fence", pair);
-			FuelRegistry.INSTANCE.add(pair.ITEM, 300);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 20);
+			FUEL.add(pair.ITEM, 300);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof FenceGateProvider fenceGate) {
 			HavenPair pair = fenceGate.getFenceGate();
 			Register(name + "_fence_gate", pair);
-			FuelRegistry.INSTANCE.add(pair.ITEM, 300);
-			if (flammable) FlammableBlockRegistry.getDefaultInstance().add(pair.BLOCK, 5, 20);
+			FUEL.add(pair.ITEM, 300);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof WallProvider wall) Register(name + "_wall", wall.getWall());
 		if (material instanceof PaneProvider pane) Register(name + "_pane", pane.getPane());
+		if (material instanceof SmoothProvider smooth) Register("smooth_" + name, smooth.getSmooth());
+		if (material instanceof SmoothBlockProvider smoothBlock) Register("smooth_" + name + "_block", smoothBlock.getSmoothBlock());
+		if (material instanceof SmoothSlabProvider smoothSlab) Register("smooth_" + name + "_slab", smoothSlab.getSmoothSlab());
+		if (material instanceof SmoothStairsProvider smoothStairs) Register("smooth_" + name + "_stairs", smoothStairs.getSmoothStairs());
+		if (material instanceof SmoothWallProvider smoothWall) Register("smooth_" + name + "_wall", smoothWall.getSmoothWall());
 		if (material instanceof CrystalBlockProvider crystalBlock) Register(name + "_crystal_block", crystalBlock.getCrystalBlock());
 		if (material instanceof CrystalSlabProvider crystalSlab) Register(name + "_crystal_slab", crystalSlab.getCrystalSlab());
 		if (material instanceof CrystalStairsProvider crystalStairs) Register(name + "_crystal_stairs", crystalStairs.getCrystalStairs());
@@ -259,38 +295,41 @@ public class HavenRegistry {
 	}
 
 	public static void RegisterFlowers() {
+		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		//Carnations
 		for (DyeColor color : COLORS) {
 			HavenFlower carnation = CARNATIONS.get(color);
 			Register(color.getName() + "_carnation", carnation);
-			FlammableBlockRegistry.getDefaultInstance().add(carnation.BLOCK, 60, 100);
+			FLAMMABLE.add(carnation.BLOCK, 60, 100);
 		}
 		//Minecraft Earth Flowers
 		Register("buttercup", BUTTERCUP);
-		FlammableBlockRegistry.getDefaultInstance().add(BUTTERCUP.BLOCK, 60, 100);
+		FLAMMABLE.add(BUTTERCUP.BLOCK, 60, 100);
 		Register("pink_daisy", PINK_DAISY);
-		FlammableBlockRegistry.getDefaultInstance().add(PINK_DAISY.BLOCK, 60, 100);
+		FLAMMABLE.add(PINK_DAISY.BLOCK, 60, 100);
 		//Other Flowers
 		Register("rose", ROSE);
-		FlammableBlockRegistry.getDefaultInstance().add(ROSE.BLOCK, 60, 100);
+		FLAMMABLE.add(ROSE.BLOCK, 60, 100);
 		Register("blue_rose", BLUE_ROSE);
-		FlammableBlockRegistry.getDefaultInstance().add(BLUE_ROSE.BLOCK, 60, 100);
+		FLAMMABLE.add(BLUE_ROSE.BLOCK, 60, 100);
 		Register("magenta_tulip", MAGENTA_TULIP);
-		FlammableBlockRegistry.getDefaultInstance().add(MAGENTA_TULIP.BLOCK, 60, 100);
+		FLAMMABLE.add(MAGENTA_TULIP.BLOCK, 60, 100);
 		Register("marigold", MARIGOLD);
-		FlammableBlockRegistry.getDefaultInstance().add(MARIGOLD.BLOCK, 60, 100);
+		FLAMMABLE.add(MARIGOLD.BLOCK, 60, 100);
 		Register("pink_allium", PINK_ALLIUM);
-		FlammableBlockRegistry.getDefaultInstance().add(PINK_ALLIUM.BLOCK, 60, 100);
+		FLAMMABLE.add(PINK_ALLIUM.BLOCK, 60, 100);
 		Register("lavender", LAVENDER);
-		FlammableBlockRegistry.getDefaultInstance().add(LAVENDER.BLOCK, 60, 100);
+		FLAMMABLE.add(LAVENDER.BLOCK, 60, 100);
 		Register("hydrangea", HYDRANGEA);
-		FlammableBlockRegistry.getDefaultInstance().add(HYDRANGEA.BLOCK, 60, 100);
+		FLAMMABLE.add(HYDRANGEA.BLOCK, 60, 100);
+		Register("paeonia", PAEONIA);
+		FLAMMABLE.add(PAEONIA.BLOCK, 60, 100);
 		Register("amaranth", AMARANTH);
-		FlammableBlockRegistry.getDefaultInstance().add(AMARANTH.BLOCK, 60, 100);
+		FLAMMABLE.add(AMARANTH.BLOCK, 60, 100);
 		Register("tall_allium", TALL_ALLIUM);
-		FlammableBlockRegistry.getDefaultInstance().add(TALL_ALLIUM.BLOCK, 60, 100);
+		FLAMMABLE.add(TALL_ALLIUM.BLOCK, 60, 100);
 		Register("tall_pink_allium", TALL_PINK_ALLIUM);
-		FlammableBlockRegistry.getDefaultInstance().add(TALL_PINK_ALLIUM.BLOCK, 60, 100);
+		FLAMMABLE.add(TALL_PINK_ALLIUM.BLOCK, 60, 100);
 	}
 	public static void RegisterSoftTNT() {
 		Register("soft_tnt", SOFT_TNT);
@@ -339,9 +378,17 @@ public class HavenRegistry {
 		Register(CASSIA_MATERIAL);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
-		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier(NAMESPACE, "cassia_tree"), CASSIA_TREE);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cassia_tree"), CASSIA_TREE);
+	}
+	public static void RegisterCookies() {
 		Register("snickerdoodle", SNICKERDOODLE);
 		CompostingChanceRegistry.INSTANCE.add(SNICKERDOODLE, 0.85F);
+		Register("chorus_cookie", CHORUS_COOKIE);
+		CompostingChanceRegistry.INSTANCE.add(CHORUS_COOKIE, 0.85F);
+		Register("chocolate_cookie", CHOCOLATE_COOKIE);
+		CompostingChanceRegistry.INSTANCE.add(CHOCOLATE_COOKIE, 0.85F);
+		Register("confetti_cookie", CONFETTI_COOKIE);
+		CompostingChanceRegistry.INSTANCE.add(CONFETTI_COOKIE, 0.85F);
 		Register("cinnamon_roll", CINNAMON_ROLL);
 	}
 	public static void RegisterStrawberries() {
@@ -377,6 +424,37 @@ public class HavenRegistry {
 		RegisterJuice("strawberry", STRAWBERRY_JUICE, STRAWBERRY);
 		RegisterJuice("sweet_berry", SWEET_BERRY_JUICE, Items.SWEET_BERRIES);
 		RegisterJuice("tomato", TOMATO_JUICE, ItemsRegistry.TOMATO.get());
+		//Smoothies
+		Register("apple_smoothie", APPLE_SMOOTHIE);
+		Register("beetroot_smoothie", BEETROOT_SMOOTHIE);
+		Register("black_apple_smoothie", BLACK_APPLE_SMOOTHIE);
+		Register("cabbage_smoothie", CABBAGE_SMOOTHIE);
+		Register("cactus_smoothie", CACTUS_SMOOTHIE);
+		Register("carrot_smoothie", CARROT_SMOOTHIE);
+		Register("cherry_smoothie", CHERRY_SMOOTHIE);
+		Register("chorus_smoothie", CHORUS_SMOOTHIE);
+		Register("glow_berry_smoothie", GLOW_BERRY_SMOOTHIE);
+		Register("kelp_smoothie", KELP_SMOOTHIE);
+		Register("melon_smoothie", MELON_SMOOTHIE);
+		Register("onion_smoothie", ONION_SMOOTHIE);
+		Register("potato_smoothie", POTATO_SMOOTHIE);
+		Register("pumpkin_smoothie", PUMPKIN_SMOOTHIE);
+		Register("sea_pickle_smoothie", SEA_PICKLE_SMOOTHIE);
+		Register("strawberry_smoothie", STRAWBERRY_SMOOTHIE);
+		Register("sweet_berry_smoothie", SWEET_BERRY_SMOOTHIE);
+		Register("tomato_smoothie", TOMATO_SMOOTHIE);
+	}
+	public static void RegisterMilkshakesIceCream() {
+		Register("milkshake", MILKSHAKE);
+		Register("chocolate_milkshake", CHOCOLATE_MILKSHAKE);
+		Register("coffee_milkshake", COFFEE_MILKSHAKE);
+		Register("strawberry_milkshake", STRAWBERRY_MILKSHAKE);
+		Register("chocolate_chip_milkshake", CHOCOLATE_CHIP_MILKSHAKE);
+		Register("ice_cream", ICE_CREAM);
+		Register("chocolate_ice_cream", CHOCOLATE_ICE_CREAM);
+		Register("coffee_ice_cream", COFFEE_ICE_CREAM);
+		Register("strawberry_ice_cream", STRAWBERRY_ICE_CREAM);
+		Register("chocolate_chip_ice_cream", CHOCOLATE_CHIP_ICE_CREAM);
 	}
 	public static void RegisterBamboo() {
 		Register(BAMBOO_MATERIAL);
@@ -409,7 +487,7 @@ public class HavenRegistry {
 				ServerWorld serverWorld = pointer.getWorld();
 				BlockPos blockPos = pointer.getPos();
 				BlockPos blockPos2 = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
-				if (HavenMod.CONVERTIBLE_TO_MUD.contains(serverWorld.getBlockState(blockPos2).getBlock())) {
+				if (CONVERTIBLE_TO_MUD.contains(serverWorld.getBlockState(blockPos2).getBlock())) {
 					if (!serverWorld.isClient) {
 						for (int i = 0; i < 5; ++i) {
 							serverWorld.spawnParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + serverWorld.random.nextDouble(), blockPos.getY() + 1, (double)blockPos.getZ() + serverWorld.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
@@ -417,7 +495,7 @@ public class HavenRegistry {
 					}
 					serverWorld.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
 					serverWorld.emitGameEvent(null, GameEvent.FLUID_PLACE, blockPos);
-					serverWorld.setBlockState(blockPos2, HavenMod.MUD.BLOCK.getDefaultState());
+					serverWorld.setBlockState(blockPos2, MUD.BLOCK.getDefaultState());
 					return new ItemStack(Items.GLASS_BOTTLE);
 				}
 				return this.fallback.dispense(pointer, stack);
@@ -443,7 +521,12 @@ public class HavenRegistry {
 		Register("blue_cotton_candy", BLUE_COTTON_CANDY);
 		Register("candy_cane", CANDY_CANE);
 		Register("caramel", CARAMEL);
+		Register("lollipop", LOLLIPOP);
 		Register("caramel_apple", CARAMEL_APPLE);
+		//Chocolate
+		Register("milk_chocolate", MILK_CHOCOLATE);
+		Register("dark_chocolate", DARK_CHOCOLATE);
+		Register("white_chocolate", WHITE_CHOCOLATE);
 		//Marshmallows
 		Register("marshmallow", MARSHMALLOW);
 		Register("roast_marshmallow", ROAST_MARSHMALLOW);
@@ -451,9 +534,7 @@ public class HavenRegistry {
 		Register("roast_marshmallow_on_stick", ROAST_MARSHMALLOW_ON_STICK);
 		//Amethyst & Rock Candy
 		Register("amethyst_candy", AMETHYST_CANDY);
-		for(DyeColor color : COLORS) {
-			Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
-		}
+		for(DyeColor color : COLORS) Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
 	}
 	public static void RegisterWoodBuckets() {
 		Register("wood_bucket", WOOD_BUCKET);
@@ -463,7 +544,7 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_MUD_BUCKET, MudCauldronBlock.FILL_FROM_WOOD_BUCKET);
 		Register("wood_blood_bucket", WOOD_BLOOD_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_WOOD_BUCKET);
-		DispenserBlock.registerBehavior(HavenMod.WOOD_BUCKET, new ItemDispenserBehavior() {
+		DispenserBlock.registerBehavior(WOOD_BUCKET, new ItemDispenserBehavior() {
 			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
 
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -498,17 +579,17 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState) Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY, WOOD_BUCKET);
 		});
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.WOOD_WATER_BUCKET), (statex) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(WOOD_WATER_BUCKET), (statex) -> {
 				return (Integer) statex.get(LeveledCauldronBlock.LEVEL) == 3;
 			}, SoundEvents.ITEM_BUCKET_FILL);
 		});
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState) Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, HavenMod.WOOD_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, WOOD_BUCKET);
 		});
 		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(WOOD_POWDER_SNOW_BUCKET), (statex) -> {
@@ -532,7 +613,7 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MUD_BUCKET, MudCauldronBlock.FILL_FROM_COPPER_BUCKET);
 		Register("copper_blood_bucket", COPPER_BLOOD_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_COPPER_BUCKET);
-		DispenserBlock.registerBehavior(HavenMod.COPPER_BUCKET, new ItemDispenserBehavior() {
+		DispenserBlock.registerBehavior(COPPER_BUCKET, new ItemDispenserBehavior() {
 			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				WorldAccess worldAccess = pointer.getWorld();
@@ -566,17 +647,17 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY, COPPER_BUCKET);
 		});
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.COPPER_WATER_BUCKET), (statex) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(COPPER_WATER_BUCKET), (statex) -> {
 				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
 			}, SoundEvents.ITEM_BUCKET_FILL);
 		});
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, HavenMod.COPPER_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, COPPER_BUCKET);
 		});
 		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(COPPER_POWDER_SNOW_BUCKET), (statex) -> {
@@ -591,15 +672,89 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_COPPER_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_COPPER_BUCKET);
 	}
+	public static void RegisterGoldBuckets() {
+		Register("gold_bucket", GOLD_BUCKET);
+		Register("gold_water_bucket", GOLD_WATER_BUCKET);
+		Register("gold_lava_bucket", GOLD_LAVA_BUCKET);
+		Register("gold_powder_snow_bucket", GOLD_POWDER_SNOW_BUCKET);
+		Register("gold_mud_bucket", GOLD_MUD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_MUD_BUCKET, MudCauldronBlock.FILL_FROM_GOLD_BUCKET);
+		Register("gold_blood_bucket", GOLD_BLOOD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_GOLD_BUCKET);
+		DispenserBlock.registerBehavior(GOLD_BUCKET, new ItemDispenserBehavior() {
+			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
+			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				WorldAccess worldAccess = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+				BlockState blockState = worldAccess.getBlockState(blockPos);
+				Block block = blockState.getBlock();
+				if (block instanceof FluidDrainable) {
+					ItemStack itemStack = ((FluidDrainable)block).tryDrainFluid(worldAccess, blockPos, blockState);
+					itemStack = GoldBucketItem.metalToGold(itemStack);
+					if (itemStack.isEmpty()) {
+						return super.dispenseSilently(pointer, stack);
+					} else {
+						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
+						Item item2 = itemStack.getItem();
+						stack.decrement(1);
+						if (stack.isEmpty()) {
+							return new ItemStack(item2);
+						} else {
+							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
+								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
+							}
+
+							return stack;
+						}
+					}
+				} else {
+					return super.dispenseSilently(pointer, stack);
+				}
+			}
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY, GOLD_BUCKET);
+		});
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(GOLD_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(GOLD_WATER_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL);
+		});
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
+					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, GOLD_BUCKET);
+		});
+		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(GOLD_BUCKET, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(GOLD_POWDER_SNOW_BUCKET), (statex) -> {
+				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
+			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
+		});
+		Register("gold_milk_bucket", GOLD_MILK_BUCKET);
+		Register("gold_chocolate_milk_bucket", GOLD_CHOCOLATE_MILK_BUCKET);
+		Register("gold_strawberry_milk_bucket", GOLD_STRAWBERRY_MILK_BUCKET);
+		Register("gold_coffee_milk_bucket", GOLD_COFFEE_MILK_BUCKET);
+		Register("gold_cottage_cheese_bucket", GOLD_COTTAGE_CHEESE_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_GOLD_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_GOLD_BUCKET);
+	}
 	public static void RegisterThrowableTomatoes() {
 		Register("throwable_tomato", THROWABLE_TOMATO_ITEM);
 		Register("throwable_tomato", THROWABLE_TOMATO_ENTITY);
-		Registry.register(Registry.PARTICLE_TYPE, new Identifier(NAMESPACE, "thrown_tomato"), TOMATO_PARTICLE);
+		Register("thrown_tomato", TOMATO_PARTICLE);
 		Register("boo", BOO_EFFECT);
 		Register("killjoy", KILLJOY_EFFECT);
 		Register("tomato_soup", TOMATO_SOUP);
 	}
 	public static void RegisterServerBlood() {
+		Register("blood_bubble", BLOOD_BUBBLE);
+		Register("blood_splash", BLOOD_SPLASH);
+		Register("dripping_blood", DRIPPING_BLOOD);
+		Register("falling_blood", FALLING_BLOOD);
+		Register("falling_dripstone_blood", FALLING_DRIPSTONE_BLOOD);
+
 		Register("blood_block", BLOOD_BLOCK);
 		Register(BLOOD_MATERIAL);
 		Register("dried_blood_block", DRIED_BLOOD_BLOCK);
@@ -610,7 +765,7 @@ public class HavenRegistry {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_BUCKET);
 		CauldronFluidContent.registerCauldron(BLOOD_CAULDRON, STILL_BLOOD_FLUID, FluidConstants.BOTTLE, LeveledCauldronBlock.LEVEL);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
-		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
+		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(Items.GLASS_BOTTLE, BloodCauldronBlock.EMPTY_TO_BOTTLE);
 		Register("blood_bottle", BLOOD_BOTTLE);
 		Register("lava_bottle", LAVA_BOTTLE);
@@ -619,8 +774,8 @@ public class HavenRegistry {
 		Register("slime_bottle", SLIME_BOTTLE);
 		Register("magma_cream_bottle", MAGMA_CREAM_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
-		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
-		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
+		Register("still_blood", STILL_BLOOD_FLUID);
+		Register("flowing_blood", FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
 		//Blood Syringes
 		Register("blood_syringe", BLOOD_SYRINGE);
@@ -631,6 +786,7 @@ public class HavenRegistry {
 		Register("slime_syringe", SLIME_SYRINGE);
 		Register("sludge_syringe", SLUDGE_SYRINGE);
 		Register("allay_blood_syringe", ALLAY_BLOOD_SYRINGE);
+		Register("anemic_blood_syringe", ANEMIC_BLOOD_SYRINGE);
 		Register("avian_blood_syringe", AVIAN_BLOOD_SYRINGE);
 		Register("axolotl_blood_syringe", AXOLOTL_BLOOD_SYRINGE);
 		Register("bat_blood_syringe", BAT_BLOOD_SYRINGE);
@@ -777,26 +933,19 @@ public class HavenRegistry {
 		Register("grilled_cheese", GRILLED_CHEESE);
 	}
 	public static void RegisterCakes() {
-		Register("chocolate_cake", CHOCOLATE_CAKE);
-		CompostingChanceRegistry.INSTANCE.add(CHOCOLATE_CAKE.ITEM, 1F);
-		Register("chocolate_candle_cake", CHOCOLATE_CANDLE_CAKE);
-		for(DyeColor color : COLORS) Register(color + "_chocolate_candle_cake", CHOCOLATE_CANDLE_CAKES.get(color));
-		Register("strawberry_cake", STRAWBERRY_CAKE);
-		CompostingChanceRegistry.INSTANCE.add(STRAWBERRY_CAKE.ITEM, 1F);
-		Register("strawberry_candle_cake", STRAWBERRY_CANDLE_CAKE);
-		for(DyeColor color : COLORS) Register(color + "_strawberry_candle_cake", STRAWBERRY_CANDLE_CAKES.get(color));
-		Register("coffee_cake", COFFEE_CAKE);
-		CompostingChanceRegistry.INSTANCE.add(COFFEE_CAKE.ITEM, 1F);
-		Register("coffee_candle_cake", COFFEE_CANDLE_CAKE);
-		for(DyeColor color : COLORS) Register(color + "_coffee_candle_cake", COFFEE_CANDLE_CAKES.get(color));
-		Register("carrot_cake", CARROT_CAKE);
-		CompostingChanceRegistry.INSTANCE.add(CARROT_CAKE.ITEM, 1F);
-		Register("carrot_candle_cake", CARROT_CANDLE_CAKE);
-		for(DyeColor color : COLORS) Register(color + "_carrot_candle_cake", CARROT_CANDLE_CAKES.get(color));
-		Register("confetti_cake", CONFETTI_CAKE);
-		CompostingChanceRegistry.INSTANCE.add(CONFETTI_CAKE.ITEM, 1F);
-		Register("confetti_candle_cake", CONFETTI_CANDLE_CAKE);
-		for(DyeColor color : COLORS) Register(color + "_confetti_candle_cake", CONFETTI_CANDLE_CAKES.get(color));
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		Register(CHOCOLATE_CAKE);
+		COMPOST.add(CHOCOLATE_CAKE.getCake().ITEM, 1F);
+		Register(STRAWBERRY_CAKE);
+		COMPOST.add(STRAWBERRY_CAKE.getCake().ITEM, 1F);
+		Register(COFFEE_CAKE);
+		COMPOST.add(COFFEE_CAKE.getCake().ITEM, 1F);
+		Register(CARROT_CAKE);
+		COMPOST.add(CARROT_CAKE.getCake().ITEM, 1F);
+		Register(CONFETTI_CAKE);
+		COMPOST.add(CONFETTI_CAKE.getCake().ITEM, 1F);
+		Register(CHORUS_CAKE);
+		COMPOST.add(CHORUS_CAKE.getCake().ITEM, 1F);
 	}
 	public static void RegisterBottledConfetti() {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
@@ -810,7 +959,7 @@ public class HavenRegistry {
 		Register(COPPER_MATERIAL);
 		RegisterCopperBuckets();
 		//Torches
-		Registry.register(Registry.PARTICLE_TYPE, ID("copper_flame"), COPPER_FLAME);
+		Register("copper_flame", COPPER_FLAME);
 		Register("copper", COPPER_TORCH);
 		Register("exposed_copper", EXPOSED_COPPER_TORCH);
 		Register("weathered_copper", WEATHERED_COPPER_TORCH);
@@ -912,40 +1061,62 @@ public class HavenRegistry {
 		Register("waxed_oxidized_cut_copper_wall", WAXED_OXIDIZED_CUT_COPPER_WALL);
 	}
 	public static void RegisterGold() {
-		Registry.register(Registry.PARTICLE_TYPE, ID("gold_flame"), GOLD_FLAME);
+		Register("gold_flame", GOLD_FLAME);
+		RegisterGoldBuckets();
 		Register(GOLD_MATERIAL);
 	}
 	public static void RegisterIron() {
-		Registry.register(Registry.PARTICLE_TYPE, ID("iron_flame"), IRON_FLAME);
+		Register("iron_flame", IRON_FLAME);
 		Register(IRON_MATERIAL);
 		Register("dark_iron_ingot", DARK_IRON_INGOT);
 		Register(DARK_IRON_MATERIAL);
 		Register("dark_heavy_weighted_pressure_plate", DARK_HEAVY_WEIGHTED_PRESSURE_PLATE);
 	}
 	public static void RegisterNetherite() {
-		Registry.register(Registry.PARTICLE_TYPE, ID("netherite_flame"), NETHERITE_FLAME);
+		Register("netherite_flame", NETHERITE_FLAME);
 		Register(NETHERITE_MATERIAL);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 	}
 	public static void RegisterLiquidMud() {
+		Register("mud_bubble", MUD_BUBBLE);
+		Register("mud_splash", MUD_SPLASH);
+		Register("dripping_mud", DRIPPING_MUD);
+		Register("falling_mud", FALLING_MUD);
+		Register("falling_dripstone_mud", FALLING_DRIPSTONE_MUD);
 		Register("mud_bucket", MUD_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FILL_FROM_BUCKET);
 		Register("mud_cauldron", MUD_CAULDRON);
-		Registry.register(Registry.FLUID, ID("still_mud"), STILL_MUD_FLUID);
-		Registry.register(Registry.FLUID, ID("flowing_mud"), FLOWING_MUD_FLUID);
+		Register("still_mud", STILL_MUD_FLUID);
+		Register("flowing_mud", FLOWING_MUD_FLUID);
 		Register("mud_fluid_block", MUD_FLUID_BLOCK);
+	}
+	public static void RegisterObsidian() {
+		Register(OBSIDIAN_MATERIAL);
+		Register(CRYING_OBSIDIAN_MATERIAL);
+		Register("landing_obsidian_blood", LANDING_OBSIDIAN_BLOOD);
+		Register("falling_obsidian_blood", FALLING_OBSIDIAN_BLOOD);
+		Register("dripping_obsidian_blood", DRIPPING_OBSIDIAN_BLOOD);
+		Register("bleeding_obsidian", BLEEDING_OBSIDIAN);
+		Register(BLEEDING_OBSIDIAN_MATERIAL);
 	}
 
 	public static void RegisterAll() {
 		RegisterAnchors();
-		Register("bone", BONE_TORCH);
+		Register("glow_flame", GLOW_FLAME);
+		Register("unlit", UNLIT_TORCH);
+		Register("unlit_soul", UNLIT_SOUL_TORCH);
+		Register("underwater", UNDERWATER_TORCH);
+		Register(BONE_MATERIAL);
 		Register("tinker_toy", TINKER_TOY);
 		Register("charcoal_block", CHARCOAL_BLOCK);
 		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
 		RegisterFlowers();
+		Register(STUDDED_LEATHER_MATERIAL);
 		Register(AMETHYST_MATERIAL);
 		Register(EMERALD_MATERIAL);
 		Register(DIAMOND_MATERIAL);
+		Register(QUARTZ_MATERIAL);
+		RegisterObsidian();
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
 		Register("broken_bottle", BROKEN_BOTTLE);
@@ -953,17 +1124,12 @@ public class HavenRegistry {
 		Register("emerald_locket", EMERALD_LOCKET);
 		RegisterSoftTNT();
 		RegisterCoffee();
-		Registry.register(Registry.ENTITY_TYPE, "haven_boat", BOAT_ENTITY);
+		Register("haven_boat", BOAT_ENTITY);
 		RegisterCherry();
 		RegisterCinnamon();
 		RegisterBamboo();
 		Register(CRIMSON_MATERIAL);
 		Register(WARPED_MATERIAL);
-		Register("ramen", RAMEN);
-		Register("stir_fry", STIR_FRY);
-		RegisterStrawberries();
-		RegisterJuice();
-		RegisterCandy();
 		RegisterWoodBuckets();
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
@@ -978,13 +1144,22 @@ public class HavenRegistry {
 		RegisterRainbow();
 		RegisterChickenVariants();
 		RegisterCowVariants();
+		Register("ramen", RAMEN);
+		Register("stir_fry", STIR_FRY);
+		RegisterStrawberries();
+		RegisterJuice();
+		RegisterMilkshakesIceCream();
+		RegisterCandy();
+		RegisterCookies();
 		RegisterMilks();
+		Register("hotdog", HOTDOG);
 		RegisterCakes();
 		RegisterBottledConfetti();
 		RegisterCopper();
 		RegisterGold();
 		RegisterIron();
 		RegisterNetherite();
+		Register("wax_block", WAX_BLOCK);
 		Register("horn", HORN);
 		RegisterLiquidMud();
 		RegisterBackport();

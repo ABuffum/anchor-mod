@@ -47,12 +47,16 @@ public class MilkCauldronBlock extends Block {
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
 	public static final CauldronBehavior FILL_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
+	public static final CauldronBehavior FILL_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
+			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
 	public static final CauldronBehavior FILL_CHEESE_FROM_BUCKET = (state, world, pos, player, hand, stack)
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, Items.BUCKET);
 	public static final CauldronBehavior FILL_CHEESE_FROM_WOOD_BUCKET = (state, world, pos, player, hand, stack)
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
 	public static final CauldronBehavior FILL_CHEESE_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
+	public static final CauldronBehavior FILL_CHEESE_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
+			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
 
 	@Override
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
@@ -84,6 +88,9 @@ public class MilkCauldronBlock extends Block {
 			}
 			else if (item == HavenMod.COPPER_BUCKET) {
 				newStack = new ItemStack(curdling < 1 ? HavenMod.COPPER_MILK_BUCKET : HavenMod.COPPER_COTTAGE_CHEESE_BUCKET);
+			}
+			else if (item == HavenMod.GOLD_BUCKET) {
+				newStack = new ItemStack(curdling < 1 ? HavenMod.GOLD_MILK_BUCKET : HavenMod.GOLD_COTTAGE_CHEESE_BUCKET);
 			}
 			else if (item == Items.BOWL) {
 				newStack = new ItemStack(curdling < 1 ? HavenMod.MILK_BOWL : HavenMod.COTTAGE_CHEESE_BOWL);

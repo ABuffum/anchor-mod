@@ -33,6 +33,16 @@
 	"haven:diamond_slab",
 	"haven:diamond_stairs",
 	"haven:diamond_wall",
+	
+	"haven:smooth_quartz_wall",
+	"haven:quartz_wall",
+	"haven:quartz_crystal_block",
+	"haven:quartz_crystal_slab",
+	"haven:quartz_crystal_stairs",
+	"haven:quartz_crystal_wall",
+	"haven:quartz_brick_slab",
+	"haven:quartz_brick_stairs",
+	"haven:quartz_brick_wall",
  
 	"haven:medium_weighted_pressure_plate",
 	"haven:exposed_medium_weighted_pressure_plate",
@@ -145,6 +155,17 @@
 	"haven:cut_netherite_wall",
 	
 	"haven:juicer",
+ 
+	"haven:obsidian_slab",
+	"haven:obsidian_stairs",
+	"haven:obsidian_wall",
+	"haven:crying_obsidian_slab",
+	"haven:crying_obsidian_stairs",
+	"haven:crying_obsidian_wall",
+	"haven:bleeding_obsidian",
+	"haven:bleeding_obsidian_slab",
+	"haven:bleeding_obsidian_stairs",
+	"haven:bleeding_obsidian_wall",
 	
 	"haven:mud_bricks",
 	"haven:mud_brick_stairs",

@@ -1,11 +1,17 @@
 {
   "replace": false,
   "values": [
+    "haven:gold_shears",
+    "haven:gold_torch",
+    "haven:gold_soul_torch",
     "haven:gold_lantern",
     "haven:gold_chain",
     "haven:gold_bars",
     "haven:gold_wall",
     "haven:cut_gold",
-    "haven:cut_gold_pillar"
+    "haven:cut_gold_pillar",
+    "haven:cut_gold_slab",
+    "haven:cut_gold_stairs",
+    "haven:cut_gold_wall"
   ]
 }

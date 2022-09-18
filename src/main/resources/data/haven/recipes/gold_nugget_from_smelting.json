@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": [
+    {
+      "item": "haven:gold_shears"
+    },
+    {
+      "item": "haven:gold_bucket"
+    }
+  ],
+  "result": "minecraft:gold_nugget"
+}

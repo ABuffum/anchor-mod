@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:leather"
+    },
+    "C": {
+      "tag": "haven:iron_chains"
+    }
+  },
+  "pattern": [
+    "X X",
+    "CXC",
+    "X X"
+  ],
+  "result": {
+    "item": "haven:studded_leather_horse_armor"
+  }
+}

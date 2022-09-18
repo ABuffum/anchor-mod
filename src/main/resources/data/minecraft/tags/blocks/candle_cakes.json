@@ -18,6 +18,7 @@
     "haven:green_carrot_candle_cake",
     "haven:red_carrot_candle_cake",
     "haven:black_carrot_candle_cake",
+    
     "haven:chocolate_candle_cake",
     "haven:white_chocolate_candle_cake",
     "haven:orange_chocolate_candle_cake",
@@ -35,6 +36,7 @@
     "haven:green_chocolate_candle_cake",
     "haven:red_chocolate_candle_cake",
     "haven:black_chocolate_candle_cake",
+    
     "haven:coffee_candle_cake",
     "haven:white_coffee_candle_cake",
     "haven:orange_coffee_candle_cake",
@@ -52,6 +54,7 @@
     "haven:green_coffee_candle_cake",
     "haven:red_coffee_candle_cake",
     "haven:black_coffee_candle_cake",
+    
     "haven:confetti_candle_cake",
     "haven:white_confetti_candle_cake",
     "haven:orange_confetti_candle_cake",
@@ -69,6 +72,7 @@
     "haven:green_confetti_candle_cake",
     "haven:red_confetti_candle_cake",
     "haven:black_confetti_candle_cake",
+    
     "haven:strawberry_candle_cake",
     "haven:white_strawberry_candle_cake",
     "haven:orange_strawberry_candle_cake",
@@ -85,6 +89,24 @@
     "haven:brown_strawberry_candle_cake",
     "haven:green_strawberry_candle_cake",
     "haven:red_strawberry_candle_cake",
-    "haven:black_strawberry_candle_cake"
+    "haven:black_strawberry_candle_cake",
+  
+    "haven:chorus_candle_cake",
+    "haven:white_chorus_candle_cake",
+    "haven:orange_chorus_candle_cake",
+    "haven:magenta_chorus_candle_cake",
+    "haven:light_blue_chorus_candle_cake",
+    "haven:yellow_chorus_candle_cake",
+    "haven:lime_chorus_candle_cake",
+    "haven:pink_chorus_candle_cake",
+    "haven:gray_chorus_candle_cake",
+    "haven:light_gray_chorus_candle_cake",
+    "haven:cyan_chorus_candle_cake",
+    "haven:purple_chorus_candle_cake",
+    "haven:blue_chorus_candle_cake",
+    "haven:brown_chorus_candle_cake",
+    "haven:green_chorus_candle_cake",
+    "haven:red_chorus_candle_cake",
+    "haven:black_chorus_candle_cake"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    "X X",
+    "XXX",
+    "X X"
+  ],
+  "result": {
+    "item": "haven:amethyst_horse_armor"
+  }
+}

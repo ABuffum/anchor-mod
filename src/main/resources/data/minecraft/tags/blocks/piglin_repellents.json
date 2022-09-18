@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
+    "haven:bone_soul_torch",
+    "haven:bone_soul_wall_torch",
+    
+    "haven:bamboo_soul_torch",
+    "haven:bamboo_soul_wall_torch",
+    "haven:dried_bamboo_soul_torch",
+    "haven:dried_bamboo_soul_wall_torch",
+    
     "haven:copper_soul_lantern",
     "haven:exposed_copper_soul_lantern",
     "haven:weathered_copper_soul_lantern",

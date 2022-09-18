@@ -1,6 +1,7 @@
 package haven.blocks.cake;
 
 import haven.HavenMod;
+import haven.command.ChorusCommand;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -35,12 +36,12 @@ public class HavenCakeBlock extends Block {
 	public static final IntProperty BITES;
 	public static final int DEFAULT_COMPARATOR_OUTPUT;
 	protected static final VoxelShape[] BITES_TO_SHAPE;
-	private final CakeFlavor flavor;
-	public CakeFlavor getFlavor() { return flavor; }
-	public HavenCakeBlock(CakeFlavor flavor) {
+	private final HavenCake.Flavor flavor;
+	public HavenCake.Flavor getFlavor() { return flavor; }
+	public HavenCakeBlock(HavenCake.Flavor flavor) {
 		this(flavor, SETTINGS);
 	}
-	public HavenCakeBlock(CakeFlavor flavor, Settings settings) {
+	public HavenCakeBlock(HavenCake.Flavor flavor, Settings settings) {
 		super(settings);
 		this.flavor = flavor;
 	}
@@ -60,23 +61,9 @@ public class HavenCakeBlock extends Block {
 				}
 				world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				Block output;
-				if (block == Blocks.CANDLE) {
-					if (flavor == CakeFlavor.CHOCOLATE) output = HavenMod.CHOCOLATE_CANDLE_CAKE;
-					else if (flavor == CakeFlavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKE;
-					else if (flavor == CakeFlavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKE;
-					else if (flavor == CakeFlavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKE;
-					else if (flavor == CakeFlavor.CONFETTI) output = HavenMod.CONFETTI_CANDLE_CAKE;
-					else output = Blocks.CANDLE_CAKE;
-				}
-				else {
-					DyeColor color = GetCandleColor(block);
-					if (flavor == CakeFlavor.CHOCOLATE) output = HavenMod.CHOCOLATE_CANDLE_CAKES.get(color);
-					else if (flavor == CakeFlavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CANDLE_CAKES.get(color);
-					else if (flavor == CakeFlavor.COFFEE) output = HavenMod.COFFEE_CANDLE_CAKES.get(color);
-					else if (flavor == CakeFlavor.CARROT) output = HavenMod.CARROT_CANDLE_CAKES.get(color);
-					else if (flavor == CakeFlavor.CONFETTI) output = HavenMod.CONFETTI_CANDLE_CAKES.get(color);
-					else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
-				}
+				if (block == Blocks.CANDLE) output = flavor != null ? flavor.getCandleCake() : Blocks.CANDLE_CAKE;
+				else if (flavor != null) output = flavor.getCandleCake(GetCandleColor(block));
+				else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
 				world.setBlockState(pos, output.getDefaultState());
 				world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 				player.incrementStat(Stats.USED.getOrCreateStat(item));
@@ -97,23 +84,26 @@ public class HavenCakeBlock extends Block {
 		return tryEat(world, pos, state, player, flavor);
 	}
 
-	protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, CakeFlavor flavor) {
+	protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, HavenCake.Flavor flavor) {
 		if (!player.canConsume(false)) {
 			return ActionResult.PASS;
 		} else {
 			player.incrementStat(Stats.EAT_CAKE_SLICE);
 			player.getHungerManager().add(2, 0.1F);
-			int i = (Integer)state.get(BITES);
-			world.emitGameEvent(player, GameEvent.EAT, (BlockPos)pos);
-			if (flavor == CakeFlavor.COFFEE) { //Coffee Cake
+			int i = state.get(BITES);
+			world.emitGameEvent(player, GameEvent.EAT, pos);
+			if (flavor == HavenCake.Flavor.COFFEE) { //Coffee Cake
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
 			}
+			else if (flavor == HavenCake.Flavor.CHORUS) { //Chorus Cake
+				ChorusCommand.TeleportEntity(player);
+			}
 			if (i < 6) {
-				world.setBlockState(pos, (BlockState)state.with(BITES, i + 1), Block.NOTIFY_ALL);
+				world.setBlockState(pos, state.with(BITES, i + 1), Block.NOTIFY_ALL);
 			} else {
 				world.removeBlock(pos, false);
-				world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, (BlockPos)pos);
+				world.emitGameEvent(player, GameEvent.BLOCK_DESTROY, pos);
 			}
 
 			return ActionResult.SUCCESS;

@@ -13,10 +13,7 @@
                 {
                   "condition": "minecraft:match_tool",
                   "predicate": {
-                    "items": [
-                      "minecraft:shears",
-                      "haven:copper_shears"
-                    ]
+                    "tag": "haven:shears"
                   }
                 }
               ],

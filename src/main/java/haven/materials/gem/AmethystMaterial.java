@@ -1,9 +1,11 @@
 package haven.materials.gem;
 
+import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import haven.HavenMod;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
+import haven.materials.base.BaseMaterial;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
 import haven.util.HavenArmorMaterials;
@@ -48,7 +50,7 @@ public class AmethystMaterial extends ToolArmorHorseMaterial implements
 		super("amethyst", false, HavenToolMaterials.AMETHYST,
 				5, -3, -3, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.AMETHYST, 10);
-		crystal_block = new HavenPair(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(HavenMod.luminance(5))), ItemSettings());
+		crystal_block = new HavenPair(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(luminance(5))), ItemSettings());
 		crystal_slab = new HavenPair(new HavenSlabBlock(crystal_block.BLOCK), ItemSettings());
 		crystal_stairs = new HavenPair(new HavenStairsBlock(crystal_block.BLOCK), ItemSettings());
 		crystal_wall = new HavenPair(new HavenWallBlock(crystal_block.BLOCK), ItemSettings());

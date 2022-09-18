@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "haven:strawberry_milk_bottle"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "haven:strawberry_milkshake"
+  }
+}

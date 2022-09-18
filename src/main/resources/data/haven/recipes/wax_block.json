@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "H": {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "pattern": [
+    "HHH",
+    "HHH",
+    "HHH"
+  ],
+  "result": {
+    "item": "haven:wax_block"
+  }
+}

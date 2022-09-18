@@ -1,7 +1,7 @@
 package haven.mixins.items;
 
-import haven.items.consumable.milk.CopperMilkBucketItem;
-import haven.items.consumable.milk.WoodMilkBucketItem;
+import haven.items.buckets.CopperMilkBucketItem;
+import haven.items.buckets.WoodMilkBucketItem;
 import haven.util.BucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;

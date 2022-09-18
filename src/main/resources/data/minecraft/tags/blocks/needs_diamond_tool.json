@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "haven:substitute_anchor",
+  
+    "haven:netherite_lantern",
+    "haven:netherite_soul_lantern",
+    "haven:crushing_weighted_pressure_plate",
+    "haven:netherite_chain",
+    "haven:netherite_bars",
+    "haven:netherite_wall",
+    "haven:cut_netherite",
+    "haven:cut_netherite_pillar",
+    "haven:cut_netherite_slab",
+    "haven:cut_netherite_stairs",
+    "haven:cut_netherite_wall",
+  
+    "haven:obsidian_slab",
+    "haven:obsidian_stairs",
+    "haven:obsidian_wall",
+    "haven:crying_obsidian_slab",
+    "haven:crying_obsidian_stairs",
+    "haven:crying_obsidian_wall",
+    "haven:bleeding_obsidian",
+    "haven:bleeding_obsidian_slab",
+    "haven:bleeding_obsidian_stairs",
+    "haven:bleeding_obsidian_wall"
+  ]
+}

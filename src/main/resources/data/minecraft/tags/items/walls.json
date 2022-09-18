@@ -8,6 +8,9 @@
     "haven:cut_emerald_wall",
     "haven:diamond_brick_wall",
     "haven:diamond_wall",
+    "haven:quartz_brick_wall",
+    "haven:smooth_quartz_wall",
+    "haven:quartz_wall",
     
     "haven:blood_wall",
     "haven:dried_blood_wall",
@@ -35,6 +38,10 @@
     "haven:gold_wall",
     "haven:cut_gold_wall",
     "haven:netherite_wall",
-    "haven:cut_netherite_wall"
+    "haven:cut_netherite_wall",
+  
+    "haven:obsidian_wall",
+    "haven:crying_obsidian_wall",
+    "haven:bleeding_obsidian_wall"
   ]
 }

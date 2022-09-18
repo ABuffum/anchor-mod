@@ -1,8 +1,9 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
     "front": "haven:block/juicer_loaded",
-    "side": "minecraft:block/furnace_side",
-    "top": "minecraft:block/furnace_top"
+    "side": "haven:block/juicer_side",
+    "top": "haven:block/juicer_top",
+    "bottom": "haven:block/juicer_bottom"
   }
 }

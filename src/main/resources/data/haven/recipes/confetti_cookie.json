@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:wheat"
+    },
+    "X": {
+      "item": "haven:bottled_confetti"
+    }
+  },
+  "pattern": [
+    "#X#"
+  ],
+  "result": {
+    "count": 8,
+    "item": "haven:confetti_cookie"
+  }
+}

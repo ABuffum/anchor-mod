@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "haven:cassia_wall_sign",
+    "haven:cherry_wall_sign",
+    "haven:bamboo_wall_sign",
+    "haven:dried_bamboo_wall_sign",
+    "haven:mangrove_wall_sign"
+  ]
+}

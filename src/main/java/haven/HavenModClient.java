@@ -22,7 +22,7 @@ import net.fabricmc.fabric.api.resource.*;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistrySpecificAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.FlameParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.*;
@@ -36,6 +36,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -57,25 +59,45 @@ public class HavenModClient implements ClientModInitializer {
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
-		//More Torches
-		HavenMod.BONE_TORCH.BLOCK, HavenMod.BONE_TORCH.WALL_BLOCK,
-		//Metal Torches
+		//Unlit Torches
+		HavenMod.UNLIT_TORCH.UNLIT, HavenMod.UNLIT_TORCH.UNLIT_WALL,
+		HavenMod.UNLIT_SOUL_TORCH.UNLIT, HavenMod.UNLIT_SOUL_TORCH.UNLIT_WALL,
+		//Underwater Torch
+		HavenMod.UNDERWATER_TORCH.BLOCK, HavenMod.UNDERWATER_TORCH.WALL_BLOCK,
+		HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT, HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT_WALL,
+		//Copper Torches
 		HavenMod.COPPER_TORCH.BLOCK, HavenMod.COPPER_TORCH.WALL_BLOCK,
+		HavenMod.COPPER_TORCH.UNLIT.UNLIT, HavenMod.COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.EXPOSED_COPPER_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.EXPOSED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.EXPOSED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WEATHERED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WEATHERED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WEATHERED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.OXIDIZED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.OXIDIZED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.OXIDIZED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_COPPER_TORCH.BLOCK, HavenMod.WAXED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_EXPOSED_COPPER_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_EXPOSED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_EXPOSED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_WEATHERED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_WEATHERED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_OXIDIZED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_OXIDIZED_COPPER_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.COPPER_SOUL_TORCH.BLOCK, HavenMod.COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.EXPOSED_COPPER_SOUL_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WEATHERED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.OXIDIZED_COPPER_SOUL_TORCH.BLOCK, HavenMod.OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK,
+		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		//Bamboo & Dried Bamboo Doors
 		HavenMod.BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.DRIED_BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.DRIED_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
@@ -127,11 +149,15 @@ public class HavenModClient implements ClientModInitializer {
 				HavenTorch torch = torchProvider.getTorch();
 				Cutout.add(torch.BLOCK);
 				Cutout.add(torch.WALL_BLOCK);
+				Cutout.add(torch.UNLIT.UNLIT);
+				Cutout.add(torch.UNLIT.UNLIT_WALL);
 			}
 			if (material instanceof SoulTorchProvider soulTorchProvider) {
 				HavenTorch torch = soulTorchProvider.getSoulTorch();
 				Cutout.add(torch.BLOCK);
 				Cutout.add(torch.WALL_BLOCK);
+				Cutout.add(torch.UNLIT.UNLIT);
+				Cutout.add(torch.UNLIT.UNLIT_WALL);
 			}
 			if (material instanceof LanternProvider lantern) Cutout.add(lantern.getLantern().BLOCK);
 			if (material instanceof SoulLanternProvider soulLantern) Cutout.add(soulLantern.getSoulLantern().BLOCK);
@@ -165,22 +191,59 @@ public class HavenModClient implements ClientModInitializer {
 		for(Block block : Translucent) {
 			inst.putBlock(block, translucent);
 		}
-		//Flame Particles
+		//Bleeding Obsidian
+		ParticleFactoryRegistry.getInstance().register(HavenMod.LANDING_OBSIDIAN_BLOOD, HavenBlockLeakParticle.LandingObsidianBloodFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.FALLING_OBSIDIAN_BLOOD, HavenBlockLeakParticle.FallingObsidianBloodFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.DRIPPING_OBSIDIAN_BLOOD, HavenBlockLeakParticle.DrippingObsidianBloodFactory::new);
+		//Blood
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/blood_bubble"));
+			registry.register(HavenMod.ID("particle/blood_splash_0"));
+			registry.register(HavenMod.ID("particle/blood_splash_1"));
+			registry.register(HavenMod.ID("particle/blood_splash_2"));
+			registry.register(HavenMod.ID("particle/blood_splash_3"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.BLOOD_BUBBLE, WaterBubbleParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.BLOOD_SPLASH, WaterSplashParticle.SplashFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.DRIPPING_BLOOD, HavenBlockLeakParticle.DrippingBloodFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.FALLING_BLOOD, HavenBlockLeakParticle.FallingBloodFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.FALLING_DRIPSTONE_BLOOD, HavenBlockLeakParticle.FallingDripstoneBloodFactory::new);
+		setupFluidRendering(HavenMod.STILL_BLOOD_FLUID, HavenMod.FLOWING_BLOOD_FLUID, HavenMod.ID("blood"), 0xFF0000);
+		BlockRenderLayerMap.INSTANCE.putFluids(translucent, HavenMod.STILL_BLOOD_FLUID, HavenMod.FLOWING_BLOOD_FLUID);
+		//Mud
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/mud_bubble"));
+			registry.register(HavenMod.ID("particle/mud_splash_0"));
+			registry.register(HavenMod.ID("particle/mud_splash_1"));
+			registry.register(HavenMod.ID("particle/mud_splash_2"));
+			registry.register(HavenMod.ID("particle/mud_splash_3"));
+		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.MUD_BUBBLE, WaterBubbleParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.MUD_SPLASH, WaterSplashParticle.SplashFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.DRIPPING_MUD, HavenBlockLeakParticle.DrippingMudFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.FALLING_MUD, HavenBlockLeakParticle.FallingMudFactory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.FALLING_DRIPSTONE_MUD, HavenBlockLeakParticle.FallingDripstoneMudFactory::new);
+		setupFluidRendering(HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID, HavenMod.ID("mud"), 0x472804);
+		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(), HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID);
+		//Torches
+		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			registry.register(HavenMod.ID("particle/glow_0"));
+			registry.register(HavenMod.ID("particle/glow_1"));
+			registry.register(HavenMod.ID("particle/glow_2"));
+			registry.register(HavenMod.ID("particle/glow_3"));
+			registry.register(HavenMod.ID("particle/glow_4"));
+			registry.register(HavenMod.ID("particle/glow_5"));
+			registry.register(HavenMod.ID("particle/glow_6"));
+			registry.register(HavenMod.ID("particle/glow_7"));
 			registry.register(HavenMod.ID("particle/copper_flame"));
-		}));
-		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME, FlameParticle.Factory::new);
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
 			registry.register(HavenMod.ID("particle/gold_flame"));
-		}));
-		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME, FlameParticle.Factory::new);
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
 			registry.register(HavenMod.ID("particle/iron_flame"));
-		}));
-		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME, FlameParticle.Factory::new);
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
 			registry.register(HavenMod.ID("particle/netherite_flame"));
 		}));
+		ParticleFactoryRegistry.getInstance().register(HavenMod.GLOW_FLAME, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.NETHERITE_FLAME, FlameParticle.Factory::new);
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
@@ -190,9 +253,6 @@ public class HavenModClient implements ClientModInitializer {
 			registry.register(HavenMod.ID("particle/thrown_tomato"));
 		}));
 		ParticleFactoryRegistry.getInstance().register(HavenMod.TOMATO_PARTICLE, TomatoParticle.Factory::new);
-		//Server Blood
-		setupFluidRendering(HavenMod.STILL_BLOOD_FLUID, HavenMod.FLOWING_BLOOD_FLUID, HavenMod.ID("blood"), 0xFF0000);
-		BlockRenderLayerMap.INSTANCE.putFluids(translucent, HavenMod.STILL_BLOOD_FLUID, HavenMod.FLOWING_BLOOD_FLUID);
 		//Angel Bat
 		EntityRendererRegistry.register(HavenMod.ANGEL_BAT_ENTITY, BatEntityRenderer::new);
 		//Melon Golem
@@ -206,9 +266,6 @@ public class HavenModClient implements ClientModInitializer {
 				registry.register(bed.GetTexture());
 			}));
 		}
-		//Liquid Mud
-		setupFluidRendering(HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID, HavenMod.ID("mud"), 0x472804);
-		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(), HavenMod.STILL_MUD_FLUID, HavenMod.FLOWING_MUD_FLUID);
 		//Chicken Variants
 		EntityModelLayerRegistry.registerModelLayer(FANCY_CHICKEN_ENTITY_MODEL_LAYER, FancyChickenModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.FANCY_CHICKEN_ENTITY, FancyChickenEntityRenderer::new);

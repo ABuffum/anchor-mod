@@ -48,9 +48,11 @@ public class OxidationScale {
 	public static OxidationScale Register(HavenPair unaffected, HavenPair exposed, HavenPair weathered, HavenPair oxidized) {
 		return Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
 	}
-	public static void Register(WalledBlock unaffected, WalledBlock exposed, WalledBlock weathered, WalledBlock oxidized) {
+	public static void Register(HavenTorch unaffected, HavenTorch exposed, HavenTorch weathered, HavenTorch oxidized) {
 		Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
 		Register(unaffected.WALL_BLOCK, exposed.WALL_BLOCK, weathered.WALL_BLOCK, oxidized.WALL_BLOCK);
+		Register(unaffected.UNLIT.UNLIT, exposed.UNLIT.UNLIT, weathered.UNLIT.UNLIT, oxidized.UNLIT.UNLIT);
+		Register(unaffected.UNLIT.UNLIT_WALL, exposed.UNLIT.UNLIT_WALL, weathered.UNLIT.UNLIT_WALL, oxidized.UNLIT.UNLIT_WALL);
 	}
 	public static OxidationScale Register(Block unaffected, Block exposed, Block weathered, Block oxidized) {
 		return Register(new OxidationScale(unaffected, exposed, weathered, oxidized));

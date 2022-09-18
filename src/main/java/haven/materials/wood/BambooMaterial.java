@@ -1,6 +1,5 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
 import haven.materials.providers.*;
 import haven.util.HavenPair;
 import haven.util.HavenTorch;
@@ -11,9 +10,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class BambooMaterial extends WoodMaterial implements
-		TorchProvider, LogProvider, StrippedLogProvider, BundleProvider, StrippedBundleProvider {
+		TorchProvider, SoulTorchProvider,
+		LogProvider, StrippedLogProvider, BundleProvider, StrippedBundleProvider {
 	private final HavenTorch torch;
 	public HavenTorch getTorch() { return torch; }
+	private final HavenTorch soul_torch;
+	public HavenTorch getSoulTorch() { return soul_torch; }
 	private final HavenPair bundle;
 	public HavenPair getBundle() { return bundle; }
 	private final HavenPair stripped_bundle;
@@ -25,7 +27,8 @@ public class BambooMaterial extends WoodMaterial implements
 
 	public BambooMaterial(String name, MapColor mapColor) {
 		super(name, mapColor, true);
-		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(HavenMod.luminance(14)).sounds(BlockSoundGroup.BAMBOO), ParticleTypes.FLAME);
+		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.BAMBOO), ParticleTypes.FLAME);
+		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.BAMBOO), ParticleTypes.SOUL_FIRE_FLAME);
 		bundle = new HavenPair(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.BAMBOO)));
 		stripped_bundle = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(bundle.BLOCK)));
 		log = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(bundle.BLOCK)));
@@ -33,11 +36,13 @@ public class BambooMaterial extends WoodMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return block == torch.BLOCK || block == torch.WALL_BLOCK || block == bundle.BLOCK || block == stripped_bundle.BLOCK
+		return torch.contains(block) || soul_torch.contains(block)
+				|| block == bundle.BLOCK || block == stripped_bundle.BLOCK
 				|| block == log.BLOCK || block == stripped_log.BLOCK || super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return item == torch.ITEM || item == bundle.ITEM || item == stripped_bundle.ITEM
+		return torch.contains(item) || soul_torch.contains(item)
+				|| item == bundle.ITEM || item == stripped_bundle.ITEM
 				|| item == log.ITEM || item == stripped_log.ITEM || super.contains(item);
 	}
 }

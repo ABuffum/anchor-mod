@@ -1,8 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#X#"
-  ],
   "key": {
     "#": {
       "item": "minecraft:wheat"
@@ -11,8 +8,11 @@
       "item": "haven:cinnamon"
     }
   },
+  "pattern": [
+    "#X#"
+  ],
   "result": {
-    "item": "haven:snickerdoodle",
-    "count": 4
+    "count": 8,
+    "item": "haven:snickerdoodle"
   }
 }

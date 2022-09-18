@@ -1,0 +1,12 @@
+{
+  "values": [
+	"haven:copper_bars",
+	"haven:exposed_copper_bars",
+	"haven:weathered_copper_bars",
+	"haven:oxidized_copper_bars",
+	"haven:waxed_copper_bars",
+	"haven:waxed_exposed_copper_bars",
+	"haven:waxed_weathered_copper_bars",
+	"haven:waxed_oxidized_copper_bars"
+  ]
+}

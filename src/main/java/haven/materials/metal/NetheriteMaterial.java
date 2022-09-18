@@ -15,7 +15,8 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public class NetheriteMaterial extends BaseMaterial implements
 		NuggetProvider, HorseArmorProvider,
-		TorchProvider, SoulTorchProvider, LanternProvider, SoulLanternProvider,
+		TorchProvider, SoulTorchProvider,
+		LanternProvider, SoulLanternProvider,
 		ChainProvider, BarsProvider, WallProvider,
 		CutProvider, CutPillarProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
 
@@ -50,10 +51,10 @@ public class NetheriteMaterial extends BaseMaterial implements
 
 	public NetheriteMaterial() {
 		super("netherite", false);
-		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(HavenMod.luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME, ItemSettings());
-		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(HavenMod.luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
-		lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(HavenMod.luminance(15)).nonOpaque()), ItemSettings());
-		soul_lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(HavenMod.luminance(10)).nonOpaque()), ItemSettings());
+		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME, ItemSettings());
+		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
+		lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
+		soul_lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
 		nugget = new Item(ItemSettings());
 		chain = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
 		bars = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), ItemSettings());
@@ -71,13 +72,13 @@ public class NetheriteMaterial extends BaseMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return block == torch.BLOCK || block == torch.WALL_BLOCK || block == soul_torch.BLOCK || block == soul_torch.WALL_BLOCK
+		return torch.contains(block) || soul_torch.contains(block)
 				|| block == lantern.BLOCK || block == soul_lantern.BLOCK || block == chain.BLOCK || block == wall.BLOCK
 				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
 				|| block == cut_wall.BLOCK || block == bars.BLOCK || super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return item == torch.ITEM || item == torch.ITEM || item == soul_torch.ITEM || item == soul_torch.ITEM
+		return torch.contains(item) || soul_torch.contains(item)
 				|| item == lantern.ITEM || item == soul_lantern.ITEM || item == chain.ITEM || item == wall.ITEM
 				|| item == cut.ITEM || item == cut_pillar.ITEM || item == cut_slab.ITEM || item == cut_stairs.ITEM
 				|| item == cut_wall.ITEM || item == bars.ITEM || item == horse_armor || item == nugget || super.contains(item);

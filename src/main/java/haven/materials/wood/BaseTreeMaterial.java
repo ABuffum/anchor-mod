@@ -41,9 +41,6 @@ public abstract class BaseTreeMaterial extends WoodMaterial implements
 		leaves = new HavenPair(new HavenLeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(leafSounds).nonOpaque().allowsSpawning(BaseTreeMaterial::canSpawnOnLeaves).suffocates(BaseTreeMaterial::never).blockVision(BaseTreeMaterial::never)));
 	}
 
-	public static boolean canSpawnOnLeaves(BlockState state, BlockView world, BlockPos pos, EntityType<?> type) { return type == EntityType.OCELOT || type == EntityType.PARROT; }
-	public static boolean never(BlockState state, BlockView world, BlockPos pos) { return false; }
-
 	public boolean contains(Block block) {
 		return block == log.BLOCK || block == stripped_log.BLOCK || block == wood.BLOCK || block == stripped_wood.BLOCK
 				|| block == leaves.BLOCK || super.contains(block);

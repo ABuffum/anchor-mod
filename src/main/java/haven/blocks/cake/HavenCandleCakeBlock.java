@@ -33,12 +33,12 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	protected static final VoxelShape SHAPE;
 	private static final Iterable<Vec3d> PARTICLE_OFFSETS;
 
-	private CakeFlavor flavor;
-	public CakeFlavor getFlavor() { return flavor; }
-	public HavenCandleCakeBlock(CakeFlavor flavor) {
+	private HavenCake.Flavor flavor;
+	public HavenCake.Flavor getFlavor() { return flavor; }
+	public HavenCandleCakeBlock(HavenCake.Flavor flavor) {
 		this(flavor, HavenCakeBlock.SETTINGS);
 	}
-	public HavenCandleCakeBlock(CakeFlavor flavor, AbstractBlock.Settings settings) {
+	public HavenCandleCakeBlock(HavenCake.Flavor flavor, AbstractBlock.Settings settings) {
 		super(settings);
 		this.flavor = flavor;
 		this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
@@ -59,18 +59,9 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 				extinguish(player, state, world, pos);
 				return ActionResult.success(world.isClient);
 			} else {
-				Block output;
-				if (flavor == CakeFlavor.CHOCOLATE) output = HavenMod.CHOCOLATE_CAKE.BLOCK;
-				else if (flavor == CakeFlavor.STRAWBERRY) output = HavenMod.STRAWBERRY_CAKE.BLOCK;
-				else if (flavor == CakeFlavor.COFFEE) output = HavenMod.COFFEE_CAKE.BLOCK;
-				else if (flavor == CakeFlavor.CARROT) output = HavenMod.CARROT_CAKE.BLOCK;
-				else if (flavor == CakeFlavor.CONFETTI) output = HavenMod.CONFETTI_CAKE.BLOCK;
-				else output = Blocks.CAKE;
+				Block output = flavor != null ? flavor.getCake().BLOCK : Blocks.CAKE;
 				ActionResult actionResult = HavenCakeBlock.tryEat(world, pos, output.getDefaultState(), player, flavor);
-				if (actionResult.isAccepted()) {
-					dropStacks(state, world, pos);
-				}
-
+				if (actionResult.isAccepted()) dropStacks(state, world, pos);
 				return actionResult;
 			}
 		} else {
@@ -89,13 +80,8 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
 		Block block = state.getBlock();
 		Item item = Items.CAKE;
-		if (block instanceof HavenCandleCakeBlock) {
-			CakeFlavor flavor = ((HavenCandleCakeBlock) block).getFlavor();
-			if (flavor == CakeFlavor.CHOCOLATE) item = HavenMod.CHOCOLATE_CAKE.ITEM;
-			else if (flavor == CakeFlavor.STRAWBERRY) item = HavenMod.STRAWBERRY_CAKE.ITEM;
-			else if (flavor == CakeFlavor.COFFEE) item = HavenMod.COFFEE_CAKE.ITEM;
-			else if (flavor == CakeFlavor.CARROT) item = HavenMod.CARROT_CAKE.ITEM;
-			else if (flavor == CakeFlavor.CONFETTI) item = HavenMod.CONFETTI_CAKE.ITEM;
+		if (block instanceof HavenCandleCakeBlock candleCake) {
+			item = candleCake.getFlavor().getCake().ITEM;
 		}
 		return new ItemStack(item);
 	}

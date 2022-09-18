@@ -21,8 +21,17 @@ public enum HavenArmorMaterials implements ArmorMaterial {
 	DARK_IRON("dark_iron", 15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> {
 		return Ingredient.ofItems(HavenMod.DARK_IRON_INGOT);
 	}),
-	EMERALD("emerald", 27, new int[]{3, 5, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.0F, 0.0F, () -> {
+	EMERALD("emerald", 27, new int[]{3, 5, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.EMERALD);
+	}),
+	OBSIDIAN("obsidian", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.0F, 0.0F, () -> {
+		return Ingredient.ofItems(Items.OBSIDIAN);
+	}),
+	QUARTZ("quartz", 20, new int[]{2, 5, 5, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.0F, 0.0F, () -> {
+		return Ingredient.ofItems(Items.QUARTZ);
+	}),
+	STUDDED_LEATHER("studded_leather", 5, new int[]{2, 3, 4, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+		return Ingredient.ofItems(Items.IRON_NUGGET);
 	});
 
 	private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};

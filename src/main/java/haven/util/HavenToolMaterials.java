@@ -25,7 +25,13 @@ public enum HavenToolMaterials implements ToolMaterial {
     }),
     FLINT(1, 131, 4.0F, 1.0F, 5, () -> {
         return Ingredient.ofItems(Items.FLINT);
-    });;
+    }),
+    OBSIDIAN(MiningLevels.DIAMOND, 1561, 8.0F, 3.0F, 10, () -> {
+        return Ingredient.ofItems(Items.OBSIDIAN);
+    }),
+    QUARTZ(1, 450, 4.0F, 1.5F, 12, () -> {
+        return Ingredient.ofItems(Items.QUARTZ);
+    });
 
     private final int miningLevel;
     private final int itemDurability;

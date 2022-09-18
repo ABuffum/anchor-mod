@@ -1,8 +1,8 @@
 package haven.mixins.items;
 
 import haven.HavenMod;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import haven.util.HavenTorch;
+import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleTypes;
@@ -12,6 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -33,20 +34,37 @@ public class PotionItemMixin extends Item {
 		PlayerEntity playerEntity = context.getPlayer();
 		ItemStack itemStack = context.getStack();
 		BlockState blockState = world.getBlockState(blockPos);
-		if (context.getSide() != Direction.DOWN && HavenMod.CONVERTIBLE_TO_MUD.contains(blockState.getBlock()) && PotionUtil.getPotion(itemStack) == Potions.WATER) {
-			world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.PLAYERS, 1.0f, 1.0f);
-			playerEntity.setStackInHand(context.getHand(), ItemUsage.exchangeStack(itemStack, playerEntity, new ItemStack(Items.GLASS_BOTTLE)));
-			playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
-			if (!world.isClient) {
-				ServerWorld serverWorld = (ServerWorld)world;
-				for (int i = 0; i < 5; ++i) {
-					serverWorld.spawnParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + world.random.nextDouble(), blockPos.getY() + 1, (double)blockPos.getZ() + world.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
-				}
+		if (PotionUtil.getPotion(itemStack) == Potions.WATER) {
+			Block block = blockState.getBlock();
+			BlockState outState = blockState;
+			boolean bl = true;
+			if (HavenTorch.UNLIT_TORCHES.containsKey(block)) {
+				outState = HavenTorch.UNLIT_TORCHES.get(block).getDefaultState();
+				if (block instanceof Waterloggable) outState = outState.with(Properties.WATERLOGGED, blockState.get(Properties.WATERLOGGED));
 			}
-			world.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
-			world.emitGameEvent(null, GameEvent.FLUID_PLACE, blockPos);
-			world.setBlockState(blockPos, HavenMod.MUD.BLOCK.getDefaultState());
-			return ActionResult.success(world.isClient);
+			else if (HavenTorch.UNLIT_WALL_TORCHES.containsKey(block)) {
+				outState = HavenTorch.UNLIT_WALL_TORCHES.get(block).getDefaultState().with(WallTorchBlock.FACING, blockState.get(WallTorchBlock.FACING));
+				if (block instanceof Waterloggable) outState = outState.with(Properties.WATERLOGGED, blockState.get(Properties.WATERLOGGED));
+			}
+			else if (context.getSide() != Direction.DOWN && HavenMod.CONVERTIBLE_TO_MUD.contains(block)) {
+				outState = HavenMod.MUD.BLOCK.getDefaultState();
+			}
+			else bl = false;
+			if (bl) {
+				world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				playerEntity.setStackInHand(context.getHand(), ItemUsage.exchangeStack(itemStack, playerEntity, new ItemStack(Items.GLASS_BOTTLE)));
+				playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
+				if (!world.isClient) {
+					ServerWorld serverWorld = (ServerWorld)world;
+					for (int i = 0; i < 5; ++i) {
+						serverWorld.spawnParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + world.random.nextDouble(), blockPos.getY() + 1, (double)blockPos.getZ() + world.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
+					}
+				}
+				world.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				world.emitGameEvent(null, GameEvent.FLUID_PLACE, blockPos);
+				world.setBlockState(blockPos, outState);
+				return ActionResult.success(world.isClient);
+			}
 		}
 		return ActionResult.PASS;
 	}

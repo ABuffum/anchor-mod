@@ -2,6 +2,7 @@ package haven.materials.metal;
 
 import haven.HavenMod;
 import haven.blocks.basic.*;
+import haven.materials.base.BaseMaterial;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
 import haven.util.HavenArmorMaterials;
@@ -14,9 +15,10 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 
-public class DarkIronMaterial extends ToolArmorHorseMaterial implements
+public class DarkIronMaterial extends BaseMaterial implements
 		NuggetProvider,
-		TorchProvider, SoulTorchProvider, BarsProvider, BlockProvider, WallProvider, DoorProvider, TrapdoorProvider,
+		TorchProvider, SoulTorchProvider,
+		BarsProvider, BlockProvider, WallProvider, DoorProvider, TrapdoorProvider,
 		CutProvider, CutPillarProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
 
 	private final HavenTorch torch;
@@ -47,11 +49,9 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 	public HavenPair getCutWall() { return cut_wall; }
 
 	public DarkIronMaterial() {
-		super("dark_iron", false, HavenToolMaterials.DARK_IRON,
-				6, -3.1F, -2, -1, 1, -2.8F, 1.5F, -3, 3, -2.4F,
-				HavenArmorMaterials.DARK_IRON, 5);
-		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(HavenMod.luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME, ItemSettings());
-		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(HavenMod.luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
+		super("dark_iron", false);
+		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME, ItemSettings());
+		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
 		nugget = new Item(ItemSettings());
 		bars = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
 		block = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
@@ -66,13 +66,13 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return block == torch.BLOCK || block == torch.WALL_BLOCK || block == soul_torch.BLOCK || block == soul_torch.WALL_BLOCK
+		return torch.contains(block) || soul_torch.contains(block)
 				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
 				|| block == cut_wall.BLOCK || block == bars.BLOCK || block == this.block.BLOCK || block == wall.BLOCK
 				|| block == door.BLOCK || block == trapdoor.BLOCK || super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return item == torch.ITEM || item == torch.ITEM || item == soul_torch.ITEM || item == soul_torch.ITEM
+		return torch.contains(item) || soul_torch.contains(item)
 				|| item == cut.ITEM || item == cut_pillar.ITEM || item == cut_slab.ITEM || item == cut_stairs.ITEM
 				|| item == cut_wall.ITEM || item == bars.ITEM || item == block.ITEM || item == wall.ITEM
 				|| item == door.ITEM || item == trapdoor.ITEM || item == nugget || super.contains(item);

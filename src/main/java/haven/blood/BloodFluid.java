@@ -8,6 +8,8 @@ import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -17,6 +19,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -52,6 +55,11 @@ public abstract class BloodFluid extends FlowableFluid {
 	}
 	@Override
 	public Optional<SoundEvent> getBucketFillSound() { return Optional.of(SoundEvents.ITEM_BUCKET_FILL); }
+
+	@Nullable
+	public ParticleEffect getParticle() {
+		return HavenMod.DRIPPING_BLOOD;
+	}
 
 	public static class Flowing extends BloodFluid {
 		@Override

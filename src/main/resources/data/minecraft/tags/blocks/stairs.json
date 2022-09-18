@@ -8,6 +8,7 @@
     "haven:cut_emerald_stairs",
     "haven:diamond_brick_stairs",
     "haven:diamond_stairs",
+    "haven:quartz_brick_stairs",
   
     "haven:blood_stairs",
     "haven:dried_blood_stairs",
@@ -15,6 +16,10 @@
     "haven:cut_iron_stairs",
     "haven:cut_dark_iron_stairs",
     "haven:cut_gold_stairs",
-    "haven:cut_netherite_stairs"
+    "haven:cut_netherite_stairs",
+  
+    "haven:obsidian_stairs",
+    "haven:crying_obsidian_stairs",
+    "haven:bleeding_obsidian_stairs"
   ]
 }

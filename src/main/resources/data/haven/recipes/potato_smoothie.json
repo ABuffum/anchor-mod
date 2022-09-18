@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:snowball"
+    },
+    {
+      "item": "haven:potato_juice"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "haven:potato_smoothie"
+  }
+}

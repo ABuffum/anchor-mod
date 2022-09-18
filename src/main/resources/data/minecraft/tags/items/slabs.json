@@ -8,6 +8,7 @@
     "haven:cut_emerald_slab",
     "haven:diamond_brick_slab",
     "haven:diamond_slab",
+    "haven:quartz_brick_slab",
     
     "haven:blood_slab",
     "haven:dried_blood_slab",
@@ -15,6 +16,10 @@
     "haven:cut_iron_slab",
     "haven:cut_dark_iron_slab",
     "haven:cut_gold_slab",
-    "haven:cut_netherite_slab"
+    "haven:cut_netherite_slab",
+  
+    "haven:obsidian_slab",
+    "haven:crying_obsidian_slab",
+    "haven:bleeding_obsidian_slab"
   ]
 }

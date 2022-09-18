@@ -1,0 +1,31 @@
+{
+  "replace": false,
+  "values": [
+    "haven:diamond_bricks",
+    "haven:diamond_brick_slab",
+    "haven:diamond_brick_stairs",
+    "haven:diamond_brick_wall",
+    "haven:diamond_slab",
+    "haven:diamond_stairs",
+    "haven:diamond_wall",
+    "haven:emerald_bricks",
+    "haven:emerald_brick_slab",
+    "haven:emerald_brick_stairs",
+    "haven:emerald_brick_wall",
+    "haven:cut_emerald",
+    "haven:cut_emerald_slab",
+    "haven:cut_emerald_stairs",
+    "haven:cut_emerald_wall",
+  
+    "haven:gold_lantern",
+    "haven:gold_soul_lantern",
+    "haven:gold_chain",
+    "haven:gold_bars",
+    "haven:gold_wall",
+    "haven:cut_gold",
+    "haven:cut_gold_pillar",
+    "haven:cut_gold_slab",
+    "haven:cut_gold_stairs",
+    "haven:cut_gold_wall"
+  ]
+}

@@ -3,6 +3,7 @@ package haven.materials.gem;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
+import haven.materials.base.BaseMaterial;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
 import haven.util.HavenArmorMaterials;
@@ -36,7 +37,7 @@ public class EmeraldMaterial extends ToolArmorHorseMaterial implements
 	public EmeraldMaterial() {
 		super("emerald", false, HavenToolMaterials.EMERALD,
 				5, -3, -2, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
-				HavenArmorMaterials.EMERALD, 10);
+				HavenArmorMaterials.EMERALD, 9);
 		bricks = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
 		brick_slab = new HavenPair(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
 		brick_stairs = new HavenPair(new HavenStairsBlock(bricks.BLOCK), ItemSettings());

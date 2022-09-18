@@ -22,9 +22,6 @@ public class BottledDrinkItem extends Item {
 
 	private final SoundEvent drinkSound;
 
-	public BottledDrinkItem() {
-		this(HavenMod.BottledDrinkSettings());
-	}
 	public BottledDrinkItem(Item.Settings settings) {
 		this(SoundEvents.ITEM_BOTTLE_EMPTY, settings);
 	}

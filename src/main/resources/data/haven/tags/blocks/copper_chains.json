@@ -1,0 +1,12 @@
+{
+  "values": [
+	"haven:copper_chain",
+	"haven:exposed_copper_chain",
+	"haven:weathered_copper_chain",
+	"haven:oxidized_copper_chain",
+	"haven:waxed_copper_chain",
+	"haven:waxed_exposed_copper_chain",
+	"haven:waxed_weathered_copper_chain",
+	"haven:waxed_oxidized_copper_chain"
+  ]
+}
