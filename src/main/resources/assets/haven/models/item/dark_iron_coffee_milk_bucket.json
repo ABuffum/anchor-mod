@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+	"layer0": "haven:item/dark_iron_coffee_milk_bucket"
+  }
+}

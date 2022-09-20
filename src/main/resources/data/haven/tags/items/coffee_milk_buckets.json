@@ -2,6 +2,8 @@
   "values": [
 	"haven:coffee_milk_bucket",
 	"haven:wood_coffee_milk_bucket",
-	"haven:copper_coffee_milk_bucket"
+	"haven:copper_coffee_milk_bucket",
+	"haven:dark_iron_coffee_milk_bucket",
+	"haven:netherite_coffee_milk_bucket"
   ]
 }

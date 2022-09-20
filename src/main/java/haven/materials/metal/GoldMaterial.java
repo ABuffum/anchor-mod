@@ -115,8 +115,7 @@ public class GoldMaterial extends BaseMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return torch.contains(block) || soul_torch.contains(block)
-				|| block == lantern.BLOCK || block == unlit_lantern || block == soul_lantern.BLOCK || block == unlit_soul_lantern
+		return torch.contains(block) || soul_torch.contains(block) || containsLantern(block) || containsSoulLantern(block)
 				|| block == chain.BLOCK || block == wall.BLOCK
 				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
 				|| block == cut_wall.BLOCK || block == bars.BLOCK || super.contains(block);

@@ -2,6 +2,8 @@
   "values": [
 	"minecraft:water_bucket",
 	"haven:wood_water_bucket",
-	"haven:copper_water_bucket"
+	"haven:copper_water_bucket",
+	"haven:dark_iron_water_bucket",
+	"haven:netherite_water_bucket"
   ]
 }

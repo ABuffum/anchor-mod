@@ -3,18 +3,21 @@ package haven.materials.metal;
 import haven.HavenMod;
 import haven.blocks.basic.*;
 import haven.items.basic.HavenHorseArmorItem;
+import haven.items.buckets.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.util.HavenPair;
 import haven.util.HavenTorch;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 
 public class NetheriteMaterial extends BaseMaterial implements
-		NuggetProvider, HorseArmorProvider,
+		NuggetProvider, HorseArmorProvider, BucketProvider,
 		TorchProvider, SoulTorchProvider,
 		LanternProvider, SoulLanternProvider,
 		ChainProvider, BarsProvider, WallProvider,
@@ -53,6 +56,33 @@ public class NetheriteMaterial extends BaseMaterial implements
 	private final Item horse_armor;
 	public Item getHorseArmor() { return horse_armor; }
 
+	//Base Item
+	private final Item bucket;
+	public Item getBucket() { return bucket; }
+	//Vanilla Fluids
+	private final Item water_bucket;
+	public Item getWaterBucket() { return water_bucket; }
+	private final Item lava_bucket;
+	public Item getLavaBucket() { return lava_bucket; }
+	private final Item powder_snow_bucket;
+	public Item getPowderSnowBucket() { return powder_snow_bucket; }
+	//Mod Fluids
+	private final Item blood_bucket;
+	public Item getBloodBucket() { return blood_bucket; }
+	private final Item mud_bucket;
+	public Item getMudBucket() { return mud_bucket; }
+	//Milk
+	private final Item milk_bucket;
+	public Item getMilkBucket() { return milk_bucket; }
+	private final Item chocolate_milk_bucket;
+	public Item getChocolateMilkBucket() { return chocolate_milk_bucket; }
+	private final Item coffee_milk_bucket;
+	public Item getCoffeeMilkBucket() { return coffee_milk_bucket; }
+	private final Item strawberry_milk_bucket;
+	public Item getStrawberryMilkBucket() { return strawberry_milk_bucket; }
+	private final Item cottage_cheese_bucket;
+	public Item getCottageCheeseBucket() { return cottage_cheese_bucket; }
+
 	public NetheriteMaterial() {
 		super("netherite", false);
 		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME, ItemSettings());
@@ -71,6 +101,18 @@ public class NetheriteMaterial extends BaseMaterial implements
 		cut_stairs = new HavenPair(new HavenStairsBlock(cut.BLOCK), ItemSettings());
 		cut_wall = new HavenPair(new HavenWallBlock(cut.BLOCK), ItemSettings());
 		horse_armor = new HavenHorseArmorItem(15, getName(), ItemSettings().maxCount(1));
+
+		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);
+		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
+		lava_bucket = new HavenBucketItem(Fluids.LAVA, FilledBucketSettings(), this);
+		powder_snow_bucket = new HavenPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, FilledBucketSettings(), this);
+		blood_bucket = new HavenBucketItem(HavenMod.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
+		mud_bucket = new HavenBucketItem(HavenMod.STILL_MUD_FLUID, FilledBucketSettings(), this);
+		milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
+		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
+		coffee_milk_bucket = new CoffeeMilkBucketItem(FilledBucketSettings(), this);
+		strawberry_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
+		cottage_cheese_bucket = new CottageCheeseBucketItem(HavenMod.COTTAGE_CHEESE_BLOCK, FilledBucketSettings().food(HavenMod.COTTAGE_CHEESE_FOOD_COMPONENT), this);
 	}
 	@Override
 	protected Item.Settings ItemSettings() {
@@ -78,8 +120,7 @@ public class NetheriteMaterial extends BaseMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return torch.contains(block) || soul_torch.contains(block)
-				|| block == lantern.BLOCK || block == unlit_lantern || block == soul_lantern.BLOCK || block == unlit_soul_lantern
+		return torch.contains(block) || soul_torch.contains(block) || containsLantern(block) || containsSoulLantern(block)
 				|| block == chain.BLOCK || block == wall.BLOCK
 				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
 				|| block == cut_wall.BLOCK || block == bars.BLOCK || super.contains(block);
@@ -88,6 +129,6 @@ public class NetheriteMaterial extends BaseMaterial implements
 		return torch.contains(item) || soul_torch.contains(item)
 				|| item == lantern.ITEM || item == soul_lantern.ITEM || item == chain.ITEM || item == wall.ITEM
 				|| item == cut.ITEM || item == cut_pillar.ITEM || item == cut_slab.ITEM || item == cut_stairs.ITEM
-				|| item == cut_wall.ITEM || item == bars.ITEM || item == horse_armor || item == nugget || super.contains(item);
+				|| item == cut_wall.ITEM || item == bars.ITEM || item == horse_armor || item == nugget || containsBucket(item) || super.contains(item);
 	}
 }

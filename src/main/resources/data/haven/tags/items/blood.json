@@ -15,6 +15,6 @@
 	"haven:dried_blood_wall",
 	
 	"haven:blood_bottle",
-	"haven:blood_bucket"
+	"#haven:blood_buckets"
   ]
 }

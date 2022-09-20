@@ -2,6 +2,8 @@
   "values": [
 	"minecraft:powder_snow_bucket",
 	"haven:wood_powder_snow_bucket",
-	"haven:copper_powder_snow_bucket"
+	"haven:copper_powder_snow_bucket",
+	"haven:dark_iron_powder_snow_bucket",
+	"haven:netherite_powder_snow_bucket"
   ]
 }

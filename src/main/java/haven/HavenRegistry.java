@@ -31,12 +31,15 @@ import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
+import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.block.dispenser.ShearsDispenserBehavior;
 import net.minecraft.block.entity.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
@@ -53,6 +56,8 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static haven.HavenMod.*;
@@ -142,7 +147,28 @@ public class HavenRegistry {
 		if (material instanceof ChestplateProvider chestplate) Register(name + "_chestplate", chestplate.getChestplate());
 		if (material instanceof LeggingsProvider leggings) Register(name + "_leggings", leggings.getLeggings());
 		if (material instanceof BootsProvider boots) Register(name + "_boots", boots.getBoots());
-		if (material instanceof HorseArmorProvider horseArmor) Register(name + "_horse_armor", horseArmor.getHorseArmor());
+		if (material instanceof HorseArmorProvider horseArmorProvider){
+			ItemDispenserBehavior HORSE_ARMOR_DISPENSER_BEHAVIOR = new FallibleItemDispenserBehavior() {
+				protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+					BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+					List<HorseBaseEntity> list = pointer.getWorld().getEntitiesByClass(HorseBaseEntity.class, new Box(blockPos), (horseBaseEntityx) -> {
+						return horseBaseEntityx.isAlive() && horseBaseEntityx.hasArmorSlot();
+					});
+					Iterator var5 = list.iterator();
+					HorseBaseEntity horseBaseEntity;
+					do {
+						if (!var5.hasNext()) return super.dispenseSilently(pointer, stack);
+						horseBaseEntity = (HorseBaseEntity)var5.next();
+					} while(!horseBaseEntity.isHorseArmor(stack) || horseBaseEntity.hasArmorInSlot() || !horseBaseEntity.isTame());
+					horseBaseEntity.getStackReference(401).set(stack.split(1));
+					this.setSuccess(true);
+					return stack;
+				}
+			};
+			Item horseArmor = horseArmorProvider.getHorseArmor();
+			Register(name + "_horse_armor", horseArmor);
+			DispenserBlock.registerBehavior(horseArmor, HORSE_ARMOR_DISPENSER_BEHAVIOR);
+		}
 		if (material instanceof ShearsProvider shearsProvider) {
 			Item shears = shearsProvider.getShears();
 			Register(name + "_shears", shears);
