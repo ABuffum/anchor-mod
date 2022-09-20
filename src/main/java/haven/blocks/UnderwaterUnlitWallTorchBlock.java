@@ -32,8 +32,8 @@ import java.util.Random;
 
 public class UnderwaterUnlitWallTorchBlock extends UnderwaterWallTorchBlock {
 	private final Block lit;
-	public UnderwaterUnlitWallTorchBlock(Block lit) {
-		super(Settings.copy(lit).luminance(HavenMod.luminance(0)).dropsLike(lit), ParticleTypes.FLAME);
+	public UnderwaterUnlitWallTorchBlock(Block lit, Block notWall) {
+		super(Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

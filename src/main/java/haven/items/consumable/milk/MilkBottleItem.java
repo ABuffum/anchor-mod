@@ -28,25 +28,14 @@ public class MilkBottleItem extends Item {
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-
-		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-			stack.decrement(1);
-		}
-
-		if (!world.isClient) {
-			BucketUtils.milkClearStatusEffects(world, user);
-		}
-
+		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
+		if (!world.isClient) BucketUtils.milkClearStatusEffects(world, user);
 		return stack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : stack;
 	}
 
-	public int getMaxUseTime(ItemStack stack) {
-		return 32;
-	}
+	public int getMaxUseTime(ItemStack stack) { return MAX_USE_TIME; }
 
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.DRINK;
-	}
+	public UseAction getUseAction(ItemStack stack) { return UseAction.DRINK; }
 
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		return ItemUsage.consumeHeldItem(world, user, hand);

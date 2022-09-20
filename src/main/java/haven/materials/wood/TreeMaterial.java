@@ -1,10 +1,15 @@
 package haven.materials.wood;
 
 import haven.materials.providers.SaplingProvider;
+import haven.materials.providers.SoulTorchProvider;
+import haven.materials.providers.TorchProvider;
 import haven.util.HavenSapling;
+import haven.util.HavenTorch;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.item.Item;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 
 import java.util.function.Supplier;

@@ -25,8 +25,8 @@ import java.util.Random;
 
 public class UnlitWallTorchBlock extends WallTorchBlock {
 	private final Block lit;
-	public UnlitWallTorchBlock(Block lit) {
-		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)).dropsLike(lit), ParticleTypes.FLAME);
+	public UnlitWallTorchBlock(Block lit, Block notWall) {
+		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

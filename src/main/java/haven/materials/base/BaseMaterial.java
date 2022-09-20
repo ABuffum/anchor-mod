@@ -12,7 +12,7 @@ import java.util.function.ToIntFunction;
 public abstract class BaseMaterial {
 	private final String name;
 	public String getName() { return name; }
-	private boolean flammable = true;
+	protected boolean flammable = true;
 	public boolean isFlammable() { return flammable; }
 	public BaseMaterial(String name, boolean flammable) {
 		this.name = name;

@@ -1,6 +1,8 @@
 package haven.blocks.mud;
 
 import haven.HavenMod;
+import haven.materials.base.BaseMaterial;
+import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,37 +26,35 @@ import java.util.Map;
 
 public class MudCauldronBlock extends LeveledCauldronBlock {
 	public static final Map<Item, CauldronBehavior> MUD_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
-	public static final CauldronBehavior FILL_FROM_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, Items.BUCKET);
-	public static final CauldronBehavior FILL_FROM_WOOD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
-	public static final CauldronBehavior FILL_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
-	public static final CauldronBehavior FILL_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
-	public static final CauldronBehavior EMPTY_TO_BUCKET = (state, world, pos, player, hand, stack) 
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.MUD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_WOOD_BUCKET = (state, world, pos, player, hand, stack) 
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.WOOD_MUD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_COPPER_BUCKET = (state, world, pos, player, hand, stack) 
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.COPPER_MUD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.GOLD_MUD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
+
+	public static CauldronBehavior FillFromBucket(Item bucket) {
+		return (state, world, pos, player, hand, stack)
+				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
+				HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3),
+				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
+	}
+
+	public static CauldronBehavior EmptyToBucket(Item bucket) {
+		return (state, world, pos, player, hand, stack)
+				-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(bucket),
+				statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
+	}
 
 	public MudCauldronBlock(Settings settings) {
 		super(settings, precipitation -> false, getMudCauldronBehaviors());
 	}
 
 	public static Map<Item, CauldronBehavior> getMudCauldronBehaviors() {
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.MUD_BUCKET, FILL_FROM_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.WOOD_MUD_BUCKET, FILL_FROM_WOOD_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.COPPER_MUD_BUCKET, FILL_FROM_COPPER_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.GOLD_MUD_BUCKET, FILL_FROM_GOLD_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(Items.BUCKET, EMPTY_TO_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.WOOD_BUCKET, EMPTY_TO_WOOD_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.COPPER_BUCKET, EMPTY_TO_COPPER_BUCKET);
-		MUD_CAULDRON_BEHAVIOR.put(HavenMod.GOLD_BUCKET, EMPTY_TO_GOLD_BUCKET);
-
+		for(BaseMaterial material : HavenMod.MATERIALS) {
+			if (material instanceof BucketProvider bucketProvider) {
+				Item bucket = bucketProvider.getBucket(), bloodBucket = bucketProvider.getBloodBucket();
+				MUD_CAULDRON_BEHAVIOR.put(bloodBucket, FillFromBucket(bucket));
+				MUD_CAULDRON_BEHAVIOR.put(bucket, EmptyToBucket(bloodBucket));
+			}
+		}
+		BucketProvider bp = BucketProvider.DEFAULT_PROVIDER;
+		MUD_CAULDRON_BEHAVIOR.put(bp.getBloodBucket(), FillFromBucket(bp.getBucket()));
+		MUD_CAULDRON_BEHAVIOR.put(bp.getBucket(), EmptyToBucket(bp.getBloodBucket()));
 		return MUD_CAULDRON_BEHAVIOR;
 	}
 
@@ -85,14 +85,9 @@ public class MudCauldronBlock extends LeveledCauldronBlock {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
-		Item item = stack.getItem();
-		ItemStack newStack = null;
-		if (item == Items.BUCKET) newStack = new ItemStack(HavenMod.MUD_BUCKET);
-		else if (item == HavenMod.WOOD_BUCKET) newStack = new ItemStack(HavenMod.WOOD_MUD_BUCKET);
-		else if (item == HavenMod.COPPER_BUCKET) newStack = new ItemStack(HavenMod.COPPER_MUD_BUCKET);
-		else if (item == HavenMod.GOLD_BUCKET) newStack = new ItemStack(HavenMod.GOLD_MUD_BUCKET);
-		if (newStack != null) {
+		BucketProvider provider = BucketProvider.getProvider(player.getStackInHand(hand).getItem());
+		if (provider != null) {
+			ItemStack newStack = new ItemStack(provider.getMudBucket());
 			if (!player.getAbilities().creativeMode) {
 				player.getStackInHand(hand).decrement(1);
 				if (player.getStackInHand(hand).isEmpty()) player.setStackInHand(hand, newStack);

@@ -26,8 +26,8 @@ import java.util.Random;
 public class OxidizableUnlitWallTorchBlock extends UnlitWallTorchBlock implements Oxidizable {
 	private final OxidizationLevel oxidizationLevel;
 
-	public OxidizableUnlitWallTorchBlock(OxidizationLevel oxidizationLevel, Block lit) {
-		super(lit);
+	public OxidizableUnlitWallTorchBlock(OxidizationLevel oxidizationLevel, Block lit, Block notWall) {
+		super(lit, notWall);
 		this.oxidizationLevel = oxidizationLevel;
 	}
 

@@ -1,6 +1,7 @@
 package haven.blocks;
 
 import haven.HavenMod;
+import haven.materials.providers.BucketProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,22 +22,9 @@ public class CottageCheeseBlock extends Block {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
-		Item item = stack.getItem();
-		ItemStack newStack = null;
-		if (item == Items.BUCKET) {
-			newStack = new ItemStack(HavenMod.COTTAGE_CHEESE_BUCKET);
-		}
-		else if (item == HavenMod.WOOD_BUCKET) {
-			newStack = new ItemStack(HavenMod.WOOD_COTTAGE_CHEESE_BUCKET);
-		}
-		else if (item == HavenMod.COPPER_BUCKET) {
-			newStack = new ItemStack(HavenMod.COPPER_COTTAGE_CHEESE_BUCKET);
-		}
-		else if (item == HavenMod.GOLD_BUCKET) {
-			newStack = new ItemStack(HavenMod.GOLD_COTTAGE_CHEESE_BUCKET);
-		}
-		if (newStack != null) {
+		BucketProvider bucketProvider = BucketProvider.getProvider(player.getStackInHand(hand).getItem());
+		if (bucketProvider != null) {
+			ItemStack newStack = new ItemStack(bucketProvider.getCottageCheeseBucket());
 			if (!player.getAbilities().creativeMode) {
 				player.getStackInHand(hand).decrement(1);
 				if (player.getStackInHand(hand).isEmpty()) player.setStackInHand(hand, newStack);

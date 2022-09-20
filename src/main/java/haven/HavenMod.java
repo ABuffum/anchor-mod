@@ -1,5 +1,7 @@
 package haven;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import haven.blocks.*;
 import haven.blocks.anchors.*;
 import haven.blocks.basic.*;
@@ -28,7 +30,6 @@ import haven.materials.base.BaseMaterial;
 import haven.materials.gem.*;
 import haven.materials.metal.*;
 import haven.materials.providers.*;
-import haven.boats.BoatMaterial;
 import haven.materials.wood.*;
 import haven.sounds.*;
 import haven.util.*;
@@ -88,9 +89,14 @@ public class HavenMod implements ModInitializer {
 
 	public static ToIntFunction<BlockState> luminance(int value) { return (state) -> value; }
 
-	//More Torches
+	//More Torches / Lanterns
+	public static AbstractBlock.Settings UnlitLanternSettings() {
+		return AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).nonOpaque();
+	}
 	public static final HavenTorch.Unlit UNLIT_TORCH = new HavenTorch.Unlit(Blocks.TORCH, Blocks.WALL_TORCH);
 	public static final HavenTorch.Unlit UNLIT_SOUL_TORCH = new HavenTorch.Unlit(Blocks.SOUL_TORCH, Blocks.SOUL_WALL_TORCH);
+	public static final Block UNLIT_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(Blocks.LANTERN));
+	public static final Block UNLIT_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(Blocks.SOUL_LANTERN));
 
 	public static final DefaultParticleType GLOW_FLAME = FabricParticleTypes.simple(false);
 	public static final HavenTorch UNDERWATER_TORCH = HavenTorch.Waterloggable(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(14)).sounds(BlockSoundGroup.WOOD), GLOW_FLAME);
@@ -126,21 +132,37 @@ public class HavenMod implements ModInitializer {
 	public static final WaxedPair WAXED_OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE = new WaxedPair(OXIDIZED_MEDIUM_WEIGHTED_PRESSURE_PLATE, new HavenWeightedPressurePlateBlock(75, AbstractBlock.Settings.copy(WAXED_MEDIUM_WEIGHTED_PRESSURE_PLATE.BLOCK)));
 
 	public static final HavenPair COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque()));
+	public static final Block UNLIT_COPPER_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, UnlitLanternSettings().dropsLike(COPPER_LANTERN.BLOCK));
 	public static final HavenPair EXPOSED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_EXPOSED_COPPER_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, UnlitLanternSettings().dropsLike(EXPOSED_COPPER_LANTERN.BLOCK));
 	public static final HavenPair WEATHERED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_WEATHERED_COPPER_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, UnlitLanternSettings().dropsLike(WEATHERED_COPPER_LANTERN.BLOCK));
 	public static final HavenPair OXIDIZED_COPPER_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_OXIDIZED_COPPER_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, UnlitLanternSettings().dropsLike(OXIDIZED_COPPER_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_COPPER_LANTERN = new WaxedPair(COPPER_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_COPPER_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_COPPER_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_EXPOSED_COPPER_LANTERN = new WaxedPair(EXPOSED_COPPER_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_EXPOSED_COPPER_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_EXPOSED_COPPER_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_WEATHERED_COPPER_LANTERN = new WaxedPair(WEATHERED_COPPER_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_WEATHERED_COPPER_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_WEATHERED_COPPER_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_OXIDIZED_COPPER_LANTERN = new WaxedPair(OXIDIZED_COPPER_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_OXIDIZED_COPPER_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_OXIDIZED_COPPER_LANTERN.BLOCK));
 	public static final HavenPair COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
+	public static final Block UNLIT_COPPER_SOUL_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.UNAFFECTED, UnlitLanternSettings().dropsLike(COPPER_SOUL_LANTERN.BLOCK));
 	public static final HavenPair EXPOSED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_EXPOSED_COPPER_SOUL_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.EXPOSED, UnlitLanternSettings().dropsLike(EXPOSED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final HavenPair WEATHERED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_WEATHERED_COPPER_SOUL_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.WEATHERED, UnlitLanternSettings().dropsLike(WEATHERED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final HavenPair OXIDIZED_COPPER_SOUL_LANTERN = new HavenPair(new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_OXIDIZED_COPPER_SOUL_LANTERN = new OxidizableLanternBlock(Oxidizable.OxidizationLevel.OXIDIZED, UnlitLanternSettings().dropsLike(OXIDIZED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_COPPER_SOUL_LANTERN = new WaxedPair(COPPER_SOUL_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_COPPER_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_EXPOSED_COPPER_SOUL_LANTERN = new WaxedPair(EXPOSED_COPPER_SOUL_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_EXPOSED_COPPER_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_EXPOSED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_WEATHERED_COPPER_SOUL_LANTERN = new WaxedPair(WEATHERED_COPPER_SOUL_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_WEATHERED_COPPER_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_WEATHERED_COPPER_SOUL_LANTERN.BLOCK));
 	public static final WaxedPair WAXED_OXIDIZED_COPPER_SOUL_LANTERN = new WaxedPair(OXIDIZED_COPPER_SOUL_LANTERN, new LanternBlock(AbstractBlock.Settings.copy(WAXED_COPPER_SOUL_LANTERN.BLOCK)));
+	public static final Block UNLIT_WAXED_OXIDIZED_COPPER_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(WAXED_OXIDIZED_COPPER_SOUL_LANTERN.BLOCK));
 
 	public static final HavenPair COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
 	public static final HavenPair EXPOSED_COPPER_CHAIN = new HavenPair(new OxidizableChainBlock(Oxidizable.OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(COPPER_CHAIN.BLOCK)));
@@ -397,6 +419,16 @@ public class HavenMod implements ModInitializer {
 	public static final HavenPair DRIED_BAMBOO_BLOCK = new HavenPair(new DriedBambooBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO)));
 	public static final Block POTTED_DRIED_BAMBOO = new FlowerPotBlock(DRIED_BAMBOO_BLOCK.BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
+	//Vanilla Wood
+	public static final VanillaWoodMaterial ACACIA_MATERIAL = new VanillaWoodMaterial("acacia", MapColor.ORANGE);
+	public static final VanillaWoodMaterial BIRCH_MATERIAL = new VanillaWoodMaterial("birch", MapColor.PALE_YELLOW);
+	public static final VanillaWoodMaterial DARK_OAK_MATERIAL = new VanillaWoodMaterial("dark_oak", MapColor.BROWN);
+	public static final VanillaWoodMaterial JUNGLE_MATERIAL = new VanillaWoodMaterial("jungle", MapColor.DIRT_BROWN);
+	public static final VanillaWoodMaterial OAK_MATERIAL = new VanillaWoodMaterial("oak", MapColor.OAK_TAN);
+	public static final VanillaWoodMaterial SPRUCE_MATERIAL = new VanillaWoodMaterial("spruce", MapColor.SPRUCE_BROWN);
+	public static final VanillaNetherWoodMaterial CRIMSON_MATERIAL = new VanillaNetherWoodMaterial("crimson", MapColor.DULL_PINK, Blocks.CRIMSON_PLANKS, false);
+	public static final VanillaNetherWoodMaterial WARPED_MATERIAL = new VanillaNetherWoodMaterial("warped", MapColor.DARK_AQUA, Blocks.WARPED_PLANKS, false);
+
 	//Misc Removed
 	public static final HavenPair WAX_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.HONEYCOMB_BLOCK)));
 
@@ -412,7 +444,7 @@ public class HavenMod implements ModInitializer {
 	public static final FlowableFluid FLOWING_MUD_FLUID = new MudFluid.Flowing();
 	public static final FluidBlock MUD_FLUID_BLOCK = new MudFluidBlock(STILL_MUD_FLUID, FabricBlockSettings.copyOf(Blocks.WATER).mapColor(MapColor.BROWN));
 	public static final BucketItem MUD_BUCKET = new MudBucketItem(STILL_MUD_FLUID, ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
-	public static final Block MUD_CAULDRON = new MudCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
+	public static final Block MUD_CAULDRON;
 	//Music Discs
 	public static final Item MUSIC_DISC_OTHERSIDE = new MusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, ItemSettings().maxCount(1).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, ItemSettings().maxCount(1).rarity(Rarity.RARE));
@@ -493,7 +525,7 @@ public class HavenMod implements ModInitializer {
 	public static final FluidBlock BLOOD_FLUID_BLOCK = new BloodFluidBlock(STILL_BLOOD_FLUID, FabricBlockSettings.copyOf(Blocks.WATER).mapColor(MapColor.RED));
 	public static final BucketItem BLOOD_BUCKET = new BloodBucketItem(STILL_BLOOD_FLUID, BloodItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
 
-	public static final Block BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
+	public static final Block BLOOD_CAULDRON;
 	public static final Item BLOOD_BOTTLE = new BloodBottleItem(BloodItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
 	public static final Item LAVA_BOTTLE = new LavaBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
 	//TODO: WATER_BOTTLE
@@ -768,60 +800,28 @@ public class HavenMod implements ModInitializer {
 
 	//Flavored Milk
 	public static final Item MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
-	public static final Item CHOCOLATE_MILK_BUCKET = new MilkBucketItem(ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
+	public static final Item CHOCOLATE_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
 	public static final Item CHOCOLATE_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
 	public static final Item CHOCOLATE_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
-	public static final Item STRAWBERRY_MILK_BUCKET = new MilkBucketItem(ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
+	public static final Item STRAWBERRY_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
 	public static final Item STRAWBERRY_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
 	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
-	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
+	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
 	public static final Item COFFEE_MILK_BOWL = new CoffeeMilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
 	public static final Item COFFEE_MILK_BOTTLE = new CoffeeMilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
 	//Cheese
+	public static final FoodComponent COTTAGE_CHEESE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build();
 	public static final Block MILK_CAULDRON = new MilkCauldronBlock(0, AbstractBlock.Settings.copy(Blocks.WATER_CAULDRON));
 	public static final Block COTTAGE_CHEESE_CAULDRON = new MilkCauldronBlock(1, AbstractBlock.Settings.copy(MILK_CAULDRON));
 	public static final Block CHEESE_CAULDRON = new MilkCauldronBlock(2, AbstractBlock.Settings.copy(MILK_CAULDRON));
 	public static final Block COTTAGE_CHEESE_BLOCK = new CottageCheeseBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.OFF_WHITE).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
-	public static final Item COTTAGE_CHEESE_BUCKET = new CottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, ItemSettings().maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
-	public static final Item COTTAGE_CHEESE_BOWL = new MushroomStewItem(ItemSettings().maxCount(1).recipeRemainder(Items.BOWL).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
+	public static final Item COTTAGE_CHEESE_BUCKET = new CottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings().food(COTTAGE_CHEESE_FOOD_COMPONENT), BucketProvider.DEFAULT_PROVIDER);
+	public static final Item COTTAGE_CHEESE_BOWL = new MushroomStewItem(ItemSettings().maxCount(1).recipeRemainder(Items.BOWL).food(COTTAGE_CHEESE_FOOD_COMPONENT));
 	public static final HavenPair CHEESE_BLOCK = new HavenPair(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MapColor.YELLOW).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)));
 	public static final Item CHEESE = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(0.8F).build()));
 	public static final Item GRILLED_CHEESE = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).build()));
 	//Wood Buckets
-	public static final Item WOOD_BUCKET = new WoodBucketItem(Fluids.EMPTY, ItemSettings().maxCount(16));
-	public static final Item WOOD_WATER_BUCKET = new WoodBucketItem(Fluids.WATER, ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_POWDER_SNOW_BUCKET = new WoodPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, ItemSettings().maxCount(1));
-	public static final Item WOOD_MUD_BUCKET = new WoodBucketItem(STILL_MUD_FLUID, ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_BLOOD_BUCKET = new WoodBucketItem(STILL_BLOOD_FLUID, ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_MILK_BUCKET = new WoodMilkBucketItem(ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_CHOCOLATE_MILK_BUCKET = new WoodMilkBucketItem(ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_STRAWBERRY_MILK_BUCKET = new WoodMilkBucketItem(ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_COFFEE_MILK_BUCKET = new WoodCoffeeMilkBucketItem(ItemSettings().recipeRemainder(WOOD_BUCKET).maxCount(1));
-	public static final Item WOOD_COTTAGE_CHEESE_BUCKET = new WoodCottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, ItemSettings().maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
-	//Copper Buckets
-	public static final Item COPPER_BUCKET = new CopperBucketItem(Fluids.EMPTY, ItemSettings().maxCount(16));
-	public static final Item COPPER_WATER_BUCKET = new CopperBucketItem(Fluids.WATER, ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_LAVA_BUCKET = new CopperBucketItem(Fluids.LAVA, ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_POWDER_SNOW_BUCKET = new CopperPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, ItemSettings().maxCount(1));
-	public static final Item COPPER_MUD_BUCKET = new CopperBucketItem(STILL_MUD_FLUID, ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_BLOOD_BUCKET = new CopperBucketItem(STILL_BLOOD_FLUID, ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_MILK_BUCKET = new CopperMilkBucketItem(ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_CHOCOLATE_MILK_BUCKET = new CopperMilkBucketItem(ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_STRAWBERRY_MILK_BUCKET = new CopperMilkBucketItem(ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_COFFEE_MILK_BUCKET = new CopperCoffeeMilkBucketItem(ItemSettings().recipeRemainder(COPPER_BUCKET).maxCount(1));
-	public static final Item COPPER_COTTAGE_CHEESE_BUCKET = new CopperCottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, ItemSettings().maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
-	//Gold Buckets
-	public static final Item GOLD_BUCKET = new GoldBucketItem(Fluids.EMPTY, ItemSettings().maxCount(16));
-	public static final Item GOLD_WATER_BUCKET = new GoldBucketItem(Fluids.WATER, ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_LAVA_BUCKET = new GoldBucketItem(Fluids.LAVA, ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_POWDER_SNOW_BUCKET = new GoldPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, ItemSettings().maxCount(1));
-	public static final Item GOLD_MUD_BUCKET = new GoldBucketItem(STILL_MUD_FLUID, ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_BLOOD_BUCKET = new GoldBucketItem(STILL_BLOOD_FLUID, ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_MILK_BUCKET = new GoldMilkBucketItem(ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_CHOCOLATE_MILK_BUCKET = new GoldMilkBucketItem(ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_STRAWBERRY_MILK_BUCKET = new GoldMilkBucketItem(ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_COFFEE_MILK_BUCKET = new GoldCoffeeMilkBucketItem(ItemSettings().recipeRemainder(GOLD_BUCKET).maxCount(1));
-	public static final Item GOLD_COTTAGE_CHEESE_BUCKET = new GoldCottageCheeseBucketItem(COTTAGE_CHEESE_BLOCK, ItemSettings().maxCount(1).recipeRemainder(Items.BUCKET).food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
+	public static final LiteralWoodMaterial WOOD_MATERIAL = new LiteralWoodMaterial();
 	//Cakes
 	public static final HavenCake CHOCOLATE_CAKE = new HavenCake(HavenCake.Flavor.CHOCOLATE);
 	public static final HavenCake STRAWBERRY_CAKE = new HavenCake(HavenCake.Flavor.STRAWBERRY);
@@ -841,8 +841,6 @@ public class HavenMod implements ModInitializer {
 	public static final EntityType<ConfettiCloudEntity> DRAGON_BREATH_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
 	//Boats
-	public static final BoatMaterial CRIMSON_MATERIAL = new BoatMaterial("crimson", false, Blocks.CRIMSON_PLANKS);
-	public static final BoatMaterial WARPED_MATERIAL = new BoatMaterial("warped", false, Blocks.WARPED_PLANKS);
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
 
 	@Override
@@ -888,6 +886,8 @@ public class HavenMod implements ModInitializer {
 	public static final Set<BaseMaterial> MATERIALS = Set.<BaseMaterial>of(
 		//Wood
 		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, MANGROVE_MATERIAL,
+		//Vanilla Wood
+		ACACIA_MATERIAL, BIRCH_MATERIAL, DARK_OAK_MATERIAL, JUNGLE_MATERIAL, OAK_MATERIAL, SPRUCE_MATERIAL, CRIMSON_MATERIAL, WARPED_MATERIAL,
 		//Metal
 		COPPER_MATERIAL, IRON_MATERIAL, DARK_IRON_MATERIAL, GOLD_MATERIAL, NETHERITE_MATERIAL,
 		//Gem
@@ -897,8 +897,9 @@ public class HavenMod implements ModInitializer {
 		//Blood
 		BLOOD_MATERIAL, DRIED_BLOOD_MATERIAL,
 		//Misc
-		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL
+		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL
 	);
+	public static BiMap<Block, Block> UNLIT_LANTERNS = HashBiMap.create();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
 
 	public static final Set<HavenPair> LEAVES = new HashSet<HavenPair>(Set.<HavenPair>of(
@@ -913,9 +914,7 @@ public class HavenMod implements ModInitializer {
 	));
 
 	public static final Set<Item> FLAVORED_MILK_BUCKETS = new HashSet<Item>(Set.<Item>of(
-		CHOCOLATE_MILK_BUCKET, STRAWBERRY_MILK_BUCKET, COFFEE_MILK_BUCKET,
-		WOOD_CHOCOLATE_MILK_BUCKET, WOOD_STRAWBERRY_MILK_BUCKET, WOOD_COFFEE_MILK_BUCKET,
-		COPPER_CHOCOLATE_MILK_BUCKET, COPPER_STRAWBERRY_MILK_BUCKET, COPPER_COFFEE_MILK_BUCKET
+		CHOCOLATE_MILK_BUCKET, COFFEE_MILK_BUCKET, STRAWBERRY_MILK_BUCKET
 	));
 
 	public static final Set<Block> CONVERTIBLE_TO_MUD = new HashSet<Block>(Set.<Block>of(
@@ -938,6 +937,8 @@ public class HavenMod implements ModInitializer {
 		for(Integer owner : ANCHOR_MAP.keySet()) {
 			ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
 		}
+		UNLIT_LANTERNS.put(Blocks.LANTERN, UNLIT_LANTERN);
+		UNLIT_LANTERNS.put(Blocks.SOUL_LANTERN, UNLIT_SOUL_LANTERN);
 		//Materials
 		for(BaseMaterial material : MATERIALS) {
 			if (material instanceof BundleProvider bundleProvider && material instanceof StrippedBundleProvider strippedBundle){
@@ -951,9 +952,21 @@ public class HavenMod implements ModInitializer {
 			}
 			if (material instanceof LeavesProvider leaves) LEAVES.add(leaves.getLeaves());
 			if (material instanceof SignProvider sign) SIGN_TYPES.add(sign.getSign().TYPE);
+			if (material instanceof LanternProvider lantern) UNLIT_LANTERNS.put(lantern.getLantern().BLOCK, lantern.getUnlitLantern());
+			if (material instanceof SoulLanternProvider soulLantern) {
+				UNLIT_LANTERNS.put(soulLantern.getSoulLantern().BLOCK, soulLantern.getUnlitSoulLantern());
+			}
+			if (material instanceof BucketProvider bucket) {
+				FLAVORED_MILK_BUCKETS.add(bucket.getChocolateMilkBucket());
+				FLAVORED_MILK_BUCKETS.add(bucket.getCoffeeMilkBucket());
+				FLAVORED_MILK_BUCKETS.add(bucket.getStrawberryMilkBucket());
+			}
 		}
 		//Flowers
 		for(DyeColor color : COLORS) FLOWERS.add(CARNATIONS.get(color));
+		//Cauldrons
+		BLOOD_CAULDRON = new BloodCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
+		MUD_CAULDRON = new MudCauldronBlock(FabricBlockSettings.copyOf(Blocks.CAULDRON));
 	}
 
 	public static Boolean always(BlockState state, BlockView world, BlockPos pos) {

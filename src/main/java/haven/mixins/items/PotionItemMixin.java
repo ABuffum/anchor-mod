@@ -10,6 +10,7 @@ import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.property.Properties;
@@ -37,22 +38,35 @@ public class PotionItemMixin extends Item {
 		if (PotionUtil.getPotion(itemStack) == Potions.WATER) {
 			Block block = blockState.getBlock();
 			BlockState outState = blockState;
-			boolean bl = true;
+			boolean bl = true, consume = false;
+			SoundEvent sound = SoundEvents.ENTITY_GENERIC_SPLASH;
 			if (HavenTorch.UNLIT_TORCHES.containsKey(block)) {
 				outState = HavenTorch.UNLIT_TORCHES.get(block).getDefaultState();
+				sound = SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT;
 				if (block instanceof Waterloggable) outState = outState.with(Properties.WATERLOGGED, blockState.get(Properties.WATERLOGGED));
 			}
 			else if (HavenTorch.UNLIT_WALL_TORCHES.containsKey(block)) {
 				outState = HavenTorch.UNLIT_WALL_TORCHES.get(block).getDefaultState().with(WallTorchBlock.FACING, blockState.get(WallTorchBlock.FACING));
+				sound = SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT;
 				if (block instanceof Waterloggable) outState = outState.with(Properties.WATERLOGGED, blockState.get(Properties.WATERLOGGED));
+			}
+			else if (HavenMod.UNLIT_LANTERNS.containsKey(block)) {
+				outState = HavenMod.UNLIT_LANTERNS.get(block).getDefaultState().with(LanternBlock.HANGING, blockState.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, blockState.get(LanternBlock.WATERLOGGED));
+			}
+			else if (block instanceof CandleBlock) {
+				if (blockState.get(CandleBlock.LIT)) AbstractCandleBlock.extinguish(playerEntity, blockState, world, blockPos);
+				return ActionResult.success(world.isClient);
 			}
 			else if (context.getSide() != Direction.DOWN && HavenMod.CONVERTIBLE_TO_MUD.contains(block)) {
 				outState = HavenMod.MUD.BLOCK.getDefaultState();
+				consume = true;
 			}
 			else bl = false;
 			if (bl) {
-				world.playSound(null, blockPos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.PLAYERS, 1.0f, 1.0f);
-				playerEntity.setStackInHand(context.getHand(), ItemUsage.exchangeStack(itemStack, playerEntity, new ItemStack(Items.GLASS_BOTTLE)));
+				world.playSound(null, blockPos, sound, SoundCategory.PLAYERS, 1.0f, 1.0f);
+				if (consume) {
+					playerEntity.setStackInHand(context.getHand(), ItemUsage.exchangeStack(itemStack, playerEntity, new ItemStack(Items.GLASS_BOTTLE)));
+				}
 				playerEntity.incrementStat(Stats.USED.getOrCreateStat(itemStack.getItem()));
 				if (!world.isClient) {
 					ServerWorld serverWorld = (ServerWorld)world;
@@ -60,7 +74,9 @@ public class PotionItemMixin extends Item {
 						serverWorld.spawnParticles(ParticleTypes.SPLASH, (double)blockPos.getX() + world.random.nextDouble(), blockPos.getY() + 1, (double)blockPos.getZ() + world.random.nextDouble(), 1, 0.0, 0.0, 0.0, 1.0);
 					}
 				}
-				world.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				if (consume) {
+					world.playSound(null, blockPos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				}
 				world.emitGameEvent(null, GameEvent.FLUID_PLACE, blockPos);
 				world.setBlockState(blockPos, outState);
 				return ActionResult.success(world.isClient);

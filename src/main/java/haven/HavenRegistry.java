@@ -9,9 +9,6 @@ import haven.boats.HavenBoatDispenserBehavior;
 import haven.command.ChorusCommand;
 import haven.entities.passive.*;
 import haven.entities.tnt.SoftTntEntity;
-import haven.items.buckets.CopperBucketItem;
-import haven.items.buckets.GoldBucketItem;
-import haven.items.buckets.WoodBucketItem;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.blood.BloodTypePower;
@@ -59,6 +56,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static haven.HavenMod.*;
+import static haven.HavenMod.WAXED_EXPOSED_COPPER_SOUL_LANTERN;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -150,11 +148,18 @@ public class HavenRegistry {
 			Register(name + "_shears", shears);
 			DispenserBlock.registerBehavior(shears, new ShearsDispenserBehavior());
 		}
+		if (material instanceof BucketProvider bucketProvider) RegisterBuckets(name, bucketProvider);
 		//Blocks
 		if (material instanceof TorchProvider torch) Register(name, torch.getTorch());
 		if (material instanceof SoulTorchProvider soulTorch) Register(name + "_soul", soulTorch.getSoulTorch());
-		if (material instanceof LanternProvider lantern) Register(name + "_lantern", lantern.getLantern());
-		if (material instanceof SoulLanternProvider soulLantern) Register(name + "_soul_lantern", soulLantern.getSoulLantern());
+		if (material instanceof LanternProvider lantern) {
+			Register(name + "_lantern", lantern.getLantern());
+			Register("unlit_" + name + "_lantern", lantern.getUnlitLantern());
+		}
+		if (material instanceof SoulLanternProvider soulLantern) {
+			Register(name + "_soul_lantern", soulLantern.getSoulLantern());
+			Register("unlit_" + name + "_soul_lantern", soulLantern.getUnlitSoulLantern());
+		}
 		if (material instanceof ChainProvider chain) Register(name + "_chain", chain.getChain());
 		if (material instanceof BarsProvider bars) Register(name + "_bars", bars.getBars());
 		if (material instanceof BlockProvider block) Register(name + "_block", block.getBlock());
@@ -462,6 +467,16 @@ public class HavenRegistry {
 		Register("potted_dried_bamboo", POTTED_DRIED_BAMBOO);
 		Register(DRIED_BAMBOO_MATERIAL);
 	}
+	public static void RegisterVanillaWood() {
+		Register(ACACIA_MATERIAL);
+		Register(BIRCH_MATERIAL);
+		Register(DARK_OAK_MATERIAL);
+		Register(JUNGLE_MATERIAL);
+		Register(OAK_MATERIAL);
+		Register(SPRUCE_MATERIAL);
+		Register(CRIMSON_MATERIAL);
+		Register(WARPED_MATERIAL);
+	}
 	public static void RegisterBackport() {
 		//Goat Horn
 		Register("goat_horn", GOAT_HORN);
@@ -536,84 +551,22 @@ public class HavenRegistry {
 		Register("amethyst_candy", AMETHYST_CANDY);
 		for(DyeColor color : COLORS) Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
 	}
-	public static void RegisterWoodBuckets() {
-		Register("wood_bucket", WOOD_BUCKET);
-		Register("wood_water_bucket", WOOD_WATER_BUCKET);
-		Register("wood_powder_snow_bucket", WOOD_POWDER_SNOW_BUCKET);
-		Register("wood_mud_bucket", WOOD_MUD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_MUD_BUCKET, MudCauldronBlock.FILL_FROM_WOOD_BUCKET);
-		Register("wood_blood_bucket", WOOD_BLOOD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_WOOD_BUCKET);
-		DispenserBlock.registerBehavior(WOOD_BUCKET, new ItemDispenserBehavior() {
-			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
-
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				WorldAccess worldAccess = pointer.getWorld();
-				BlockPos blockPos = pointer.getPos().offset((Direction) pointer.getBlockState().get(DispenserBlock.FACING));
-				BlockState blockState = worldAccess.getBlockState(blockPos);
-				Block block = blockState.getBlock();
-				if (block instanceof FluidDrainable) {
-					ItemStack itemStack = ((FluidDrainable) block).tryDrainFluid(worldAccess, blockPos, blockState);
-					itemStack = WoodBucketItem.metalToWood(itemStack);
-					if (itemStack.isEmpty()) {
-						return super.dispenseSilently(pointer, stack);
-					} else {
-						worldAccess.emitGameEvent((Entity) null, GameEvent.FLUID_PICKUP, (BlockPos) blockPos);
-						Item item2 = itemStack.getItem();
-						stack.decrement(1);
-						if (stack.isEmpty()) {
-							return new ItemStack(item2);
-						} else {
-							if (((DispenserBlockEntity) pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
-								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
-							}
-
-							return stack;
-						}
-					}
-				} else {
-					return super.dispenseSilently(pointer, stack);
-				}
-			}
-		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState) Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY, WOOD_BUCKET);
-		});
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(WOOD_WATER_BUCKET), (statex) -> {
-				return (Integer) statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL);
-		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState) Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, WOOD_BUCKET);
-		});
-		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(WOOD_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(WOOD_POWDER_SNOW_BUCKET), (statex) -> {
-				return (Integer) statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
-		});
-		Register("wood_milk_bucket", WOOD_MILK_BUCKET);
-		Register("wood_chocolate_milk_bucket", WOOD_CHOCOLATE_MILK_BUCKET);
-		Register("wood_strawberry_milk_bucket", WOOD_STRAWBERRY_MILK_BUCKET);
-		Register("wood_coffee_milk_bucket", WOOD_COFFEE_MILK_BUCKET);
-		Register("wood_cottage_cheese_bucket", WOOD_COTTAGE_CHEESE_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_WOOD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(WOOD_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_WOOD_BUCKET);
-	}
-	public static void RegisterCopperBuckets() {
-		Register("copper_bucket", COPPER_BUCKET);
-		Register("copper_water_bucket", COPPER_WATER_BUCKET);
-		Register("copper_lava_bucket", COPPER_LAVA_BUCKET);
-		Register("copper_powder_snow_bucket", COPPER_POWDER_SNOW_BUCKET);
-		Register("copper_mud_bucket", COPPER_MUD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MUD_BUCKET, MudCauldronBlock.FILL_FROM_COPPER_BUCKET);
-		Register("copper_blood_bucket", COPPER_BLOOD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_COPPER_BUCKET);
-		DispenserBlock.registerBehavior(COPPER_BUCKET, new ItemDispenserBehavior() {
+	public static void RegisterBuckets(String name, BucketProvider bucketProvider) {
+		Item bucket = bucketProvider.getBucket();
+		Register(name + "_bucket", bucket);
+		Item waterBucket = bucketProvider.getWaterBucket();
+		Register(name + "_water_bucket", waterBucket);
+		Item lavaBucket = bucketProvider.getLavaBucket();
+		if (lavaBucket != null) Register(name + "_lava_bucket", bucketProvider.getLavaBucket());
+		Item powderSnowBucket = bucketProvider.getPowderSnowBucket();
+		Register(name + "_powder_snow_bucket", bucketProvider.getPowderSnowBucket());
+		Item bloodBucket = bucketProvider.getBloodBucket();
+		Register(name + "_blood_bucket",bloodBucket);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(bloodBucket, BloodCauldronBlock.FillFromBucket(bucket));
+		Item mudBucket = bucketProvider.getMudBucket();
+		Register(name + "_mud_bucket", mudBucket);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(mudBucket, MudCauldronBlock.FillFromBucket(bucket));
+		DispenserBlock.registerBehavior(bucket, new ItemDispenserBehavior() {
 			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				WorldAccess worldAccess = pointer.getWorld();
@@ -622,123 +575,51 @@ public class HavenRegistry {
 				Block block = blockState.getBlock();
 				if (block instanceof FluidDrainable) {
 					ItemStack itemStack = ((FluidDrainable)block).tryDrainFluid(worldAccess, blockPos, blockState);
-					itemStack = CopperBucketItem.metalToCopper(itemStack);
-					if (itemStack.isEmpty()) {
-						return super.dispenseSilently(pointer, stack);
-					} else {
+					itemStack = bucketProvider.bucketInMaterial(itemStack);
+					if (itemStack.isEmpty()) return super.dispenseSilently(pointer, stack);
+					else {
 						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
 						Item item2 = itemStack.getItem();
 						stack.decrement(1);
-						if (stack.isEmpty()) {
-							return new ItemStack(item2);
-						} else {
+						if (stack.isEmpty()) return new ItemStack(item2);
+						else {
 							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
 								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
 							}
-
 							return stack;
 						}
 					}
-				} else {
-					return super.dispenseSilently(pointer, stack);
 				}
+				else return super.dispenseSilently(pointer, stack);
 			}
 		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(waterBucket, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY, COPPER_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 		});
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(COPPER_WATER_BUCKET), (statex) -> {
-				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(bucket, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(waterBucket),
+					(statex) -> (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL);
 		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(powderSnowBucket, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
 					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, COPPER_BUCKET);
+					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, bucket);
 		});
-		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(COPPER_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(COPPER_POWDER_SNOW_BUCKET), (statex) -> {
-				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
+		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(bucket, (state, world, pos, player, hand, stack) -> {
+			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(powderSnowBucket),
+					(statex) -> (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
 		});
-		Register("copper_milk_bucket", COPPER_MILK_BUCKET);
-		Register("copper_chocolate_milk_bucket", COPPER_CHOCOLATE_MILK_BUCKET);
-		Register("copper_strawberry_milk_bucket", COPPER_STRAWBERRY_MILK_BUCKET);
-		Register("copper_coffee_milk_bucket", COPPER_COFFEE_MILK_BUCKET);
-		Register("copper_cottage_cheese_bucket", COPPER_COTTAGE_CHEESE_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_COPPER_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COPPER_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_COPPER_BUCKET);
-	}
-	public static void RegisterGoldBuckets() {
-		Register("gold_bucket", GOLD_BUCKET);
-		Register("gold_water_bucket", GOLD_WATER_BUCKET);
-		Register("gold_lava_bucket", GOLD_LAVA_BUCKET);
-		Register("gold_powder_snow_bucket", GOLD_POWDER_SNOW_BUCKET);
-		Register("gold_mud_bucket", GOLD_MUD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_MUD_BUCKET, MudCauldronBlock.FILL_FROM_GOLD_BUCKET);
-		Register("gold_blood_bucket", GOLD_BLOOD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_GOLD_BUCKET);
-		DispenserBlock.registerBehavior(GOLD_BUCKET, new ItemDispenserBehavior() {
-			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				WorldAccess worldAccess = pointer.getWorld();
-				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
-				BlockState blockState = worldAccess.getBlockState(blockPos);
-				Block block = blockState.getBlock();
-				if (block instanceof FluidDrainable) {
-					ItemStack itemStack = ((FluidDrainable)block).tryDrainFluid(worldAccess, blockPos, blockState);
-					itemStack = GoldBucketItem.metalToGold(itemStack);
-					if (itemStack.isEmpty()) {
-						return super.dispenseSilently(pointer, stack);
-					} else {
-						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
-						Item item2 = itemStack.getItem();
-						stack.decrement(1);
-						if (stack.isEmpty()) {
-							return new ItemStack(item2);
-						} else {
-							if (((DispenserBlockEntity)pointer.getBlockEntity()).addToFirstFreeSlot(new ItemStack(item2)) < 0) {
-								this.fallbackBehavior.dispense(pointer, new ItemStack(item2));
-							}
-
-							return stack;
-						}
-					}
-				} else {
-					return super.dispenseSilently(pointer, stack);
-				}
-			}
-		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_WATER_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY, GOLD_BUCKET);
-		});
-		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(GOLD_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(GOLD_WATER_BUCKET), (statex) -> {
-				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL);
-		});
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_POWDER_SNOW_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
-					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, GOLD_BUCKET);
-		});
-		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(GOLD_BUCKET, (state, world, pos, player, hand, stack) -> {
-			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(GOLD_POWDER_SNOW_BUCKET), (statex) -> {
-				return (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3;
-			}, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
-		});
-		Register("gold_milk_bucket", GOLD_MILK_BUCKET);
-		Register("gold_chocolate_milk_bucket", GOLD_CHOCOLATE_MILK_BUCKET);
-		Register("gold_strawberry_milk_bucket", GOLD_STRAWBERRY_MILK_BUCKET);
-		Register("gold_coffee_milk_bucket", GOLD_COFFEE_MILK_BUCKET);
-		Register("gold_cottage_cheese_bucket", GOLD_COTTAGE_CHEESE_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_MILK_BUCKET, MilkCauldronBlock.FILL_FROM_GOLD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(GOLD_COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_GOLD_BUCKET);
+		Item milkBucket = bucketProvider.getMilkBucket();
+		Register(name + "_milk_bucket", milkBucket);
+		Register(name + "_chocolate_milk_bucket", bucketProvider.getChocolateMilkBucket());
+		Register(name + "_coffee_milk_bucket", bucketProvider.getCoffeeMilkBucket());
+		Register(name + "_strawberry_milk_bucket", bucketProvider.getStrawberryMilkBucket());
+		Item cottageCheeseBucket = bucketProvider.getCottageCheeseBucket();
+		Register(name + "_cottage_cheese_bucket", cottageCheeseBucket);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(milkBucket, MilkCauldronBlock.FillFromBucket(bucket));
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(cottageCheeseBucket, MilkCauldronBlock.FillCheeseFromBucket(bucket));
 	}
 	public static void RegisterThrowableTomatoes() {
 		Register("throwable_tomato", THROWABLE_TOMATO_ITEM);
@@ -762,7 +643,7 @@ public class HavenRegistry {
 		//Liquid Blood, Bucket, and Bottles
 		Register("blood_bucket", BLOOD_BUCKET);
 		Register("blood_cauldron", BLOOD_CAULDRON);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BUCKET, BloodCauldronBlock.FILL_FROM_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BUCKET, BloodCauldronBlock.FillFromBucket(Items.BUCKET));
 		CauldronFluidContent.registerCauldron(BLOOD_CAULDRON, STILL_BLOOD_FLUID, FluidConstants.BOTTLE, LeveledCauldronBlock.LEVEL);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
@@ -911,23 +792,23 @@ public class HavenRegistry {
 	}
 	public static void RegisterMilks() {
 		Register("milk_bowl", MILK_BOWL);
-		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
 		Register("chocolate_milk_bowl", CHOCOLATE_MILK_BOWL);
-		Register("chocolate_milk_bottle", CHOCOLATE_MILK_BOTTLE);
-		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
-		Register("strawberry_milk_bowl", STRAWBERRY_MILK_BOWL);
-		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
-		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
 		Register("coffee_milk_bowl", COFFEE_MILK_BOWL);
+		Register("strawberry_milk_bowl", STRAWBERRY_MILK_BOWL);
+		Register("cottage_cheese_bowl", COTTAGE_CHEESE_BOWL);
+		Register("chocolate_milk_bottle", CHOCOLATE_MILK_BOTTLE);
 		Register("coffee_milk_bottle", COFFEE_MILK_BOTTLE);
+		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
 		Register("milk_cauldron", MILK_CAULDRON);
 		Register("cottage_cheese_cauldron", COTTAGE_CHEESE_CAULDRON);
 		Register("cheese_cauldron", CHEESE_CAULDRON);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, MilkCauldronBlock.FILL_FROM_BUCKET);
 		Register("cottage_cheese_block", COTTAGE_CHEESE_BLOCK);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(Items.MILK_BUCKET, MilkCauldronBlock.FillFromBucket(Items.BUCKET));
+		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
+		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
+		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
 		Register("cottage_cheese_bucket", COTTAGE_CHEESE_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FILL_CHEESE_FROM_BUCKET);
-		Register("cottage_cheese_bowl", COTTAGE_CHEESE_BOWL);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FillCheeseFromBucket(Items.BUCKET));
 		Register("cheese_block", CHEESE_BLOCK);
 		Register("cheese", CHEESE);
 		Register("grilled_cheese", GRILLED_CHEESE);
@@ -957,7 +838,6 @@ public class HavenRegistry {
 	}
 	public static void RegisterCopper() {
 		Register(COPPER_MATERIAL);
-		RegisterCopperBuckets();
 		//Torches
 		Register("copper_flame", COPPER_FLAME);
 		Register("copper", COPPER_TORCH);
@@ -994,21 +874,63 @@ public class HavenRegistry {
 		Register("exposed_copper_lantern", EXPOSED_COPPER_LANTERN);
 		Register("weathered_copper_lantern", WEATHERED_COPPER_LANTERN);
 		Register("oxidized_copper_lantern", OXIDIZED_COPPER_LANTERN);
+		Register("unlit_copper_lantern", UNLIT_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(COPPER_LANTERN.BLOCK, UNLIT_COPPER_LANTERN);
+		Register("unlit_exposed_copper_lantern", UNLIT_EXPOSED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(EXPOSED_COPPER_LANTERN.BLOCK, UNLIT_EXPOSED_COPPER_LANTERN);
+		Register("unlit_weathered_copper_lantern", UNLIT_WEATHERED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(WEATHERED_COPPER_LANTERN.BLOCK, UNLIT_WEATHERED_COPPER_LANTERN);
+		Register("unlit_oxidized_copper_lantern", UNLIT_OXIDIZED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(OXIDIZED_COPPER_LANTERN.BLOCK, UNLIT_OXIDIZED_COPPER_LANTERN);
 		OxidationScale.Register(COPPER_LANTERN, EXPOSED_COPPER_LANTERN, WEATHERED_COPPER_LANTERN, OXIDIZED_COPPER_LANTERN);
+		OxidationScale.Register(UNLIT_COPPER_LANTERN, UNLIT_EXPOSED_COPPER_LANTERN, UNLIT_WEATHERED_COPPER_LANTERN, UNLIT_OXIDIZED_COPPER_LANTERN);
 		Register("waxed_copper_lantern", WAXED_COPPER_LANTERN);
 		Register("waxed_exposed_copper_lantern", WAXED_EXPOSED_COPPER_LANTERN);
 		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN);
 		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN);
+		Register("unlit_waxed_copper_lantern", UNLIT_WAXED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_COPPER_LANTERN.BLOCK, UNLIT_WAXED_COPPER_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_COPPER_LANTERN, UNLIT_WAXED_COPPER_LANTERN);
+		Register("unlit_waxed_exposed_copper_lantern", UNLIT_WAXED_EXPOSED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_EXPOSED_COPPER_LANTERN.BLOCK, UNLIT_WAXED_EXPOSED_COPPER_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_EXPOSED_COPPER_LANTERN, UNLIT_WAXED_EXPOSED_COPPER_LANTERN);
+		Register("unlit_waxed_weathered_copper_lantern", UNLIT_WAXED_WEATHERED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_WEATHERED_COPPER_LANTERN.BLOCK, UNLIT_WAXED_WEATHERED_COPPER_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_WEATHERED_COPPER_LANTERN, UNLIT_WAXED_WEATHERED_COPPER_LANTERN);
+		Register("unlit_waxed_oxidized_copper_lantern", UNLIT_WAXED_OXIDIZED_COPPER_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_OXIDIZED_COPPER_LANTERN.BLOCK, UNLIT_WAXED_OXIDIZED_COPPER_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_OXIDIZED_COPPER_LANTERN, UNLIT_WAXED_OXIDIZED_COPPER_LANTERN);
 		//Soul Lanterns
 		Register("copper_soul_lantern", COPPER_SOUL_LANTERN);
 		Register("exposed_copper_soul_lantern", EXPOSED_COPPER_SOUL_LANTERN);
 		Register("weathered_copper_soul_lantern", WEATHERED_COPPER_SOUL_LANTERN);
 		Register("oxidized_copper_soul_lantern", OXIDIZED_COPPER_SOUL_LANTERN);
+		Register("unlit_copper_soul_lantern", UNLIT_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(COPPER_SOUL_LANTERN.BLOCK, UNLIT_COPPER_SOUL_LANTERN);
+		Register("unlit_exposed_copper_soul_lantern", UNLIT_EXPOSED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(EXPOSED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_EXPOSED_COPPER_SOUL_LANTERN);
+		Register("unlit_weathered_copper_soul_lantern", UNLIT_WEATHERED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(WEATHERED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_WEATHERED_COPPER_SOUL_LANTERN);
+		Register("unlit_oxidized_copper_soul_lantern", UNLIT_OXIDIZED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(OXIDIZED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_OXIDIZED_COPPER_SOUL_LANTERN);
 		OxidationScale.Register(COPPER_SOUL_LANTERN, EXPOSED_COPPER_SOUL_LANTERN, WEATHERED_COPPER_SOUL_LANTERN, OXIDIZED_COPPER_SOUL_LANTERN);
+		OxidationScale.Register(UNLIT_COPPER_SOUL_LANTERN, UNLIT_EXPOSED_COPPER_SOUL_LANTERN, UNLIT_WEATHERED_COPPER_SOUL_LANTERN, UNLIT_OXIDIZED_COPPER_SOUL_LANTERN);
 		Register("waxed_copper_soul_lantern", WAXED_COPPER_SOUL_LANTERN);
 		Register("waxed_exposed_copper_soul_lantern", WAXED_EXPOSED_COPPER_SOUL_LANTERN);
 		Register("waxed_weathered_copper_soul_lantern", WAXED_WEATHERED_COPPER_SOUL_LANTERN);
 		Register("waxed_oxidized_copper_soul_lantern", WAXED_OXIDIZED_COPPER_SOUL_LANTERN);
+		Register("unlit_waxed_copper_soul_lantern", UNLIT_WAXED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_WAXED_COPPER_SOUL_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_COPPER_SOUL_LANTERN, UNLIT_WAXED_COPPER_SOUL_LANTERN);
+		Register("unlit_waxed_exposed_copper_soul_lantern", UNLIT_WAXED_EXPOSED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_EXPOSED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_WAXED_EXPOSED_COPPER_SOUL_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_EXPOSED_COPPER_SOUL_LANTERN, UNLIT_WAXED_EXPOSED_COPPER_SOUL_LANTERN);
+		Register("unlit_waxed_weathered_copper_soul_lantern", UNLIT_WAXED_WEATHERED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_WEATHERED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_WAXED_WEATHERED_COPPER_SOUL_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_WEATHERED_COPPER_SOUL_LANTERN, UNLIT_WAXED_WEATHERED_COPPER_SOUL_LANTERN);
+		Register("unlit_waxed_oxidized_copper_soul_lantern", UNLIT_WAXED_OXIDIZED_COPPER_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(WAXED_OXIDIZED_COPPER_SOUL_LANTERN.BLOCK, UNLIT_WAXED_OXIDIZED_COPPER_SOUL_LANTERN);
+		OxidationScale.WAXED_BLOCKS.put(UNLIT_OXIDIZED_COPPER_SOUL_LANTERN, UNLIT_WAXED_OXIDIZED_COPPER_SOUL_LANTERN);
 		//Chains
 		Register("copper_chain", COPPER_CHAIN);
 		Register("exposed_copper_chain", EXPOSED_COPPER_CHAIN);
@@ -1062,7 +984,6 @@ public class HavenRegistry {
 	}
 	public static void RegisterGold() {
 		Register("gold_flame", GOLD_FLAME);
-		RegisterGoldBuckets();
 		Register(GOLD_MATERIAL);
 	}
 	public static void RegisterIron() {
@@ -1084,7 +1005,7 @@ public class HavenRegistry {
 		Register("falling_mud", FALLING_MUD);
 		Register("falling_dripstone_mud", FALLING_DRIPSTONE_MUD);
 		Register("mud_bucket", MUD_BUCKET);
-		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FILL_FROM_BUCKET);
+		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FillFromBucket(Items.BUCKET));
 		Register("mud_cauldron", MUD_CAULDRON);
 		Register("still_mud", STILL_MUD_FLUID);
 		Register("flowing_mud", FLOWING_MUD_FLUID);
@@ -1105,6 +1026,8 @@ public class HavenRegistry {
 		Register("glow_flame", GLOW_FLAME);
 		Register("unlit", UNLIT_TORCH);
 		Register("unlit_soul", UNLIT_SOUL_TORCH);
+		Register("unlit_lantern", UNLIT_LANTERN);
+		Register("unlit_soul_lantern", UNLIT_SOUL_LANTERN);
 		Register("underwater", UNDERWATER_TORCH);
 		Register(BONE_MATERIAL);
 		Register("tinker_toy", TINKER_TOY);
@@ -1128,9 +1051,8 @@ public class HavenRegistry {
 		RegisterCherry();
 		RegisterCinnamon();
 		RegisterBamboo();
-		Register(CRIMSON_MATERIAL);
-		Register(WARPED_MATERIAL);
-		RegisterWoodBuckets();
+		RegisterVanillaWood();
+		Register(WOOD_MATERIAL);
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);

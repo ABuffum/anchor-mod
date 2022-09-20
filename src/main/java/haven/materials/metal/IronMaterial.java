@@ -25,8 +25,12 @@ public class IronMaterial extends BaseMaterial implements
 	public HavenTorch getSoulTorch() { return soul_torch; }
 	private final HavenPair lantern;
 	public HavenPair getLantern() { return lantern; }
+	private final Block unlit_lantern;
+	public Block getUnlitLantern() { return unlit_lantern; }
 	private final HavenPair soul_lantern;
 	public HavenPair getSoulLantern() { return soul_lantern; }
+	private final Block unlit_soul_lantern;
+	public Block getUnlitSoulLantern() { return unlit_soul_lantern; }
 	private final HavenPair chain;
 	public HavenPair getChain() { return chain; }
 	private final HavenPair wall;
@@ -47,7 +51,9 @@ public class IronMaterial extends BaseMaterial implements
 		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME, ItemSettings());
 		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
 		lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
+		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(lantern.BLOCK));
 		soul_lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
+		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(soul_lantern.BLOCK));
 		chain = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
 		wall = new HavenPair(new HavenWallBlock(Blocks.IRON_BLOCK), ItemSettings());
 		cut = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
@@ -59,7 +65,8 @@ public class IronMaterial extends BaseMaterial implements
 
 	public boolean contains(Block block) {
 		return torch.contains(block) || soul_torch.contains(block)
-				|| block == lantern.BLOCK || block == soul_lantern.BLOCK || block == chain.BLOCK || block == wall.BLOCK
+				|| block == lantern.BLOCK || block == unlit_lantern || block == soul_lantern.BLOCK || block == unlit_soul_lantern
+				|| block == chain.BLOCK || block == wall.BLOCK
 				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
 				|| block == cut_wall.BLOCK || super.contains(block);
 	}

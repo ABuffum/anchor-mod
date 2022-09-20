@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_lantern",
+  "textures": {
+    "lantern": "haven:block/unlit_netherite_lantern"
+  }
+}

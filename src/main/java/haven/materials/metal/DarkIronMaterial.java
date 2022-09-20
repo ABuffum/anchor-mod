@@ -15,7 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 
-public class DarkIronMaterial extends BaseMaterial implements
+public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		NuggetProvider,
 		TorchProvider, SoulTorchProvider,
 		BarsProvider, BlockProvider, WallProvider, DoorProvider, TrapdoorProvider,
@@ -49,7 +49,9 @@ public class DarkIronMaterial extends BaseMaterial implements
 	public HavenPair getCutWall() { return cut_wall; }
 
 	public DarkIronMaterial() {
-		super("dark_iron", false);
+		super("dark_iron", false, HavenToolMaterials.DARK_IRON,
+				6, -3.1F, -2, -1, 1, -2.8F, 1.5F, -3, 3, -2.4F,
+				HavenArmorMaterials.DARK_IRON, 5);
 		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME, ItemSettings());
 		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
 		nugget = new Item(ItemSettings());

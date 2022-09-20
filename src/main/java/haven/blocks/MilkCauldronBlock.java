@@ -1,6 +1,7 @@
 package haven.blocks;
 
 import haven.HavenMod;
+import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -41,27 +42,22 @@ public class MilkCauldronBlock extends Block {
 		OUTLINE_SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.union(createCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), createCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), createCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), RAYCAST_SHAPE), BooleanBiFunction.ONLY_FIRST);
 	}
 
-	public static final CauldronBehavior FILL_FROM_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, Items.BUCKET);
-	public static final CauldronBehavior FILL_FROM_WOOD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
-	public static final CauldronBehavior FILL_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
-	public static final CauldronBehavior FILL_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.MILK_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
-	public static final CauldronBehavior FILL_CHEESE_FROM_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, Items.BUCKET);
-	public static final CauldronBehavior FILL_CHEESE_FROM_WOOD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
-	public static final CauldronBehavior FILL_CHEESE_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
-	public static final CauldronBehavior FILL_CHEESE_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
+	public static CauldronBehavior FillFromBucket(Item bucket) {
+		return (state, world, pos, player, hand, stack)
+				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
+				HavenMod.MILK_CAULDRON.getDefaultState(),
+				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
+	}
+
+	public static CauldronBehavior FillCheeseFromBucket(Item bucket) {
+		return (state, world, pos, player, hand, stack)
+			-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
+				HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(),
+				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
+	}
 
 	@Override
-	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return Items.CAULDRON.getDefaultStack();
-	}
+	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) { return Items.CAULDRON.getDefaultStack(); }
 
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
@@ -80,20 +76,10 @@ public class MilkCauldronBlock extends Block {
 		Item item = stack.getItem();
 		if (curdling < 2) {
 			ItemStack newStack = null;
-			if (item == Items.BUCKET) {
-				newStack = new ItemStack(curdling < 1 ? Items.MILK_BUCKET : HavenMod.COTTAGE_CHEESE_BUCKET);
-			}
-			else if (item == HavenMod.WOOD_BUCKET) {
-				newStack = new ItemStack(curdling < 1 ? HavenMod.WOOD_MILK_BUCKET : HavenMod.WOOD_COTTAGE_CHEESE_BUCKET);
-			}
-			else if (item == HavenMod.COPPER_BUCKET) {
-				newStack = new ItemStack(curdling < 1 ? HavenMod.COPPER_MILK_BUCKET : HavenMod.COPPER_COTTAGE_CHEESE_BUCKET);
-			}
-			else if (item == HavenMod.GOLD_BUCKET) {
-				newStack = new ItemStack(curdling < 1 ? HavenMod.GOLD_MILK_BUCKET : HavenMod.GOLD_COTTAGE_CHEESE_BUCKET);
-			}
-			else if (item == Items.BOWL) {
-				newStack = new ItemStack(curdling < 1 ? HavenMod.MILK_BOWL : HavenMod.COTTAGE_CHEESE_BOWL);
+			if (item == Items.BOWL) newStack = new ItemStack(curdling < 1 ? HavenMod.MILK_BOWL : HavenMod.COTTAGE_CHEESE_BOWL);
+			else {
+				BucketProvider provider = BucketProvider.getProvider(item);
+				if (provider != null) newStack = new ItemStack(curdling < 1 ? provider.getMilkBucket() : provider.getCottageCheeseBucket());
 			}
 			if (newStack != null) {
 				if (!player.getAbilities().creativeMode) {
@@ -119,7 +105,5 @@ public class MilkCauldronBlock extends Block {
 		return ActionResult.PASS;
 	}
 
-	public boolean hasRandomTicks(BlockState state) {
-		return curdling < 2;
-	}
+	public boolean hasRandomTicks(BlockState state) { return curdling < 2; }
 }

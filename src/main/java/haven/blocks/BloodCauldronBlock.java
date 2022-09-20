@@ -3,6 +3,8 @@ package haven.blocks;
 import haven.HavenMod;
 import haven.blood.BloodFluid;
 import haven.blood.BloodType;
+import haven.materials.base.BaseMaterial;
+import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -34,14 +36,14 @@ import java.util.Map;
 
 public class BloodCauldronBlock extends LeveledCauldronBlock {
 	public static final Map<Item, CauldronBehavior> BLOOD_CAULDRON_BEHAVIOR = CauldronBehavior.createMap();
-	public static final CauldronBehavior FILL_FROM_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, Items.BUCKET);
-	public static final CauldronBehavior FILL_FROM_WOOD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.WOOD_BUCKET);
-	public static final CauldronBehavior FILL_FROM_COPPER_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.COPPER_BUCKET);
-	public static final CauldronBehavior FILL_FROM_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> BucketUtils.fillCauldron(world, pos, player, hand, stack, HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3), SoundEvents.ITEM_BUCKET_EMPTY, HavenMod.GOLD_BUCKET);
+
+	public static CauldronBehavior FillFromBucket(Item bucket) {
+		return (state, world, pos, player, hand, stack)
+				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
+				HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3),
+				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
+	}
+
 	public static final CauldronBehavior FILL_FROM_BOTTLE = (state, world, pos, player, hand, stack) -> {
 		Block block = state.getBlock();
 		if ((block == Blocks.CAULDRON || block == HavenMod.BLOOD_CAULDRON) && (!state.contains(LEVEL) || state.get(LEVEL) != 3) && stack.getItem() == HavenMod.BLOOD_BOTTLE) {
@@ -61,14 +63,12 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 		}
 		return ActionResult.PASS;
 	};
-	public static final CauldronBehavior EMPTY_TO_BUCKET = (state, world, pos, player, hand, stack)
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.BLOOD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_WOOD_BUCKET = (state, world, pos, player, hand, stack)
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.WOOD_BLOOD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_COPPER_BUCKET = (state, world, pos, player, hand, stack)
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.COPPER_BLOOD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
-	public static final CauldronBehavior EMPTY_TO_GOLD_BUCKET = (state, world, pos, player, hand, stack)
-			-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(HavenMod.GOLD_BLOOD_BUCKET), statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
+
+	public static CauldronBehavior EmptyToBucket(Item bloodBucket) {
+		return (state, world, pos, player, hand, stack)
+				-> CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(bloodBucket),
+				statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
+	}
 	public static final CauldronBehavior EMPTY_TO_BOTTLE = (state, world, pos, player, hand, stack) -> {
 		if (!world.isClient) {
 			Item item = stack.getItem();
@@ -87,15 +87,16 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 	}
 
 	public static Map<Item, CauldronBehavior> getBloodCauldronBehaviors() {
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.BLOOD_BUCKET, FILL_FROM_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.WOOD_BLOOD_BUCKET, FILL_FROM_WOOD_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.COPPER_BLOOD_BUCKET, FILL_FROM_COPPER_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.GOLD_BLOOD_BUCKET, FILL_FROM_GOLD_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(Items.BUCKET, EMPTY_TO_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.WOOD_BUCKET, EMPTY_TO_WOOD_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.COPPER_BUCKET, EMPTY_TO_COPPER_BUCKET);
-		BLOOD_CAULDRON_BEHAVIOR.put(HavenMod.GOLD_BUCKET, EMPTY_TO_GOLD_BUCKET);
-
+		for(BaseMaterial material : HavenMod.MATERIALS) {
+			if (material instanceof BucketProvider bucketProvider) {
+				Item bucket = bucketProvider.getBucket(), bloodBucket = bucketProvider.getBloodBucket();
+				BLOOD_CAULDRON_BEHAVIOR.put(bloodBucket, FillFromBucket(bucket));
+				BLOOD_CAULDRON_BEHAVIOR.put(bucket, EmptyToBucket(bloodBucket));
+			}
+		}
+		BucketProvider bp = BucketProvider.DEFAULT_PROVIDER;
+		BLOOD_CAULDRON_BEHAVIOR.put(bp.getBloodBucket(), FillFromBucket(bp.getBucket()));
+		BLOOD_CAULDRON_BEHAVIOR.put(bp.getBucket(), EmptyToBucket(bp.getBloodBucket()));
 		return BLOOD_CAULDRON_BEHAVIOR;
 	}
 
@@ -131,14 +132,9 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
-		Item item = stack.getItem();
-		ItemStack newStack = null;
-		if (item == Items.BUCKET) newStack = new ItemStack(HavenMod.BLOOD_BUCKET);
-		else if (item == HavenMod.WOOD_BUCKET) newStack = new ItemStack(HavenMod.WOOD_BLOOD_BUCKET);
-		else if (item == HavenMod.COPPER_BUCKET) newStack = new ItemStack(HavenMod.COPPER_BLOOD_BUCKET);
-		else if (item == HavenMod.GOLD_BUCKET) newStack = new ItemStack(HavenMod.GOLD_BLOOD_BUCKET);
-		if (newStack != null) {
+		BucketProvider provider = BucketProvider.getProvider(player.getStackInHand(hand).getItem());
+		if (provider != null) {
+			ItemStack newStack = new ItemStack(provider.getBloodBucket());
 			if (!player.getAbilities().creativeMode) {
 				player.getStackInHand(hand).decrement(1);
 				if (player.getStackInHand(hand).isEmpty()) player.setStackInHand(hand, newStack);

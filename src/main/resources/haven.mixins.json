@@ -39,6 +39,7 @@
     "entities.SnowGolemEntityMixin",
     "items.AxeItemMixin",
     "items.BucketItemAccessor",
+    "items.FlintAndSteelItemMixin",
     "items.GlassBottleItemMixin",
     "items.HoneycombItemMixin",
     "items.MilkBucketItemMixin",

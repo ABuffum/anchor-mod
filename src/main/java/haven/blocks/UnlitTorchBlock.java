@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 public class UnlitTorchBlock extends TorchBlock {
 	private final Block lit;
 	public UnlitTorchBlock(Block lit) {
-		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)).dropsLike(lit), ParticleTypes.FLAME);
+		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

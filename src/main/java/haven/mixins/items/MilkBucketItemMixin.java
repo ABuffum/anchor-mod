@@ -1,7 +1,6 @@
 package haven.mixins.items;
 
-import haven.items.buckets.CopperMilkBucketItem;
-import haven.items.buckets.WoodMilkBucketItem;
+import haven.items.buckets.HavenMilkBucketItem;
 import haven.util.BucketUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
@@ -27,19 +26,14 @@ public class MilkBucketItemMixin extends Item {
 	@Inject(method="finishUsing", at = @At("HEAD"), cancellable = true)
 	public void FinishUsing(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
 		Item item = stack.getItem();
-		if (item instanceof WoodMilkBucketItem || item instanceof CopperMilkBucketItem) return;
+		if (item instanceof HavenMilkBucketItem) return;
 		if (user instanceof ServerPlayerEntity) {
 			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)user;
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-			stack.decrement(1);
-		}
-		if (!world.isClient) {
-			BucketUtils.milkClearStatusEffects(world, user);
-			user.clearStatusEffects();
-		}
+		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
+		if (!world.isClient) BucketUtils.milkClearStatusEffects(world, user);
 		cir.setReturnValue(stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack);
 	}
 }

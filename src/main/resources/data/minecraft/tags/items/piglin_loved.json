@@ -12,6 +12,7 @@
     "haven:cut_gold_pillar",
     "haven:cut_gold_slab",
     "haven:cut_gold_stairs",
-    "haven:cut_gold_wall"
+    "haven:cut_gold_wall",
+    "haven:gold_bucket"
   ]
 }

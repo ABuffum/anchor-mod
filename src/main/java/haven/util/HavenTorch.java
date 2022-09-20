@@ -28,7 +28,7 @@ public class HavenTorch extends WalledBlock {
 		this(new HavenTorchBlock(blockSettings, particle), particle, itemSettings);
 	}
 	private HavenTorch(Block block, ParticleEffect particle, Item.Settings itemSettings) {
-		this(block, new HavenWallTorchBlock(AbstractBlock.Settings.copy(block).dropsLike(block), particle), itemSettings);
+		this(block, new HavenWallTorchBlock(AbstractBlock.Settings.copy(block), particle), itemSettings);
 	}
 
 	private HavenTorch(Block block, Block wallBlock, Item.Settings itemSettings) {
@@ -42,17 +42,17 @@ public class HavenTorch extends WalledBlock {
 
 	public static HavenTorch Oxidizable(Oxidizable.OxidizationLevel level, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
 		Block block = new OxidizableTorchBlock(level, blockSettings, particle);
-		Block wallBlock = new OxidizableWallTorchBlock(level, AbstractBlock.Settings.copy(block).dropsLike(block), particle);
+		Block wallBlock = new OxidizableWallTorchBlock(level, AbstractBlock.Settings.copy(block), particle);
 		Block unlit = new OxidizableUnlitTorchBlock(level, block);
-		Block unlitWall = new OxidizableUnlitWallTorchBlock(level, wallBlock);
+		Block unlitWall = new OxidizableUnlitWallTorchBlock(level, wallBlock, unlit);
 		return new HavenTorch(block, wallBlock, HavenMod.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
 	}
 
 	public static HavenTorch Waterloggable(AbstractBlock.Settings blockSettings, ParticleEffect particle) {
 		Block block = new UnderwaterTorchBlock(blockSettings, particle);
-		Block wallBlock = new UnderwaterWallTorchBlock(AbstractBlock.Settings.copy(block).dropsLike(block), particle);
+		Block wallBlock = new UnderwaterWallTorchBlock(AbstractBlock.Settings.copy(block), particle);
 		Block unlit = new UnderwaterUnlitTorchBlock(block);
-		Block unlitWall = new UnderwaterUnlitWallTorchBlock(wallBlock);
+		Block unlitWall = new UnderwaterUnlitWallTorchBlock(wallBlock, unlit);
 		return new HavenTorch(block, wallBlock, HavenMod.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
 	}
 
@@ -70,7 +70,7 @@ public class HavenTorch extends WalledBlock {
 		public final Block UNLIT_WALL;
 		public Unlit(Block lit, Block litWall) {
 			UNLIT = new UnlitTorchBlock(LIT = lit);
-			UNLIT_WALL = new UnlitWallTorchBlock(LIT_WALL = litWall);
+			UNLIT_WALL = new UnlitWallTorchBlock(LIT_WALL = litWall, UNLIT);
 		}
 		public Unlit(Block lit, Block litWall, Block unlit, Block unlitWall) {
 			LIT = lit;

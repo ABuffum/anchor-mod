@@ -6,13 +6,13 @@
   ],
   "key": {
     "m": {
-      "item": "minecraft:amethyst_knife.json"
+      "item": "minecraft:obsidian"
     },
     "s": {
       "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "haven:amethyst_knife.json_knife"
+    "item": "haven:obsidian_knife"
   }
 }
