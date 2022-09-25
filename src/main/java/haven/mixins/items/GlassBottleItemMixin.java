@@ -74,13 +74,16 @@ public abstract class GlassBottleItemMixin extends Item {
 		if (state.getFluid() == HavenMod.STILL_BLOOD_FLUID || state.getFluid() == HavenMod.FLOWING_BLOOD_FLUID) {
 			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.BLOOD_BOTTLE))));
-			return;
 		}
 		//Fill bottle with Lava
 		else if (state.getFluid() == Fluids.LAVA || state.getFluid() == Fluids.FLOWING_LAVA) {
 			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.LAVA_BOTTLE))));
-			return;
+		}
+		//Fill bottle with Mud
+		else if (state.getFluid() == HavenMod.STILL_MUD_FLUID || state.getFluid() == HavenMod.FLOWING_MUD_FLUID) {
+			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.MUD_BOTTLE))));
 		}
 	}
 }

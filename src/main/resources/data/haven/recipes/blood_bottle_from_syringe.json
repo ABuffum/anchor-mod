@@ -1,12 +1,17 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "tag": "haven:blood_syringes"
-    },
-    {
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
       "item": "minecraft:glass_bottle"
+    },
+    "S": {
+      "tag": "haven:blood_syringes"
     }
+  },
+  "pattern": [
+    "SSS",
+    "S#S",
+    "SSS"
   ],
   "result": {
     "count": 1,

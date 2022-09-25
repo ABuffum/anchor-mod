@@ -77,6 +77,8 @@ public class BloodType {
 		@Override
 		public boolean IsFireVulnerable() { return false; }
 	};
+	public static final BloodType MILK = new BloodType("milk");
+	public static final BloodType MUD = new BloodType("mud");
 	public static final BloodType NEPHAL = new BloodType("nephal");
 	public static final BloodType NETHER = new BloodType("nether") {
 		@Override
@@ -202,6 +204,8 @@ public class BloodType {
 		else if (type == LAVA) return HavenMod.LAVA_SYRINGE;
 		else if (type == LLAMA) return HavenMod.LLAMA_BLOOD_SYRINGE;
 		else if (type == MAGMA) return HavenMod.MAGMA_CREAM_SYRINGE;
+		else if (type == MILK) return HavenMod.MILK_SYRINGE;
+		else if (type == MUD) return HavenMod.MUD_SYRINGE;
 		else if (type == NEPHAL) return HavenMod.NEPHAL_BLOOD_SYRINGE;
 		else if (type == NETHER) return HavenMod.NETHER_BLOOD_SYRINGE;
 		else if (type == NETHER_ROYALTY) return HavenMod.NETHER_ROYALTY_BLOOD_SYRINGE;

@@ -6,18 +6,9 @@ import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 
-public class MangroveMaterial extends BaseTreeMaterial {
+public class MangroveMaterial extends LeavedTreeMaterial {
 	public final PottedBlockContainer PROPAGULE;
 
-	public MangroveMaterial(String name, MapColor mapColor) {
-		this(name, mapColor, true);
-	}
-	public MangroveMaterial(String name, MapColor mapColor, boolean isFlammable) {
-		this(name, mapColor, BlockSoundGroup.GRASS, isFlammable);
-	}
-	public MangroveMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds) {
-		this(name, mapColor, leafSounds, true);
-	}
 	public MangroveMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds, boolean isFlammable) {
 		super(name, mapColor, leafSounds, isFlammable);
 		PROPAGULE = new PottedBlockContainer(new PropaguleBlock(AbstractBlock.Settings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS)));

@@ -34,10 +34,7 @@ public class HavenMilkBucketItem extends Item implements BucketProvided {
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
-		if (!world.isClient) {
-			MilkUtils.ClearStatusEffects(world, user);
-			MilkUtils.CheckLactosIntolerance(world, user);
-		}
+		if (!world.isClient) MilkUtils.ApplyMilk(world, user);
 		return stack.isEmpty() ? new ItemStack(bucketProvider.getBucket()) : stack;
 	}
 

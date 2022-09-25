@@ -1,8 +1,12 @@
-package haven.blocks.basic;
+package haven.blocks;
 
 import net.minecraft.block.AbstractButtonBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class MetalButtonBlock extends AbstractButtonBlock {
 	public MetalButtonBlock(Settings settings) {

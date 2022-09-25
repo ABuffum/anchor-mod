@@ -1,6 +1,10 @@
 package haven.items.syringe;
 
 import haven.HavenMod;
+import haven.blocks.mud.MudFluid;
+import haven.blocks.mud.MudFluidBlock;
+import haven.blood.BloodFluid;
+import haven.blood.BloodFluidBlock;
 import haven.blood.BloodType;
 import haven.entities.cloud.ConfettiCloudEntity;
 import haven.entities.cloud.DragonBreathCloudEntity;
@@ -14,6 +18,8 @@ import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -94,6 +100,8 @@ public class EmptySyringeItem extends BaseSyringeItem {
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		PlayerEntity player = context.getPlayer();
+		FluidState fluidState = world.getFluidState(pos);
+		Fluid fluid = fluidState.getFluid();
 		if (block == Blocks.SLIME_BLOCK) {
 			ReplaceSyringe(player, context.getHand(), HavenMod.SLIME_SYRINGE);
 			return ActionResult.CONSUME;
@@ -116,8 +124,12 @@ public class EmptySyringeItem extends BaseSyringeItem {
 				return ActionResult.CONSUME;
 			}
 		}
-		else if (HavenMod.BLOOD_BLOCKS.contains(block) || HavenMod.BLOOD_MATERIAL.contains(block) || HavenMod.DRIED_BLOOD_MATERIAL.contains(block)) {
+		else if (HavenMod.BLOOD_BLOCK.contains(block) || block == HavenMod.BLOOD_CAULDRON || block instanceof BloodFluidBlock || fluid instanceof BloodFluid) {
 			ReplaceSyringe(player, context.getHand(), HavenMod.BLOOD_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		else if (HavenMod.MUD.contains(block) || block instanceof MudFluidBlock || fluid instanceof MudFluid) {
+			ReplaceSyringe(player, context.getHand(), HavenMod.MUD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER

@@ -20,7 +20,9 @@ public class HavenDamageSource extends DamageSource {
 	public static final DamageSource DRANK_LAVA = Drank("lava").setFire();
 	public static final DamageSource DRANK_MAGMA_CREAM = Drank("magma_cream").setFire();
 	public static final DamageSource DRANK_MILK = Drank("milk");
+	public static final DamageSource DRANK_MUD = Drank("mud");
 	public static final DamageSource DRANK_SLIME = Drank("slime");
+	public static final DamageSource DRANK_SLUDGE = Drank("sludge");
 	public static final DamageSource DRANK_SUGAR_WATER = Drank("sugar_water");
 	public static final DamageSource BLEEDING = new HavenDamageSource("bleeding").setUnblockable().setBypassesArmor();
 	public static InjectedDamageSource Injected(String type, LivingEntity source) {

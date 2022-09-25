@@ -1,6 +1,7 @@
 package haven.materials.metal;
 
 import haven.HavenMod;
+import haven.blocks.MetalButtonBlock;
 import haven.blocks.basic.*;
 import haven.items.buckets.*;
 import haven.materials.base.ToolArmorHorseMaterial;

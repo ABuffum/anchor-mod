@@ -1,5 +1,6 @@
 package haven.util;
 
+import com.mojang.datafixers.types.templates.Check;
 import haven.HavenMod;
 import haven.damage.HavenDamageSource;
 import haven.effects.BoneRotEffect;
@@ -9,12 +10,24 @@ import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class MilkUtils {
+	public static void ApplyMilk(World world, LivingEntity entity) {
+		ApplyMilk(world, entity, false);
+	}
+	public static void ApplyMilk(World world, LivingEntity entity, boolean coffeeMilk) {
+		ClearStatusEffects(world, entity);
+		if (coffeeMilk) {
+			entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
+			entity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
+		}
+		CheckLactosIntolerance(world, entity);
+	}
 	public static boolean ClearStatusEffects(World world, LivingEntity entity) {
 		if (world.isClient) return false;
 		Iterator<StatusEffectInstance> iterator = entity.getActiveStatusEffects().values().iterator();

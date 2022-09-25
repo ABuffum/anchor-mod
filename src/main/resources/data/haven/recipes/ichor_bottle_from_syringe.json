@@ -1,12 +1,17 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "haven:ichor_syringe"
-    },
-    {
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
       "item": "minecraft:glass_bottle"
+    },
+    "S": {
+      "item": "haven:ichor_syringe"
     }
+  },
+  "pattern": [
+    "SSS",
+    "S#S",
+    "SSS"
   ],
   "result": {
     "count": 1,

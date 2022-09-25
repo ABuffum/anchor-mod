@@ -28,10 +28,7 @@ import haven.items.consumable.*;
 import haven.items.buckets.*;
 import haven.items.consumable.milk.*;
 import haven.items.mud.MudBucketItem;
-import haven.items.syringe.BaseSyringeItem;
-import haven.items.syringe.BloodSyringeItem;
-import haven.items.syringe.EmptySyringeItem;
-import haven.items.syringe.SyringeItem;
+import haven.items.syringe.*;
 import haven.items.throwable.*;
 import haven.materials.*;
 import haven.materials.base.BaseMaterial;
@@ -53,6 +50,8 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -62,9 +61,8 @@ import net.minecraft.particle.*;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DataPool;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.intprovider.*;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -110,11 +108,11 @@ public class HavenMod implements ModInitializer {
 	}
 	public static final TorchContainer.Unlit UNLIT_TORCH = new TorchContainer.Unlit(Blocks.TORCH, Blocks.WALL_TORCH);
 	public static final TorchContainer.Unlit UNLIT_SOUL_TORCH = new TorchContainer.Unlit(Blocks.SOUL_TORCH, Blocks.SOUL_WALL_TORCH);
-	public static final Block UNLIT_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(Blocks.LANTERN));
-	public static final Block UNLIT_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings().dropsLike(Blocks.SOUL_LANTERN));
+	public static final Block UNLIT_LANTERN = new LanternBlock(UnlitLanternSettings());
+	public static final Block UNLIT_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings());
 
-	public static final DefaultParticleType GLOW_FLAME = FabricParticleTypes.simple(false);
-	public static final TorchContainer UNDERWATER_TORCH = TorchContainer.Waterloggable(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(14)).sounds(BlockSoundGroup.WOOD), GLOW_FLAME);
+	public static final DefaultParticleType UNDERWATER_TORCH_GLOW = FabricParticleTypes.simple(false);
+	public static final TorchContainer UNDERWATER_TORCH = TorchContainer.Waterloggable(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(14)).sounds(BlockSoundGroup.WOOD), UNDERWATER_TORCH_GLOW);
 
 	//More Copper
 	public static final DefaultParticleType COPPER_FLAME_PARTICLE = FabricParticleTypes.simple(false);
@@ -194,6 +192,8 @@ public class HavenMod implements ModInitializer {
 			() -> (StemBlock)Blocks.PUMPKIN_STEM,
 			() -> (AttachedStemBlock)Blocks.ATTACHED_PUMPKIN_STEM,
 			() -> (CarvedGourdBlock)CARVED_ROTTEN_PUMPKIN.BLOCK, () -> ROTTEN_PUMPKIN_SEEDS));
+	//Misc
+	public static final BlockContainer TINTED_GLASS_PANE = new BlockContainer(new TintedGlassPaneBlock(AbstractBlock.Settings.of(Material.GLASS).mapColor(MapColor.GRAY).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque()));
 	//Rainbow Sheep
 	public static final BlockContainer RAINBOW_WOOL = new BlockContainer(new HavenFacingBlock(Blocks.WHITE_WOOL));
 	public static final BlockContainer RAINBOW_CARPET = new BlockContainer(new HorziontalFacingCarpetBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET)));
@@ -222,6 +222,8 @@ public class HavenMod implements ModInitializer {
 	public static final Item BROKEN_BOTTLE = new Item(ItemSettings());
 	public static final Item LOCKET = new Item(ItemSettings());
 	public static final Item EMERALD_LOCKET = new Item(ItemSettings());
+	public static final Item AMBER_EYE = new AmberEyeItem(ItemSettings().maxCount(1));
+	public static final Block AMBER_EYE_END_PORTAL_FRAME = new AmberEyeEndPortalFrameBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PURPLE).sounds(BlockSoundGroup.GLASS).luminance(luminance(1)).strength(-1.0F, 3600000.0F));
 
 	public static final BlockContainer SOFT_TNT = new BlockContainer(new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
@@ -245,7 +247,7 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item CINNAMON = new Item(ItemSettings());
 
-	public static final TreeMaterial CHERRY_MATERIAL = new TreeMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new);
+	public static final TreeMaterial CHERRY_MATERIAL = new TreeMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new, true);
 	public static final BlockContainer PALE_CHERRY_LEAVES = new BlockContainer(new HavenLeavesBlock(CHERRY_MATERIAL.getLeaves().BLOCK));
 	public static final BlockContainer PINK_CHERRY_LEAVES = new BlockContainer(new HavenLeavesBlock(CHERRY_MATERIAL.getLeaves().BLOCK));
 	public static final BlockContainer WHITE_CHERRY_LEAVES = new BlockContainer(new HavenLeavesBlock(CHERRY_MATERIAL.getLeaves().BLOCK));
@@ -268,7 +270,7 @@ public class HavenMod implements ModInitializer {
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> PINK_CHERRY_TREE = CherryTreeFeature(PINK_CHERRY_LEAVES.BLOCK);
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> WHITE_CHERRY_TREE = CherryTreeFeature(WHITE_CHERRY_LEAVES.BLOCK);
 
-	public static final TreeMaterial CASSIA_MATERIAL = new TreeMaterial("cassia", MapColor.BROWN, BlockSoundGroup.AZALEA_LEAVES, CassiaSaplingGenerator::new);
+	public static final TreeMaterial CASSIA_MATERIAL = new TreeMaterial("cassia", MapColor.BROWN, BlockSoundGroup.AZALEA_LEAVES, CassiaSaplingGenerator::new, true);
 	public static final BlockContainer FLOWERING_CASSIA_LEAVES = new BlockContainer(new HavenLeavesBlock(CASSIA_MATERIAL.getLeaves().BLOCK));
 	public static final ConfiguredFeature<TreeFeatureConfig, ?> CASSIA_TREE = Feature.TREE.configure(
 			new TreeFeatureConfig.Builder(
@@ -422,7 +424,7 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer MUD_BRICK_SLAB = new BlockContainer(new HavenSlabBlock(MUD_BRICKS.BLOCK));
 	public static final BlockContainer MUD_BRICK_WALL = new BlockContainer(new HavenWallBlock(MUD_BRICKS.BLOCK));
 	//Mangrove
-	public static final MangroveMaterial MANGROVE_MATERIAL = new MangroveMaterial("mangrove", MapColor.RED);
+	public static final MangroveMaterial MANGROVE_MATERIAL = new MangroveMaterial("mangrove", MapColor.RED, BlockSoundGroup.GRASS, true);
 	public static final BlockContainer MANGROVE_ROOTS = new BlockContainer(new MangroveRootsBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(0.7f).ticksRandomly().sounds(HavenBlockSoundGroups.MANGROVE_ROOTS).nonOpaque().suffocates(BaseMaterial::never).blockVision(BaseMaterial::never).nonOpaque()));
 	public static final BlockContainer MUDDY_MANGROVE_ROOTS = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.SOIL, MapColor.SPRUCE_BROWN).strength(0.7f).sounds(HavenBlockSoundGroups.MUDDY_MANGROVE_ROOTS)));
 	//Frogs
@@ -499,7 +501,9 @@ public class HavenMod implements ModInitializer {
 	public static final StatusEffect ICHORED_EFFECT = new IchoredEffect();
 	public static final Item ICHOR_BOTTLE = new IchorBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
 	public static final Item SLIME_BOTTLE = new SlimeBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
+	public static final Item SLUDGE_BOTTLE = new SludgeBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
 	public static final Item MAGMA_CREAM_BOTTLE = new MagmaCreamBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
+	public static final Item MUD_BOTTLE = new MudBottleItem(ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE));
 	//Syringes
 	public static final Item BLOOD_SYRINGE = new BloodSyringeItem(BloodType.PLAYER, (PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
@@ -609,6 +613,19 @@ public class HavenMod implements ModInitializer {
 			if (bloodType.IsFireVulnerable()) entity.setOnFireFor(5);
 		}
 	});
+	public static final Item MUD_SYRINGE = new BloodSyringeItem(BloodType.MUD, (PlayerEntity user, LivingEntity entity) -> {
+		BloodType bloodType = BloodType.Get(entity);
+		if (bloodType == BloodType.MUD) entity.heal(1);
+		else entity.damage(HavenDamageSource.Injected("mud", user), 1);
+	});
+	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity) { ApplyMilkSyringe(user, entity, false); }
+	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity, boolean coffee) {
+		BloodType bloodType = BloodType.Get(entity);
+		if (bloodType == BloodType.MILK) entity.heal(1);
+		else if (bloodType != BloodType.COW) entity.damage(HavenDamageSource.Injected("milk", user), 1);
+		MilkUtils.ApplyMilk(entity.getEntityWorld(), user, coffee);
+	}
+	public static final Item MILK_SYRINGE = new BloodSyringeItem(BloodType.MILK, HavenMod::ApplyMilkSyringe);
 	public static final Item NEPHAL_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.NEPHAL, (PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
 		if (bloodType == BloodType.NEPHAL) entity.heal(1);
@@ -660,10 +677,11 @@ public class HavenMod implements ModInitializer {
 	public static final Item STRIDER_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.STRIDER);
 	public static final Item SUGAR_WATER_SYRINGE = new BloodSyringeItem(BloodType.SUGAR_WATER, (PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
+		//Put out fires
+		if (entity.isOnFire()) entity.setOnFire(false);
+		//Heal or hurt
 		if (bloodType == BloodType.SUGAR_WATER || bloodType == BloodType.WATER) entity.heal(1);
-		else {
-			//Put out fires
-			if (entity.isOnFire()) entity.setOnFire(false);
+		else if (bloodType != BloodType.MUD) {
 			//Hurt water-vulnerable
 			if (bloodType.IsWaterVulnerable()) entity.damage(HavenDamageSource.Injected("sugar_water", user), 4);
 			else entity.damage(HavenDamageSource.Injected("sugar_water", user), 1);
@@ -683,10 +701,11 @@ public class HavenMod implements ModInitializer {
 	public static final Item WARDEN_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.WARDEN);
 	public static final Item WATER_SYRINGE = new BloodSyringeItem(BloodType.WATER, (PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
+		//Put out fires
+		if (entity.isOnFire()) entity.setOnFire(false);
+		//Heal or Hurt
 		if (bloodType == BloodType.WATER) entity.heal(1);
-		else if (bloodType != BloodType.SUGAR_WATER) {
-			//Put out fires
-			if (entity.isOnFire()) entity.setOnFire(false);
+		else if (bloodType != BloodType.SUGAR_WATER && bloodType != BloodType.MUD) {
 			//Hurt water-vulnerable
 			if (bloodType.IsWaterVulnerable()) entity.damage(HavenDamageSource.Injected("water", user), 4);
 			else entity.damage(HavenDamageSource.Injected("water", user), 1);
@@ -715,6 +734,10 @@ public class HavenMod implements ModInitializer {
 		if (bloodType == BloodType.DRAGON) BloodSyringeItem.heal(entity, 4);
 		else entity.damage(HavenDamageSource.Injected("dragon_breath", user), 4);
 	});
+	public static final Item EXPERIENCE_SYRINGE = new ExperienceSyringeItem();
+	public static final Item CHOCOLATE_MILK_SYRINGE = new BaseSyringeItem(HavenMod::ApplyMilkSyringe);
+	public static final Item COFFEE_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, true));
+	public static final Item STRAWBERRY_MILK_SYRINGE = new BaseSyringeItem(HavenMod::ApplyMilkSyringe);
 
 	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
 	public static final Item SECRET_INGREDIENT = new Item(BloodItemSettings());
@@ -882,19 +905,12 @@ public class HavenMod implements ModInitializer {
 	public static BiMap<Block, Block> UNLIT_LANTERNS = HashBiMap.create();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
 
-	public static final Set<BlockContainer> LEAVES = new HashSet<BlockContainer>(Set.<BlockContainer>of(
-		PALE_CHERRY_LEAVES, PINK_CHERRY_LEAVES, WHITE_CHERRY_LEAVES, FLOWERING_CASSIA_LEAVES
-	));
 	public static final Set<FlowerContainer> FLOWERS = new HashSet<FlowerContainer>(Set.<FlowerContainer>of(
 		BUTTERCUP, PINK_DAISY, ROSE, BLUE_ROSE, MAGENTA_TULIP, MARIGOLD,
 		PINK_ALLIUM, LAVENDER, HYDRANGEA, PAEONIA
 	));
 	public static final Set<BlockContainer> TALL_FLOWERS = new HashSet<BlockContainer>(Set.<BlockContainer>of(
 		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM
-	));
-
-	public static final Set<Block> BLOOD_BLOCKS = new HashSet<Block>(Set.<Block>of(
-		BLOOD_FLUID_BLOCK, BLOOD_BLOCK.BLOCK, DRIED_BLOOD_BLOCK.BLOCK
 	));
 
 	public static final Set<StatusEffect> MILK_IMMUNE_EFFECTS = new HashSet<StatusEffect>(Set.<StatusEffect>of(
@@ -920,22 +936,6 @@ public class HavenMod implements ModInitializer {
 		UNLIT_LANTERNS.put(Blocks.SOUL_LANTERN, UNLIT_SOUL_LANTERN);
 		//Materials
 		for(BaseMaterial material : MATERIALS) {
-			if (material instanceof BundleProvider bundleProvider && material instanceof StrippedBundleProvider strippedBundle){
-				StrippedBlockUtils.Register(bundleProvider.getBundle().BLOCK, strippedBundle.getStrippedBundle().BLOCK);
-			}
-			if (material instanceof LogProvider log && material instanceof StrippedLogProvider strippedLog) {
-				StrippedBlockUtils.Register(log.getLog().BLOCK, strippedLog.getStrippedLog().BLOCK);
-			}
-			if (material instanceof WoodProvider wood && material instanceof StrippedWoodProvider strippedWood){
-				StrippedBlockUtils.Register(wood.getWood().BLOCK, strippedWood.getStrippedWood().BLOCK);
-			}
-			if (material instanceof StemProvider stem && material instanceof StrippedStemProvider strippedStem) {
-				StrippedBlockUtils.Register(stem.getStem().BLOCK, strippedStem.getStrippedStem().BLOCK);
-			}
-			if (material instanceof HyphaeProvider hyphae && material instanceof StrippedHyphaeProvider strippedHyphae){
-				StrippedBlockUtils.Register(hyphae.getHyphae().BLOCK, strippedHyphae.getStrippedHyphae().BLOCK);
-			}
-			if (material instanceof LeavesProvider leaves) LEAVES.add(leaves.getLeaves());
 			if (material instanceof SignProvider sign) SIGN_TYPES.add(sign.getSign().TYPE);
 			if (material instanceof LanternProvider lantern) UNLIT_LANTERNS.put(lantern.getLantern().BLOCK, lantern.getUnlitLantern());
 			if (material instanceof SoulLanternProvider soulLantern) UNLIT_LANTERNS.put(soulLantern.getSoulLantern().BLOCK, soulLantern.getUnlitSoulLantern());

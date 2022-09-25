@@ -18,7 +18,7 @@ public class SignContainer extends WallBlockContainer {
 		this(type,new SignBlock(AbstractBlock.Settings.of(material).noCollision().strength(1.0F).sounds(blockSoundGroup), type),material, blockSoundGroup);
 	}
 	private SignContainer(SignType type, Block block, Material material, BlockSoundGroup blockSoundGroup) {
-		this (type, block, new WallSignBlock(AbstractBlock.Settings.of(material).noCollision().strength(1.0F).sounds(blockSoundGroup).dropsLike(block), type));
+		this (type, block, new WallSignBlock(AbstractBlock.Settings.of(material).noCollision().strength(1.0F).sounds(blockSoundGroup), type));
 	}
 	private SignContainer(SignType type, Block block, Block wallBlock) {
 		this(type, block, wallBlock, new SignItem((new Item.Settings()).maxCount(16).group(HavenMod.ITEM_GROUP), block, wallBlock));

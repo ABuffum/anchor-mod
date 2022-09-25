@@ -11,7 +11,7 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public abstract class BaseFungusMaterial extends WoodMaterial implements
 		TorchProvider, SoulTorchProvider, CampfireProvider, SoulCampfireProvider,
-		StemProvider, StrippedStemProvider, HyphaeProvider, StrippedHyphaeProvider, WartBlockProvider {
+		StrippedStemProvider, StrippedHyphaeProvider, WartBlockProvider {
 	private final TorchContainer torch;
 	public TorchContainer getTorch() { return torch; }
 	private final TorchContainer soul_torch;

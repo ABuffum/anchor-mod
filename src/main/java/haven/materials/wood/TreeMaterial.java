@@ -9,18 +9,12 @@ import net.minecraft.sound.BlockSoundGroup;
 
 import java.util.function.Supplier;
 
-public class TreeMaterial extends BaseTreeMaterial implements SaplingProvider {
+public class TreeMaterial extends LeavedTreeMaterial implements SaplingProvider {
 	private final SaplingContainer sapling;
 	public SaplingContainer getSapling() { return sapling; }
 
-	public TreeMaterial(String name, MapColor mapColor, Supplier<SaplingGenerator> saplingGenerator) {
-		this(name, mapColor, saplingGenerator, true);
-	}
 	public TreeMaterial(String name, MapColor mapColor, Supplier<SaplingGenerator> saplingGenerator, boolean isFlammable) {
 		this(name, mapColor, BlockSoundGroup.GRASS, saplingGenerator, isFlammable);
-	}
-	public TreeMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds, Supplier<SaplingGenerator> saplingGenerator) {
-		this(name, mapColor, leafSounds, saplingGenerator, true);
 	}
 	public TreeMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds, Supplier<SaplingGenerator> saplingGenerator, boolean isFlammable) {
 		super(name, mapColor, leafSounds, isFlammable);

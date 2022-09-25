@@ -45,6 +45,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
@@ -64,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 
 import static haven.HavenMod.*;
+import static haven.HavenMod.MUD_BOTTLE;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -283,10 +285,12 @@ public class HavenRegistry {
 		if (material instanceof StrippedBundleProvider strippedBundle) {
 			BlockContainer pair = strippedBundle.getStrippedBundle();
 			Register("stripped_" + name + "_bundle", pair);
+			Block strippedBundleBlock = pair.BLOCK;
 			if (flammable) {
-				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FLAMMABLE.add(strippedBundleBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
+			StrippedBlockUtils.Register(strippedBundle.getBundle().BLOCK, strippedBundleBlock);
 		}
 		if (material instanceof LogProvider log) {
 			BlockContainer pair = log.getLog();
@@ -299,10 +303,12 @@ public class HavenRegistry {
 		if (material instanceof StrippedLogProvider strippedLog) {
 			BlockContainer pair = strippedLog.getStrippedLog();
 			Register("stripped_" + name + "_log", pair);
+			Block strippedLogBlock = pair.BLOCK;
 			if (flammable) {
-				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FLAMMABLE.add(strippedLogBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
+			StrippedBlockUtils.Register(strippedLog.getLog().BLOCK, strippedLogBlock);
 		}
 		if (material instanceof WoodProvider wood) {
 			BlockContainer pair = wood.getWood();
@@ -315,10 +321,12 @@ public class HavenRegistry {
 		if (material instanceof StrippedWoodProvider strippedWood) {
 			BlockContainer pair = strippedWood.getStrippedWood();
 			Register("stripped_" + name + "_wood", pair);
+			Block strippedWoodBlock = pair.BLOCK;
 			if (flammable) {
-				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FLAMMABLE.add(strippedWoodBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
+			StrippedBlockUtils.Register(strippedWood.getWood().BLOCK, strippedWoodBlock);
 		}
 		if (material instanceof StemProvider stem) {
 			BlockContainer pair = stem.getStem();
@@ -331,10 +339,12 @@ public class HavenRegistry {
 		if (material instanceof StrippedStemProvider strippedStem) {
 			BlockContainer pair = strippedStem.getStrippedStem();
 			Register("stripped_" + name + "_stem", pair);
+			Block strippedStemBlock = pair.BLOCK;
 			if (flammable) {
-				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FLAMMABLE.add(strippedStemBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
+			StrippedBlockUtils.Register(strippedStem.getStem().BLOCK, strippedStemBlock);
 		}
 		if (material instanceof HyphaeProvider hyphae) {
 			BlockContainer pair = hyphae.getHyphae();
@@ -347,10 +357,12 @@ public class HavenRegistry {
 		if (material instanceof StrippedHyphaeProvider strippedHyphae) {
 			BlockContainer pair = strippedHyphae.getStrippedHyphae();
 			Register("stripped_" + name + "_hyphae", pair);
+			Block strippedHyphaeBlock = pair.BLOCK;
 			if (flammable) {
-				FLAMMABLE.add(pair.BLOCK, 5, 5);
+				FLAMMABLE.add(strippedHyphaeBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
+			StrippedBlockUtils.Register(strippedHyphae.getHyphae().BLOCK, strippedHyphaeBlock);
 		}
 		if (material instanceof LeavesProvider leaves) {
 			BlockContainer pair = leaves.getLeaves();
@@ -449,9 +461,7 @@ public class HavenRegistry {
 		Register("substitute_anchor", SUBSTITUTE_ANCHOR_BLOCK);
 		Register("substitute_anchor_block_entity", SUBSTITUTE_ANCHOR_BLOCK_ENTITY);
 		//Anchor core items
-		for(Integer owner : ANCHOR_MAP.keySet()) {
-			Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
-		}
+		for(Integer owner : ANCHOR_MAP.keySet()) Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
 	}
 
 	public static void RegisterFlowers() {
@@ -815,23 +825,36 @@ public class HavenRegistry {
 		BloodCauldronBlock.BLOOD_CAULDRON_BEHAVIOR.put(Items.GLASS_BOTTLE, BloodCauldronBlock.EMPTY_TO_BOTTLE);
 		Register("blood_bottle", BLOOD_BOTTLE);
 		Register("lava_bottle", LAVA_BOTTLE);
+		FluidStorage.combinedItemApiProvider(LAVA_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(Fluids.LAVA), FluidConstants.BOTTLE));
 		Register("sugar_water_bottle", SUGAR_WATER_BOTTLE);
 		Register("ichored", ICHORED_EFFECT);
 		Register("ichor_bottle", ICHOR_BOTTLE);
 		Register("slime_bottle", SLIME_BOTTLE);
+		Register("sludge_bottle", SLUDGE_BOTTLE);
 		Register("magma_cream_bottle", MAGMA_CREAM_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
 		Register("still_blood", STILL_BLOOD_FLUID);
 		Register("flowing_blood", FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK);
-		//Blood Syringes
-		Register("blood_syringe", BLOOD_SYRINGE);
+		//Non-blood / special blood syringes
+		Register("chocolate_milk_syringe", CHOCOLATE_MILK_SYRINGE);
+		Register("chorus_syringe", CHORUS_SYRINGE);
+		Register("coffee_milk_syringe", COFFEE_MILK_SYRINGE);
+		Register("confetti_syringe", CONFETTI_SYRINGE);
+		Register("dragon_breath_syringe", DRAGON_BREATH_SYRINGE);
+		Register("honey_syringe", HONEY_SYRINGE);
+		Register("ichor_syringe", ICHOR_SYRINGE);
 		Register("lava_syringe", LAVA_SYRINGE);
-		Register("water_syringe", WATER_SYRINGE);
-		Register("sugar_water_syringe", SUGAR_WATER_SYRINGE);
 		Register("magma_cream_syringe", MAGMA_CREAM_SYRINGE);
+		Register("milk_syringe", MILK_SYRINGE);
+		Register("mud_syringe", MUD_SYRINGE);
 		Register("slime_syringe", SLIME_SYRINGE);
 		Register("sludge_syringe", SLUDGE_SYRINGE);
+		Register("strawberry_milk_syringe", STRAWBERRY_MILK_SYRINGE);
+		Register("sugar_water_syringe", SUGAR_WATER_SYRINGE);
+		Register("water_syringe", WATER_SYRINGE);
+		//Blood Syringes
+		Register("blood_syringe", BLOOD_SYRINGE);
 		Register("allay_blood_syringe", ALLAY_BLOOD_SYRINGE);
 		Register("anemic_blood_syringe", ANEMIC_BLOOD_SYRINGE);
 		Register("avian_blood_syringe", AVIAN_BLOOD_SYRINGE);
@@ -841,7 +864,6 @@ public class HavenRegistry {
 		Register("bee_blood_syringe", BEE_BLOOD_SYRINGE);
 		Register("bee_enderman_blood_syringe", BEE_ENDERMAN_BLOOD_SYRINGE);
 		Register("canine_blood_syringe", CANINE_BLOOD_SYRINGE);
-		Register("chorus_syringe", CHORUS_SYRINGE);
 		Register("cow_blood_syringe", COW_BLOOD_SYRINGE);
 		Register("creeper_blood_syringe", CREEPER_BLOOD_SYRINGE);
 		Register("diseased_feline_blood_syringe", DISEASED_FELINE_BLOOD_SYRINGE);
@@ -852,8 +874,6 @@ public class HavenRegistry {
 		Register("feline_blood_syringe", FELINE_BLOOD_SYRINGE);
 		Register("fish_blood_syringe", FISH_BLOOD_SYRINGE);
 		Register("goat_blood_syringe", GOAT_BLOOD_SYRINGE);
-		Register("honey_syringe", HONEY_SYRINGE);
-		Register("ichor_syringe", ICHOR_SYRINGE);
 		Register("insect_blood_syringe", INSECT_BLOOD_SYRINGE);
 		Register("llama_blood_syringe", LLAMA_BLOOD_SYRINGE);
 		Register("nephal_blood_syringe", NEPHAL_BLOOD_SYRINGE);
@@ -873,9 +893,6 @@ public class HavenRegistry {
 		Register("villager_blood_syringe", VILLAGER_BLOOD_SYRINGE);
 		Register("warden_blood_syringe", WARDEN_BLOOD_SYRINGE);
 		Register("zombie_blood_syringe", ZOMBIE_BLOOD_SYRINGE);
-		//Non-blood syringes
-		Register("confetti_syringe", CONFETTI_SYRINGE);
-		Register("dragon_breath_syringe", DRAGON_BREATH_SYRINGE);
 		//Syringes
 		Register("deteriorating", DETERIORATION_EFFECT);
 		Register("secret_ingredient", SECRET_INGREDIENT);
@@ -892,6 +909,7 @@ public class HavenRegistry {
 		Register("syringe_exp1", SYRINGE_EXP1);
 		Register("syringe_exp2", SYRINGE_EXP2);
 		Register("syringe_exp3", SYRINGE_EXP3);
+		Register("experience_syringe", EXPERIENCE_SYRINGE);
 	}
 	public static void RegisterCommands() {
 		CommandRegistrationCallback.EVENT.register(ChorusCommand::register);
@@ -1085,8 +1103,10 @@ public class HavenRegistry {
 		Register("dripping_mud", DRIPPING_MUD);
 		Register("falling_mud", FALLING_MUD);
 		Register("falling_dripstone_mud", FALLING_DRIPSTONE_MUD);
+		Register("mud_bottle", MUD_BOTTLE);
 		Register("mud_bucket", MUD_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FillFromBucket(Items.BUCKET));
+		FluidStorage.combinedItemApiProvider(MUD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_MUD_FLUID), FluidConstants.BOTTLE));
 		Register("mud_cauldron", MUD_CAULDRON);
 		Register("still_mud", STILL_MUD_FLUID);
 		Register("flowing_mud", FLOWING_MUD_FLUID);
@@ -1104,7 +1124,7 @@ public class HavenRegistry {
 
 	public static void RegisterAll() {
 		RegisterAnchors();
-		Register("glow_flame", GLOW_FLAME);
+		Register("glow_flame", UNDERWATER_TORCH_GLOW);
 		Register("unlit", UNLIT_TORCH);
 		Register("unlit_soul", UNLIT_SOUL_TORCH);
 		Register("unlit_lantern", UNLIT_LANTERN);
@@ -1123,11 +1143,14 @@ public class HavenRegistry {
 		RegisterObsidian();
 		Register(DRIPSTONE_MATERIAL);
 		Register(TUFF_MATERIAL);
+		Register("tinted_glass_pane", TINTED_GLASS_PANE);
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
 		Register("broken_bottle", BROKEN_BOTTLE);
 		Register("locket", LOCKET);
 		Register("emerald_locket", EMERALD_LOCKET);
+		Register("amber_eye", AMBER_EYE);
+		Register("amber_eye_end_portal_frame", AMBER_EYE_END_PORTAL_FRAME);
 		RegisterSoftTNT();
 		RegisterCoffee();
 		Register("haven_boat", BOAT_ENTITY);
@@ -1140,6 +1163,8 @@ public class HavenRegistry {
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
+		JUICE_MAP.put(MUD.ITEM, MUD_BOTTLE);
+		JUICE_MAP.put(Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
 		JUICE_MAP.put(Items.SLIME_BLOCK, SLIME_BOTTLE);
 		JUICE_MAP.put(Items.MAGMA_BLOCK, MAGMA_CREAM_BOTTLE);
 		RegisterCommands();

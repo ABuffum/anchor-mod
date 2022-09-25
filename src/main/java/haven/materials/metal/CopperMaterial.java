@@ -3,7 +3,7 @@ package haven.materials.metal;
 import haven.HavenMod;
 import haven.blocks.basic.HavenPaneBlock;
 import haven.blocks.basic.HavenWallBlock;
-import haven.blocks.basic.MetalButtonBlock;
+import haven.blocks.MetalButtonBlock;
 import haven.blocks.oxidizable.*;
 import haven.containers.*;
 import haven.items.buckets.*;

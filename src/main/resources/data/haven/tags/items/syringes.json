@@ -14,11 +14,21 @@
 	"haven:syringe_exp1",
 	"haven:syringe_exp2",
 	"haven:syringe_exp3",
+ 
+	"haven:chocolate_milk_syringe",
+	"haven:chorus_syringe",
+	"haven:coffee_milk_syringe",
+	"haven:confetti_syringe",
+	"haven:dragon_breath_syringe",
 	"haven:honey_syringe",
+	"haven:ichor_syringe",
 	"haven:lava_syringe",
 	"haven:magma_cream_syringe",
+	"haven:milk_syringe",
+	"haven:mud_syringe",
 	"haven:slime_syringe",
 	"haven:sludge_syringe",
+	"haven:strawberry_milk_syringe",
 	"haven:sugar_water_syringe",
 	"haven:water_syringe"
   ]

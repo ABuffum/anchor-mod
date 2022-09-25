@@ -1,12 +1,10 @@
 package haven.blocks.oxidizable;
 
-import haven.blocks.basic.MetalButtonBlock;
+import haven.blocks.MetalButtonBlock;
 import haven.util.OxidationScale;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Oxidizable;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Optional;

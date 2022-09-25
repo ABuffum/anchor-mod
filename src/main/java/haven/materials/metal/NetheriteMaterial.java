@@ -1,6 +1,7 @@
 package haven.materials.metal;
 
 import haven.HavenMod;
+import haven.blocks.MetalButtonBlock;
 import haven.blocks.basic.*;
 import haven.items.basic.HavenHorseArmorItem;
 import haven.items.buckets.*;
@@ -89,9 +90,9 @@ public class NetheriteMaterial extends BaseMaterial implements
 		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME_PARTICLE, ItemSettings());
 		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
 		lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
-		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(lantern.BLOCK));
+		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
 		soul_lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
-		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(soul_lantern.BLOCK));
+		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
 		nugget = new Item(ItemSettings());
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(10.0F).sounds(BlockSoundGroup.NETHERITE)));
 		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());

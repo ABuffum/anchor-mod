@@ -27,15 +27,7 @@ public class CoffeeMilkBucketItem extends HavenMilkBucketItem {
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
-		if (!world.isClient) {
-			MilkUtils.ClearStatusEffects(world, user);
-			if (user instanceof PlayerEntity) {
-				PlayerEntity player = (PlayerEntity)user;
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
-			}
-			MilkUtils.CheckLactosIntolerance(world, user);
-		}
+		if (!world.isClient) MilkUtils.ApplyMilk(world, user, true);
 		return stack.isEmpty() ? new ItemStack(getBucketProvider().getBucket()) : stack;
 	}
 }

@@ -61,9 +61,6 @@ public class HavenModClient implements ClientModInitializer {
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
 		//Gilded Fungus
 		HavenMod.GILDED_ROOTS.BLOCK, HavenMod.GILDED_ROOTS.POTTED, HavenMod.GILDED_MATERIAL.getTrapdoor().BLOCK,
-		//Unlit Torches
-		HavenMod.UNLIT_TORCH.UNLIT, HavenMod.UNLIT_TORCH.UNLIT_WALL,
-		HavenMod.UNLIT_SOUL_TORCH.UNLIT, HavenMod.UNLIT_SOUL_TORCH.UNLIT_WALL,
 		//Unlit Lanterns
 		HavenMod.UNLIT_LANTERN, HavenMod.UNLIT_SOUL_LANTERN,
 		//Underwater Torch
@@ -84,11 +81,18 @@ public class HavenModClient implements ClientModInitializer {
 		//Backport
 		HavenMod.MANGROVE_ROOTS.BLOCK, HavenMod.MANGROVE_MATERIAL.getTrapdoor().BLOCK
 	));
+	private static void setCutout(PottedBlockContainer container) {
+		Cutout.add(container.BLOCK);
+		Cutout.add(container.POTTED);
+	}
+	private static void setCutout(TorchContainer.Unlit unlit) {
+		Cutout.add(unlit.UNLIT);
+		Cutout.add(unlit.UNLIT_WALL);
+	}
 	private static void setCutout(TorchContainer container) {
 		Cutout.add(container.BLOCK);
 		Cutout.add(container.WALL_BLOCK);
-		Cutout.add(container.UNLIT.UNLIT);
-		Cutout.add(container.UNLIT.UNLIT_WALL);
+		setCutout(container.UNLIT);
 	}
 	private static void setCutout(OxidizableTorchContainer container) {
 		setCutout(container.getUnaffected());
@@ -123,36 +127,19 @@ public class HavenModClient implements ClientModInitializer {
 	}
 
 	private static final Block[] Translucent = {
-		HavenMod.SUBSTITUTE_ANCHOR_BLOCK
+		HavenMod.SUBSTITUTE_ANCHOR_BLOCK, HavenMod.TINTED_GLASS_PANE.BLOCK
 	};
 
 	static {
-		for (FlowerContainer flower : HavenMod.FLOWERS) {
-			Cutout.add(flower.BLOCK);
-			Cutout.add(flower.POTTED);
-		}
-		for (BlockContainer flower : HavenMod.TALL_FLOWERS) {
-			Cutout.add(flower.BLOCK);
-		}
-		for (BlockContainer leaf : HavenMod.LEAVES) {
-			Cutout.add(leaf.BLOCK);
-		}
+		setCutout(HavenMod.UNLIT_TORCH);
+		setCutout(HavenMod.UNLIT_SOUL_TORCH);
+		setCutout(HavenMod.UNDERWATER_TORCH);
+		for (FlowerContainer flower : HavenMod.FLOWERS) setCutout(flower);
+		for (BlockContainer flower : HavenMod.TALL_FLOWERS) Cutout.add(flower.BLOCK);
 		for (BaseMaterial material : HavenMod.MATERIALS) {
-			if (material instanceof TorchProvider torchProvider) {
-				TorchContainer torch = torchProvider.getTorch();
-				Cutout.add(torch.BLOCK);
-				Cutout.add(torch.WALL_BLOCK);
-				Cutout.add(torch.UNLIT.UNLIT);
-				Cutout.add(torch.UNLIT.UNLIT_WALL);
-			}
+			if (material instanceof TorchProvider torchProvider) setCutout(torchProvider.getTorch());
 			if (material instanceof OxidizableTorchProvider oxidizableTorch) setCutout(oxidizableTorch.getOxidizableTorch());
-			if (material instanceof SoulTorchProvider soulTorchProvider) {
-				TorchContainer torch = soulTorchProvider.getSoulTorch();
-				Cutout.add(torch.BLOCK);
-				Cutout.add(torch.WALL_BLOCK);
-				Cutout.add(torch.UNLIT.UNLIT);
-				Cutout.add(torch.UNLIT.UNLIT_WALL);
-			}
+			if (material instanceof SoulTorchProvider soulTorchProvider) setCutout(soulTorchProvider.getSoulTorch());
 			if (material instanceof OxidizableSoulTorchProvider oxidizableSoulTorch) setCutout(oxidizableSoulTorch.getOxidizableSoulTorch());
 			if (material instanceof LanternProvider lantern) {
 				Cutout.add(lantern.getLantern().BLOCK);
@@ -170,21 +157,10 @@ public class HavenModClient implements ClientModInitializer {
 			if (material instanceof OxidizableChainProvider oxidizableChain) setCutout(oxidizableChain.getOxidizableChain());
 			if (material instanceof BarsProvider bars) Cutout.add(bars.getBars().BLOCK);
 			if (material instanceof OxidizableBarsProvider oxidizableBars) setCutout(oxidizableBars.getOxidizableBars());
-			if (material instanceof SaplingProvider saplingProvider) {
-				SaplingContainer sapling = saplingProvider.getSapling();
-				Cutout.add(sapling.BLOCK);
-				Cutout.add(sapling.POTTED);
-			}
-			if (material instanceof FungusProvider fungusProvider) {
-				FungusContainer fungus = fungusProvider.getFungus();
-				Cutout.add(fungus.BLOCK);
-				Cutout.add(fungus.POTTED);
-			}
-			//if (material instanceof PropaguleProvider propaguleProvider) {
-			//	HavenPropagule propagule = propaguleProvider.getPropagule();
-			//	Cutout.add(propagule.BLOCK);
-			//	Cutout.add(propagule.POTTED);
-			//}
+			if (material instanceof LeavesProvider leaves) Cutout.add(leaves.getLeaves().BLOCK);
+			if (material instanceof SaplingProvider sapling) setCutout(sapling.getSapling());
+			if (material instanceof FungusProvider fungus) setCutout(fungus.getFungus());
+			//if (material instanceof PropaguleProvider propagule) setCutout(propagule.getPropagule());
 		}
 	}
 
@@ -252,7 +228,7 @@ public class HavenModClient implements ClientModInitializer {
 			registry.register(HavenMod.ID("particle/iron_flame"));
 			registry.register(HavenMod.ID("particle/netherite_flame"));
 		}));
-		ParticleFactoryRegistry.getInstance().register(HavenMod.GLOW_FLAME, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.UNDERWATER_TORCH_GLOW, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME_PARTICLE, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME_PARTICLE, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME_PARTICLE, FlameParticle.Factory::new);
@@ -276,9 +252,7 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.RAINBOW_SHEEP_ENTITY, RainbowSheepEntityRenderer::new);
 		//Custom Beds
 		ClientSpriteRegistryCallback.event(TexturedRenderLayers.BEDS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-			for (BedContainer bed : HavenMod.BEDS) {
-				registry.register(bed.GetTexture());
-			}
+			for (BedContainer bed : HavenMod.BEDS) registry.register(bed.GetTexture());
 		}));
 		//Chicken Variants
 		EntityModelLayerRegistry.registerModelLayer(FANCY_CHICKEN_ENTITY_MODEL_LAYER, FancyChickenModel::getTexturedModelData);
