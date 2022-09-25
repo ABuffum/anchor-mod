@@ -3,7 +3,6 @@ package haven.materials;
 import haven.items.basic.HavenHorseArmorItem;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
-import haven.util.HavenArmorMaterials;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;

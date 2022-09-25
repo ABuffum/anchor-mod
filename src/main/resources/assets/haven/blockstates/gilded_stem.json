@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "haven:block/gilded_stem_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "haven:block/gilded_stem"
+    },
+    "axis=z": {
+      "model": "haven:block/gilded_stem_horizontal",
+      "x": 90
+    }
+  }
+}

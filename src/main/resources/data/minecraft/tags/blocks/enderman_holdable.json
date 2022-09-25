@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "haven:carved_melon",
+    "haven:white_pumpkin",
+    "haven:carved_white_pumpkin",
+    
+    "haven:gilded_fungus",
+    "haven:gilded_nylium",
+    "haven:gilded_roots"
+  ]
+}

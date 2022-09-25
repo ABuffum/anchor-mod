@@ -1,7 +1,7 @@
 package haven.rendering.features;
 
 import haven.HavenMod;
-import haven.entities.passive.OrangeMooblossomEntity;
+import haven.entities.passive.cow.OrangeMooblossomEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

@@ -1,23 +1,54 @@
 package haven.damage;
 
+import haven.blood.BloodType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.EntityDamageSource;
+import net.minecraft.entity.damage.ProjectileDamageSource;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 public class HavenDamageSource extends DamageSource {
 	public static final DamageSource DETERIORATION = new HavenDamageSource("deterioration").setUnblockable().setBypassesArmor();
-	//Syringe
-	public static final DamageSource SYRINGE_BLOOD_LOSS = new HavenDamageSource("syringe_blood_loss").setBypassesArmor();
 	public static final DamageSource ICHOR = new HavenDamageSource("ichor").setUnblockable().setBypassesArmor();
-	public static final DamageSource INCOMPATIBLE_BLOOD = new HavenDamageSource("incompatible_blood").setBypassesArmor();
-	public static final DamageSource INJECTED_WATER = new HavenDamageSource("injected_water").setUnblockable().setBypassesArmor();
+	public static final DamageSource BONE_ROT = new HavenDamageSource("bone_rot").setUnblockable().setBypassesArmor();
+	public static final DamageSource DRANK_ICHOR = Drank("ichor");
+	public static final DamageSource DRANK_ICHOR_AS_ANEMIC = Drank("ichor_as_anemic");
+	public static final DamageSource DRANK_ICHOR_AS_VAMPIRE = Drank("ichor_as_vampire");
+	public static final DamageSource DRANK_LAVA = Drank("lava").setFire();
+	public static final DamageSource DRANK_MAGMA_CREAM = Drank("magma_cream").setFire();
+	public static final DamageSource DRANK_MILK = Drank("milk");
+	public static final DamageSource DRANK_SLIME = Drank("slime");
+	public static final DamageSource DRANK_SUGAR_WATER = Drank("sugar_water");
+	public static final DamageSource BLEEDING = new HavenDamageSource("bleeding").setUnblockable().setBypassesArmor();
+	public static InjectedDamageSource Injected(String type, LivingEntity source) {
+		return new InjectedDamageSource(type, source).setUnblockable().setBypassesArmor();
+	}
+	public static InjectedBloodDamageSource Injected(LivingEntity source, BloodType type) {
+		return new InjectedBloodDamageSource(source, type).setUnblockable().setBypassesArmor();
+	}
+	public static HavenDamageSource Drank(String name) {
+		return new DrankDamageSource(name).setUnblockable().setBypassesArmor();
+	}
 
 	public HavenDamageSource(String name) {
 		super(name);
 	}
 
-	public HavenDamageSource setBypassesArmor() { return (HavenDamageSource)super.setBypassesArmor(); }
-	public HavenDamageSource setFallingBlock() { return (HavenDamageSource)super.setFallingBlock(); }
-	public HavenDamageSource setOutOfWorld() { return (HavenDamageSource)super.setOutOfWorld(); }
-	public HavenDamageSource setUnblockable() { return (HavenDamageSource)super.setUnblockable(); }
-	public HavenDamageSource setFire() { return (HavenDamageSource)super.setFire(); }
-	public HavenDamageSource setNeutral() { return (HavenDamageSource)super.setNeutral(); }
+	@Override
+	public Entity getAttacker() { return null; }
+	@Override
+	public HavenDamageSource setBypassesArmor() { super.setBypassesArmor(); return this; }
+	@Override
+	public HavenDamageSource setFallingBlock() { super.setFallingBlock(); return this; }
+	@Override
+	public HavenDamageSource setOutOfWorld() { super.setOutOfWorld(); return this; }
+	@Override
+	public HavenDamageSource setUnblockable() { super.setUnblockable(); return this; }
+	@Override
+	public HavenDamageSource setFire() { super.setFire(); return this; }
+	@Override
+	public HavenDamageSource setNeutral() { super.setNeutral(); return this; }
 }

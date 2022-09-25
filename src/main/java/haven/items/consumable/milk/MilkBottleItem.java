@@ -1,6 +1,7 @@
 package haven.items.consumable.milk;
 
 import haven.util.BucketUtils;
+import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,10 @@ public class MilkBottleItem extends Item {
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
-		if (!world.isClient) BucketUtils.milkClearStatusEffects(world, user);
+		if (!world.isClient) {
+			MilkUtils.ClearStatusEffects(world, user);
+			MilkUtils.CheckLactosIntolerance(world, user);
+		}
 		return stack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : stack;
 	}
 

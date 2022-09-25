@@ -1,20 +1,58 @@
 package haven.materials.metal;
 
 import haven.HavenMod;
+import haven.blocks.basic.HavenPaneBlock;
+import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.MetalButtonBlock;
+import haven.blocks.oxidizable.*;
+import haven.containers.*;
 import haven.items.buckets.*;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
-import haven.util.HavenArmorMaterials;
-import haven.util.HavenToolMaterials;
-import net.minecraft.block.Blocks;
+import haven.materials.HavenArmorMaterials;
+import haven.materials.HavenToolMaterials;
+import haven.util.OxidationScale;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.*;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 
 public class CopperMaterial extends ToolArmorHorseMaterial implements
-		NuggetProvider, ShearsProvider, BucketProvider {
+		NuggetProvider, ShearsProvider, BucketProvider,
+		OxidizableTorchProvider, OxidizableSoulTorchProvider,
+		OxidizableLanternProvider, OxidizableSoulLanternProvider,
+		OxidizableChainProvider, OxidizableBarsProvider,
+		OxidizableButtonProvider,
+		OxidizableWallProvider, OxidizableCutPillarProvider, OxidizableCutWallProvider {
+
+	private final OxidizableTorchContainer oxidizable_torch;
+	public OxidizableTorchContainer getOxidizableTorch() { return oxidizable_torch; }
+	private final OxidizableTorchContainer oxidizable_soul_torch;
+	public OxidizableTorchContainer getOxidizableSoulTorch() { return oxidizable_soul_torch; }
+	private final OxidizableLanternContainer oxidizable_lantern;
+	public OxidizableLanternContainer getOxidizableLantern() { return oxidizable_lantern; }
+	private final OxidizableLanternContainer oxidizable_soul_lantern;
+	public OxidizableLanternContainer getOxidizableSoulLantern() { return oxidizable_soul_lantern; }
+
 	private final Item nugget;
 	public Item getNugget() { return nugget; }
+
+	private final OxidizableBlockContainer oxidizable_chain;
+	public OxidizableBlockContainer getOxidizableChain() { return oxidizable_chain; }
+	private final OxidizableBlockContainer oxidizable_bars;
+	public OxidizableBlockContainer getOxidizableBars() { return oxidizable_bars; }
+	private final OxidizableBlockContainer oxidizable_button;
+	public OxidizableBlockContainer getOxidizableButton() { return oxidizable_button; }
+	private final OxidizableBlockContainer oxidizable_wall;
+	public OxidizableBlockContainer getOxidizableWall() { return oxidizable_wall; }
+	private final OxidizableBlockContainer oxidizable_cut_pillar;
+	public OxidizableBlockContainer getOxidizableCutPillar() { return oxidizable_cut_pillar; }
+	private final OxidizableBlockContainer oxidizable_cut_wall;
+	public OxidizableBlockContainer getOxidizableCutWall() { return oxidizable_cut_wall; }
+
 	private final Item shears;
 	public Item getShears() { return shears; }
 
@@ -45,11 +83,26 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 	private final Item cottage_cheese_bucket;
 	public Item getCottageCheeseBucket() { return cottage_cheese_bucket; }
 
+	private static AbstractBlock.Settings CopperSettings(Oxidizable.OxidizationLevel level) {
+		return AbstractBlock.Settings.of(Material.METAL, OxidationScale.getMapColor(level)).requiresTool().strength(3.0F, 6.0F).sounds(BlockSoundGroup.COPPER);
+	}
+
 	public CopperMaterial() {
 		super("copper", false, HavenToolMaterials.COPPER,
 				6, -3, -1, -2, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.COPPER, 6);
+		oxidizable_torch = new OxidizableTorchContainer(HavenMod.COPPER_FLAME_PARTICLE, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(12)).sounds(BlockSoundGroup.COPPER));
+		oxidizable_soul_torch = new OxidizableTorchContainer(ParticleTypes.SOUL_FIRE_FLAME, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.COPPER));
+		oxidizable_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, LanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque());
+		oxidizable_soul_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, LanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque());
 		nugget = new Item(ItemSettings());
+		oxidizable_chain = new OxidizableBlockContainer(OxidizableChainBlock::new, ChainBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque());
+		oxidizable_bars = new OxidizableBlockContainer(OxidizablePaneBlock::new, HavenPaneBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque());
+		oxidizable_button = new OxidizableBlockContainer(OxidizableButtonBlock::new, MetalButtonBlock::new, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.0F).sounds(BlockSoundGroup.COPPER));
+		oxidizable_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_cut_pillar = new OxidizableBlockContainer(OxidizablePillarBlock::new, PillarBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_cut_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
+
 		shears = new ShearsItem(ItemSettings().maxDamage(238));
 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);

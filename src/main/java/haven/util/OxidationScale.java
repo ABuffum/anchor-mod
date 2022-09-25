@@ -3,10 +3,11 @@ package haven.util;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import haven.HavenMod;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import haven.containers.OxidizableBlockContainer;
+import haven.containers.BlockContainer;
+import haven.containers.OxidizableTorchContainer;
+import haven.containers.TorchContainer;
+import net.minecraft.block.*;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -34,6 +35,17 @@ public class OxidationScale {
 	public static final OxidationScale CUT_COPPER_SLAB = Register(Blocks.CUT_COPPER_SLAB, Blocks.EXPOSED_CUT_COPPER_SLAB, Blocks.WEATHERED_CUT_COPPER_SLAB, Blocks.OXIDIZED_CUT_COPPER_SLAB);
 	public static final OxidationScale CUT_COPPER_STAIRS = Register(Blocks.CUT_COPPER_STAIRS, Blocks.EXPOSED_CUT_COPPER_STAIRS, Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.OXIDIZED_CUT_COPPER_STAIRS);
 
+	public static MapColor getMapColor(Oxidizable.OxidizationLevel level) {
+		if (level == Oxidizable.OxidizationLevel.OXIDIZED) return MapColor.TEAL;
+		else if (level == Oxidizable.OxidizationLevel.WEATHERED) return MapColor.DARK_AQUA;
+		else if (level == Oxidizable.OxidizationLevel.EXPOSED) return MapColor.TERRACOTTA_LIGHT_GRAY;
+		else return MapColor.ORANGE;
+	}
+
+	public static interface BlockSettingsSupplier {
+		public AbstractBlock.Settings get(Oxidizable.OxidizationLevel level);
+	}
+
 	public static final Map<Block, Block> WAXED_BLOCKS = new HashMap<Block, Block>(Map.<Block, Block>ofEntries(
 			entry(Blocks.COPPER_BLOCK, Blocks.WAXED_COPPER_BLOCK), entry(Blocks.EXPOSED_COPPER, Blocks.WAXED_EXPOSED_COPPER),
 			entry(Blocks.WEATHERED_COPPER, Blocks.WAXED_WEATHERED_COPPER), entry(Blocks.OXIDIZED_COPPER, Blocks.WAXED_OXIDIZED_COPPER),
@@ -45,10 +57,16 @@ public class OxidationScale {
 			entry(Blocks.WEATHERED_CUT_COPPER_STAIRS, Blocks.WAXED_WEATHERED_CUT_COPPER_STAIRS), entry(Blocks.OXIDIZED_CUT_COPPER_STAIRS, Blocks.WAXED_OXIDIZED_CUT_COPPER_STAIRS)
 	));
 
-	public static OxidationScale Register(HavenPair unaffected, HavenPair exposed, HavenPair weathered, HavenPair oxidized) {
+	public static void Register(OxidizableTorchContainer container) {
+		Register(container.getUnaffected(), container.getExposed(), container.getWeathered(), container.getOxidized());
+	}
+	public static OxidationScale Register(OxidizableBlockContainer container) {
+		return Register(container.getUnaffected().BLOCK, container.getExposed().BLOCK, container.getWeathered().BLOCK, container.getOxidized().BLOCK);
+	}
+	public static OxidationScale Register(BlockContainer unaffected, BlockContainer exposed, BlockContainer weathered, BlockContainer oxidized) {
 		return Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
 	}
-	public static void Register(HavenTorch unaffected, HavenTorch exposed, HavenTorch weathered, HavenTorch oxidized) {
+	public static void Register(TorchContainer unaffected, TorchContainer exposed, TorchContainer weathered, TorchContainer oxidized) {
 		Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
 		Register(unaffected.WALL_BLOCK, exposed.WALL_BLOCK, weathered.WALL_BLOCK, oxidized.WALL_BLOCK);
 		Register(unaffected.UNLIT.UNLIT, exposed.UNLIT.UNLIT, weathered.UNLIT.UNLIT, oxidized.UNLIT.UNLIT);

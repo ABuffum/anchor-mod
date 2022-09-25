@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+	"haven:amethyst_knife",
+	"haven:copper_knife",
+	"haven:dark_iron_knife",
+	"haven:emerald_knife",
+	"haven:quartz_knife"
+  ]
+}

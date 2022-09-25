@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven:block/smooth_dripstone",
+    "side": "haven:block/smooth_dripstone",
+    "top": "haven:block/smooth_dripstone"
+  }
+}

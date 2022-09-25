@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "haven:gilded_stem",
+    "haven:stripped_gilded_stem",
+    "haven:gilded_hyphae",
+    "haven:stripped_gilded_hyphae",
+    "haven:gilded_planks",
+    "haven:gilded_slab",
+    "haven:gilded_pressure_plate",
+    "haven:gilded_fence",
+    "haven:gilded_trapdoor",
+    "haven:gilded_fence_gate",
+    "haven:gilded_stairs",
+    "haven:gilded_button",
+    "haven:gilded_door",
+    "haven:gilded_sign"
+  ]
+}

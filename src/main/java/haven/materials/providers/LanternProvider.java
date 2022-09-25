@@ -1,10 +1,10 @@
 package haven.materials.providers;
 
-import haven.util.HavenPair;
+import haven.containers.BlockContainer;
 import net.minecraft.block.Block;
 
 public interface LanternProvider {
-	public HavenPair getLantern();
+	public BlockContainer getLantern();
 	public Block getUnlitLantern();
 
 	public default boolean containsLantern(Block block) {

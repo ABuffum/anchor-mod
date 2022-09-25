@@ -153,4 +153,15 @@ public class PointedDripstoneUtils {
 		VoxelShape voxelShape = state.getCollisionShape(world, pos);
 		return !VoxelShapes.matchesAnywhere(DRIP_COLLISION_SHAPE, voxelShape, BooleanBiFunction.AND);
 	}
+
+	public static class DrippingFluid {
+		public final BlockPos pos;
+		public final Fluid fluid;
+		public final BlockState sourceState;
+		public DrippingFluid(BlockPos pos, Fluid fluid, BlockState sourceState) {
+			this.pos = pos;
+			this.fluid = fluid;
+			this.sourceState = sourceState;
+		}
+	}
 }

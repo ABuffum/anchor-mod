@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:soul_wall_torch",
+  
+    "#haven:metal_soul_wall_torches",
+    "#haven:wood_soul_wall_torches",
+    "haven:bone_soul_wall_torch"
+  ]
+}

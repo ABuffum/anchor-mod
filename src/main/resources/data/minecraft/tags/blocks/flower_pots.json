@@ -32,6 +32,9 @@
 	"haven:potted_dried_bamboo",
 
 	"haven:potted_cassia_sapling",
-	"haven:potted_cherry_sapling"
+	"haven:potted_cherry_sapling",
+	
+	"haven:potted_gilded_fungus",
+	"haven:potted_gilded_roots"
   ]
 }

@@ -13,13 +13,13 @@ public class DeteriorationEffect extends StatusEffect {
 
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
-		return true;
+		int k = 40 >> amplifier;
+		if (k > 0) return duration % k == 0;
+		else return true;
 	}
 
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int i) {
-		if (entity instanceof PlayerEntity player) {
-			entity.damage(HavenDamageSource.DETERIORATION,1);
-		}
+		entity.damage(HavenDamageSource.DETERIORATION,1);
 	}
 }

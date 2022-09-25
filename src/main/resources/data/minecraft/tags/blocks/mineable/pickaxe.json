@@ -84,6 +84,14 @@
 	"haven:unlit_waxed_exposed_copper_soul_lantern",
 	"haven:unlit_waxed_weathered_copper_soul_lantern",
 	"haven:unlit_waxed_oxidized_copper_soul_lantern",
+	"haven:copper_button",
+	"haven:exposed_copper_button",
+	"haven:weathered_copper_button",
+	"haven:oxidized_copper_button",
+	"haven:waxed_copper_button",
+	"haven:waxed_exposed_copper_button",
+	"haven:waxed_weathered_copper_button",
+	"haven:waxed_oxidized_copper_button",
 	"haven:copper_chain",
 	"haven:exposed_copper_chain",
 	"haven:weathered_copper_chain",
@@ -129,6 +137,7 @@
 	"haven:gold_soul_lantern",
 	"haven:unlit_gold_lantern",
 	"haven:unlit_gold_soul_lantern",
+	"haven:gold_button",
 	"haven:gold_chain",
 	"haven:gold_bars",
 	"haven:gold_wall",
@@ -142,6 +151,7 @@
 	"haven:iron_soul_lantern",
 	"haven:unlit_iron_lantern",
 	"haven:unlit_iron_soul_lantern",
+	"haven:iron_button",
 	"haven:iron_chain",
 	"haven:iron_wall",
 	"haven:cut_iron",
@@ -152,6 +162,7 @@
  
 	"haven:unlit_lantern",
 	"haven:unlit_soul_lantern",
+	"haven:dark_iron_button",
 	"haven:dark_iron_bars",
 	"haven:dark_iron_block",
 	"haven:dark_iron_wall",
@@ -169,6 +180,7 @@
 	"haven:netherite_soul_lantern",
 	"haven:unlit_netherite_lantern",
 	"haven:unlit_netherite_soul_lantern",
+	"haven:netherite_button",
 	"haven:netherite_chain",
 	"haven:netherite_bars",
 	"haven:netherite_wall",
@@ -191,9 +203,35 @@
 	"haven:bleeding_obsidian_stairs",
 	"haven:bleeding_obsidian_wall",
 	
+	"haven:smooth_dripstone",
+	"haven:smooth_dripstone_slab",
+	"haven:smooth_dripstone_stairs",
+	"haven:smooth_dripstone_wall",
+	
 	"haven:mud_bricks",
 	"haven:mud_brick_stairs",
 	"haven:mud_brick_slab",
-	"haven:packed_mud"
+	"haven:mud_brick_wall",
+	"haven:packed_mud",
+	
+	"haven:gilded_nylium",
+ 
+	"haven:smooth_dripstone",
+	"haven:smooth_dripstone_slab",
+	"haven:smooth_dripstone_stairs",
+	"haven:smooth_dripstone_wall",
+	"haven:dripstone_bricks",
+	"haven:dripstone_brick_slab",
+	"haven:dripstone_brick_stairs",
+	"haven:dripstone_brick_wall",
+  
+	"haven:smooth_tuff",
+	"haven:smooth_tuff_slab",
+	"haven:smooth_tuff_stairs",
+	"haven:smooth_tuff_wall",
+	"haven:tuff_bricks",
+	"haven:tuff_brick_slab",
+	"haven:tuff_brick_stairs",
+	"haven:tuff_brick_wall"
   ]
 }

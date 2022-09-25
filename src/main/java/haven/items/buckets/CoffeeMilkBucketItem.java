@@ -2,6 +2,7 @@ package haven.items.buckets;
 
 import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
+import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -27,12 +28,13 @@ public class CoffeeMilkBucketItem extends HavenMilkBucketItem {
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
 		if (!world.isClient) {
-			BucketUtils.milkClearStatusEffects(world, user);
+			MilkUtils.ClearStatusEffects(world, user);
 			if (user instanceof PlayerEntity) {
 				PlayerEntity player = (PlayerEntity)user;
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
 			}
+			MilkUtils.CheckLactosIntolerance(world, user);
 		}
 		return stack.isEmpty() ? new ItemStack(getBucketProvider().getBucket()) : stack;
 	}

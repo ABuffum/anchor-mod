@@ -2,7 +2,6 @@ package haven.blocks.cake;
 
 import com.google.common.collect.ImmutableList;
 
-import haven.HavenMod;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,12 +32,12 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	protected static final VoxelShape SHAPE;
 	private static final Iterable<Vec3d> PARTICLE_OFFSETS;
 
-	private HavenCake.Flavor flavor;
-	public HavenCake.Flavor getFlavor() { return flavor; }
-	public HavenCandleCakeBlock(HavenCake.Flavor flavor) {
+	private CakeContainer.Flavor flavor;
+	public CakeContainer.Flavor getFlavor() { return flavor; }
+	public HavenCandleCakeBlock(CakeContainer.Flavor flavor) {
 		this(flavor, HavenCakeBlock.SETTINGS);
 	}
-	public HavenCandleCakeBlock(HavenCake.Flavor flavor, AbstractBlock.Settings settings) {
+	public HavenCandleCakeBlock(CakeContainer.Flavor flavor, AbstractBlock.Settings settings) {
 		super(settings);
 		this.flavor = flavor;
 		this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));

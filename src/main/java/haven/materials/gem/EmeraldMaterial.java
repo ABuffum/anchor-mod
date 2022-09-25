@@ -3,12 +3,11 @@ package haven.materials.gem;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
-import haven.materials.base.BaseMaterial;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
-import haven.util.HavenArmorMaterials;
-import haven.util.HavenPair;
-import haven.util.HavenToolMaterials;
+import haven.materials.HavenArmorMaterials;
+import haven.containers.BlockContainer;
+import haven.materials.HavenToolMaterials;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -17,43 +16,45 @@ import net.minecraft.item.Item;
 public class EmeraldMaterial extends ToolArmorHorseMaterial implements
 		BricksProvider, BrickSlabProvider, BrickStairsProvider, BrickWallProvider,
 		CutProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
-	private final HavenPair bricks;
-	public HavenPair getBricks() { return bricks; }
-	private final HavenPair brick_slab;
-	public HavenPair getBrickSlab() { return brick_slab; }
-	private final HavenPair brick_stairs;
-	public HavenPair getBrickStairs() { return brick_stairs; }
-	private final HavenPair brick_wall;
-	public HavenPair getBrickWall() { return brick_wall; }
-	private final HavenPair cut;
-	public HavenPair getCut() { return cut; }
-	private final HavenPair cut_slab;
-	public HavenPair getCutSlab() { return cut_slab; }
-	private final HavenPair cut_stairs;
-	public HavenPair getCutStairs() { return cut_stairs; }
-	private final HavenPair cut_wall;
-	public HavenPair getCutWall() { return cut_wall; }
+	private final BlockContainer bricks;
+	public BlockContainer getBricks() { return bricks; }
+	private final BlockContainer brick_slab;
+	public BlockContainer getBrickSlab() { return brick_slab; }
+	private final BlockContainer brick_stairs;
+	public BlockContainer getBrickStairs() { return brick_stairs; }
+	private final BlockContainer brick_wall;
+	public BlockContainer getBrickWall() { return brick_wall; }
+	private final BlockContainer cut;
+	public BlockContainer getCut() { return cut; }
+	private final BlockContainer cut_slab;
+	public BlockContainer getCutSlab() { return cut_slab; }
+	private final BlockContainer cut_stairs;
+	public BlockContainer getCutStairs() { return cut_stairs; }
+	private final BlockContainer cut_wall;
+	public BlockContainer getCutWall() { return cut_wall; }
 
 	public EmeraldMaterial() {
 		super("emerald", false, HavenToolMaterials.EMERALD,
 				5, -3, -2, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.EMERALD, 9);
-		bricks = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
-		brick_slab = new HavenPair(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new HavenPair(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new HavenPair(new HavenWallBlock(bricks.BLOCK), ItemSettings());
-		cut = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
-		cut_slab = new HavenPair(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new HavenPair(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new HavenPair(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
 	}
 
 	public boolean contains(Block block) {
-		return block == bricks.BLOCK || block == brick_slab.BLOCK || block == brick_stairs.BLOCK || block == brick_wall.BLOCK
-				|| block == cut.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK || block == cut_wall.BLOCK || super.contains(block);
+		return bricks.contains(block) || brick_slab.contains(block) || brick_stairs.contains(block) || brick_wall.contains(block)
+				|| cut.contains(block) || cut_slab.contains(block) || cut_stairs.contains(block) || cut_wall.contains(block)
+				|| super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return item == bricks.ITEM || item == brick_slab.ITEM || item == brick_stairs.ITEM || item == brick_wall.ITEM
-				|| item == cut.ITEM || item == cut_slab.ITEM || item == cut_stairs.ITEM || item == cut_wall.ITEM || super.contains(item);
+		return bricks.contains(item) || brick_slab.contains(item) || brick_stairs.contains(item) || brick_wall.contains(item)
+				|| cut.contains(item) || cut_slab.contains(item) || cut_stairs.contains(item) || cut_wall.contains(item)
+				|| super.contains(item);
 	}
 }

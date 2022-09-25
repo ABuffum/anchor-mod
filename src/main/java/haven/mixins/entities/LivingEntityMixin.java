@@ -1,6 +1,7 @@
 package haven.mixins.entities;
 
 import haven.HavenMod;
+import haven.HavenTags;
 import haven.origins.powers.UnfreezingPower;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -29,6 +30,6 @@ public class LivingEntityMixin {
 
 	@Inject(method="getPreferredEquipmentSlot", at=@At("HEAD"), cancellable = true)
 	private static void getPreferredEquipmentSlot(ItemStack stack, CallbackInfoReturnable<EquipmentSlot> cir) {
-		if (stack.isOf(HavenMod.CARVED_MELON.ITEM)) cir.setReturnValue(EquipmentSlot.HEAD);
+		if (stack.isIn(HavenTags.Items.HEAD_WEARABLE_BLOCKS)) cir.setReturnValue(EquipmentSlot.HEAD);
 	}
 }

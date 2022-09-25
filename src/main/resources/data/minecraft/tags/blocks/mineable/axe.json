@@ -1,11 +1,18 @@
 {
   "replace": false,
   "values": [
+    "#haven:gourds",
+    "#haven:carved_gourds",
+    "#haven:campfires",
+    "#haven:soul_campfires",
     "haven:dried_bamboo",
-    "haven:carved_melon",
-    "haven:melon_lantern",
     "haven:coffee_plant",
     "haven:strawberry_bush",
-    "haven:mangrove_roots"
+    "haven:mangrove_roots",
+    "haven:bamboo_bundle",
+    "haven:stripped_bamboo_bundle",
+    "haven:dried_bamboo_bundle",
+    "haven:stripped_dried_bamboo_bundle",
+    "haven:gilded_fungus"
   ]
 }

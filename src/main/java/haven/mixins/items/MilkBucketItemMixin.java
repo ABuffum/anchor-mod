@@ -1,7 +1,13 @@
 package haven.mixins.items;
 
+import haven.blood.BloodType;
 import haven.items.buckets.HavenMilkBucketItem;
+import haven.origins.powers.BloodTypePower;
+import haven.origins.powers.LactoseIntolerantPower;
 import haven.util.BucketUtils;
+import haven.util.MilkUtils;
+import io.github.apace100.apoli.Apoli;
+import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +22,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 @Mixin(MilkBucketItem.class)
 public class MilkBucketItemMixin extends Item {
@@ -33,7 +41,10 @@ public class MilkBucketItemMixin extends Item {
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
-		if (!world.isClient) BucketUtils.milkClearStatusEffects(world, user);
+		if (!world.isClient) {
+			MilkUtils.ClearStatusEffects(world, user);
+			MilkUtils.CheckLactosIntolerance(world, user);
+		}
 		cir.setReturnValue(stack.isEmpty() ? new ItemStack(Items.BUCKET) : stack);
 	}
 }

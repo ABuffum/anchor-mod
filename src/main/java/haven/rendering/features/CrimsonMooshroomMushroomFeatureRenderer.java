@@ -1,6 +1,6 @@
 package haven.rendering.features;
 
-import haven.entities.passive.CrimsonMooshroomEntity;
+import haven.entities.passive.cow.CrimsonMooshroomEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "minecraft:torch"
+      "tag": "haven:torches"
     },
     "X": {
       "item": "haven:copper_nugget"

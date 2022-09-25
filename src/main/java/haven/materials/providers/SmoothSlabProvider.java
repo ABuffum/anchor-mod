@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.util.HavenPair;
+import haven.containers.BlockContainer;
 
 public interface SmoothSlabProvider {
-	public HavenPair getSmoothSlab();
+	public BlockContainer getSmoothSlab();
 }

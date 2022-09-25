@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.util.HavenSign;
+import haven.containers.SignContainer;
 
 public interface SignProvider {
-	public HavenSign getSign();
+	public SignContainer getSign();
 }

@@ -1,6 +1,7 @@
 package haven.blood;
 
 import haven.HavenMod;
+import haven.origins.powers.BloodTypePower;
 import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
@@ -21,6 +22,12 @@ public class BloodType {
 	private final Identifier id;
 	public Identifier getIdentifier() { return id; }
 
+	public BloodType(String name) {
+		this.name = name;
+		id = HavenMod.ID(name);
+		BLOOD_TYPES.put(id, this);
+	}
+
 	public static final Map<Identifier, BloodType> BLOOD_TYPES = new HashMap<Identifier, BloodType>();
 
 	public static final BloodType PLAYER = new BloodType("player");
@@ -38,6 +45,10 @@ public class BloodType {
 		public boolean IsPoisonVulnerable() { return false; }
 	};
 	public static final BloodType CANINE = new BloodType("canine");
+	public static final BloodType CHORUS = new BloodType("chorus") {
+		@Override
+		public boolean IsChorusVulnerable() { return false; }
+	};
 	public static final BloodType COW = new BloodType("cow");
 	public static final BloodType CREEPER = new BloodType("creeper");
 	public static final BloodType DISEASED_FELINE = new BloodType("diseased_feline");
@@ -73,6 +84,12 @@ public class BloodType {
 		@Override
 		public boolean IsWaterVulnerable() { return true; }
 	};
+	public static final BloodType NETHER_ROYALTY = new BloodType("nether") {
+		@Override
+		public boolean IsFireVulnerable() { return false; }
+		@Override
+		public boolean IsWaterVulnerable() { return true; }
+	};
 	public static final BloodType PHANTOM = new BloodType("phantom");
 	public static final BloodType PIG = new BloodType("pig");
 	public static final BloodType RABBIT = new BloodType("rabbit");
@@ -103,12 +120,6 @@ public class BloodType {
 	public static final BloodType ZOMBIE = new BloodType("zombie");
 	public static final BloodType NONE = new BloodType("none");
 
-	public BloodType(String name) {
-		this.name = name;
-		id = HavenMod.ID(name);
-		BLOOD_TYPES.put(id, this);
-	}
-
 	public static BloodType Get(LivingEntity entity) {
 		List<BloodTypePower> powers = PowerHolderComponent.KEY.get(entity).getPowers(BloodTypePower.class);
 		if (!powers.isEmpty()) {
@@ -131,6 +142,7 @@ public class BloodType {
 		else if (entity instanceof PolarBearEntity || entity instanceof PandaEntity) return BEAR;
 		else if (entity instanceof RabbitEntity) return RABBIT;
 		else if (entity instanceof FoxEntity || entity instanceof WolfEntity) return CANINE;
+		else if (entity instanceof EndermiteEntity) return CHORUS;
 		else if (entity instanceof CowEntity) return COW;
 		else if (entity instanceof CreeperEntity) return CREEPER;
 		else if (entity instanceof DolphinEntity) return DOLPHIN;
@@ -141,7 +153,7 @@ public class BloodType {
 		else if (entity instanceof CatEntity || entity instanceof OcelotEntity) return FELINE;
 		else if (entity instanceof FishEntity || entity instanceof GuardianEntity) return FISH;
 		else if (entity instanceof GoatEntity) return GOAT;
-		else if (entity instanceof EndermiteEntity || entity instanceof SilverfishEntity) return INSECT;
+		else if (entity instanceof SilverfishEntity) return INSECT;
 		else if (entity instanceof MagmaCubeEntity) return MAGMA;
 		else if (entity instanceof PhantomEntity) return PHANTOM;
 		else if (entity instanceof PigEntity || entity instanceof AbstractPiglinEntity
@@ -173,6 +185,7 @@ public class BloodType {
 		else if (type == BEE) return HavenMod.BEE_BLOOD_SYRINGE;
 		else if (type == BEE_ENDERMAN) return HavenMod.BEE_ENDERMAN_BLOOD_SYRINGE;
 		else if (type == CANINE) return HavenMod.CANINE_BLOOD_SYRINGE;
+		else if (type == CHORUS) return HavenMod.CHORUS_SYRINGE;
 		else if (type == COW) return HavenMod.COW_BLOOD_SYRINGE;
 		else if (type == CREEPER) return HavenMod.CREEPER_BLOOD_SYRINGE;
 		else if (type == DISEASED_FELINE) return HavenMod.DISEASED_FELINE_BLOOD_SYRINGE;
@@ -191,6 +204,7 @@ public class BloodType {
 		else if (type == MAGMA) return HavenMod.MAGMA_CREAM_SYRINGE;
 		else if (type == NEPHAL) return HavenMod.NEPHAL_BLOOD_SYRINGE;
 		else if (type == NETHER) return HavenMod.NETHER_BLOOD_SYRINGE;
+		else if (type == NETHER_ROYALTY) return HavenMod.NETHER_ROYALTY_BLOOD_SYRINGE;
 		else if (type == PHANTOM) return HavenMod.PHANTOM_BLOOD_SYRINGE;
 		else if (type == PIG) return HavenMod.PIG_BLOOD_SYRINGE;
 		else if (type == RABBIT) return HavenMod.RABBIT_BLOOD_SYRINGE;
@@ -216,4 +230,5 @@ public class BloodType {
 	public boolean IsFireVulnerable() { return true; }
 	public boolean IsPoisonVulnerable() { return true; }
 	public boolean IsWitherVulnerable() { return true; }
+	public boolean IsChorusVulnerable() { return true; }
 }

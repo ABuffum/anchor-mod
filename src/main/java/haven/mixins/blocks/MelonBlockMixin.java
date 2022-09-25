@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.function.Consumer;
 
 @Mixin(MelonBlock.class)
-public class MelonBlockMixin extends GourdBlock {
+public abstract class MelonBlockMixin extends GourdBlock {
 	public MelonBlockMixin(Settings settings) {
 		super(settings);
 	}
@@ -52,7 +52,4 @@ public class MelonBlockMixin extends GourdBlock {
 			return super.onUse(state, world, pos, player, hand, hit);
 		}
 	}
-
-	public StemBlock getStem() { return null; }
-	public AttachedStemBlock getAttachedStem() { return null; }
 }

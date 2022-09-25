@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.util.HavenTorch;
+import haven.containers.TorchContainer;
 
 public interface TorchProvider {
-	public HavenTorch getTorch();
+	public TorchContainer getTorch();
 }

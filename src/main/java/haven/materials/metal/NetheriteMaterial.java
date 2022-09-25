@@ -6,8 +6,8 @@ import haven.items.basic.HavenHorseArmorItem;
 import haven.items.buckets.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
-import haven.util.HavenPair;
-import haven.util.HavenTorch;
+import haven.containers.BlockContainer;
+import haven.containers.TorchContainer;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluids;
@@ -18,41 +18,42 @@ import net.minecraft.sound.SoundEvents;
 
 public class NetheriteMaterial extends BaseMaterial implements
 		NuggetProvider, HorseArmorProvider, BucketProvider,
-		TorchProvider, SoulTorchProvider,
-		LanternProvider, SoulLanternProvider,
-		ChainProvider, BarsProvider, WallProvider,
+		TorchProvider, SoulTorchProvider, LanternProvider, SoulLanternProvider,
+		ButtonProvider, ChainProvider, BarsProvider, WallProvider,
 		CutProvider, CutPillarProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
 
-	private final HavenTorch torch;
-	public HavenTorch getTorch() { return torch; }
-	private final HavenTorch soul_torch;
-	public HavenTorch getSoulTorch() { return soul_torch; }
-	private final HavenPair lantern;
-	public HavenPair getLantern() { return lantern; }
+	private final TorchContainer torch;
+	public TorchContainer getTorch() { return torch; }
+	private final TorchContainer soul_torch;
+	public TorchContainer getSoulTorch() { return soul_torch; }
+	private final BlockContainer lantern;
+	public BlockContainer getLantern() { return lantern; }
 	private final Block unlit_lantern;
 	public Block getUnlitLantern() { return unlit_lantern; }
-	private final HavenPair soul_lantern;
-	public HavenPair getSoulLantern() { return soul_lantern; }
+	private final BlockContainer soul_lantern;
+	public BlockContainer getSoulLantern() { return soul_lantern; }
 	private final Block unlit_soul_lantern;
 	public Block getUnlitSoulLantern() { return unlit_soul_lantern; }
+	private final BlockContainer button;
+	public BlockContainer getButton() { return button; }
 	private final Item nugget;
 	public Item getNugget() { return nugget; }
-	private final HavenPair chain;
-	public HavenPair getChain() { return chain; }
-	private final HavenPair bars;
-	public HavenPair getBars() { return bars; }
-	private final HavenPair wall;
-	public HavenPair getWall() { return wall; }
-	private final HavenPair cut;
-	public HavenPair getCut() { return cut; }
-	private final HavenPair cut_pillar;
-	public HavenPair getCutPillar() { return cut_pillar; }
-	private final HavenPair cut_slab;
-	public HavenPair getCutSlab() { return cut_slab; }
-	private final HavenPair cut_stairs;
-	public HavenPair getCutStairs() { return cut_stairs; }
-	private final HavenPair cut_wall;
-	public HavenPair getCutWall() { return cut_wall; }
+	private final BlockContainer chain;
+	public BlockContainer getChain() { return chain; }
+	private final BlockContainer bars;
+	public BlockContainer getBars() { return bars; }
+	private final BlockContainer wall;
+	public BlockContainer getWall() { return wall; }
+	private final BlockContainer cut;
+	public BlockContainer getCut() { return cut; }
+	private final BlockContainer cut_pillar;
+	public BlockContainer getCutPillar() { return cut_pillar; }
+	private final BlockContainer cut_slab;
+	public BlockContainer getCutSlab() { return cut_slab; }
+	private final BlockContainer cut_stairs;
+	public BlockContainer getCutStairs() { return cut_stairs; }
+	private final BlockContainer cut_wall;
+	public BlockContainer getCutWall() { return cut_wall; }
 	private final Item horse_armor;
 	public Item getHorseArmor() { return horse_armor; }
 
@@ -85,21 +86,22 @@ public class NetheriteMaterial extends BaseMaterial implements
 
 	public NetheriteMaterial() {
 		super("netherite", false);
-		torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME, ItemSettings());
-		soul_torch = new HavenTorch(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
-		lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
+		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME_PARTICLE, ItemSettings());
+		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
+		lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
 		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(lantern.BLOCK));
-		soul_lantern = new HavenPair(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
+		soul_lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
 		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings().dropsLike(soul_lantern.BLOCK));
 		nugget = new Item(ItemSettings());
-		chain = new HavenPair(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
-		bars = new HavenPair(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), ItemSettings());
-		wall = new HavenPair(new HavenWallBlock(Blocks.NETHERITE_BLOCK), ItemSettings());
-		cut = new HavenPair(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), ItemSettings());
-		cut_pillar = new HavenPair(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
-		cut_slab = new HavenPair(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new HavenPair(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new HavenPair(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(10.0F).sounds(BlockSoundGroup.NETHERITE)));
+		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
+		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(Blocks.NETHERITE_BLOCK), ItemSettings());
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), ItemSettings());
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
 		horse_armor = new HavenHorseArmorItem(15, getName(), ItemSettings().maxCount(1));
 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);
@@ -121,14 +123,14 @@ public class NetheriteMaterial extends BaseMaterial implements
 
 	public boolean contains(Block block) {
 		return torch.contains(block) || soul_torch.contains(block) || containsLantern(block) || containsSoulLantern(block)
-				|| block == chain.BLOCK || block == wall.BLOCK
-				|| block == cut.BLOCK || block == cut_pillar.BLOCK || block == cut_slab.BLOCK || block == cut_stairs.BLOCK
-				|| block == cut_wall.BLOCK || block == bars.BLOCK || super.contains(block);
+				|| chain.contains(block) || wall.contains(block)
+				|| cut.contains(block) || cut_pillar.contains(block) || cut_slab.contains(block) || cut_stairs.contains(block)
+				|| cut_wall.contains(block) || bars.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
 		return torch.contains(item) || soul_torch.contains(item)
-				|| item == lantern.ITEM || item == soul_lantern.ITEM || item == chain.ITEM || item == wall.ITEM
-				|| item == cut.ITEM || item == cut_pillar.ITEM || item == cut_slab.ITEM || item == cut_stairs.ITEM
-				|| item == cut_wall.ITEM || item == bars.ITEM || item == horse_armor || item == nugget || containsBucket(item) || super.contains(item);
+				|| lantern.contains(item) || soul_lantern.contains(item) || chain.contains(item) || wall.contains(item)
+				|| cut.contains(item) || cut_pillar.contains(item) || cut_slab.contains(item) || cut_stairs.contains(item)
+				|| cut_wall.contains(item) || bars.contains(item) || item == horse_armor || item == nugget || containsBucket(item) || super.contains(item);
 	}
 }

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "haven:copper_button",
+    "haven:exposed_copper_button",
+    "haven:weathered_copper_button",
+    "haven:oxidized_copper_button",
+    "haven:waxed_copper_button",
+    "haven:waxed_exposed_copper_button",
+    "haven:waxed_weathered_copper_button",
+    "haven:waxed_oxidized_copper_button"
+  ]
+}

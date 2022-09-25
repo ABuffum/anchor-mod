@@ -1,6 +1,5 @@
 package haven.blocks.cake;
 
-import haven.HavenMod;
 import haven.command.ChorusCommand;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -36,12 +35,12 @@ public class HavenCakeBlock extends Block {
 	public static final IntProperty BITES;
 	public static final int DEFAULT_COMPARATOR_OUTPUT;
 	protected static final VoxelShape[] BITES_TO_SHAPE;
-	private final HavenCake.Flavor flavor;
-	public HavenCake.Flavor getFlavor() { return flavor; }
-	public HavenCakeBlock(HavenCake.Flavor flavor) {
+	private final CakeContainer.Flavor flavor;
+	public CakeContainer.Flavor getFlavor() { return flavor; }
+	public HavenCakeBlock(CakeContainer.Flavor flavor) {
 		this(flavor, SETTINGS);
 	}
-	public HavenCakeBlock(HavenCake.Flavor flavor, Settings settings) {
+	public HavenCakeBlock(CakeContainer.Flavor flavor, Settings settings) {
 		super(settings);
 		this.flavor = flavor;
 	}
@@ -84,7 +83,7 @@ public class HavenCakeBlock extends Block {
 		return tryEat(world, pos, state, player, flavor);
 	}
 
-	protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, HavenCake.Flavor flavor) {
+	protected static ActionResult tryEat(WorldAccess world, BlockPos pos, BlockState state, PlayerEntity player, CakeContainer.Flavor flavor) {
 		if (!player.canConsume(false)) {
 			return ActionResult.PASS;
 		} else {
@@ -92,11 +91,11 @@ public class HavenCakeBlock extends Block {
 			player.getHungerManager().add(2, 0.1F);
 			int i = state.get(BITES);
 			world.emitGameEvent(player, GameEvent.EAT, pos);
-			if (flavor == HavenCake.Flavor.COFFEE) { //Coffee Cake
+			if (flavor == CakeContainer.Flavor.COFFEE) { //Coffee Cake
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 200, 0));
 				player.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 200, 0));
 			}
-			else if (flavor == HavenCake.Flavor.CHORUS) { //Chorus Cake
+			else if (flavor == CakeContainer.Flavor.CHORUS) { //Chorus Cake
 				ChorusCommand.TeleportEntity(player);
 			}
 			if (i < 6) {

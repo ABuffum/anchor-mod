@@ -1,10 +1,10 @@
 package haven.materials.providers;
 
-import haven.util.HavenPair;
+import haven.containers.BlockContainer;
 import net.minecraft.block.Block;
 
 public interface SoulLanternProvider {
-	public HavenPair getSoulLantern();
+	public BlockContainer getSoulLantern();
 	public Block getUnlitSoulLantern();
 
 	public default boolean containsSoulLantern(Block block) {

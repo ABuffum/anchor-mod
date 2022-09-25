@@ -1,6 +1,7 @@
 package haven;
 
 import haven.boats.HavenBoatEntityRenderer;
+import haven.containers.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.particles.*;
@@ -9,7 +10,6 @@ import haven.rendering.block.AnchorBlockEntityRenderer;
 import haven.rendering.block.SubstituteAnchorBlockEntityRenderer;
 import haven.rendering.entities.*;
 import haven.rendering.models.FancyChickenModel;
-import haven.util.*;
 
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -21,7 +21,9 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistrySpecificAccessor;
 import net.minecraft.block.Block;
+import net.minecraft.block.StemBlock;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -36,8 +38,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -59,6 +59,8 @@ public class HavenModClient implements ClientModInitializer {
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
+		//Gilded Fungus
+		HavenMod.GILDED_ROOTS.BLOCK, HavenMod.GILDED_ROOTS.POTTED, HavenMod.GILDED_MATERIAL.getTrapdoor().BLOCK,
 		//Unlit Torches
 		HavenMod.UNLIT_TORCH.UNLIT, HavenMod.UNLIT_TORCH.UNLIT_WALL,
 		HavenMod.UNLIT_SOUL_TORCH.UNLIT, HavenMod.UNLIT_SOUL_TORCH.UNLIT_WALL,
@@ -67,122 +69,116 @@ public class HavenModClient implements ClientModInitializer {
 		//Underwater Torch
 		HavenMod.UNDERWATER_TORCH.BLOCK, HavenMod.UNDERWATER_TORCH.WALL_BLOCK,
 		HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT, HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT_WALL,
-		//Copper Torches
-		HavenMod.COPPER_TORCH.BLOCK, HavenMod.COPPER_TORCH.WALL_BLOCK,
-		HavenMod.COPPER_TORCH.UNLIT.UNLIT, HavenMod.COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.EXPOSED_COPPER_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.EXPOSED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.EXPOSED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WEATHERED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.WEATHERED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WEATHERED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.OXIDIZED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.OXIDIZED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.OXIDIZED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_COPPER_TORCH.BLOCK, HavenMod.WAXED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_EXPOSED_COPPER_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_EXPOSED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_EXPOSED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_WEATHERED_COPPER_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_WEATHERED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_WEATHERED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_OXIDIZED_COPPER_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_OXIDIZED_COPPER_TORCH.UNLIT.UNLIT, HavenMod.WAXED_OXIDIZED_COPPER_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.COPPER_SOUL_TORCH.BLOCK, HavenMod.COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.EXPOSED_COPPER_SOUL_TORCH.BLOCK, HavenMod.EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WEATHERED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.OXIDIZED_COPPER_SOUL_TORCH.BLOCK, HavenMod.OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_EXPOSED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_WEATHERED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
-		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.WALL_BLOCK,
-		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT, HavenMod.WAXED_OXIDIZED_COPPER_SOUL_TORCH.UNLIT.UNLIT_WALL,
 		//Bamboo & Dried Bamboo Doors
 		HavenMod.BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.DRIED_BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.DRIED_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.POTTED_DRIED_BAMBOO,
+		//White Pumpkin
+		HavenMod.WHITE_PUMPKIN.getStem(), HavenMod.WHITE_PUMPKIN.getAttachedStem(),
 		//Strawberries
 		HavenMod.STRAWBERRY_BUSH,
 		//Coffee
 		HavenMod.COFFEE_PLANT,
-		//More Copper
-		HavenMod.COPPER_LANTERN.BLOCK, HavenMod.UNLIT_COPPER_LANTERN,
-		HavenMod.EXPOSED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_EXPOSED_COPPER_LANTERN,
-		HavenMod.WEATHERED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_WEATHERED_COPPER_LANTERN,
-		HavenMod.OXIDIZED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_OXIDIZED_COPPER_LANTERN,
-		HavenMod.WAXED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_COPPER_LANTERN,
-		HavenMod.WAXED_EXPOSED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_EXPOSED_COPPER_LANTERN,
-		HavenMod.WAXED_WEATHERED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_WEATHERED_COPPER_LANTERN,
-		HavenMod.WAXED_OXIDIZED_COPPER_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_OXIDIZED_COPPER_LANTERN,
-		HavenMod.COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_COPPER_SOUL_LANTERN,
-		HavenMod.EXPOSED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_EXPOSED_COPPER_SOUL_LANTERN,
-		HavenMod.WEATHERED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_WEATHERED_COPPER_SOUL_LANTERN,
-		HavenMod.OXIDIZED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_OXIDIZED_COPPER_SOUL_LANTERN,
-		HavenMod.WAXED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_COPPER_SOUL_LANTERN,
-		HavenMod.WAXED_EXPOSED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_EXPOSED_COPPER_SOUL_LANTERN,
-		HavenMod.WAXED_WEATHERED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_WEATHERED_COPPER_SOUL_LANTERN,
-		HavenMod.WAXED_OXIDIZED_COPPER_SOUL_LANTERN.BLOCK, HavenMod.UNLIT_WAXED_OXIDIZED_COPPER_SOUL_LANTERN,
-		HavenMod.COPPER_CHAIN.BLOCK, HavenMod.EXPOSED_COPPER_CHAIN.BLOCK,
-		HavenMod.WEATHERED_COPPER_CHAIN.BLOCK, HavenMod.OXIDIZED_COPPER_CHAIN.BLOCK,
-		HavenMod.WAXED_COPPER_CHAIN.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_CHAIN.BLOCK,
-		HavenMod.WAXED_WEATHERED_COPPER_CHAIN.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_CHAIN.BLOCK,
-		HavenMod.COPPER_BARS.BLOCK, HavenMod.EXPOSED_COPPER_BARS.BLOCK,
-		HavenMod.WEATHERED_COPPER_BARS.BLOCK, HavenMod.OXIDIZED_COPPER_BARS.BLOCK,
-		HavenMod.WAXED_COPPER_BARS.BLOCK, HavenMod.WAXED_EXPOSED_COPPER_BARS.BLOCK,
-		HavenMod.WAXED_WEATHERED_COPPER_BARS.BLOCK, HavenMod.WAXED_OXIDIZED_COPPER_BARS.BLOCK,
 		//More Iron
 		HavenMod.DARK_IRON_MATERIAL.getDoor().BLOCK, HavenMod.DARK_IRON_MATERIAL.getTrapdoor().BLOCK,
 		//Backport
 		HavenMod.MANGROVE_ROOTS.BLOCK, HavenMod.MANGROVE_MATERIAL.getTrapdoor().BLOCK
 	));
+	private static void setCutout(TorchContainer container) {
+		Cutout.add(container.BLOCK);
+		Cutout.add(container.WALL_BLOCK);
+		Cutout.add(container.UNLIT.UNLIT);
+		Cutout.add(container.UNLIT.UNLIT_WALL);
+	}
+	private static void setCutout(OxidizableTorchContainer container) {
+		setCutout(container.getUnaffected());
+		setCutout(container.getExposed());
+		setCutout(container.getWeathered());
+		setCutout(container.getOxidized());
+		setCutout(container.getWaxedUnaffected());
+		setCutout(container.getWaxedExposed());
+		setCutout(container.getWaxedWeathered());
+		setCutout(container.getWaxedOxidized());
+	}
+	private static void setCutout(OxidizableLanternContainer container) {
+		setCutout((OxidizableBlockContainer)container);
+		Cutout.add(container.getUnlitUnaffected());
+		Cutout.add(container.getUnlitExposed());
+		Cutout.add(container.getUnlitWeathered());
+		Cutout.add(container.getUnlitOxidized());
+		Cutout.add(container.getUnlitWaxedUnaffected());
+		Cutout.add(container.getUnlitWaxedExposed());
+		Cutout.add(container.getUnlitWaxedWeathered());
+		Cutout.add(container.getUnlitWaxedOxidized());
+	}
+	private static void setCutout(OxidizableBlockContainer container) {
+		Cutout.add(container.getUnaffected().BLOCK);
+		Cutout.add(container.getExposed().BLOCK);
+		Cutout.add(container.getWeathered().BLOCK);
+		Cutout.add(container.getOxidized().BLOCK);
+		Cutout.add(container.getWaxedUnaffected().BLOCK);
+		Cutout.add(container.getWaxedExposed().BLOCK);
+		Cutout.add(container.getWaxedWeathered().BLOCK);
+		Cutout.add(container.getWaxedOxidized().BLOCK);
+	}
 
 	private static final Block[] Translucent = {
 		HavenMod.SUBSTITUTE_ANCHOR_BLOCK
 	};
 
 	static {
-		for (HavenFlower flower : HavenMod.FLOWERS) {
+		for (FlowerContainer flower : HavenMod.FLOWERS) {
 			Cutout.add(flower.BLOCK);
 			Cutout.add(flower.POTTED);
 		}
-		for (HavenPair flower : HavenMod.TALL_FLOWERS) {
+		for (BlockContainer flower : HavenMod.TALL_FLOWERS) {
 			Cutout.add(flower.BLOCK);
 		}
-		for (HavenPair leaf : HavenMod.LEAVES) {
+		for (BlockContainer leaf : HavenMod.LEAVES) {
 			Cutout.add(leaf.BLOCK);
 		}
 		for (BaseMaterial material : HavenMod.MATERIALS) {
 			if (material instanceof TorchProvider torchProvider) {
-				HavenTorch torch = torchProvider.getTorch();
+				TorchContainer torch = torchProvider.getTorch();
 				Cutout.add(torch.BLOCK);
 				Cutout.add(torch.WALL_BLOCK);
 				Cutout.add(torch.UNLIT.UNLIT);
 				Cutout.add(torch.UNLIT.UNLIT_WALL);
 			}
+			if (material instanceof OxidizableTorchProvider oxidizableTorch) setCutout(oxidizableTorch.getOxidizableTorch());
 			if (material instanceof SoulTorchProvider soulTorchProvider) {
-				HavenTorch torch = soulTorchProvider.getSoulTorch();
+				TorchContainer torch = soulTorchProvider.getSoulTorch();
 				Cutout.add(torch.BLOCK);
 				Cutout.add(torch.WALL_BLOCK);
 				Cutout.add(torch.UNLIT.UNLIT);
 				Cutout.add(torch.UNLIT.UNLIT_WALL);
 			}
+			if (material instanceof OxidizableSoulTorchProvider oxidizableSoulTorch) setCutout(oxidizableSoulTorch.getOxidizableSoulTorch());
 			if (material instanceof LanternProvider lantern) {
 				Cutout.add(lantern.getLantern().BLOCK);
 				Cutout.add(lantern.getUnlitLantern());
 			}
+			if (material instanceof OxidizableLanternProvider oxidizableLantern) setCutout(oxidizableLantern.getOxidizableLantern());
 			if (material instanceof SoulLanternProvider soulLantern) {
 				Cutout.add(soulLantern.getSoulLantern().BLOCK);
 				Cutout.add(soulLantern.getUnlitSoulLantern());
 			}
+			if (material instanceof OxidizableSoulLanternProvider oxidizableSoulLantern) setCutout(oxidizableSoulLantern.getOxidizableSoulLantern());
+			if (material instanceof CampfireProvider campfire) Cutout.add(campfire.getCampfire().BLOCK);
+			if (material instanceof SoulCampfireProvider soulCampfire) Cutout.add(soulCampfire.getSoulCampfire().BLOCK);
 			if (material instanceof ChainProvider chain) Cutout.add(chain.getChain().BLOCK);
+			if (material instanceof OxidizableChainProvider oxidizableChain) setCutout(oxidizableChain.getOxidizableChain());
 			if (material instanceof BarsProvider bars) Cutout.add(bars.getBars().BLOCK);
+			if (material instanceof OxidizableBarsProvider oxidizableBars) setCutout(oxidizableBars.getOxidizableBars());
 			if (material instanceof SaplingProvider saplingProvider) {
-				HavenSapling sapling = saplingProvider.getSapling();
+				SaplingContainer sapling = saplingProvider.getSapling();
 				Cutout.add(sapling.BLOCK);
 				Cutout.add(sapling.POTTED);
+			}
+			if (material instanceof FungusProvider fungusProvider) {
+				FungusContainer fungus = fungusProvider.getFungus();
+				Cutout.add(fungus.BLOCK);
+				Cutout.add(fungus.POTTED);
 			}
 			//if (material instanceof PropaguleProvider propaguleProvider) {
 			//	HavenPropagule propagule = propaguleProvider.getPropagule();
@@ -257,10 +253,10 @@ public class HavenModClient implements ClientModInitializer {
 			registry.register(HavenMod.ID("particle/netherite_flame"));
 		}));
 		ParticleFactoryRegistry.getInstance().register(HavenMod.GLOW_FLAME, FlameParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME, FlameParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME, FlameParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME, FlameParticle.Factory::new);
-		ParticleFactoryRegistry.getInstance().register(HavenMod.NETHERITE_FLAME, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME_PARTICLE, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME_PARTICLE, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME_PARTICLE, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.NETHERITE_FLAME_PARTICLE, FlameParticle.Factory::new);
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes
@@ -274,22 +270,34 @@ public class HavenModClient implements ClientModInitializer {
 		//Melon Golem
 		EntityRendererRegistry.register(HavenMod.MELON_SEED_PROJECTILE_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
 		EntityRendererRegistry.register(HavenMod.MELON_GOLEM_ENTITY, MelonGolemEntityRenderer::new);
+		//White Pumpkin / White Pumpkin Snow Golem
+		EntityRendererRegistry.register(HavenMod.WHITE_SNOW_GOLEM_ENTITY, WhiteSnowGolemEntityRenderer::new);
 		//Rainbow Wool
 		EntityRendererRegistry.register(HavenMod.RAINBOW_SHEEP_ENTITY, RainbowSheepEntityRenderer::new);
 		//Custom Beds
-		for (HavenBed bed : HavenMod.BEDS) {
-			ClientSpriteRegistryCallback.event(TexturedRenderLayers.BEDS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+		ClientSpriteRegistryCallback.event(TexturedRenderLayers.BEDS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			for (BedContainer bed : HavenMod.BEDS) {
 				registry.register(bed.GetTexture());
-			}));
-		}
+			}
+		}));
 		//Chicken Variants
 		EntityModelLayerRegistry.registerModelLayer(FANCY_CHICKEN_ENTITY_MODEL_LAYER, FancyChickenModel::getTexturedModelData);
 		EntityRendererRegistry.register(HavenMod.FANCY_CHICKEN_ENTITY, FancyChickenEntityRenderer::new);
-		//Cow Variants
+		//Milk Cows
+		EntityRendererRegistry.register(HavenMod.COWCOA_ENTITY, CowcoaEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.COWFEE_ENTITY, CowfeeEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.STRAWBOVINE_ENTITY, StrawbovineEntityRenderer::new);
+		//Flower Mooshrooms
 		EntityRendererRegistry.register(HavenMod.MOOBLOOM_ENTITY, MoobloomEntityRenderer::new);
-		EntityRendererRegistry.register(HavenMod.MOOBLOSSOM_ENTITY, MooblossomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.MOOLIP_ENTITY, MoolipEntityRenderer::new);
+		//Mooblossoms
+		EntityRendererRegistry.register(HavenMod.MOOBLOSSOM_ENTITY, MooblossomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.ORANGE_MOOBLOSSOM_ENTITY, OrangeMooblossomEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.PINK_MOOBLOSSOM_ENTITY, PinkMooblossomEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.RED_MOOBLOSSOM_ENTITY, RedMooblossomEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.WHITE_MOOBLOSSOM_ENTITY, WhiteMooblossomEntityRenderer::new);
+		//Nether Mooshrooms
+		EntityRendererRegistry.register(HavenMod.GILDED_MOOSHROOM_ENTITY, GildedMooshroomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.CRIMSON_MOOSHROOM_ENTITY, CrimsonMooshroomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.WARPED_MOOSHROOM_ENTITY, WarpedMooshroomEntityRenderer::new);
 		//Bottled Confetti
@@ -306,6 +314,16 @@ public class HavenModClient implements ClientModInitializer {
 		//
 		receiveEntityPacket();
 	}
+
+	public static void RegisterBlockColors(BlockColors blockColors) {
+		//White Pumpkin Stems
+		blockColors.registerColorProvider((state, world, pos, tintIndex) -> 14731036, HavenMod.WHITE_PUMPKIN.getAttachedStem());
+		blockColors.registerColorProvider((state, world, pos, tintIndex) -> {
+			int i = state.get(StemBlock.AGE);
+			return (i * 32) << 16 | (255 - i * 8) << 8 | (i * 4);
+		}, HavenMod.WHITE_PUMPKIN.getStem());
+	}
+
 	private static float castGrapplingRod(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {
 		if (entity == null) {
 			return 0.0F;

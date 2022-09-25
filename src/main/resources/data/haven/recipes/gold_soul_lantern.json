@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "minecraft:soul_torch"
+      "tag": "haven:soul_torches"
     },
     "X": {
       "item": "minecraft:gold_nugget"

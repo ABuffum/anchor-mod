@@ -1,6 +1,6 @@
 package haven.mixins.entities;
 
-import haven.blood.BaseSyringeItem;
+import haven.items.syringe.BaseSyringeItem;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.MobEntity;

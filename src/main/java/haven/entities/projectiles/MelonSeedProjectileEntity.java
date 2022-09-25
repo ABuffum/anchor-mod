@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -57,7 +58,7 @@ public class MelonSeedProjectileEntity extends ThrownItemEntity {
 		Object SoundEventsInit;
 		//this.playSound(HavenSoundEvents.MELON_GOLEM_SEED_HIT, 1.0F, 1.0F);
 		Entity entity = entityHitResult.getEntity();
-		entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 1F);
+		entity.damage(new ProjectileDamageSource("melon_seeded", this, this.getOwner()).setProjectile(), 1F);
 	}
 
 	protected void onCollision(HitResult hitResult) {

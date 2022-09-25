@@ -2,7 +2,7 @@ package haven.mixins.client.rendering;
 
 import com.google.common.collect.Maps;
 import haven.HavenMod;
-import haven.util.HavenArmorMaterials;
+import haven.materials.HavenArmorMaterials;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;

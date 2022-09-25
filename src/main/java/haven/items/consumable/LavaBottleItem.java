@@ -1,5 +1,7 @@
 package haven.items.consumable;
 
+import haven.blood.BloodType;
+import haven.damage.HavenDamageSource;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,26 +27,28 @@ public class LavaBottleItem extends Item {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		PlayerEntity playerEntity = user instanceof PlayerEntity ? (PlayerEntity) user : null;
-		if (playerEntity instanceof ServerPlayerEntity player) {
-			Criteria.CONSUME_ITEM.trigger(player, stack);
-		}
+		if (playerEntity instanceof ServerPlayerEntity player) Criteria.CONSUME_ITEM.trigger(player, stack);
 		if (!world.isClient) {
-			user.setOnFireFor(30);
+			BloodType bloodType = BloodType.Get(user);
+			if (bloodType == BloodType.LAVA) user.heal(2);
+			else if (bloodType == BloodType.MAGMA) user.heal(1);
+			else if (bloodType == BloodType.NETHER) { }
+			else if (bloodType == BloodType.NETHER_ROYALTY) { }
+			else {
+				if (bloodType.IsFireVulnerable()){
+					user.damage(HavenDamageSource.DRANK_LAVA, 8);
+					user.setOnFireFor(20000);
+				}
+				else user.damage(HavenDamageSource.DRANK_LAVA, 2);
+			}
 		}
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-			if (!playerEntity.getAbilities().creativeMode) {
-				stack.decrement(1);
-			}
+			if (!playerEntity.getAbilities().creativeMode) stack.decrement(1);
 		}
 		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
-			if (stack.isEmpty()) {
-				return new ItemStack(Items.GLASS_BOTTLE);
-			}
-
-			if (playerEntity != null) {
-				playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-			}
+			if (stack.isEmpty()) return new ItemStack(Items.GLASS_BOTTLE);
+			if (playerEntity != null) playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
 		}
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
 		return stack;

@@ -61,7 +61,7 @@ public abstract class GlassBottleItemMixin extends Item {
 		if (!dlist.isEmpty()) {
 			for(DragonBreathCloudEntity cloud : dlist) {
 				cloud.kill();
-				world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+				world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 				world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.getBlockPos());
 				cir.setReturnValue(TypedActionResult.success(this.fill(itemStack, user, new ItemStack(Items.DRAGON_BREATH)), world.isClient()));
 				return;

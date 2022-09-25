@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.util.HavenSapling;
+import haven.containers.SaplingContainer;
 
 public interface SaplingProvider {
-	public HavenSapling getSapling();
+	public SaplingContainer getSapling();
 }

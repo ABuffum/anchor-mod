@@ -1,8 +1,10 @@
 package haven.mixins.entities;
 
 import haven.HavenMod;
+import haven.containers.BedContainer;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.tag.BlockTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,9 +25,15 @@ public class BlockEntityTypeMixin {
 		}
 		else if (BlockEntityType.BED.equals(this)) {
 			Block block = state.getBlock();
-			if (block instanceof BedBlock bed) {
-				if (bed == HavenMod.RAINBOW_BED.BLOCK) cir.setReturnValue(true);
+			if (block instanceof BedBlock) {
+				for (BedContainer bedContainer : HavenMod.BEDS) {
+					if (bedContainer.contains(block)) cir.setReturnValue(true);
+				}
 			}
+		}
+		else if (BlockEntityType.CAMPFIRE.equals(this)) {
+			Block block = state.getBlock();
+			if (block instanceof CampfireBlock && HavenMod.CAMPFIRES.contains(block)) cir.setReturnValue(true);
 		}
 	}
 }

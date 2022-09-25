@@ -5,6 +5,10 @@
     "#haven:cherry_logs",
     "#haven:bamboo_logs",
     "#haven:dried_bamboo_logs",
-    "#haven:mangrove_logs"
+    "#haven:mangrove_logs",
+    "haven:bamboo_bundle",
+    "haven:stripped_bamboo_bundle",
+    "haven:dried_bamboo_bundle",
+    "haven:stripped_dried_bamboo_bundle"
   ]
 }

@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:torch",
+    
+    "#haven:metal_torches",
+    "#haven:wood_torches",
+    "haven:bone_torch"
+  ]
+}

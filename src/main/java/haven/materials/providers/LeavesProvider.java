@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.util.HavenPair;
+import haven.containers.BlockContainer;
 
 public interface LeavesProvider {
-	public HavenPair getLeaves();
+	public BlockContainer getLeaves();
 }

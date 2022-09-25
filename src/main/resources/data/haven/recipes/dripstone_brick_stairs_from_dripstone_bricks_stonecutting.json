@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "haven:dripstone_bricks"
+  },
+  "result": "haven:dripstone_brick_stairs"
+}

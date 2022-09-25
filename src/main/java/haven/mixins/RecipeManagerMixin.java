@@ -1,6 +1,7 @@
 package haven.mixins;
 
 import haven.HavenMod;
+import haven.HavenTags;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,12 +23,10 @@ public class RecipeManagerMixin {
 	private <C extends Inventory, T extends Recipe<C>> void GetRemainder(RecipeType<T> type, C inventory, World world, CallbackInfoReturnable<DefaultedList<ItemStack>> cir) {
 		Optional<T> optional = ((RecipeManager)(Object)this).getFirstMatch(type, inventory, world);
 		if (optional.isPresent()) {
-			Item output = ((Recipe)optional.get()).getOutput().getItem();
-			if (HavenMod.FLAVORED_MILK_BUCKETS.contains(output)) {
+			ItemStack stack = ((Recipe)optional.get()).getOutput();
+			if (stack.isIn(HavenTags.Items.FLAVORED_MILK)) {
 				DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
-				for(int i = 0; i < defaultedList.size(); ++i) {
-					defaultedList.set(i, ItemStack.EMPTY);
-				}
+				for(int i = 0; i < defaultedList.size(); ++i) defaultedList.set(i, ItemStack.EMPTY);
 				cir.setReturnValue(defaultedList);
 			}
 		}

@@ -1,7 +1,6 @@
 package haven.mixins.blocks;
 
 import haven.HavenMod;
-import haven.util.DrippingFluid;
 import haven.util.PointedDripstoneUtils;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluid;
@@ -43,7 +42,7 @@ public class PointedDripstoneBlockMixin extends Block implements LandingBlock, W
 			ci.cancel();
 			return;
 		}
-		Optional<DrippingFluid> optional = PointedDripstoneUtils.getFluid(world, pos, state);
+		Optional<PointedDripstoneUtils.DrippingFluid> optional = PointedDripstoneUtils.getFluid(world, pos, state);
 		if (optional.isEmpty()) {
 			ci.cancel();
 			return;

@@ -2,9 +2,7 @@
   "values": [
     "haven:bamboo_log",
     "haven:bamboo_wood",
-    "haven:bamboo_bundle",
     "haven:stripped_bamboo_log",
-    "haven:stripped_bamboo_wood",
-    "haven:stripped_bamboo_bundle"
+    "haven:stripped_bamboo_wood"
   ]
 }

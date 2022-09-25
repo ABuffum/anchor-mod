@@ -9,7 +9,7 @@
 	  "item": "haven:carved_melon"
 	},
 	"B": {
-	  "item": "minecraft:torch"
+	  "tag": "haven:torches"
 	}
   },
   "result": {
