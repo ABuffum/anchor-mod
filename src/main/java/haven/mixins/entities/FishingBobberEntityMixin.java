@@ -1,4 +1,4 @@
-package haven.mixins.client.rendering.entity;
+package haven.mixins.entities;
 
 import haven.items.GrapplingRodItem;
 import net.minecraft.entity.Entity;

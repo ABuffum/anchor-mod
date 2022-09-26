@@ -365,6 +365,9 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer DRIED_BAMBOO_BLOCK = new BlockContainer(new DriedBambooBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO)));
 	public static final Block POTTED_DRIED_BAMBOO = new FlowerPotBlock(DRIED_BAMBOO_BLOCK.BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
+	//Charred Wood
+	public static final BaseTreeMaterial CHARRED_MATERIAL = new BaseTreeMaterial("charred", MapColor.BLACK, false);
+
 	//Vanilla Wood
 	public static final VanillaWoodMaterial ACACIA_MATERIAL = new VanillaWoodMaterial("acacia", MapColor.ORANGE);
 	public static final VanillaWoodMaterial BIRCH_MATERIAL = new VanillaWoodMaterial("birch", MapColor.PALE_YELLOW);
@@ -415,14 +418,10 @@ public class HavenMod implements ModInitializer {
 	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, ItemSettings().maxCount(1).rarity(Rarity.RARE));
 	public static final Item DISC_FRAGMENT_5 = new DiscFragmentItem(ItemSettings());
 	//Goat Horn
-	public static final Item GOAT_HORN = new Item(ItemSettings()); //TODO: Goat Horn
+	public static final Item GOAT_HORN = new GoatHornItem(ItemSettings().maxCount(1));
 	//Mud
 	public static final BlockContainer MUD = new BlockContainer(new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).allowsSpawning(BaseMaterial::always).solidBlock(BaseMaterial::always).blockVision(BaseMaterial::always).suffocates(BaseMaterial::always).sounds(HavenBlockSoundGroups.MUD)));
-	public static final BlockContainer PACKED_MUD = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.DIRT).strength(1.0f, 3.0f).sounds(HavenBlockSoundGroups.PACKED_MUD)));
-	public static final BlockContainer MUD_BRICKS = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.TERRACOTTA_LIGHT_GRAY).requiresTool().strength(1.5f, 3.0f).sounds(HavenBlockSoundGroups.MUD_BRICKS)));
-	public static final BlockContainer MUD_BRICK_STAIRS = new BlockContainer(new HavenStairsBlock(MUD_BRICKS.BLOCK));
-	public static final BlockContainer MUD_BRICK_SLAB = new BlockContainer(new HavenSlabBlock(MUD_BRICKS.BLOCK));
-	public static final BlockContainer MUD_BRICK_WALL = new BlockContainer(new HavenWallBlock(MUD_BRICKS.BLOCK));
+	public static final MudMaterial MUD_MATERIAL = new MudMaterial();
 	//Mangrove
 	public static final MangroveMaterial MANGROVE_MATERIAL = new MangroveMaterial("mangrove", MapColor.RED, BlockSoundGroup.GRASS, true);
 	public static final BlockContainer MANGROVE_ROOTS = new BlockContainer(new MangroveRootsBlock(AbstractBlock.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(0.7f).ticksRandomly().sounds(HavenBlockSoundGroups.MANGROVE_ROOTS).nonOpaque().suffocates(BaseMaterial::never).blockVision(BaseMaterial::never).nonOpaque()));
@@ -622,7 +621,9 @@ public class HavenMod implements ModInitializer {
 	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity, boolean coffee) {
 		BloodType bloodType = BloodType.Get(entity);
 		if (bloodType == BloodType.MILK) entity.heal(1);
-		else if (bloodType != BloodType.COW) entity.damage(HavenDamageSource.Injected("milk", user), 1);
+		else if (bloodType != BloodType.COW && bloodType != BloodType.GOAT){
+			entity.damage(HavenDamageSource.Injected("milk", user), 1);
+		}
 		MilkUtils.ApplyMilk(entity.getEntityWorld(), user, coffee);
 	}
 	public static final Item MILK_SYRINGE = new BloodSyringeItem(BloodType.MILK, HavenMod::ApplyMilkSyringe);
@@ -884,7 +885,7 @@ public class HavenMod implements ModInitializer {
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 	public static final Set<BaseMaterial> MATERIALS = Set.<BaseMaterial>of(
 		//Wood
-		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, MANGROVE_MATERIAL,
+		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, CHARRED_MATERIAL, MANGROVE_MATERIAL,
 		//Vanilla Wood
 		ACACIA_MATERIAL, BIRCH_MATERIAL, DARK_OAK_MATERIAL, JUNGLE_MATERIAL, /*OAK_MATERIAL,*/ SPRUCE_MATERIAL, CRIMSON_MATERIAL, WARPED_MATERIAL,
 		//Nether Wood
@@ -900,7 +901,7 @@ public class HavenMod implements ModInitializer {
 		//Blood
 		BLOOD_MATERIAL, DRIED_BLOOD_MATERIAL,
 		//Misc
-		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL
+		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL, MUD_MATERIAL
 	);
 	public static BiMap<Block, Block> UNLIT_LANTERNS = HashBiMap.create();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();

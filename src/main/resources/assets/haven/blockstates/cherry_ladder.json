@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/cherry_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/cherry_ladder"
+    },
+    "facing=south": {
+      "model": "haven:block/cherry_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/cherry_ladder",
+      "y": 270
+    }
+  }
+}

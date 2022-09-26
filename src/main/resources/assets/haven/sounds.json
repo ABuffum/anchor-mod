@@ -646,30 +646,12 @@
   },
   "block.packed_mud.hit": {
 	"sounds": [
-	  {
-		"name": "haven:block/packed_mud/step1",
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step2",
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step3",
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step4",
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step5",
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step6",
-		"volume": 0.3
-	  }
+	  { "name": "haven:block/packed_mud/step1", "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step2", "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step3", "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step4", "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step5", "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step6", "volume": 0.3 }
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
@@ -704,59 +686,60 @@
   },
   "block.packed_mud.step": {
 	"sounds": [
-	  {
-		"name": "haven:block/packed_mud/step1",
-		"pitch": 0.95,
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step2",
-		"pitch": 0.95,
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step3",
-		"pitch": 0.95,
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step4",
-		"pitch": 0.95,
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step5",
-		"pitch": 0.95,
-		"volume": 0.3
-	  },
-	  {
-		"name": "haven:block/packed_mud/step6",
-		"pitch": 0.95,
-		"volume": 0.3
-	  }
+	  { "name": "haven:block/packed_mud/step1", "pitch": 0.95, "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step2", "pitch": 0.95, "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step3", "pitch": 0.95, "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step4", "pitch": 0.95, "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step5", "pitch": 0.95, "volume": 0.3 },
+	  { "name": "haven:block/packed_mud/step6", "pitch": 0.95, "volume": 0.3 }
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
-  "music_disc.otherside": {
-	"sounds": [
-	  {
-		"name": "haven:records/otherside",
-		"stream": true
-	  }
-	]
+  "music_disc.otherside": { "sounds": [ { "name": "haven:records/otherside", "stream": true } ] },
+  "music_disc.5": { "sounds": [ { "name": "haven:records/5", "stream": true } ] },
+  "item.goat_horn.sound.0": {
+	"sounds": [ "haven:item/goat_horn/call0" ],
+	"subtitle": "subtitles.item.goat_horn.play"
   },
-  "music_disc.5": {
+  "item.goat_horn.sound.1": {
+	"sounds": [ "haven:item/goat_horn/call1" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.2": {
+	"sounds": [ "haven:item/goat_horn/call2" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.3": {
+	"sounds": [ "haven:item/goat_horn/call3" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.4": {
+	"sounds": [ "haven:item/goat_horn/call4" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.5": {
+	"sounds": [ "haven:item/goat_horn/call5" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.6": {
+	"sounds": [ "haven:item/goat_horn/call6" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "item.goat_horn.sound.7": {
+	"sounds": [ "haven:item/goat_horn/call7" ],
+	"subtitle": "subtitles.item.goat_horn.play"
+  },
+  "entity.goat.horn_break": {
 	"sounds": [
-	  {
-		"name": "haven:records/5",
-		"stream": true
-	  }
-	]
+	  { "name": "haven:mob/goat/horn_break1", "volume": 0.9 },
+	  { "name": "haven:mob/goat/horn_break2", "volume": 0.9 },
+	  { "name": "haven:mob/goat/horn_break3", "volume": 0.9 },
+	  { "name": "haven:mob/goat/horn_break4", "volume": 0.9 }
+	],
+	"subtitle": "subtitles.entity.goat.horn_break"
   },
   "item.syringe.inject": {
 	"subtitle": "Syringe Injected",
-	"sounds": [
-	  "haven:item/syringe/inject"
-	]
+	"sounds": [ "haven:item/syringe/inject" ]
   }
 }

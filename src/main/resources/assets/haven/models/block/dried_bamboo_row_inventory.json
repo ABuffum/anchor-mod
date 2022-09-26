@@ -1,0 +1,22 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "haven:block/dried_bamboo_row",
+		"1": "haven:block/dried_bamboo_row_top",
+		"particle": "haven:block/dried_bamboo_row"
+	},
+	"elements": [
+		{
+			"from": [7, 4, 7],
+			"to": [9, 12, 9],
+			"faces": {
+				"north": {"uv": [6, 0, 10, 16], "texture": "#0"},
+				"east": {"uv": [6, 0, 10, 16], "texture": "#0"},
+				"south": {"uv": [6, 0, 10, 16], "texture": "#0"},
+				"west": {"uv": [6, 0, 10, 16], "texture": "#0"},
+				"up": {"uv": [4, 4, 8, 8], "texture": "#1"},
+				"down": {"uv": [4, 4, 8, 8], "texture": "#1"}
+			}
+		}
+	]
+}

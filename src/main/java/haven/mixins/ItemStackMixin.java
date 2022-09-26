@@ -10,7 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ItemStackMixin {
 	@Inject(method="isOf", at = @At("HEAD"), cancellable = true)
 	public void isOf(Item item, CallbackInfoReturnable<Boolean> cir) {
-		if (item == Items.FISHING_ROD) cir.setReturnValue(((ItemStack)(Object)this).getItem() instanceof FishingRodItem);
-		else if (item == Items.SHEARS) cir.setReturnValue(((ItemStack)(Object)this).getItem() instanceof ShearsItem);
+		if (item == Items.FISHING_ROD) {
+			if (((ItemStack)(Object)this).getItem() instanceof FishingRodItem) cir.setReturnValue(true);
+		}
+		else if (item == Items.SHEARS) {
+			if (((ItemStack)(Object)this).getItem() instanceof ShearsItem) cir.setReturnValue(true);
+		}
 	}
 }

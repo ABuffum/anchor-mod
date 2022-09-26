@@ -21,9 +21,13 @@ import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.resource.*;
 import net.fabricmc.fabric.mixin.object.builder.ModelPredicateProviderRegistrySpecificAccessor;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.StemBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.color.block.BlockColors;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.color.world.BiomeColors;
+import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -70,6 +74,8 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.DRIED_BAMBOO_MATERIAL.getDoor().BLOCK, HavenMod.DRIED_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		HavenMod.POTTED_DRIED_BAMBOO,
+		//Charred Wood
+		HavenMod.CHARRED_MATERIAL.getDoor().BLOCK, HavenMod.CHARRED_MATERIAL.getTrapdoor().BLOCK,
 		//White Pumpkin
 		HavenMod.WHITE_PUMPKIN.getStem(), HavenMod.WHITE_PUMPKIN.getAttachedStem(),
 		//Strawberries
@@ -296,6 +302,13 @@ public class HavenModClient implements ClientModInitializer {
 			int i = state.get(StemBlock.AGE);
 			return (i * 32) << 16 | (255 - i * 8) << 8 | (i * 4);
 		}, HavenMod.WHITE_PUMPKIN.getStem());
+		//Mangrove Leaves
+		blockColors.registerColorProvider((state, world, pos, tintIndex) -> {
+			return world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
+		}, HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK);
+	}
+	public static void RegisterItemColors(ItemColors itemColors) {
+		itemColors.register((itemStack, i) -> 9619016, HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK);
 	}
 
 	private static float castGrapplingRod(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {

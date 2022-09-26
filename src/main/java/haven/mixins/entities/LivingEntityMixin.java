@@ -1,6 +1,5 @@
 package haven.mixins.entities;
 
-import haven.HavenMod;
 import haven.HavenTags;
 import haven.origins.powers.UnfreezingPower;
 import io.github.apace100.apoli.component.PowerHolderComponent;

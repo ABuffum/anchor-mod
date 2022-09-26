@@ -13,6 +13,8 @@ public class HavenTags {
 		public static final Tag.Identified<Block> CONVERTIBLE_TO_MUD = createTag("convertible_to_mud");
 		public static final Tag.Identified<Block> GOURDS = createTag("gourds");
 		public static final Tag.Identified<Block> GOURD_LANTERNS = createTag("gourd_lanterns");
+		public static final Tag.Identified<Block> PUMPKINS = createTag("pumpkins");
+		public static final Tag.Identified<Block> SNAPS_GOAT_HORN = createTag("snaps_goat_horn");
 
 		private static Tag.Identified<Block> createTag(String name) {
 			return TagFactory.BLOCK.create(HavenMod.ID(name));
@@ -33,6 +35,7 @@ public class HavenTags {
 		}
 	}
 	public static class Items {
+		public static final Tag.Identified<Item> CARVED_PUMPKINS = createTag("carved_pumpkins");
 		public static final Tag.Identified<Item> HEAD_WEARABLE_BLOCKS = createTag("head_wearable_blocks");
 		public static final Tag.Identified<Item> FLAVORED_MILK = createTag("flavored_milk");
 

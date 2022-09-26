@@ -4,14 +4,15 @@
     "haven:bamboo_torch",
     "haven:birch_torch",
     "haven:cassia_torch",
+    "haven:charred_torch",
     "haven:cherry_torch",
     "haven:crimson_torch",
     "haven:dried_bamboo_torch",
     "haven:dark_oak_torch",
+    "haven:gilded_torch",
     "haven:jungle_torch",
     "haven:mangrove_torch",
     "haven:spruce_torch",
-    "haven:warped_torch",
-    "haven:gilded_torch"
+    "haven:warped_torch"
   ]
 }

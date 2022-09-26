@@ -1,6 +1,7 @@
 package haven.mixins.blocks.enums;
 
 import haven.HavenMod;
+import haven.HavenTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -15,6 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class InstrumentMixin {
 	@Inject(method="fromBlockState", at = @At("HEAD"), cancellable = true)
 	private static void fromBlockState(BlockState state, CallbackInfoReturnable<Instrument> cir) {
-		if (state.isOf(HavenMod.WHITE_PUMPKIN.getGourd().BLOCK)) cir.setReturnValue(Instrument.DIDGERIDOO);
+		if (state.isIn(HavenTags.Blocks.PUMPKINS)) cir.setReturnValue(Instrument.DIDGERIDOO);
 	}
 }

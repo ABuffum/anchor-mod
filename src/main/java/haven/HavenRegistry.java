@@ -3,6 +3,8 @@ package haven;
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import haven.blocks.*;
 import haven.blocks.cake.CakeContainer;
+import haven.blocks.gourd.CarvedMelonBlock;
+import haven.blocks.gourd.CarvedWhitePumpkinBlock;
 import haven.blocks.mud.MudCauldronBlock;
 import haven.containers.OxidizableBlockContainer;
 import haven.boats.HavenBoat;
@@ -290,7 +292,6 @@ public class HavenRegistry {
 				FLAMMABLE.add(strippedBundleBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
-			StrippedBlockUtils.Register(strippedBundle.getBundle().BLOCK, strippedBundleBlock);
 		}
 		if (material instanceof LogProvider log) {
 			BlockContainer pair = log.getLog();
@@ -308,7 +309,6 @@ public class HavenRegistry {
 				FLAMMABLE.add(strippedLogBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
-			StrippedBlockUtils.Register(strippedLog.getLog().BLOCK, strippedLogBlock);
 		}
 		if (material instanceof WoodProvider wood) {
 			BlockContainer pair = wood.getWood();
@@ -326,7 +326,6 @@ public class HavenRegistry {
 				FLAMMABLE.add(strippedWoodBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
-			StrippedBlockUtils.Register(strippedWood.getWood().BLOCK, strippedWoodBlock);
 		}
 		if (material instanceof StemProvider stem) {
 			BlockContainer pair = stem.getStem();
@@ -344,7 +343,6 @@ public class HavenRegistry {
 				FLAMMABLE.add(strippedStemBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
-			StrippedBlockUtils.Register(strippedStem.getStem().BLOCK, strippedStemBlock);
 		}
 		if (material instanceof HyphaeProvider hyphae) {
 			BlockContainer pair = hyphae.getHyphae();
@@ -362,7 +360,6 @@ public class HavenRegistry {
 				FLAMMABLE.add(strippedHyphaeBlock, 5, 5);
 				FUEL.add(pair.ITEM, 300);
 			}
-			StrippedBlockUtils.Register(strippedHyphae.getHyphae().BLOCK, strippedHyphaeBlock);
 		}
 		if (material instanceof LeavesProvider leaves) {
 			BlockContainer pair = leaves.getLeaves();
@@ -413,14 +410,35 @@ public class HavenRegistry {
 		if (material instanceof FenceProvider fence) {
 			BlockContainer pair = fence.getFence();
 			Register(name + "_fence", pair);
-			FUEL.add(pair.ITEM, 300);
-			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
+			if (flammable) {
+				FLAMMABLE.add(pair.BLOCK, 5, 20);
+				FUEL.add(pair.ITEM, 300);
+			}
 		}
 		if (material instanceof FenceGateProvider fenceGate) {
 			BlockContainer pair = fenceGate.getFenceGate();
 			Register(name + "_fence_gate", pair);
-			FUEL.add(pair.ITEM, 300);
-			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
+			if (flammable) {
+				FLAMMABLE.add(pair.BLOCK, 5, 20);
+				FUEL.add(pair.ITEM, 300);
+			}
+		}
+		if (material instanceof BookshelfProvider bookshelf) {
+			BlockContainer pair = bookshelf.getBookshelf();
+			Register(name + "_bookshelf", pair);
+			Block bookshelfBlock = pair.BLOCK;
+			if (flammable) {
+				FLAMMABLE.add(bookshelfBlock, 30, 20);
+				FUEL.add(pair.ITEM, 300);
+			}
+		}
+		if (material instanceof RowProvider row) {
+			BlockContainer pair = row.getRow();
+			Register(name + "_row", pair);
+			if (flammable) {
+				FLAMMABLE.add(pair.BLOCK, 5, 20);
+				FUEL.add(pair.ITEM, 300);
+			}
 		}
 		if (material instanceof WallProvider wall) Register(name + "_wall", wall.getWall());
 		if (material instanceof OxidizableWallProvider oxidizableWall) Register(name + "_wall", oxidizableWall.getOxidizableWall());
@@ -441,10 +459,16 @@ public class HavenRegistry {
 		if (material instanceof CutStairsProvider cutStairs) Register("cut_" + name + "_stairs", cutStairs.getCutStairs());
 		if (material instanceof CutWallProvider cutWall) Register("cut_" + name + "_wall", cutWall.getCutWall());
 		if (material instanceof OxidizableCutWallProvider oxidizableCutWall) Register("cut_" + name + "_wall", oxidizableCutWall.getOxidizableCutWall());
+		if (material instanceof PackedProvider packed) Register("packed_" + name, packed.getPacked());
 		if (material instanceof BricksProvider bricks) Register(name + "_bricks", bricks.getBricks());
 		if (material instanceof BrickSlabProvider brickSlab) Register(name + "_brick_slab", brickSlab.getBrickSlab());
 		if (material instanceof BrickStairsProvider brickStairs) Register(name + "_brick_stairs", brickStairs.getBrickStairs());
 		if (material instanceof BrickWallProvider brickWall) Register(name + "_brick_wall", brickWall.getBrickWall());
+		if (material instanceof LadderProvider ladder) {
+			BlockContainer pair = ladder.getLadder();
+			Register(name + "_ladder", pair);
+			if (flammable) FUEL.add(pair.ITEM, 300);
+		}
 		if (material instanceof SignProvider sign) Register(name + "_sign", name + "_wall_sign", sign.getSign());
 		if (material instanceof BoatProvider boatProvider) {
 			HavenBoat boat = boatProvider.getBoat();
@@ -661,11 +685,7 @@ public class HavenRegistry {
 		Register("disc_fragment_5", DISC_FRAGMENT_5);
 		//Mud
 		Register("mud", MUD);
-		Register("packed_mud", PACKED_MUD);
-		Register("mud_bricks", MUD_BRICKS);
-		Register("mud_brick_slab", MUD_BRICK_SLAB);
-		Register("mud_brick_stairs", MUD_BRICK_STAIRS);
-		Register("mud_brick_wall", MUD_BRICK_WALL);
+		Register(MUD_MATERIAL);
 		DispenserBlock.registerBehavior(Items.POTION, new ItemDispenserBehavior(){
 			private final ItemDispenserBehavior fallback = new ItemDispenserBehavior();
 
@@ -925,7 +945,7 @@ public class HavenRegistry {
 		SpawnRestrictionAccessor.callRegister(ANGEL_BAT_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AngelBatEntity::CanSpawn);
 		FabricDefaultAttributeRegistry.register(ANGEL_BAT_ENTITY, AngelBatEntity.createBatAttributes());
 	}
-	public static void RegisterMelonGolem() {
+	public static void RegisterGourds() {
 		//Soul Jack o' Lantern
 		Register("soul_jack_o_lantern", SOUL_JACK_O_LANTERN);
 		//Melon
@@ -933,6 +953,23 @@ public class HavenRegistry {
 		Register("melon_golem", MELON_GOLEM_ENTITY);
 		FabricDefaultAttributeRegistry.register(MELON_GOLEM_ENTITY, MelonGolemEntity.createMelonGolemAttributes());
 		Register("carved_melon", CARVED_MELON);
+		DispenserBlock.registerBehavior(CARVED_MELON.BLOCK, new FallibleItemDispenserBehavior() {
+			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				World world = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				CarvedMelonBlock carvedMelonBlock = (CarvedMelonBlock)CARVED_MELON.BLOCK;
+				if (world.isAir(blockPos) && carvedMelonBlock.canDispense(world, blockPos)) {
+					if (!world.isClient) {
+						world.setBlockState(blockPos, carvedMelonBlock.getDefaultState(), Block.NOTIFY_ALL);
+						world.emitGameEvent(null, GameEvent.BLOCK_PLACE, blockPos);
+					}
+					stack.decrement(1);
+					this.setSuccess(true);
+				}
+				else this.setSuccess(ArmorItem.dispenseArmor(pointer, stack));
+				return stack;
+			}
+		});
 		CompostingChanceRegistry.INSTANCE.add(CARVED_MELON.ITEM, 0.65F);
 		Register("melon_lantern", MELON_LANTERN);
 		Register("soul_melon_lantern", SOUL_MELON_LANTERN);
@@ -942,9 +979,32 @@ public class HavenRegistry {
 		Register("white_pumpkin", WHITE_PUMPKIN);
 		Register("white_jack_o_lantern", WHITE_JACK_O_LANTERN);
 		Register("white_soul_jack_o_lantern", WHITE_SOUL_JACK_O_LANTERN);
+		DispenserBlock.registerBehavior(WHITE_PUMPKIN.getCarved().BLOCK, new FallibleItemDispenserBehavior() {
+			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				World world = pointer.getWorld();
+				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				CarvedWhitePumpkinBlock carvedPumpkinBlock = (CarvedWhitePumpkinBlock)WHITE_PUMPKIN.getCarved().BLOCK;
+				if (world.isAir(blockPos) && carvedPumpkinBlock.canDispense(world, blockPos)) {
+					if (!world.isClient) {
+						world.setBlockState(blockPos, carvedPumpkinBlock.getDefaultState(), Block.NOTIFY_ALL);
+						world.emitGameEvent(null, GameEvent.BLOCK_PLACE, blockPos);
+					}
+					stack.decrement(1);
+					this.setSuccess(true);
+				}
+				else this.setSuccess(ArmorItem.dispenseArmor(pointer, stack));
+				return stack;
+			}
+		});
 		//Rotten Pumpkin
 		Register("rotten_pumpkin", ROTTEN_PUMPKIN);
 		Register("carved_rotten_pumpkin", CARVED_ROTTEN_PUMPKIN);
+		DispenserBlock.registerBehavior(CARVED_ROTTEN_PUMPKIN.BLOCK, new FallibleItemDispenserBehavior() {
+			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				this.setSuccess(ArmorItem.dispenseArmor(pointer, stack));
+				return stack;
+			}
+		});
 		Register("rotten_jack_o_lantern", ROTTEN_JACK_O_LANTERN);
 		Register("rotten_soul_jack_o_lantern", ROTTEN_SOUL_JACK_O_LANTERN);
 		Register("rotten_pumpkin_seeds", ROTTEN_PUMPKIN_SEEDS);
@@ -1157,6 +1217,7 @@ public class HavenRegistry {
 		RegisterCherry();
 		RegisterCinnamon();
 		RegisterBamboo();
+		Register(CHARRED_MATERIAL);
 		RegisterVanillaWood();
 		RegisterAmberFungus();
 		Register(WOOD_MATERIAL);
@@ -1171,7 +1232,7 @@ public class HavenRegistry {
 		RegisterOriginPowers();
 		Register("grappling_rod", GRAPPLING_ROD);
 		RegisterAngelBat();
-		RegisterMelonGolem();
+		RegisterGourds();
 		RegisterRainbow();
 		RegisterChickenVariants();
 		RegisterCowVariants();

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wooden_button",
+  "ingredients": [
+    {
+      "item": "haven:charred_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:charred_button"
+  }
+}

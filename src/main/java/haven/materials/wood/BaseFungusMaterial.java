@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 
-public abstract class BaseFungusMaterial extends WoodMaterial implements
+public class BaseFungusMaterial extends WoodMaterial implements
 		TorchProvider, SoulTorchProvider, CampfireProvider, SoulCampfireProvider,
 		StrippedStemProvider, StrippedHyphaeProvider, WartBlockProvider {
 	private final TorchContainer torch;

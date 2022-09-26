@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "haven:block/cassia_planks",
+    "side": "haven:block/cassia_bookshelf"
+  }
+}

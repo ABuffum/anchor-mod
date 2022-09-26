@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "haven:block/bamboo_planks",
+    "side": "haven:block/bamboo_bookshelf"
+  }
+}

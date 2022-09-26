@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -46,14 +47,18 @@ public class AxeItemMixin {
 		World world = context.getWorld();
 		BlockPos blockPos = context.getBlockPos();
 		Block block = world.getBlockState(blockPos).getBlock();
-		//Strip cassia logs for cinnamon
+		//Strip cassia logs for cinnamon, charred logs for charcoal
 		boolean optional1 = false;
 		if (block == HavenMod.CASSIA_MATERIAL.getLog().BLOCK) {
-			world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 4)));
+			Block.dropStack(world, blockPos, new ItemStack(HavenMod.CINNAMON, 4));
 			optional1 = true;
 		}
 		else if (block == HavenMod.CASSIA_MATERIAL.getWood().BLOCK) {
-			world.spawnEntity(new ItemEntity(world, blockPos.getX(), blockPos.getY(), blockPos.getZ(), new ItemStack(HavenMod.CINNAMON, 6)));
+			Block.dropStack(world, blockPos, new ItemStack(HavenMod.CINNAMON, 6));
+			optional1 = true;
+		}
+		else if (block == HavenMod.CHARRED_MATERIAL.getLog().BLOCK || block == HavenMod.CHARRED_MATERIAL.getWood().BLOCK) {
+			Block.dropStack(world, blockPos, new ItemStack(Items.CHARCOAL, 1));
 			optional1 = true;
 		}
 		if (!optional1) {
