@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "haven:black_fleece",
+    "haven:blue_fleece",
+    "haven:brown_fleece",
+    "haven:cyan_fleece",
+    "haven:gray_fleece",
+    "haven:green_fleece",
+    "haven:light_blue_fleece",
+    "haven:light_gray_fleece",
+    "haven:lime_fleece",
+    "haven:magenta_fleece",
+    "haven:orange_fleece",
+    "haven:pink_fleece",
+    "haven:purple_fleece",
+    "haven:red_fleece",
+    "haven:white_fleece",
+    "haven:yellow_fleece",
+    "haven:rainbow_fleece"
+  ]
+}

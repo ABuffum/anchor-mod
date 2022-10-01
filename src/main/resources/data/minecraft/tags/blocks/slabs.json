@@ -20,6 +20,13 @@
     
     "haven:obsidian_slab",
     "haven:crying_obsidian_slab",
-    "haven:bleeding_obsidian_slab"
+    "haven:bleeding_obsidian_slab",
+  
+    "haven:calcite_brick_slab",
+    "haven:smooth_calcite_slab",
+    "haven:dripstone_brick_slab",
+    "haven:smooth_dripstone_slab",
+    "haven:tuff_brick_slab",
+    "haven:smooth_tuff_slab"
   ]
 }

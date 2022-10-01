@@ -738,6 +738,10 @@
 	],
 	"subtitle": "subtitles.entity.goat.horn_break"
   },
+  "item.salve.apply": {
+	"subtitle": "Salve Applied",
+	"sounds": [ "block/honeyblock/break1" ]
+  },
   "item.syringe.inject": {
 	"subtitle": "Syringe Injected",
 	"sounds": [ "haven:item/syringe/inject" ]

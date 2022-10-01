@@ -1,6 +1,7 @@
 package haven.mixins.blocks;
 
 import haven.HavenMod;
+import haven.origins.powers.UnfreezingPower;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -21,6 +22,7 @@ public class PowderSnowBlockMixin {
 			if (item == Items.LEATHER_BOOTS || item == HavenMod.STUDDED_LEATHER_MATERIAL.getBoots()){
 				cir.setReturnValue(true);
 			}
+			if (UnfreezingPower.HasActivePower(entity)) cir.setReturnValue(true);
 		}
 	}
 }

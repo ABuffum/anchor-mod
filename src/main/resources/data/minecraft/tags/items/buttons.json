@@ -8,6 +8,10 @@
     "haven:waxed_copper_button",
     "haven:waxed_exposed_copper_button",
     "haven:waxed_weathered_copper_button",
-    "haven:waxed_oxidized_copper_button"
+    "haven:waxed_oxidized_copper_button",
+    "haven:iron_button",
+    "haven:dark_iron_button",
+    "haven:gold_button",
+    "haven:netherite_button"
   ]
 }

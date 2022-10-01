@@ -20,6 +20,9 @@ public enum HavenToolMaterials implements ToolMaterial {
     DARK_IRON(MiningLevels.IRON, 250, 6.0F, 2.0F, 14, () -> {
         return Ingredient.ofItems(HavenMod.DARK_IRON_INGOT);
     }),
+    ECHO(MiningLevels.NETHERITE, 2031, 9.0F, 4.0F, 15, () -> {
+        return Ingredient.ofItems(HavenMod.ECHO_SHARD);
+    }),
     EMERALD(MiningLevels.STONE, 850, 4.0F, 2.5F, 10, () -> {
         return Ingredient.ofItems(Items.EMERALD);
     }),

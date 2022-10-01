@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_pressure_plate",
+    "haven:brown_mushroom_pressure_plate",
     "haven:cassia_pressure_plate",
     "haven:charred_pressure_plate",
     "haven:cherry_pressure_plate",
-    "haven:bamboo_pressure_plate",
     "haven:dried_bamboo_pressure_plate",
+    "haven:gilded_pressure_plate",
     "haven:mangrove_pressure_plate",
-    "haven:gilded_pressure_plate"
+    "haven:mushroom_stem_pressure_plate",
+    "haven:red_mushroom_pressure_plate"
   ]
 }

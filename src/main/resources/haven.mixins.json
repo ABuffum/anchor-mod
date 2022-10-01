@@ -55,7 +55,9 @@
 	"items.HoneycombItemMixin",
 	"items.MilkBucketItemMixin",
 	"items.PotionItemMixin",
+	"items.ShearsItemMixin",
 	"items.farmersdelight.HotCocoaItemMixin",
+	"items.farmersdelight.KnifeItemMixin",
 	"items.farmersdelight.MilkBottleItemMixin"
   ],
   "client": [

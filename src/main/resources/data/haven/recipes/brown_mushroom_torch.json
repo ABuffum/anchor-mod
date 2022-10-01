@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:brown_mushroom_block"
+    },
+    "X": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ]
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 8,
+    "item": "haven:brown_mushroom_torch"
+  }
+}

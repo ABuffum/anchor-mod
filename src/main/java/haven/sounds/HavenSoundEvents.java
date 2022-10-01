@@ -74,10 +74,11 @@ public class HavenSoundEvents {
 	public static final SoundEvent ENTITY_GOAT_SCREAMING_HORN_BREAK = ENTITY_GOAT_HORN_BREAK;//registerSoundEvent("entity.goat.screaming.horn_break");
 
 
-
-
-	//Server Blood
+	//Salves
+	public static final SoundEvent SALVE_APPLIED = registerSoundEvent("item.salve.apply");
+	//Syringes
 	public static final SoundEvent SYRINGE_INJECTED = registerSoundEvent("item.syringe.inject");
+
 
 	public static SoundEvent registerSoundEvent(String name) {
 		Identifier id = HavenMod.ID(name);

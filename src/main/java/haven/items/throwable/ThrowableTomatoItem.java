@@ -17,24 +17,16 @@ public class ThrowableTomatoItem extends Item {
 	}
 
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		ItemStack itemStack = user.getStackInHand(hand); // creates a new ItemStack instance of the user's itemStack in-hand
-		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 1F); // plays a globalSoundEvent
-		/*
-		user.getItemCooldownManager().set(this, 5);
-		Optionally, you can add a cooldown to your item's right-click use, similar to Ender Pearls.
-		*/
+		ItemStack itemStack = user.getStackInHand(hand);
+		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F);
 		if (!world.isClient) {
 			ThrownTomatoEntity tomatoEntity = new ThrownTomatoEntity(world, user);
 			tomatoEntity.setItem(itemStack);
 			tomatoEntity.setProperties(user, user.getPitch(), user.getYaw(), 0F, 1.5F, 0F);
-			world.spawnEntity(tomatoEntity); // spawns entity
+			world.spawnEntity(tomatoEntity);
 		}
-
 		user.incrementStat(Stats.USED.getOrCreateStat(this));
-		if (!user.getAbilities().creativeMode) {
-			itemStack.decrement(1); // decrements itemStack if user is not in creative mode
-		}
-
+		if (!user.getAbilities().creativeMode) itemStack.decrement(1);
 		return TypedActionResult.success(itemStack, world.isClient());
 	}
 }

@@ -1,0 +1,20 @@
+{
+	"type": "minecraft:block",
+	"name": "haven:red_mushroom_torch",
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "haven:red_mushroom_torch"
+				}
+			],
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			]
+		}
+	]
+}

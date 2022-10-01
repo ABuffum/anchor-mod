@@ -2,6 +2,7 @@ package haven.materials.metal;
 
 import haven.HavenMod;
 import haven.blocks.MetalButtonBlock;
+import haven.blocks.UnlitLanternBlock;
 import haven.blocks.basic.*;
 import haven.items.basic.HavenHorseArmorItem;
 import haven.items.buckets.*;
@@ -87,22 +88,22 @@ public class NetheriteMaterial extends BaseMaterial implements
 
 	public NetheriteMaterial() {
 		super("netherite", false);
-		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME_PARTICLE, ItemSettings());
-		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
-		lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
-		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
-		soul_lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
-		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
+		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.NETHERITE), HavenMod.NETHERITE_FLAME_PARTICLE);
+		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.NETHERITE), ParticleTypes.SOUL_FIRE_FLAME);
+		lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()));
+		unlit_lantern = new UnlitLanternBlock(this::getLantern);
+		soul_lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()));
+		unlit_soul_lantern = new UnlitLanternBlock(this::getSoulLantern);
 		nugget = new Item(ItemSettings());
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(10.0F).sounds(BlockSoundGroup.NETHERITE)));
-		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
-		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.NETHERITE_BLOCK), ItemSettings());
-		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), ItemSettings());
-		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
+		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()));
+		wall = new BlockContainer(new HavenWallBlock(Blocks.NETHERITE_BLOCK));
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)));
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)));
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK));
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK));
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK));
 		horse_armor = new HavenHorseArmorItem(15, getName(), ItemSettings().maxCount(1));
 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);

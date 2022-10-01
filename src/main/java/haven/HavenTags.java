@@ -11,6 +11,7 @@ public class HavenTags {
 	public static class Blocks {
 		public static final Tag.Identified<Block> CARVED_GOURDS = createTag("carved_gourds");
 		public static final Tag.Identified<Block> CONVERTIBLE_TO_MUD = createTag("convertible_to_mud");
+		public static final Tag.Identified<Block> FLEECE = createTag("fleece");
 		public static final Tag.Identified<Block> GOURDS = createTag("gourds");
 		public static final Tag.Identified<Block> GOURD_LANTERNS = createTag("gourd_lanterns");
 		public static final Tag.Identified<Block> PUMPKINS = createTag("pumpkins");

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:brown_mushroom_block"
+    },
+    "X": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ],
+    "S": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    }
+  },
+  "pattern": [
+    "X",
+    "#",
+    "S"
+  ],
+  "result": {
+    "count": 8,
+    "item": "haven:brown_mushroom_soul_torch"
+  }
+}

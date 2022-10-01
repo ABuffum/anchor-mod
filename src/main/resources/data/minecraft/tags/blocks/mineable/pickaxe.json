@@ -203,11 +203,6 @@
 	"haven:bleeding_obsidian_stairs",
 	"haven:bleeding_obsidian_wall",
 	
-	"haven:smooth_dripstone",
-	"haven:smooth_dripstone_slab",
-	"haven:smooth_dripstone_stairs",
-	"haven:smooth_dripstone_wall",
-	
 	"haven:mud_bricks",
 	"haven:mud_brick_stairs",
 	"haven:mud_brick_slab",
@@ -215,6 +210,15 @@
 	"haven:packed_mud",
 	
 	"haven:gilded_nylium",
+  
+	"haven:smooth_calcite",
+	"haven:smooth_calcite_slab",
+	"haven:smooth_calcite_stairs",
+	"haven:smooth_calcite_wall",
+	"haven:calcite_bricks",
+	"haven:calcite_brick_slab",
+	"haven:calcite_brick_stairs",
+	"haven:calcite_brick_wall",
  
 	"haven:smooth_dripstone",
 	"haven:smooth_dripstone_slab",
@@ -232,6 +236,8 @@
 	"haven:tuff_bricks",
 	"haven:tuff_brick_slab",
 	"haven:tuff_brick_stairs",
-	"haven:tuff_brick_wall"
+	"haven:tuff_brick_wall",
+	
+	"haven:bone_row"
   ]
 }

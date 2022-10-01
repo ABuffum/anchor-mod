@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_door",
+    "haven:brown_mushroom_door",
     "haven:cassia_door",
     "haven:charred_door",
     "haven:cherry_door",
-    "haven:bamboo_door",
     "haven:dried_bamboo_door",
+    "haven:gilded_door",
     "haven:mangrove_door",
-    "haven:gilded_door"
+    "haven:mushroom_stem_door",
+    "haven:red_mushroom_door"
   ]
 }

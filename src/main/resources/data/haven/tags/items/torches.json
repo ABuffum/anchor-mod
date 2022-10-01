@@ -4,6 +4,10 @@
     
     "#haven:metal_torches",
     "#haven:wood_torches",
-    "haven:bone_torch"
+    "haven:bone_torch",
+    
+    "haven:brown_mushroom_torch",
+    "haven:red_mushroom_torch",
+    "haven:mushroom_stem_torch"
   ]
 }

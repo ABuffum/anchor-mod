@@ -1,13 +1,17 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_boat",
+    "haven:brown_mushroom_boat",
     "haven:cassia_boat",
+    "haven:charred_boat",
     "haven:cherry_boat",
     "haven:crimson_boat",
-    "haven:warped_boat",
-    "haven:bamboo_boat",
     "haven:dried_bamboo_boat",
+    "haven:gilded_boat",
     "haven:mangrove_boat",
-    "haven:gilded_boat"
+    "haven:mushroom_stem_boat",
+    "haven:red_mushroom_boat",
+    "haven:warped_boat"
   ]
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "haven:block/mushroom_stem_planks",
+    "side": "haven:block/mushroom_stem_bookshelf"
+  }
+}

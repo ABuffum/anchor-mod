@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "key": {
+        "#": { "item": "haven:secret_ingredient" },
+        "X": [
+            { "item": "haven:cheese" },
+            { "item": "haven:horn" },
+            { "item": "haven:goat_horn" }
+        ]
+    },
+    "pattern": [
+        "X",
+        "#"
+    ],
+    "result": {
+        "count": 1,
+        "item": "haven:goat_horn_salve"
+    }
+}

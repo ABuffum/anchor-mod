@@ -26,10 +26,10 @@ public class CarvableGourdBlock extends HavenGourdBlock {
 	public SoundEvent getCarveSound() { return carveSound; }
 	private final Supplier<CarvedGourdBlock> carved;
 	public Block getCarvedBlock() { return carved.get(); }
-	private final Supplier<Item> carveDrop;
-	public Item getCarveDrop() { return carveDrop.get(); }
+	private final Supplier<ItemStack> carveDrop;
+	public ItemStack getCarveDrop() { return carveDrop.get(); }
 
-	public CarvableGourdBlock(Settings settings, SoundEvent carveSound, Supplier<StemBlock> stem, Supplier<AttachedStemBlock> attachedStem, Supplier<CarvedGourdBlock> carved, Supplier<Item> dropOnCarve) {
+	public CarvableGourdBlock(Settings settings, SoundEvent carveSound, Supplier<StemBlock> stem, Supplier<AttachedStemBlock> attachedStem, Supplier<CarvedGourdBlock> carved, Supplier<ItemStack> dropOnCarve) {
 		super(settings, stem, attachedStem);
 		this.carveSound = carveSound;
 		this.carved = carved;
@@ -45,7 +45,7 @@ public class CarvableGourdBlock extends HavenGourdBlock {
 				world.playSound(null, pos, getCarveSound(), SoundCategory.BLOCKS, 1.0F, 1.0F);
 				world.setBlockState(pos, getCarvedBlock().getDefaultState().with(HorizontalFacingBlock.FACING, direction2), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
 				if (carveDrop != null) {
-					ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5D + (double)direction2.getOffsetX() * 0.65D, (double)pos.getY() + 0.1D, (double)pos.getZ() + 0.5D + (double)direction2.getOffsetZ() * 0.65D, new ItemStack(getCarveDrop(), 4));
+					ItemEntity itemEntity = new ItemEntity(world, (double)pos.getX() + 0.5D + (double)direction2.getOffsetX() * 0.65D, (double)pos.getY() + 0.1D, (double)pos.getZ() + 0.5D + (double)direction2.getOffsetZ() * 0.65D, getCarveDrop());
 					itemEntity.setVelocity(0.05D * (double)direction2.getOffsetX() + world.random.nextDouble() * 0.02D, 0.05D, 0.05D * (double)direction2.getOffsetZ() + world.random.nextDouble() * 0.02D);
 					world.spawnEntity(itemEntity);
 				}

@@ -20,6 +20,13 @@
   
     "haven:obsidian_stairs",
     "haven:crying_obsidian_stairs",
-    "haven:bleeding_obsidian_stairs"
+    "haven:bleeding_obsidian_stairs",
+  
+    "haven:calcite_brick_stairs",
+    "haven:smooth_calcite_stairs",
+    "haven:dripstone_brick_stairs",
+    "haven:smooth_dripstone_stairs",
+    "haven:tuff_brick_stairs",
+    "haven:smooth_tuff_stairs"
   ]
 }

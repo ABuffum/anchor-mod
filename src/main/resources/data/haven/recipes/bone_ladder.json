@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:bone"
+    }
+  },
+  "pattern": [
+    "# #",
+    "###",
+    "# #"
+  ],
+  "result": {
+    "count": 3,
+    "item": "haven:bone_ladder"
+  }
+}

@@ -1,6 +1,7 @@
 package haven.materials.metal;
 
 import haven.HavenMod;
+import haven.blocks.UnlitLanternBlock;
 import haven.blocks.basic.HavenPaneBlock;
 import haven.blocks.basic.HavenWallBlock;
 import haven.blocks.MetalButtonBlock;
@@ -93,8 +94,8 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 				HavenArmorMaterials.COPPER, 6);
 		oxidizable_torch = new OxidizableTorchContainer(HavenMod.COPPER_FLAME_PARTICLE, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(12)).sounds(BlockSoundGroup.COPPER));
 		oxidizable_soul_torch = new OxidizableTorchContainer(ParticleTypes.SOUL_FIRE_FLAME, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.COPPER));
-		oxidizable_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, LanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque());
-		oxidizable_soul_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, LanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque());
+		oxidizable_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque());
+		oxidizable_soul_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque());
 		nugget = new Item(ItemSettings());
 		oxidizable_chain = new OxidizableBlockContainer(OxidizableChainBlock::new, ChainBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque());
 		oxidizable_bars = new OxidizableBlockContainer(OxidizablePaneBlock::new, HavenPaneBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque());

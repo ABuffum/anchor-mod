@@ -1,6 +1,7 @@
 package haven.blocks;
 
 import net.minecraft.block.*;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -31,15 +32,19 @@ public class RowBlock extends HorizontalConnectingBlock {
 		BlockState blockState2 = blockView.getBlockState(blockPos3);
 		BlockState blockState3 = blockView.getBlockState(blockPos4);
 		BlockState blockState4 = blockView.getBlockState(blockPos5);
-		return (this.getDefaultState().with(NORTH, this.connectsTo(blockState, blockState.isSideSolidFullSquare(blockView, blockPos2, Direction.SOUTH))).with(SOUTH, this.connectsTo(blockState2, blockState2.isSideSolidFullSquare(blockView, blockPos3, Direction.NORTH))).with(WEST, this.connectsTo(blockState3, blockState3.isSideSolidFullSquare(blockView, blockPos4, Direction.EAST)))).with(EAST, this.connectsTo(blockState4, blockState4.isSideSolidFullSquare(blockView, blockPos5, Direction.WEST))).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
+		boolean bl1 = this.connectsTo(blockState, blockState.isSideSolidFullSquare(blockView, blockPos2, Direction.SOUTH), Direction.SOUTH);
+		boolean bl2 = this.connectsTo(blockState2, blockState2.isSideSolidFullSquare(blockView, blockPos3, Direction.NORTH), Direction.NORTH);
+		boolean bl3 = this.connectsTo(blockState3, blockState3.isSideSolidFullSquare(blockView, blockPos4, Direction.EAST), Direction.EAST);
+		boolean bl4 = this.connectsTo(blockState4, blockState4.isSideSolidFullSquare(blockView, blockPos5, Direction.WEST), Direction.WEST);
+		return this.getDefaultState().with(NORTH, bl1).with(SOUTH, bl2).with(WEST, bl3).with(EAST, bl4).with(WATERLOGGED, fluidState.getFluid() == Fluids.WATER);
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
 		if (state.get(WATERLOGGED)) {
 			world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
-
-		return direction.getAxis().isHorizontal() ? state.with(FACING_PROPERTIES.get(direction), this.connectsTo(neighborState, neighborState.isSideSolidFullSquare(world, neighborPos, direction.getOpposite()))) : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
+		Direction opposite = direction.getOpposite();
+		return direction.getAxis().isHorizontal() ? state.with(FACING_PROPERTIES.get(direction), this.connectsTo(neighborState, neighborState.isSideSolidFullSquare(world, neighborPos, opposite), opposite)) : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
 	public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -56,11 +61,17 @@ public class RowBlock extends HorizontalConnectingBlock {
 		return super.isSideInvisible(state, stateFrom, direction);
 	}
 
-	public final boolean connectsTo(BlockState state, boolean sideSolidFullSquare) {
-		return !cannotConnect(state) && sideSolidFullSquare || state.getBlock() instanceof PaneBlock || state.isIn(BlockTags.WALLS) || state.getBlock() instanceof RowBlock;
+	public final boolean connectsTo(BlockState state, boolean sideSolidFullSquare, Direction side) {
+		Block block = state.getBlock();
+		boolean bl = block instanceof FenceGateBlock && FenceGateBlock.canWallConnect(state, side);
+		return !cannotConnect(state) && sideSolidFullSquare || state.getBlock() instanceof PaneBlock || state.isIn(BlockTags.WALLS) || block instanceof RowBlock || bl;
 	}
 
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(NORTH, EAST, WEST, SOUTH, WATERLOGGED);
+	}
+
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
+		return false;
 	}
 }

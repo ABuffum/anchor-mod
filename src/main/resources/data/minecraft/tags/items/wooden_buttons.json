@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_button",
+    "haven:brown_mushroom_button",
     "haven:cassia_button",
     "haven:charred_button",
     "haven:cherry_button",
-    "haven:bamboo_button",
     "haven:dried_bamboo_button",
+    "haven:gilded_button",
     "haven:mangrove_button",
-    "haven:gilded_button"
+    "haven:mushroom_stem_button",
+    "haven:red_mushroom_button"
   ]
 }

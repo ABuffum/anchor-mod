@@ -1,23 +1,8 @@
 {
-	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
+	"parent": "haven:block/_template_row_side",
 	"textures": {
-		"2": "haven:block/dried_bamboo_bundle",
-		"4": "haven:block/dried_bamboo_row",
-		"5": "haven:block/dried_bamboo_row_top",
+		"side": "haven:block/dried_bamboo_row",
+		"top": "haven:block/dried_bamboo_row_top",
 		"particle": "haven:block/dried_bamboo_row"
-	},
-	"elements": [
-		{
-			"from": [6, 0, 0],
-			"to": [10, 16, 6],
-			"faces": {
-				"north": {"uv": [12, 0, 16, 16], "texture": "#2", "cullface": "north"},
-				"east": {"uv": [10, 0, 16, 16], "texture": "#4"},
-				"west": {"uv": [16, 0, 10, 16], "texture": "#4"},
-				"up": {"uv": [8, 2, 12, 8], "texture": "#5"},
-				"down": {"uv": [8, 4, 12, 10], "texture": "#5"}
-			}
-		}
-	]
+	}
 }

@@ -6,8 +6,10 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.loot.LootTables;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class RainbowSheepEntity extends SheepEntity implements Shearable {
@@ -25,5 +27,9 @@ public class RainbowSheepEntity extends SheepEntity implements Shearable {
 				itemEntity.setVelocity(itemEntity.getVelocity().add((double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F), (double)(this.random.nextFloat() * 0.05F), (double)((this.random.nextFloat() - this.random.nextFloat()) * 0.1F)));
 			}
 		}
+	}
+	public Identifier getLootTableId() {
+		if (this.isSheared()) return this.getType().getLootTableId();
+		else return HavenMod.ID("entities/sheep/rainbow");
 	}
 }

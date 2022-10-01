@@ -1,17 +1,7 @@
 {
-	"credit": "Made with Blockbench",
-	"ambientocclusion": false,
+	"parent": "haven:block/_template_row_noside_alt",
 	"textures": {
-		"2": "haven:block/bamboo_row",
+		"side": "haven:block/bamboo_row",
 		"particle": "haven:block/bamboo_row"
-	},
-	"elements": [
-		{
-			"from": [6, 0, 6],
-			"to": [10, 16, 10],
-			"faces": {
-				"east": {"uv": [6, 0, 10, 16], "texture": "#2"}
-			}
-		}
-	]
+	}
 }

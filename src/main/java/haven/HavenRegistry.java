@@ -16,10 +16,7 @@ import haven.entities.passive.cow.*;
 import haven.entities.tnt.SoftTntEntity;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
-import haven.origins.powers.BloodTypePower;
-import haven.origins.powers.ChorusTeleportPower;
-import haven.origins.powers.LactoseIntolerantPower;
-import haven.origins.powers.UnfreezingPower;
+import haven.origins.powers.*;
 import haven.util.*;
 
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -664,6 +661,13 @@ public class HavenRegistry {
 		Register(JUNGLE_MATERIAL);
 		//Register(OAK_MATERIAL);
 		Register(SPRUCE_MATERIAL);
+	}
+	public static void RegisterMushroomWood() {
+		Register(BROWN_MUSHROOM_MATERIAL);
+		Register(RED_MUSHROOM_MATERIAL);
+		Register(MUSHROOM_STEM_MATERIAL);
+	}
+	public static void RegisterVanillaNetherWood() {
 		Register(CRIMSON_MATERIAL);
 		Register(WARPED_MATERIAL);
 	}
@@ -677,6 +681,44 @@ public class HavenRegistry {
 		Register(GILDED_MATERIAL);
 	}
 	public static void RegisterBackport() {
+		//Goat Stuff (not part of backport)
+		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
+		FuelRegistry FUEL = FuelRegistry.INSTANCE;
+		for(DyeColor color : DyeColor.values()) {
+			BlockContainer container = FLEECE.get(color);
+			Register(color.getName() + "_fleece", container);
+			FLAMMABLE.add(container.BLOCK, 30, 60);
+		}
+		ItemDispenserBehavior itemDispenserBehavior2 = new FallibleItemDispenserBehavior() {
+			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
+				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
+				List<HorseBaseEntity> list = pointer.getWorld().getEntitiesByClass(HorseBaseEntity.class, new Box(blockPos),
+						(horseBaseEntityx) -> horseBaseEntityx.isAlive() && horseBaseEntityx.hasArmorSlot());
+				Iterator var5 = list.iterator();
+				HorseBaseEntity horseBaseEntity;
+				do {
+					if (!var5.hasNext()) return super.dispenseSilently(pointer, stack);
+					horseBaseEntity = (HorseBaseEntity)var5.next();
+				} while(!horseBaseEntity.isHorseArmor(stack) || horseBaseEntity.hasArmorInSlot() || !horseBaseEntity.isTame());
+				horseBaseEntity.getStackReference(401).set(stack.split(1));
+				this.setSuccess(true);
+				return stack;
+			}
+		};
+		for(DyeColor color : DyeColor.values()) {
+			BlockContainer container = FLEECE_CARPETS.get(color);
+			Register(color.getName() + "_fleece_carpet", container);
+			FLAMMABLE.add(container.BLOCK, 60, 20);
+			DispenserBlock.registerBehavior(container.ITEM, itemDispenserBehavior2);
+		}
+		Register("rainbow_fleece", RAINBOW_FLEECE);
+		FLAMMABLE.add(RAINBOW_FLEECE.BLOCK, 30, 60);
+		Register("rainbow_fleece_carpet", RAINBOW_FLEECE_CARPET);
+		FLAMMABLE.add(RAINBOW_FLEECE_CARPET.BLOCK, 60, 20);
+		DispenserBlock.registerBehavior(RAINBOW_FLEECE_CARPET.ITEM, itemDispenserBehavior2);
+		Register("chevon", CHEVON);
+		Register("cooked_chevon", COOKED_CHEVON);
+		Register("goat_horn_salve", GOAT_HORN_SALVE);
 		//Goat Horn
 		Register("goat_horn", GOAT_HORN);
 		//Music Discs
@@ -724,6 +766,8 @@ public class HavenRegistry {
 		//Deep Dark
 		Register("reinforced_deepslate", REINFORCED_DEEPSLATE);
 		Register("echo_shard", ECHO_SHARD);
+		//TODO: Finish Echo Material
+		//Register(ECHO_MATERIAL);
 	}
 	public static void RegisterCandy() {
 		Register("cinnamon_bean", CINNAMON_BEAN);
@@ -1201,6 +1245,7 @@ public class HavenRegistry {
 		Register(DIAMOND_MATERIAL);
 		Register(QUARTZ_MATERIAL);
 		RegisterObsidian();
+		Register(CALCITE_MATERIAL);
 		Register(DRIPSTONE_MATERIAL);
 		Register(TUFF_MATERIAL);
 		Register("tinted_glass_pane", TINTED_GLASS_PANE);
@@ -1219,6 +1264,8 @@ public class HavenRegistry {
 		RegisterBamboo();
 		Register(CHARRED_MATERIAL);
 		RegisterVanillaWood();
+		RegisterMushroomWood();
+		RegisterVanillaNetherWood();
 		RegisterAmberFungus();
 		Register(WOOD_MATERIAL);
 		RegisterThrowableTomatoes();

@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "haven:block/calcite_brick_slab"
+        },
+        "type=double": {
+            "model": "haven:block/calcite_bricks"
+        },
+        "type=top": {
+            "model": "haven:block/calcite_brick_slab_top"
+        }
+    }
+}

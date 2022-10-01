@@ -3,19 +3,21 @@
     "minecraft:campfire",
     
     "haven:acacia_campfire",
-    "haven:birch_campfire",
-    "haven:dark_oak_campfire",
-    "haven:jungle_campfire",
-    "haven:spruce_campfire",
-  
-    "haven:cassia_campfire",
-    "haven:cherry_campfire",
     "haven:bamboo_campfire",
-    "haven:dried_bamboo_campfire",
-    "haven:mangrove_campfire",
-    
+    "haven:birch_campfire",
+    "haven:brown_mushroom_campfire",
+    "haven:cassia_campfire",
+    "haven:charred_campfire",
+    "haven:cherry_campfire",
     "haven:crimson_campfire",
-    "haven:warped_campfire",
-    "haven:gilded_campfire"
+    "haven:dark_oak_campfire",
+    "haven:dried_bamboo_campfire",
+    "haven:gilded_campfire",
+    "haven:jungle_campfire",
+    "haven:mangrove_campfire",
+    "haven:mushroom_stem_campfire",
+    "haven:red_mushroom_campfire",
+    "haven:spruce_campfire",
+    "haven:warped_campfire"
   ]
 }

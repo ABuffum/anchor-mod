@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_sign",
+    "haven:brown_mushroom_sign",
     "haven:cassia_sign",
     "haven:charred_sign",
     "haven:cherry_sign",
-    "haven:bamboo_sign",
     "haven:dried_bamboo_sign",
+    "haven:gilded_sign",
     "haven:mangrove_sign",
-    "haven:gilded_sign"
+    "haven:mushroom_stem_sign",
+    "haven:red_mushroom_sign"
   ]
 }

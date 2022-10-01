@@ -2,11 +2,10 @@ package haven.util;
 
 import haven.HavenMod;
 import haven.HavenTags;
-import haven.items.GoatHornInstrument;
-import haven.items.GoatHornInstruments;
-import haven.items.GoatHornItem;
+import haven.items.goat.GoatHornInstrument;
+import haven.items.goat.GoatHornInstruments;
+import haven.items.goat.GoatHornItem;
 import haven.sounds.HavenSoundEvents;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -28,18 +27,24 @@ public class GoatUtils {
 	public static final TrackedData<Boolean> LEFT_HORN = DataTracker.registerData(GoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 	public static final TrackedData<Boolean> RIGHT_HORN = DataTracker.registerData(GoatEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
-	public static boolean hasLeftHorn(LivingEntity goat) {
-		return goat.getDataTracker().get(LEFT_HORN);
-	}
+	public static boolean hasLeftHorn(LivingEntity goat) { return goat.getDataTracker().get(LEFT_HORN); }
 
-	public static boolean hasRightHorn(LivingEntity goat) {
-		return goat.getDataTracker().get(RIGHT_HORN);
+	public static boolean hasRightHorn(LivingEntity goat) { return goat.getDataTracker().get(RIGHT_HORN); }
+
+	public static boolean hasBothHorns(LivingEntity goat) {
+		DataTracker tracker = goat.getDataTracker();
+		return tracker.get(LEFT_HORN) && tracker.get(RIGHT_HORN);
+	}
+	public static boolean hasAnyHorns(LivingEntity goat) {
+		DataTracker tracker = goat.getDataTracker();
+		return tracker.get(LEFT_HORN) || tracker.get(RIGHT_HORN);
 	}
 
 	public static boolean dropHorn(LivingEntity goat) {
 		System.out.println("drophorn");
-		boolean bl = hasLeftHorn(goat);
-		boolean bl2 = hasRightHorn(goat);
+		DataTracker tracker = goat.getDataTracker();
+		boolean bl = tracker.get(LEFT_HORN);
+		boolean bl2 = tracker.get(RIGHT_HORN);
 		if (!bl && !bl2) return false;
 		System.out.println("has a horn to drop :DDD");
 		Random random = goat.getRandom();

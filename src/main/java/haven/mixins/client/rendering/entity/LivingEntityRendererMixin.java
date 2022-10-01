@@ -21,11 +21,9 @@ public abstract class LivingEntityRendererMixin extends EntityRenderer<LivingEnt
 
 	@Inject(method = "isShaking", at = @At("HEAD"), cancellable = true)
 	private void disallowShivering(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-		if(PowerHolderComponent.hasPower(entity, UnfreezingPower.class)) {
-			if(PowerHolderComponent.hasPower(entity, ShakingPower.class)) {
-				cir.setReturnValue(true);
-			}
-			cir.setReturnValue(false);
+		if (UnfreezingPower.HasActivePower(entity)) {
+			if(PowerHolderComponent.hasPower(entity, ShakingPower.class)) cir.setReturnValue(true);
+			else cir.setReturnValue(false);
 		}
 	}
 }

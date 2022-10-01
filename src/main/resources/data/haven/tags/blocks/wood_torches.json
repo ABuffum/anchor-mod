@@ -13,6 +13,21 @@
     "haven:jungle_torch",
     "haven:mangrove_torch",
     "haven:spruce_torch",
-    "haven:warped_torch"
+    "haven:warped_torch",
+    
+    "haven:unlit_acacia_torch",
+    "haven:unlit_bamboo_torch",
+    "haven:unlit_birch_torch",
+    "haven:unlit_cassia_torch",
+    "haven:unlit_charred_torch",
+    "haven:unlit_cherry_torch",
+    "haven:unlit_crimson_torch",
+    "haven:unlit_dried_bamboo_torch",
+    "haven:unlit_dark_oak_torch",
+    "haven:unlit_gilded_torch",
+    "haven:unlit_jungle_torch",
+    "haven:unlit_mangrove_torch",
+    "haven:unlit_spruce_torch",
+    "haven:unlit_warped_torch"
   ]
 }

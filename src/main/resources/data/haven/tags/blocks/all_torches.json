@@ -2,6 +2,7 @@
   "values": [
     "#haven:torches",
     "#haven:soul_torches",
-    "haven:underwater_torch"
+    "haven:underwater_torch",
+    "haven:unlit_underwater_torch"
   ]
 }

@@ -2,6 +2,7 @@ package haven;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
 import haven.blocks.*;
 import haven.blocks.anchors.*;
 import haven.blocks.basic.*;
@@ -27,6 +28,8 @@ import haven.items.*;
 import haven.items.consumable.*;
 import haven.items.buckets.*;
 import haven.items.consumable.milk.*;
+import haven.items.goat.GoatHornItem;
+import haven.items.goat.GoatHornSalveItem;
 import haven.items.mud.MudBucketItem;
 import haven.items.syringe.*;
 import haven.items.throwable.*;
@@ -35,8 +38,7 @@ import haven.materials.base.BaseMaterial;
 import haven.materials.gem.*;
 import haven.materials.metal.*;
 import haven.materials.providers.*;
-import haven.materials.stone.DripstoneMaterial;
-import haven.materials.stone.TuffMaterial;
+import haven.materials.stone.*;
 import haven.materials.wood.*;
 import haven.sounds.*;
 import haven.util.*;
@@ -50,19 +52,19 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.*;
+import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.particle.*;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.intprovider.*;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.CountConfig;
 import net.minecraft.world.gen.YOffset;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -108,8 +110,8 @@ public class HavenMod implements ModInitializer {
 	}
 	public static final TorchContainer.Unlit UNLIT_TORCH = new TorchContainer.Unlit(Blocks.TORCH, Blocks.WALL_TORCH);
 	public static final TorchContainer.Unlit UNLIT_SOUL_TORCH = new TorchContainer.Unlit(Blocks.SOUL_TORCH, Blocks.SOUL_WALL_TORCH);
-	public static final Block UNLIT_LANTERN = new LanternBlock(UnlitLanternSettings());
-	public static final Block UNLIT_SOUL_LANTERN = new LanternBlock(UnlitLanternSettings());
+	public static final Block UNLIT_LANTERN = new UnlitLanternBlock(() -> Items.LANTERN);
+	public static final Block UNLIT_SOUL_LANTERN = new UnlitLanternBlock(() -> Items.SOUL_LANTERN);
 
 	public static final DefaultParticleType UNDERWATER_TORCH_GLOW = FabricParticleTypes.simple(false);
 	public static final TorchContainer UNDERWATER_TORCH = TorchContainer.Waterloggable(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(14)).sounds(BlockSoundGroup.WOOD), UNDERWATER_TORCH_GLOW);
@@ -160,6 +162,7 @@ public class HavenMod implements ModInitializer {
 	//Bone
 	public static final BoneMaterial BONE_MATERIAL = new BoneMaterial();
 	//Stone Materials
+	public static final CalciteMaterial CALCITE_MATERIAL = new CalciteMaterial();
 	public static final DripstoneMaterial DRIPSTONE_MATERIAL = new DripstoneMaterial();
 	public static final TuffMaterial TUFF_MATERIAL = new TuffMaterial();
 	//Soul Jack o' Lantern
@@ -191,7 +194,7 @@ public class HavenMod implements ModInitializer {
 			SoundEvents.BLOCK_PUMPKIN_CARVE,
 			() -> (StemBlock)Blocks.PUMPKIN_STEM,
 			() -> (AttachedStemBlock)Blocks.ATTACHED_PUMPKIN_STEM,
-			() -> (CarvedGourdBlock)CARVED_ROTTEN_PUMPKIN.BLOCK, () -> ROTTEN_PUMPKIN_SEEDS));
+			() -> (CarvedGourdBlock)CARVED_ROTTEN_PUMPKIN.BLOCK, () -> new ItemStack(ROTTEN_PUMPKIN_SEEDS, 4)));
 	//Misc
 	public static final BlockContainer TINTED_GLASS_PANE = new BlockContainer(new TintedGlassPaneBlock(AbstractBlock.Settings.of(Material.GLASS).mapColor(MapColor.GRAY).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque()));
 	//Rainbow Sheep
@@ -375,9 +378,14 @@ public class HavenMod implements ModInitializer {
 	public static final VanillaWoodMaterial JUNGLE_MATERIAL = new VanillaWoodMaterial("jungle", MapColor.DIRT_BROWN);
 	//public static final VanillaWoodMaterial OAK_MATERIAL = new VanillaWoodMaterial("oak", MapColor.OAK_TAN);
 	public static final VanillaWoodMaterial SPRUCE_MATERIAL = new VanillaWoodMaterial("spruce", MapColor.SPRUCE_BROWN);
+	//Mushroom Wood
+	public static final MushroomMaterial BROWN_MUSHROOM_MATERIAL = new MushroomMaterial("brown_mushroom", MapColor.DIRT_BROWN, true);
+	public static final MushroomMaterial RED_MUSHROOM_MATERIAL = new MushroomMaterial("red_mushroom", MapColor.RED, true);
+	public static final MushroomMaterial MUSHROOM_STEM_MATERIAL = new MushroomMaterial("mushroom_stem", MapColor.GRAY, true);
+	//Vanilla Nether Wood
 	public static final VanillaNetherWoodMaterial CRIMSON_MATERIAL = new VanillaNetherWoodMaterial("crimson", MapColor.DULL_PINK, Blocks.CRIMSON_PLANKS, false);
 	public static final VanillaNetherWoodMaterial WARPED_MATERIAL = new VanillaNetherWoodMaterial("warped", MapColor.DARK_AQUA, Blocks.WARPED_PLANKS, false);
-	//Amber Fungus
+	//Gilded Fungus
 	public static final PottedBlockContainer GILDED_ROOTS = new PottedBlockContainer(new HavenRootsBlock(AbstractBlock.Settings.of(Material.NETHER_SHOOTS, MapColor.GOLD).noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS)));
 	public static final HugeFungusFeatureConfig GILDED_FUNGUS_CONFIG;
 	public static final HugeFungusFeatureConfig GILDED_FUNGUS_NOT_PLANTED_CONFIG;
@@ -417,7 +425,17 @@ public class HavenMod implements ModInitializer {
 	public static final Item MUSIC_DISC_OTHERSIDE = new MusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, ItemSettings().maxCount(1).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, ItemSettings().maxCount(1).rarity(Rarity.RARE));
 	public static final Item DISC_FRAGMENT_5 = new DiscFragmentItem(ItemSettings());
-	//Goat Horn
+	//Goat Stuff
+	public static final Map<DyeColor, BlockContainer> FLEECE = MapDyeColor((color) -> new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOL, color.getMapColor()).strength(0.8F).sounds(BlockSoundGroup.WOOL))));
+	public static final Map<DyeColor, BlockContainer> FLEECE_CARPETS = MapDyeColor((color) -> new BlockContainer(new HavenDyedCarpetBlock(color, AbstractBlock.Settings.of(Material.CARPET, color.getMapColor()).strength(0.1F).sounds(BlockSoundGroup.WOOL))));
+	public static final BlockContainer RAINBOW_FLEECE = new BlockContainer(new HavenFacingBlock(Blocks.WHITE_WOOL));
+	public static final BlockContainer RAINBOW_FLEECE_CARPET = new BlockContainer(new HorziontalFacingCarpetBlock(AbstractBlock.Settings.copy(Blocks.WHITE_CARPET)));
+
+	public static final Item CHEVON = new Item(ItemSettings().food(FoodComponents.MUTTON));
+	public static final Item COOKED_CHEVON = new Item(ItemSettings().food(FoodComponents.COOKED_MUTTON));
+
+	public static final Item GOAT_HORN_SALVE = new GoatHornSalveItem(ItemSettings());
+
 	public static final Item GOAT_HORN = new GoatHornItem(ItemSettings().maxCount(1));
 	//Mud
 	public static final BlockContainer MUD = new BlockContainer(new MudBlock(AbstractBlock.Settings.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).allowsSpawning(BaseMaterial::always).solidBlock(BaseMaterial::always).blockVision(BaseMaterial::always).suffocates(BaseMaterial::always).sounds(HavenBlockSoundGroups.MUD)));
@@ -434,6 +452,7 @@ public class HavenMod implements ModInitializer {
 	//Deep Dark
 	public static final BlockContainer REINFORCED_DEEPSLATE = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.DEEPSLATE_GRAY).sounds(BlockSoundGroup.DEEPSLATE).strength(55.0f, 1200.0f)));
 	public static final Item ECHO_SHARD = new Item(ItemSettings());
+	public static final EchoMaterial ECHO_MATERIAL = new EchoMaterial(1F);
 
 	public static final Item RAMEN = new MushroomStewItem(ItemSettings().maxCount(1).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
 	public static final Item STIR_FRY = new MushroomStewItem(ItemSettings().maxCount(1).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.6F).build()));
@@ -722,11 +741,57 @@ public class HavenMod implements ModInitializer {
 		}
 	});
 
+	public static Item getWool(DyeColor color) {
+		switch (color) {
+			case ORANGE: return Items.ORANGE_WOOL;
+			case MAGENTA: return Items.MAGENTA_WOOL;
+			case LIGHT_BLUE: return Items.LIGHT_BLUE_WOOL;
+			case YELLOW: return Items.YELLOW_WOOL;
+			case LIME: return Items.LIME_WOOL;
+			case PINK: return Items.PINK_WOOL;
+			case GRAY: return Items.GRAY_WOOL;
+			case LIGHT_GRAY: return Items.LIGHT_GRAY_WOOL;
+			case CYAN: return Items.CYAN_WOOL;
+			case PURPLE: return Items.PURPLE_WOOL;
+			case BLUE: return Items.BLUE_WOOL;
+			case BROWN: return Items.BROWN_WOOL;
+			case GREEN: return Items.GREEN_WOOL;
+			case RED: return Items.RED_WOOL;
+			case BLACK: return Items.BLACK_WOOL;
+			case WHITE:
+			default: return Items.WHITE_WOOL;
+		}
+	}
+
 	public static final Item CONFETTI_SYRINGE = new BaseSyringeItem((PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
 		if (bloodType == BloodType.SUGAR_WATER) {
 			if (user == entity) BloodSyringeItem.heal(entity, 4);
 			else entity.damage(HavenDamageSource.Injected("confetti_as_clown", user), 4);
+		}
+		//Transform sheep into rainbow sheep
+		else if (entity instanceof SheepEntity sheep) {
+			if (sheep instanceof RainbowSheepEntity) BloodSyringeItem.heal(entity, 1);
+			else {
+				if (!sheep.world.isClient()) {
+					((ServerWorld)sheep.world).spawnParticles(ParticleTypes.EXPLOSION, sheep.getX(), sheep.getBodyY(0.5D), sheep.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+					sheep.discard();
+					RainbowSheepEntity sheepEntity = RAINBOW_SHEEP_ENTITY.create(sheep.world);
+					sheepEntity.refreshPositionAndAngles(sheep.getX(), sheep.getY(), sheep.getZ(), sheep.getYaw(), sheep.getPitch());
+					sheepEntity.setHealth(sheep.getHealth());
+					sheepEntity.bodyYaw = sheep.bodyYaw;
+					if (sheep.hasCustomName()) {
+						sheepEntity.setCustomName(sheep.getCustomName());
+						sheepEntity.setCustomNameVisible(sheep.isCustomNameVisible());
+					}
+					if (sheep.isPersistent()) sheepEntity.setPersistent();
+					sheepEntity.setInvulnerable(sheep.isInvulnerable());
+					sheep.world.spawnEntity(sheepEntity);
+					for(int i = 0; i <= sheep.getRandom().nextInt(3); ++i) {
+						sheep.world.spawnEntity(new ItemEntity(sheep.world, sheep.getX(), sheep.getBodyY(1.0D), sheep.getZ(), new ItemStack(getWool(sheep.getColor()))));
+					}
+				}
+			}
 		}
 		else entity.damage(HavenDamageSource.Injected("confetti", user), 1);
 	});
@@ -887,7 +952,11 @@ public class HavenMod implements ModInitializer {
 		//Wood
 		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, CHARRED_MATERIAL, MANGROVE_MATERIAL,
 		//Vanilla Wood
-		ACACIA_MATERIAL, BIRCH_MATERIAL, DARK_OAK_MATERIAL, JUNGLE_MATERIAL, /*OAK_MATERIAL,*/ SPRUCE_MATERIAL, CRIMSON_MATERIAL, WARPED_MATERIAL,
+		ACACIA_MATERIAL, BIRCH_MATERIAL, DARK_OAK_MATERIAL, JUNGLE_MATERIAL, /*OAK_MATERIAL,*/ SPRUCE_MATERIAL,
+		//Mushroom
+		BROWN_MUSHROOM_MATERIAL, RED_MUSHROOM_MATERIAL, MUSHROOM_STEM_MATERIAL,
+		//Vanilla Nether Wood
+		CRIMSON_MATERIAL, WARPED_MATERIAL,
 		//Nether Wood
 		GILDED_MATERIAL,
 		//Metal
@@ -897,11 +966,11 @@ public class HavenMod implements ModInitializer {
 		//Obsidian
 		OBSIDIAN_MATERIAL, CRYING_OBSIDIAN_MATERIAL, BLEEDING_OBSIDIAN_MATERIAL,
 		//Stone
-		DRIPSTONE_MATERIAL, TUFF_MATERIAL,
+		CALCITE_MATERIAL, DRIPSTONE_MATERIAL, TUFF_MATERIAL,
 		//Blood
 		BLOOD_MATERIAL, DRIED_BLOOD_MATERIAL,
 		//Misc
-		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL, MUD_MATERIAL
+		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL, MUD_MATERIAL, ECHO_MATERIAL
 	);
 	public static BiMap<Block, Block> UNLIT_LANTERNS = HashBiMap.create();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
@@ -922,7 +991,7 @@ public class HavenMod implements ModInitializer {
 	public static final Set<Block> CAMPFIRES = new HashSet<Block>();
 
 	static {
-		//Amber Fungus
+		//Gilded Fungus
 		GILDED_FUNGUS_CONFIG = new HugeFungusFeatureConfig(GILDED_NYLIUM.BLOCK.getDefaultState(), GILDED_MATERIAL.getStem().BLOCK.getDefaultState(), GILDED_MATERIAL.getWartBlock().BLOCK.getDefaultState(), Blocks.SHROOMLIGHT.getDefaultState(), true);
 		GILDED_FUNGUS_NOT_PLANTED_CONFIG = new HugeFungusFeatureConfig(GILDED_FUNGUS_CONFIG.validBaseBlock, GILDED_FUNGUS_CONFIG.stemState, GILDED_FUNGUS_CONFIG.hatState, GILDED_FUNGUS_CONFIG.decorationState, false);
 		GILDED_FOREST_VEGETATION = Feature.NETHER_FOREST_VEGETATION.configure(GILDED_ROOTS_CONFIG).decorate(Decorator.COUNT_MULTILAYER.configure(new CountConfig(6)));

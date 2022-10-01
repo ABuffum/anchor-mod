@@ -1,6 +1,7 @@
 package haven.materials.metal;
 
 import haven.HavenMod;
+import haven.blocks.UnlitLanternBlock;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
@@ -53,9 +54,9 @@ public class IronMaterial extends BaseMaterial implements
 		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME_PARTICLE, ItemSettings());
 		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
 		lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(15)).nonOpaque()), ItemSettings());
-		unlit_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
+		unlit_lantern = new UnlitLanternBlock(this::getLantern);
 		soul_lantern = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque()), ItemSettings());
-		unlit_soul_lantern = new LanternBlock(HavenMod.UnlitLanternSettings());
+		unlit_soul_lantern = new UnlitLanternBlock(this::getSoulLantern);
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)));
 		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
 		wall = new BlockContainer(new HavenWallBlock(Blocks.IRON_BLOCK), ItemSettings());

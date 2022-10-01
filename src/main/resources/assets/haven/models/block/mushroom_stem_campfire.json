@@ -1,0 +1,9 @@
+{
+  "parent": "haven:block/template_campfire",
+  "textures": {
+    "particle": "haven:block/mushroom_stem_campfire_log",
+    "log": "haven:block/mushroom_stem_campfire_log",
+    "lit_log": "haven:block/mushroom_stem_campfire_log_lit",
+    "fire": "minecraft:block/campfire_fire"
+  }
+}

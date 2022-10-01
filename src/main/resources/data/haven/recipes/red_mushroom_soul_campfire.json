@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    "L": {
+      "item": "minecraft:red_mushroom_block"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "result": {
+    "item": "haven:red_mushroom_soul_campfire"
+  }
+}

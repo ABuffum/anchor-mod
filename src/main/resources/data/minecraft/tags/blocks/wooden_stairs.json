@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_stairs",
+    "haven:brown_mushroom_stairs",
     "haven:cassia_stairs",
     "haven:charred_stairs",
     "haven:cherry_stairs",
-    "haven:bamboo_stairs",
     "haven:dried_bamboo_stairs",
+    "haven:gilded_stairs",
     "haven:mangrove_stairs",
-    "haven:gilded_stairs"
+    "haven:mushroom_stem_stairs",
+    "haven:red_mushroom_stairs"
   ]
 }

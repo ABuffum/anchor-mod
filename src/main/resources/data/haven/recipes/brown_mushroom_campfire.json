@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "L": {
+      "item": "minecraft:brown_mushroom_block"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SCS",
+    "LLL"
+  ],
+  "result": {
+    "item": "haven:brown_mushroom_campfire"
+  }
+}

@@ -1,12 +1,15 @@
 {
   "replace": false,
   "values": [
+    "haven:bamboo_slab",
+    "haven:brown_mushroom_slab",
     "haven:cassia_slab",
     "haven:charred_slab",
     "haven:cherry_slab",
-    "haven:bamboo_slab",
     "haven:dried_bamboo_slab",
+    "haven:gilded_slab",
     "haven:mangrove_slab",
-    "haven:gilded_slab"
+    "haven:mushroom_stem_slab",
+    "haven:red_mushroom_slab"
   ]
 }

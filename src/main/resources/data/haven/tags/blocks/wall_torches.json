@@ -1,9 +1,18 @@
 {
   "values": [
     "minecraft:wall_torch",
+    "haven:unlit_wall_torch",
     
     "#haven:metal_wall_torches",
     "#haven:wood_wall_torches",
-    "haven:bone_wall_torch"
+    "haven:bone_wall_torch",
+    "haven:unlit_bone_wall_torch",
+  
+    "haven:brown_mushroom_wall_torch",
+    "haven:unlit_brown_mushroom_wall_torch",
+    "haven:red_mushroom_wall_torch",
+    "haven:unlit_red_mushroom_wall_torch",
+    "haven:mushroom_stem_wall_torch",
+    "haven:unlit_mushroom_stem_wall_torch"
   ]
 }
