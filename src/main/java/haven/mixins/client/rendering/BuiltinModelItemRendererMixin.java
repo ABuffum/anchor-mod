@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering;
 
-import haven.blocks.HavenBedBlock;
+import haven.blocks.basic.HavenBedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

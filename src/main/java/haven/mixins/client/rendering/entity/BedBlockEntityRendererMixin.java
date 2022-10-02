@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering.entity;
 
-import haven.blocks.HavenBedBlock;
+import haven.blocks.basic.HavenBedBlock;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BedBlockEntity;

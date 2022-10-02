@@ -1,4 +1,4 @@
-package haven.blocks;
+package haven.blocks.basic;
 
 import net.minecraft.block.SaplingBlock;
 import net.minecraft.block.sapling.SaplingGenerator;

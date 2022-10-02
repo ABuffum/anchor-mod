@@ -1,4 +1,4 @@
-package haven.blocks;
+package haven.blocks.basic;
 
 import haven.HavenMod;
 import net.minecraft.block.BedBlock;

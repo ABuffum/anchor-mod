@@ -1,12 +1,9 @@
 package haven.containers;
 
-import haven.blocks.HavenSaplingBlock;
 import haven.blocks.basic.HavenFungusBlock;
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.FungusBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
-import net.minecraft.block.sapling.SaplingGenerator;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.HugeFungusFeatureConfig;

@@ -40,6 +40,7 @@ import haven.materials.metal.*;
 import haven.materials.providers.*;
 import haven.materials.stone.*;
 import haven.materials.wood.*;
+import haven.mixins.SignTypeAccessor;
 import haven.sounds.*;
 import haven.util.*;
 

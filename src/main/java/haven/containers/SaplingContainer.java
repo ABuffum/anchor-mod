@@ -1,6 +1,6 @@
 package haven.containers;
 
-import haven.blocks.HavenSaplingBlock;
+import haven.blocks.basic.HavenSaplingBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.sapling.SaplingGenerator;
