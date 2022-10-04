@@ -613,16 +613,12 @@
   "block.haven.charred_campfire": "Charred Campfire",
   "block.haven.charred_soul_campfire": "Charred Soul Campfire",
   "block.haven.charred_planks": "Charred Planks",
-  "block.haven.charred_sapling": "Charred Sapling",
   "block.haven.charred_door": "Charred Door",
   "block.haven.charred_wood": "Charred Wood",
   "block.haven.charred_log": "Charred Log",
   "block.haven.stripped_charred_log": "Stripped Charred Log",
   "block.haven.stripped_charred_wood": "Stripped Charred Wood",
   "block.haven.charred_leaves": "Charred Leaves",
-  "block.haven.white_charred_leaves": "White Charred Leaves",
-  "block.haven.pale_charred_leaves": "Pale Charred Leaves",
-  "block.haven.pink_charred_leaves": "Pink Charred Leaves",
   "block.haven.charred_slab": "Charred Slab",
   "block.haven.charred_stairs": "Charred Stairs",
   "block.haven.charred_pressure_plate": "Charred Pressure Plate",
@@ -651,6 +647,7 @@
   "block.haven.cherry_campfire": "Cherry Campfire",
   "block.haven.cherry_soul_campfire": "Cherry Soul Campfire",
   "block.haven.cherry_planks": "Cherry Planks",
+  "block.haven.cherry_sapling": "Cherry Sapling",
   "block.haven.cherry_door": "Cherry Door",
   "block.haven.cherry_wood": "Cherry Wood",
   "block.haven.cherry_log": "Cherry Log",
@@ -669,6 +666,10 @@
   "item.haven.cherry_chest_boat": "Cherry Boat with Chest",
   "block.haven.cherry_bookshelf": "Cherry Bookshelf",
   "block.haven.cherry_ladder": "Cherry Ladder",
+  "block.haven.cherry_leaves": "Cherry Leaves",
+  "block.haven.pale_cherry_leaves": "Pale Cherry Leaves",
+  "block.haven.pink_cherry_leaves": "Pink Cherry Leaves",
+  "block.haven.white_cherry_leaves": "White Cherry Leaves",
   "item.haven.cherry": "Cherry",
   
   "block.haven.dried_bamboo_torch": "Dried Bamboo Torch",
@@ -1071,6 +1072,9 @@
   "effect.haven.killjoy": "Killjoy",
   "item.haven.tomato_soup": "Tomato Soup",
   
+  "effect.haven.bleeding": "Bleeding",
+  "effect.haven.bone_rot": "Bone Rot",
+  
   "item.haven.bottled_confetti": "Bottled Confetti",
   
   "block.haven.soul_jack_o_lantern": "Soul Jack o' Lantern",
@@ -1342,6 +1346,8 @@
   "death.attack.deterioration.player": "%2$s added insult to %1$s's injury",
   "death.attack.bone_rot": "%1$s succumbed to bone rot",
   "death.attack.bone_rot.player": "%1$s's rotting bones couldn't stand up to %2$s",
+  "death.attack.bleeding": "%1$s bled out",
+  "death.attack.bleeding.player": "%1$s bled out whilst fighting %2$s",
   "death.attack.melon_seeded": "%1$s was meloned to death by %2$s",
   "death.attack.melon_seeded.item": "%1$s was meloned to death by %2$s using %3$s",
   
@@ -1676,5 +1682,8 @@
   "item.haven.echo_chestplate": "Echo Chestplate",
   "item.haven.echo_leggings": "Echo Leggings",
   "item.haven.echo_boots": "Echo Boots",
-  "item.haven.echo_horse_armor": "Echo Horse Armor"
+  "item.haven.echo_horse_armor": "Echo Horse Armor",
+  
+  "block.haven.hedge_block": "Hedge Block",
+  "block.haven.hedge_wall": "Hedge Wall"
 }

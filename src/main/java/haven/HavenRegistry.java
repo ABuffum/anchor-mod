@@ -981,6 +981,7 @@ public class HavenRegistry {
 	public static void RegisterOriginPowers() {
 		Register(BloodTypePower::createFactory);
 		Register(UnfreezingPower::createFactory);
+		Register(ClownPacifistPower::createFactory);
 		Register(ChorusTeleportPower::createFactory);
 		Register(LactoseIntolerantPower::createFactory);
 	}
@@ -1270,6 +1271,8 @@ public class HavenRegistry {
 		Register(WOOD_MATERIAL);
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
+		Register("bleeding", BLEEDING_EFFECT);
+		Register("bone_rot", BONE_ROT_EFFECT);
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
 		JUICE_MAP.put(MUD.ITEM, MUD_BOTTLE);
 		JUICE_MAP.put(Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
@@ -1298,6 +1301,7 @@ public class HavenRegistry {
 		RegisterGold();
 		RegisterIron();
 		RegisterNetherite();
+		Register("hedge_block", HEDGE_BLOCK);
 		Register("wax_block", WAX_BLOCK);
 		Register("horn", HORN);
 		RegisterLiquidMud();

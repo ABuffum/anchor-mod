@@ -1,7 +1,9 @@
 package haven.entities.projectiles;
 
 import haven.HavenMod;
+import haven.blood.BloodType;
 import haven.entities.EntitySpawnPacket;
+import haven.origins.powers.ClownPacifistPower;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -61,6 +63,21 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 		entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 0F); // deals damage
 		if (entity instanceof LivingEntity livingEntity) { // checks if entity is an instance of LivingEntity (meaning it is not a boat or minecart)
 			livingEntity.addStatusEffect((new StatusEffectInstance(HavenMod.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
+			if (ClownPacifistPower.HasActivePower(livingEntity)) {
+				if (getOwner() instanceof LivingEntity owner) {
+					if (!owner.world.isClient) {
+						owner.addStatusEffect(new StatusEffectInstance(HavenMod.KILLJOY_EFFECT, 20 * 3, 0));
+					}
+				}
+			}
+			if (BloodType.Get(livingEntity) == BloodType.SUGAR_WATER) {
+				Entity owner = getOwner();
+				if (owner instanceof LivingEntity livingOwner) {
+					if (!livingOwner.world.isClient) {
+						livingOwner.addStatusEffect(new StatusEffectInstance(HavenMod.KILLJOY_EFFECT, 20 * 3, 0));
+					}
+				}
+			}
 			if (livingEntity.getEntityWorld().isClient) {
 				if (livingEntity instanceof PlayerEntity player) {
 					if (player.hasStatusEffect(HavenMod.BOO_EFFECT)) player.sendMessage(Text.of("Boo!"), true);
@@ -68,6 +85,10 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 				}
 			}
 			//TODO: Tomato Squelch sound on hit
+		}
+		if (ClownPacifistPower.HasActivePower(getOwner()) && entity instanceof PlayerEntity) {
+			entity.addVelocity(1, 0, 0);
+			entity.velocityModified = true;
 		}
 	}
 

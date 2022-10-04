@@ -21,9 +21,9 @@ public class LactoseIntolerantPower extends Power {
 	public static PowerFactory createFactory() {
 		return new PowerFactory<>(HavenMod.ID("lactose_intolerant"), new SerializableData(),
 			data -> (type, player) -> {
-				int hungerDuration = data.isPresent("hungerDuration") ? data.getInt("hungerDuration") : 400;
-				int hungerAmplifier = data.isPresent("hungerAmplifier") ? data.getInt("hungerAmplifier") : 1;
-				int damage = data.isPresent("damage") ? data.getInt("damage") : 0;
+				int hungerDuration = data.isPresent("hungerDuration") ? (int)data.getDouble("hungerDuration") : 400;
+				int hungerAmplifier = data.isPresent("hungerAmplifier") ? (int)data.getDouble("hungerAmplifier") : 1;
+				int damage = data.isPresent("damage") ? (int)data.getDouble("damage") : 0;
 				return new LactoseIntolerantPower(type, player, hungerDuration, hungerAmplifier, damage);
 			}
 		).allowCondition();

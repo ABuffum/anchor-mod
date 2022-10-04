@@ -1,21 +1,12 @@
 package haven.entities.passive;
 
 import haven.HavenMod;
-import haven.entities.passive.cow.CowfeeEntity;
-import haven.entities.passive.cow.StrawbovineEntity;
-import haven.mixins.entities.ChickenEntityMixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 public class FancyChickenEntity extends ChickenEntity {
 	public FancyChickenEntity(EntityType<? extends ChickenEntity> entityType, World world) {

@@ -1,4 +1,4 @@
-package haven.mixins.entities;
+package haven.mixins.entities.passive;
 
 import haven.HavenMod;
 import haven.entities.passive.cow.CowcoaEntity;

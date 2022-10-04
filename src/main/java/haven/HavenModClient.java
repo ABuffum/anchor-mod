@@ -62,6 +62,10 @@ public class HavenModClient implements ClientModInitializer {
 	public static final Identifier PacketID = new Identifier(HavenMod.NAMESPACE, "spawn_packet");
 
 	private static final List<Block> CutoutMipped = new ArrayList(List.<Block>of(
+		//Hedges
+		HavenMod.HEDGE_BLOCK.BLOCK,
+		//Backport
+		HavenMod.MANGROVE_ROOTS.BLOCK, HavenMod.MANGROVE_MATERIAL.getTrapdoor().BLOCK
 	));
 
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
@@ -91,9 +95,7 @@ public class HavenModClient implements ClientModInitializer {
 		//Coffee
 		HavenMod.COFFEE_PLANT,
 		//More Iron
-		HavenMod.DARK_IRON_MATERIAL.getDoor().BLOCK, HavenMod.DARK_IRON_MATERIAL.getTrapdoor().BLOCK,
-		//Backport
-		HavenMod.MANGROVE_ROOTS.BLOCK, HavenMod.MANGROVE_MATERIAL.getTrapdoor().BLOCK
+		HavenMod.DARK_IRON_MATERIAL.getDoor().BLOCK, HavenMod.DARK_IRON_MATERIAL.getTrapdoor().BLOCK
 	));
 	private static void setLayer(List<Block> target, PottedBlockContainer container) {
 		target.add(container.BLOCK);
@@ -297,24 +299,38 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.BOAT_ENTITY, HavenBoatEntityRenderer::new);
 		//Grappling Rod
 		ModelPredicateProviderRegistrySpecificAccessor.callRegister(HavenMod.GRAPPLING_ROD, new Identifier("cast"), HavenModClient::castGrapplingRod);
-		//
+		//Entity Packets (not sure if I still need this but I might?)
 		receiveEntityPacket();
 	}
 
 	public static void RegisterBlockColors(BlockColors blockColors) {
-		//White Pumpkin Stems
-		blockColors.registerColorProvider((state, world, pos, tintIndex) -> 14731036, HavenMod.WHITE_PUMPKIN.getAttachedStem());
+		//Gourd Stems
+		blockColors.registerColorProvider((state, world, pos, tintIndex) -> 14731036,
+				HavenMod.WHITE_PUMPKIN.getAttachedStem()
+		);
 		blockColors.registerColorProvider((state, world, pos, tintIndex) -> {
-			int i = state.get(StemBlock.AGE);
-			return (i * 32) << 16 | (255 - i * 8) << 8 | (i * 4);
-		}, HavenMod.WHITE_PUMPKIN.getStem());
-		//Mangrove Leaves
-		blockColors.registerColorProvider((state, world, pos, tintIndex) -> {
-			return world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-		}, HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK);
+				int i = state.get(StemBlock.AGE);
+				return (i * 32) << 16 | (255 - i * 8) << 8 | (i * 4);
+			},
+				HavenMod.WHITE_PUMPKIN.getStem()
+		);
+		//Generic Foliage
+		blockColors.registerColorProvider((state, world, pos, tintIndex) ->
+			world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor(),
+				//Hedges
+				HavenMod.HEDGE_BLOCK.BLOCK,
+				//Mangrove Leaves
+				HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK
+		);
 	}
 	public static void RegisterItemColors(ItemColors itemColors) {
-		itemColors.register((itemStack, i) -> 9619016, HavenMod.MANGROVE_MATERIAL.getLeaves().BLOCK);
+		//Generic Foliage
+		itemColors.register((itemStack, i) -> 9619016,
+				//Hedges
+				HavenMod.HEDGE_BLOCK.ITEM,
+				//Mangrove
+				HavenMod.MANGROVE_MATERIAL.getLeaves().ITEM
+		);
 	}
 
 	private static float castGrapplingRod(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {

@@ -1,9 +1,6 @@
-package haven.mixins.entities;
+package haven.mixins.entities.passive;
 
 import haven.entities.passive.FancyChickenEntity;
-import haven.entities.passive.cow.CowcoaEntity;
-import haven.entities.passive.cow.CowfeeEntity;
-import haven.entities.passive.cow.StrawbovineEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.entity.passive.AnimalEntity;

@@ -18,6 +18,7 @@ public class BoneRotEffect extends StatusEffect {
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
 		switch (amplifier) {
+			case 0: return duration % 7000 == 0;	//300 seconds (5 minutes)
 			case 1: return duration % 3600 == 0;	//180 seconds (3 minutes)
 			case 2: return duration % 2400 == 0;	//120 seconds (2 minutes)
 			case 3: return duration % 1200 == 0;	//60 seconds (1 minute)
@@ -37,7 +38,7 @@ public class BoneRotEffect extends StatusEffect {
 		entity.damage(HavenDamageSource.BONE_ROT,1);
 		if (entity.isSprinting()) {
 			entity.setSprinting(false);
-			entity.damage(HavenDamageSource.BONE_ROT,1);
+			increase(entity.world, entity);
 		}
 	}
 
@@ -50,6 +51,15 @@ public class BoneRotEffect extends StatusEffect {
 				entity.removeStatusEffect(HavenMod.BONE_ROT_EFFECT);
 				entity.addStatusEffect(new StatusEffectInstance(HavenMod.BONE_ROT_EFFECT, effect.getDuration(), amplifier - 1));
 			}
+		}
+	}
+
+	public static void increase(World world, LivingEntity entity) {
+		if (world.isClient) return;
+		if (entity.hasStatusEffect(HavenMod.BONE_ROT_EFFECT)) {
+			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.BONE_ROT_EFFECT);
+			entity.removeStatusEffect(HavenMod.BONE_ROT_EFFECT);
+			entity.addStatusEffect(new StatusEffectInstance(HavenMod.BONE_ROT_EFFECT, effect.getDuration(), effect.getAmplifier() + 1));
 		}
 	}
 }

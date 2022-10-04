@@ -909,6 +909,9 @@ public class HavenMod implements ModInitializer {
 	//Boats
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
 
+	//Hedges
+	public static final BlockContainer HEDGE_BLOCK = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque()));
+
 	@Override
 	public void onInitialize() {
 		HavenRegistry.RegisterAll();
