@@ -50,6 +50,7 @@
 	"entities.thrown.EggEntityMixin",
 	"entities.thrown.SnowballEntityMixin",
 	"items.AxeItemMixin",
+	"items.BoneMealItemMixin",
 	"items.BucketItemAccessor",
 	"items.ChorusFruitItemMixin",
 	"items.FlintAndSteelItemMixin",

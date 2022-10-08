@@ -79,6 +79,12 @@ public class HavenSoundEvents {
 	//Syringes
 	public static final SoundEvent SYRINGE_INJECTED = registerSoundEvent("item.syringe.inject");
 
+	//TNT
+	public static final SoundEvent SOFT_TNT_PRIMED = registerSoundEvent("entity.soft_tnt.primed");
+
+	//Misc
+	public static final SoundEvent MIASMA_COMING = registerSoundEvent("ambient.miasma_coming");
+
 
 	public static SoundEvent registerSoundEvent(String name) {
 		Identifier id = HavenMod.ID(name);

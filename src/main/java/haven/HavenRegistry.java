@@ -64,7 +64,6 @@ import java.util.List;
 import java.util.Map;
 
 import static haven.HavenMod.*;
-import static haven.HavenMod.MUD_BOTTLE;
 
 public class HavenRegistry {
 	public static Block Register(String path, Block block) {
@@ -571,6 +570,15 @@ public class HavenRegistry {
 		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cassia_tree"), CASSIA_TREE);
 	}
+	public static void RegisterVanilla() {
+		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
+		Register("vanilla_flower", VANILLA_FLOWER);
+		FLAMMABLE.add(VANILLA_FLOWER.BLOCK, 60, 100);
+		Register("tall_vanilla", TALL_VANILLA);
+		FLAMMABLE.add(TALL_VANILLA.BLOCK, 60, 100);
+		Register("vanilla", VANILLA);
+		CompostingChanceRegistry.INSTANCE.add(VANILLA, 0.2f);
+	}
 	public static void RegisterCookies() {
 		Register("snickerdoodle", SNICKERDOODLE);
 		CompostingChanceRegistry.INSTANCE.add(SNICKERDOODLE, 0.85F);
@@ -597,6 +605,7 @@ public class HavenRegistry {
 		Register("apple_cider", APPLE_CIDER);
 		Register("juicer", JUICER);
 		RegisterJuice("apple", APPLE_JUICE, Items.APPLE);
+		JUICE_MAP.put(GREEN_APPLE, APPLE_JUICE);
 		RegisterJuice("beetroot", BEETROOT_JUICE, Items.BEETROOT);
 		Register("black_apple_juice", BLACK_APPLE_JUICE); //TODO: Hook into better nether explicitly
 		//JUICE_MAP.put(Items.APPLE, BLACK_APPLE_JUICE);
@@ -635,17 +644,29 @@ public class HavenRegistry {
 		Register("strawberry_smoothie", STRAWBERRY_SMOOTHIE);
 		Register("sweet_berry_smoothie", SWEET_BERRY_SMOOTHIE);
 		Register("tomato_smoothie", TOMATO_SMOOTHIE);
+		//Poisons
+		JUICE_MAP.put(Items.POISONOUS_POTATO, POISON_VIAL);
+		JUICE_MAP.put(POISONOUS_CARROT, POISON_VIAL);
+		JUICE_MAP.put(POISONOUS_BEETROOT, POISON_VIAL);
+		JUICE_MAP.put(POISONOUS_GLOW_BERRIES, POISON_VIAL);
+		JUICE_MAP.put(POISONOUS_SWEET_BERRIES, POISON_VIAL);
+		JUICE_MAP.put(POISONOUS_TOMATO, POISON_VIAL);
+		JUICE_MAP.put(SPOILED_EGG, POISON_VIAL);
+		JUICE_MAP.put(Items.SPIDER_EYE, SPIDER_POISON_VIAL);
+		JUICE_MAP.put(Items.PUFFERFISH, PUFFERFISH_POISON_VIAL);
 	}
 	public static void RegisterMilkshakesIceCream() {
 		Register("milkshake", MILKSHAKE);
 		Register("chocolate_milkshake", CHOCOLATE_MILKSHAKE);
 		Register("coffee_milkshake", COFFEE_MILKSHAKE);
 		Register("strawberry_milkshake", STRAWBERRY_MILKSHAKE);
+		Register("vanilla_milkshake", VANILLA_MILKSHAKE);
 		Register("chocolate_chip_milkshake", CHOCOLATE_CHIP_MILKSHAKE);
 		Register("ice_cream", ICE_CREAM);
 		Register("chocolate_ice_cream", CHOCOLATE_ICE_CREAM);
 		Register("coffee_ice_cream", COFFEE_ICE_CREAM);
 		Register("strawberry_ice_cream", STRAWBERRY_ICE_CREAM);
+		Register("vanilla_ice_cream", VANILLA_ICE_CREAM);
 		Register("chocolate_chip_ice_cream", CHOCOLATE_CHIP_ICE_CREAM);
 	}
 	public static void RegisterBamboo() {
@@ -855,6 +876,7 @@ public class HavenRegistry {
 		Register(name + "_chocolate_milk_bucket", bucketProvider.getChocolateMilkBucket());
 		Register(name + "_coffee_milk_bucket", bucketProvider.getCoffeeMilkBucket());
 		Register(name + "_strawberry_milk_bucket", bucketProvider.getStrawberryMilkBucket());
+		Register(name + "_vanilla_milk_bucket", bucketProvider.getVanillaMilkBucket());
 		Item cottageCheeseBucket = bucketProvider.getCottageCheeseBucket();
 		Register(name + "_cottage_cheese_bucket", cottageCheeseBucket);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(milkBucket, MilkCauldronBlock.FillFromBucket(bucket));
@@ -916,6 +938,7 @@ public class HavenRegistry {
 		Register("sludge_syringe", SLUDGE_SYRINGE);
 		Register("strawberry_milk_syringe", STRAWBERRY_MILK_SYRINGE);
 		Register("sugar_water_syringe", SUGAR_WATER_SYRINGE);
+		Register("vanilla_milk_syringe", VANILLA_MILK_SYRINGE);
 		Register("water_syringe", WATER_SYRINGE);
 		//Blood Syringes
 		Register("blood_syringe", BLOOD_SYRINGE);
@@ -1087,6 +1110,10 @@ public class HavenRegistry {
 		SpawnRestrictionAccessor.callRegister(STRAWBOVINE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, StrawbovineEntity::canSpawn);
 		FabricDefaultAttributeRegistry.register(STRAWBOVINE_ENTITY, StrawbovineEntity.createCowAttributes());
 		Register("strawbovine_spawn_egg", STRAWBOVINE_SPAWN_EGG);
+		Register("moonilla", MOONILLA_ENTITY);
+		SpawnRestrictionAccessor.callRegister(MOONILLA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoonillaEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(MOONILLA_ENTITY, MoonillaEntity.createCowAttributes());
+		Register("moonilla_spawn_egg", MOONILLA_SPAWN_EGG);
 		//Flower Mooshrooms
 		Register("moobloom", MOOBLOOM_ENTITY);
 		SpawnRestrictionAccessor.callRegister(MOOBLOOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MoobloomEntity::canSpawn);
@@ -1140,10 +1167,12 @@ public class HavenRegistry {
 		Register("chocolate_milk_bowl", CHOCOLATE_MILK_BOWL);
 		Register("coffee_milk_bowl", COFFEE_MILK_BOWL);
 		Register("strawberry_milk_bowl", STRAWBERRY_MILK_BOWL);
+		Register("vanilla_milk_bowl", VANILLA_MILK_BOWL);
 		Register("cottage_cheese_bowl", COTTAGE_CHEESE_BOWL);
 		Register("chocolate_milk_bottle", CHOCOLATE_MILK_BOTTLE);
 		Register("coffee_milk_bottle", COFFEE_MILK_BOTTLE);
 		Register("strawberry_milk_bottle", STRAWBERRY_MILK_BOTTLE);
+		Register("vanilla_milk_bottle", VANILLA_MILK_BOTTLE);
 		Register("milk_cauldron", MILK_CAULDRON);
 		Register("cottage_cheese_cauldron", COTTAGE_CHEESE_CAULDRON);
 		Register("cheese_cauldron", CHEESE_CAULDRON);
@@ -1152,20 +1181,47 @@ public class HavenRegistry {
 		Register("chocolate_milk_bucket", CHOCOLATE_MILK_BUCKET);
 		Register("coffee_milk_bucket", COFFEE_MILK_BUCKET);
 		Register("strawberry_milk_bucket", STRAWBERRY_MILK_BUCKET);
+		Register("vanilla_milk_bucket", VANILLA_MILK_BUCKET);
 		Register("cottage_cheese_bucket", COTTAGE_CHEESE_BUCKET);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(COTTAGE_CHEESE_BUCKET, MilkCauldronBlock.FillCheeseFromBucket(Items.BUCKET));
 		Register("cheese_block", CHEESE_BLOCK);
 		Register("cheese", CHEESE);
 		Register("grilled_cheese", GRILLED_CHEESE);
 	}
+	public static void RegisterPoison() {
+		Register("poison_vial", POISON_VIAL);
+		Register("spider_poison_vial", SPIDER_POISON_VIAL);
+		Register("pufferfish_poison_vial", PUFFERFISH_POISON_VIAL);
+		Register("poisonous_carrot", POISONOUS_CARROT);
+		Register("poisonous_beetroot", POISONOUS_BEETROOT);
+		Register("poisonous_glow_berries", POISONOUS_GLOW_BERRIES);
+		Register("poisonous_sweet_berries", POISONOUS_SWEET_BERRIES);
+		Register("poisonous_tomato", POISONOUS_TOMATO);
+		Register("wilted_cabbage", WILTED_CABBAGE);
+		Register("wilted_onion", WILTED_ONION);
+		Register("moldy_bread", MOLDY_BREAD);
+		Register("moldy_cookie", MOLDY_COOKIE);
+		Register("rotten_pumpkin_pie", ROTTEN_PUMPKIN_PIE);
+		Register("spoiled_egg", SPOILED_EGG);
+		Register("rotten_beef", ROTTEN_BEEF);
+		Register("rotten_chevon", ROTTEN_CHEVON);
+		Register("rotten_chicken", ROTTEN_CHICKEN);
+		Register("rotten_cod", ROTTEN_COD);
+		Register("rotten_mutton", ROTTEN_MUTTON);
+		Register("rotten_porkchop", ROTTEN_PORKCHOP);
+		Register("rotten_rabbit", ROTTEN_RABBIT);
+		Register("rotten_salmon", ROTTEN_SALMON);
+	}
 	public static void RegisterCakes() {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		Register(CHOCOLATE_CAKE);
 		COMPOST.add(CHOCOLATE_CAKE.getCake().ITEM, 1F);
-		Register(STRAWBERRY_CAKE);
-		COMPOST.add(STRAWBERRY_CAKE.getCake().ITEM, 1F);
 		Register(COFFEE_CAKE);
 		COMPOST.add(COFFEE_CAKE.getCake().ITEM, 1F);
+		Register(STRAWBERRY_CAKE);
+		COMPOST.add(STRAWBERRY_CAKE.getCake().ITEM, 1F);
+		Register(VANILLA_CAKE);
+		COMPOST.add(VANILLA_CAKE.getCake().ITEM, 1F);
 		Register(CARROT_CAKE);
 		COMPOST.add(CARROT_CAKE.getCake().ITEM, 1F);
 		Register(CONFETTI_CAKE);
@@ -1262,6 +1318,7 @@ public class HavenRegistry {
 		Register("haven_boat", BOAT_ENTITY);
 		RegisterCherry();
 		RegisterCinnamon();
+		RegisterVanilla();
 		RegisterBamboo();
 		Register(CHARRED_MATERIAL);
 		RegisterVanillaWood();
@@ -1273,6 +1330,7 @@ public class HavenRegistry {
 		RegisterServerBlood();
 		Register("bleeding", BLEEDING_EFFECT);
 		Register("bone_rot", BONE_ROT_EFFECT);
+		Register("marked", MARKED_EFFECT);
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
 		JUICE_MAP.put(MUD.ITEM, MUD_BOTTLE);
 		JUICE_MAP.put(Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
@@ -1295,6 +1353,15 @@ public class HavenRegistry {
 		RegisterCookies();
 		RegisterMilks();
 		Register("hotdog", HOTDOG);
+		Register("green_apple", GREEN_APPLE);
+		Register("golden_potato", GOLDEN_POTATO);
+		Register("golden_baked_potato", GOLDEN_BAKED_POTATO);
+		Register("golden_beetroot", GOLDEN_BEETROOT);
+		Register("golden_chorus_fruit", GOLDEN_CHORUS_FRUIT);
+		Register("golden_tomato", GOLDEN_TOMATO);
+		Register("golden_onion", GOLDEN_ONION);
+		Register("golden_egg", GOLDEN_EGG);
+		RegisterPoison();
 		RegisterCakes();
 		RegisterBottledConfetti();
 		RegisterCopper();

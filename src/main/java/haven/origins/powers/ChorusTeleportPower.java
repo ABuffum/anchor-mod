@@ -22,9 +22,9 @@ public class ChorusTeleportPower extends CooldownPower implements Active {
 					.add("cooldown", SerializableDataTypes.INT, 1)
 					.add("hud_render", ApoliDataTypes.HUD_RENDER, HudRender.DONT_RENDER),
 				data -> (type, player) -> {
-							ChorusTeleportPower power = new ChorusTeleportPower(type, player, data.getInt("cooldown"), (HudRender)data.get("hud_render"));
-							power.setKey((Active.Key)data.get("key"));
-							return power;
+					ChorusTeleportPower power = new ChorusTeleportPower(type, player, data.getInt("cooldown"), (HudRender)data.get("hud_render"));
+					power.setKey((Active.Key)data.get("key"));
+					return power;
 				}
 			).allowCondition();
 	}

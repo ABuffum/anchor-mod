@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "haven:block/tall_vanilla_bottom"
+    },
+    "half=upper": {
+      "model": "haven:block/tall_vanilla_top"
+    }
+  }
+}

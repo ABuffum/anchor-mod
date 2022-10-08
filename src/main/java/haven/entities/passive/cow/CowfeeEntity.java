@@ -1,6 +1,7 @@
 package haven.entities.passive.cow;
 
 import haven.HavenMod;
+import haven.blocks.cake.CakeContainer;
 import haven.items.buckets.BucketProvided;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -26,7 +27,11 @@ import net.minecraft.world.WorldView;
 
 import java.util.Random;
 
-public class CowfeeEntity extends CowEntity {
+public class CowfeeEntity extends CowEntity implements FlavoredCowEntity {
+
+	@Override
+	public CakeContainer.Flavor getFlavor() { return CakeContainer.Flavor.COFFEE; }
+
 	public CowfeeEntity(EntityType<? extends CowfeeEntity> entityType, World world) {
 		super(entityType, world);
 	}
@@ -38,6 +43,7 @@ public class CowfeeEntity extends CowEntity {
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowcoaEntity.class));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowfeeEntity.class));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, StrawbovineEntity.class));
+		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, MoonillaEntity.class));
 		this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(Items.WHEAT, HavenMod.COFFEE_BEANS), false));
 	}
 
@@ -77,6 +83,7 @@ public class CowfeeEntity extends CowEntity {
 				&& otherClass != CowEntity.class
 				&& otherClass != CowcoaEntity.class
 				&& otherClass != StrawbovineEntity.class
+				&& otherClass != MoonillaEntity.class
 		) return false;
 		else return this.isInLove() && other.isInLove();
 	}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:vanilla_flower"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "minecraft:light_gray_dye"
+  }
+}

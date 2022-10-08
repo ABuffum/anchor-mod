@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+	"layer0": "haven:item/netherite_vanilla_milk_bucket"
+  }
+}

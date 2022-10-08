@@ -47,7 +47,7 @@ public class SubstituteAnchorBlock extends BlockWithEntity {
 	@Override
 	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		int owner = state.get(AnchorBlock.OWNER);
-		double x = pos.getX(), y = pos.getY(), z = pos.getZ();
+		double x = pos.getX() + 0.5, y = pos.getY(), z = pos.getZ() + 0.5;
 		ItemStack anchorStack = new ItemStack(Blocks.RESPAWN_ANCHOR, 1);
 		ItemEntity anchorStackEntity = new ItemEntity(player.world, x, y, z, anchorStack);
 		player.world.spawnEntity(anchorStackEntity);

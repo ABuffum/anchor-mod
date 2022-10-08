@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/light_blue_vanilla_candle_cake"
+    },
+    "lit=true": {
+      "model": "haven:block/light_blue_vanilla_candle_cake_lit"
+    }
+  }
+}

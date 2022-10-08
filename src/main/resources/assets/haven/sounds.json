@@ -745,5 +745,13 @@
   "item.syringe.inject": {
 	"subtitle": "Syringe Injected",
 	"sounds": [ "haven:item/syringe/inject" ]
+  },
+  "entity.soft_tnt.primed": {
+	"sounds": [ "random/fuse" ],
+	"subtitle": "subtitles.entity.soft_tnt.primed"
+  },
+  "ambient.miasma_coming": {
+	"sounds": [ "mob/wither/spawn" ],
+	"subtitle": "subtitles.ambient.miasma_coming"
   }
 }

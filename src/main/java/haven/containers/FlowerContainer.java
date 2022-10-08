@@ -19,6 +19,9 @@ public class FlowerContainer extends PottedBlockContainer {
 		this(effect, effectDuration, Settings());
 	}
 	public FlowerContainer(StatusEffect effect, int effectDuration, AbstractBlock.Settings settings) {
-		super(new FlowerBlock(effect, effectDuration, settings));
+		this(new FlowerBlock(effect, effectDuration, settings));
+	}
+	public FlowerContainer(FlowerBlock block) {
+		super(block);
 	}
 }

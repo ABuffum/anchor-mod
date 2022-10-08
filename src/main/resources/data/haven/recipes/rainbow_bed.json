@@ -1,18 +1,23 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "bed",
-  "pattern": [
-    "###",
-    "XXX"
-  ],
   "key": {
-    "#": {
-      "item": "haven:rainbow_wool"
-    },
+    "#": [
+      {
+        "item": "haven:rainbow_wool"
+      },
+      {
+        "item": "haven:rainbow_fleece"
+      }
+    ],
     "X": {
       "tag": "minecraft:planks"
     }
   },
+  "pattern": [
+    "###",
+    "XXX"
+  ],
   "result": {
     "item": "haven:rainbow_bed"
   }

@@ -80,6 +80,8 @@ public class GoldMaterial extends BaseMaterial implements
 	public Item getCoffeeMilkBucket() { return coffee_milk_bucket; }
 	private final Item strawberry_milk_bucket;
 	public Item getStrawberryMilkBucket() { return strawberry_milk_bucket; }
+	private final Item vanilla_milk_bucket;
+	public Item getVanillaMilkBucket() { return vanilla_milk_bucket; }
 	private final Item cottage_cheese_bucket;
 	public Item getCottageCheeseBucket() { return cottage_cheese_bucket; }
 
@@ -112,6 +114,7 @@ public class GoldMaterial extends BaseMaterial implements
 		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		coffee_milk_bucket = new CoffeeMilkBucketItem(FilledBucketSettings(), this);
 		strawberry_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
+		vanilla_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		cottage_cheese_bucket = new CottageCheeseBucketItem(HavenMod.COTTAGE_CHEESE_BLOCK, FilledBucketSettings().food(HavenMod.COTTAGE_CHEESE_FOOD_COMPONENT), this);
 	}
 

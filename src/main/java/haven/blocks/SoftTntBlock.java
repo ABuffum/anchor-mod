@@ -1,5 +1,6 @@
 package haven.blocks;
 
+import haven.sounds.HavenSoundEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import java.util.function.Consumer;
@@ -15,7 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -34,7 +34,7 @@ public class SoftTntBlock extends Block {
 
 	public SoftTntBlock(AbstractBlock.Settings settings) {
 		super(settings);
-		this.setDefaultState((BlockState)this.getDefaultState().with(UNSTABLE, false));
+		this.setDefaultState(this.getDefaultState().with(UNSTABLE, false));
 	}
 
 	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
@@ -80,7 +80,7 @@ public class SoftTntBlock extends Block {
 		if (!world.isClient) {
 			SoftTntEntity tntEntity = new SoftTntEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, igniter);
 			world.spawnEntity(tntEntity);
-			world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), HavenSoundEvents.SOFT_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
 		}
 	}

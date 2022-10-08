@@ -2,7 +2,6 @@ package haven;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Maps;
 import haven.blocks.*;
 import haven.blocks.anchors.*;
 import haven.blocks.basic.*;
@@ -40,7 +39,6 @@ import haven.materials.metal.*;
 import haven.materials.providers.*;
 import haven.materials.stone.*;
 import haven.materials.wood.*;
-import haven.mixins.SignTypeAccessor;
 import haven.sounds.*;
 import haven.util.*;
 
@@ -251,6 +249,10 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item CINNAMON = new Item(ItemSettings());
 
+	public static final FlowerContainer VANILLA_FLOWER = new FlowerContainer(new VanillaFlowerBlock(StatusEffects.INSTANT_HEALTH, 11, FlowerContainer.Settings()));
+	public static final TallBlockContainer TALL_VANILLA = new TallBlockContainer(new TallVanillaBlock(FlowerContainer.TallSettings()), ItemSettings().recipeRemainder(VANILLA_FLOWER.ITEM));
+	public static final Item VANILLA = new Item(ItemSettings());
+
 	public static final TreeMaterial CHERRY_MATERIAL = new TreeMaterial("cherry", MapColor.RAW_IRON_PINK, CherrySaplingGenerator::new, true);
 	public static final BlockContainer PALE_CHERRY_LEAVES = new BlockContainer(new HavenLeavesBlock(CHERRY_MATERIAL.getLeaves().BLOCK));
 	public static final BlockContainer PINK_CHERRY_LEAVES = new BlockContainer(new HavenLeavesBlock(CHERRY_MATERIAL.getLeaves().BLOCK));
@@ -351,6 +353,7 @@ public class HavenMod implements ModInitializer {
 	public static final Item CHOCOLATE_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
 	public static final Item COFFEE_MILKSHAKE = new CoffeeMilkBottleItem(SmoothieSettings());
 	public static final Item STRAWBERRY_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
+	public static final Item VANILLA_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
 	public static final Item CHOCOLATE_CHIP_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
 	public static Item.Settings IceCreamSettings() {
 		return ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.5F).build());
@@ -359,9 +362,18 @@ public class HavenMod implements ModInitializer {
 	public static final Item CHOCOLATE_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item COFFEE_ICE_CREAM = new CoffeeMilkBottleItem(IceCreamSettings());
 	public static final Item STRAWBERRY_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
+	public static final Item VANILLA_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item CHOCOLATE_CHIP_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
-	//Hotdog
+	//Misc Food
 	public static final Item HOTDOG = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(4).saturationModifier(0.4F).build()));
+	public static final Item GREEN_APPLE = new Item(ItemSettings().food(FoodComponents.APPLE));
+	public static final Item GOLDEN_POTATO = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build()));
+	public static final Item GOLDEN_BAKED_POTATO = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(10).saturationModifier(1.2F).build()));
+	public static final Item GOLDEN_BEETROOT = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(1.2F).build()));
+	public static final Item GOLDEN_CHORUS_FRUIT = new ChorusFruitItem(ItemSettings().food(new FoodComponent.Builder().hunger(8).saturationModifier(0.6F).alwaysEdible().build()));
+	public static final Item GOLDEN_TOMATO = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(2).saturationModifier(0.8F).build()));
+	public static final Item GOLDEN_ONION = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(4).saturationModifier(0.8F).build()));
+	public static final Item GOLDEN_EGG = new Item(ItemSettings()); //TODO: Throw Golden Egg
 	
 	//Bamboo
 	public static final BambooMaterial BAMBOO_MATERIAL = new BambooMaterial("bamboo", MapColor.DARK_GREEN);
@@ -489,7 +501,38 @@ public class HavenMod implements ModInitializer {
 	public static final Item TOMATO_SOUP = new MushroomStewItem(ItemSettings().food(FoodComponents.BEETROOT_SOUP));
 
 	public static final StatusEffect BONE_ROT_EFFECT = new BoneRotEffect();
+	public static final StatusEffect MARKED_EFFECT = new MarkedEffect();
 	public static final StatusEffect BLEEDING_EFFECT = new BleedingEffect();
+
+	//Poison and Spoiled Food
+	public static final Item POISON_VIAL = new PoisonBottleItem(ItemSettings().maxCount(16));
+	public static final Item SPIDER_POISON_VIAL = new PoisonBottleItem(ItemSettings().maxCount(16));
+	public static final Item PUFFERFISH_POISON_VIAL = new PoisonBottleItem(ItemSettings().maxCount(16));
+	private static Item.Settings PoisonousFoodSettings(int hunger, float saturation) {
+		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0), 0.6F).build());
+	}
+	private static Item.Settings RottenMeatSettings(int hunger, float saturation) {
+		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.8F).meat().build());
+	}
+	public static final Item POISONOUS_CARROT = new Item(PoisonousFoodSettings(3, 0.6F));
+	public static final Item POISONOUS_BEETROOT = new Item(PoisonousFoodSettings(2, 0.6F));
+	public static final Item POISONOUS_GLOW_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item POISONOUS_SWEET_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item POISONOUS_TOMATO = new Item(PoisonousFoodSettings(2, 0.3F));
+	public static final Item WILTED_CABBAGE = new Item(PoisonousFoodSettings(2, 0.4F));
+	public static final Item WILTED_ONION = new Item(PoisonousFoodSettings(2, 0.4F));
+	public static final Item MOLDY_BREAD = new Item(PoisonousFoodSettings(5, 0.6F));
+	public static final Item MOLDY_COOKIE = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item ROTTEN_PUMPKIN_PIE = new Item(PoisonousFoodSettings(8, 0.3F));
+	public static final Item SPOILED_EGG = new Item(ItemSettings()); //TODO: Throw spoiled eggs
+	public static final Item ROTTEN_BEEF = new Item(RottenMeatSettings(8, 0.8F));
+	public static final Item ROTTEN_CHEVON = new Item(RottenMeatSettings(6, 0.6F));
+	public static final Item ROTTEN_CHICKEN = new Item(RottenMeatSettings(6, 0.6F));
+	public static final Item ROTTEN_COD = new Item(PoisonousFoodSettings(5, 0.6F));
+	public static final Item ROTTEN_MUTTON = new Item(RottenMeatSettings(6, 0.8F));
+	public static final Item ROTTEN_PORKCHOP = new Item(RottenMeatSettings(8, 0.8F));
+	public static final Item ROTTEN_RABBIT = new Item(RottenMeatSettings(5, 0.6F));
+	public static final Item ROTTEN_SALMON = new Item(PoisonousFoodSettings(6, 0.8F));
 
 	//Server Blood
 	public static final DefaultParticleType BLOOD_BUBBLE = FabricParticleTypes.simple(false);
@@ -637,16 +680,60 @@ public class HavenMod implements ModInitializer {
 		if (bloodType == BloodType.MUD) entity.heal(1);
 		else entity.damage(HavenDamageSource.Injected("mud", user), 1);
 	});
-	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity) { ApplyMilkSyringe(user, entity, false); }
-	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity, boolean coffee) {
+	private static void ReplaceCow(CowEntity cow, CakeContainer.Flavor flavor) {
+		if (!cow.world.isClient()) {
+			((ServerWorld)cow.world).spawnParticles(ParticleTypes.EXPLOSION, cow.getX(), cow.getBodyY(0.5D), cow.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
+			cow.discard();
+			CowEntity cowEntity;
+			if (flavor == CakeContainer.Flavor.CHOCOLATE) cowEntity = COWCOA_ENTITY.create(cow.world);
+			else if (flavor == CakeContainer.Flavor.COFFEE) cowEntity = COWFEE_ENTITY.create(cow.world);
+			else if (flavor == CakeContainer.Flavor.STRAWBERRY) cowEntity = STRAWBOVINE_ENTITY.create(cow.world);
+			else if (flavor == CakeContainer.Flavor.VANILLA) cowEntity = MOONILLA_ENTITY.create(cow.world);
+			else cowEntity = EntityType.COW.create(cow.world);
+			cowEntity.refreshPositionAndAngles(cow.getX(), cow.getY(), cow.getZ(), cow.getYaw(), cow.getPitch());
+			cowEntity.setHealth(cow.getHealth());
+			cowEntity.bodyYaw = cow.bodyYaw;
+			if (cow.hasCustomName()) {
+				cowEntity.setCustomName(cow.getCustomName());
+				cowEntity.setCustomNameVisible(cow.isCustomNameVisible());
+			}
+			if (cow.isPersistent()) cowEntity.setPersistent();
+			cowEntity.setInvulnerable(cow.isInvulnerable());
+			cow.world.spawnEntity(cowEntity);
+		}
+	}
+	private static void ApplyMilkSyringe(PlayerEntity user, LivingEntity entity, CakeContainer.Flavor flavor) {
 		BloodType bloodType = BloodType.Get(entity);
 		if (bloodType == BloodType.MILK) entity.heal(1);
 		else if (bloodType != BloodType.COW && bloodType != BloodType.GOAT){
 			entity.damage(HavenDamageSource.Injected("milk", user), 1);
 		}
-		MilkUtils.ApplyMilk(entity.getEntityWorld(), user, coffee);
+		//Potentially transform the cow
+		else if (entity instanceof CowEntity cow) {
+			if (flavor == CakeContainer.Flavor.CHOCOLATE) {
+				if (cow instanceof CowcoaEntity) BloodSyringeItem.heal(entity, 1);
+				else if (cow.getClass() == CowEntity.class || cow instanceof FlavoredCowEntity) ReplaceCow(cow, flavor);
+			}
+			else if (flavor == CakeContainer.Flavor.COFFEE) {
+				if (cow instanceof CowfeeEntity) BloodSyringeItem.heal(entity, 1);
+				else if (cow.getClass() == CowEntity.class || cow instanceof FlavoredCowEntity) ReplaceCow(cow, flavor);
+			}
+			else if (flavor == CakeContainer.Flavor.STRAWBERRY) {
+				if (cow instanceof StrawbovineEntity) BloodSyringeItem.heal(entity, 1);
+				else if (cow.getClass() == CowEntity.class || cow instanceof FlavoredCowEntity) ReplaceCow(cow, flavor);
+			}
+			else if (flavor == CakeContainer.Flavor.VANILLA) {
+				if (cow instanceof MoonillaEntity) BloodSyringeItem.heal(entity, 1);
+				else if (cow.getClass() == CowEntity.class || cow instanceof FlavoredCowEntity) ReplaceCow(cow, flavor);
+			}
+			else if (flavor == null) {
+				if (cow instanceof FlavoredCowEntity) ReplaceCow(cow, flavor);
+				else if (cow.getClass() == CowEntity.class) BloodSyringeItem.heal(entity, 1);
+			}
+		}
+		MilkUtils.ApplyMilk(entity.getEntityWorld(), user, flavor == CakeContainer.Flavor.COFFEE);
 	}
-	public static final Item MILK_SYRINGE = new BloodSyringeItem(BloodType.MILK, HavenMod::ApplyMilkSyringe);
+	public static final Item MILK_SYRINGE = new BloodSyringeItem(BloodType.MILK, (user, entity) -> ApplyMilkSyringe(user, entity, null));
 	public static final Item NEPHAL_BLOOD_SYRINGE = new BloodSyringeItem(BloodType.NEPHAL, (PlayerEntity user, LivingEntity entity) -> {
 		BloodType bloodType = BloodType.Get(entity);
 		if (bloodType == BloodType.NEPHAL) entity.heal(1);
@@ -802,9 +889,10 @@ public class HavenMod implements ModInitializer {
 		else entity.damage(HavenDamageSource.Injected("dragon_breath", user), 4);
 	});
 	public static final Item EXPERIENCE_SYRINGE = new ExperienceSyringeItem();
-	public static final Item CHOCOLATE_MILK_SYRINGE = new BaseSyringeItem(HavenMod::ApplyMilkSyringe);
-	public static final Item COFFEE_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, true));
-	public static final Item STRAWBERRY_MILK_SYRINGE = new BaseSyringeItem(HavenMod::ApplyMilkSyringe);
+	public static final Item CHOCOLATE_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, CakeContainer.Flavor.CHOCOLATE));
+	public static final Item COFFEE_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, CakeContainer.Flavor.COFFEE));
+	public static final Item STRAWBERRY_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, CakeContainer.Flavor.STRAWBERRY));
+	public static final Item VANILLA_MILK_SYRINGE = new BaseSyringeItem((user, entity) -> ApplyMilkSyringe(user, entity, CakeContainer.Flavor.VANILLA));
 
 	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect();
 	public static final Item SECRET_INGREDIENT = new Item(BloodItemSettings());
@@ -836,6 +924,9 @@ public class HavenMod implements ModInitializer {
 	public static final Item COWFEE_SPAWN_EGG = new SpawnEggItem(COWFEE_ENTITY, 16777215, 16777215, ItemSettings());
 	public static final EntityType<StrawbovineEntity> STRAWBOVINE_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, StrawbovineEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
 	public static final Item STRAWBOVINE_SPAWN_EGG = new SpawnEggItem(STRAWBOVINE_ENTITY, 16777215, 16777215, ItemSettings());
+	public static final EntityType<MoonillaEntity> MOONILLA_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoonillaEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
+	public static final Item MOONILLA_SPAWN_EGG = new SpawnEggItem(MOONILLA_ENTITY, 16777215, 16777215, ItemSettings());
+
 	public static final EntityType<MoobloomEntity> MOOBLOOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
 	public static final Item MOOBLOOM_SPAWN_EGG = new SpawnEggItem(MOOBLOOM_ENTITY, 16777215, 16777215, ItemSettings());
 	public static final EntityType<MoolipEntity> MOOLIP_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoolipEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
@@ -869,12 +960,15 @@ public class HavenMod implements ModInitializer {
 	public static final Item CHOCOLATE_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
 	public static final Item CHOCOLATE_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
 	public static final Item CHOCOLATE_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
-	public static final Item STRAWBERRY_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
-	public static final Item STRAWBERRY_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
-	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
 	public static final Item COFFEE_MILK_BUCKET = new CoffeeMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
 	public static final Item COFFEE_MILK_BOWL = new CoffeeMilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
 	public static final Item COFFEE_MILK_BOTTLE = new CoffeeMilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
+	public static final Item STRAWBERRY_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
+	public static final Item STRAWBERRY_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
+	public static final Item STRAWBERRY_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
+	public static final Item VANILLA_MILK_BUCKET = new HavenMilkBucketItem(BucketProvider.DEFAULT_PROVIDER.FilledBucketSettings(), BucketProvider.DEFAULT_PROVIDER);
+	public static final Item VANILLA_MILK_BOWL = new MilkBowlItem(ItemSettings().recipeRemainder(Items.BOWL).maxCount(16));
+	public static final Item VANILLA_MILK_BOTTLE = new MilkBottleItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).maxCount(16));
 	//Cheese
 	public static final FoodComponent COTTAGE_CHEESE_FOOD_COMPONENT = new FoodComponent.Builder().hunger(2).saturationModifier(0.6F).build();
 	public static final Block MILK_CAULDRON = new MilkCauldronBlock(0, AbstractBlock.Settings.copy(Blocks.WATER_CAULDRON));
@@ -890,8 +984,9 @@ public class HavenMod implements ModInitializer {
 	public static final LiteralWoodMaterial WOOD_MATERIAL = new LiteralWoodMaterial();
 	//Cakes
 	public static final CakeContainer CHOCOLATE_CAKE = new CakeContainer(CakeContainer.Flavor.CHOCOLATE);
-	public static final CakeContainer STRAWBERRY_CAKE = new CakeContainer(CakeContainer.Flavor.STRAWBERRY);
 	public static final CakeContainer COFFEE_CAKE = new CakeContainer(CakeContainer.Flavor.COFFEE);
+	public static final CakeContainer STRAWBERRY_CAKE = new CakeContainer(CakeContainer.Flavor.STRAWBERRY);
+	public static final CakeContainer VANILLA_CAKE = new CakeContainer(CakeContainer.Flavor.VANILLA);
 	public static final CakeContainer CARROT_CAKE = new CakeContainer(CakeContainer.Flavor.CARROT);
 	public static final CakeContainer CONFETTI_CAKE = new CakeContainer(CakeContainer.Flavor.CONFETTI);
 	public static final CakeContainer CHORUS_CAKE = new CakeContainer(CakeContainer.Flavor.CHORUS);
@@ -981,14 +1076,14 @@ public class HavenMod implements ModInitializer {
 
 	public static final Set<FlowerContainer> FLOWERS = new HashSet<FlowerContainer>(Set.<FlowerContainer>of(
 		BUTTERCUP, PINK_DAISY, ROSE, BLUE_ROSE, MAGENTA_TULIP, MARIGOLD,
-		PINK_ALLIUM, LAVENDER, HYDRANGEA, PAEONIA
+		PINK_ALLIUM, LAVENDER, HYDRANGEA, PAEONIA, VANILLA_FLOWER
 	));
 	public static final Set<BlockContainer> TALL_FLOWERS = new HashSet<BlockContainer>(Set.<BlockContainer>of(
-		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM
+		AMARANTH, TALL_ALLIUM, TALL_PINK_ALLIUM, TALL_VANILLA
 	));
 
 	public static final Set<StatusEffect> MILK_IMMUNE_EFFECTS = new HashSet<StatusEffect>(Set.<StatusEffect>of(
-		DETERIORATION_EFFECT, BLEEDING_EFFECT, BONE_ROT_EFFECT
+		DETERIORATION_EFFECT, BLEEDING_EFFECT, BONE_ROT_EFFECT, MARKED_EFFECT
 	));
 
 	public static final Set<BedContainer> BEDS = new HashSet<BedContainer>(Set.<BedContainer>of( RAINBOW_BED ));

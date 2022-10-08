@@ -5,6 +5,7 @@ import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.calio.data.SerializableData;
+import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.entity.LivingEntity;
 
 public class LactoseIntolerantPower extends Power {
@@ -19,13 +20,14 @@ public class LactoseIntolerantPower extends Power {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("lactose_intolerant"), new SerializableData(),
-			data -> (type, player) -> {
-				int hungerDuration = data.isPresent("hungerDuration") ? (int)data.getDouble("hungerDuration") : 400;
-				int hungerAmplifier = data.isPresent("hungerAmplifier") ? (int)data.getDouble("hungerAmplifier") : 1;
-				int damage = data.isPresent("damage") ? (int)data.getDouble("damage") : 0;
-				return new LactoseIntolerantPower(type, player, hungerDuration, hungerAmplifier, damage);
-			}
+		return new PowerFactory<>(HavenMod.ID("lactose_intolerant"), new SerializableData()
+				.add("hunger_duration", SerializableDataTypes.INT, 400)
+				.add("hunger_amplifier", SerializableDataTypes.INT, 0)
+				.add("damage", SerializableDataTypes.INT, 0),
+			data -> (type, player) -> new LactoseIntolerantPower(type, player,
+					data.getInt("hunger_duration"),
+					data.getInt("hunger_amplifier"),
+					data.getInt("damage"))
 		).allowCondition();
 	}
 }

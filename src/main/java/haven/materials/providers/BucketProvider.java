@@ -21,6 +21,7 @@ public interface BucketProvider {
 	public Item getChocolateMilkBucket();
 	public Item getCoffeeMilkBucket();
 	public Item getStrawberryMilkBucket();
+	public Item getVanillaMilkBucket();
 	public Item getCottageCheeseBucket();
 
 	public default Item.Settings BucketSettings() { return HavenMod.ItemSettings().maxCount(16); }
@@ -91,6 +92,8 @@ public interface BucketProvider {
 		public Item getCoffeeMilkBucket() { return HavenMod.COFFEE_MILK_BUCKET; }
 		@Override
 		public Item getStrawberryMilkBucket() { return HavenMod.STRAWBERRY_MILK_BUCKET; }
+		@Override
+		public Item getVanillaMilkBucket() { return HavenMod.VANILLA_MILK_BUCKET; }
 		@Override
 		public Item getCottageCheeseBucket() { return HavenMod.COTTAGE_CHEESE_BUCKET; }
 		@Override

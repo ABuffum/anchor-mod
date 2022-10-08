@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+	{
+	  "tag": "haven:vanilla_milk_buckets"
+	},
+	{
+	  "item": "minecraft:glass_bottle"
+	},
+	{
+	  "item": "minecraft:glass_bottle"
+	},
+	{
+	  "item": "minecraft:glass_bottle"
+	}
+  ],
+  "result": {
+	"count": 3,
+	"item": "haven:vanilla_milk_bottle"
+  }
+}

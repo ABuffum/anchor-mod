@@ -9,6 +9,7 @@ import haven.particles.*;
 import haven.rendering.block.AnchorBlockEntityRenderer;
 import haven.rendering.block.SubstituteAnchorBlockEntityRenderer;
 import haven.rendering.entities.*;
+import haven.rendering.entities.cow.*;
 import haven.rendering.models.FancyChickenModel;
 
 import net.fabricmc.api.*;
@@ -275,6 +276,7 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.COWCOA_ENTITY, CowcoaEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.COWFEE_ENTITY, CowfeeEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.STRAWBOVINE_ENTITY, StrawbovineEntityRenderer::new);
+		EntityRendererRegistry.register(HavenMod.MOONILLA_ENTITY, MoonillaEntityRenderer::new);
 		//Flower Mooshrooms
 		EntityRendererRegistry.register(HavenMod.MOOBLOOM_ENTITY, MoobloomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.MOOLIP_ENTITY, MoolipEntityRenderer::new);

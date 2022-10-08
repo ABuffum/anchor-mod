@@ -36,8 +36,9 @@ public class CakeContainer {
 		}
 
 		public static final Flavor CHOCOLATE = new Flavor("chocolate");
-		public static final Flavor STRAWBERRY = new Flavor("strawberry");
 		public static final Flavor COFFEE = new Flavor("coffee");
+		public static final Flavor STRAWBERRY = new Flavor("strawberry");
+		public static final Flavor VANILLA = new Flavor("vanilla");
 		public static final Flavor CARROT = new Flavor("carrot");
 		public static final Flavor CONFETTI = new Flavor("confetti");
 		public static final Flavor CHORUS = new Flavor("chorus");

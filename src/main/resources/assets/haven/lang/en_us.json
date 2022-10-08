@@ -563,6 +563,10 @@
   "block.haven.brown_mushroom_bookshelf": "Brown Mushroom Bookshelf",
   "block.haven.brown_mushroom_ladder": "Brown Mushroom Ladder",
   
+  "block.haven.vanilla_flower": "Vanilla Flower",
+  "block.haven.tall_vanilla": "Tall Vanilla Flower",
+  "item.haven.vanilla": "Vanilla",
+  
   "item.haven.cinnamon": "Cinnamon",
   "block.haven.cassia_torch": "Cassia Torch",
   "block.haven.cassia_wall_torch": "Cassia Wall Torch",
@@ -815,12 +819,14 @@
   "item.haven.chocolate_milkshake": "Chocolate Milkshake",
   "item.haven.coffee_milkshake": "Coffee Milkshake",
   "item.haven.strawberry_milkshake": "Strawberry Milkshake",
+  "item.haven.vanilla_milkshake": "Vanilla Milkshake",
   "item.haven.chocolate_chip_milkshake": "Chocolate Chip Milkshake",
   
   "item.haven.ice_cream": "Ice Cream",
   "item.haven.chocolate_ice_cream": "Chocolate Ice Cream",
   "item.haven.coffee_ice_cream": "Coffee Ice Cream",
   "item.haven.strawberry_ice_cream": "Strawberry Ice Cream",
+  "item.haven.vanilla_ice_cream": "Vanilla Ice Cream",
   "item.haven.chocolate_chip_ice_cream": "Chocolate Chip Ice Cream",
 
   "item.haven.coffee_cherry": "Coffee Cherry",
@@ -877,6 +883,7 @@
   "item.haven.wood_milk_bucket": "Wood Milk Bucket",
   "item.haven.wood_chocolate_milk_bucket": "Wood Chocolate Milk Bucket",
   "item.haven.wood_strawberry_milk_bucket": "Wood Strawberry Milk Bucket",
+  "item.haven.wood_vanilla_milk_bucket": "Wood Vanilla Milk Bucket",
   "item.haven.wood_coffee_milk_bucket": "Wood Coffee Milk Bucket",
   "item.haven.wood_cottage_cheese_bucket": "Wood Cottage Cheese Bucket",
   
@@ -889,6 +896,7 @@
   "item.haven.copper_milk_bucket": "Copper Milk Bucket",
   "item.haven.copper_chocolate_milk_bucket": "Copper Chocolate Milk Bucket",
   "item.haven.copper_strawberry_milk_bucket": "Copper Strawberry Milk Bucket",
+  "item.haven.copper_vanilla_milk_bucket": "Copper Vanilla Milk Bucket",
   "item.haven.copper_coffee_milk_bucket": "Copper Coffee Milk Bucket",
   "item.haven.copper_cottage_cheese_bucket": "Copper Cottage Cheese Bucket",
   
@@ -901,6 +909,7 @@
   "item.haven.gold_milk_bucket": "Gold Milk Bucket",
   "item.haven.gold_chocolate_milk_bucket": "Gold Chocolate Milk Bucket",
   "item.haven.gold_strawberry_milk_bucket": "Gold Strawberry Milk Bucket",
+  "item.haven.gold_vanilla_milk_bucket": "Gold Vanilla Milk Bucket",
   "item.haven.gold_coffee_milk_bucket": "Gold Coffee Milk Bucket",
   "item.haven.gold_cottage_cheese_bucket": "Gold Cottage Cheese Bucket",
   
@@ -913,6 +922,7 @@
   "item.haven.dark_iron_milk_bucket": "Dark Iron Milk Bucket",
   "item.haven.dark_iron_chocolate_milk_bucket": "Dark Iron Chocolate Milk Bucket",
   "item.haven.dark_iron_strawberry_milk_bucket": "Dark Iron Strawberry Milk Bucket",
+  "item.haven.dark_iron_vanilla_milk_bucket": "Dark Iron Vanilla Milk Bucket",
   "item.haven.dark_iron_coffee_milk_bucket": "Dark Iron Coffee Milk Bucket",
   "item.haven.dark_iron_cottage_cheese_bucket": "Dark Iron Cottage Cheese Bucket",
   
@@ -925,6 +935,7 @@
   "item.haven.netherite_milk_bucket": "Netherite Milk Bucket",
   "item.haven.netherite_chocolate_milk_bucket": "Netherite Chocolate Milk Bucket",
   "item.haven.netherite_strawberry_milk_bucket": "Netherite Strawberry Milk Bucket",
+  "item.haven.netherite_vanilla_milk_bucket": "Netherite Vanilla Milk Bucket",
   "item.haven.netherite_coffee_milk_bucket": "Netherite Coffee Milk Bucket",
   "item.haven.netherite_cottage_cheese_bucket": "Netherite Cottage Cheese Bucket",
   
@@ -932,12 +943,15 @@
   "item.haven.chocolate_milk_bucket": "Chocolate Milk Bucket",
   "item.haven.chocolate_milk_bowl": "Chocolate Milk Bowl",
   "item.haven.chocolate_milk_bottle": "Chocolate Milk Bottle",
-  "item.haven.strawberry_milk_bucket": "Strawberry Milk Bucket",
-  "item.haven.strawberry_milk_bowl": "Strawberry Milk Bowl",
-  "item.haven.strawberry_milk_bottle": "Strawberry Milk Bottle",
   "item.haven.coffee_milk_bucket": "Coffee Milk Bucket",
   "item.haven.coffee_milk_bowl": "Coffee Milk Bowl",
   "item.haven.coffee_milk_bottle": "Coffee Milk Bottle",
+  "item.haven.strawberry_milk_bucket": "Strawberry Milk Bucket",
+  "item.haven.strawberry_milk_bowl": "Strawberry Milk Bowl",
+  "item.haven.strawberry_milk_bottle": "Strawberry Milk Bottle",
+  "item.haven.vanilla_milk_bucket": "Vanilla Milk Bucket",
+  "item.haven.vanilla_milk_bowl": "Vanilla Milk Bowl",
+  "item.haven.vanilla_milk_bottle": "Vanilla Milk Bottle",
   
   "block.haven.milk_cauldron": "Milk Cauldron",
   "block.haven.cottage_cheese_cauldron": "Cottage Cheese Cauldron",
@@ -950,6 +964,14 @@
   "item.haven.grilled_cheese": "Grilled Cheese",
   
   "item.haven.hotdog": "Hotdog",
+  "item.haven.green_apple": "Green Apple",
+  "item.haven.golden_potato": "Golden Potato",
+  "item.haven.golden_baked_potato": "Golden Baked Potato",
+  "item.haven.golden_beetroot": "Golden Beetroot",
+  "item.haven.golden_chorus_fruit": "Golden Chorus Fruit",
+  "item.haven.golden_tomato": "Golden Tomato",
+  "item.haven.golden_onion": "Golden Onion",
+  "item.haven.golden_egg": "Golden Egg",
   
   "block.haven.carrot_cake": "Carrot Cake",
   "block.minecraft.carrot_candle_cake": "Carrot Cake with Candle",
@@ -1046,6 +1068,25 @@
   "block.minecraft.red_strawberry_candle_cake": "Strawberry Cake with Red Candle",
   "block.minecraft.black_strawberry_candle_cake": "Strawberry Cake with Black Candle",
   
+  "block.haven.vanilla_cake": "Vanilla Cake",
+  "block.minecraft.vanilla_candle_cake": "Vanilla Cake with Candle",
+  "block.minecraft.white_vanilla_candle_cake": "Vanilla Cake with White Candle",
+  "block.minecraft.orange_vanilla_candle_cake": "Vanilla Cake with Orange Candle",
+  "block.minecraft.magenta_vanilla_candle_cake": "Vanilla Cake with Magenta Candle",
+  "block.minecraft.light_blue_vanilla_candle_cake": "Vanilla Cake with Light Blue Candle",
+  "block.minecraft.yellow_vanilla_candle_cake": "Vanilla Cake with Yellow Candle",
+  "block.minecraft.lime_vanilla_candle_cake": "Vanilla Cake with Lime Candle",
+  "block.minecraft.pink_vanilla_candle_cake": "Vanilla Cake with Pink Candle",
+  "block.minecraft.gray_vanilla_candle_cake": "Vanilla Cake with Gray Candle",
+  "block.minecraft.light_gray_vanilla_candle_cake": "Vanilla Cake with Light Gray Candle",
+  "block.minecraft.cyan_vanilla_candle_cake": "Vanilla Cake with Cyan Candle",
+  "block.minecraft.purple_vanilla_candle_cake": "Vanilla Cake with Purple Candle",
+  "block.minecraft.blue_vanilla_candle_cake": "Vanilla Cake with Blue Candle",
+  "block.minecraft.brown_vanilla_candle_cake": "Vanilla Cake with Brown Candle",
+  "block.minecraft.green_vanilla_candle_cake": "Vanilla Cake with Green Candle",
+  "block.minecraft.red_vanilla_candle_cake": "Vanilla Cake with Red Candle",
+  "block.minecraft.black_vanilla_candle_cake": "Vanilla Cake with Black Candle",
+  
   "block.haven.chorus_cake": "Chorus Cake",
   "block.minecraft.chorus_candle_cake": "Chorus Cake with Candle",
   "block.minecraft.white_chorus_candle_cake": "Chorus Cake with White Candle",
@@ -1072,8 +1113,32 @@
   "effect.haven.killjoy": "Killjoy",
   "item.haven.tomato_soup": "Tomato Soup",
   
-  "effect.haven.bleeding": "Bleeding",
   "effect.haven.bone_rot": "Bone Rot",
+  "effect.haven.bleeding": "Bleeding",
+  "effect.haven.marked": "Marked",
+  
+  "item.haven.poison_vial": "Poison Vial",
+  "item.haven.spider_poison_vial": "Spider Poison Vial",
+  "item.haven.pufferfish_poison_vial": "Pufferfish Poison Vial",
+  "item.haven.poisonous_carrot": "Poisonous Carrot",
+  "item.haven.poisonous_beetroot": "Poisonous Beetroot",
+  "item.haven.poisonous_glow_berries": "Poisonous Glow Berries",
+  "item.haven.poisonous_sweet_berries": "Poisonous Sweet Berries",
+  "item.haven.poisonous_tomato": "Poisonous Tomato",
+  "item.haven.wilted_cabbage": "Wilted Cabbage",
+  "item.haven.wilted_onion": "Wilted Onion",
+  "item.haven.moldy_bread": "Moldy Bread",
+  "item.haven.moldy_cookie": "Moldy Cookie",
+  "item.haven.rotten_pumpkin_pie": "Rotten Pumpkin Pie",
+  "item.haven.spoiled_egg": "Spoiled Egg",
+  "item.haven.rotten_beef": "Rotten Beef",
+  "item.haven.rotten_chevon": "Rotten Chevon",
+  "item.haven.rotten_chicken": "Rotten Chicken",
+  "item.haven.rotten_cod": "Rotten Cod",
+  "item.haven.rotten_mutton": "Rotten Mutton",
+  "item.haven.rotten_porkchop": "Rotten Porkchop",
+  "item.haven.rotten_rabbit": "Rotten Rabbit",
+  "item.haven.rotten_salmon": "Rotten Salmon",
   
   "item.haven.bottled_confetti": "Bottled Confetti",
   
@@ -1111,6 +1176,8 @@
   "item.haven.cowfee_spawn_egg": "Cowfee Spawn Egg",
   "entity.haven.strawbovine": "Strawbovine",
   "item.haven.strawbovine_spawn_egg": "Strawbovine Spawn Egg",
+  "entity.haven.moonilla": "Moonilla",
+  "item.haven.moonilla_spawn_egg": "Moonilla Spawn Egg",
   
   "entity.haven.moobloom": "Moobloom",
   "item.haven.moobloom_spawn_egg": "Moobloom Spawn Egg",
@@ -1220,11 +1287,12 @@
   "item.haven.honey_syringe": "Honey Syringe",
   "item.haven.ichor_syringe": "Ichor Syringe",
   "item.haven.lava_syringe": "Lava Syringe",
-  "item.haven.milk_syringe": "Mud Syringe",
+  "item.haven.milk_syringe": "Milk Syringe",
   "item.haven.mud_syringe": "Mud Syringe",
   "item.haven.slime_syringe": "Slime Syringe",
   "item.haven.sludge_syringe": "Sludge Syringe",
   "item.haven.strawberry_milk_syringe": "Strawberry Milk Syringe",
+  "item.haven.vanilla_milk_syringe": "Vanilla Milk Syringe",
   "item.haven.water_syringe": "Water Syringe",
   
   "item.haven.blood_syringe": "Blood Syringe",
@@ -1685,5 +1753,6 @@
   "item.haven.echo_horse_armor": "Echo Horse Armor",
   
   "block.haven.hedge_block": "Hedge Block",
-  "block.haven.hedge_wall": "Hedge Wall"
+  
+  "subtitles.ambient.miasma_coming": "She's coming"
 }

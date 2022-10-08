@@ -54,7 +54,7 @@ public class AnchorBlock extends BlockWithEntity {
 		super.afterBreak(world, player, pos, state, blockEntity, stack);
 		if (HavenMod.ANCHOR_MAP.containsKey(owner)) {
 			ItemStack otherStack = new ItemStack(HavenMod.ANCHOR_CORES.get(owner), 1);
-			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX(), pos.getY(), pos.getZ(), otherStack);
+			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, otherStack);
 			player.world.spawnEntity(itemEntity);
 		}
 	}

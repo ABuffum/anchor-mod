@@ -9,6 +9,7 @@ import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
@@ -53,12 +54,15 @@ public class JuicerBlock extends Block {
 			if (!itemStack.isEmpty() && HavenRegistry.JUICE_MAP.containsKey(itemStack.getItem())) {
 				ItemStack newStack = new ItemStack(HavenRegistry.JUICE_MAP.get(itemStack.getItem()));
 				world.setBlockState(pos, state.with(HAS_BOTTLE, false));
+				PlayerInventory inventory = player.getInventory();
 				if (!player.getAbilities().creativeMode) {
 					player.getStackInHand(hand).decrement(1);
 					if (player.getStackInHand(hand).isEmpty()) player.setStackInHand(hand, newStack);
-					else player.getInventory().insertStack(newStack);
+					else if (inventory.getEmptySlot() > 0) inventory.insertStack(newStack);
+					else dropStack(world, pos, newStack);
 				}
-				else player.getInventory().insertStack(newStack);
+				else if (inventory.getEmptySlot() > 0) inventory.insertStack(newStack);
+				else dropStack(world, pos, newStack);
 				world.playSound(player, pos, SoundEvents.BLOCK_HONEY_BLOCK_HIT, SoundCategory.BLOCKS, 1F, 1F);
 			}
 			else {
