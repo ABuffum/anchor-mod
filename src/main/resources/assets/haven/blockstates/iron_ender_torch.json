@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven:block/iron_ender_torch"
+    }
+  }
+}

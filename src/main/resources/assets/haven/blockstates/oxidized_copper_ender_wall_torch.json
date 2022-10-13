@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/oxidized_copper_ender_wall_torch"
+    },
+    "facing=north": {
+      "model": "haven:block/oxidized_copper_ender_wall_torch",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "haven:block/oxidized_copper_ender_wall_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "haven:block/oxidized_copper_ender_wall_torch",
+      "y": 180
+    }
+  }
+}

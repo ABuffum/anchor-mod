@@ -21,12 +21,14 @@ import net.minecraft.sound.SoundEvents;
 
 public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		NuggetProvider, ShearsProvider, BucketProvider,
-		TorchProvider, SoulTorchProvider,
+		TorchProvider, EnderTorchProvider, SoulTorchProvider,
 		ButtonProvider, BarsProvider, BlockProvider, WallProvider, DoorProvider, TrapdoorProvider,
 		CutProvider, CutPillarProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
 
 	private final TorchContainer torch;
 	public TorchContainer getTorch() { return torch; }
+	private final TorchContainer ender_torch;
+	public TorchContainer getEnderTorch() { return ender_torch; }
 	private final TorchContainer soul_torch;
 	public TorchContainer getSoulTorch() { return soul_torch; }
 	private final BlockContainer button;
@@ -90,20 +92,21 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		super("dark_iron", false, HavenToolMaterials.DARK_IRON,
 				6, -3.1F, -2, -1, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.DARK_IRON, 5);
-		torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(14)).sounds(BlockSoundGroup.METAL), HavenMod.IRON_FLAME_PARTICLE, ItemSettings());
-		soul_torch = new TorchContainer(FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.METAL), ParticleTypes.SOUL_FIRE_FLAME, ItemSettings());
+		torch = MakeTorch(14, BlockSoundGroup.METAL, HavenMod.IRON_FLAME_PARTICLE);
+		ender_torch = MakeTorch(10, BlockSoundGroup.METAL, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(10, BlockSoundGroup.METAL, ParticleTypes.SOUL_FIRE_FLAME);
 		nugget = new Item(ItemSettings());
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)));
-		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
-		block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(block.BLOCK), ItemSettings());
-		door = new BlockContainer(new HavenDoorBlock(Blocks.IRON_DOOR), ItemSettings());
-		trapdoor = new BlockContainer(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR), ItemSettings());
-		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.BLOCK)), ItemSettings());
-		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
+		block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
+		wall = new BlockContainer(new HavenWallBlock(block.BLOCK));
+		door = new BlockContainer(new HavenDoorBlock(Blocks.IRON_DOOR));
+		trapdoor = new BlockContainer(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR));
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.BLOCK)));
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)));
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK));
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK));
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK));
 
 		shears = new ShearsItem(ItemSettings().maxDamage(238));
 
@@ -122,13 +125,13 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 	}
 
 	public boolean contains(Block block) {
-		return torch.contains(block) || soul_torch.contains(block)
+		return torch.contains(block) || ender_torch.contains(block) || soul_torch.contains(block)
 				|| cut.contains(block) || cut_pillar.contains(block) || cut_slab.contains(block) || cut_stairs.contains(block)
 				|| cut_wall.contains(block) || bars.contains(block) || this.block.contains(block) || wall.contains(block)
 				|| door.contains(block) || trapdoor.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return torch.contains(item) || soul_torch.contains(item)
+		return torch.contains(item) || ender_torch.contains(item) || soul_torch.contains(item)
 				|| cut.contains(item) || cut_pillar.contains(item) || cut_slab.contains(item) || cut_stairs.contains(item)
 				|| cut_wall.contains(item) || bars.contains(item) || block.contains(item) || wall.contains(item)
 				|| door.contains(item) || trapdoor.contains(item) || item == nugget || item == shears || containsBucket(item) || super.contains(item);

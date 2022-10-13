@@ -20,5 +20,6 @@ public class InstrumentMixin {
 		else if (HavenMod.GOLD_MATERIAL.contains(block)) cir.setReturnValue(Instrument.BELL);
 		else if (HavenMod.IRON_MATERIAL.contains(block)) cir.setReturnValue(Instrument.IRON_XYLOPHONE);
 		else if (HavenMod.EMERALD_MATERIAL.contains(block)) cir.setReturnValue(Instrument.BIT);
+		else if (state.isOf(HavenMod.SUGAR_CANE_MATERIAL.getBale().BLOCK)) cir.setReturnValue(Instrument.BANJO);
 	}
 }

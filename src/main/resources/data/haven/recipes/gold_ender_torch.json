@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "haven:ender_torch"
+    },
+    "Y": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "#",
+    "Y"
+  ],
+  "result": {
+    "count": 4,
+    "item": "haven:gold_ender_torch"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "haven:block/sugar_cane_pressure_plate"
+    },
+    "powered=true": {
+      "model": "haven:block/sugar_cane_pressure_plate_down"
+    }
+  }
+}

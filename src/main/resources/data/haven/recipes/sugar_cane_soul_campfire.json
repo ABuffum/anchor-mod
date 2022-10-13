@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    "L": {
+      "item": "haven:sugar_cane_bundle"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "result": {
+    "item": "haven:sugar_cane_soul_campfire"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "key": {
+    "L": {
+      "tag": "minecraft:oak_logs"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    },
+    "#": {
+      "item": "minecraft:popped_chorus_fruit"
+    }
+  },
+  "result": {
+    "item": "haven:ender_campfire"
+  }
+}

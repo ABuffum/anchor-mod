@@ -209,6 +209,8 @@ public class HavenRegistry {
 		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		FuelRegistry FUEL = FuelRegistry.INSTANCE;
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		if (material instanceof PottedProvider potted) Register(name, potted.getPotted());
+		else if (material instanceof Provider provider) Register(name, provider.get()); //PottedProvider registers the block for us
 		//Crafting
 		if (material instanceof NuggetProvider nugget) Register(name + "_nugget", nugget.getNugget());
 		//Tool
@@ -255,8 +257,11 @@ public class HavenRegistry {
 		if (material instanceof OxidizableTorchProvider oxidizableTorch) Register(name, oxidizableTorch.getOxidizableTorch());
 		if (material instanceof SoulTorchProvider soulTorch) Register(name + "_soul", soulTorch.getSoulTorch());
 		if (material instanceof OxidizableSoulTorchProvider oxidizableSoulTorch) Register(name + "_soul", oxidizableSoulTorch.getOxidizableSoulTorch());
+		if (material instanceof EnderTorchProvider enderTorch) Register(name + "_ender", enderTorch.getEnderTorch());
+		if (material instanceof OxidizableEnderTorchProvider oxidizableEnderTorch) Register(name + "_ender", oxidizableEnderTorch.getOxidizableEnderTorch());
 		if (material instanceof CampfireProvider campfire) Register(name + "_campfire", campfire.getCampfire());
 		if (material instanceof SoulCampfireProvider soulCampfire) Register(name + "_soul_campfire", soulCampfire.getSoulCampfire());
+		if (material instanceof EnderCampfireProvider enderCampfire) Register(name + "_ender_campfire", enderCampfire.getEnderCampfire());
 		if (material instanceof LanternProvider lantern) {
 			Register(name + "_lantern", lantern.getLantern());
 			Register("unlit_" + name + "_lantern", lantern.getUnlitLantern());
@@ -267,11 +272,22 @@ public class HavenRegistry {
 			Register("unlit_" + name + "_soul_lantern", soulLantern.getUnlitSoulLantern());
 		}
 		if (material instanceof OxidizableSoulLanternProvider oxidizableSoulLantern) Register(name + "_soul_lantern", oxidizableSoulLantern.getOxidizableSoulLantern());
+		if (material instanceof EnderLanternProvider enderLantern) {
+			Register(name + "_ender_lantern", enderLantern.getEnderLantern());
+			Register("unlit_" + name + "_ender_lantern", enderLantern.getUnlitEnderLantern());
+		}
+		if (material instanceof OxidizableEnderLanternProvider oxidizableEnderLantern) Register(name + "_ender_lantern", oxidizableEnderLantern.getOxidizableEnderLantern());
 		if (material instanceof ChainProvider chain) Register(name + "_chain", chain.getChain());
 		if (material instanceof OxidizableChainProvider oxidizableChain) Register(name + "_chain", oxidizableChain.getOxidizableChain());
 		if (material instanceof BarsProvider bars) Register(name + "_bars", bars.getBars());
 		if (material instanceof OxidizableBarsProvider oxidizableBars) Register(name + "_bars", oxidizableBars.getOxidizableBars());
 		if (material instanceof BlockProvider block) Register(name + "_block", block.getBlock());
+		if (material instanceof BaleProvider bail) {
+			BlockContainer pair = bail.getBale();
+			Register(name + "_bale", pair);
+			COMPOST.add(pair.ITEM, 0.85F);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 60, 20);
+		}
 		if (material instanceof BundleProvider bundle) {
 			BlockContainer pair = bundle.getBundle();
 			Register(name + "_bundle", pair);
@@ -521,6 +537,16 @@ public class HavenRegistry {
 		Register("tall_pink_allium", TALL_PINK_ALLIUM);
 		FLAMMABLE.add(TALL_PINK_ALLIUM.BLOCK, 60, 100);
 	}
+
+	public static void RegisterFleece() {
+		Register(FLEECE_MATERIAL);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getHelmet(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getChestplate(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getLeggings(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getBoots(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
+		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getHorseArmor(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
+	}
+
 	public static void RegisterSoftTNT() {
 		Register("soft_tnt", SOFT_TNT);
 		Register("soft_tnt", SOFT_TNT_ENTITY);
@@ -687,12 +713,18 @@ public class HavenRegistry {
 		Register(BROWN_MUSHROOM_MATERIAL);
 		Register(RED_MUSHROOM_MATERIAL);
 		Register(MUSHROOM_STEM_MATERIAL);
+		Registry.register(Registry.FEATURE, ID("huge_blue_mushroom"), HUGE_BLUE_MUSHROOM_FEATURE);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
+		Register(BLUE_MUSHROOM_MATERIAL);
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		COMPOST.add(BLUE_MUSHROOM_MATERIAL.get().ITEM, 0.65F);
+		COMPOST.add(BLUE_MUSHROOM_MATERIAL.getBlock().ITEM, 0.85F);
 	}
 	public static void RegisterVanillaNetherWood() {
 		Register(CRIMSON_MATERIAL);
 		Register(WARPED_MATERIAL);
 	}
-	public static void RegisterAmberFungus() {
+	public static void RegisterGildedFungus() {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_forest_vegetation"), GILDED_FOREST_VEGETATION);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("patch_gilded_roots"), PATCH_GILDED_ROOTS);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_fungi"), GILDED_FUNGI);
@@ -810,6 +842,9 @@ public class HavenRegistry {
 		//Amethyst & Rock Candy
 		Register("amethyst_candy", AMETHYST_CANDY);
 		for(DyeColor color : COLORS) Register(color.getName() + "_rock_candy", ROCK_CANDIES.get(color));
+		//Candy Blocks
+		Register("sugar_block", SUGAR_BLOCK);
+		Register("caramel_block", CARAMEL_BLOCK);
 	}
 	public static void RegisterBuckets(String name, BucketProvider bucketProvider) {
 		Item bucket = bucketProvider.getBucket();
@@ -1003,6 +1038,7 @@ public class HavenRegistry {
 	}
 	public static void RegisterOriginPowers() {
 		Register(BloodTypePower::createFactory);
+		Register(DrinkBloodPower::createFactory);
 		Register(UnfreezingPower::createFactory);
 		Register(ClownPacifistPower::createFactory);
 		Register(ChorusTeleportPower::createFactory);
@@ -1016,6 +1052,7 @@ public class HavenRegistry {
 	public static void RegisterGourds() {
 		//Soul Jack o' Lantern
 		Register("soul_jack_o_lantern", SOUL_JACK_O_LANTERN);
+		Register("ender_jack_o_lantern", ENDER_JACK_O_LANTERN);
 		//Melon
 		Register("melon_seeds_projectile", MELON_SEED_PROJECTILE_ENTITY);
 		Register("melon_golem", MELON_GOLEM_ENTITY);
@@ -1041,12 +1078,14 @@ public class HavenRegistry {
 		CompostingChanceRegistry.INSTANCE.add(CARVED_MELON.ITEM, 0.65F);
 		Register("melon_lantern", MELON_LANTERN);
 		Register("soul_melon_lantern", SOUL_MELON_LANTERN);
+		Register("ender_melon_lantern", ENDER_MELON_LANTERN);
 		//White Pumpkin
 		Register("white_snow_golem", WHITE_SNOW_GOLEM_ENTITY);
 		FabricDefaultAttributeRegistry.register(WHITE_SNOW_GOLEM_ENTITY, WhiteSnowGolemEntity.createSnowGolemAttributes());
 		Register("white_pumpkin", WHITE_PUMPKIN);
 		Register("white_jack_o_lantern", WHITE_JACK_O_LANTERN);
 		Register("white_soul_jack_o_lantern", WHITE_SOUL_JACK_O_LANTERN);
+		Register("white_ender_jack_o_lantern", WHITE_ENDER_JACK_O_LANTERN);
 		DispenserBlock.registerBehavior(WHITE_PUMPKIN.getCarved().BLOCK, new FallibleItemDispenserBehavior() {
 			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				World world = pointer.getWorld();
@@ -1075,6 +1114,7 @@ public class HavenRegistry {
 		});
 		Register("rotten_jack_o_lantern", ROTTEN_JACK_O_LANTERN);
 		Register("rotten_soul_jack_o_lantern", ROTTEN_SOUL_JACK_O_LANTERN);
+		Register("rotten_ender_jack_o_lantern", ROTTEN_ENDER_JACK_O_LANTERN);
 		Register("rotten_pumpkin_seeds", ROTTEN_PUMPKIN_SEEDS);
 		CompostingChanceRegistry.INSTANCE.add(ROTTEN_PUMPKIN_SEEDS, 0.65F);
 	}
@@ -1148,6 +1188,11 @@ public class HavenRegistry {
 		FabricDefaultAttributeRegistry.register(WHITE_MOOBLOSSOM_ENTITY, WhiteMooblossomEntity.createCowAttributes());
 		Register("white_mooblossom_spawn_egg", WHITE_MOOBLOSSOM_SPAWN_EGG);
 		Register("white_mooblossom_tulip", WHITE_MOOBLOSSOM_TULIP);
+		//Blue Mooshroom
+		Register("blue_mooshroom", BLUE_MOOSHROOM_ENTITY);
+		SpawnRestrictionAccessor.callRegister(BLUE_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlueMooshroomEntity::canSpawn);
+		FabricDefaultAttributeRegistry.register(BLUE_MOOSHROOM_ENTITY, BlueMooshroomEntity.createCowAttributes());
+		Register("blue_mooshroom_spawn_egg", BLUE_MOOSHROOM_SPAWN_EGG);
 		//Nether Mooshrooms
 		Register("gilded_mooshroom", GILDED_MOOSHROOM_ENTITY);
 		SpawnRestrictionAccessor.callRegister(GILDED_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, GildedMooshroomEntity::canSpawn);
@@ -1290,6 +1335,11 @@ public class HavenRegistry {
 		Register("unlit_soul", UNLIT_SOUL_TORCH);
 		Register("unlit_lantern", UNLIT_LANTERN);
 		Register("unlit_soul_lantern", UNLIT_SOUL_LANTERN);
+		Register("ender_fire_flame", ENDER_FIRE_FLAME_PARTICLE);
+		Register("ender", ENDER_TORCH);
+		Register("ender_lantern", ENDER_LANTERN);
+		Register("unlit_ender_lantern", UNLIT_ENDER_LANTERN);
+		Register("ender_campfire", ENDER_CAMPFIRE);
 		Register("underwater", UNDERWATER_TORCH);
 		Register(BONE_MATERIAL);
 		Register("tinker_toy", TINKER_TOY);
@@ -1297,6 +1347,7 @@ public class HavenRegistry {
 		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.ITEM, 16000);
 		RegisterFlowers();
 		Register(STUDDED_LEATHER_MATERIAL);
+		RegisterFleece();
 		Register(AMETHYST_MATERIAL);
 		Register(EMERALD_MATERIAL);
 		Register(DIAMOND_MATERIAL);
@@ -1305,6 +1356,7 @@ public class HavenRegistry {
 		Register(CALCITE_MATERIAL);
 		Register(DRIPSTONE_MATERIAL);
 		Register(TUFF_MATERIAL);
+		Register(PURPUR_MATERIAL);
 		Register("tinted_glass_pane", TINTED_GLASS_PANE);
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
@@ -1320,12 +1372,15 @@ public class HavenRegistry {
 		RegisterCinnamon();
 		RegisterVanilla();
 		RegisterBamboo();
+		Register(SUGAR_CANE_MATERIAL);
+		Register(HAY_MATERIAL);
 		Register(CHARRED_MATERIAL);
 		RegisterVanillaWood();
 		RegisterMushroomWood();
 		RegisterVanillaNetherWood();
-		RegisterAmberFungus();
+		RegisterGildedFungus();
 		Register(WOOD_MATERIAL);
+		Register("shoddy_wood_bucket", SHODDY_WOOD_BUCKET);
 		RegisterThrowableTomatoes();
 		RegisterServerBlood();
 		Register("bleeding", BLEEDING_EFFECT);

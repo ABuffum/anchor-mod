@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "haven:ender_torches"
+    },
+    "X": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "pattern": [
+    "XXX",
+    "X#X",
+    "XXX"
+  ],
+  "result": {
+    "item": "haven:gold_ender_lantern"
+  }
+}

@@ -1,5 +1,6 @@
 package haven.blood;
 
+import haven.origins.powers.DrinkBloodPower;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -36,7 +37,7 @@ public class BloodBottleItem extends Item {
 			if (!playerEntity.getAbilities().creativeMode) {
 				stack.decrement(1);
 			}
-			if (BloodType.Get(user) != BloodType.VAMPIRE) {
+			if (BloodType.Get(user) != BloodType.VAMPIRE && !DrinkBloodPower.HasActivePower(user)) {
 				user.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 1));
 			}
 		}

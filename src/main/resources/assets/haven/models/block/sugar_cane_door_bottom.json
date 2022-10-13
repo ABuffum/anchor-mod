@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom",
+  "textures": {
+    "top": "haven:block/sugar_cane_door_top",
+    "bottom": "haven:block/sugar_cane_door_bottom"
+  }
+}

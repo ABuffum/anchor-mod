@@ -23,18 +23,22 @@ import net.minecraft.sound.SoundEvents;
 
 public class CopperMaterial extends ToolArmorHorseMaterial implements
 		NuggetProvider, ShearsProvider, BucketProvider,
-		OxidizableTorchProvider, OxidizableSoulTorchProvider,
-		OxidizableLanternProvider, OxidizableSoulLanternProvider,
+		OxidizableTorchProvider, OxidizableEnderTorchProvider, OxidizableSoulTorchProvider,
+		OxidizableLanternProvider, OxidizableEnderLanternProvider, OxidizableSoulLanternProvider,
 		OxidizableChainProvider, OxidizableBarsProvider,
 		OxidizableButtonProvider,
 		OxidizableWallProvider, OxidizableCutPillarProvider, OxidizableCutWallProvider {
 
 	private final OxidizableTorchContainer oxidizable_torch;
 	public OxidizableTorchContainer getOxidizableTorch() { return oxidizable_torch; }
+	private final OxidizableTorchContainer oxidizable_ender_torch;
+	public OxidizableTorchContainer getOxidizableEnderTorch() { return oxidizable_ender_torch; }
 	private final OxidizableTorchContainer oxidizable_soul_torch;
 	public OxidizableTorchContainer getOxidizableSoulTorch() { return oxidizable_soul_torch; }
 	private final OxidizableLanternContainer oxidizable_lantern;
 	public OxidizableLanternContainer getOxidizableLantern() { return oxidizable_lantern; }
+	private final OxidizableLanternContainer oxidizable_ender_lantern;
+	public OxidizableLanternContainer getOxidizableEnderLantern() { return oxidizable_ender_lantern; }
 	private final OxidizableLanternContainer oxidizable_soul_lantern;
 	public OxidizableLanternContainer getOxidizableSoulLantern() { return oxidizable_soul_lantern; }
 
@@ -94,10 +98,12 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 		super("copper", false, HavenToolMaterials.COPPER,
 				6, -3, -1, -2, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.COPPER, 6);
-		oxidizable_torch = new OxidizableTorchContainer(HavenMod.COPPER_FLAME_PARTICLE, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(12)).sounds(BlockSoundGroup.COPPER));
-		oxidizable_soul_torch = new OxidizableTorchContainer(ParticleTypes.SOUL_FIRE_FLAME, FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(luminance(10)).sounds(BlockSoundGroup.COPPER));
-		oxidizable_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque());
-		oxidizable_soul_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(10)).nonOpaque());
+		oxidizable_torch = new OxidizableTorchContainer(HavenMod.COPPER_FLAME_PARTICLE, TorchSettings(12, BlockSoundGroup.COPPER));
+		oxidizable_ender_torch = new OxidizableTorchContainer(HavenMod.ENDER_FIRE_FLAME_PARTICLE, TorchSettings(12, BlockSoundGroup.COPPER));
+		oxidizable_soul_torch = new OxidizableTorchContainer(ParticleTypes.SOUL_FIRE_FLAME, TorchSettings(10, BlockSoundGroup.COPPER));
+		oxidizable_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, LanternSettings(13));
+		oxidizable_ender_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, LanternSettings(13));
+		oxidizable_soul_lantern = new OxidizableLanternContainer(OxidizableLanternBlock::new, OxidizableUnlitLanternBlock::new, LanternBlock::new, UnlitLanternBlock::new, LanternSettings(10));
 		nugget = new Item(ItemSettings());
 		oxidizable_chain = new OxidizableBlockContainer(OxidizableChainBlock::new, ChainBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque());
 		oxidizable_bars = new OxidizableBlockContainer(OxidizablePaneBlock::new, HavenPaneBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque());
@@ -106,7 +112,7 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 		oxidizable_cut_pillar = new OxidizableBlockContainer(OxidizablePillarBlock::new, PillarBlock::new, CopperMaterial::CopperSettings);
 		oxidizable_cut_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
 
-		shears = new ShearsItem(ItemSettings().maxDamage(238));
+		shears = new ShearsItem(ItemSettings().maxDamage(200));
 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);
 		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
@@ -122,7 +128,20 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 		cottage_cheese_bucket = new CottageCheeseBucketItem(HavenMod.COTTAGE_CHEESE_BLOCK, FilledBucketSettings().food(HavenMod.COTTAGE_CHEESE_FOOD_COMPONENT), this);
 	}
 
+	public boolean contains(Block block) {
+		return oxidizable_torch.contains(block) || oxidizable_ender_torch.contains(block) || oxidizable_soul_torch.contains(block)
+				|| oxidizable_lantern.contains(block) || oxidizable_ender_lantern.contains(block) || oxidizable_soul_lantern.contains(block)
+				|| oxidizable_chain.contains(block) || oxidizable_bars.contains(block) || oxidizable_button.contains(block)
+				|| oxidizable_wall.contains(block) || oxidizable_cut_pillar.contains(block) || oxidizable_cut_wall.contains(block)
+				|| super.contains(block);
+	}
+
 	public boolean contains(Item item) {
-		return item == nugget || item == shears || containsBucket(item) || super.contains(item);
+		return item == nugget || item == shears || containsBucket(item)
+				|| oxidizable_torch.contains(item) || oxidizable_ender_torch.contains(item) || oxidizable_soul_torch.contains(item)
+				|| oxidizable_lantern.contains(item) || oxidizable_ender_lantern.contains(item) || oxidizable_soul_lantern.contains(item)
+				|| oxidizable_chain.contains(item) || oxidizable_bars.contains(item) || oxidizable_button.contains(item)
+				|| oxidizable_wall.contains(item) || oxidizable_cut_pillar.contains(item) || oxidizable_cut_wall.contains(item)
+				|| super.contains(item);
 	}
 }

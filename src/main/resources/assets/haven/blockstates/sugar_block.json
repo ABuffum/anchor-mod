@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "haven:block/sugar_block" }
+    }
+}

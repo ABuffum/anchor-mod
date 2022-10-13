@@ -1,19 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:lantern",
-    
-    "haven:copper_lantern",
-    "haven:exposed_copper_lantern",
-    "haven:weathered_copper_lantern",
-    "haven:oxidized_copper_lantern",
-    "haven:waxed_copper_lantern",
-    "haven:waxed_exposed_copper_lantern",
-    "haven:waxed_weathered_copper_lantern",
-    "haven:waxed_oxidized_copper_lantern",
-    
-    "haven:gold_lantern",
-    "haven:iron_lantern",
-    "haven:netherite_lantern"
+    "#haven:metal_lanterns"
   ]
 }

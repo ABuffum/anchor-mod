@@ -1,0 +1,29 @@
+{
+  "values": [
+    "haven:copper_ender_wall_torch",
+    "haven:exposed_copper_ender_wall_torch",
+    "haven:weathered_copper_ender_wall_torch",
+    "haven:oxidized_copper_ender_wall_torch",
+    "haven:waxed_copper_ender_wall_torch",
+    "haven:waxed_exposed_copper_ender_wall_torch",
+    "haven:waxed_weathered_copper_ender_wall_torch",
+    "haven:waxed_oxidized_copper_ender_wall_torch",
+    "haven:iron_ender_wall_torch",
+    "haven:dark_iron_ender_wall_torch",
+    "haven:gold_ender_wall_torch",
+    "haven:netherite_ender_wall_torch",
+  
+    "haven:unlit_copper_ender_wall_torch",
+    "haven:unlit_exposed_copper_ender_wall_torch",
+    "haven:unlit_weathered_copper_ender_wall_torch",
+    "haven:unlit_oxidized_copper_ender_wall_torch",
+    "haven:unlit_waxed_copper_ender_wall_torch",
+    "haven:unlit_waxed_exposed_copper_ender_wall_torch",
+    "haven:unlit_waxed_weathered_copper_ender_wall_torch",
+    "haven:unlit_waxed_oxidized_copper_ender_wall_torch",
+    "haven:unlit_iron_ender_wall_torch",
+    "haven:unlit_dark_iron_ender_wall_torch",
+    "haven:unlit_gold_ender_wall_torch",
+    "haven:unlit_netherite_ender_wall_torch"
+  ]
+}

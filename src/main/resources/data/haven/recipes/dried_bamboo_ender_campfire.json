@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:popped_chorus_fruit"
+    },
+    "L": {
+      "tag": "haven:dried_bamboo_logs"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " S ",
+    "S#S",
+    "LLL"
+  ],
+  "result": {
+    "item": "haven:dried_bamboo_ender_campfire"
+  }
+}

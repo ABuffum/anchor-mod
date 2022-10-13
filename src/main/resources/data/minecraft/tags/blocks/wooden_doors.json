@@ -3,13 +3,16 @@
   "values": [
     "haven:bamboo_door",
     "haven:brown_mushroom_door",
+    "haven:blue_mushroom_door",
     "haven:cassia_door",
     "haven:charred_door",
     "haven:cherry_door",
     "haven:dried_bamboo_door",
     "haven:gilded_door",
+    "haven:hay_door",
     "haven:mangrove_door",
     "haven:mushroom_stem_door",
-    "haven:red_mushroom_door"
+    "haven:red_mushroom_door",
+    "haven:sugar_cane_door"
   ]
 }

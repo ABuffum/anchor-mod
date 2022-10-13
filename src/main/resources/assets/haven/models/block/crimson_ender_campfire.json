@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/crimson_campfire",
+  "textures": {
+    "lit_log": "haven:block/crimson_ender_campfire_log_lit",
+    "fire": "haven:block/ender_campfire_fire"
+  }
+}

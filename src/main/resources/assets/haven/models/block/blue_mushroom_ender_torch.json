@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "haven:block/blue_mushroom_ender_torch"
+  }
+}

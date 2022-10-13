@@ -1,0 +1,37 @@
+{
+  "values": [
+    "haven:acacia_ender_torch",
+    "haven:bamboo_ender_torch",
+    "haven:birch_ender_torch",
+    "haven:cassia_ender_torch",
+    "haven:charred_ender_torch",
+    "haven:cherry_ender_torch",
+    "haven:crimson_ender_torch",
+    "haven:dried_bamboo_ender_torch",
+    "haven:dark_oak_ender_torch",
+    "haven:gilded_ender_torch",
+    "haven:hay_ender_torch",
+    "haven:jungle_ender_torch",
+    "haven:mangrove_ender_torch",
+    "haven:spruce_ender_torch",
+    "haven:sugar_cane_ender_torch",
+    "haven:warped_ender_torch",
+  
+    "haven:unlit_acacia_ender_torch",
+    "haven:unlit_bamboo_ender_torch",
+    "haven:unlit_birch_ender_torch",
+    "haven:unlit_cassia_ender_torch",
+    "haven:unlit_charred_ender_torch",
+    "haven:unlit_cherry_ender_torch",
+    "haven:unlit_crimson_ender_torch",
+    "haven:unlit_dried_bamboo_ender_torch",
+    "haven:unlit_dark_oak_ender_torch",
+    "haven:unlit_gilded_ender_torch",
+    "haven:unlit_hay_ender_torch",
+    "haven:unlit_jungle_ender_torch",
+    "haven:unlit_mangrove_ender_torch",
+    "haven:unlit_spruce_ender_torch",
+    "haven:unlit_sugar_cane_ender_torch",
+    "haven:unlit_warped_ender_torch"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "values": [
+    "haven:ender_torch",
+  
+    "#haven:metal_ender_torches",
+    "#haven:wood_ender_torches",
+    "haven:bone_ender_torch",
+  
+    "haven:brown_mushroom_ender_torch",
+    "haven:blue_mushroom_ender_torch",
+    "haven:red_mushroom_ender_torch",
+    "haven:mushroom_stem_ender_torch"
+  ]
+}

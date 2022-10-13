@@ -1,6 +1,9 @@
 package haven.materials;
 
 import haven.HavenMod;
+import haven.HavenTags;
+import haven.containers.BlockContainer;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
@@ -9,6 +12,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
 
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 public enum HavenArmorMaterials implements ArmorMaterial {
@@ -26,6 +30,9 @@ public enum HavenArmorMaterials implements ArmorMaterial {
 	}),
 	EMERALD("emerald", 27, new int[]{3, 5, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.EMERALD);
+	}),
+	FLEECE("fleece", 4, new int[]{1, 1, 2, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+		return Ingredient.fromTag(HavenTags.Items.FLEECE);
 	}),
 	OBSIDIAN("obsidian", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.5F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.OBSIDIAN);

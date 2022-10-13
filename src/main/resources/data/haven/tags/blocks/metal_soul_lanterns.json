@@ -1,0 +1,30 @@
+{
+  "values": [
+    "minecraft:soul_lantern",
+    "haven:unlit_soul_lantern",
+    
+    "haven:copper_soul_lantern",
+    "haven:exposed_copper_soul_lantern",
+    "haven:weathered_copper_soul_lantern",
+    "haven:oxidized_copper_soul_lantern",
+    "haven:waxed_copper_soul_lantern",
+    "haven:waxed_exposed_copper_soul_lantern",
+    "haven:waxed_weathered_copper_soul_lantern",
+    "haven:waxed_oxidized_copper_soul_lantern",
+    "haven:unlit_copper_soul_lantern",
+    "haven:unlit_exposed_copper_soul_lantern",
+    "haven:unlit_weathered_copper_soul_lantern",
+    "haven:unlit_oxidized_copper_soul_lantern",
+    "haven:unlit_waxed_copper_soul_lantern",
+    "haven:unlit_waxed_exposed_copper_soul_lantern",
+    "haven:unlit_waxed_weathered_copper_soul_lantern",
+    "haven:unlit_waxed_oxidized_copper_soul_lantern",
+  
+    "haven:gold_soul_lantern",
+    "haven:unlit_gold_soul_lantern",
+    "haven:iron_soul_lantern",
+    "haven:unlit_iron_soul_lantern",
+    "haven:netherite_soul_lantern",
+    "haven:unlit_netherite_soul_lantern"
+  ]
+}

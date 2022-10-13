@@ -1,0 +1,7 @@
+{
+	"parent": "haven:block/_template_row_post",
+	"textures": {
+		"top": "haven:block/sugar_cane_row_top",
+		"particle": "haven:block/sugar_cane_row_top"
+	}
+}

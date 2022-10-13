@@ -27,6 +27,8 @@
     "haven:dripstone_brick_slab",
     "haven:smooth_dripstone_slab",
     "haven:tuff_brick_slab",
-    "haven:smooth_tuff_slab"
+    "haven:smooth_tuff_slab",
+    "haven:smooth_purpur_slab",
+    "haven:purpur_brick_slab"
   ]
 }

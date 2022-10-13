@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/_template_ladder",
+  "textures": {
+	"particle": "haven:block/hay_ladder",
+	"texture": "haven:block/hay_ladder"
+  }
+}

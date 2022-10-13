@@ -111,6 +111,12 @@ public class HavenMod implements ModInitializer {
 	public static final TorchContainer.Unlit UNLIT_SOUL_TORCH = new TorchContainer.Unlit(Blocks.SOUL_TORCH, Blocks.SOUL_WALL_TORCH);
 	public static final Block UNLIT_LANTERN = new UnlitLanternBlock(() -> Items.LANTERN);
 	public static final Block UNLIT_SOUL_LANTERN = new UnlitLanternBlock(() -> Items.SOUL_LANTERN);
+	public static final DefaultParticleType ENDER_FIRE_FLAME_PARTICLE = FabricParticleTypes.simple(false);
+	public static final TorchContainer ENDER_TORCH = new TorchContainer(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(12)).sounds(BlockSoundGroup.WOOD), ENDER_FIRE_FLAME_PARTICLE);
+	public static final BlockContainer ENDER_LANTERN = new BlockContainer(new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(13)).nonOpaque()));
+	public static final Block UNLIT_ENDER_LANTERN = new UnlitLanternBlock(() -> ENDER_LANTERN.ITEM);
+
+	public static final BlockContainer ENDER_CAMPFIRE = new BlockContainer(new CampfireBlock(false, 3, AbstractBlock.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD).luminance(BaseMaterial.createLightLevelFromLitBlockState(13)).nonOpaque()));
 
 	public static final DefaultParticleType UNDERWATER_TORCH_GLOW = FabricParticleTypes.simple(false);
 	public static final TorchContainer UNDERWATER_TORCH = TorchContainer.Waterloggable(AbstractBlock.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(luminance(14)).sounds(BlockSoundGroup.WOOD), UNDERWATER_TORCH_GLOW);
@@ -144,6 +150,7 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer CHARCOAL_BLOCK = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
 
 	public static final StuddedLeatherMaterial STUDDED_LEATHER_MATERIAL = new StuddedLeatherMaterial();
+	public static final FleeceMaterial FLEECE_MATERIAL = new FleeceMaterial();
 	//Gem Materials
 	public static final AmethystMaterial AMETHYST_MATERIAL = new AmethystMaterial();
 	public static final EmeraldMaterial EMERALD_MATERIAL = new EmeraldMaterial();
@@ -164,18 +171,22 @@ public class HavenMod implements ModInitializer {
 	public static final CalciteMaterial CALCITE_MATERIAL = new CalciteMaterial();
 	public static final DripstoneMaterial DRIPSTONE_MATERIAL = new DripstoneMaterial();
 	public static final TuffMaterial TUFF_MATERIAL = new TuffMaterial();
-	//Soul Jack o' Lantern
+	public static final PurpurMaterial PURPUR_MATERIAL = new PurpurMaterial();
+	//Jack o' Lanterns
 	public static final BlockContainer SOUL_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.ORANGE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(10)).allowsSpawning(BaseMaterial::always)));
+	public static final BlockContainer ENDER_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.ORANGE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(13)).allowsSpawning(BaseMaterial::always)));
 	//Melon Golem
 	public static final EntityType<MelonSeedProjectileEntity> MELON_SEED_PROJECTILE_ENTITY = FabricEntityTypeBuilder.<MelonSeedProjectileEntity>create(SpawnGroup.MISC, MelonSeedProjectileEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<MelonGolemEntity> MELON_GOLEM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MISC, MelonGolemEntity::new).dimensions(EntityType.SNOW_GOLEM.getDimensions()).trackRangeBlocks(8).build();
 	public static final BlockContainer CARVED_MELON = new BlockContainer(new CarvedMelonBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.LIME).strength(1.0F).sounds(BlockSoundGroup.WOOD).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer MELON_LANTERN = new BlockContainer(new CarvedMelonBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.LIME).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(15)).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer SOUL_MELON_LANTERN = new BlockContainer(new CarvedMelonBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.LIME).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(10)).allowsSpawning(BaseMaterial::always)));
+	public static final BlockContainer ENDER_MELON_LANTERN = new BlockContainer(new CarvedMelonBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.LIME).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(13)).allowsSpawning(BaseMaterial::always)));
 	//White Pumpkin, White Snow Golem
 	public static final EntityType<WhiteSnowGolemEntity> WHITE_SNOW_GOLEM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MISC, WhiteSnowGolemEntity::new).dimensions(EntityType.SNOW_GOLEM.getDimensions()).trackRangeBlocks(8).build();
 	public static final BlockContainer WHITE_JACK_O_LANTERN = new BlockContainer(new CarvedWhitePumpkinBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.WHITE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(15)).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer WHITE_SOUL_JACK_O_LANTERN = new BlockContainer(new CarvedWhitePumpkinBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.WHITE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(10)).allowsSpawning(BaseMaterial::always)));
+	public static final BlockContainer WHITE_ENDER_JACK_O_LANTERN = new BlockContainer(new CarvedWhitePumpkinBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.WHITE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(13)).allowsSpawning(BaseMaterial::always)));
 	public static final CarvedGourdContainer WHITE_PUMPKIN = new CarvedGourdContainer(
 			new CarvedWhitePumpkinBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.WHITE).strength(1.0F).sounds(BlockSoundGroup.WOOD).allowsSpawning(BaseMaterial::always)),
 			new CarvedWhitePumpkinBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.WHITE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(10)).allowsSpawning(BaseMaterial::always)),
@@ -187,6 +198,7 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer CARVED_ROTTEN_PUMPKIN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.PALE_YELLOW).strength(1.0F).sounds(BlockSoundGroup.WOOD).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer ROTTEN_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.PALE_YELLOW).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(15)).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer ROTTEN_SOUL_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.PALE_YELLOW).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(10)).allowsSpawning(BaseMaterial::always)));
+	public static final BlockContainer ROTTEN_ENDER_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(AbstractBlock.Settings.of(Material.GOURD, MapColor.PALE_YELLOW).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(luminance(13)).allowsSpawning(BaseMaterial::always)));
 	public static final Item ROTTEN_PUMPKIN_SEEDS = new Item(ItemSettings());
 	public static final BlockContainer ROTTEN_PUMPKIN = new BlockContainer(new CarvableGourdBlock(
 			AbstractBlock.Settings.of(Material.GOURD, MapColor.PALE_YELLOW).strength(1.0F).sounds(BlockSoundGroup.WOOD),
@@ -381,6 +393,10 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer DRIED_BAMBOO_BLOCK = new BlockContainer(new DriedBambooBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO)));
 	public static final Block POTTED_DRIED_BAMBOO = new FlowerPotBlock(DRIED_BAMBOO_BLOCK.BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
+	//Sugarcane & Hay
+	public static final SugarCaneMaterial SUGAR_CANE_MATERIAL = new SugarCaneMaterial("sugar_cane", MapColor.LICHEN_GREEN);
+	public static final HayMaterial HAY_MATERIAL = new HayMaterial("hay", MapColor.YELLOW);
+
 	//Charred Wood
 	public static final BaseTreeMaterial CHARRED_MATERIAL = new BaseTreeMaterial("charred", MapColor.BLACK, false);
 
@@ -395,6 +411,10 @@ public class HavenMod implements ModInitializer {
 	public static final MushroomMaterial BROWN_MUSHROOM_MATERIAL = new MushroomMaterial("brown_mushroom", MapColor.DIRT_BROWN, true);
 	public static final MushroomMaterial RED_MUSHROOM_MATERIAL = new MushroomMaterial("red_mushroom", MapColor.RED, true);
 	public static final MushroomMaterial MUSHROOM_STEM_MATERIAL = new MushroomMaterial("mushroom_stem", MapColor.GRAY, true);
+	public static final BlueMushroomMaterial BLUE_MUSHROOM_MATERIAL = new BlueMushroomMaterial("blue_mushroom", MapColor.LIGHT_BLUE, true);
+	public static final Feature<HugeMushroomFeatureConfig> HUGE_BLUE_MUSHROOM_FEATURE;
+	public static final ConfiguredFeature<?, ?> HUGE_BLUE_MUSHROOM;
+
 	//Vanilla Nether Wood
 	public static final VanillaNetherWoodMaterial CRIMSON_MATERIAL = new VanillaNetherWoodMaterial("crimson", MapColor.DULL_PINK, Blocks.CRIMSON_PLANKS, false);
 	public static final VanillaNetherWoodMaterial WARPED_MATERIAL = new VanillaNetherWoodMaterial("warped", MapColor.DARK_AQUA, Blocks.WARPED_PLANKS, false);
@@ -492,6 +512,9 @@ public class HavenMod implements ModInitializer {
 
 	public static final Item AMETHYST_CANDY = new Item(ItemSettings()); //not edible usually (it's rocks)
 	public static final Map<DyeColor, Item> ROCK_CANDIES = MapDyeColor((color) -> new Item(ItemSettings().food(CANDY_FOOD_COMPONENT)));
+
+	public static final BlockContainer SUGAR_BLOCK = new BlockContainer(new SugarBlock(AbstractBlock.Settings.of(Material.AGGREGATE, MapColor.WHITE).strength(0.6F).sounds(BlockSoundGroup.SAND)));
+	public static final BlockContainer CARAMEL_BLOCK = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.ORANGE).strength(0.8F).sounds(BlockSoundGroup.SAND)));
 
 	public static final Item THROWABLE_TOMATO_ITEM = new ThrowableTomatoItem(ItemSettings().maxCount(16));
 	public static final EntityType<ThrownTomatoEntity> THROWABLE_TOMATO_ENTITY = FabricEntityTypeBuilder.<ThrownTomatoEntity>create(SpawnGroup.MISC, ThrownTomatoEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
@@ -947,6 +970,9 @@ public class HavenMod implements ModInitializer {
 	public static final Item WHITE_MOOBLOSSOM_SPAWN_EGG = new SpawnEggItem(WHITE_MOOBLOSSOM_ENTITY, 16777215, 16777215, ItemSettings());
 	public static final Block WHITE_MOOBLOSSOM_TULIP = new FlowerBlock(StatusEffects.FIRE_RESISTANCE, 4, FlowerContainer.Settings());
 
+	//Blue Mooshroom
+	public static final EntityType<BlueMooshroomEntity> BLUE_MOOSHROOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BlueMooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
+	public static final Item BLUE_MOOSHROOM_SPAWN_EGG = new SpawnEggItem(BLUE_MOOSHROOM_ENTITY, 16777215, 16777215, ItemSettings());
 	//Nether Mooshrooms
 	public static final EntityType<GildedMooshroomEntity> GILDED_MOOSHROOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, GildedMooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
 	public static final Item GILDED_MOOSHROOM_SPAWN_EGG = new SpawnEggItem(GILDED_MOOSHROOM_ENTITY, 16777215, 16777215, ItemSettings());
@@ -982,6 +1008,7 @@ public class HavenMod implements ModInitializer {
 	public static final Item GRILLED_CHEESE = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(8).saturationModifier(0.8F).build()));
 	//Wood Buckets
 	public static final LiteralWoodMaterial WOOD_MATERIAL = new LiteralWoodMaterial();
+	public static final Item SHODDY_WOOD_BUCKET = new Item(ItemSettings());
 	//Cakes
 	public static final CakeContainer CHOCOLATE_CAKE = new CakeContainer(CakeContainer.Flavor.CHOCOLATE);
 	public static final CakeContainer COFFEE_CAKE = new CakeContainer(CakeContainer.Flavor.COFFEE);
@@ -1050,10 +1077,12 @@ public class HavenMod implements ModInitializer {
 	public static final Set<BaseMaterial> MATERIALS = Set.<BaseMaterial>of(
 		//Wood
 		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, CHARRED_MATERIAL, MANGROVE_MATERIAL,
+		//Reed Wood
+		SUGAR_CANE_MATERIAL, HAY_MATERIAL,
 		//Vanilla Wood
 		ACACIA_MATERIAL, BIRCH_MATERIAL, DARK_OAK_MATERIAL, JUNGLE_MATERIAL, /*OAK_MATERIAL,*/ SPRUCE_MATERIAL,
 		//Mushroom
-		BROWN_MUSHROOM_MATERIAL, RED_MUSHROOM_MATERIAL, MUSHROOM_STEM_MATERIAL,
+		BROWN_MUSHROOM_MATERIAL, RED_MUSHROOM_MATERIAL, MUSHROOM_STEM_MATERIAL, BLUE_MUSHROOM_MATERIAL,
 		//Vanilla Nether Wood
 		CRIMSON_MATERIAL, WARPED_MATERIAL,
 		//Nether Wood
@@ -1065,11 +1094,11 @@ public class HavenMod implements ModInitializer {
 		//Obsidian
 		OBSIDIAN_MATERIAL, CRYING_OBSIDIAN_MATERIAL, BLEEDING_OBSIDIAN_MATERIAL,
 		//Stone
-		CALCITE_MATERIAL, DRIPSTONE_MATERIAL, TUFF_MATERIAL,
+		CALCITE_MATERIAL, DRIPSTONE_MATERIAL, TUFF_MATERIAL, PURPUR_MATERIAL,
 		//Blood
 		BLOOD_MATERIAL, DRIED_BLOOD_MATERIAL,
 		//Misc
-		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, WOOD_MATERIAL, MUD_MATERIAL, ECHO_MATERIAL
+		BONE_MATERIAL, STUDDED_LEATHER_MATERIAL, FLEECE_MATERIAL, WOOD_MATERIAL, MUD_MATERIAL, ECHO_MATERIAL
 	);
 	public static BiMap<Block, Block> UNLIT_LANTERNS = HashBiMap.create();
 	public static final List<SignType> SIGN_TYPES = new ArrayList<SignType>();
@@ -1090,6 +1119,15 @@ public class HavenMod implements ModInitializer {
 	public static final Set<Block> CAMPFIRES = new HashSet<Block>();
 
 	static {
+		//Blue Mushroom
+		HUGE_BLUE_MUSHROOM_FEATURE = new HugeBlueMushroomFeature(HugeMushroomFeatureConfig.CODEC);
+		HUGE_BLUE_MUSHROOM = HUGE_BLUE_MUSHROOM_FEATURE.configure(
+			new HugeMushroomFeatureConfig(
+				new SimpleBlockStateProvider(BLUE_MUSHROOM_MATERIAL.getBlock().BLOCK.getDefaultState().with(MushroomBlock.DOWN, false)),
+				new SimpleBlockStateProvider(Blocks.MUSHROOM_STEM.getDefaultState().with(MushroomBlock.UP, false).with(MushroomBlock.DOWN, false)),
+				3
+			)
+		);
 		//Gilded Fungus
 		GILDED_FUNGUS_CONFIG = new HugeFungusFeatureConfig(GILDED_NYLIUM.BLOCK.getDefaultState(), GILDED_MATERIAL.getStem().BLOCK.getDefaultState(), GILDED_MATERIAL.getWartBlock().BLOCK.getDefaultState(), Blocks.SHROOMLIGHT.getDefaultState(), true);
 		GILDED_FUNGUS_NOT_PLANTED_CONFIG = new HugeFungusFeatureConfig(GILDED_FUNGUS_CONFIG.validBaseBlock, GILDED_FUNGUS_CONFIG.stemState, GILDED_FUNGUS_CONFIG.hatState, GILDED_FUNGUS_CONFIG.decorationState, false);
@@ -1103,13 +1141,16 @@ public class HavenMod implements ModInitializer {
 		}
 		UNLIT_LANTERNS.put(Blocks.LANTERN, UNLIT_LANTERN);
 		UNLIT_LANTERNS.put(Blocks.SOUL_LANTERN, UNLIT_SOUL_LANTERN);
+		UNLIT_LANTERNS.put(ENDER_LANTERN.BLOCK, UNLIT_ENDER_LANTERN);
 		//Materials
 		for(BaseMaterial material : MATERIALS) {
 			if (material instanceof SignProvider sign) SIGN_TYPES.add(sign.getSign().TYPE);
 			if (material instanceof LanternProvider lantern) UNLIT_LANTERNS.put(lantern.getLantern().BLOCK, lantern.getUnlitLantern());
 			if (material instanceof SoulLanternProvider soulLantern) UNLIT_LANTERNS.put(soulLantern.getSoulLantern().BLOCK, soulLantern.getUnlitSoulLantern());
+			if (material instanceof EnderLanternProvider enderLantern) UNLIT_LANTERNS.put(enderLantern.getEnderLantern().BLOCK, enderLantern.getUnlitEnderLantern());
 			if (material instanceof CampfireProvider campfire) CAMPFIRES.add(campfire.getCampfire().BLOCK);
 			if (material instanceof SoulCampfireProvider soulCampfire) CAMPFIRES.add(soulCampfire.getSoulCampfire().BLOCK);
+			if (material instanceof EnderCampfireProvider enderCampfire) CAMPFIRES.add(enderCampfire.getEnderCampfire().BLOCK);
 		}
 		//Flowers
 		for(DyeColor color : COLORS) FLOWERS.add(CARNATIONS.get(color));

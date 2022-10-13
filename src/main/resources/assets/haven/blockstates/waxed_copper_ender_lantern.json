@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "haven:block/copper_ender_lantern"
+    },
+    "hanging=true": {
+      "model": "haven:block/copper_ender_lantern_hanging"
+    }
+  }
+}

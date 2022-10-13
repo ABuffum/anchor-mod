@@ -1,0 +1,30 @@
+{
+  "values": [
+    "haven:ender_lantern",
+    "haven:unlit_ender_lantern",
+    
+    "haven:copper_ender_lantern",
+    "haven:exposed_copper_ender_lantern",
+    "haven:weathered_copper_ender_lantern",
+    "haven:oxidized_copper_ender_lantern",
+    "haven:waxed_copper_ender_lantern",
+    "haven:waxed_exposed_copper_ender_lantern",
+    "haven:waxed_weathered_copper_ender_lantern",
+    "haven:waxed_oxidized_copper_ender_lantern",
+    "haven:unlit_copper_ender_lantern",
+    "haven:unlit_exposed_copper_ender_lantern",
+    "haven:unlit_weathered_copper_ender_lantern",
+    "haven:unlit_oxidized_copper_ender_lantern",
+    "haven:unlit_waxed_copper_ender_lantern",
+    "haven:unlit_waxed_exposed_copper_ender_lantern",
+    "haven:unlit_waxed_weathered_copper_ender_lantern",
+    "haven:unlit_waxed_oxidized_copper_ender_lantern",
+  
+    "haven:gold_ender_lantern",
+    "haven:unlit_gold_ender_lantern",
+    "haven:iron_ender_lantern",
+    "haven:unlit_iron_ender_lantern",
+    "haven:netherite_ender_lantern",
+    "haven:unlit_netherite_ender_lantern"
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_rh",
+  "textures": {
+    "top": "haven:block/hay_door_top",
+    "bottom": "haven:block/hay_door_bottom"
+  }
+}

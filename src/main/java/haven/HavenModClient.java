@@ -42,6 +42,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
@@ -70,12 +71,16 @@ public class HavenModClient implements ClientModInitializer {
 	));
 
 	private static final List<Block> Cutout = new ArrayList(List.<Block>of(
+		HavenMod.BLUE_MUSHROOM_MATERIAL.getPotted().POTTED,
 		//Gilded Fungus
-		HavenMod.GILDED_ROOTS.BLOCK, HavenMod.GILDED_ROOTS.POTTED, HavenMod.GILDED_MATERIAL.getTrapdoor().BLOCK,
+		HavenMod.GILDED_MATERIAL.getFungus().POTTED, HavenMod.GILDED_MATERIAL.getTrapdoor().BLOCK,
+		HavenMod.GILDED_ROOTS.BLOCK, HavenMod.GILDED_ROOTS.POTTED,
 		//Bone Ladder
 		HavenMod.BONE_MATERIAL.getLadder().BLOCK,
-		//Unlit Lanterns
-		HavenMod.UNLIT_LANTERN, HavenMod.UNLIT_SOUL_LANTERN,
+		//Lanterns
+		HavenMod.UNLIT_LANTERN, HavenMod.UNLIT_SOUL_LANTERN, HavenMod.ENDER_LANTERN.BLOCK, HavenMod.UNLIT_ENDER_LANTERN,
+		//Campfires
+		HavenMod.ENDER_CAMPFIRE.BLOCK,
 		//Underwater Torch
 		HavenMod.UNDERWATER_TORCH.BLOCK, HavenMod.UNDERWATER_TORCH.WALL_BLOCK,
 		HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT, HavenMod.UNDERWATER_TORCH.UNLIT.UNLIT_WALL,
@@ -89,6 +94,7 @@ public class HavenModClient implements ClientModInitializer {
 		HavenMod.BROWN_MUSHROOM_MATERIAL.getDoor().BLOCK,
 		HavenMod.RED_MUSHROOM_MATERIAL.getDoor().BLOCK,
 		HavenMod.MUSHROOM_STEM_MATERIAL.getDoor().BLOCK,
+		HavenMod.BLUE_MUSHROOM_MATERIAL.getDoor().BLOCK,
 		//White Pumpkin
 		HavenMod.WHITE_PUMPKIN.getStem(), HavenMod.WHITE_PUMPKIN.getAttachedStem(),
 		//Strawberries
@@ -150,6 +156,7 @@ public class HavenModClient implements ClientModInitializer {
 	static {
 		setLayer(Cutout, HavenMod.UNLIT_TORCH);
 		setLayer(Cutout, HavenMod.UNLIT_SOUL_TORCH);
+		setLayer(Cutout, HavenMod.ENDER_TORCH);
 		setLayer(Cutout, HavenMod.UNDERWATER_TORCH);
 		for (FlowerContainer flower : HavenMod.FLOWERS) setLayer(Cutout, flower);
 		for (BlockContainer flower : HavenMod.TALL_FLOWERS) Cutout.add(flower.BLOCK);
@@ -158,11 +165,18 @@ public class HavenModClient implements ClientModInitializer {
 			if (material instanceof OxidizableTorchProvider oxidizableTorch) setLayer(Cutout, oxidizableTorch.getOxidizableTorch());
 			if (material instanceof SoulTorchProvider soulTorchProvider) setLayer(Cutout, soulTorchProvider.getSoulTorch());
 			if (material instanceof OxidizableSoulTorchProvider oxidizableSoulTorch) setLayer(Cutout, oxidizableSoulTorch.getOxidizableSoulTorch());
+			if (material instanceof EnderTorchProvider enderTorchProvider) setLayer(Cutout, enderTorchProvider.getEnderTorch());
+			if (material instanceof OxidizableEnderTorchProvider oxidizableEnderTorch) setLayer(Cutout, oxidizableEnderTorch.getOxidizableEnderTorch());
 			if (material instanceof LanternProvider lantern) {
 				Cutout.add(lantern.getLantern().BLOCK);
 				Cutout.add(lantern.getUnlitLantern());
 			}
 			if (material instanceof OxidizableLanternProvider oxidizableLantern) setLayer(Cutout, oxidizableLantern.getOxidizableLantern());
+			if (material instanceof EnderLanternProvider enderLantern) {
+				Cutout.add(enderLantern.getEnderLantern().BLOCK);
+				Cutout.add(enderLantern.getUnlitEnderLantern());
+			}
+			if (material instanceof OxidizableEnderLanternProvider oxidizableEnderLantern) setLayer(Cutout, oxidizableEnderLantern.getOxidizableEnderLantern());
 			if (material instanceof SoulLanternProvider soulLantern) {
 				Cutout.add(soulLantern.getSoulLantern().BLOCK);
 				Cutout.add(soulLantern.getUnlitSoulLantern());
@@ -170,13 +184,13 @@ public class HavenModClient implements ClientModInitializer {
 			if (material instanceof OxidizableSoulLanternProvider oxidizableSoulLantern) setLayer(Cutout, oxidizableSoulLantern.getOxidizableSoulLantern());
 			if (material instanceof CampfireProvider campfire) Cutout.add(campfire.getCampfire().BLOCK);
 			if (material instanceof SoulCampfireProvider soulCampfire) Cutout.add(soulCampfire.getSoulCampfire().BLOCK);
+			if (material instanceof EnderCampfireProvider enderCampfire) Cutout.add(enderCampfire.getEnderCampfire().BLOCK);
 			if (material instanceof ChainProvider chain) Cutout.add(chain.getChain().BLOCK);
 			if (material instanceof OxidizableChainProvider oxidizableChain) setLayer(CutoutMipped, oxidizableChain.getOxidizableChain());
 			if (material instanceof BarsProvider bars) CutoutMipped.add(bars.getBars().BLOCK);
 			if (material instanceof OxidizableBarsProvider oxidizableBars) setLayer(CutoutMipped, oxidizableBars.getOxidizableBars());
 			if (material instanceof LeavesProvider leaves) CutoutMipped.add(leaves.getLeaves().BLOCK);
 			if (material instanceof SaplingProvider sapling) setLayer(Cutout, sapling.getSapling());
-			if (material instanceof FungusProvider fungus) setLayer(Cutout, fungus.getFungus());
 			//if (material instanceof PropaguleProvider propagule) setLayer(Cutout, propagule.getPropagule());
 		}
 	}
@@ -242,12 +256,14 @@ public class HavenModClient implements ClientModInitializer {
 			registry.register(HavenMod.ID("particle/gold_flame"));
 			registry.register(HavenMod.ID("particle/iron_flame"));
 			registry.register(HavenMod.ID("particle/netherite_flame"));
+			registry.register(HavenMod.ID("particle/ender_fire_flame"));
 		}));
 		ParticleFactoryRegistry.getInstance().register(HavenMod.UNDERWATER_TORCH_GLOW, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.COPPER_FLAME_PARTICLE, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.GOLD_FLAME_PARTICLE, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.IRON_FLAME_PARTICLE, FlameParticle.Factory::new);
 		ParticleFactoryRegistry.getInstance().register(HavenMod.NETHERITE_FLAME_PARTICLE, FlameParticle.Factory::new);
+		ParticleFactoryRegistry.getInstance().register(HavenMod.ENDER_FIRE_FLAME_PARTICLE, FlameParticle.Factory::new);
 		//Soft TNT
 		EntityRendererRegistry.register(HavenMod.SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes
@@ -286,12 +302,14 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(HavenMod.PINK_MOOBLOSSOM_ENTITY, PinkMooblossomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.RED_MOOBLOSSOM_ENTITY, RedMooblossomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.WHITE_MOOBLOSSOM_ENTITY, WhiteMooblossomEntityRenderer::new);
+		//Blue Mooshroom
+		EntityRendererRegistry.register(HavenMod.BLUE_MOOSHROOM_ENTITY, BlueMooshroomEntityRenderer::new);
 		//Nether Mooshrooms
 		EntityRendererRegistry.register(HavenMod.GILDED_MOOSHROOM_ENTITY, GildedMooshroomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.CRIMSON_MOOSHROOM_ENTITY, CrimsonMooshroomEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.WARPED_MOOSHROOM_ENTITY, WarpedMooshroomEntityRenderer::new);
 		//Bottled Confetti
-		EntityRendererRegistry.register(HavenMod.BOTTLED_CONFETTI_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
+		EntityRendererRegistry.register(HavenMod.BOTTLED_CONFETTI_ENTITY, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.DROPPED_CONFETTI_ENTITY, EmptyEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.CONFETTI_CLOUD_ENTITY, EmptyEntityRenderer::new);
 		EntityRendererRegistry.register(HavenMod.DROPPED_DRAGON_BREATH_ENTITY, EmptyEntityRenderer::new);
@@ -333,6 +351,11 @@ public class HavenModClient implements ClientModInitializer {
 				//Mangrove
 				HavenMod.MANGROVE_MATERIAL.getLeaves().ITEM
 		);
+		//Fleece Armor
+		itemColors.register((stack, tintIndex) -> {
+			NbtCompound nbtCompound = stack.getSubNbt("display");
+			return tintIndex > 0 ? -1 : nbtCompound != null && nbtCompound.contains("color", 99) ? nbtCompound.getInt("color") : 0xFFFFFF;
+		}, HavenMod.FLEECE_MATERIAL.getHelmet(), HavenMod.FLEECE_MATERIAL.getChestplate(), HavenMod.FLEECE_MATERIAL.getLeggings(), HavenMod.FLEECE_MATERIAL.getBoots(), HavenMod.FLEECE_MATERIAL.getHorseArmor());
 	}
 
 	private static float castGrapplingRod(ItemStack stack, ClientWorld world, LivingEntity entity, int seed) {

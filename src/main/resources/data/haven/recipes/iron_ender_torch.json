@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "haven:ender_torch"
+    },
+    "Y": {
+      "item": "minecraft:iron_nugget"
+    }
+  },
+  "pattern": [
+    "#",
+    "Y"
+  ],
+  "result": {
+    "count": 4,
+    "item": "haven:iron_ender_torch"
+  }
+}

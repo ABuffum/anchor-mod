@@ -49,6 +49,9 @@
     "haven:dripstone_brick_wall",
     "haven:smooth_dripstone_wall",
     "haven:tuff_brick_wall",
-    "haven:smooth_tuff_wall"
+    "haven:smooth_tuff_wall",
+    "haven:purpur_wall",
+    "haven:smooth_purpur_wall",
+    "haven:purpur_brick_wall"
   ]
 }

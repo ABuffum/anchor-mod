@@ -27,6 +27,8 @@
     "haven:dripstone_brick_stairs",
     "haven:smooth_dripstone_stairs",
     "haven:tuff_brick_stairs",
-    "haven:smooth_tuff_stairs"
+    "haven:smooth_tuff_stairs",
+    "haven:smooth_purpur_stairs",
+    "haven:purpur_brick_stairs"
   ]
 }

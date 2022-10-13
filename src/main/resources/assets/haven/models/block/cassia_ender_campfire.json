@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/cassia_campfire",
+  "textures": {
+    "lit_log": "haven:block/cassia_ender_campfire_log_lit",
+    "fire": "haven:block/ender_campfire_fire"
+  }
+}

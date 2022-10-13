@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_torch",
+  "textures": {
+    "torch": "haven:block/dried_bamboo_ender_torch"
+  }
+}

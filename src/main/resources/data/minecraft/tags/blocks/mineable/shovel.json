@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "haven:mud",
-    "haven:muddy_mangrove_roots"
+    "haven:muddy_mangrove_roots",
+    "haven:sugar_block",
+    "haven:caramel_block"
   ]
 }

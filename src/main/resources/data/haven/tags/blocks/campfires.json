@@ -5,6 +5,7 @@
     "haven:acacia_campfire",
     "haven:bamboo_campfire",
     "haven:birch_campfire",
+    "haven:blue_mushroom_campfire",
     "haven:brown_mushroom_campfire",
     "haven:cassia_campfire",
     "haven:charred_campfire",
@@ -18,6 +19,7 @@
     "haven:mushroom_stem_campfire",
     "haven:red_mushroom_campfire",
     "haven:spruce_campfire",
+    "haven:sugar_cane_campfire",
     "haven:warped_campfire"
   ]
 }

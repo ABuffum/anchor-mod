@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "#": {
+      "item": "haven:sugar_cane_planks"
+    }
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "item": "haven:sugar_cane_pressure_plate"
+  }
+}

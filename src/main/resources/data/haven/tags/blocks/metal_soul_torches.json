@@ -11,6 +11,19 @@
     "haven:iron_soul_torch",
     "haven:dark_iron_soul_torch",
     "haven:gold_soul_torch",
-    "haven:netherite_soul_torch"
+    "haven:netherite_soul_torch",
+  
+    "haven:unlit_copper_soul_torch",
+    "haven:unlit_exposed_copper_soul_torch",
+    "haven:unlit_weathered_copper_soul_torch",
+    "haven:unlit_oxidized_copper_soul_torch",
+    "haven:unlit_waxed_copper_soul_torch",
+    "haven:unlit_waxed_exposed_copper_soul_torch",
+    "haven:unlit_waxed_weathered_copper_soul_torch",
+    "haven:unlit_waxed_oxidized_copper_soul_torch",
+    "haven:unlit_iron_soul_torch",
+    "haven:unlit_dark_iron_soul_torch",
+    "haven:unlit_gold_soul_torch",
+    "haven:unlit_netherite_soul_torch"
   ]
 }

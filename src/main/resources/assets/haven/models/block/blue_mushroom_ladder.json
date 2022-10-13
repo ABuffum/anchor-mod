@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/_template_ladder",
+  "textures": {
+	"particle": "haven:block/blue_mushroom_ladder",
+	"texture": "haven:block/blue_mushroom_ladder"
+  }
+}

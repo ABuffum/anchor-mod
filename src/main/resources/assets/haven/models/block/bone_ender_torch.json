@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/bone_torch",
+  "textures": {
+	"0": "haven:block/bone_ender_torch",
+	"particle": "haven:block/bone_ender_torch"
+  }
+}

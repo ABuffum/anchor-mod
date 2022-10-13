@@ -10,9 +10,11 @@
     "haven:dried_bamboo_soul_torch",
     "haven:dark_oak_soul_torch",
     "haven:gilded_soul_torch",
+    "haven:hay_soul_torch",
     "haven:jungle_soul_torch",
     "haven:mangrove_soul_torch",
     "haven:spruce_soul_torch",
+    "haven:sugar_cane_soul_torch",
     "haven:warped_soul_torch",
   
     "haven:unlit_acacia_soul_torch",
@@ -25,9 +27,11 @@
     "haven:unlit_dried_bamboo_soul_torch",
     "haven:unlit_dark_oak_soul_torch",
     "haven:unlit_gilded_soul_torch",
+    "haven:unlit_hay_soul_torch",
     "haven:unlit_jungle_soul_torch",
     "haven:unlit_mangrove_soul_torch",
     "haven:unlit_spruce_soul_torch",
+    "haven:unlit_sugar_cane_soul_torch",
     "haven:unlit_warped_soul_torch"
   ]
 }

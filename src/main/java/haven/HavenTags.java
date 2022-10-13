@@ -39,6 +39,7 @@ public class HavenTags {
 		public static final Tag.Identified<Item> CARVED_PUMPKINS = createTag("carved_pumpkins");
 		public static final Tag.Identified<Item> HEAD_WEARABLE_BLOCKS = createTag("head_wearable_blocks");
 		public static final Tag.Identified<Item> FLAVORED_MILK = createTag("flavored_milk");
+		public static final Tag.Identified<Item> FLEECE = createTag("fleece");
 
 		private static Tag.Identified<Item> createTag(String name) {
 			return TagFactory.ITEM.create(HavenMod.ID(name));

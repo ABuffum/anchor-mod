@@ -1,0 +1,7 @@
+{
+	"parent": "haven:block/_template_row_noside_alt",
+	"textures": {
+		"side": "haven:block/sugar_cane_row",
+		"particle": "haven:block/sugar_cane_row"
+	}
+}

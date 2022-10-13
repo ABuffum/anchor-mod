@@ -8,11 +8,13 @@
     "haven:crimson_wall_torch",
     "haven:dried_bamboo_wall_torch",
     "haven:dark_oak_wall_torch",
+    "haven:gilded_wall_torch",
+    "haven:hay_wall_torch",
     "haven:jungle_wall_torch",
     "haven:mangrove_wall_torch",
     "haven:spruce_wall_torch",
+    "haven:sugar_cane_wall_torch",
     "haven:warped_wall_torch",
-    "haven:gilded_wall_torch",
   
     "haven:unlit_acacia_wall_torch",
     "haven:unlit_bamboo_wall_torch",
@@ -24,9 +26,11 @@
     "haven:unlit_dried_bamboo_wall_torch",
     "haven:unlit_dark_oak_wall_torch",
     "haven:unlit_gilded_wall_torch",
+    "haven:unlit_hay_wall_torch",
     "haven:unlit_jungle_wall_torch",
     "haven:unlit_mangrove_wall_torch",
     "haven:unlit_spruce_wall_torch",
+    "haven:unlit_sugar_cane_wall_torch",
     "haven:unlit_warped_wall_torch"
   ]
 }

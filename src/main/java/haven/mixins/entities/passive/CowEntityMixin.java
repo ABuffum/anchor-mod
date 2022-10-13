@@ -3,6 +3,7 @@ package haven.mixins.entities.passive;
 import haven.HavenMod;
 import haven.entities.passive.cow.CowcoaEntity;
 import haven.entities.passive.cow.CowfeeEntity;
+import haven.entities.passive.cow.MoonillaEntity;
 import haven.entities.passive.cow.StrawbovineEntity;
 import haven.items.buckets.BucketProvided;
 import net.minecraft.entity.EntityType;
@@ -38,6 +39,7 @@ public abstract class CowEntityMixin extends AnimalEntity {
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowEntity.class));
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowcoaEntity.class));
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowfeeEntity.class));
+			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, MoonillaEntity.class));
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, StrawbovineEntity.class));
 		}
 	}
@@ -66,6 +68,7 @@ public abstract class CowEntityMixin extends AnimalEntity {
 				&& otherClass != CowEntity.class
 				&& otherClass != CowcoaEntity.class
 				&& otherClass != CowfeeEntity.class
+				&& otherClass != MoonillaEntity.class
 				&& otherClass != StrawbovineEntity.class
 		) return false;
 		else return this.isInLove() && other.isInLove();

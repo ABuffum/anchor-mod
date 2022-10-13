@@ -10,9 +10,11 @@
     "haven:dried_bamboo_torch",
     "haven:dark_oak_torch",
     "haven:gilded_torch",
+    "haven:hay_torch",
     "haven:jungle_torch",
     "haven:mangrove_torch",
     "haven:spruce_torch",
+    "haven:sugar_cane_torch",
     "haven:warped_torch"
   ]
 }
