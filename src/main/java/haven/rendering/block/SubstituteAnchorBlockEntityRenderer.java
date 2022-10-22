@@ -1,7 +1,7 @@
 package haven.rendering.block;
 
 import haven.HavenMod;
-import haven.entities.anchors.SubstituteAnchorBlockEntity;
+import haven.blocks.anchors.SubstituteAnchorBlockEntity;
 
 import net.fabricmc.api.*;
 import net.minecraft.client.MinecraftClient;

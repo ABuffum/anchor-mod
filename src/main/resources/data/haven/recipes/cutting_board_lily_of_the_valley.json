@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "minecraft:lily_of_the_valley" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:lily_of_the_valley_petals" },
+	{ "item": "haven:lily_of_the_valley_seeds" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "haven:block/sculk"
+      },
+      {
+        "model": "haven:block/sculk_mirrored"
+      },
+      {
+        "model": "haven:block/sculk",
+        "y": 180
+      },
+      {
+        "model": "haven:block/sculk_mirrored",
+        "y": 180
+      }
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "minecraft:lilac" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:lilac_petals", "count": 2 },
+	{ "item": "haven:lilac_seeds", "count": 2 }
+  ]
+}

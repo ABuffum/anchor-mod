@@ -2,28 +2,6 @@
   "replace": false,
   "values": [
     "minecraft:ladder",
-    
-    "haven:bone_ladder",
-  
-    "haven:acacia_ladder",
-    "haven:bamboo_ladder",
-    "haven:birch_ladder",
-    "haven:brown_mushroom_ladder",
-    "haven:blue_mushroom_ladder",
-    "haven:cassia_ladder",
-    "haven:charred_ladder",
-    "haven:cherry_ladder",
-    "haven:crimson_ladder",
-    "haven:dried_bamboo_ladder",
-    "haven:dark_oak_ladder",
-    "haven:gilded_ladder",
-    "haven:hay_ladder",
-    "haven:jungle_ladder",
-    "haven:mangrove_ladder",
-    "haven:mushroom_stem_ladder",
-    "haven:red_mushroom_ladder",
-    "haven:spruce_ladder",
-    "haven:sugar_cane_ladder",
-    "haven:warped_ladder"
+    "#haven:ladders"
   ]
 }

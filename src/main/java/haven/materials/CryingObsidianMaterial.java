@@ -1,8 +1,8 @@
 package haven.materials;
 
-import haven.blocks.CryingObsidianSlabBlock;
-import haven.blocks.CryingObsidianStairsBlock;
-import haven.blocks.CryingObsidianWallBlock;
+import haven.blocks.cryingobsidian.CryingObsidianSlabBlock;
+import haven.blocks.cryingobsidian.CryingObsidianStairsBlock;
+import haven.blocks.cryingobsidian.CryingObsidianWallBlock;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.SlabProvider;
 import haven.materials.providers.StairsProvider;

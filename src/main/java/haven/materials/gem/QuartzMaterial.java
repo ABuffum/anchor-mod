@@ -42,11 +42,11 @@ public class QuartzMaterial extends ToolArmorHorseMaterial implements
 		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.BLOCK), ItemSettings());
 		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.BLOCK), ItemSettings());
 		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.BLOCK), ItemSettings());
-		smooth_wall = new BlockContainer(new HavenWallBlock(Blocks.SMOOTH_QUARTZ));
-		wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BLOCK));
-		brick_slab = new BlockContainer(new HavenSlabBlock(Blocks.QUARTZ_BRICKS));
-		brick_stairs = new BlockContainer(new HavenStairsBlock(Blocks.QUARTZ_BRICKS));
-		brick_wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BRICKS));
+		smooth_wall = new BlockContainer(new HavenWallBlock(Blocks.SMOOTH_QUARTZ), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

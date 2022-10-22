@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "haven:magenta_carnation" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:magenta_carnation_petals" },
+	{ "item": "haven:magenta_carnation_seeds" }
+  ]
+}

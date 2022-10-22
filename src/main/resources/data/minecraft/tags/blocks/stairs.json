@@ -4,6 +4,7 @@
     "haven:amethyst_crystal_stairs",
     "haven:amethyst_brick_stairs",
     "haven:amethyst_stairs",
+    "haven:echo_stairs",
     "haven:emerald_brick_stairs",
     "haven:cut_emerald_stairs",
     "haven:diamond_brick_stairs",
@@ -21,7 +22,9 @@
     "haven:obsidian_stairs",
     "haven:crying_obsidian_stairs",
     "haven:bleeding_obsidian_stairs",
-  
+    
+    "haven:mud_brick_stairs",
+    
     "haven:calcite_brick_stairs",
     "haven:smooth_calcite_stairs",
     "haven:dripstone_brick_stairs",
@@ -29,6 +32,11 @@
     "haven:tuff_brick_stairs",
     "haven:smooth_tuff_stairs",
     "haven:smooth_purpur_stairs",
-    "haven:purpur_brick_stairs"
+    "haven:purpur_brick_stairs",
+    "haven:gilded_blackstone_stairs",
+    "haven:polished_gilded_blackstone_stairs",
+    "haven:polished_gilded_blackstone_brick_stairs",
+    "haven:sculk_stone_stairs",
+    "haven:sculk_stone_brick_stairs"
   ]
 }

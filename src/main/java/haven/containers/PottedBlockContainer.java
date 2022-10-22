@@ -16,8 +16,12 @@ public class PottedBlockContainer {
 	public static final Block.Settings SETTINGS = AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque();
 
 	public PottedBlockContainer(Block block) {
+		this(block, HavenMod.ItemSettings());
+	}
+
+	public PottedBlockContainer(Block block, Item.Settings itemSettings) {
 		BLOCK = block;
-		ITEM = new BlockItem(BLOCK, HavenMod.ItemSettings());
+		ITEM = new BlockItem(BLOCK, itemSettings);
 		POTTED = new FlowerPotBlock(BLOCK, SETTINGS);
 	}
 

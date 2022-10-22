@@ -12,7 +12,7 @@ import net.minecraft.text.TranslatableText;
 
 public class HavenDamageSource extends DamageSource {
 	public static final DamageSource DETERIORATION = new HavenDamageSource("deterioration").setUnblockable().setBypassesArmor();
-	public static final DamageSource ICHOR = new HavenDamageSource("ichor").setUnblockable().setBypassesArmor();
+	public static final DamageSource BLEEDING = new HavenDamageSource("bleeding").setUnblockable().setBypassesArmor();
 	public static final DamageSource BONE_ROT = new HavenDamageSource("bone_rot").setUnblockable().setBypassesArmor();
 	public static final DamageSource DRANK_ICHOR = Drank("ichor");
 	public static final DamageSource DRANK_ICHOR_AS_ANEMIC = Drank("ichor_as_anemic");
@@ -24,7 +24,9 @@ public class HavenDamageSource extends DamageSource {
 	public static final DamageSource DRANK_SLIME = Drank("slime");
 	public static final DamageSource DRANK_SLUDGE = Drank("sludge");
 	public static final DamageSource DRANK_SUGAR_WATER = Drank("sugar_water");
-	public static final DamageSource BLEEDING = new HavenDamageSource("bleeding").setUnblockable().setBypassesArmor();
+	public static final DamageSource DRANK_WATER = Drank("water");
+	public static final DamageSource ICHOR = new HavenDamageSource("ichor").setUnblockable().setBypassesArmor();
+	public static final DamageSource WITHERING = new HavenDamageSource("withering").setUnblockable().setBypassesArmor();
 	public static InjectedDamageSource Injected(String type, LivingEntity source) {
 		return new InjectedDamageSource(type, source).setUnblockable().setBypassesArmor();
 	}

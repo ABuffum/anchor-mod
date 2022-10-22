@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "minecraft:gold_ingot"
+  },
+  "base": {
+    "item": "minecraft:polished_blackstone_brick_stairs"
+  },
+  "result": {
+    "item": "haven:polished_gilded_blackstone_brick_stairs"
+  }
+}

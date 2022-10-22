@@ -102,15 +102,15 @@ public class GoldMaterial extends BaseMaterial implements
 		unlit_ender_lantern = new UnlitLanternBlock(this::getEnderLantern);
 		soul_lantern = MakeLantern(10);
 		unlit_soul_lantern = new UnlitLanternBlock(this::getSoulLantern);
-		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.0F).sounds(BlockSoundGroup.METAL)));
-		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()));
-		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
-		wall = new BlockContainer(new HavenWallBlock(Blocks.GOLD_BLOCK));
-		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK)));
-		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)));
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK));
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK));
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK));
+		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.0F).sounds(BlockSoundGroup.METAL)), ItemSettings());
+		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
+		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(Blocks.GOLD_BLOCK), ItemSettings());
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.GOLD_BLOCK)), ItemSettings());
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
 		shears = new ShearsItem(ItemSettings().maxDamage(128));
 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);

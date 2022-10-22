@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "haven:soleil_carved_white_pumpkin"
+    },
+    "B": {
+      "tag": "haven:ender_torches"
+    }
+  },
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "result": {
+    "item": "haven:soleil_white_ender_jack_o_lantern"
+  }
+}

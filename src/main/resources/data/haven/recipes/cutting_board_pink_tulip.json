@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "minecraft:pink_tulip" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:pink_tulip_petals" },
+	{ "item": "haven:pink_tulip_seeds" }
+  ]
+}

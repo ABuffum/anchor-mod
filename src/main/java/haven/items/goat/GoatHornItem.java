@@ -1,7 +1,7 @@
 package haven.items.goat;
 
 import haven.HavenMod;
-import haven.events.HavenEvents;
+import haven.events.HavenGameEvent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -85,6 +85,6 @@ public class GoatHornItem extends Item {
 		SoundEvent soundEvent = instrument.getSoundEvent();
 		float f = instrument.getRange() / 16.0f;
 		world.playSoundFromEntity(player, player, soundEvent, SoundCategory.RECORDS, f, 1.0f);
-		world.emitGameEvent(player, HavenEvents.INSTRUMENT_PLAY, player.getBlockPos());
+		world.emitGameEvent(player, HavenGameEvent.INSTRUMENT_PLAY, player.getBlockPos());
 	}
 }

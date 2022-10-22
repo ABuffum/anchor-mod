@@ -7,11 +7,7 @@ import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.containers.TorchContainer;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
@@ -34,8 +30,8 @@ public class BoneMaterial extends BaseMaterial implements
 		torch = MakeTorch(14, BlockSoundGroup.BONE, ParticleTypes.FLAME);
 		ender_torch = MakeTorch(12, BlockSoundGroup.BONE, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
 		soul_torch = MakeTorch(10, BlockSoundGroup.BONE, ParticleTypes.SOUL_FIRE_FLAME);
-		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.BONE).nonOpaque()));
-		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.BONE).nonOpaque()));
+		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.BONE).nonOpaque()), ItemSettings());
+		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.BONE).nonOpaque()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

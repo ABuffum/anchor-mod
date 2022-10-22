@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/confetti_soul_candle_cake"
+    },
+    "lit=true": {
+      "model": "haven:block/confetti_soul_candle_cake_lit"
+    }
+  }
+}

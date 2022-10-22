@@ -7,7 +7,6 @@ import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.containers.TorchContainer;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -39,21 +38,21 @@ public class VanillaWoodMaterial extends BaseMaterial implements
 		torch = MakeTorch(14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
 		ender_torch = MakeTorch(12, BlockSoundGroup.WOOD, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
 		soul_torch = MakeTorch(10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
-		campfire = MakeCampfire(15, 1, mapColor);
-		ender_campfire = MakeCampfire(13, 3, mapColor);
-		soul_campfire = MakeCampfire(10, 2, mapColor);
-		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)));
-		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()));
+		campfire = MakeCampfire(15, 1, mapColor, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, false);
+		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {
 		return torch.contains(block) || ender_torch.contains(block) || soul_torch.contains(block)
 				|| campfire.contains(block) || ender_campfire.contains(block) || soul_campfire.contains(block)
-				|| bookshelf.contains(block) || super.contains(block);
+				|| bookshelf.contains(block) || ladder.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
 		return torch.contains(item) || ender_torch.contains(item) || soul_torch.contains(item)
 				|| campfire.contains(item) || ender_campfire.contains(item) || soul_campfire.contains(item)
-				|| bookshelf.contains(item) || super.contains(item);
+				|| bookshelf.contains(item) || ladder.contains(item) || super.contains(item);
 	}
 }

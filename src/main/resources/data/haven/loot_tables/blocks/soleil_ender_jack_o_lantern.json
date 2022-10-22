@@ -1,0 +1,13 @@
+{
+  "pools": [
+	{
+	  "rolls": 1,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "haven:soleil_ender_jack_o_lantern"
+		}
+	  ]
+	}
+  ]
+}

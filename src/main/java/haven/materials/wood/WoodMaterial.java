@@ -43,17 +43,17 @@ public abstract class WoodMaterial extends BaseMaterial implements
 
 	public WoodMaterial(String name, MapColor mapColor, boolean flammable) {
 		super(name, flammable);
-		planks = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)));
-		stairs = new BlockContainer(new HavenStairsBlock(planks.BLOCK));
-		slab = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(planks.BLOCK)));
-		fence = new BlockContainer(new FenceBlock(AbstractBlock.Settings.copy(planks.BLOCK)));
-		fence_gate = new BlockContainer(new FenceGateBlock(AbstractBlock.Settings.copy(planks.BLOCK)));
-		door = new BlockContainer(new HavenDoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks.BLOCK.getDefaultMapColor()).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()));
-		trapdoor = new BlockContainer(new HavenTrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning((a, b, c, d) -> false)));
-		pressure_plate = new BlockContainer(new HavenPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planks.BLOCK.getDefaultMapColor()).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
-		button = new BlockContainer(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)));
-		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)));
-		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()));
+		planks = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		stairs = new BlockContainer(new HavenStairsBlock(planks.BLOCK), ItemSettings());
+		slab = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(planks.BLOCK)), ItemSettings());
+		fence = new BlockContainer(new FenceBlock(AbstractBlock.Settings.copy(planks.BLOCK)), ItemSettings());
+		fence_gate = new BlockContainer(new FenceGateBlock(AbstractBlock.Settings.copy(planks.BLOCK)), ItemSettings());
+		door = new BlockContainer(new HavenDoorBlock(AbstractBlock.Settings.of(Material.WOOD, planks.BLOCK.getDefaultMapColor()).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque()), ItemSettings());
+		trapdoor = new BlockContainer(new HavenTrapdoorBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.0F).sounds(BlockSoundGroup.WOOD).nonOpaque().allowsSpawning((a, b, c, d) -> false)), ItemSettings());
+		pressure_plate = new BlockContainer(new HavenPressurePlateBlock(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planks.BLOCK.getDefaultMapColor()).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		button = new BlockContainer(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 		sign = new SignContainer(name, Material.WOOD, BlockSoundGroup.WOOD);
 		boat = new HavenBoat(name, planks.BLOCK, !isFlammable());
 	}

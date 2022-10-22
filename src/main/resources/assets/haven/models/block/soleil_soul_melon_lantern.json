@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "block/melon_top",
+    "front": "haven:block/soleil_soul_melon_lantern",
+    "side": "block/melon_side"
+  }
+}

@@ -2,7 +2,6 @@ package haven.blocks.anchors;
 
 import haven.HavenMod;
 
-import haven.entities.anchors.AnchorBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.*;

@@ -5,9 +5,17 @@
     "#haven:cherry_leaves",
     "haven:mangrove_leaves",
     "haven:gilded_wart_block",
+  
+    "haven:blue_shroomlight",
     
     "haven:hedge_block",
     
-    "haven:sugar_cane_bale"
+    "haven:sugar_cane_bale",
+    
+    "haven:sculk",
+    "haven:sculk_sensor",
+    "haven:sculk_vein",
+    "haven:sculk_shrieker",
+    "haven:sculk_catalyst"
   ]
 }

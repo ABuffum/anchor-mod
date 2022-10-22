@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "minecraft:block/tuff",
+    "side": "haven:block/tuff_sculk_turf_side",
+    "top": "haven:block/sculk"
+  }
+}

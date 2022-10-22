@@ -17,6 +17,6 @@ public class CarvedGourdBlock extends HorizontalFacingBlock implements Wearable 
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(FACING); }
 
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return (BlockState)this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+		return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
 	}
 }

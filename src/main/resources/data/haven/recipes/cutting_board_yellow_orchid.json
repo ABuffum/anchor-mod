@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "haven:yellow_orchid" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:yellow_orchid_petals" },
+	{ "item": "haven:yellow_orchid_seeds" }
+  ]
+}

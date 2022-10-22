@@ -18,8 +18,9 @@ public class InstrumentMixin {
 		if (HavenTags.Blocks.FLEECE.contains(block)) cir.setReturnValue(Instrument.GUITAR);
 		else if (HavenTags.Blocks.PUMPKINS.contains(block)) cir.setReturnValue(Instrument.DIDGERIDOO);
 		else if (HavenMod.GOLD_MATERIAL.contains(block)) cir.setReturnValue(Instrument.BELL);
-		else if (HavenMod.IRON_MATERIAL.contains(block)) cir.setReturnValue(Instrument.IRON_XYLOPHONE);
+		else if (HavenMod.IRON_MATERIAL.contains(block) || HavenMod.DARK_IRON_MATERIAL.contains(block)) cir.setReturnValue(Instrument.IRON_XYLOPHONE);
 		else if (HavenMod.EMERALD_MATERIAL.contains(block)) cir.setReturnValue(Instrument.BIT);
 		else if (state.isOf(HavenMod.SUGAR_CANE_MATERIAL.getBale().BLOCK)) cir.setReturnValue(Instrument.BANJO);
+		else if (HavenMod.BONE_MATERIAL.contains(block)) cir.setReturnValue(Instrument.XYLOPHONE);
 	}
 }

@@ -13,6 +13,11 @@
 
     "haven:amethyst_slab",
     "haven:amethyst_stairs",
-    "haven:amethyst_wall"
+    "haven:amethyst_wall",
+    
+    "haven:echo_block",
+    "haven:echo_slab",
+    "haven:echo_stairs",
+    "haven:echo_wall"
   ]
 }

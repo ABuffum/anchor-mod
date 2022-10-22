@@ -5,15 +5,20 @@ import haven.blocks.*;
 import haven.blocks.cake.CakeContainer;
 import haven.blocks.gourd.CarvedMelonBlock;
 import haven.blocks.gourd.CarvedWhitePumpkinBlock;
+import haven.blocks.lighting.DynamicLightManager;
+import haven.blocks.lighting.DynamicLitBlock;
+import haven.blocks.lighting.LitAirBlock;
 import haven.blocks.mud.MudCauldronBlock;
 import haven.containers.OxidizableBlockContainer;
 import haven.boats.HavenBoat;
 import haven.boats.HavenBoatDispenserBehavior;
 import haven.command.ChorusCommand;
 import haven.containers.*;
+import haven.entities.hostile.warden.WardenEntity;
 import haven.entities.passive.*;
 import haven.entities.passive.cow.*;
 import haven.entities.tnt.SoftTntEntity;
+import haven.gen.DeepDarkBiome;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.origins.powers.*;
@@ -56,6 +61,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.*;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.HashMap;
@@ -158,8 +164,10 @@ public class HavenRegistry {
 	public static void Register(CakeContainer cake) {
 		String name = cake.getFlavor().getName();
 		Register(name + "_cake", cake.getCake());
-		Register(name += "_candle_cake", cake.getCandleCake());
-		for(DyeColor color : DyeColor.values()) Register(color.getName() + "_" + name, cake.getCandleCake(color));
+		String cc = name + "_candle_cake";
+		Register(cc, cake.getCandleCake());
+		Register(name + "_soul_candle_cake", cake.getSoulCandleCake());
+		for(DyeColor color : DyeColor.values()) Register(color.getName() + "_" + cc, cake.getCandleCake(color));
 	}
 	public static StatusEffect Register(String path, StatusEffect effect) {
 		return Registry.register(Registry.STATUS_EFFECT, ID(path), effect);
@@ -178,6 +186,16 @@ public class HavenRegistry {
 		Registry.register(Registry.BLOCK, id, potted.BLOCK);
 		Registry.register(Registry.ITEM, id, potted.ITEM);
 		Registry.register(Registry.BLOCK, ID("potted_" + path), potted.POTTED);
+	}
+	public static void Register(String path, FlowerContainer flower) {
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		Register(path, (PottedBlockContainer)flower);
+		FlammableBlockRegistry.getDefaultInstance().add(flower.BLOCK, 60, 100);
+		COMPOST.add(flower.ITEM, 0.65F);
+		Register(path + "_petals", flower.PETALS);
+		COMPOST.add(flower.PETALS, 0.325F);
+		Register(path + "_seeds", flower.SEEDS);
+		COMPOST.add(flower.SEEDS.ITEM, 0.3F);
 	}
 	public static void Register(String name, TorchContainer torch) {
 		Register(name + "_torch", name + "_wall_torch", torch);
@@ -404,14 +422,14 @@ public class HavenRegistry {
 			Register(name + "_planks", pair);
 			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
-		if (material instanceof StairsProvider stairs) {
-			BlockContainer pair = stairs.getStairs();
-			Register(name + "_stairs", pair);
-			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
-		}
 		if (material instanceof SlabProvider slab) {
 			BlockContainer pair = slab.getSlab();
 			Register(name + "_slab", pair);
+			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
+		}
+		if (material instanceof StairsProvider stairs) {
+			BlockContainer pair = stairs.getStairs();
+			Register(name + "_stairs", pair);
 			if (flammable) FLAMMABLE.add(pair.BLOCK, 5, 20);
 		}
 		if (material instanceof DoorProvider door) Register(name + "_door", door.getDoor());
@@ -476,6 +494,14 @@ public class HavenRegistry {
 		if (material instanceof BrickSlabProvider brickSlab) Register(name + "_brick_slab", brickSlab.getBrickSlab());
 		if (material instanceof BrickStairsProvider brickStairs) Register(name + "_brick_stairs", brickStairs.getBrickStairs());
 		if (material instanceof BrickWallProvider brickWall) Register(name + "_brick_wall", brickWall.getBrickWall());
+		if (material instanceof PolishedProvider polished) Register("polished_" + name, polished.getPolished());
+		if (material instanceof PolishedSlabProvider polishedSlab) Register("polished_" + name + "_slab", polishedSlab.getPolishedSlab());
+		if (material instanceof PolishedStairsProvider polishedStairs) Register("polished_" + name + "_stairs", polishedStairs.getPolishedStairs());
+		if (material instanceof PolishedWallProvider polishedWall) Register("polished_" + name + "_wall", polishedWall.getPolishedWall());
+		if (material instanceof PolishedBricksProvider polishedBricks) Register("polished_" + name + "_bricks", polishedBricks.getPolishedBricks());
+		if (material instanceof PolishedBrickSlabProvider polishedBrickSlab) Register("polished_" + name + "_brick_slab", polishedBrickSlab.getPolishedBrickSlab());
+		if (material instanceof PolishedBrickStairsProvider polishedBrickStairs) Register("polished_" + name + "_brick_stairs", polishedBrickStairs.getPolishedBrickStairs());
+		if (material instanceof PolishedBrickWallProvider polishedBrickWall) Register("polished_" + name + "_brick_wall", polishedBrickWall.getPolishedBrickWall());
 		if (material instanceof LadderProvider ladder) {
 			BlockContainer pair = ladder.getLadder();
 			Register(name + "_ladder", pair);
@@ -501,41 +527,112 @@ public class HavenRegistry {
 	}
 
 	public static void RegisterFlowers() {
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		//Carnations
-		for (DyeColor color : COLORS) {
-			FlowerContainer carnation = CARNATIONS.get(color);
-			Register(color.getName() + "_carnation", carnation);
-			FLAMMABLE.add(carnation.BLOCK, 60, 100);
-		}
+		for (DyeColor color : COLORS) Register(color.getName() + "_carnation", CARNATIONS.get(color));
 		//Minecraft Earth Flowers
 		Register("buttercup", BUTTERCUP);
-		FLAMMABLE.add(BUTTERCUP.BLOCK, 60, 100);
 		Register("pink_daisy", PINK_DAISY);
-		FLAMMABLE.add(PINK_DAISY.BLOCK, 60, 100);
 		//Other Flowers
 		Register("rose", ROSE);
-		FLAMMABLE.add(ROSE.BLOCK, 60, 100);
 		Register("blue_rose", BLUE_ROSE);
-		FLAMMABLE.add(BLUE_ROSE.BLOCK, 60, 100);
 		Register("magenta_tulip", MAGENTA_TULIP);
-		FLAMMABLE.add(MAGENTA_TULIP.BLOCK, 60, 100);
 		Register("marigold", MARIGOLD);
-		FLAMMABLE.add(MARIGOLD.BLOCK, 60, 100);
 		Register("pink_allium", PINK_ALLIUM);
-		FLAMMABLE.add(PINK_ALLIUM.BLOCK, 60, 100);
 		Register("lavender", LAVENDER);
-		FLAMMABLE.add(LAVENDER.BLOCK, 60, 100);
 		Register("hydrangea", HYDRANGEA);
-		FLAMMABLE.add(HYDRANGEA.BLOCK, 60, 100);
+		Register("magenta_orchid", MAGENTA_ORCHID);
+		Register("purple_orchid", PURPLE_ORCHID);
+		Register("white_orchid", WHITE_ORCHID);
+		Register("yellow_orchid", YELLOW_ORCHID);
 		Register("paeonia", PAEONIA);
-		FLAMMABLE.add(PAEONIA.BLOCK, 60, 100);
 		Register("amaranth", AMARANTH);
+		COMPOST.add(AMARANTH.ITEM, 0.65F);
 		FLAMMABLE.add(AMARANTH.BLOCK, 60, 100);
+		Register("amaranth_petals", AMARANTH_PETALS);
+		COMPOST.add(AMARANTH_PETALS, 0.325F);
+		Register("amaranth_seeds", AMARANTH_SEEDS);
+		COMPOST.add(AMARANTH_SEEDS.ITEM, 0.3F);
+		Register("blue_rose_bush", BLUE_ROSE_BUSH);
+		COMPOST.add(BLUE_ROSE_BUSH.ITEM, 0.65F);
+		FLAMMABLE.add(BLUE_ROSE_BUSH.BLOCK, 60, 100);
 		Register("tall_allium", TALL_ALLIUM);
+		COMPOST.add(TALL_ALLIUM.ITEM, 0.65F);
 		FLAMMABLE.add(TALL_ALLIUM.BLOCK, 60, 100);
 		Register("tall_pink_allium", TALL_PINK_ALLIUM);
+		COMPOST.add(TALL_PINK_ALLIUM.ITEM, 0.65F);
 		FLAMMABLE.add(TALL_PINK_ALLIUM.BLOCK, 60, 100);
+		//Vanilla Flower Extensions
+		Register("allium_petals", ALLIUM_PETALS);
+		COMPOST.add(ALLIUM_PETALS, 0.325F);
+		Register("allium_seeds", ALLIUM_SEEDS);
+		COMPOST.add(ALLIUM_SEEDS.ITEM, 0.3F);
+		Register("azure_bluet_petals", AZURE_BLUET_PETALS);
+		COMPOST.add(AZURE_BLUET_PETALS, 0.325F);
+		Register("azure_bluet_seeds", AZURE_BLUET_SEEDS);
+		COMPOST.add(AZURE_BLUET_SEEDS.ITEM, 0.3F);
+		Register("blue_orchid_petals", BLUE_ORCHID_PETALS);
+		COMPOST.add(BLUE_ORCHID_PETALS, 0.325F);
+		Register("blue_orchid_seeds", BLUE_ORCHID_SEEDS);
+		COMPOST.add(BLUE_ORCHID_SEEDS.ITEM, 0.3F);
+		Register("cornflower_petals", CORNFLOWER_PETALS);
+		COMPOST.add(CORNFLOWER_PETALS, 0.325F);
+		Register("cornflower_seeds", CORNFLOWER_SEEDS);
+		COMPOST.add(CORNFLOWER_SEEDS.ITEM, 0.3F);
+		Register("dandelion_petals", DANDELION_PETALS);
+		COMPOST.add(DANDELION_PETALS, 0.325F);
+		Register("dandelion_seeds", DANDELION_SEEDS);
+		COMPOST.add(DANDELION_SEEDS.ITEM, 0.3F);
+		Register("lilac_petals", LILAC_PETALS);
+		COMPOST.add(LILAC_PETALS, 0.325F);
+		Register("lilac_seeds", LILAC_SEEDS);
+		COMPOST.add(LILAC_SEEDS.ITEM, 0.3F);
+		Register("lily_of_the_valley_petals", LILY_OF_THE_VALLEY_PETALS);
+		COMPOST.add(LILY_OF_THE_VALLEY_PETALS, 0.325F);
+		Register("lily_of_the_valley_seeds", LILY_OF_THE_VALLEY_SEEDS);
+		COMPOST.add(LILY_OF_THE_VALLEY_SEEDS.ITEM, 0.3F);
+		Register("orange_tulip_petals", ORANGE_TULIP_PETALS);
+		COMPOST.add(ORANGE_TULIP_PETALS, 0.325F);
+		Register("orange_tulip_seeds", ORANGE_TULIP_SEEDS);
+		COMPOST.add(ORANGE_TULIP_SEEDS.ITEM, 0.3F);
+		Register("oxeye_daisy_petals", OXEYE_DAISY_PETALS);
+		COMPOST.add(OXEYE_DAISY_PETALS, 0.325F);
+		Register("oxeye_daisy_seeds", OXEYE_DAISY_SEEDS);
+		COMPOST.add(OXEYE_DAISY_SEEDS.ITEM, 0.3F);
+		Register("peony_petals", PEONY_PETALS);
+		COMPOST.add(PEONY_PETALS, 0.325F);
+		Register("peony_seeds", PEONY_SEEDS);
+		COMPOST.add(PEONY_SEEDS.ITEM, 0.3F);
+		Register("pink_tulip_petals", PINK_TULIP_PETALS);
+		COMPOST.add(PINK_TULIP_PETALS, 0.325F);
+		Register("pink_tulip_seeds", PINK_TULIP_SEEDS);
+		COMPOST.add(PINK_TULIP_SEEDS.ITEM, 0.3F);
+		Register("poppy_petals", POPPY_PETALS);
+		COMPOST.add(POPPY_PETALS, 0.325F);
+		Register("poppy_seeds", POPPY_SEEDS);
+		COMPOST.add(POPPY_SEEDS.ITEM, 0.3F);
+		Register("red_tulip_petals", RED_TULIP_PETALS);
+		COMPOST.add(RED_TULIP_PETALS, 0.325F);
+		Register("red_tulip_seeds", RED_TULIP_SEEDS);
+		COMPOST.add(RED_TULIP_SEEDS.ITEM, 0.3F);
+		Register("sunflower_petals", SUNFLOWER_PETALS);
+		COMPOST.add(SUNFLOWER_PETALS, 0.325F);
+		Register("sunflower_seeds", SUNFLOWER_SEEDS);
+		COMPOST.add(SUNFLOWER_SEEDS.ITEM, 0.3F);
+		Register("white_tulip_petals", WHITE_TULIP_PETALS);
+		COMPOST.add(WHITE_TULIP_PETALS, 0.325F);
+		Register("white_tulip_seeds", WHITE_TULIP_SEEDS);
+		COMPOST.add(WHITE_TULIP_SEEDS.ITEM, 0.3F);
+		Register("wither_rose_petals", WITHER_ROSE_PETALS);
+		COMPOST.add(WITHER_ROSE_PETALS, 0.325F);
+		Register("wither_rose_seeds", WITHER_ROSE_SEEDS);
+		COMPOST.add(WITHER_ROSE_SEEDS.ITEM, 0.3F);
+		//Special Petals (no seeds)
+		Register("azalea_petals", AZALEA_PETALS);
+		COMPOST.add(AZALEA_PETALS, 0.325F);
+		Register("spore_blossom_petal", SPORE_BLOSSOM_PETAL);
+		COMPOST.add(SPORE_BLOSSOM_PETAL, 0.1625F);
 	}
 
 	public static void RegisterFleece() {
@@ -547,7 +644,7 @@ public class HavenRegistry {
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getHorseArmor(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 	}
 
-	public static void RegisterSoftTNT() {
+	public static void RegisterSoleil() {
 		Register("soft_tnt", SOFT_TNT);
 		Register("soft_tnt", SOFT_TNT_ENTITY);
 		DispenserBlock.registerBehavior(SOFT_TNT.BLOCK, new ItemDispenserBehavior() {
@@ -562,6 +659,23 @@ public class HavenRegistry {
 				return stack;
 			}
 		});
+		//Carved Gourds
+		Register("soleil_carved_pumpkin", SOLEIL_CARVED_PUMPKIN);
+		Register("soleil_jack_o_lantern", SOLEIL_JACK_O_LANTERN);
+		Register("soleil_soul_jack_o_lantern", SOLEIL_SOUL_JACK_O_LANTERN);
+		Register("soleil_ender_jack_o_lantern", SOLEIL_ENDER_JACK_O_LANTERN);
+		Register("soleil_carved_melon", SOLEIL_CARVED_MELON);
+		Register("soleil_melon_lantern", SOLEIL_MELON_LANTERN);
+		Register("soleil_soul_melon_lantern", SOLEIL_SOUL_MELON_LANTERN);
+		Register("soleil_ender_melon_lantern", SOLEIL_ENDER_MELON_LANTERN);
+		Register("soleil_carved_white_pumpkin", SOLEIL_CARVED_WHITE_PUMPKIN);
+		Register("soleil_white_jack_o_lantern", SOLEIL_WHITE_JACK_O_LANTERN);
+		Register("soleil_white_soul_jack_o_lantern", SOLEIL_WHITE_SOUL_JACK_O_LANTERN);
+		Register("soleil_white_ender_jack_o_lantern", SOLEIL_WHITE_ENDER_JACK_O_LANTERN);
+		Register("soleil_carved_rotten_pumpkin", SOLEIL_CARVED_ROTTEN_PUMPKIN);
+		Register("soleil_rotten_jack_o_lantern", SOLEIL_ROTTEN_JACK_O_LANTERN);
+		Register("soleil_rotten_soul_jack_o_lantern", SOLEIL_ROTTEN_SOUL_JACK_O_LANTERN);
+		Register("soleil_rotten_ender_jack_o_lantern", SOLEIL_ROTTEN_ENDER_JACK_O_LANTERN);
 	}
 	public static void RegisterCoffee() {
 		Register("coffee_plant", COFFEE_PLANT);
@@ -574,36 +688,48 @@ public class HavenRegistry {
 		Register("black_coffee", BLACK_COFFEE);
 	}
 	public static void RegisterCherry() {
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		Register(CHERRY_MATERIAL);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cherry_tree"), CHERRY_TREE);
 		Register("white_cherry_leaves", WHITE_CHERRY_LEAVES);
-		FlammableBlockRegistry.getDefaultInstance().add(WHITE_CHERRY_LEAVES.BLOCK, 30, 60);
+		FLAMMABLE.add(WHITE_CHERRY_LEAVES.BLOCK, 30, 60);
+		Register("white_cherry_petals", WHITE_CHERRY_PETALS);
+		COMPOST.add(WHITE_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("white_cherry_tree"), WHITE_CHERRY_TREE);
 		Register("pale_cherry_leaves", PALE_CHERRY_LEAVES);
-		FlammableBlockRegistry.getDefaultInstance().add(PALE_CHERRY_LEAVES.BLOCK, 30, 60);
+		FLAMMABLE.add(PALE_CHERRY_LEAVES.BLOCK, 30, 60);
+		Register("pale_cherry_petals", PALE_CHERRY_PETALS);
+		COMPOST.add(PALE_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pale_cherry_tree"), PALE_CHERRY_TREE);
 		Register("pink_cherry_leaves", PINK_CHERRY_LEAVES);
-		FlammableBlockRegistry.getDefaultInstance().add(PINK_CHERRY_LEAVES.BLOCK, 30, 60);
+		FLAMMABLE.add(PINK_CHERRY_LEAVES.BLOCK, 30, 60);
+		Register("pink_cherry_petals", PINK_CHERRY_PETALS);
+		COMPOST.add(PINK_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
 		Register("cherry", CHERRY_ITEM);
-		CompostingChanceRegistry.INSTANCE.add(CHERRY_ITEM, 0.65F);
+		COMPOST.add(CHERRY_ITEM, 0.65F);
 	}
 	public static void RegisterCinnamon() {
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		Register("cinnamon", CINNAMON);
-		CompostingChanceRegistry.INSTANCE.add(CINNAMON, 0.2f);
+		COMPOST.add(CINNAMON, 0.2f);
 		Register(CASSIA_MATERIAL);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
 		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.BLOCK, 30, 60);
+		Register("cassia_petals", CASSIA_PETALS);
+		COMPOST.add(CASSIA_PETALS, 0.325f);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cassia_tree"), CASSIA_TREE);
 	}
 	public static void RegisterVanilla() {
+		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		Register("vanilla_flower", VANILLA_FLOWER);
-		FLAMMABLE.add(VANILLA_FLOWER.BLOCK, 60, 100);
 		Register("tall_vanilla", TALL_VANILLA);
+		COMPOST.add(TALL_PINK_ALLIUM.ITEM, 0.65F);
 		FLAMMABLE.add(TALL_VANILLA.BLOCK, 60, 100);
 		Register("vanilla", VANILLA);
-		CompostingChanceRegistry.INSTANCE.add(VANILLA, 0.2f);
+		COMPOST.add(VANILLA, 0.2f);
 	}
 	public static void RegisterCookies() {
 		Register("snickerdoodle", SNICKERDOODLE);
@@ -819,14 +945,89 @@ public class HavenRegistry {
 		//Deep Dark
 		Register("reinforced_deepslate", REINFORCED_DEEPSLATE);
 		Register("echo_shard", ECHO_SHARD);
-		//TODO: Finish Echo Material
-		//Register(ECHO_MATERIAL);
+		//TODO: Finish Echo Material - do not register the block separately from the material
+		//Register("echo_block", ECHO_MATERIAL.getBlock());
+		Register(ECHO_MATERIAL);
+		Register("budding_echo", BUDDING_ECHO);
+		Register("echo_cluster", ECHO_CLUSTER);
+		Register("large_echo_bud", LARGE_ECHO_BUD);
+		Register("medium_echo_bud", MEDIUM_ECHO_BUD);
+		Register("small_echo_bud", SMALL_ECHO_BUD);
+		//Sculk
+		Register("sculk_sensor", SCULK_SENSOR);
+		Register("sculk_sensor_entity", SCULK_SENSOR_ENTITY);
+		Register(SCULK_STONE_MATERIAL);
+		Register("calcite_sculk_turf", CALCITE_SCULK_TURF);
+		Register("deepslate_sculk_turf", DEEPSLATE_SCULK_TURF);
+		Register("dripstone_sculk_turf", DRIPSTONE_SCULK_TURF);
+		Register("smooth_basalt_sculk_turf", SMOOTH_BASALT_SCULK_TURF);
+		Register("tuff_sculk_turf", TUFF_SCULK_TURF);
+		Register("sculk", SCULK);
+		Register("sculk_vein", SCULK_VEIN);
+		Register("sculk_soul", SCULK_SOUL_PARTICLE);
+		Register("sculk_catalyst", SCULK_CATALYST);
+		Register("sculk_catalyst_entity", SCULK_CATALYST_ENTITY);
+		Register("sculk_shrieker", SCULK_SHRIEKER);
+		Register("sculk_shrieker_entity", SCULK_SHRIEKER_ENTITY);
+		Registry.register(Registry.PARTICLE_TYPE, ID("sculk_charge"), SCULK_CHARGE_PARTICLE);
+		Register("sculk_charge_pop", SCULK_CHARGE_POP_PARTICLE);
+		Registry.register(Registry.PARTICLE_TYPE, ID("shriek"), SHRIEK_PARTICLE);
+		Register("sonic_boom", SONIC_BOOM_PARTICLE);
+		Register("darkness", DARKNESS_EFFECT);
+		FabricDefaultAttributeRegistry.register(WARDEN_ENTITY, WardenEntity.addAttributes());
+		Register("warden", WARDEN_ENTITY);
+		Register("warden_spawn_egg", WARDEN_SPAWN_EGG);
+		//Deep Dark
+		Registry.register(Registry.FEATURE, ID("sculk_patch"), DeepDarkBiome.SCULK_PATCH_FEATURE);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("sculk_patch_deep_dark"), DeepDarkBiome.SCULK_PATCH_DEEP_DARK_FEATURE);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("sculk_patch_ancient_city"), DeepDarkBiome.SCULK_PATCH_ANCIENT_CITY_FEATURE);
+		Registry.register(Registry.FEATURE, ID("sculk_vein"), SCULK_VEIN_FEATURE);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("sculk_vein"), DeepDarkBiome.SCULK_VEIN_FEATURE);
+		//Biome
+		//Registry.register(BuiltinRegistries.BIOME, DEEP_DARK_KEY.getValue(), DEEP_DARK);
+		//TODO: Register Ancient City
+		//BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST, new Identifier("ancient_city_start_degradation"), HavenStructures.ANCIENT_CITY_START_DEGRADATION);
+		//BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST, new Identifier("ancient_city_generic_degradation"), HavenStructures.ANCIENT_CITY_GENERIC_DEGRADATION);
+		//BuiltinRegistries.add(BuiltinRegistries.STRUCTURE_PROCESSOR_LIST, new Identifier("ancient_city_walls_degradation"), HavenStructures.ANCIENT_CITY_WALLS_DEGRADATION);
+		//Structures.register(HavenStructures.ANCIENT_CITY);
+
+		//StructurePools.register(AncientCityGenerator.CITY_CENTER);
+		//StructurePools.register(AncientCityOutskirtsGenerator.STRUCTURES);
+		//StructurePools.register(AncientCityOutskirtsGenerator.SCULK);
+		//StructurePools.register(AncientCityOutskirtsGenerator.WALLS);
+		//StructurePools.register(AncientCityOutskirtsGenerator.WALLS_NO_CORNERS);
+		//StructurePools.register(AncientCityOutskirtsGenerator.CITY_CENTER_WALLS);
+		//StructurePools.register(AncientCityOutskirtsGenerator.ENTRANCE);
 	}
+	public static Block RegisterDynamicLightingBlock(String path, Block lit) {
+		Register(path, lit);
+		if (lit instanceof DynamicLitBlock dynamic) DynamicLightManager.vanillaBlocksToLitBlocksMap.put(dynamic.getUnlitBlock(), lit);
+		else throw new IllegalArgumentException("Block must implement DynamicLitBlock");
+		return lit;
+	}
+	public static void RegisterDynamicLights() {
+		//Air
+		RegisterDynamicLightingBlock("lit_air", LIT_AIR);
+		RegisterDynamicLightingBlock("lit_cave_air", LIT_CAVE_AIR);
+		RegisterDynamicLightingBlock("lit_void_air", LIT_VOID_AIR);
+		RegisterDynamicLightingBlock("lit_blood", LIT_BLOOD);
+		//Fluids
+		RegisterDynamicLightingBlock("lit_mud", LIT_MUD);
+		RegisterDynamicLightingBlock("lit_water", LIT_WATER);
+		//Climbable
+		RegisterDynamicLightingBlock("lit_ladder", LIT_LADDER);
+
+		for(Block block : DynamicLightManager.vanillaBlocksToLitBlocksMap.keySet()) {
+			System.out.println(block + " -> " + DynamicLightManager.vanillaBlocksToLitBlocksMap.get(block));
+		}
+	}
+	public static final RegistryKey<Biome> DEEP_DARK_KEY = RegistryKey.of(Registry.BIOME_KEY, ID("deep_dark"));
 	public static void RegisterCandy() {
 		Register("cinnamon_bean", CINNAMON_BEAN);
 		Register("pink_cotton_candy", PINK_COTTON_CANDY);
 		Register("blue_cotton_candy", BLUE_COTTON_CANDY);
 		Register("candy_cane", CANDY_CANE);
+		Register("candy_corn", CANDY_CORN);
 		Register("caramel", CARAMEL);
 		Register("lollipop", LOLLIPOP);
 		Register("caramel_apple", CARAMEL_APPLE);
@@ -947,6 +1148,7 @@ public class HavenRegistry {
 		Register("blood_bottle", BLOOD_BOTTLE);
 		Register("lava_bottle", LAVA_BOTTLE);
 		FluidStorage.combinedItemApiProvider(LAVA_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(Fluids.LAVA), FluidConstants.BOTTLE));
+		Register("distilled_water_bottle", DISTILLED_WATER_BOTTLE);
 		Register("sugar_water_bottle", SUGAR_WATER_BOTTLE);
 		Register("ichored", ICHORED_EFFECT);
 		Register("ichor_bottle", ICHOR_BOTTLE);
@@ -1043,6 +1245,9 @@ public class HavenRegistry {
 		Register(ClownPacifistPower::createFactory);
 		Register(ChorusTeleportPower::createFactory);
 		Register(LactoseIntolerantPower::createFactory);
+		Register(IlluminatedPower::createFactory);
+		Register(SkinGlowPower::createFactory);
+		Register(PulsingSkinGlowPower::createFactory);
 	}
 	public static void RegisterAngelBat() {
 		Register("angel_bat", ANGEL_BAT_ENTITY);
@@ -1259,6 +1464,9 @@ public class HavenRegistry {
 	}
 	public static void RegisterCakes() {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
+		Register("small_soul_flame", SMALL_SOUL_FLAME_PARTICLE);
+		Register("soul_candle", SOUL_CANDLE);
+		Register("soul_candle_cake", SOUL_CANDLE_CAKE);
 		Register(CHOCOLATE_CAKE);
 		COMPOST.add(CHOCOLATE_CAKE.getCake().ITEM, 1F);
 		Register(COFFEE_CAKE);
@@ -1349,6 +1557,7 @@ public class HavenRegistry {
 		Register(STUDDED_LEATHER_MATERIAL);
 		RegisterFleece();
 		Register(AMETHYST_MATERIAL);
+		Register("tinted_goggles", TINTED_GOGGLES);
 		Register(EMERALD_MATERIAL);
 		Register(DIAMOND_MATERIAL);
 		Register(QUARTZ_MATERIAL);
@@ -1357,6 +1566,9 @@ public class HavenRegistry {
 		Register(DRIPSTONE_MATERIAL);
 		Register(TUFF_MATERIAL);
 		Register(PURPUR_MATERIAL);
+		Register(GILDED_BLACKSTONE_MATERIAL);
+		Register("chiseled_polished_gilded_blackstone", CHISELED_POLISHED_GILDED_BLACKSTONE);
+		Register("cracked_polished_gilded_blackstone_bricks", CRACKED_POLISHED_GILDED_BLACKSTONE_BRICKS);
 		Register("tinted_glass_pane", TINTED_GLASS_PANE);
 		Register("pteror", PTEROR);
 		Register("sbehesohe", SBEHESOHE);
@@ -1365,7 +1577,7 @@ public class HavenRegistry {
 		Register("emerald_locket", EMERALD_LOCKET);
 		Register("amber_eye", AMBER_EYE);
 		Register("amber_eye_end_portal_frame", AMBER_EYE_END_PORTAL_FRAME);
-		RegisterSoftTNT();
+		RegisterSoleil();
 		RegisterCoffee();
 		Register("haven_boat", BOAT_ENTITY);
 		RegisterCherry();
@@ -1379,6 +1591,8 @@ public class HavenRegistry {
 		RegisterMushroomWood();
 		RegisterVanillaNetherWood();
 		RegisterGildedFungus();
+		Register("blue_shroomlight", BLUE_SHROOMLIGHT);
+		CompostingChanceRegistry.INSTANCE.add(BLUE_SHROOMLIGHT.ITEM, 0.65F);
 		Register(WOOD_MATERIAL);
 		Register("shoddy_wood_bucket", SHODDY_WOOD_BUCKET);
 		RegisterThrowableTomatoes();
@@ -1386,6 +1600,9 @@ public class HavenRegistry {
 		Register("bleeding", BLEEDING_EFFECT);
 		Register("bone_rot", BONE_ROT_EFFECT);
 		Register("marked", MARKED_EFFECT);
+		Register("withering", WITHERING_EFFECT);
+		Register("protected", PROTECTED_EFFECT);
+		Register("relieved", RELIEVED_EFFECT);
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
 		JUICE_MAP.put(MUD.ITEM, MUD_BOTTLE);
 		JUICE_MAP.put(Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
@@ -1416,6 +1633,8 @@ public class HavenRegistry {
 		Register("golden_tomato", GOLDEN_TOMATO);
 		Register("golden_onion", GOLDEN_ONION);
 		Register("golden_egg", GOLDEN_EGG);
+		Register("red_curse_breaker_potion", RED_CURSE_BREAKER_POTION);
+		Register("white_curse_breaker_potion", WHITE_CURSE_BREAKER_POTION);
 		RegisterPoison();
 		RegisterCakes();
 		RegisterBottledConfetti();
@@ -1427,9 +1646,7 @@ public class HavenRegistry {
 		Register("wax_block", WAX_BLOCK);
 		Register("horn", HORN);
 		RegisterLiquidMud();
+		RegisterDynamicLights();
 		RegisterBackport();
-		//Compostable Items
-		for(FlowerContainer flower : FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
-		for(BlockContainer flower : TALL_FLOWERS) CompostingChanceRegistry.INSTANCE.add(flower.ITEM, 0.65F);
 	}
 }

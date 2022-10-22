@@ -35,15 +35,15 @@ public class SugarCaneMaterial extends WoodMaterial implements
 
 	public SugarCaneMaterial(String name, MapColor mapColor) {
 		super(name, mapColor, true);
-		bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)));
-		bale = new BlockContainer(new HayBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, mapColor).strength(0.5F).sounds(BlockSoundGroup.GRASS)));
-		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.0F).sounds(BlockSoundGroup.WOOD)));
+		bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		bale = new BlockContainer(new HayBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, mapColor).strength(0.5F).sounds(BlockSoundGroup.GRASS)), ItemSettings());
+		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		torch = MakeTorch(14, BlockSoundGroup.GRASS, ParticleTypes.FLAME);
 		ender_torch = MakeTorch(12, BlockSoundGroup.GRASS, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
 		soul_torch = MakeTorch(10, BlockSoundGroup.GRASS, ParticleTypes.SOUL_FIRE_FLAME);
-		campfire = MakeCampfire(15, 1, mapColor);
-		ender_campfire = MakeCampfire(13, 3, mapColor);
-		soul_campfire = MakeCampfire(10, 2, mapColor);
+		campfire = MakeCampfire(15, 1, mapColor, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, false);
 	}
 
 	public boolean contains(Block block) {

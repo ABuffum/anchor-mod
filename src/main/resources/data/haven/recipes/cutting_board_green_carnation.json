@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "haven:green_carnation" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:green_carnation_petals" },
+	{ "item": "haven:green_carnation_seeds" }
+  ]
+}

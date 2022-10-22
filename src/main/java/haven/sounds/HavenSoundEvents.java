@@ -34,6 +34,31 @@ public class HavenSoundEvents {
 	public static final SoundEvent BLOCK_PACKED_MUD_HIT = registerSoundEvent("block.packed_mud.hit");
 	public static final SoundEvent BLOCK_PACKED_MUD_PLACE = registerSoundEvent("block.packed_mud.place");
 	public static final SoundEvent BLOCK_PACKED_MUD_STEP = registerSoundEvent("block.packed_mud.step");
+	//Sculk
+	public static final SoundEvent BLOCK_SCULK_SPREAD = registerSoundEvent("block.sculk.spread");
+	public static final SoundEvent BLOCK_SCULK_CHARGE = registerSoundEvent("block.sculk.charge");
+	public static final SoundEvent BLOCK_SCULK_BREAK = registerSoundEvent("block.sculk.break");
+	public static final SoundEvent BLOCK_SCULK_FALL = registerSoundEvent("block.sculk.fall");
+	public static final SoundEvent BLOCK_SCULK_HIT = registerSoundEvent("block.sculk.hit");
+	public static final SoundEvent BLOCK_SCULK_PLACE = registerSoundEvent("block.sculk.place");
+	public static final SoundEvent BLOCK_SCULK_STEP = registerSoundEvent("block.sculk.step");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_BLOOM = registerSoundEvent("block.sculk_catalyst.bloom");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_BREAK = registerSoundEvent("block.sculk_catalyst.break");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_FALL = registerSoundEvent("block.sculk_catalyst.fall");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_HIT = registerSoundEvent("block.sculk_catalyst.hit");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_PLACE = registerSoundEvent("block.sculk_catalyst.place");
+	public static final SoundEvent BLOCK_SCULK_CATALYST_STEP = registerSoundEvent("block.sculk_catalyst.step");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_BREAK = registerSoundEvent("block.sculk_shrieker.break");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_FALL = registerSoundEvent("block.sculk_shrieker.fall");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_HIT = registerSoundEvent("block.sculk_shrieker.hit");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_PLACE = registerSoundEvent("block.sculk_shrieker.place");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_SHRIEK = registerSoundEvent("block.sculk_shrieker.shriek");
+	public static final SoundEvent BLOCK_SCULK_SHRIEKER_STEP = registerSoundEvent("block.sculk_shrieker.step");
+	public static final SoundEvent BLOCK_SCULK_VEIN_BREAK = registerSoundEvent("block.sculk_vein.break");
+	public static final SoundEvent BLOCK_SCULK_VEIN_FALL = registerSoundEvent("block.sculk_vein.fall");
+	public static final SoundEvent BLOCK_SCULK_VEIN_HIT = registerSoundEvent("block.sculk_vein.hit");
+	public static final SoundEvent BLOCK_SCULK_VEIN_PLACE = registerSoundEvent("block.sculk_vein.place");
+	public static final SoundEvent BLOCK_SCULK_VEIN_STEP = registerSoundEvent("block.sculk_vein.step");
 	//Froglight
 	public static final SoundEvent BLOCK_FROGLIGHT_BREAK = registerSoundEvent("block.froglight.break");
 	public static final SoundEvent BLOCK_FROGLIGHT_FALL = registerSoundEvent("block.froglight.fall");
@@ -56,6 +81,29 @@ public class HavenSoundEvents {
 	public static final SoundEvent ENTITY_FROG_LONG_JUMP = registerSoundEvent("entity.frog.long_jump");
 	public static final SoundEvent ENTITY_FROG_STEP = registerSoundEvent("entity.frog.step");
 	public static final SoundEvent ENTITY_FROG_TONGUE = registerSoundEvent("entity.frog.tongue");
+	//Warden
+	public static final SoundEvent ENTITY_WARDEN_AGITATED = registerSoundEvent("entity.warden.agitated");
+	public static final SoundEvent ENTITY_WARDEN_AMBIENT = registerSoundEvent("entity.warden.ambient");
+	public static final SoundEvent ENTITY_WARDEN_ANGRY = registerSoundEvent("entity.warden.angry");
+	public static final SoundEvent ENTITY_WARDEN_ATTACK_IMPACT = registerSoundEvent("entity.warden.attack_impact");
+	public static final SoundEvent ENTITY_WARDEN_DEATH = registerSoundEvent("entity.warden.death");
+	public static final SoundEvent ENTITY_WARDEN_DIG = registerSoundEvent("entity.warden.dig");
+	public static final SoundEvent ENTITY_WARDEN_EMERGE = registerSoundEvent("entity.warden.emerge");
+	public static final SoundEvent ENTITY_WARDEN_HEARTBEAT = registerSoundEvent("entity.warden.heartbeat");
+	public static final SoundEvent ENTITY_WARDEN_HURT = registerSoundEvent("entity.warden.hurt");
+	public static final SoundEvent ENTITY_WARDEN_LISTENING = registerSoundEvent("entity.warden.listening");
+	public static final SoundEvent ENTITY_WARDEN_LISTENING_ANGRY = registerSoundEvent("entity.warden.listening_angry");
+	public static final SoundEvent ENTITY_WARDEN_NEARBY_CLOSE = registerSoundEvent("entity.warden.nearby_close");
+	public static final SoundEvent ENTITY_WARDEN_NEARBY_CLOSER = registerSoundEvent("entity.warden.nearby_closer");
+	public static final SoundEvent ENTITY_WARDEN_NEARBY_CLOSEST = registerSoundEvent("entity.warden.nearby_closest");
+	public static final SoundEvent ENTITY_WARDEN_ROAR = registerSoundEvent("entity.warden.roar");
+	public static final SoundEvent ENTITY_WARDEN_SNIFF = registerSoundEvent("entity.warden.sniff");
+	public static final SoundEvent ENTITY_WARDEN_SONIC_BOOM = registerSoundEvent("entity.warden.sonic_boom");
+	public static final SoundEvent ENTITY_WARDEN_SONIC_CHARGE = registerSoundEvent("entity.warden.sonic_charge");
+	public static final SoundEvent ENTITY_WARDEN_STEP = registerSoundEvent("entity.warden.step");
+	public static final SoundEvent ENTITY_WARDEN_TENDRIL_CLICKS = registerSoundEvent("entity.warden.tendril_clicks");
+	//Music
+	public static final SoundEvent MUSIC_OVERWORLD_DEEP_DARK = registerSoundEvent("music.overworld.deep_dark");
 	//Music Discs
 	public static final SoundEvent MUSIC_DISC_OTHERSIDE = registerSoundEvent("music_disc.otherside");
 	public static final SoundEvent MUSIC_DISC_5 = registerSoundEvent("music_disc.5");

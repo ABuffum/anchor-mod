@@ -42,6 +42,9 @@ public enum HavenArmorMaterials implements ArmorMaterial {
 	}),
 	STUDDED_LEATHER("studded_leather", 5, new int[]{2, 3, 4, 2}, 12, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.IRON_NUGGET);
+	}),
+	TINTED_GOGGLES("tinted_goggles", 25, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F, () -> {
+		return Ingredient.ofItems(Items.TINTED_GLASS, Items.LEATHER, Items.AMETHYST_SHARD);
 	});
 
 	private static final int[] BASE_DURABILITY = new int[]{13, 15, 16, 11};
@@ -82,7 +85,7 @@ public enum HavenArmorMaterials implements ArmorMaterial {
 	}
 
 	public Ingredient getRepairIngredient() {
-		return (Ingredient)this.repairIngredientSupplier.get();
+		return this.repairIngredientSupplier.get();
 	}
 
 	public String getName() {

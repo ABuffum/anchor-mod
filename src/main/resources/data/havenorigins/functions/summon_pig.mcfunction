@@ -1,0 +1,2 @@
+execute unless entity @e[type=minecraft:pig,name=Secretariat] run summon minecraft:pig ~ ~ ~ {CustomName:"\"Secretariat\"",Saddle:1}
+execute if entity @e[type=minecraft:pig,name=Secretariat] run tp @e[type=minecraft:pig,name=Secretariat] ~ ~ ~

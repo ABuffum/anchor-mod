@@ -20,8 +20,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
 public class PoisonBottleItem extends Item {
-	public PoisonBottleItem(Settings settings) {
+	public final int duration;
+	public final int amplifier;
+	public PoisonBottleItem(int duration, int amplifier, Settings settings) {
 		super(settings);
+		this.duration = duration;
+		this.amplifier = amplifier;
 	}
 
 	@Override
@@ -31,7 +35,7 @@ public class PoisonBottleItem extends Item {
 			Criteria.CONSUME_ITEM.trigger(player, stack);
 		}
 		if (!world.isClient) {
-			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 2));
+			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, duration, amplifier));
 		}
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));

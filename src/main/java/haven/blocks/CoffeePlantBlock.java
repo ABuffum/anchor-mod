@@ -30,58 +30,44 @@ public class CoffeePlantBlock extends PlantBlock implements Fertilizable {
 
 	public CoffeePlantBlock(AbstractBlock.Settings settings) {
 		super(settings);
-		this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(AGE, 0));
+		this.setDefaultState(this.stateManager.getDefaultState().with(AGE, 0));
 	}
 
-	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return new ItemStack(HavenMod.COFFEE_CHERRY);
-	}
+	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) { return new ItemStack(HavenMod.COFFEE_CHERRY); }
 
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return (Integer)state.get(AGE) == 0 ? SMALL_SHAPE : SHAPE;
+		return state.get(AGE) == 0 ? SMALL_SHAPE : SHAPE;
 	}
 
-	public boolean hasRandomTicks(BlockState state) {
-		return (Integer)state.get(AGE) < MAX_AGE;
-	}
+	public boolean hasRandomTicks(BlockState state) { return state.get(AGE) < MAX_AGE; }
 
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		int i = (Integer)state.get(AGE);
+		int i = state.get(AGE);
 		if (i < MAX_AGE && random.nextInt(5) == 0 && world.getBaseLightLevel(pos.up(), 0) >= 9) {
-			world.setBlockState(pos, (BlockState)state.with(AGE, i + 1), 2);
+			world.setBlockState(pos, state.with(AGE, i + 1), 2);
 		}
 	}
 
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		int i = (Integer)state.get(AGE);
+		int i = state.get(AGE);
 		boolean bl = i == MAX_AGE;
-		if (!bl && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) {
-			return ActionResult.PASS;
-		} else if (i > 1) {
-			int count = 1 + world.random.nextInt(2);
-			dropStack(world, pos, new ItemStack(HavenMod.COFFEE_CHERRY, count));
+		if (!bl && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) return ActionResult.PASS;
+		else if (i > 1) {
+			dropStack(world, pos, new ItemStack(HavenMod.COFFEE_CHERRY, 1 + world.random.nextInt(2)));
 			world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CROP_BREAK, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
 			world.setBlockState(pos, (BlockState)state.with(AGE, 1), 2);
 			return ActionResult.success(world.isClient);
-		} else {
-			return super.onUse(state, world, pos, player, hand, hit);
 		}
+		else return super.onUse(state, world, pos, player, hand, hit);
 	}
 
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(new Property[]{AGE});
-	}
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(AGE); }
 
-	public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) {
-		return (Integer)state.get(AGE) < MAX_AGE;
-	}
+	public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) { return state.get(AGE) < MAX_AGE; }
 
-	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-		return true;
-	}
+	public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) { return true; }
 
 	public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-		int i = Math.min(MAX_AGE, (Integer)state.get(AGE) + 1);
-		world.setBlockState(pos, (BlockState)state.with(AGE, i), 2);
+		world.setBlockState(pos, state.with(AGE, Math.min(MAX_AGE, state.get(AGE) + 1)), 2);
 	}
 }

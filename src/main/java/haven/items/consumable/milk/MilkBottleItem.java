@@ -1,6 +1,6 @@
 package haven.items.consumable.milk;
 
-import haven.util.BucketUtils;
+import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
@@ -31,7 +31,15 @@ public class MilkBottleItem extends Item {
 		}
 		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
 		if (!world.isClient) MilkUtils.ApplyMilk(world, user);
-		return stack.isEmpty() ? new ItemStack(Items.GLASS_BOTTLE) : stack;
+		ItemStack container = new ItemStack(stack.getItem().getRecipeRemainder());
+		if (stack.isEmpty()) return container;
+		else {
+			if (user instanceof PlayerEntity) {
+				PlayerEntity player = (PlayerEntity)user;
+				if (!player.getAbilities().creativeMode && !player.getInventory().insertStack(container)) player.dropItem(container, false);
+			}
+			return stack;
+		}
 	}
 
 	public int getMaxUseTime(ItemStack stack) { return MAX_USE_TIME; }

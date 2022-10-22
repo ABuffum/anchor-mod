@@ -3,18 +3,17 @@ package haven.items.consumable;
 import haven.HavenMod;
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
+import haven.util.WaterBottleUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -34,7 +33,7 @@ public class SugarWaterBottleItem extends Item {
 			BloodType bloodType = BloodType.Get(user);
 			if (bloodType == BloodType.SUGAR_WATER) user.heal(2);
 			else if (bloodType == BloodType.WATER) user.heal(1);
-			else if (bloodType.IsWaterVulnerable()) user.damage(HavenDamageSource.DRANK_SUGAR_WATER, 4);
+			else if (bloodType.IsWaterVulnerable()) user.damage(HavenDamageSource.DRANK_SUGAR_WATER, 2);
 		}
 		if (playerEntity != null) {
 			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -46,6 +45,11 @@ public class SugarWaterBottleItem extends Item {
 		}
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
 		return stack;
+	}
+
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		return WaterBottleUtil.useOnBlock(context);
 	}
 
 	@Override

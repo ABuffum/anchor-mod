@@ -4,6 +4,7 @@
     "haven:amethyst_crystal_wall",
     "haven:amethyst_brick_wall",
     "haven:amethyst_wall",
+    "haven:echo_wall",
     "haven:emerald_brick_wall",
     "haven:cut_emerald_wall",
     "haven:diamond_brick_wall",
@@ -43,6 +44,8 @@
     "haven:obsidian_wall",
     "haven:crying_obsidian_wall",
     "haven:bleeding_obsidian_wall",
+    
+    "haven:mud_brick_wall",
   
     "haven:calcite_brick_wall",
     "haven:smooth_calcite_wall",
@@ -52,6 +55,11 @@
     "haven:smooth_tuff_wall",
     "haven:purpur_wall",
     "haven:smooth_purpur_wall",
-    "haven:purpur_brick_wall"
+    "haven:purpur_brick_wall",
+    "haven:gilded_blackstone_wall",
+    "haven:polished_gilded_blackstone_wall",
+    "haven:polished_gilded_blackstone_brick_wall",
+    "haven:sculk_stone_wall",
+    "haven:sculk_stone_brick_wall"
   ]
 }

@@ -3,16 +3,11 @@ package haven.mixins.entities;
 import haven.HavenMod;
 import haven.blocks.mud.MudFluid;
 import haven.blood.BloodFluid;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import haven.events.HavenGameEvent;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.event.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,31 +33,30 @@ public abstract class EntityMixin {
 			float g = Math.min(1.0F, (float)Math.sqrt(vec3d.x * vec3d.x * 0.20000000298023224D + vec3d.y * vec3d.y + vec3d.z * vec3d.z * 0.20000000298023224D) * f);
 			Random random = e.world.getRandom();
 			EntityInvoker ea = (EntityInvoker)e;
-			if (g < 0.25F) {
-				e.playSound(ea.getSplashSoundInvoker(), g, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.4F);
-			} else {
-				e.playSound(ea.getHighSpeedSplashSoundInvoker(), g, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.4F);
-			}
-
+			if (g < 0.25F) e.playSound(ea.getSplashSoundInvoker(), g, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.4F);
+			else e.playSound(ea.getHighSpeedSplashSoundInvoker(), g, 1.0F + (random.nextFloat() - random.nextFloat()) * 0.4F);
 			float h = (float) MathHelper.floor(e.getY());
-
 			int j;
 			double k;
 			double l;
 			for(j = 0; (float)j < 1.0F + e.getType().getDimensions().width * 20.0F; ++j) {
 				k = (random.nextDouble() * 2.0D - 1.0D) * (double)e.getType().getDimensions().width;
 				l = (random.nextDouble() * 2.0D - 1.0D) * (double)e.getType().getDimensions().width;
-				if (blood) e.world.addParticle(HavenMod.BLOOD_BUBBLE, e.getX() + k, (double)(h + 1.0F), e.getZ() + l, vec3d.x, vec3d.y - random.nextDouble() * 0.20000000298023224D, vec3d.z);
-				else if (mud) e.world.addParticle(HavenMod.MUD_BUBBLE, e.getX() + k, (double)(h + 1.0F), e.getZ() + l, vec3d.x, vec3d.y - random.nextDouble() * 0.20000000298023224D, vec3d.z);
+				if (blood) e.world.addParticle(HavenMod.BLOOD_BUBBLE, e.getX() + k, h + 1.0F, e.getZ() + l, vec3d.x, vec3d.y - random.nextDouble() * 0.20000000298023224D, vec3d.z);
+				else if (mud) e.world.addParticle(HavenMod.MUD_BUBBLE, e.getX() + k, h + 1.0F, e.getZ() + l, vec3d.x, vec3d.y - random.nextDouble() * 0.20000000298023224D, vec3d.z);
 			}
 			for(j = 0; (float)j < 1.0F + e.getType().getDimensions().width * 20.0F; ++j) {
 				k = (random.nextDouble() * 2.0D - 1.0D) * (double)e.getType().getDimensions().width;
 				l = (random.nextDouble() * 2.0D - 1.0D) * (double)e.getType().getDimensions().width;
-				if (blood) e.world.addParticle(HavenMod.BLOOD_SPLASH, e.getX() + k, (double)(h + 1.0F), e.getZ() + l, vec3d.x, vec3d.y, vec3d.z);
-				else if (mud) e.world.addParticle(HavenMod.MUD_SPLASH, e.getX() + k, (double)(h + 1.0F), e.getZ() + l, vec3d.x, vec3d.y, vec3d.z);
+				if (blood) e.world.addParticle(HavenMod.BLOOD_SPLASH, e.getX() + k, h + 1.0F, e.getZ() + l, vec3d.x, vec3d.y, vec3d.z);
+				else if (mud) e.world.addParticle(HavenMod.MUD_SPLASH, e.getX() + k, h + 1.0F, e.getZ() + l, vec3d.x, vec3d.y, vec3d.z);
 			}
 			e.emitGameEvent(GameEvent.SPLASH);
 			ci.cancel();
 		}
+	}
+	@Inject(method="kill", at = @At("TAIL"))
+	public void Kill(CallbackInfo ci) {
+		((Entity)(Object)this).emitGameEvent(HavenGameEvent.ENTITY_DIE);
 	}
 }

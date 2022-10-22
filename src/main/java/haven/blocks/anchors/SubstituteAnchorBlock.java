@@ -1,7 +1,6 @@
 package haven.blocks.anchors;
 
 import haven.HavenMod;
-import haven.entities.anchors.SubstituteAnchorBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;

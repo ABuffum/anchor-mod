@@ -1,6 +1,6 @@
 package haven.rendering.block;
 
-import haven.entities.anchors.AnchorBlockEntity;
+import haven.blocks.anchors.AnchorBlockEntity;
 
 import java.util.*;
 import static java.util.Map.entry;

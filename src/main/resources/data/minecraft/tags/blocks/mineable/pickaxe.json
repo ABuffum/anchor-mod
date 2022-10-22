@@ -17,6 +17,17 @@
 	"haven:amethyst_stairs",
 	"haven:amethyst_wall",
  
+	"haven:echo_block",
+	"haven:echo_slab",
+	"haven:echo_stairs",
+	"haven:echo_wall",
+	
+	"haven:budding_echo",
+	"haven:small_echo_bud",
+	"haven:medium_echo_bud",
+	"haven:large_echo_bud",
+	"haven:echo_cluster",
+ 
 	"haven:emerald_bricks",
 	"haven:emerald_brick_slab",
 	"haven:emerald_brick_stairs",
@@ -205,7 +216,35 @@
 	"haven:purpur_brick_slab",
 	"haven:purpur_brick_stairs",
 	"haven:purpur_brick_wall",
+ 
+	"haven:gilded_blackstone_slab",
+	"haven:gilded_blackstone_stairs",
+	"haven:gilded_blackstone_wall",
+	"haven:polished_gilded_blackstone",
+	"haven:polished_gilded_blackstone_slab",
+	"haven:polished_gilded_blackstone_stairs",
+	"haven:polished_gilded_blackstone_wall",
+	"haven:polished_gilded_blackstone_bricks",
+	"haven:polished_gilded_blackstone_brick_slab",
+	"haven:polished_gilded_blackstone_brick_stairs",
+	"haven:polished_gilded_blackstone_brick_wall",
 	
-	"haven:bone_row"
+	"haven:bone_row",
+	
+	"haven:sculk_stone",
+	"haven:sculk_stone_slab",
+	"haven:sculk_stone_stairs",
+	"haven:sculk_stone_wall",
+ 
+	"haven:sculk_stone_bricks",
+	"haven:sculk_stone_brick_slab",
+	"haven:sculk_stone_brick_stairs",
+	"haven:sculk_stone_brick_wall",
+ 
+	"haven:calcite_sculk_turf",
+	"haven:deepslate_sculk_turf",
+	"haven:dripstone_sculk_turf",
+	"haven:smooth_basalt_sculk_turf",
+	"haven:tuff_sculk_turf"
   ]
 }

@@ -1,0 +1,11 @@
+  {
+  "parent": "haven:item/echo_bud",
+  "textures": {
+    "layer0": "haven:block/medium_echo_bud"
+  },
+  "display": {
+    "fixed": {
+      "translation": [ 0, 6, 0 ]
+    }
+  }
+}

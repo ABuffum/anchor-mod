@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "haven:block/polished_gilded_blackstone_bricks"
+  }
+}

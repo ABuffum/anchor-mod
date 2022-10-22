@@ -31,3 +31,7 @@ bin/
 # fabric
 
 run/
+
+src/main/resources/data/*/origins/
+src/main/resources/data/*/origin_layers/
+src/main/resources/data/*/powers/

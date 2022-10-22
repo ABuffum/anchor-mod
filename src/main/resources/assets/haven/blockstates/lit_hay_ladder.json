@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/hay_ladder",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/hay_ladder"
+    },
+    "facing=south": {
+      "model": "haven:block/hay_ladder",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/hay_ladder",
+      "y": 270
+    }
+  }
+}

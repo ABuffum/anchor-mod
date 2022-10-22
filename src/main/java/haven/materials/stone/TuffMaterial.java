@@ -34,11 +34,11 @@ public class TuffMaterial extends BaseMaterial implements
 
 	public TuffMaterial() {
 		super("tuff", false);
-		smooth = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)));
+		smooth = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)), ItemSettings());
 		smooth_slab = new BlockContainer(new HavenSlabBlock(smooth.BLOCK), ItemSettings());
 		smooth_stairs = new BlockContainer(new HavenStairsBlock(smooth.BLOCK), ItemSettings());
 		smooth_wall = new BlockContainer(new HavenWallBlock(smooth.BLOCK), ItemSettings());
-		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)));
+		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)), ItemSettings());
 		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
 		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
 		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());

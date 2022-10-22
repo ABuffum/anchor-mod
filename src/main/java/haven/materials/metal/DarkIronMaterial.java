@@ -96,17 +96,17 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		ender_torch = MakeTorch(10, BlockSoundGroup.METAL, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
 		soul_torch = MakeTorch(10, BlockSoundGroup.METAL, ParticleTypes.SOUL_FIRE_FLAME);
 		nugget = new Item(ItemSettings());
-		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)));
-		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()));
-		block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
-		wall = new BlockContainer(new HavenWallBlock(block.BLOCK));
-		door = new BlockContainer(new HavenDoorBlock(Blocks.IRON_DOOR));
-		trapdoor = new BlockContainer(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR));
-		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.BLOCK)));
-		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)));
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK));
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK));
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK));
+		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)), ItemSettings());
+		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
+		block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(block.BLOCK), ItemSettings());
+		door = new BlockContainer(new HavenDoorBlock(Blocks.IRON_DOOR), ItemSettings());
+		trapdoor = new BlockContainer(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR), ItemSettings());
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.BLOCK)), ItemSettings());
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
 
 		shears = new ShearsItem(ItemSettings().maxDamage(238));
 

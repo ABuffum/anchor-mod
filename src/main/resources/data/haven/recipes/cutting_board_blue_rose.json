@@ -1,0 +1,13 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+	{ "item": "haven:blue_rose" }
+  ],
+  "tool": {
+	"tag": "farmersdelight:tools/knives"
+  },
+  "result": [
+	{ "item": "haven:blue_rose_petals" },
+	{ "item": "haven:blue_rose_seeds" }
+  ]
+}

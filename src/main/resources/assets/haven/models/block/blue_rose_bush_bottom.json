@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "haven:block/blue_rose_bush_bottom"
+  }
+}

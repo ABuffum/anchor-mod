@@ -4,6 +4,7 @@
     "haven:amethyst_crystal_slab",
     "haven:amethyst_brick_slab",
     "haven:amethyst_slab",
+    "haven:echo_slab",
     "haven:emerald_brick_slab",
     "haven:cut_emerald_slab",
     "haven:diamond_brick_slab",
@@ -17,10 +18,12 @@
     "haven:cut_dark_iron_slab",
     "haven:cut_gold_slab",
     "haven:cut_netherite_slab",
-    
+  
     "haven:obsidian_slab",
     "haven:crying_obsidian_slab",
     "haven:bleeding_obsidian_slab",
+    
+    "haven:mud_brick_slab",
   
     "haven:calcite_brick_slab",
     "haven:smooth_calcite_slab",
@@ -29,6 +32,11 @@
     "haven:tuff_brick_slab",
     "haven:smooth_tuff_slab",
     "haven:smooth_purpur_slab",
-    "haven:purpur_brick_slab"
+    "haven:purpur_brick_slab",
+    "haven:gilded_blackstone_slab",
+    "haven:polished_gilded_blackstone_slab",
+    "haven:polished_gilded_blackstone_brick_slab",
+    "haven:sculk_stone_slab",
+    "haven:sculk_stone_brick_slab"
   ]
 }

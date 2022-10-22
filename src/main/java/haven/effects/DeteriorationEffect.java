@@ -19,7 +19,7 @@ public class DeteriorationEffect extends StatusEffect {
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int i) {
+	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
 		entity.damage(HavenDamageSource.DETERIORATION,1);
 	}
 }

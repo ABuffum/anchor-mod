@@ -3,6 +3,7 @@ package haven.effects;
 import haven.HavenMod;
 import haven.damage.HavenDamageSource;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
@@ -35,7 +36,9 @@ public class BoneRotEffect extends StatusEffect {
 
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int i) {
-		entity.damage(HavenDamageSource.BONE_ROT,1);
+		if (!entity.hasStatusEffect(HavenMod.RELIEVED_EFFECT)) {
+			entity.damage(HavenDamageSource.BONE_ROT,1);
+		}
 		if (entity.isSprinting()) {
 			entity.setSprinting(false);
 			increase(entity.world, entity);

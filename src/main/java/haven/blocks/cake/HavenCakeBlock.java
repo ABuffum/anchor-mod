@@ -1,5 +1,6 @@
 package haven.blocks.cake;
 
+import haven.HavenMod;
 import haven.command.ChorusCommand;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -29,7 +30,7 @@ import net.minecraft.world.WorldView;
 import net.minecraft.world.event.GameEvent;
 
 public class HavenCakeBlock extends Block {
-	public static final AbstractBlock.Settings SETTINGS = AbstractBlock.Settings.copy(Blocks.CAKE);
+	public static final AbstractBlock.Settings Settings() { return AbstractBlock.Settings.copy(Blocks.CAKE); }
 
 	public static final int MAX_BITES = 6;
 	public static final IntProperty BITES;
@@ -38,7 +39,7 @@ public class HavenCakeBlock extends Block {
 	private final CakeContainer.Flavor flavor;
 	public CakeContainer.Flavor getFlavor() { return flavor; }
 	public HavenCakeBlock(CakeContainer.Flavor flavor) {
-		this(flavor, SETTINGS);
+		this(flavor, Settings());
 	}
 	public HavenCakeBlock(CakeContainer.Flavor flavor, Settings settings) {
 		super(settings);
@@ -52,15 +53,16 @@ public class HavenCakeBlock extends Block {
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		Item item = itemStack.getItem();
-		if (itemStack.isIn(ItemTags.CANDLES) && (Integer)state.get(BITES) == 0) {
+		if (itemStack.isIn(ItemTags.CANDLES) && state.get(BITES) == 0) {
 			Block block = Block.getBlockFromItem(item);
 			if (block instanceof CandleBlock) {
 				if (!player.isCreative()) {
 					itemStack.decrement(1);
 				}
-				world.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+				world.playSound(null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				Block output;
 				if (block == Blocks.CANDLE) output = flavor != null ? flavor.getCandleCake() : Blocks.CANDLE_CAKE;
+				else if (block == HavenMod.SOUL_CANDLE.BLOCK) output = flavor != null ? flavor.getSoulCandleCake() : HavenMod.SOUL_CANDLE_CAKE;
 				else if (flavor != null) output = flavor.getCandleCake(GetCandleColor(block));
 				else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
 				world.setBlockState(pos, output.getDefaultState());

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "haven:polished_gilded_blackstone_bricks"
+  },
+  "result": "haven:polished_gilded_blackstone_brick_slab"
+}

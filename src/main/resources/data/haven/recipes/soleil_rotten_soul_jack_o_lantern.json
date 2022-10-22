@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "haven:soleil_carved_rotten_pumpkin"
+    },
+    "B": {
+      "tag": "haven:soul_torches"
+    }
+  },
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "result": {
+    "item": "haven:soleil_rotten_soul_jack_o_lantern"
+  }
+}

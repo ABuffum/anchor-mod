@@ -1,646 +1,370 @@
 {
   "block.mangrove_roots.break": {
 	"sounds": [
-	  {
-		"name": "haven:block/mangrove_roots/break1",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break1", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break2",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break2", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break3",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break3", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break4",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break4", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break5",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break5", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break6",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break6", "pitch": 1.2, "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.mangrove_roots.fall": {
 	"sounds": [
-	  {
-		"name": "haven:block/mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step6", "volume": 0.25
 	  }
 	]
   },
   "block.mangrove_roots.hit": {
 	"sounds": [
-	  {
-		"name": "haven:block/mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
   "block.mangrove_roots.place": {
 	"sounds": [
-	  {
-		"name": "haven:block/mangrove_roots/break1",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break1", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break2",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break2", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break3",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break3", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break4",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break4", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break5",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break5", "pitch": 1.2, "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/break6",
-		"pitch": 1.2,
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/break6", "pitch": 1.2, "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
   "block.mangrove_roots.step": {
 	"sounds": [
-	  {
-		"name": "haven:block/mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/mangrove_roots/step6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
   "block.mud.break": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud/break1",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break2",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break3",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break4",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break5",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break6",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.mud.fall": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step6", "volume": 0.5
 	  }
 	]
   },
   "block.mud.hit": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
   "block.mud.place": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud/break1",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break2",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break3",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break4",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break5",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/break6",
-		"volume": 0.5
+	  { "name": "haven:block/mud/break6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
   "block.mud.step": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud/step6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
   "block.mud_bricks.break": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud_bricks/break1",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break2",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break3",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break4",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break5",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break6",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.mud_bricks.fall": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud_bricks/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step6", "volume": 0.5
 	  }
 	]
   },
   "block.mud_bricks.hit": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud_bricks/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
   "block.mud_bricks.place": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud_bricks/break1",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break2",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break3",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break4",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break5",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/break6",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/break6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
   "block.mud_bricks.step": {
 	"sounds": [
-	  {
-		"name": "haven:block/mud_bricks/step1",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step1", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step2",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step2", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step3",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step3", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step4",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step4", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step5",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step5", "volume": 0.5
 	  },
-	  {
-		"name": "haven:block/mud_bricks/step6",
-		"volume": 0.5
+	  { "name": "haven:block/mud_bricks/step6", "volume": 0.5
 	  }
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
   "block.muddy_mangrove_roots.break": {
 	"sounds": [
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break1",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break2",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break3",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break4",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break5",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break6",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.muddy_mangrove_roots.fall": {
 	"sounds": [
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step6", "volume": 0.25
 	  }
 	]
   },
   "block.muddy_mangrove_roots.hit": {
 	"sounds": [
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
   "block.muddy_mangrove_roots.place": {
 	"sounds": [
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break1",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break2",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break3",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break4",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break5",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/break6",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/break6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.place"
   },
   "block.muddy_mangrove_roots.step": {
 	"sounds": [
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step1",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step1", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step2",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step2", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step3",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step3", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step4",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step4", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step5",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step5", "volume": 0.25
 	  },
-	  {
-		"name": "haven:block/muddy_mangrove_roots/step6",
-		"volume": 0.25
+	  { "name": "haven:block/muddy_mangrove_roots/step6", "volume": 0.25
 	  }
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
   "block.packed_mud.break": {
 	"sounds": [
-	  {
-		"name": "haven:block/packed_mud/break1",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break1", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break2",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break2", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break3",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break3", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break4",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break4", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break5",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break5", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break6",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break6", "volume": 0.3
 	  }
 	],
 	"subtitle": "subtitles.block.generic.break"
   },
   "block.packed_mud.fall": {
 	"sounds": [
-	  {
-		"name": "haven:block/packed_mud/step1",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step1", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/step2",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step2", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/step3",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step3", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/step4",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step4", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/step5",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step5", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/step6",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/step6", "volume": 0.3
 	  }
 	]
   },
@@ -657,29 +381,17 @@
   },
   "block.packed_mud.place": {
 	"sounds": [
-	  {
-		"name": "haven:block/packed_mud/break1",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break1", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break2",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break2", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break3",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break3", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break4",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break4", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break5",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break5", "volume": 0.3
 	  },
-	  {
-		"name": "haven:block/packed_mud/break6",
-		"volume": 0.3
+	  { "name": "haven:block/packed_mud/break6", "volume": 0.3
 	  }
 	],
 	"subtitle": "subtitles.block.generic.place"
@@ -695,6 +407,7 @@
 	],
 	"subtitle": "subtitles.block.generic.footsteps"
   },
+  "music.overworld.deep_dark": { "sounds": [ { "name": "haven:music/game/ancestry", "stream": true } ] },
   "music_disc.otherside": { "sounds": [ { "name": "haven:records/otherside", "stream": true } ] },
   "music_disc.5": { "sounds": [ { "name": "haven:records/5", "stream": true } ] },
   "item.goat_horn.sound.0": {
@@ -738,20 +451,716 @@
 	],
 	"subtitle": "subtitles.entity.goat.horn_break"
   },
-  "item.salve.apply": {
-	"subtitle": "Salve Applied",
-	"sounds": [ "block/honeyblock/break1" ]
+  "block.sculk.break": {
+	"sounds": [
+	  "haven:block/sculk/break1",
+	  "haven:block/sculk/break2",
+	  "haven:block/sculk/break3",
+	  "haven:block/sculk/break4",
+	  "haven:block/sculk/break5",
+	  "haven:block/sculk/break6",
+	  "haven:block/sculk/break7",
+	  "haven:block/sculk/break8",
+	  "haven:block/sculk/break9",
+	  "haven:block/sculk/break10",
+	  "haven:block/sculk/break11",
+	  "haven:block/sculk/break12",
+	  "haven:block/sculk/break13",
+	  "haven:block/sculk/break14"
+	],
+	"subtitle": "subtitles.block.generic.break"
   },
-  "item.syringe.inject": {
-	"subtitle": "Syringe Injected",
-	"sounds": [ "haven:item/syringe/inject" ]
+  "block.sculk.charge": {
+	"sounds": [
+	  "haven:block/sculk/charge1",
+	  "haven:block/sculk/charge2",
+	  "haven:block/sculk/charge3",
+	  "haven:block/sculk/charge4",
+	  "haven:block/sculk/charge5"
+	],
+	"subtitle": "subtitles.block.sculk.charge"
   },
-  "entity.soft_tnt.primed": {
-	"sounds": [ "random/fuse" ],
-	"subtitle": "subtitles.entity.soft_tnt.primed"
+  "block.sculk.fall": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	]
   },
-  "ambient.miasma_coming": {
-	"sounds": [ "mob/wither/spawn" ],
-	"subtitle": "subtitles.ambient.miasma_coming"
-  }
+  "block.sculk.hit": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sculk.place": {
+	"sounds": [
+	  "haven:block/sculk/place1",
+	  "haven:block/sculk/place2",
+	  "haven:block/sculk/place3",
+	  "haven:block/sculk/place4",
+	  "haven:block/sculk/place5"
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.sculk.spread": {
+	"sounds": [
+	  { "name": "haven:block/sculk/spread1", "pitch": 0.9 },
+	  { "name": "haven:block/sculk/spread2", "pitch": 0.9 },
+	  { "name": "haven:block/sculk/spread3", "pitch": 0.9 },
+	  { "name": "haven:block/sculk/spread4", "pitch": 0.9 },
+	  { "name": "haven:block/sculk/spread5", "pitch": 0.9 }
+	],
+	"subtitle": "subtitles.block.sculk.spread"
+  },
+  "block.sculk.step": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sculk_catalyst.bloom": {
+	"sounds": [
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed1", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed2", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed3", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed4", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed5", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed6", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed7", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed8", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed9", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed10", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed11", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed12", "volume": 0.25 },
+	  { "attenuation_distance": 12, "name": "enchant/soulspeed/soulspeed13", "volume": 0.25 }
+	],
+	"subtitle": "subtitles.block.sculk_catalyst.bloom"
+  },
+  "block.sculk_catalyst.break": {
+	"sounds": [
+	  "haven:block/sculk_catalyst/break1",
+	  "haven:block/sculk_catalyst/break2",
+	  "haven:block/sculk_catalyst/break3",
+	  "haven:block/sculk_catalyst/break4",
+	  "haven:block/sculk_catalyst/break5",
+	  "haven:block/sculk_catalyst/break6",
+	  "haven:block/sculk_catalyst/break7",
+	  "haven:block/sculk_catalyst/break8",
+	  "haven:block/sculk_catalyst/break9",
+	  "haven:block/sculk_catalyst/break10"
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.sculk_catalyst.fall": {
+	"sounds": [
+	  "haven:block/sculk_catalyst/step1",
+	  "haven:block/sculk_catalyst/step2",
+	  "haven:block/sculk_catalyst/step3",
+	  "haven:block/sculk_catalyst/step4",
+	  "haven:block/sculk_catalyst/step5",
+	  "haven:block/sculk_catalyst/step6"
+	]
+  },
+  "block.sculk_catalyst.hit": {
+	"sounds": [
+	  "haven:block/sculk_catalyst/step1",
+	  "haven:block/sculk_catalyst/step2",
+	  "haven:block/sculk_catalyst/step3",
+	  "haven:block/sculk_catalyst/step4",
+	  "haven:block/sculk_catalyst/step5",
+	  "haven:block/sculk_catalyst/step6"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sculk_catalyst.place": {
+	"sounds": [
+	  "haven:block/sculk_catalyst/place1",
+	  "haven:block/sculk_catalyst/place2",
+	  "haven:block/sculk_catalyst/place3",
+	  "haven:block/sculk_catalyst/place4",
+	  "haven:block/sculk_catalyst/place5"
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.sculk_catalyst.step": {
+	"sounds": [
+	  "haven:block/sculk_catalyst/step1",
+	  "haven:block/sculk_catalyst/step2",
+	  "haven:block/sculk_catalyst/step3",
+	  "haven:block/sculk_catalyst/step4",
+	  "haven:block/sculk_catalyst/step5",
+	  "haven:block/sculk_catalyst/step6"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sculk_shrieker.break": {
+	"sounds": [
+	  { "name": "haven:block/sculk_shrieker/break1", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/break2", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/break3", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/break4", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/break5", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/break6", "volume": 0.9 }
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.sculk_shrieker.fall": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	]
+  },
+  "block.sculk_shrieker.hit": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sculk_shrieker.place": {
+	"sounds": [
+	  { "name": "haven:block/sculk_shrieker/place1", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/place2", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/place3", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/place4", "volume": 0.9 },
+	  { "name": "haven:block/sculk_shrieker/place5", "volume": 0.9 }
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.sculk_shrieker.shriek": {
+	"sounds": [
+	  { "name": "haven:block/sculk_shrieker/shriek1", "volume": 0.85 },
+	  { "name": "haven:block/sculk_shrieker/shriek2", "volume": 0.85 },
+	  { "name": "haven:block/sculk_shrieker/shriek3", "volume": 0.85 },
+	  { "name": "haven:block/sculk_shrieker/shriek4", "volume": 0.85 },
+	  { "name": "haven:block/sculk_shrieker/shriek5", "volume": 0.85 }
+	],
+	"subtitle": "subtitles.block.sculk_shrieker.shriek"
+  },
+  "block.sculk_shrieker.step": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sculk_vein.break": {
+	"sounds": [
+	  { "name": "haven:block/sculk_vein/break1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break3", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break4", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break5", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.sculk_vein.fall": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	]
+  },
+  "block.sculk_vein.hit": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sculk_vein.place": {
+	"sounds": [
+	  { "name": "haven:block/sculk_vein/break1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break3", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break4", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/sculk_vein/break5", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.sculk_vein.step": {
+	"sounds": [
+	  "haven:block/sculk/step1",
+	  "haven:block/sculk/step2",
+	  "haven:block/sculk/step3",
+	  "haven:block/sculk/step4",
+	  "haven:block/sculk/step5",
+	  "haven:block/sculk/step6"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.warden.slightly_angry": {
+	"sounds": [
+	  { "name": "haven:mob/warden/slightly_angry_1", "volume": 1 },
+	  { "name": "haven:mob/warden/slightly_angry_2", "volume": 1 }
+	],
+	"subtitle": "subtitles.entity.warden.slightly_angry"
+  },
+  "block.froglight.break": {
+	"sounds": [
+	  "haven:block/froglight/break1",
+	  "haven:block/froglight/break2",
+	  "haven:block/froglight/break3",
+	  "haven:block/froglight/break4"
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.froglight.fall": {
+	"sounds": [
+	  "haven:block/froglight/step1",
+	  "haven:block/froglight/step2",
+	  "haven:block/froglight/step3",
+	  "haven:block/froglight/step4",
+	  "haven:block/froglight/step5",
+	  "haven:block/froglight/step6"
+	]
+  },
+  "block.froglight.hit": {
+	"sounds": [
+	  { "name": "haven:block/froglight/step1", "pitch": 1.3, "volume": 0.83 },
+	  { "name": "haven:block/froglight/step2", "pitch": 1.3, "volume": 0.83 },
+	  { "name": "haven:block/froglight/step3", "pitch": 1.3, "volume": 0.83 },
+	  { "name": "haven:block/froglight/step4", "pitch": 1.3, "volume": 0.83 },
+	  { "name": "haven:block/froglight/step5", "pitch": 1.3, "volume": 0.83 },
+	  { "name": "haven:block/froglight/step6", "pitch": 1.3, "volume": 0.83 }
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.froglight.place": {
+	"sounds": [
+	  "haven:block/froglight/break1",
+	  "haven:block/froglight/break2",
+	  "haven:block/froglight/break3",
+	  "haven:block/froglight/break4"
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.froglight.step": {
+	"sounds": [
+	  "haven:block/froglight/step1",
+	  "haven:block/froglight/step2",
+	  "haven:block/froglight/step3",
+	  "haven:block/froglight/step4",
+	  "haven:block/froglight/step5",
+	  "haven:block/froglight/step6"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.frogspawn.break": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/break1", "pitch": 1.2, "volume": 0.1 },
+	  { "name": "haven:block/frogspawn/break2", "pitch": 1.2, "volume": 0.1 },
+	  { "name": "haven:block/frogspawn/break3", "pitch": 1.2, "volume": 0.1 },
+	  { "name": "haven:block/frogspawn/break4", "pitch": 1.2, "volume": 0.1 }
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.frogspawn.fall": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/step1", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step2", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step3", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step4", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step5", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step6", "pitch": 1.3, "volume": 0.3 }
+	]
+  },
+  "block.frogspawn.hatch": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/hatch1", "pitch": 1.2, "volume": 0.6 },
+	  { "name": "haven:block/frogspawn/hatch2", "pitch": 1.2, "volume": 0.6 },
+	  { "name": "haven:block/frogspawn/hatch3", "pitch": 1.2, "volume": 0.6 },
+	  { "name": "haven:block/frogspawn/hatch4", "pitch": 1.2, "volume": 0.6 }
+	],
+	"subtitle": "subtitles.block.frogspawn.hatch"
+  },
+  "block.frogspawn.hit": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/step1", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step2", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step3", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step4", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step5", "pitch": 1.3, "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step6", "pitch": 1.3, "volume": 0.3 }
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.frogspawn.place": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/break1", "pitch": 1.5, "volume": 0.2 },
+	  { "name": "haven:block/frogspawn/break2", "pitch": 1.5, "volume": 0.2 },
+	  { "name": "haven:block/frogspawn/break3", "pitch": 1.5, "volume": 0.2 },
+	  { "name": "haven:block/frogspawn/break4", "pitch": 1.5, "volume": 0.2 }
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.frogspawn.step": {
+	"sounds": [
+	  { "name": "haven:block/frogspawn/step1", "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step2", "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step3", "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step4", "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step5", "volume": 0.3 },
+	  { "name": "haven:block/frogspawn/step6", "volume": 0.3 }
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.frog.ambient": {
+	"sounds": [
+	  { "name": "haven:mob/frog/idle1", "pitch": 0.95, "volume": 0.8 },
+	  { "name": "haven:mob/frog/idle2", "pitch": 0.9 },
+	  { "name": "haven:mob/frog/idle3", "pitch": 0.9, "volume": 0.9 },
+	  { "name": "haven:mob/frog/idle4", "pitch": 0.95, "volume": 0.8 },
+	  { "name": "haven:mob/frog/idle5", "pitch": 0.9, "volume": 0.85 },
+	  { "name": "haven:mob/frog/idle6", "pitch": 0.9, "volume": 0.9 },
+	  { "name": "haven:mob/frog/idle7", "pitch": 0.9, "volume": 0.7 },
+	  { "name": "haven:mob/frog/idle8", "pitch": 0.9, "volume": 0.3 }
+	],
+	"subtitle": "subtitles.entity.frog.ambient"
+  },
+  "entity.frog.death": {
+	"sounds": [
+	  "haven:mob/frog/death1",
+	  "haven:mob/frog/death2",
+	  "haven:mob/frog/death3"
+	],
+	"subtitle": "subtitles.entity.frog.death"
+  },
+  "entity.frog.eat": {
+	"sounds": [
+	  { "name": "haven:mob/frog/eat1", "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat1", "pitch": 0.9, "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat2", "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat2", "pitch": 0.9, "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat3", "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat3", "pitch": 0.9, "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat4", "volume": 0.6 },
+	  { "name": "haven:mob/frog/eat4", "pitch": 0.9, "volume": 0.6 }
+	],
+	"subtitle": "subtitles.entity.frog.eat"
+  },
+  "entity.frog.hurt": {
+	"sounds": [
+	  "haven:mob/frog/hurt1",
+	  "haven:mob/frog/hurt2",
+	  "haven:mob/frog/hurt3",
+	  "haven:mob/frog/hurt4",
+	  "haven:mob/frog/hurt5"
+	],
+	"subtitle": "subtitles.entity.frog.hurt"
+  },
+  "entity.frog.lay_spawn": {
+	"sounds": [
+	  { "name": "haven:mob/frog/lay_spawn1", "volume": 0.25 },
+	  { "name": "haven:mob/frog/lay_spawn2", "volume": 0.25 }
+	],
+	"subtitle": "subtitles.entity.frog.lay_spawn"
+  },
+  "entity.frog.long_jump": {
+	"sounds": [
+	  { "name": "haven:mob/frog/long_jump1", "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump1", "pitch": 0.8, "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump2", "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump2", "pitch": 0.8, "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump3", "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump3", "pitch": 0.8, "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump4", "volume": 0.12 },
+	  { "name": "haven:mob/frog/long_jump4", "pitch": 0.8, "volume": 0.12 }
+	],
+	"subtitle": "subtitles.entity.frog.long_jump"
+  },
+  "entity.frog.step": {
+	"sounds": [
+	  "haven:mob/frog/step1",
+	  "haven:mob/frog/step2",
+	  "haven:mob/frog/step3",
+	  "haven:mob/frog/step4"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.frog.tongue": {
+	"sounds": [
+	  { "name": "haven:mob/frog/tongue1", "volume": 0.5 },
+	  { "name": "haven:mob/frog/tongue2", "volume": 0.5 },
+	  { "name": "haven:mob/frog/tongue3", "volume": 0.5 },
+	  { "name": "haven:mob/frog/tongue4", "volume": 0.5 }
+	]
+  },
+  "item.bucket.fill_tadpole": {
+	"sounds": [
+	  { "name": "item/bucket/fill_fish1", "pitch": 1.5, "volume": 0.5 },
+	  { "name": "item/bucket/fill_fish2", "pitch": 1.5, "volume": 0.5 },
+	  { "name": "item/bucket/fill_fish3", "pitch": 1.5, "volume": 0.5 }
+	],
+	"subtitle": "subtitles.item.bucket.fill_tadpole"
+  },
+  "item.bucket.empty_tadpole": {
+	"sounds": [
+	  { "name": "item/bucket/empty_fish1", "pitch": 1.5, "volume": 0.5 },
+	  { "name": "item/bucket/empty_fish2", "pitch": 1.5, "volume": 0.5 },
+	  { "name": "item/bucket/empty_fish3", "pitch": 1.5, "volume": 0.5 }
+	],
+	"subtitle": "subtitles.item.bucket.empty"
+  },
+  "entity.tadpole.death": {
+	"sounds": [
+	  "haven:mob/tadpole/death1",
+	  "haven:mob/tadpole/death2"
+	],
+	"subtitle": "subtitles.entity.tadpole.death"
+  },
+  "entity.tadpole.flop": {
+	"sounds": [ { "name": "entity.tropical_fish.flop", "type": "event" } ],
+	"subtitle": "subtitles.entity.tadpole.flop"
+  },
+  "entity.tadpole.grow_up": {
+	"sounds": [
+	  { "name": "haven:mob/frog/idle1", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle2", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle3", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle4", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle5", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle6", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle7", "pitch": 1.2, "volume": 0.75 },
+	  { "name": "haven:mob/frog/idle8", "pitch": 1.2, "volume": 0.75 }
+	],
+	"subtitle": "subtitles.entity.tadpole.grow_up"
+  },
+  "entity.tadpole.hurt": {
+	"sounds": [
+	  "haven:mob/tadpole/hurt1",
+	  "haven:mob/tadpole/hurt2",
+	  "haven:mob/tadpole/hurt3",
+	  "haven:mob/tadpole/hurt4"
+	],
+	"subtitle": "subtitles.entity.tadpole.hurt"
+  },
+  "entity.parrot.imitate.warden": {
+	"sounds": [ { "name": "entity.warden.tendril_clicks", "pitch": 2.0, "type": "event", "volume": 0.8 } ],
+	"subtitle": "subtitles.entity.parrot.imitate.warden"
+  },
+  "entity.warden.agitated": {
+	"sounds": [
+	  "haven:mob/warden/agitated_1",
+	  "haven:mob/warden/agitated_2",
+	  "haven:mob/warden/agitated_3",
+	  "haven:mob/warden/agitated_4",
+	  "haven:mob/warden/agitated_5",
+	  "haven:mob/warden/agitated_6"
+	],
+	"subtitle": "subtitles.entity.warden.agitated"
+  },
+  "entity.warden.ambient": {
+	"sounds": [
+	  "haven:mob/warden/idle_1",
+	  "haven:mob/warden/idle_2",
+	  "haven:mob/warden/idle_3",
+	  "haven:mob/warden/idle_4",
+	  "haven:mob/warden/idle_5",
+	  "haven:mob/warden/idle_6",
+	  "haven:mob/warden/idle_7",
+	  "haven:mob/warden/idle_8",
+	  "haven:mob/warden/idle_9",
+	  "haven:mob/warden/idle_10",
+	  "haven:mob/warden/idle_11",
+	  "haven:mob/warden/idle_12"
+	],
+	"subtitle": "subtitles.entity.warden.ambient"
+  },
+  "entity.warden.angry": {
+	"sounds": [
+	  "haven:mob/warden/angry_1",
+	  "haven:mob/warden/angry_2",
+	  "haven:mob/warden/angry_3",
+	  "haven:mob/warden/angry_4",
+	  "haven:mob/warden/angry_5",
+	  "haven:mob/warden/angry_6"
+	],
+	"subtitle": "subtitles.entity.warden.angry"
+  },
+  "entity.warden.attack_impact": {
+	"sounds": [
+	  "haven:mob/warden/attack_impact_1",
+	  "haven:mob/warden/attack_impact_2"
+	],
+	"subtitle": "subtitles.entity.warden.attack_impact"
+  },
+  "entity.warden.death": {
+	"sounds": [
+	  "haven:mob/warden/death_1",
+	  "haven:mob/warden/death_2"
+	],
+	"subtitle": "subtitles.entity.warden.death"
+  },
+  "entity.warden.dig": {
+	"sounds": [
+	  "haven:mob/warden/dig"
+	],
+	"subtitle": "subtitles.entity.warden.dig"
+  },
+  "entity.warden.emerge": {
+	"sounds": [
+	  "haven:mob/warden/emerge"
+	],
+	"subtitle": "subtitles.entity.warden.emerge"
+  },
+  "entity.warden.heartbeat": {
+	"sounds": [
+	  "haven:mob/warden/heartbeat_1",
+	  "haven:mob/warden/heartbeat_2",
+	  "haven:mob/warden/heartbeat_3",
+	  "haven:mob/warden/heartbeat_4"
+	],
+	"subtitle": "subtitles.entity.warden.heartbeat"
+  },
+  "entity.warden.hurt": {
+	"sounds": [
+	  "haven:mob/warden/hurt_1",
+	  "haven:mob/warden/hurt_2",
+	  "haven:mob/warden/hurt_3",
+	  "haven:mob/warden/hurt_4"
+	],
+	"subtitle": "subtitles.entity.warden.hurt"
+  },
+  "entity.warden.listening": {
+	"sounds": [
+	  "haven:mob/warden/listening_1",
+	  "haven:mob/warden/listening_2",
+	  "haven:mob/warden/listening_3",
+	  "haven:mob/warden/listening_4",
+	  "haven:mob/warden/listening_5"
+	],
+	"subtitle": "subtitles.entity.warden.listening"
+  },
+  "entity.warden.listening_angry": {
+	"sounds": [
+	  "haven:mob/warden/listening_angry_1",
+	  "haven:mob/warden/listening_angry_2",
+	  "haven:mob/warden/listening_angry_3",
+	  "haven:mob/warden/listening_angry_4",
+	  "haven:mob/warden/listening_angry_5"
+	],
+	"subtitle": "subtitles.entity.warden.listening_angry"
+  },
+  "entity.warden.nearby_close": {
+	"sounds": [
+	  "haven:mob/warden/nearby_close_1",
+	  "haven:mob/warden/nearby_close_2",
+	  "haven:mob/warden/nearby_close_3",
+	  "haven:mob/warden/nearby_close_4"
+	],
+	"subtitle": "subtitles.entity.warden.nearby_close"
+  },
+  "entity.warden.nearby_closer": {
+	"sounds": [
+	  "haven:mob/warden/nearby_closer_1",
+	  "haven:mob/warden/nearby_closer_2",
+	  "haven:mob/warden/nearby_closer_3"
+	],
+	"subtitle": "subtitles.entity.warden.nearby_closer"
+  },
+  "entity.warden.nearby_closest": {
+	"sounds": [
+	  "haven:mob/warden/nearby_closest_1",
+	  "haven:mob/warden/nearby_closest_2",
+	  "haven:mob/warden/nearby_closest_3"
+	],
+	"subtitle": "subtitles.entity.warden.nearby_closest"
+  },
+  "entity.warden.roar": {
+	"sounds": [
+	  "haven:mob/warden/roar_1",
+	  "haven:mob/warden/roar_2",
+	  "haven:mob/warden/roar_3",
+	  "haven:mob/warden/roar_4",
+	  "haven:mob/warden/roar_5"
+	],
+	"subtitle": "subtitles.entity.warden.roar"
+  },
+  "entity.warden.sniff": {
+	"sounds": [
+	  { "name": "haven:mob/warden/sniff_1", "volume": 0.75 },
+	  { "name": "haven:mob/warden/sniff_2", "volume": 0.75 },
+	  { "name": "haven:mob/warden/sniff_3", "volume": 0.75 },
+	  { "name": "haven:mob/warden/sniff_4", "volume": 0.75 }
+	],
+	"subtitle": "subtitles.entity.warden.sniff"
+  },
+  "entity.warden.sonic_boom": {
+	"sounds": [
+	  "haven:mob/warden/sonic_boom1",
+	  "haven:mob/warden/sonic_boom2",
+	  "haven:mob/warden/sonic_boom3",
+	  "haven:mob/warden/sonic_boom4"
+	],
+	"subtitle": "subtitles.entity.warden.sonic_boom"
+  },
+  "entity.warden.sonic_charge": {
+	"sounds": [
+	  "haven:mob/warden/sonic_charge1",
+	  "haven:mob/warden/sonic_charge2",
+	  "haven:mob/warden/sonic_charge3",
+	  "haven:mob/warden/sonic_charge4"
+	],
+	"subtitle": "subtitles.entity.warden.sonic_charge"
+  },
+  "entity.warden.step": {
+	"sounds": [
+	  { "name": "haven:mob/warden/step_1", "volume": 0.3 },
+	  { "name": "haven:mob/warden/step_2", "volume": 0.3 },
+	  { "name": "haven:mob/warden/step_3", "volume": 0.3 },
+	  { "name": "haven:mob/warden/step_4", "volume": 0.3 }
+	],
+	"subtitle": "subtitles.entity.warden.step"
+  },
+  "entity.warden.tendril_clicks": {
+	"sounds": [
+	  "haven:mob/warden/tendril_clicks_1",
+	  "haven:mob/warden/tendril_clicks_2",
+	  "haven:mob/warden/tendril_clicks_3",
+	  "haven:mob/warden/tendril_clicks_4",
+	  "haven:mob/warden/tendril_clicks_5",
+	  "haven:mob/warden/tendril_clicks_6"
+	],
+	"subtitle": "subtitles.entity.warden.tendril_clicks"
+  },
+  
+  
+  "item.salve.apply": { "subtitle": "Salve Applied", "sounds": [ "block/honeyblock/break1" ] },
+  "item.syringe.inject": { "subtitle": "Syringe Injected", "sounds": [ "haven:item/syringe/inject" ] },
+  "entity.soft_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.soft_tnt.primed" },
+  "ambient.miasma_coming": { "sounds": [ "mob/wither/spawn" ], "subtitle": "subtitles.ambient.miasma_coming" }
 }

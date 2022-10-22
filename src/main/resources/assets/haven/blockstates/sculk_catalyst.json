@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "bloom=false": {
+      "model": "haven:block/sculk_catalyst"
+    },
+    "bloom=true": {
+      "model": "haven:block/sculk_catalyst_bloom"
+    }
+  }
+}

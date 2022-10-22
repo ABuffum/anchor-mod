@@ -17,9 +17,9 @@ public class BambooMaterial extends BaseTreeMaterial implements StrippedBundlePr
 
 	public BambooMaterial(String name, MapColor mapColor) {
 		super(name, mapColor, true);
-		bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.BAMBOO)));
-		stripped_bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(bundle.BLOCK)));
-		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.0F).sounds(BlockSoundGroup.BAMBOO)));
+		bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.BAMBOO)), ItemSettings());
+		stripped_bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(bundle.BLOCK)), ItemSettings());
+		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.0F).sounds(BlockSoundGroup.BAMBOO)), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

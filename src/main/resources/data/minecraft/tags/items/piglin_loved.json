@@ -14,6 +14,17 @@
     "haven:cut_gold_slab",
     "haven:cut_gold_stairs",
     "haven:cut_gold_wall",
-    "haven:gold_bucket"
+    "haven:gold_bucket",
+    "haven:gilded_blackstone_slab",
+    "haven:gilded_blackstone_stairs",
+    "haven:gilded_blackstone_wall",
+    "haven:polished_gilded_blackstone",
+    "haven:polished_gilded_blackstone_slab",
+    "haven:polished_gilded_blackstone_stairs",
+    "haven:polished_gilded_blackstone_wall",
+    "haven:polished_gilded_blackstone_bricks",
+    "haven:polished_gilded_blackstone_brick_slab",
+    "haven:polished_gilded_blackstone_brick_stairs",
+    "haven:polished_gilded_blackstone_brick_wall"
   ]
 }

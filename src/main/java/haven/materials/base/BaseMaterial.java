@@ -44,15 +44,15 @@ public abstract class BaseMaterial {
 	}
 
 	protected TorchContainer MakeTorch(int luminance, BlockSoundGroup sounds, DefaultParticleType particle) {
-		return new TorchContainer(TorchSettings(luminance, sounds), particle);
+		return new TorchContainer(TorchSettings(luminance, sounds), particle, ItemSettings());
 	}
 	protected AbstractBlock.Settings LanternSettings(int luminance) {
 		return AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(luminance(luminance)).nonOpaque();
 	}
 	protected BlockContainer MakeLantern(int luminance) {
-		return new BlockContainer(new LanternBlock(LanternSettings(luminance)));
+		return new BlockContainer(new LanternBlock(LanternSettings(luminance)), ItemSettings());
 	}
-	protected BlockContainer MakeCampfire(int luminance, int fireDamage, MapColor mapColor) {
-		return new BlockContainer(new CampfireBlock(false, fireDamage, AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(luminance)).nonOpaque()));
+	protected BlockContainer MakeCampfire(int luminance, int fireDamage, MapColor mapColor, boolean emitsParticles) {
+		return new BlockContainer(new CampfireBlock(false, fireDamage, AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD).luminance(createLightLevelFromLitBlockState(luminance)).nonOpaque()), ItemSettings());
 	}
 }

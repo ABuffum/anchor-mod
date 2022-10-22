@@ -4,7 +4,7 @@
 package haven.blocks;
 
 import haven.HavenMod;
-import haven.features.MangroveSaplingGenerator;
+import haven.gen.features.MangroveSaplingGenerator;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

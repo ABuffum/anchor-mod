@@ -40,13 +40,13 @@ public class BaseTreeMaterial extends WoodMaterial implements
 		torch = MakeTorch(14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
 		ender_torch = MakeTorch(12, BlockSoundGroup.WOOD, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
 		soul_torch = MakeTorch(10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
-		log = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)));
-		stripped_log = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)));
-		wood = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)));
-		stripped_wood = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)));
-		campfire = MakeCampfire(15, 1, mapColor);
-		ender_campfire = MakeCampfire(13, 3, mapColor);
-		soul_campfire = MakeCampfire(10, 2, mapColor);
+		log = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		stripped_log = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)), ItemSettings());
+		wood = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)), ItemSettings());
+		stripped_wood = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(log.BLOCK)), ItemSettings());
+		campfire = MakeCampfire(15, 1, mapColor, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, false);
 	}
 
 	public boolean contains(Block block) {

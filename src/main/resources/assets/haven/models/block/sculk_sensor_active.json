@@ -1,0 +1,6 @@
+{
+    "parent": "block/sculk_sensor",
+    "textures": {
+        "tendrils": "haven:block/sculk_sensor_tendril_active"
+    }
+}

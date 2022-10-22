@@ -2,6 +2,10 @@
   "values": [
 	"haven:ender_jack_o_lantern",
 	"haven:white_ender_jack_o_lantern",
-	"haven:rotten_ender_jack_o_lantern"
+	"haven:rotten_ender_jack_o_lantern",
+ 
+	"haven:soleil_ender_jack_o_lantern",
+	"haven:soleil_white_ender_jack_o_lantern",
+	"haven:soleil_rotten_ender_jack_o_lantern"
   ]
 }

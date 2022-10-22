@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+	"minecraft:wooden_pickaxe",
+	"minecraft:stone_pickaxe",
+	"minecraft:iron_pickaxe",
+	"minecraft:diamond_pickaxe",
+	"minecraft:golden_pickaxe",
+	"minecraft:netherite_pickaxe",
+ 
+	"haven:amethyst_pickaxe",
+	"haven:copper_pickaxe",
+	"haven:dark_iron_pickaxe",
+	"haven:emerald_pickaxe",
+	"haven:obsidian_pickaxe",
+	"haven:quartz_pickaxe"
+  ]
+}

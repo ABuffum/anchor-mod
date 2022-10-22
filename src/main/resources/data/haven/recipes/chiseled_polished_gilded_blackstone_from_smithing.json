@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "addition": {
+    "item": "minecraft:gold_ingot"
+  },
+  "base": {
+    "item": "minecraft:chiseled_polished_blackstone"
+  },
+  "result": {
+    "item": "haven:chiseled_polished_gilded_blackstone"
+  }
+}

@@ -26,7 +26,6 @@ import net.minecraft.world.WorldView;
 
 public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	public static final BooleanProperty LIT;
-	protected static final float field_31052 = 1.0F;
 	protected static final VoxelShape CAKE_SHAPE;
 	protected static final VoxelShape CANDLE_SHAPE;
 	protected static final VoxelShape SHAPE;
@@ -34,8 +33,8 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 
 	private CakeContainer.Flavor flavor;
 	public CakeContainer.Flavor getFlavor() { return flavor; }
-	public HavenCandleCakeBlock(CakeContainer.Flavor flavor) {
-		this(flavor, HavenCakeBlock.SETTINGS);
+	public HavenCandleCakeBlock(CakeContainer.Flavor flavor, int candleLuminance) {
+		this(flavor, HavenCakeBlock.Settings().luminance((state) -> state.get(CandleBlock.LIT) ?  candleLuminance : 0));
 	}
 	public HavenCandleCakeBlock(CakeContainer.Flavor flavor, AbstractBlock.Settings settings) {
 		super(settings);
@@ -54,7 +53,7 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack itemStack = player.getStackInHand(hand);
 		if (!itemStack.isOf(Items.FLINT_AND_STEEL) && !itemStack.isOf(Items.FIRE_CHARGE)) {
-			if (isHittingCandle(hit) && player.getStackInHand(hand).isEmpty() && (Boolean)state.get(LIT)) {
+			if (isHittingCandle(hit) && player.getStackInHand(hand).isEmpty() && state.get(LIT)) {
 				extinguish(player, state, world, pos);
 				return ActionResult.success(world.isClient);
 			} else {
@@ -80,7 +79,8 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 		Block block = state.getBlock();
 		Item item = Items.CAKE;
 		if (block instanceof HavenCandleCakeBlock candleCake) {
-			item = candleCake.getFlavor().getCake().ITEM;
+			CakeContainer.Flavor flavor = candleCake.getFlavor();
+			item = flavor != null ? flavor.getCake().ITEM : Items.CAKE;
 		}
 		return new ItemStack(item);
 	}
