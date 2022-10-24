@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:indigo_orchid"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "minecraft:magenta_dye"
+  }
+}

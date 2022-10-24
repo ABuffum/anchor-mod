@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/dried_bamboo_woodcutter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/dried_bamboo_woodcutter"
+    },
+    "facing=south": {
+      "model": "haven:block/dried_bamboo_woodcutter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/dried_bamboo_woodcutter",
+      "y": 270
+    }
+  }
+}

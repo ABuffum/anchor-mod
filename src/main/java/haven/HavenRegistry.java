@@ -22,11 +22,13 @@ import haven.gen.DeepDarkBiome;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.origins.powers.*;
+import haven.rendering.gui.WoodcutterScreen;
 import haven.util.*;
 
 import io.github.apace100.apoli.power.factory.PowerFactory;
 import io.github.apace100.apoli.power.factory.PowerFactorySupplier;
 import io.github.apace100.apoli.registry.ApoliRegistries;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -507,6 +509,7 @@ public class HavenRegistry {
 			Register(name + "_ladder", pair);
 			if (flammable) FUEL.add(pair.ITEM, 300);
 		}
+		if (material instanceof WoodcutterProvider woodcutter) Register(name + "_woodcutter", woodcutter.getWoodcutter());
 		if (material instanceof SignProvider sign) Register(name + "_sign", name + "_wall_sign", sign.getSign());
 		if (material instanceof BoatProvider boatProvider) {
 			HavenBoat boat = boatProvider.getBoat();
@@ -542,11 +545,13 @@ public class HavenRegistry {
 		Register("pink_allium", PINK_ALLIUM);
 		Register("lavender", LAVENDER);
 		Register("hydrangea", HYDRANGEA);
+		Register("indigo_orchid", INDIGO_ORCHID);
 		Register("magenta_orchid", MAGENTA_ORCHID);
 		Register("purple_orchid", PURPLE_ORCHID);
 		Register("white_orchid", WHITE_ORCHID);
 		Register("yellow_orchid", YELLOW_ORCHID);
 		Register("paeonia", PAEONIA);
+		Register("aster", ASTER);
 		Register("amaranth", AMARANTH);
 		COMPOST.add(AMARANTH.ITEM, 0.65F);
 		FLAMMABLE.add(AMARANTH.BLOCK, 60, 100);
@@ -1511,6 +1516,11 @@ public class HavenRegistry {
 		Register(NETHERITE_MATERIAL);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 	}
+	public static void RegisterWoodcutter() {
+		Registry.register(Registry.RECIPE_TYPE, ID("woodcutting"),WOODCUTTING_RECIPE_TYPE);
+		Registry.register(Registry.RECIPE_SERIALIZER, ID("woodcutting"), WOODCUTTING_RECIPE_SERIALIZER);
+		ScreenRegistry.register(WOODCUTTER_SCREEN_HANDLER, WoodcutterScreen::new);
+	}
 	public static void RegisterLiquidMud() {
 		Register("mud_bubble", MUD_BUBBLE);
 		Register("mud_splash", MUD_SPLASH);
@@ -1577,6 +1587,7 @@ public class HavenRegistry {
 		Register("emerald_locket", EMERALD_LOCKET);
 		Register("amber_eye", AMBER_EYE);
 		Register("amber_eye_end_portal_frame", AMBER_EYE_END_PORTAL_FRAME);
+		Register("vector_arrow", VECTOR_ARROW_PARTICLE);
 		RegisterSoleil();
 		RegisterCoffee();
 		Register("haven_boat", BOAT_ENTITY);
@@ -1642,6 +1653,7 @@ public class HavenRegistry {
 		RegisterGold();
 		RegisterIron();
 		RegisterNetherite();
+		RegisterWoodcutter();
 		Register("hedge_block", HEDGE_BLOCK);
 		Register("wax_block", WAX_BLOCK);
 		Register("horn", HORN);

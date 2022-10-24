@@ -30,6 +30,7 @@ import haven.entities.projectiles.*;
 import haven.entities.tnt.*;
 import haven.gen.features.*;
 import haven.items.*;
+import haven.items.basic.HavenMusicDiscItem;
 import haven.items.consumable.*;
 import haven.items.buckets.*;
 import haven.items.consumable.milk.*;
@@ -47,6 +48,9 @@ import haven.materials.stone.*;
 import haven.materials.wood.*;
 import haven.particles.SculkChargeParticleEffect;
 import haven.particles.ShriekParticleEffect;
+import haven.recipes.WoodcuttingRecipe;
+import haven.recipes.WoodcuttingRecipeSerializer;
+import haven.rendering.gui.WoodcutterScreenHandler;
 import haven.sounds.*;
 import haven.util.*;
 
@@ -57,6 +61,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.block.enums.SculkSensorPhase;
@@ -68,6 +73,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.particle.*;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.*;
 import net.minecraft.util.*;
@@ -243,6 +251,7 @@ public class HavenMod implements ModInitializer {
 	public static final FlowerContainer BLUE_ROSE = new FlowerContainer(new GrowableFlowerBlock(StatusEffects.WEAKNESS, 9, FlowerContainer.Settings(), HavenMod::getBlueRoseBush));
 	public static final FlowerContainer MAGENTA_TULIP = new FlowerContainer(StatusEffects.FIRE_RESISTANCE, 4);
 	public static final FlowerContainer MARIGOLD = new FlowerContainer(StatusEffects.WITHER, 5);
+	public static final FlowerContainer INDIGO_ORCHID = new FlowerContainer(StatusEffects.SATURATION, 7);
 	public static final FlowerContainer MAGENTA_ORCHID = new FlowerContainer(StatusEffects.SATURATION, 7);
 	public static final FlowerContainer PURPLE_ORCHID = new FlowerContainer(StatusEffects.SATURATION, 7);
 	public static final FlowerContainer WHITE_ORCHID = new FlowerContainer(StatusEffects.SATURATION, 7);
@@ -252,6 +261,7 @@ public class HavenMod implements ModInitializer {
 	public static final FlowerContainer LAVENDER = new FlowerContainer(StatusEffects.INVISIBILITY, 8);
 	public static final FlowerContainer HYDRANGEA = new FlowerContainer(StatusEffects.JUMP_BOOST, 7);
 	public static final FlowerContainer PAEONIA = new FlowerContainer(StatusEffects.STRENGTH, 6);
+	public static final FlowerContainer ASTER = new FlowerContainer(StatusEffects.INSTANT_DAMAGE, 1);
 	public static final TallBlockContainer AMARANTH = new TallBlockContainer(new TallFlowerBlock(FlowerContainer.TallSettings()), ItemSettings().group(FLOWER_GROUP));
 	public static final Item AMARANTH_PETALS = new Item(FlowerContainer.PetalSettings());
 	public static final FlowerSeedContainer AMARANTH_SEEDS = new FlowerSeedContainer((TallFlowerBlock)AMARANTH.BLOCK);
@@ -303,6 +313,10 @@ public class HavenMod implements ModInitializer {
 	public static final Item EMERALD_LOCKET = new Item(ItemSettings());
 	public static final Item AMBER_EYE = new AmberEyeItem(ItemSettings().maxCount(1));
 	public static final Block AMBER_EYE_END_PORTAL_FRAME = new AmberEyeEndPortalFrameBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PURPLE).sounds(BlockSoundGroup.GLASS).luminance(luminance(1)).strength(-1.0F, 3600000.0F));
+
+	//Deepest Sleep's stuff
+	public static final DefaultParticleType VECTOR_ARROW_PARTICLE = FabricParticleTypes.simple(false);
+
 
 	//Soleil's stuff
 	public static final BlockContainer SOFT_TNT = new BlockContainer(new SoftTntBlock(AbstractBlock.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
@@ -546,8 +560,8 @@ public class HavenMod implements ModInitializer {
 	public static final BucketItem MUD_BUCKET = new MudBucketItem(STILL_MUD_FLUID, ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1));
 	public static final Block MUD_CAULDRON;
 	//Music Discs
-	public static final Item MUSIC_DISC_OTHERSIDE = new MusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, ItemSettings().maxCount(1).rarity(Rarity.RARE));
-	public static final Item MUSIC_DISC_5 = new MusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, ItemSettings().maxCount(1).rarity(Rarity.RARE));
+	public static final Item MUSIC_DISC_OTHERSIDE = new HavenMusicDiscItem(14, HavenSoundEvents.MUSIC_DISC_OTHERSIDE, ItemSettings().maxCount(1).rarity(Rarity.RARE));
+	public static final Item MUSIC_DISC_5 = new HavenMusicDiscItem(15, HavenSoundEvents.MUSIC_DISC_5, ItemSettings().maxCount(1).rarity(Rarity.RARE));
 	public static final Item DISC_FRAGMENT_5 = new DiscFragmentItem(ItemSettings());
 	//Goat Stuff
 	public static final Map<DyeColor, BlockContainer> FLEECE = MapDyeColor((color) -> new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOL, color.getMapColor()).strength(0.8F).sounds(BlockSoundGroup.WOOL))));
@@ -1224,6 +1238,11 @@ public class HavenMod implements ModInitializer {
 
 	//Boats
 	public static final EntityType<HavenBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<HavenBoatEntity>create(SpawnGroup.MISC, HavenBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
+
+	//Woodcutting
+	public static final RecipeType<WoodcuttingRecipe> WOODCUTTING_RECIPE_TYPE = new RecipeType<WoodcuttingRecipe>() { public String toString() { return "woodcutting"; } };
+	public static final RecipeSerializer<WoodcuttingRecipe> WOODCUTTING_RECIPE_SERIALIZER = new WoodcuttingRecipeSerializer<WoodcuttingRecipe>(WoodcuttingRecipe::new);
+	public static final ScreenHandlerType<WoodcutterScreenHandler> WOODCUTTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID("woodcutter"), WoodcutterScreenHandler::new);
 
 	//Hedges
 	public static final BlockContainer HEDGE_BLOCK = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque()));

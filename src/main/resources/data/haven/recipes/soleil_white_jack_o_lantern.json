@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "A": {
-      "item": "haven:soleil_white_carved_pumpkin"
+      "item": "haven:soleil_carved_white_pumpkin"
     },
     "B": {
       "tag": "haven:torches"

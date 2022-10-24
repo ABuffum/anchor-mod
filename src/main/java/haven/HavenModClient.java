@@ -113,6 +113,10 @@ public class HavenModClient implements ClientModInitializer {
 		//Sculk
 		SCULK_SENSOR.BLOCK, SCULK_VEIN.BLOCK, SCULK_SHRIEKER.BLOCK
 	));
+	private static void setLayer(List<Block> target, FlowerContainer container) {
+		setLayer(target, (PottedBlockContainer)container);
+		target.add(container.SEEDS.BLOCK);
+	}
 	private static void setLayer(List<Block> target, PottedBlockContainer container) {
 		target.add(container.BLOCK);
 		target.add(container.POTTED);
@@ -168,8 +172,9 @@ public class HavenModClient implements ClientModInitializer {
 		setLayer(Cutout, ENDER_TORCH);
 		setLayer(Cutout, UNDERWATER_TORCH);
 		for (FlowerContainer flower : Set.of(
-			BUTTERCUP, PINK_DAISY, ROSE, BLUE_ROSE, MAGENTA_TULIP, MARIGOLD, MAGENTA_ORCHID, PURPLE_ORCHID,
-			WHITE_ORCHID, YELLOW_ORCHID, PINK_ALLIUM, LAVENDER, HYDRANGEA, PAEONIA, VANILLA_FLOWER
+			BUTTERCUP, PINK_DAISY, ROSE, BLUE_ROSE, MAGENTA_TULIP, MARIGOLD, INDIGO_ORCHID, MAGENTA_ORCHID,
+			PURPLE_ORCHID, WHITE_ORCHID, YELLOW_ORCHID, PINK_ALLIUM, LAVENDER, HYDRANGEA, PAEONIA, ASTER,
+			VANILLA_FLOWER
 		)) setLayer(Cutout, flower);
 		for (DyeColor color : COLORS) setLayer(Cutout, CARNATIONS.get(color));
 		for (BlockContainer flower : Set.<BlockContainer>of(
@@ -205,6 +210,7 @@ public class HavenModClient implements ClientModInitializer {
 			if (material instanceof CampfireProvider campfire) Cutout.add(campfire.getCampfire().BLOCK);
 			if (material instanceof SoulCampfireProvider soulCampfire) Cutout.add(soulCampfire.getSoulCampfire().BLOCK);
 			if (material instanceof EnderCampfireProvider enderCampfire) Cutout.add(enderCampfire.getEnderCampfire().BLOCK);
+			if (material instanceof WoodcutterProvider woodcutterProvider) Cutout.add(woodcutterProvider.getWoodcutter().BLOCK);
 			if (material instanceof ChainProvider chain) Cutout.add(chain.getChain().BLOCK);
 			if (material instanceof OxidizableChainProvider oxidizableChain) setLayer(CutoutMipped, oxidizableChain.getOxidizableChain());
 			if (material instanceof BarsProvider bars) CutoutMipped.add(bars.getBars().BLOCK);
@@ -294,6 +300,8 @@ public class HavenModClient implements ClientModInitializer {
 		PARTICLES.register(SONIC_BOOM_PARTICLE, SonicBoomParticle.Factory::new);
 		EntityRendererRegistry.register(WARDEN_ENTITY, WardenEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(MODEL_WARDEN_LAYER, WardenEntityModel::getTexturedModelData);
+		//Deepest Sleep
+		PARTICLES.register(VECTOR_ARROW_PARTICLE, VectorParticle.ArrowFactory::new);
 		//Soft TNT
 		EntityRendererRegistry.register(SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes

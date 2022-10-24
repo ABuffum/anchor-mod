@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/gilded_woodcutter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/gilded_woodcutter"
+    },
+    "facing=south": {
+      "model": "haven:block/gilded_woodcutter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/gilded_woodcutter",
+      "y": 270
+    }
+  }
+}

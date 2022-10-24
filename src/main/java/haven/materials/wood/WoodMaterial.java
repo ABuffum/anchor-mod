@@ -1,6 +1,7 @@
 package haven.materials.wood;
 
 import haven.blocks.BookshelfBlock;
+import haven.blocks.WoodcutterBlock;
 import haven.blocks.basic.*;
 import haven.boats.HavenBoat;
 import haven.materials.base.BaseMaterial;
@@ -13,7 +14,7 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public abstract class WoodMaterial extends BaseMaterial implements
 		PlanksProvider, StairsProvider, SlabProvider, FenceProvider, FenceGateProvider, DoorProvider, TrapdoorProvider,
-		PressurePlateProvider, ButtonProvider, BookshelfProvider, LadderProvider, SignProvider, BoatProvider {
+		PressurePlateProvider, ButtonProvider, BookshelfProvider, LadderProvider, WoodcutterProvider, SignProvider, BoatProvider {
 	private final BlockContainer planks;
 	public BlockContainer getPlanks() { return planks; }
 	private final BlockContainer stairs;
@@ -36,6 +37,8 @@ public abstract class WoodMaterial extends BaseMaterial implements
 	public BlockContainer getBookshelf() { return bookshelf; }
 	private final BlockContainer ladder;
 	public BlockContainer getLadder() { return ladder; }
+	private final BlockContainer woodcutter;
+	public BlockContainer getWoodcutter() { return woodcutter; }
 	private final SignContainer sign;
 	public SignContainer getSign() { return sign; }
 	private final HavenBoat boat;
@@ -54,6 +57,7 @@ public abstract class WoodMaterial extends BaseMaterial implements
 		button = new BlockContainer(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
+		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 		sign = new SignContainer(name, Material.WOOD, BlockSoundGroup.WOOD);
 		boat = new HavenBoat(name, planks.BLOCK, !isFlammable());
 	}
@@ -61,11 +65,11 @@ public abstract class WoodMaterial extends BaseMaterial implements
 	public boolean contains(Block block) {
 		return planks.contains(block) || stairs.contains(block) || slab.contains(block) || fence.contains(block) || fence_gate.contains(block)
 				|| door.contains(block) || trapdoor.contains(block) || pressure_plate.contains(block) || button.contains(block)
-				|| bookshelf.contains(block) || ladder.contains(block) || sign.contains(block) || super.contains(block);
+				|| bookshelf.contains(block) || ladder.contains(block) || woodcutter.contains(block) || sign.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
 		return planks.contains(item) || stairs.contains(item) || slab.contains(item) || fence.contains(item) || fence_gate.contains(item)
 				|| door.contains(item) || trapdoor.contains(item) || pressure_plate.contains(item) || button.contains(item)
-				|| bookshelf.contains(item) || ladder.contains(item) || sign.contains(item) || item == boat.ITEM || super.contains(item);
+				|| bookshelf.contains(item) || ladder.contains(item) || woodcutter.contains(item) || sign.contains(item) || item == boat.ITEM || super.contains(item);
 	}
 }

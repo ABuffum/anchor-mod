@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/sugar_cane_woodcutter",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/sugar_cane_woodcutter"
+    },
+    "facing=south": {
+      "model": "haven:block/sugar_cane_woodcutter",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/sugar_cane_woodcutter",
+      "y": 270
+    }
+  }
+}

@@ -2,6 +2,7 @@ package haven.materials.wood;
 
 import haven.HavenMod;
 import haven.blocks.BookshelfBlock;
+import haven.blocks.WoodcutterBlock;
 import haven.blocks.basic.HavenLadderBlock;
 import haven.boats.HavenBoat;
 import haven.containers.BlockContainer;
@@ -16,7 +17,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class VanillaNetherWoodMaterial extends BaseMaterial implements
 		TorchProvider, EnderTorchProvider, SoulTorchProvider,
 		CampfireProvider, EnderCampfireProvider, SoulCampfireProvider,
-		BookshelfProvider, LadderProvider, BoatProvider {
+		BookshelfProvider, WoodcutterProvider, LadderProvider, BoatProvider {
 	private final TorchContainer torch;
 	public TorchContainer getTorch() { return torch; }
 	private final TorchContainer ender_torch;
@@ -33,6 +34,8 @@ public class VanillaNetherWoodMaterial extends BaseMaterial implements
 	public BlockContainer getBookshelf() { return bookshelf; }
 	private final BlockContainer ladder;
 	public BlockContainer getLadder() { return ladder; }
+	private final BlockContainer woodcutter;
+	public BlockContainer getWoodcutter() { return woodcutter; }
 	private final HavenBoat boat;
 	public HavenBoat getBoat() { return boat; }
 
@@ -46,17 +49,18 @@ public class VanillaNetherWoodMaterial extends BaseMaterial implements
 		soul_campfire = MakeCampfire(10, 2, mapColor, false);
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
+		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 		boat = new HavenBoat(name, baseBlock, !isFlammable(), ItemSettings().maxCount(1));
 	}
 
 	public boolean contains(Block block) {
 		return torch.contains(block) || ender_torch.contains(block) || soul_torch.contains(block)
 				|| campfire.contains(block) || ender_campfire.contains(block) || soul_campfire.contains(block)
-				|| bookshelf.contains(block) || ladder.contains(block) || super.contains(block);
+				|| bookshelf.contains(block) || ladder.contains(block) || woodcutter.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
 		return torch.contains(item) || ender_torch.contains(item) || soul_torch.contains(item)
 				|| campfire.contains(item) || ender_campfire.contains(item) || soul_campfire.contains(item)
-				|| bookshelf.contains(item) || ladder.contains(item) || item == boat.ITEM || super.contains(item);
+				|| bookshelf.contains(item) || ladder.contains(item) || woodcutter.contains(item) || item == boat.ITEM || super.contains(item);
 	}
 }

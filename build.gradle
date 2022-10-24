@@ -71,10 +71,6 @@ dependencies {
 	modRuntime "me.shedaniel:RoughlyEnoughItems-fabric:6.2.347"
 }
 
-loom {
-	accessWidener file("src/main/resources/${project.archives_base_name}.accesswidener")
-}
-
 processResources {
 	inputs.property "version", project.version
 

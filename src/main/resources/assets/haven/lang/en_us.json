@@ -81,6 +81,7 @@
   "block.haven.acacia_soul_campfire": "Acacia Soul Campfire",
   "block.haven.acacia_bookshelf": "Acacia Bookshelf",
   "block.haven.acacia_ladder": "Acacia Ladder",
+  "block.haven.acacia_woodcutter": "Acacia Woodcutter",
   
   "block.haven.birch_torch": "Birch Torch",
   "block.haven.birch_wall_torch": "Birch Wall Torch",
@@ -102,6 +103,7 @@
   "block.haven.birch_soul_campfire": "Birch Soul Campfire",
   "block.haven.birch_bookshelf": "Birch Bookshelf",
   "block.haven.birch_ladder": "Birch Ladder",
+  "block.haven.birch_woodcutter": "Birch Woodcutter",
   
   "block.haven.crimson_torch": "Crimson Torch",
   "block.haven.crimson_wall_torch": "Crimson Wall Torch",
@@ -125,6 +127,7 @@
   "block.haven.crimson_soul_campfire": "Crimson Soul Campfire",
   "block.haven.crimson_bookshelf": "Crimson Bookshelf",
   "block.haven.crimson_ladder": "Crimson Ladder",
+  "block.haven.crimson_woodcutter": "Crimson Woodcutter",
   
   "block.haven.dark_oak_torch": "Dark Oak Torch",
   "block.haven.dark_oak_wall_torch": "Dark Oak Wall Torch",
@@ -146,6 +149,7 @@
   "block.haven.dark_oak_soul_campfire": "Dark Oak Soul Campfire",
   "block.haven.dark_oak_bookshelf": "Dark Oak Bookshelf",
   "block.haven.dark_oak_ladder": "Dark Oak Ladder",
+  "block.haven.dark_oak_woodcutter": "Dark Oak Woodcutter",
   
   "block.haven.jungle_torch": "Jungle Torch",
   "block.haven.jungle_wall_torch": "Jungle Wall Torch",
@@ -167,6 +171,7 @@
   "block.haven.jungle_soul_campfire": "Jungle Soul Campfire",
   "block.haven.jungle_bookshelf": "Jungle Bookshelf",
   "block.haven.jungle_ladder": "Jungle Ladder",
+  "block.haven.jungle_woodcutter": "Jungle Woodcutter",
   
   "block.haven.ender_campfire": "Ender Campfire",
   
@@ -190,6 +195,7 @@
   "block.haven.spruce_soul_campfire": "Spruce Soul Campfire",
   "block.haven.spruce_bookshelf": "Spruce Bookshelf",
   "block.haven.spruce_ladder": "Spruce Ladder",
+  "block.haven.spruce_woodcutter": "Spruce Woodcutter",
   
   "block.haven.warped_torch": "Warped Torch",
   "block.haven.warped_wall_torch": "Warped Wall Torch",
@@ -213,6 +219,7 @@
   "block.haven.warped_soul_campfire": "Warped Soul Campfire",
   "block.haven.warped_bookshelf": "Warped Bookshelf",
   "block.haven.warped_ladder": "Warped Ladder",
+  "block.haven.warped_woodcutter": "Warped Woodcutter",
   
   "block.haven.copper_torch": "Copper Torch",
   "block.haven.copper_wall_torch": "Copper Wall Torch",
@@ -607,6 +614,10 @@
   "block.haven.potted_yellow_orchid": "Potted Yellow Orchid",
   "item.haven.yellow_orchid_petals": "Yellow Orchid Petals",
   "block.haven.yellow_orchid_seeds": "Yellow Orchid Seeds",
+  "block.haven.indigo_orchid": "Indigo Orchid",
+  "block.haven.potted_indigo_orchid": "Potted Indigo Orchid",
+  "item.haven.indigo_orchid_petals": "Indigo Orchid Petals",
+  "block.haven.indigo_orchid_seeds": "Indigo Orchid Seeds",
   "block.haven.pink_allium": "Pink Allium",
   "block.haven.potted_pink_allium": "Potted Pink Allium",
   "item.haven.pink_allium_petals": "Pink Allium Petals",
@@ -633,6 +644,10 @@
   "block.haven.potted_paeonia": "Potted Paeonia",
   "item.haven.paeonia_petals": "Paeonia Petals",
   "block.haven.paeonia_seeds": "Paeonia Seeds",
+  "block.haven.aster": "Aster",
+  "block.haven.potted_aster": "Aster Paeonia",
+  "item.haven.aster_petals": "Aster Petals",
+  "block.haven.aster_seeds": "Aster Seeds",
   
   "item.haven.allium_petals": "Allium Petals",
   "block.haven.allium_seeds": "Allium Seeds",
@@ -740,6 +755,7 @@
   "block.haven.potted_gilded_roots": "Potted Gilded Roots",
   "block.haven.gilded_bookshelf": "Gilded Bookshelf",
   "block.haven.gilded_ladder": "Gilded Ladder",
+  "block.haven.gilded_woodcutter": "Gilded Woodcutter",
   
   "block.haven.blue_shroomlight": "Blue Shroomlight",
   
@@ -783,6 +799,7 @@
   "item.haven.bamboo_chest_boat": "Bamboo Boat with Chest",
   "block.haven.bamboo_bookshelf": "Bamboo Bookshelf",
   "block.haven.bamboo_ladder": "Bamboo Ladder",
+  "block.haven.bamboo_woodcutter": "Bamboo Woodcutter",
   
   "block.haven.blue_mushroom": "Blue Mushroom",
   "block.haven.potted_blue_mushroom": "Potted Blue Mushroom",
@@ -820,6 +837,7 @@
   "item.haven.blue_mushroom_chest_boat": "Blue Mushroom Boat with Chest",
   "block.haven.blue_mushroom_bookshelf": "Blue Mushroom Bookshelf",
   "block.haven.blue_mushroom_ladder": "Blue Mushroom Ladder",
+  "block.haven.blue_mushroom_woodcutter": "Blue Mushroom Woodcutter",
   
   "block.haven.brown_mushroom_torch": "Brown Mushroom Torch",
   "block.haven.brown_mushroom_wall_torch": "Brown Mushroom Wall Torch",
@@ -854,6 +872,7 @@
   "item.haven.brown_mushroom_chest_boat": "Brown Mushroom Boat with Chest",
   "block.haven.brown_mushroom_bookshelf": "Brown Mushroom Bookshelf",
   "block.haven.brown_mushroom_ladder": "Brown Mushroom Ladder",
+  "block.haven.brown_mushroom_woodcutter": "Brown Mushroom Woodcutter",
   
   "block.haven.vanilla_flower": "Vanilla Flower",
   "block.haven.potted_vanilla_flower": "Potted Vanilla Flower",
@@ -905,6 +924,7 @@
   "block.haven.potted_cassia_sapling": "Potted Cassia Sapling",
   "block.haven.cassia_bookshelf": "Cassia Bookshelf",
   "block.haven.cassia_ladder": "Cassia Ladder",
+  "block.haven.cassia_woodcutter": "Cassia Woodcutter",
   
   "block.haven.charred_torch": "Charred Torch",
   "block.haven.charred_wall_torch": "Charred Wall Torch",
@@ -943,6 +963,7 @@
   "item.haven.charred_chest_boat": "Charred Boat with Chest",
   "block.haven.charred_bookshelf": "Charred Bookshelf",
   "block.haven.charred_ladder": "Charred Ladder",
+  "block.haven.charred_woodcutter": "Charred Woodcutter",
   
   "block.haven.cherry_torch": "Cherry Torch",
   "block.haven.cherry_wall_torch": "Cherry Wall Torch",
@@ -982,6 +1003,7 @@
   "item.haven.cherry_chest_boat": "Cherry Boat with Chest",
   "block.haven.cherry_bookshelf": "Cherry Bookshelf",
   "block.haven.cherry_ladder": "Cherry Ladder",
+  "block.haven.cherry_woodcutter": "Cherry Woodcutter",
   "block.haven.cherry_leaves": "Cherry Leaves",
   "block.haven.pale_cherry_leaves": "Pale Cherry Leaves",
   "item.haven.pale_cherry_petals": "Pale Cherry Petals",
@@ -1033,6 +1055,7 @@
   "block.haven.dried_bamboo": "Dried Bamboo",
   "block.haven.dried_bamboo_bookshelf": "Dried Bamboo Bookshelf",
   "block.haven.dried_bamboo_ladder": "Dried Bamboo Ladder",
+  "block.haven.dried_bamboo_woodcutter": "Dried Bamboo Woodcutter",
   
   "block.haven.hay_torch": "Hay Torch",
   "block.haven.hay_wall_torch": "Hay Wall Torch",
@@ -1064,6 +1087,7 @@
   "item.haven.hay_chest_boat": "Hay Boat with Chest",
   "block.haven.hay_bookshelf": "Hay Bookshelf",
   "block.haven.hay_ladder": "Hay Ladder",
+  "block.haven.hay_woodcutter": "Hay Woodcutter",
   
   "block.haven.mushroom_stem_torch": "Mushroom Stem Torch",
   "block.haven.mushroom_stem_wall_torch": "Mushroom Stem Wall Torch",
@@ -1098,6 +1122,7 @@
   "item.haven.mushroom_stem_chest_boat": "Mushroom Stem Boat with Chest",
   "block.haven.mushroom_stem_bookshelf": "Mushroom Stem Bookshelf",
   "block.haven.mushroom_stem_ladder": "Mushroom Stem Ladder",
+  "block.haven.mushroom_stem_woodcutter": "Mushroom Stem Woodcutter",
   
   "block.haven.red_mushroom_torch": "Red Mushroom Torch",
   "block.haven.red_mushroom_wall_torch": "Red Mushroom Wall Torch",
@@ -1132,6 +1157,7 @@
   "item.haven.red_mushroom_chest_boat": "Red Mushroom Boat with Chest",
   "block.haven.red_mushroom_bookshelf": "Red Mushroom Bookshelf",
   "block.haven.red_mushroom_ladder": "Red Mushroom Ladder",
+  "block.haven.red_mushroom_woodcutter": "Red Mushroom Woodcutter",
   
   "block.haven.sugar_cane_torch": "Sugar Cane Torch",
   "block.haven.sugar_cane_wall_torch": "Sugar Cane Wall Torch",
@@ -1169,6 +1195,7 @@
   "item.haven.sugar_cane_chest_boat": "Sugar Cane Boat with Chest",
   "block.haven.sugar_cane_bookshelf": "Sugar Cane Bookshelf",
   "block.haven.sugar_cane_ladder": "Sugar Cane Ladder",
+  "block.haven.sugar_cane_woodcutter": "Sugar Cane Woodcutter",
   
   "item.haven.ramen": "Ramen",
   "item.haven.stir_fry": "Stir Fry",
@@ -2214,6 +2241,7 @@
   "item.haven.mangrove_chest_boat": "Mangrove Boat with Chest",
   "block.haven.mangrove_bookshelf": "Mangrove Bookshelf",
   "block.haven.mangrove_ladder": "Mangrove Ladder",
+  "block.haven.mangrove_woodcutter": "Mangrove Woodcutter",
   
   "block.haven.ochre_froglight": "Ochre Froglight",
   "block.haven.verdant_froglight": "Verdant Froglight",
@@ -2299,6 +2327,8 @@
   "item.haven.echo_leggings": "Echo Leggings",
   "item.haven.echo_boots": "Echo Boots",
   "item.haven.echo_horse_armor": "Echo Horse Armor",
+  
+  "container.woodcutter": "Woodcutter",
   
   "block.haven.hedge_block": "Hedge Block",
   

@@ -25,7 +25,6 @@
       "haven.HavenModClient"
     ]
   },
-  "accessWidener" : "havenmod.accesswidener",
   "mixins": [
     "haven.mixins.json"
   ],
