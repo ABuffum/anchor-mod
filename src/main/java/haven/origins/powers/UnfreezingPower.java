@@ -25,7 +25,6 @@ public class UnfreezingPower extends Power {
 
 	public static boolean HasActivePower(Entity entity) {
 		List<UnfreezingPower> powers = PowerHolderComponent.KEY.get(entity).getPowers(UnfreezingPower.class);
-		if (powers.isEmpty()) return false;
 		for (UnfreezingPower power : powers) {
 			if (power.isActive()) return true;
 		}

@@ -23,4 +23,8 @@ public interface LivingEntityAccessor {
 
 	@Accessor("roll")
 	public int GetRoll();
+
+
+	@Accessor("jumping")
+	public boolean getJumping();
 }

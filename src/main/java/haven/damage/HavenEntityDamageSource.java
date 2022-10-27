@@ -12,4 +12,7 @@ public class HavenEntityDamageSource extends EntityDamageSource {
 	public static DamageSource sonicBoom(Entity attacker) {
 		return new HavenEntityDamageSource("sonic_boom", attacker).setBypassesArmor().setUsesMagic();//.setBypassesProtection();
 	}
+	public static DamageSource quills(Entity attacker) {
+		return new HavenEntityDamageSource("quillls", attacker).setBypassesArmor();
+	}
 }

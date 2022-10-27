@@ -9,7 +9,7 @@ import haven.entities.ExtraPosedEntity;
 import haven.entities.Poses;
 import haven.entities.ai.MemoryModules;
 import haven.events.HavenEntityPositionSource;
-import haven.events.VibrationListener;
+import haven.events.HavenVibrationListener;
 import haven.sounds.HavenSoundEvents;
 import haven.util.StatusEffectUtils;
 import net.minecraft.block.BlockRenderType;
@@ -64,7 +64,7 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-public class WardenEntity extends HostileEntity implements VibrationListener.Callback, ExtraPosedEntity {
+public class WardenEntity extends HostileEntity implements HavenVibrationListener.Callback, ExtraPosedEntity {
 	private static final Logger field_38138 = LoggerFactory.getLogger(StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass());
 	private static final int field_38139 = 16;
 	private static final int field_38142 = 40;
@@ -94,7 +94,7 @@ public class WardenEntity extends HostileEntity implements VibrationListener.Cal
 	private int heartbeatCooldown;
 	private int lastHeartbeatCooldown;
 	private int wardenPose = -1;
-	private VibrationListener listener;
+	private HavenVibrationListener listener;
 	public int GetPose() {
 		if (wardenPose < 0) wardenPose = super.getPose().ordinal();
 		return wardenPose;
@@ -114,7 +114,7 @@ public class WardenEntity extends HostileEntity implements VibrationListener.Cal
 
 	public WardenEntity(EntityType<? extends HostileEntity> entityType, World world) {
 		super(entityType, world);
-		this.listener = new VibrationListener(new HavenEntityPositionSource(this, this.getStandingEyeHeight()), 16, this, null, 0.0f, 0);
+		this.listener = new HavenVibrationListener(new HavenEntityPositionSource(this, this.getStandingEyeHeight()), 16, this, null, 0.0f, 0);
 		this.gameEventHandler = new EntityGameEventHandler(this.listener);
 		this.experiencePoints = 5;
 		this.getNavigation().setCanSwim(true);
@@ -361,7 +361,7 @@ public class WardenEntity extends HostileEntity implements VibrationListener.Cal
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
 		WardenAngerManager.createCodec(this::isValidTarget).encodeStart(NbtOps.INSTANCE, this.angerManager).resultOrPartial(field_38138::error).ifPresent(angerNbt -> nbt.put("anger", (NbtElement)angerNbt));
-		VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(field_38138::error).ifPresent(nbtElement -> nbt.put("listener", (NbtElement)nbtElement));
+		HavenVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(field_38138::error).ifPresent(nbtElement -> nbt.put("listener", (NbtElement)nbtElement));
 	}
 
 	@Override
@@ -372,7 +372,7 @@ public class WardenEntity extends HostileEntity implements VibrationListener.Cal
 			this.updateAnger();
 		}
 		if (nbt.contains("listener", NbtElement.COMPOUND_TYPE)) {
-			VibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener"))).resultOrPartial(field_38138::error).ifPresent(vibrationListener -> this.listener = vibrationListener);
+			HavenVibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener"))).resultOrPartial(field_38138::error).ifPresent(vibrationListener -> this.listener = vibrationListener);
 		}
 	}
 

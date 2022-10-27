@@ -18,4 +18,8 @@ public class HavenBlockSoundGroups {
 	public static final BlockSoundGroup SCULK_VEIN = new BlockSoundGroup(1.0f, 1.0f, HavenSoundEvents.BLOCK_SCULK_VEIN_BREAK, HavenSoundEvents.BLOCK_SCULK_VEIN_STEP, HavenSoundEvents.BLOCK_SCULK_VEIN_PLACE, HavenSoundEvents.BLOCK_SCULK_VEIN_HIT, HavenSoundEvents.BLOCK_SCULK_VEIN_FALL);
 	public static final BlockSoundGroup SCULK_SHRIEKER = new BlockSoundGroup(1.0f, 1.0f, HavenSoundEvents.BLOCK_SCULK_SHRIEKER_BREAK, HavenSoundEvents.BLOCK_SCULK_SHRIEKER_STEP, HavenSoundEvents.BLOCK_SCULK_SHRIEKER_PLACE, HavenSoundEvents.BLOCK_SCULK_SHRIEKER_HIT, HavenSoundEvents.BLOCK_SCULK_SHRIEKER_FALL);
 
+	public static final BlockSoundGroup HANGING_SIGN = new BlockSoundGroup(1.0F, 1.0F, HavenSoundEvents.BLOCK_HANGING_SIGN_BREAK, HavenSoundEvents.BLOCK_HANGING_SIGN_STEP, HavenSoundEvents.BLOCK_HANGING_SIGN_PLACE, HavenSoundEvents.BLOCK_HANGING_SIGN_HIT, HavenSoundEvents.BLOCK_HANGING_SIGN_FALL);
+	public static final BlockSoundGroup BAMBOO_WOOD = new BlockSoundGroup(1.0F, 1.0F, HavenSoundEvents.BLOCK_BAMBOO_WOOD_BREAK, HavenSoundEvents.BLOCK_BAMBOO_WOOD_STEP, HavenSoundEvents.BLOCK_BAMBOO_WOOD_PLACE, HavenSoundEvents.BLOCK_BAMBOO_WOOD_HIT, HavenSoundEvents.BLOCK_BAMBOO_WOOD_FALL);
+	public static final BlockSoundGroup NETHER_WOOD = new BlockSoundGroup(1.0F, 1.0F, HavenSoundEvents.BLOCK_NETHER_WOOD_BREAK, HavenSoundEvents.BLOCK_NETHER_WOOD_STEP, HavenSoundEvents.BLOCK_NETHER_WOOD_PLACE, HavenSoundEvents.BLOCK_NETHER_WOOD_HIT, HavenSoundEvents.BLOCK_NETHER_WOOD_FALL);
+
 }

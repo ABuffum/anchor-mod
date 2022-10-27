@@ -120,7 +120,44 @@ public class HavenSoundEvents {
 	};
 	public static final SoundEvent ENTITY_GOAT_HORN_BREAK = registerSoundEvent("entity.goat.horn_break");
 	public static final SoundEvent ENTITY_GOAT_SCREAMING_HORN_BREAK = ENTITY_GOAT_HORN_BREAK;//registerSoundEvent("entity.goat.screaming.horn_break");
-
+	//Hanging Signs
+	public static final SoundEvent BLOCK_HANGING_SIGN_STEP = registerSoundEvent("block.hanging_sign.step");
+	public static final SoundEvent BLOCK_HANGING_SIGN_BREAK = registerSoundEvent("block.hanging_sign.break");
+	public static final SoundEvent BLOCK_HANGING_SIGN_FALL = registerSoundEvent("block.hanging_sign.fall");
+	public static final SoundEvent BLOCK_HANGING_SIGN_HIT = registerSoundEvent("block.hanging_sign.hit");
+	public static final SoundEvent BLOCK_HANGING_SIGN_PLACE = registerSoundEvent("block.hanging_sign.place");
+	//Bamboo Wood
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_BREAK = registerSoundEvent("block.bamboo_wood.break");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_FALL = registerSoundEvent("block.bamboo_wood.fall");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_HIT = registerSoundEvent("block.bamboo_wood.hit");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_PLACE = registerSoundEvent("block.bamboo_wood.place");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_STEP = registerSoundEvent("block.bamboo_wood.step");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_DOOR_CLOSE = registerSoundEvent("block.bamboo_wood_door.close");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_DOOR_OPEN = registerSoundEvent("block.bamboo_wood_door.open");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_TRAPDOOR_CLOSE = registerSoundEvent("block.bamboo_wood_trapdoor.close");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_TRAPDOOR_OPEN = registerSoundEvent("block.bamboo_wood_trapdoor.open");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_BUTTON_CLICK_OFF = registerSoundEvent("block.bamboo_wood_button.click_off");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_BUTTON_CLICK_ON = registerSoundEvent("block.bamboo_wood_button.click_on");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_OFF = registerSoundEvent("block.bamboo_wood_pressure_plate.click_off");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_ON = registerSoundEvent("block.bamboo_wood_pressure_plate.click_on");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_FENCE_GATE_CLOSE = registerSoundEvent("block.bamboo_wood_fence_gate.close");
+	public static final SoundEvent BLOCK_BAMBOO_WOOD_FENCE_GATE_OPEN = registerSoundEvent("block.bamboo_wood_fence_gate.open");
+	//Nether Wood
+	public static final SoundEvent BLOCK_NETHER_WOOD_BREAK = registerSoundEvent("block.nether_wood.break");
+	public static final SoundEvent BLOCK_NETHER_WOOD_FALL = registerSoundEvent("block.nether_wood.fall");
+	public static final SoundEvent BLOCK_NETHER_WOOD_HIT = registerSoundEvent("block.nether_wood.hit");
+	public static final SoundEvent BLOCK_NETHER_WOOD_PLACE = registerSoundEvent("block.nether_wood.place");
+	public static final SoundEvent BLOCK_NETHER_WOOD_STEP = registerSoundEvent("block.nether_wood.step");
+	public static final SoundEvent BLOCK_NETHER_WOOD_DOOR_CLOSE = registerSoundEvent("block.nether_wood_door.close");
+	public static final SoundEvent BLOCK_NETHER_WOOD_DOOR_OPEN = registerSoundEvent("block.nether_wood_door.open");
+	public static final SoundEvent BLOCK_NETHER_WOOD_TRAPDOOR_CLOSE = registerSoundEvent("block.nether_wood_trapdoor.close");
+	public static final SoundEvent BLOCK_NETHER_WOOD_TRAPDOOR_OPEN = registerSoundEvent("block.nether_wood_trapdoor.open");
+	public static final SoundEvent BLOCK_NETHER_WOOD_BUTTON_CLICK_OFF = registerSoundEvent("block.nether_wood_button.click_off");
+	public static final SoundEvent BLOCK_NETHER_WOOD_BUTTON_CLICK_ON = registerSoundEvent("block.nether_wood_button.click_on");
+	public static final SoundEvent BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_OFF = registerSoundEvent("block.nether_wood_pressure_plate.click_off");
+	public static final SoundEvent BLOCK_NETHER_WOOD_PRESSURE_PLATE_CLICK_ON = registerSoundEvent("block.nether_wood_pressure_plate.click_on");
+	public static final SoundEvent BLOCK_NETHER_WOOD_FENCE_GATE_CLOSE = registerSoundEvent("block.nether_wood_fence_gate.close");
+	public static final SoundEvent BLOCK_NETHER_WOOD_FENCE_GATE_OPEN = registerSoundEvent("block.nether_wood_fence_gate.open");
 
 	//Salves
 	public static final SoundEvent SALVE_APPLIED = registerSoundEvent("item.salve.apply");

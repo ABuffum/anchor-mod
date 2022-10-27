@@ -45,10 +45,12 @@ public class HavenTags {
 		}
 	}
 	public static class Items {
+		public static final Tag.Identified<Item> BOOKSHELF_BOOKS = createTag("bookshelf_books");
 		public static final Tag.Identified<Item> CARVED_PUMPKINS = createTag("carved_pumpkins");
 		public static final Tag.Identified<Item> HEAD_WEARABLE_BLOCKS = createTag("head_wearable_blocks");
 		public static final Tag.Identified<Item> FLAVORED_MILK = createTag("flavored_milk");
 		public static final Tag.Identified<Item> FLEECE = createTag("fleece");
+		public static final Tag.Identified<Item> SEEDS = createTag("seeds");
 
 		private static Tag.Identified<Item> createTag(String name) {
 			return TagFactory.ITEM.create(HavenMod.ID(name));

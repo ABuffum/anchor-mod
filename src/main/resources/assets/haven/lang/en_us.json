@@ -1563,6 +1563,7 @@
   "effect.haven.withering": "Withering",
   "effect.haven.protected": "Protected",
   "effect.haven.relieved": "Relieved",
+  "effect.haven.flashbanged": "Flashbanged",
   
   "item.haven.red_curse_breaker_potion": "Red for Protection",
   "item.haven.white_curse_breaker_potion": "White for Pain",
@@ -2305,6 +2306,9 @@
   "subtitles.entity.warden.nearby_closest": "Warden draws close",
   "subtitles.entity.warden.sonic_charge": "Warden charges",
   "subtitles.entity.warden.sonic_boom": "Warden booms",
+  "death.attack.sonic_boom": "%1$s was obliterated by a sonically-charged shriek",
+  "death.attack.sonic_boom.item": "%1$s was obliterated by a sonically-charged shriek whilst trying to escape %2$s wielding %3$s",
+  "death.attack.sonic_boom.player": "%1$s was obliterated by a sonically-charged shriek whilst trying to escape %2$s",
   
   "block.haven.echo_block": "Echo Block",
   "block.haven.budding_echo": "Budding Echo",
@@ -2329,6 +2333,18 @@
   "item.haven.echo_horse_armor": "Echo Horse Armor",
   
   "container.woodcutter": "Woodcutter",
+  
+  "entity.haven.raccoon": "Raccoon",
+  "item.haven.raccoon_spawn_egg": "Raccoon Spawn Egg",
+  
+  "entity.haven.red_panda": "Red Panda",
+  "item.haven.red_panda_spawn_egg": "Red Panda Spawn Egg",
+  
+  "entity.haven.hedgehog": "Hedgehog",
+  "item.haven.hedgehog_spawn_egg": "Hedgehog Spawn Egg",
+  "death.attack.quills": "%1$s hit a hedgehog",
+  "death.attack.quills.item": "%1$s hit a hedgehog whilst trying to escape %2$s wielding %3$s",
+  "death.attack.quills.player": "%1$s hit a hedgehog whilst trying to escape %2$s",
   
   "block.haven.hedge_block": "Hedge Block",
   

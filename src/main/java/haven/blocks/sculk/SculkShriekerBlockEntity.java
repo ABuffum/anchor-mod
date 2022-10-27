@@ -4,7 +4,7 @@ import com.mojang.serialization.Dynamic;
 import haven.HavenMod;
 import haven.HavenTags;
 import haven.entities.LargeEntitySpawnHelper;
-import haven.events.VibrationListener;
+import haven.events.HavenVibrationListener;
 import haven.entities.hostile.warden.WardenEntity;
 import haven.events.HavenGameEvent;
 import haven.events.HavenWorldEvents;
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.OptionalInt;
 
-public class SculkShriekerBlockEntity extends BlockEntity implements VibrationListener.Callback {
+public class SculkShriekerBlockEntity extends BlockEntity implements HavenVibrationListener.Callback {
 	private static final Map<Integer, SoundEvent> WARNING_SOUNDS = Map.ofEntries(
 		Map.entry(1, HavenSoundEvents.ENTITY_WARDEN_NEARBY_CLOSE),
 		Map.entry(2, HavenSoundEvents.ENTITY_WARDEN_NEARBY_CLOSER),
@@ -45,21 +45,21 @@ public class SculkShriekerBlockEntity extends BlockEntity implements VibrationLi
 		Map.entry(4, HavenSoundEvents.ENTITY_WARDEN_LISTENING_ANGRY)
 	);
 	private int warningLevel;
-	private VibrationListener vibrationListener;
+	private HavenVibrationListener vibrationListener;
 
 	public SculkShriekerBlockEntity(BlockPos pos, BlockState state) {
 		super(HavenMod.SCULK_SHRIEKER_ENTITY, pos, state);
-		this.vibrationListener = new VibrationListener(new BlockPositionSource(this.pos), 8, this, null, 0.0f, 0);
+		this.vibrationListener = new HavenVibrationListener(new BlockPositionSource(this.pos), 8, this, null, 0.0f, 0);
 	}
 
-	public VibrationListener getVibrationListener() { return this.vibrationListener; }
+	public HavenVibrationListener getVibrationListener() { return this.vibrationListener; }
 
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
 		if (nbt.contains("warning_level", NbtElement.NUMBER_TYPE)) this.warningLevel = nbt.getInt("warning_level");
 		if (nbt.contains("listener", NbtElement.COMPOUND_TYPE)) {
-			VibrationListener.createCodec(this).parse(new Dynamic<NbtElement>(NbtOps.INSTANCE, nbt.getCompound("listener"))).resultOrPartial(HavenMod.LOGGER::error).ifPresent(vibrationListener -> {
+			HavenVibrationListener.createCodec(this).parse(new Dynamic<NbtElement>(NbtOps.INSTANCE, nbt.getCompound("listener"))).resultOrPartial(HavenMod.LOGGER::error).ifPresent(vibrationListener -> {
 				this.vibrationListener = vibrationListener;
 			});
 		}
@@ -69,7 +69,7 @@ public class SculkShriekerBlockEntity extends BlockEntity implements VibrationLi
 	public NbtCompound writeNbt(NbtCompound nbt) {
 		super.writeNbt(nbt);
 		nbt.putInt("warning_level", this.warningLevel);
-		VibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.vibrationListener).resultOrPartial(HavenMod.LOGGER::error).ifPresent(nbtElement -> nbt.put("listener", (NbtElement)nbtElement));
+		HavenVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.vibrationListener).resultOrPartial(HavenMod.LOGGER::error).ifPresent(nbtElement -> nbt.put("listener", (NbtElement)nbtElement));
 		return nbt;
 	}
 

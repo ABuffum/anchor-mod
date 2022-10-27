@@ -1,7 +1,7 @@
 package haven.blocks.sculk;
 
 import haven.HavenMod;
-import haven.events.VibrationListener;
+import haven.events.HavenVibrationListener;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -12,13 +12,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.event.BlockPositionSource;
 import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.listener.GameEventListener;
-public class HavenSculkSensorBlockEntity extends BlockEntity implements VibrationListener.Callback {
-	private VibrationListener listener;
+public class HavenSculkSensorBlockEntity extends BlockEntity implements HavenVibrationListener.Callback {
+	private HavenVibrationListener listener;
 	private int lastVibrationFrequency;
 
 	public HavenSculkSensorBlockEntity(BlockPos pos, BlockState state) {
 		super(HavenMod.SCULK_SENSOR_ENTITY, pos, state);
-		this.listener = new VibrationListener(new BlockPositionSource(this.pos), ((HavenSculkSensorBlock)state.getBlock()).getRange(), this, null, 0.0f, 0);
+		this.listener = new HavenVibrationListener(new BlockPositionSource(this.pos), ((HavenSculkSensorBlock)state.getBlock()).getRange(), this, null, 0.0f, 0);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class HavenSculkSensorBlockEntity extends BlockEntity implements Vibratio
 		return nbt;
 	}
 
-	public VibrationListener getEventListener() { return this.listener; }
+	public HavenVibrationListener getEventListener() { return this.listener; }
 
 	public int getLastVibrationFrequency() { return this.lastVibrationFrequency; }
 

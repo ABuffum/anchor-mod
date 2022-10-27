@@ -1,6 +1,7 @@
 package haven.blood;
 
 import haven.HavenMod;
+import haven.entities.hostile.warden.WardenEntity;
 import haven.origins.powers.BloodTypePower;
 import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.component.PowerHolderComponent;
@@ -171,6 +172,7 @@ public class BloodType {
 		else if (entity instanceof TurtleEntity) return TURTLE;
 		else if (entity instanceof VexEntity) return VEX;
 		else if (entity instanceof VillagerEntity || entity instanceof PillagerEntity || entity instanceof WitchEntity) return VILLAGER;
+		else if (entity instanceof WardenEntity) return WARDEN;
 		else if (entity instanceof ZombieEntity || entity instanceof GiantEntity) return ZOMBIE;
 		else return NONE;
 	}

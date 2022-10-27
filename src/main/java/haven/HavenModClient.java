@@ -10,11 +10,10 @@ import haven.rendering.block.AnchorBlockEntityRenderer;
 import haven.rendering.block.SubstituteAnchorBlockEntityRenderer;
 import haven.rendering.entities.*;
 import haven.rendering.entities.cow.*;
-import haven.rendering.models.FancyChickenModel;
+import haven.rendering.models.*;
 
 import static haven.HavenMod.*;
 
-import haven.rendering.models.WardenEntityModel;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -46,7 +45,6 @@ import net.minecraft.fluid.*;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.resource.*;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.DyeColor;
@@ -65,6 +63,9 @@ import java.util.function.Function;
 public class HavenModClient implements ClientModInitializer {
 	public static final EntityModelLayer FANCY_CHICKEN_ENTITY_MODEL_LAYER = new EntityModelLayer(ID("fancy_chicken"), "main");
 	public static final EntityModelLayer MODEL_WARDEN_LAYER = new EntityModelLayer(ID("warden"), "main");
+	public static final EntityModelLayer HEDGEHOG_ENTITY_MODEL_LAYER = new EntityModelLayer(ID("hedgehog"), "main");
+	public static final EntityModelLayer RED_PANDA_ENTITY_MODEL_LAYER = new EntityModelLayer(ID("red_panda"), "main");
+	public static final EntityModelLayer RACCOON_ENTITY_MODEL_LAYER = new EntityModelLayer(ID("raccoon"), "main");
 
 	public static final EntityModelLayer BOAT_ENTITY_MODEL_LAYER = new EntityModelLayer(ID("boat"), "main");
 
@@ -93,6 +94,8 @@ public class HavenModClient implements ClientModInitializer {
 		BAMBOO_MATERIAL.getDoor().BLOCK, BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		DRIED_BAMBOO_MATERIAL.getDoor().BLOCK, DRIED_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		POTTED_DRIED_BAMBOO,
+		//New Bamboo
+		NEW_BAMBOO_MATERIAL.getDoor().BLOCK, NEW_BAMBOO_MATERIAL.getTrapdoor().BLOCK,
 		//Charred Wood
 		CHARRED_MATERIAL.getDoor().BLOCK, CHARRED_MATERIAL.getTrapdoor().BLOCK,
 		//Mushroom Wood
@@ -357,6 +360,17 @@ public class HavenModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BOAT_ENTITY, HavenBoatEntityRenderer::new);
 		//Grappling Rod
 		ModelPredicateProviderRegistrySpecificAccessor.callRegister(GRAPPLING_ROD, new Identifier("cast"), HavenModClient::castGrapplingRod);
+
+		//Raccoons
+		EntityRendererRegistry.register(RACCOON_ENTITY, RaccoonEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(RACCOON_ENTITY_MODEL_LAYER, RaccoonEntityModel::getTexturedModelData);
+		//Red Pandas
+		EntityRendererRegistry.register(RED_PANDA_ENTITY, RedPandaEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(RED_PANDA_ENTITY_MODEL_LAYER, RedPandaEntityModel::getTexturedModelData);
+		//Hedgehogs
+		EntityRendererRegistry.register(HEDGEHOG_ENTITY, HedgehogEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(HEDGEHOG_ENTITY_MODEL_LAYER, HedgehogEntityModel::getTexturedModelData);
+
 		//Entity Packets (not sure if I still need this but I might?)
 		receiveEntityPacket();
 	}

@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class VibrationListener implements GameEventListener {
+public class HavenVibrationListener implements GameEventListener {
 	protected final PositionSource positionSource;
 	protected final int range;
 	protected final Callback callback;
@@ -43,7 +43,7 @@ public class VibrationListener implements GameEventListener {
 	protected float distance;
 	protected int delay;
 
-	public static Codec<VibrationListener> createCodec(Callback callback) {
+	public static Codec<HavenVibrationListener> createCodec(Callback callback) {
 		return RecordCodecBuilder.create(instance -> instance.group(
 				PositionSource.CODEC.fieldOf("source").forGetter(listener -> listener.positionSource),
 				Codecs.NONNEGATIVE_INT.fieldOf("range").forGetter(listener -> listener.range),
@@ -51,10 +51,10 @@ public class VibrationListener implements GameEventListener {
 				Codec.floatRange(0.0f, Float.MAX_VALUE).fieldOf("event_distance").orElse(0.0f).forGetter(listener -> listener.distance),
 				Codecs.NONNEGATIVE_INT.fieldOf("event_delay").orElse(0).forGetter(listener -> listener.delay))
 				.apply(instance, (positionSource, range, vibration, distance, delay) ->
-						new VibrationListener((PositionSource)positionSource, (int)range, (Callback)callback, vibration.orElse(null), (float)distance, (int)delay)));
+						new HavenVibrationListener((PositionSource)positionSource, (int)range, (Callback)callback, vibration.orElse(null), (float)distance, (int)delay)));
 	}
 
-	public VibrationListener(PositionSource positionSource, int range, Callback callback, @Nullable Vibration vibration, float distance, int delay) {
+	public HavenVibrationListener(PositionSource positionSource, int range, Callback callback, @Nullable Vibration vibration, float distance, int delay) {
 		this.positionSource = positionSource;
 		this.range = range;
 		this.callback = callback;
@@ -94,7 +94,7 @@ public class VibrationListener implements GameEventListener {
 		if (world instanceof ServerWorld) {
 			if (!this.callback.accepts((ServerWorld)world, this, new BlockPos(vec3d), event, entity, pos)) return false;
 		}
-		if (VibrationListener.isOccluded(world, vec3d, vec3d2)) return false;
+		if (HavenVibrationListener.isOccluded(world, vec3d, vec3d2)) return false;
 		if (world instanceof ServerWorld) this.listen((ServerWorld)world, event, vec3d, vec3d2, entity);
 		return true;
 	}

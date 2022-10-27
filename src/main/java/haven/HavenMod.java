@@ -97,7 +97,9 @@ import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.*;
 import net.minecraft.world.gen.trunk.*;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.function.ToIntFunction;
 
 import static java.util.Map.entry;
@@ -495,6 +497,17 @@ public class HavenMod implements ModInitializer {
 	public static final BlockContainer DRIED_BAMBOO_BLOCK = new BlockContainer(new DriedBambooBlock(AbstractBlock.Settings.copy(Blocks.BAMBOO)));
 	public static final Block POTTED_DRIED_BAMBOO = new FlowerPotBlock(DRIED_BAMBOO_BLOCK.BLOCK, AbstractBlock.Settings.of(Material.DECORATION).breakInstantly().nonOpaque());
 
+	//New Bamboo
+	public static final NewBambooMaterial NEW_BAMBOO_MATERIAL = new NewBambooMaterial("new_bamboo", MapColor.YELLOW);
+	public static final BlockContainer BAMBOO_MOSAIC_PLANKS = new BlockContainer(new Block(AbstractBlock.Settings.copy(NEW_BAMBOO_MATERIAL.getPlanks().BLOCK)), ItemSettings());
+	public static final BlockContainer BAMBOO_MOSAIC_SLAB = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(BAMBOO_MOSAIC_PLANKS.BLOCK)), ItemSettings());
+	public static final BlockContainer BAMBOO_MOSAIC_STAIRS = new BlockContainer(new HavenStairsBlock(BAMBOO_MOSAIC_PLANKS.BLOCK), ItemSettings());
+
+	//Chiseled Bookshelf
+	public static final BlockContainer CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD).strength(1.5f).sounds(BlockSoundGroup.WOOD)));
+	public static final BlockEntityType<ChiseledBookshelfBlockEntity> CHISELED_BOOKSHELF_ENTITY = FabricBlockEntityTypeBuilder.create(ChiseledBookshelfBlockEntity::new, CHISELED_BOOKSHELF.BLOCK).build(null);
+
+
 	//Sugarcane & Hay
 	public static final SugarCaneMaterial SUGAR_CANE_MATERIAL = new SugarCaneMaterial("sugar_cane", MapColor.LICHEN_GREEN);
 	public static final HayMaterial HAY_MATERIAL = new HayMaterial("hay", MapColor.YELLOW);
@@ -676,6 +689,7 @@ public class HavenMod implements ModInitializer {
 	public static final StatusEffect WITHERING_EFFECT = new WitheringEffect();
 	public static final StatusEffect PROTECTED_EFFECT = new ProtectedEffect();
 	public static final StatusEffect RELIEVED_EFFECT = new RelievedEffect();
+	public static final StatusEffect FLASHBANGED_EFFECT = new DarknessEffect();
 
 	//Curse Breaker Potions
 	//Red for Protection
@@ -1244,6 +1258,15 @@ public class HavenMod implements ModInitializer {
 	public static final RecipeSerializer<WoodcuttingRecipe> WOODCUTTING_RECIPE_SERIALIZER = new WoodcuttingRecipeSerializer<WoodcuttingRecipe>(WoodcuttingRecipe::new);
 	public static final ScreenHandlerType<WoodcutterScreenHandler> WOODCUTTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID("woodcutter"), WoodcutterScreenHandler::new);
 
+	//Raccoons
+	public static final EntityType<RaccoonEntity> RACCOON_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RaccoonEntity::new).dimensions(EntityDimensions.fixed(1F, 1F)).trackRangeBlocks(8).build();
+	public static final Item RACCOON_SPAWN_EGG = new SpawnEggItem(RACCOON_ENTITY, 16777215, 16777215, ItemSettings());
+	//Red Pandas
+	public static final EntityType<RedPandaEntity> RED_PANDA_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RedPandaEntity::new).dimensions(EntityDimensions.fixed(1F, 1F)).trackRangeBlocks(8).build();
+	public static final Item RED_PANDA_SPAWN_EGG = new SpawnEggItem(RED_PANDA_ENTITY, 16777215, 16777215, ItemSettings());
+	//Hedgehogs
+	public static final EntityType<HedgehogEntity> HEDGEHOG_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HedgehogEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.45F)).trackRangeBlocks(8).build();
+	public static final Item HEDGEHOG_SPAWN_EGG = new SpawnEggItem(HEDGEHOG_ENTITY, 16777215, 16777215, ItemSettings());
 	//Hedges
 	public static final BlockContainer HEDGE_BLOCK = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque()));
 
@@ -1279,7 +1302,7 @@ public class HavenMod implements ModInitializer {
 	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 	public static final Set<BaseMaterial> MATERIALS = Set.<BaseMaterial>of(
 		//Wood
-		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, CHARRED_MATERIAL, MANGROVE_MATERIAL,
+		CASSIA_MATERIAL, CHERRY_MATERIAL, BAMBOO_MATERIAL, DRIED_BAMBOO_MATERIAL, NEW_BAMBOO_MATERIAL, CHARRED_MATERIAL, MANGROVE_MATERIAL,
 		//Reed Wood
 		SUGAR_CANE_MATERIAL, HAY_MATERIAL,
 		//Vanilla Wood

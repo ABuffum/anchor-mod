@@ -7,7 +7,6 @@ import haven.blocks.gourd.CarvedMelonBlock;
 import haven.blocks.gourd.CarvedWhitePumpkinBlock;
 import haven.blocks.lighting.DynamicLightManager;
 import haven.blocks.lighting.DynamicLitBlock;
-import haven.blocks.lighting.LitAirBlock;
 import haven.blocks.mud.MudCauldronBlock;
 import haven.containers.OxidizableBlockContainer;
 import haven.boats.HavenBoat;
@@ -831,6 +830,15 @@ public class HavenRegistry {
 		Register("dried_bamboo", DRIED_BAMBOO_BLOCK);
 		Register("potted_dried_bamboo", POTTED_DRIED_BAMBOO);
 		Register(DRIED_BAMBOO_MATERIAL);
+		//New Bamboo
+		Register(NEW_BAMBOO_MATERIAL);
+		Register("bamboo_mosaic_planks", BAMBOO_MOSAIC_PLANKS);
+		Register("bamboo_mosaic_slab", BAMBOO_MOSAIC_SLAB);
+		Register("bamboo_mosaic_stairs", BAMBOO_MOSAIC_STAIRS);
+	}
+	public static void RegisterChiseledBookshelves() {
+		Register("chiseled_bookshelf", CHISELED_BOOKSHELF);
+		Register("chiseled_bookshelf_entity", CHISELED_BOOKSHELF_ENTITY);
 	}
 	public static void RegisterVanillaWood() {
 		Register(ACACIA_MATERIAL);
@@ -1021,10 +1029,6 @@ public class HavenRegistry {
 		RegisterDynamicLightingBlock("lit_water", LIT_WATER);
 		//Climbable
 		RegisterDynamicLightingBlock("lit_ladder", LIT_LADDER);
-
-		for(Block block : DynamicLightManager.vanillaBlocksToLitBlocksMap.keySet()) {
-			System.out.println(block + " -> " + DynamicLightManager.vanillaBlocksToLitBlocksMap.get(block));
-		}
 	}
 	public static final RegistryKey<Biome> DEEP_DARK_KEY = RegistryKey.of(Registry.BIOME_KEY, ID("deep_dark"));
 	public static void RegisterCandy() {
@@ -1253,6 +1257,7 @@ public class HavenRegistry {
 		Register(IlluminatedPower::createFactory);
 		Register(SkinGlowPower::createFactory);
 		Register(PulsingSkinGlowPower::createFactory);
+		Register(ScareHedgehogsPower::createFactory);
 	}
 	public static void RegisterAngelBat() {
 		Register("angel_bat", ANGEL_BAT_ENTITY);
@@ -1443,6 +1448,24 @@ public class HavenRegistry {
 		Register("cheese", CHEESE);
 		Register("grilled_cheese", GRILLED_CHEESE);
 	}
+	public static void RegisterHedgehog() {
+		Register("hedgehog", HEDGEHOG_ENTITY);
+		SpawnRestrictionAccessor.callRegister(HEDGEHOG_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		FabricDefaultAttributeRegistry.register(HEDGEHOG_ENTITY, HedgehogEntity.createHedgehogAttributes());
+		Register("hedgehog_spawn_egg", HEDGEHOG_SPAWN_EGG);
+	}
+	public static void RegisterRaccoon() {
+		Register("raccoon", RACCOON_ENTITY);
+		SpawnRestrictionAccessor.callRegister(RACCOON_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		FabricDefaultAttributeRegistry.register(RACCOON_ENTITY, RaccoonEntity.createRaccoonAttributes());
+		Register("raccoon_spawn_egg", RACCOON_SPAWN_EGG);
+	}
+	public static void RegisterRedPanda() {
+		Register("red_panda", RED_PANDA_ENTITY);
+		SpawnRestrictionAccessor.callRegister(RED_PANDA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		FabricDefaultAttributeRegistry.register(RED_PANDA_ENTITY, RedPandaEntity.createRedPandaAttributes());
+		Register("red_panda_spawn_egg", RED_PANDA_SPAWN_EGG);
+	}
 	public static void RegisterPoison() {
 		Register("poison_vial", POISON_VIAL);
 		Register("spider_poison_vial", SPIDER_POISON_VIAL);
@@ -1591,6 +1614,7 @@ public class HavenRegistry {
 		RegisterSoleil();
 		RegisterCoffee();
 		Register("haven_boat", BOAT_ENTITY);
+		//RegisterChiseledBookshelves();
 		RegisterCherry();
 		RegisterCinnamon();
 		RegisterVanilla();
@@ -1614,6 +1638,7 @@ public class HavenRegistry {
 		Register("withering", WITHERING_EFFECT);
 		Register("protected", PROTECTED_EFFECT);
 		Register("relieved", RELIEVED_EFFECT);
+		Register("flashbanged", FLASHBANGED_EFFECT);
 		JUICE_MAP.put(BLOOD_BLOCK.ITEM, BLOOD_BOTTLE);
 		JUICE_MAP.put(MUD.ITEM, MUD_BOTTLE);
 		JUICE_MAP.put(Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
@@ -1635,6 +1660,9 @@ public class HavenRegistry {
 		RegisterCandy();
 		RegisterCookies();
 		RegisterMilks();
+		RegisterRaccoon();
+		RegisterRedPanda();
+		RegisterHedgehog();
 		Register("hotdog", HOTDOG);
 		Register("green_apple", GREEN_APPLE);
 		Register("golden_potato", GOLDEN_POTATO);

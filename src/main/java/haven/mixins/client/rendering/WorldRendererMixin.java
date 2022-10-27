@@ -1,5 +1,6 @@
 package haven.mixins.client.rendering;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import haven.HavenMod;
 import haven.blocks.MultifaceGrowthBlock;
 import haven.blocks.sculk.SculkShriekerBlock;
@@ -7,24 +8,44 @@ import haven.events.HavenWorldEvents;
 import haven.particles.SculkChargeParticleEffect;
 import haven.particles.ShriekParticleEffect;
 import haven.sounds.HavenSoundEvents;
+import haven.util.MixinStore;
 import haven.util.ParticleUtils;
-import net.minecraft.client.render.WorldRenderer;
+import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
+import it.unimi.dsi.fastutil.objects.ObjectIterator;
+import it.unimi.dsi.fastutil.objects.ObjectListIterator;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.option.CloudRenderMode;
+import net.minecraft.client.option.Option;
+import net.minecraft.client.render.*;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
+import net.minecraft.util.profiler.Profiler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.SortedSet;
 import java.util.function.Supplier;
 
 @Mixin(WorldRenderer.class)
@@ -46,7 +67,6 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 					}
 					byte b = (byte)(data & 0x3F);
 					UniformIntProvider intProvider = UniformIntProvider.create(0, i);
-					float ac = 0.005f;
 					Supplier<Vec3d> supplier = () -> new Vec3d(MathHelper.nextDouble(random, -0.005f, 0.005f), MathHelper.nextDouble(random, -0.005f, 0.005f), MathHelper.nextDouble(random, -0.005f, 0.005f));
 					if (b == 0) {
 						for (Direction direction2 : Direction.values()) {
@@ -57,7 +77,6 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 					} else {
 						for (Direction direction3 : MultifaceGrowthBlock.flagToDirections(b)) {
 							float ae = direction3 == Direction.UP ? (float)Math.PI : 0.0f;
-							double af = 0.35;
 							ParticleUtils.spawnParticles(this.world, pos, new SculkChargeParticleEffect(ae), intProvider, direction3, supplier, 0.35);
 						}
 					}
@@ -84,5 +103,10 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				break;
 			}
 		}
+	}
+
+	@Inject(method="render", at = @At("HEAD"))
+	public void setTickDelta(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo ci) {
+		MixinStore.worldrenderer_render_tickDelta = tickDelta;
 	}
 }
