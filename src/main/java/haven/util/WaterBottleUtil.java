@@ -1,12 +1,11 @@
 package haven.util;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import haven.containers.TorchContainer;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
@@ -46,8 +45,8 @@ public class WaterBottleUtil {
 				sound = SoundEvents.BLOCK_REDSTONE_TORCH_BURNOUT;
 				if (block instanceof Waterloggable) outState = outState.with(Properties.WATERLOGGED, blockState.get(Properties.WATERLOGGED));
 			}
-			else if (HavenMod.UNLIT_LANTERNS.containsKey(block)) {
-				outState = HavenMod.UNLIT_LANTERNS.get(block).getDefaultState().with(LanternBlock.HANGING, blockState.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, blockState.get(LanternBlock.WATERLOGGED));
+			else if (ModBase.UNLIT_LANTERNS.containsKey(block)) {
+				outState = ModBase.UNLIT_LANTERNS.get(block).getDefaultState().with(LanternBlock.HANGING, blockState.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, blockState.get(LanternBlock.WATERLOGGED));
 			}
 			else if (block instanceof AbstractCandleBlock && blockState.get(AbstractCandleBlock.LIT)) {
 				AbstractCandleBlock.extinguish(playerEntity, blockState, world, blockPos);
@@ -58,8 +57,8 @@ public class WaterBottleUtil {
 				outState = blockState.with(CampfireBlock.LIT, false);
 				consume = true;
 			}
-			else if (context.getSide() != Direction.DOWN && blockState.isIn(HavenTags.Blocks.CONVERTIBLE_TO_MUD)) {
-				outState = HavenMod.MUD.BLOCK.getDefaultState();
+			else if (context.getSide() != Direction.DOWN && blockState.isIn(ModTags.Blocks.CONVERTIBLE_TO_MUD)) {
+				outState = ModBase.MUD.getBlock().getDefaultState();
 				consume = true;
 			}
 			else bl = false;

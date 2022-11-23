@@ -1,6 +1,6 @@
 package haven.rendering.features;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.WhiteSnowGolemEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -37,9 +37,9 @@ public class WhiteSnowGolemPumpkinFeature extends FeatureRenderer<WhiteSnowGolem
 				matrixStack.translate(0.0D, -0.34375D, 0.0D);
 				matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 				matrixStack.scale(0.625F, -0.625F, -0.625F);
-				ItemStack itemStack = new ItemStack(HavenMod.WHITE_PUMPKIN.getCarved().BLOCK);
+				ItemStack itemStack = new ItemStack(ModBase.WHITE_PUMPKIN.getCarved().getBlock());
 				if (bl) {
-					BlockState blockState = HavenMod.WHITE_PUMPKIN.getCarved().BLOCK.getDefaultState();
+					BlockState blockState = ModBase.WHITE_PUMPKIN.getCarved().getBlock().getDefaultState();
 					BlockRenderManager blockRenderManager = minecraftClient.getBlockRenderManager();
 					BakedModel bakedModel = blockRenderManager.getModel(blockState);
 					int n = LivingEntityRenderer.getOverlay(snowGolemEntity, 0.0F);

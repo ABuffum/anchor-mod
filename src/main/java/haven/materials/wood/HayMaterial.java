@@ -1,9 +1,8 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.containers.TorchContainer;
 import haven.materials.providers.*;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -17,10 +16,10 @@ public class HayMaterial extends WoodMaterial implements TorchProvider, EnderTor
 	private final TorchContainer soul_torch;
 	public TorchContainer getSoulTorch() { return soul_torch; }
 	public HayMaterial(String name, MapColor mapColor) {
-		super(name, mapColor, true);
-		torch = MakeTorch(14, BlockSoundGroup.GRASS, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.GRASS, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.GRASS, ParticleTypes.SOUL_FIRE_FLAME);
+		super(name, mapColor, true, BlockSoundGroup.WOOD);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.GRASS, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, BlockSoundGroup.GRASS, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.GRASS, ParticleTypes.SOUL_FIRE_FLAME);
 	}
 
 	public boolean contains(Block block) {

@@ -1,6 +1,6 @@
 package haven.materials.gem;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
@@ -9,14 +9,17 @@ import haven.items.echo.*;
 import haven.materials.HavenToolMaterials;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
+import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
 
 public class EchoMaterial extends BaseMaterial implements
 		BlockProvider, SlabProvider, StairsProvider, WallProvider,
+		CrystalBlockProvider, CrystalSlabProvider, CrystalStairsProvider, CrystalWallProvider,
 		AxeProvider, HoeProvider, PickaxeProvider, ShovelProvider, SwordProvider, KnifeProvider {
 	private final BlockContainer block;
 	public BlockContainer getBlock() { return block; }
@@ -26,6 +29,14 @@ public class EchoMaterial extends BaseMaterial implements
 	public BlockContainer getStairs() { return stairs; }
 	private final BlockContainer wall;
 	public BlockContainer getWall() { return wall; }
+	private final BlockContainer crystal_block;
+	public BlockContainer getCrystalBlock() { return crystal_block; }
+	private final BlockContainer crystal_slab;
+	public BlockContainer getCrystalSlab() { return crystal_slab; }
+	private final BlockContainer crystal_stairs;
+	public BlockContainer getCrystalStairs() { return crystal_stairs; }
+	private final BlockContainer crystal_wall;
+	public BlockContainer getCrystalWall() { return crystal_wall; }
 	private final Item axe;
 	public Item getAxe() { return axe; }
 	private final Item hoe;
@@ -42,9 +53,13 @@ public class EchoMaterial extends BaseMaterial implements
 	public EchoMaterial(float knockback) {
 		super("echo", false);
 		block = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.SCULK).strength(1.5F).sounds(BlockSoundGroup.AMETHYST_BLOCK).requiresTool()));
-		slab = new BlockContainer(new HavenSlabBlock(block.BLOCK), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(block.BLOCK), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(block.BLOCK), ItemSettings());
+		slab = new BlockContainer(new HavenSlabBlock(block.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new HavenStairsBlock(block.getBlock()), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(block.getBlock()), ItemSettings());
+		crystal_block = new BlockContainer(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(ModBase.LUMINANCE_5)), ItemSettings());
+		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.getBlock()), ItemSettings());
 		axe = new EchoAxeItem(HavenToolMaterials.ECHO, 5, -3, knockback, ItemSettings());
 		hoe = new EchoHoeItem(HavenToolMaterials.ECHO, -4, 0, knockback, ItemSettings());
 		pickaxe = new EchoPickaxeItem(HavenToolMaterials.ECHO, 1, -2.8F, knockback, ItemSettings());

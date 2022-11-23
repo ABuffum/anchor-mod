@@ -1,6 +1,6 @@
 package haven.entities.passive.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.cake.CakeContainer;
 import haven.items.buckets.BucketProvided;
 import net.minecraft.block.Blocks;
@@ -57,7 +57,7 @@ public class CowcoaEntity extends CowEntity implements FlavoredCowEntity {
 		if (itemStack != null && !itemStack.isEmpty() && !this.isBaby()) {
 			Item item = itemStack.getItem(), outItem = null;
 			if (item instanceof BucketProvided bp) outItem = bp.getBucketProvider().getChocolateMilkBucket();
-			else if (item == Items.BOWL) outItem = HavenMod.CHOCOLATE_MILK_BOWL;
+			else if (item == Items.BOWL) outItem = ModBase.CHOCOLATE_MILK_BOWL;
 			if (outItem != null) {
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 				ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, outItem.getDefaultStack());
@@ -69,7 +69,7 @@ public class CowcoaEntity extends CowEntity implements FlavoredCowEntity {
 	}
 
 	public CowcoaEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.COWCOA_ENTITY.create(serverWorld);
+		return ModBase.COWCOA_ENTITY.create(serverWorld);
 	}
 
 	@Override

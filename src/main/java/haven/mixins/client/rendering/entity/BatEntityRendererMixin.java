@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering.entity;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.AngelBatEntity;
 import net.minecraft.client.render.entity.BatEntityRenderer;
 import net.minecraft.entity.passive.BatEntity;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BatEntityRenderer.class)
 public class BatEntityRendererMixin {
-	private static final Identifier TEXTURE = HavenMod.ID("textures/entity/angel_bat.png");
+	private static final Identifier TEXTURE = ModBase.ID("textures/entity/angel_bat.png");
 	@Inject(method="getTexture(Lnet/minecraft/entity/passive/BatEntity;)Lnet/minecraft/util/Identifier;", at=@At("HEAD"), cancellable = true)
 	private void GetTexture(BatEntity batEntity, CallbackInfoReturnable<Identifier> cir) {
 		if (batEntity instanceof AngelBatEntity) {

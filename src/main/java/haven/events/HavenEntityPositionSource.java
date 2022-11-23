@@ -6,12 +6,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.dynamic.DynamicSerializableUuid;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.event.EntityPositionSource;
 import net.minecraft.world.event.PositionSource;
 import net.minecraft.world.event.PositionSourceType;
 
@@ -34,6 +31,14 @@ public class HavenEntityPositionSource implements PositionSource {
 	HavenEntityPositionSource(Either<Entity, Either<UUID, Integer>> source, float yOffset) {
 		this.source = source;
 		this.yOffset = yOffset;
+	}
+
+	private static int getId(Either<Entity, Integer> source) {
+		Optional<Entity> left = source.left();
+		if (left.isPresent()) return left.get().getId();
+		Optional<Integer> right = source.right();
+		if (right.isPresent()) return right.get();
+		throw new RuntimeException("Unable to get entityId from source");
 	}
 
 	@Override
@@ -60,10 +65,10 @@ public class HavenEntityPositionSource implements PositionSource {
 		}, Function.identity()));
 	}
 
+	public static final PositionSourceType<HavenEntityPositionSource> HAVEN_ENTITY = PositionSourceType.register("haven_entity", new HavenEntityPositionSource.Type());
+
 	@Override
-	public PositionSourceType<?> getType() {
-		return PositionSourceType.ENTITY;
-	}
+	public PositionSourceType<?> getType() { return HAVEN_ENTITY; }
 
 	public static class Type implements PositionSourceType<HavenEntityPositionSource> {
 		@Override

@@ -2,6 +2,7 @@ package haven.mixins.entities.thrown;
 
 import haven.blood.BloodType;
 import haven.origins.powers.ClownPacifistPower;
+import haven.origins.powers.PowersUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +27,7 @@ public abstract class EggEntityMixin extends ThrownItemEntity {
 	@Inject(method="onEntityHit", at = @At("HEAD"))
 	protected void onEntityHit(EntityHitResult entityHitResult, CallbackInfo ci) {
 		Entity entity = entityHitResult.getEntity();
-		if (ClownPacifistPower.HasActivePower(getOwner()) && entity instanceof PlayerEntity) {
+		if (PowersUtil.Active(getOwner(), ClownPacifistPower.class) && entity instanceof PlayerEntity) {
 			entity.addVelocity(0, 1, 0);
 			entity.velocityModified = true;
 		}

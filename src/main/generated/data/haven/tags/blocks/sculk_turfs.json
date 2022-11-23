@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "haven:calcite_sculk_turf",
+    "haven:deepslate_sculk_turf",
+    "haven:dripstone_sculk_turf",
+    "haven:smooth_basalt_sculk_turf",
+    "haven:tuff_sculk_turf"
+  ]
+}

@@ -2,7 +2,7 @@ package haven.mixins.blocks;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.UnmodifiableIterator;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodFluid;
 import haven.blocks.mud.MudFluid;
 import net.minecraft.block.*;
@@ -30,7 +30,7 @@ public abstract class FluidBlockMixin extends Block implements FluidDrainable {
 				Direction direction = (Direction)var5.next();
 				BlockPos blockPos = pos.offset(direction.getOpposite());
 				if (world.getFluidState(blockPos).getFluid() instanceof BloodFluid) {
-					Block block = world.getFluidState(pos).isStill() ? Blocks.OBSIDIAN : HavenMod.DRIED_BLOOD_BLOCK.BLOCK;
+					Block block = world.getFluidState(pos).isStill() ? Blocks.OBSIDIAN : ModBase.DRIED_BLOOD_BLOCK.getBlock();
 					world.setBlockState(pos, block.getDefaultState());
 					fbi.InvokePlayExtinguishSound(world, pos);
 					cir.setReturnValue(false);

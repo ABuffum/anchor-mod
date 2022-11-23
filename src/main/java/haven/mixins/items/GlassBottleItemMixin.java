@@ -1,10 +1,11 @@
 package haven.mixins.items;
 
-import haven.HavenMod;
+import haven.ModBase;
 //import haven.entities.cloud.ConfettiCloudEntity;
 import haven.entities.cloud.ConfettiCloudEntity;
 import haven.entities.cloud.DragonBreathCloudEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.GlassBottleItem;
@@ -49,7 +50,7 @@ public abstract class GlassBottleItemMixin extends Item {
 				cloud.kill();
 				world.playSound((PlayerEntity)null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 				world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.getBlockPos());
-				cir.setReturnValue(TypedActionResult.success(this.fill(itemStack, user, new ItemStack(HavenMod.BOTTLED_CONFETTI_ITEM)), world.isClient()));
+				cir.setReturnValue(TypedActionResult.success(this.fill(itemStack, user, new ItemStack(ModBase.BOTTLED_CONFETTI_ITEM)), world.isClient()));
 				return;
 			}
 		}
@@ -71,19 +72,27 @@ public abstract class GlassBottleItemMixin extends Item {
 		BlockHitResult hitResult = Item.raycast(world, user, RaycastContext.FluidHandling.SOURCE_ONLY);
 		BlockPos blockPos = hitResult.getBlockPos();
 		FluidState state = world.getFluidState(blockPos);
-		if (state.getFluid() == HavenMod.STILL_BLOOD_FLUID || state.getFluid() == HavenMod.FLOWING_BLOOD_FLUID) {
-			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.BLOOD_BOTTLE))));
+		ItemStack stack = user.getStackInHand(hand);
+		ItemStack newStack = null;
+		if (state.getFluid() == ModBase.STILL_BLOOD_FLUID || state.getFluid() == ModBase.FLOWING_BLOOD_FLUID) {
+			newStack = new ItemStack(ModBase.BLOOD_BOTTLE);
 		}
 		//Fill bottle with Lava
 		else if (state.getFluid() == Fluids.LAVA || state.getFluid() == Fluids.FLOWING_LAVA) {
-			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.LAVA_BOTTLE))));
+			newStack = new ItemStack(ModBase.LAVA_BOTTLE);
 		}
 		//Fill bottle with Mud
-		else if (state.getFluid() == HavenMod.STILL_MUD_FLUID || state.getFluid() == HavenMod.FLOWING_MUD_FLUID) {
+		else if (state.getFluid() == ModBase.STILL_MUD_FLUID || state.getFluid() == ModBase.FLOWING_MUD_FLUID) {
+			newStack = new ItemStack(ModBase.MUD_BOTTLE);
+		}
+		if (newStack != null) {
+			PlayerInventory inventory = user.getInventory();
+			if (!user.getAbilities().creativeMode) stack.decrement(1);
+			if (stack.isEmpty()) user.setStackInHand(hand, newStack);
+			else if (inventory.getEmptySlot() > 0) inventory.insertStack(newStack);
+			else user.dropItem(newStack, false);
 			world.playSound(user, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-			cir.setReturnValue(TypedActionResult.success(fill(user.getStackInHand(hand), user, new ItemStack(HavenMod.MUD_BOTTLE))));
+			cir.setReturnValue(TypedActionResult.success(user.getStackInHand(hand)));
 		}
 	}
 }

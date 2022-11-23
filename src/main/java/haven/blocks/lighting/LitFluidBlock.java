@@ -1,6 +1,5 @@
 package haven.blocks.lighting;
 
-import haven.HavenMod;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.server.world.ServerWorld;

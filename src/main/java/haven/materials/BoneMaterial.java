@@ -1,6 +1,6 @@
 package haven.materials;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.RowBlock;
 import haven.blocks.basic.HavenLadderBlock;
 import haven.containers.BlockContainer;
@@ -27,9 +27,9 @@ public class BoneMaterial extends BaseMaterial implements
 
 	public BoneMaterial() {
 		super("bone", false);
-		torch = MakeTorch(14, BlockSoundGroup.BONE, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.BONE, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.BONE, ParticleTypes.SOUL_FIRE_FLAME);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.BONE, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, BlockSoundGroup.BONE, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.BONE, ParticleTypes.SOUL_FIRE_FLAME);
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.BONE).nonOpaque()), ItemSettings());
 		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(2.0F).sounds(BlockSoundGroup.BONE).nonOpaque()), ItemSettings());
 	}

@@ -27,8 +27,7 @@ public class SculkVeinFeatureConfig implements FeatureConfig {
 						.forGetter((glowLichenFeatureConfig) -> glowLichenFeatureConfig.spreadChance),
 				BlockState.CODEC.listOf().fieldOf("can_be_placed_on")
 						.forGetter((glowLichenFeatureConfig) -> new ArrayList(glowLichenFeatureConfig.canPlaceOn)))
-				.apply(instance, (searchRange, placeOnFloor, placeOnCeiling, placeOnWalls, spreadChance, canPlaceOn) ->
-				new SculkVeinFeatureConfig((int)searchRange, (boolean)placeOnFloor, (boolean)placeOnCeiling, (boolean)placeOnWalls, (float)spreadChance, (List<BlockState>)canPlaceOn));
+				.apply(instance, SculkVeinFeatureConfig::new);
 	});
 	public final int searchRange;
 	public final boolean placeOnFloor;

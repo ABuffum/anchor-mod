@@ -4,8 +4,9 @@
 	"textures": {
 		"top": "block/stonecutter_top",
 		"saw": "block/stonecutter_saw",
-		"planks": "block/oak_planks",
-		"stone": "block/stone"
+		"planks": "haven:block/_planks",
+		"stone": "block/stone",
+	  	"particle": "#planks"
 	},
 	"elements": [
 		{

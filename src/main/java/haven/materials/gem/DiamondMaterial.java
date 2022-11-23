@@ -31,9 +31,9 @@ public class DiamondMaterial extends BaseMaterial implements
 	public DiamondMaterial() {
 		super("diamond", false);
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.DIAMOND_BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
 		slab = new BlockContainer(new HavenSlabBlock(Blocks.DIAMOND_BLOCK), ItemSettings());
 		stairs = new BlockContainer(new HavenStairsBlock(Blocks.DIAMOND_BLOCK), ItemSettings());
 		wall = new BlockContainer(new HavenWallBlock(Blocks.DIAMOND_BLOCK), ItemSettings());

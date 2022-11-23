@@ -1,6 +1,5 @@
 package haven.blocks;
 
-import haven.HavenMod;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.server.world.ServerWorld;

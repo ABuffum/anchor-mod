@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_planks",
+    "minecraft:mangrove_planks",
+    
     "haven:bamboo_planks",
     "haven:brown_mushroom_planks",
     "haven:blue_mushroom_planks",
@@ -10,10 +13,7 @@
     "haven:dried_bamboo_planks",
     "haven:gilded_planks",
     "haven:hay_planks",
-    "haven:mangrove_planks",
     "haven:mushroom_stem_planks",
-    "haven:new_bamboo_planks",
-    "haven:bamboo_mosaic_planks",
     "haven:red_mushroom_planks",
     "haven:sugar_cane_planks"
   ]

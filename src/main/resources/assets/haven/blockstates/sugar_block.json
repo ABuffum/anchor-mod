@@ -1,5 +1,10 @@
 {
-    "variants": {
-        "": { "model": "haven:block/sugar_block" }
-    }
+	"variants": {
+		"": [
+		    { "model": "haven:block/sugar_block" },
+			{ "model": "haven:block/sugar_block", "y": 90 },
+			{ "model": "haven:block/sugar_block", "y": 180 },
+			{ "model": "haven:block/sugar_block", "y": 270 }
+		]
+	}
 }

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_chiseled_bookshelf",
+  "textures": {
+    "front": "haven:block/acacia_chiseled_bookshelf_stage5",
+    "side": "haven:block/acacia_chiseled_bookshelf_side",
+    "top": "haven:block/acacia_chiseled_bookshelf_top"
+  }
+}

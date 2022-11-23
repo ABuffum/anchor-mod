@@ -1,16 +1,20 @@
 {
   "replace": false,
   "values": [
+    "minecraft:chiseled_bookshelf",
+    "minecraft:mangrove_roots",
+  
     "#haven:gourds",
     "#haven:carved_gourds",
     "#haven:campfires",
+    "#haven:ender_campfires",
     "#haven:soul_campfires",
     "#haven:bookshelves",
+    "#haven:chiseled_bookshelves",
     "#haven:woodcutters",
     "haven:dried_bamboo",
     "haven:coffee_plant",
     "haven:strawberry_bush",
-    "haven:mangrove_roots",
     "haven:bamboo_bundle",
     "haven:stripped_bamboo_bundle",
     "haven:bamboo_row",

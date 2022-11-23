@@ -1,6 +1,6 @@
 package haven.entities.projectiles;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.cloud.ConfettiCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -16,11 +16,11 @@ public class DroppedConfettiEntity extends ThrownItemEntity {
 	public DroppedConfettiEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
 
 	public DroppedConfettiEntity(World world, LivingEntity owner) {
-		super(HavenMod.DROPPED_CONFETTI_ENTITY, owner, world);
+		super(ModBase.DROPPED_CONFETTI_ENTITY, owner, world);
 	}
 
 	public DroppedConfettiEntity(World world, double x, double y, double z) {
-		super(HavenMod.DROPPED_CONFETTI_ENTITY, x, y, z, world);
+		super(ModBase.DROPPED_CONFETTI_ENTITY, x, y, z, world);
 	}
 
 	@Override

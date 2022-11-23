@@ -1,10 +1,9 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.OreBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.fluid.Fluids;
@@ -14,7 +13,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
@@ -54,7 +52,7 @@ public class SculkBlock extends Block implements SculkSpreadable {
 	}
 
 	private BlockState getExtraBlockState(WorldAccess world, BlockPos pos, Random random, boolean allowShrieker) {
-		BlockState blockState = random.nextInt(11) == 0 ? HavenMod.SCULK_SHRIEKER.BLOCK.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker) : Blocks.SCULK_SENSOR.getDefaultState();
+		BlockState blockState = random.nextInt(11) == 0 ? ModBase.SCULK_SHRIEKER.getBlock().getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, allowShrieker) : Blocks.SCULK_SENSOR.getDefaultState();
 		if (blockState.contains(Properties.WATERLOGGED) && !world.getFluidState(pos).isEmpty()) {
 			return blockState.with(Properties.WATERLOGGED, true);
 		}
@@ -69,7 +67,7 @@ public class SculkBlock extends Block implements SculkSpreadable {
 		int i = 0;
 		for (BlockPos blockPos : BlockPos.iterate(pos.add(-4, 0, -4), pos.add(4, 2, 4))) {
 			BlockState blockState2 = world.getBlockState(blockPos);
-			if (blockState2.isOf(Blocks.SCULK_SENSOR) || blockState2.isOf(HavenMod.SCULK_SHRIEKER.BLOCK)) ++i;
+			if (blockState2.isOf(Blocks.SCULK_SENSOR) || blockState2.isOf(ModBase.SCULK_SHRIEKER.getBlock())) ++i;
 			if (i <= 2) continue;
 			return false;
 		}

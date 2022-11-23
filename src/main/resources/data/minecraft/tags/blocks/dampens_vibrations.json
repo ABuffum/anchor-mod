@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:wool",
+    "#minecraft:wool_carpets",
+    "#haven:fleece",
+    "#haven:fleece_carpets"
+  ]
+}

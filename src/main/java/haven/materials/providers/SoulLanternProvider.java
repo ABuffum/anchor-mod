@@ -8,6 +8,6 @@ public interface SoulLanternProvider {
 	public Block getUnlitSoulLantern();
 
 	public default boolean containsSoulLantern(Block block) {
-		return block == getSoulLantern().BLOCK || block == getUnlitSoulLantern();
+		return block == getSoulLantern().getBlock() || block == getUnlitSoulLantern();
 	}
 }

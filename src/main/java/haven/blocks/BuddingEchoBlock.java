@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.fluid.Fluids;
@@ -24,15 +24,15 @@ public class BuddingEchoBlock extends EchoBlock {
 			BlockPos blockPos = pos.offset(direction);
 			BlockState blockState = world.getBlockState(blockPos);
 			Block block = null;
-			if (canGrowIn(blockState)) block = HavenMod.SMALL_ECHO_BUD.BLOCK;
-			else if (blockState.isOf(HavenMod.SMALL_ECHO_BUD.BLOCK) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-				block = HavenMod.MEDIUM_ECHO_BUD.BLOCK;
+			if (canGrowIn(blockState)) block = ModBase.SMALL_ECHO_BUD.getBlock();
+			else if (blockState.isOf(ModBase.SMALL_ECHO_BUD.getBlock()) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+				block = ModBase.MEDIUM_ECHO_BUD.getBlock();
 			}
-			else if (blockState.isOf(HavenMod.MEDIUM_ECHO_BUD.BLOCK) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-				block = HavenMod.LARGE_ECHO_BUD.BLOCK;
+			else if (blockState.isOf(ModBase.MEDIUM_ECHO_BUD.getBlock()) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+				block = ModBase.LARGE_ECHO_BUD.getBlock();
 			}
-			else if (blockState.isOf(HavenMod.LARGE_ECHO_BUD.BLOCK) && blockState.get(AmethystClusterBlock.FACING) == direction) {
-				block = HavenMod.ECHO_CLUSTER.BLOCK;
+			else if (blockState.isOf(ModBase.LARGE_ECHO_BUD.getBlock()) && blockState.get(AmethystClusterBlock.FACING) == direction) {
+				block = ModBase.ECHO_CLUSTER.getBlock();
 			}
 			if (block != null) {
 				BlockState blockState2 = block.getDefaultState().with(AmethystClusterBlock.FACING, direction).with(AmethystClusterBlock.WATERLOGGED, blockState.getFluidState().getFluid() == Fluids.WATER);

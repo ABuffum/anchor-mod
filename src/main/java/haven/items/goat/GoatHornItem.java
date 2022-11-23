@@ -1,6 +1,6 @@
 package haven.items.goat;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.events.HavenGameEvent;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +32,7 @@ public class GoatHornItem extends Item {
 		super.appendTooltip(stack, world, tooltip, context);
 		GoatHornInstrument instrument = this.getInstrument(stack);
 		if (instrument != null) {
-			MutableText mutableText = new TranslatableText("instrument.haven." + instrument.getName());
+			MutableText mutableText = new TranslatableText("instrument.minecraft." + instrument.getName());
 			tooltip.add(mutableText.formatted(Formatting.GRAY));
 		}
 	}
@@ -54,7 +54,7 @@ public class GoatHornItem extends Item {
 	public void appendStacks(ItemGroup group, DefaultedList<ItemStack> stacks) {
 		if (this.isIn(group)) {
 			for (GoatHornInstrument instrument : GoatHornInstruments.INSTRUMENTS) {
-				stacks.add(getStackForInstrument(HavenMod.GOAT_HORN, instrument));
+				stacks.add(getStackForInstrument(ModBase.GOAT_HORN, instrument));
 			}
 		}
 	}

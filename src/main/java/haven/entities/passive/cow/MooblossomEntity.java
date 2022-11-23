@@ -1,6 +1,6 @@
 package haven.entities.passive.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -9,10 +9,8 @@ import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -89,7 +87,7 @@ public class MooblossomEntity extends CowEntity implements Shearable {
 			this.world.spawnEntity(cowEntity);
 
 			for(int i = 0; i < 5; ++i) {
-				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(HavenMod.MAGENTA_TULIP.ITEM)));
+				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(ModBase.MAGENTA_TULIP.getItem())));
 			}
 		}
 
@@ -100,7 +98,7 @@ public class MooblossomEntity extends CowEntity implements Shearable {
 	}
 
 	public MooblossomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.MOOBLOSSOM_ENTITY.create(serverWorld);
+		return ModBase.MOOBLOSSOM_ENTITY.create(serverWorld);
 	}
 
 	@Override

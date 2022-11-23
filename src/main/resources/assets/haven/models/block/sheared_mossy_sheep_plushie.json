@@ -1,0 +1,7 @@
+{
+	"parent": "haven:block/_template_sheared_sheep_plushie",
+	"textures": {
+		"0": "haven:block/mossy_sheep_plushie",
+		"particle": "minecraft:block/moss_block"
+	}
+}

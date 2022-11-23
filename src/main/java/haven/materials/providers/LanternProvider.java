@@ -8,6 +8,6 @@ public interface LanternProvider {
 	public Block getUnlitLantern();
 
 	public default boolean containsLantern(Block block) {
-		return block == getLantern().BLOCK || block == getUnlitLantern();
+		return block == getLantern().getBlock() || block == getUnlitLantern();
 	}
 }

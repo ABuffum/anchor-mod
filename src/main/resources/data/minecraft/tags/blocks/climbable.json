@@ -1,7 +1,10 @@
 {
   "replace": false,
   "values": [
+    "minecraft:vine",
     "minecraft:ladder",
-    "#haven:ladders"
+    "#haven:ladders",
+    
+    "haven:decoration_only_vine"
   ]
 }

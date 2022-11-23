@@ -1,7 +1,7 @@
 package haven.gen.features;
 
 import com.mojang.serialization.Codec;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.sculk.SculkShriekerBlock;
 import haven.blocks.sculk.SculkSpreadable;
 import haven.blocks.sculk.SculkSpreadManager;
@@ -43,13 +43,13 @@ public class SculkPatchFeature extends Feature<SculkPatchFeatureConfig> {
 		}
 		BlockPos blockPos2 = blockPos.down();
 		if (random.nextFloat() <= sculkPatchFeatureConfig.catalystChance() && structureWorldAccess.getBlockState(blockPos2).isFullCube(structureWorldAccess, blockPos2)) {
-			structureWorldAccess.setBlockState(blockPos, HavenMod.SCULK_CATALYST.BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+			structureWorldAccess.setBlockState(blockPos, ModBase.SCULK_CATALYST.getBlock().getDefaultState(), Block.NOTIFY_ALL);
 		}
 		k = sculkPatchFeatureConfig.extraRareGrowths().get(random);
 		for (l = 0; l < k; ++l) {
 			BlockPos blockPos3 = blockPos.add(random.nextInt(5) - 2, 0, random.nextInt(5) - 2);
 			if (!structureWorldAccess.getBlockState(blockPos3).isAir() || !structureWorldAccess.getBlockState(blockPos3.down()).isSideSolidFullSquare(structureWorldAccess, blockPos3.down(), Direction.UP)) continue;
-			structureWorldAccess.setBlockState(blockPos3, HavenMod.SCULK_SHRIEKER.BLOCK.getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, true), Block.NOTIFY_ALL);
+			structureWorldAccess.setBlockState(blockPos3, ModBase.SCULK_SHRIEKER.getBlock().getDefaultState().with(SculkShriekerBlock.CAN_SUMMON, true), Block.NOTIFY_ALL);
 		}
 		return true;
 	}

@@ -1,9 +1,7 @@
 package haven.materials;
 
-import haven.HavenMod;
-import haven.HavenTags;
-import haven.containers.BlockContainer;
-import net.minecraft.block.Block;
+import haven.ModBase;
+import haven.ModTags;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Items;
@@ -12,7 +10,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Lazy;
 
-import java.util.Arrays;
 import java.util.function.Supplier;
 
 public enum HavenArmorMaterials implements ArmorMaterial {
@@ -23,16 +20,16 @@ public enum HavenArmorMaterials implements ArmorMaterial {
 		return Ingredient.ofItems(Items.COPPER_INGOT);
 	}),
 	DARK_IRON("dark_iron", 15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> {
-		return Ingredient.ofItems(HavenMod.DARK_IRON_INGOT);
+		return Ingredient.ofItems(ModBase.DARK_IRON_INGOT);
 	}),
 	ECHO("echo", 37, new int[]{3, 6, 8, 3}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.0F, 0.5F, () -> {
-		return Ingredient.ofItems(HavenMod.ECHO_SHARD);
+		return Ingredient.ofItems(ModBase.ECHO_SHARD);
 	}),
 	EMERALD("emerald", 27, new int[]{3, 5, 6, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 1.5F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.EMERALD);
 	}),
 	FLEECE("fleece", 4, new int[]{1, 1, 2, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
-		return Ingredient.fromTag(HavenTags.Items.FLEECE);
+		return Ingredient.fromTag(ModTags.Items.FLEECE);
 	}),
 	OBSIDIAN("obsidian", 33, new int[]{3, 6, 8, 3}, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.5F, 0.0F, () -> {
 		return Ingredient.ofItems(Items.OBSIDIAN);

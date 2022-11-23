@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "chiseled_bookshelf",
+  "key": {
+    "#": {
+      "item": "haven:mushroom_stem_planks"
+    },
+    "X": {
+      "item": "haven:mushroom_stem_slab"
+    }
+  },
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "item": "haven:mushroom_stem_chiseled_bookshelf"
+  }
+}

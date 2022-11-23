@@ -1,6 +1,6 @@
 package haven.materials;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.items.buckets.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.BucketProvider;
@@ -43,14 +43,14 @@ public class LiteralWoodMaterial extends BaseMaterial implements BucketProvider 
 		bucket = new HavenBucketItem(Fluids.EMPTY, BucketSettings(), this);
 		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
 		powder_snow_bucket = new HavenPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, FilledBucketSettings(), this);
-		blood_bucket = new HavenBucketItem(HavenMod.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
-		mud_bucket = new HavenBucketItem(HavenMod.STILL_MUD_FLUID, FilledBucketSettings(), this);
+		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
+		mud_bucket = new HavenBucketItem(ModBase.STILL_MUD_FLUID, FilledBucketSettings(), this);
 		milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		coffee_milk_bucket = new CoffeeMilkBucketItem(FilledBucketSettings(), this);
 		strawberry_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		vanilla_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
-		cottage_cheese_bucket = new CottageCheeseBucketItem(HavenMod.COTTAGE_CHEESE_BLOCK, FilledBucketSettings().food(HavenMod.COTTAGE_CHEESE_FOOD_COMPONENT), this);
+		cottage_cheese_bucket = new CottageCheeseBucketItem(FilledBucketSettings().food(ModBase.COTTAGE_CHEESE_FOOD_COMPONENT), this);
 	}
 
 	public boolean contains(Item item) {

@@ -3,15 +3,11 @@ package haven.particles;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import haven.HavenMod;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import haven.ModBase;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.Registry;
 
 import java.util.Locale;
@@ -33,7 +29,7 @@ public record SculkChargeParticleEffect(float roll) implements ParticleEffect {
 		}
 	};
 
-	public ParticleType<SculkChargeParticleEffect> getType() { return HavenMod.SCULK_CHARGE_PARTICLE; }
+	public ParticleType<SculkChargeParticleEffect> getType() { return ModBase.SCULK_CHARGE_PARTICLE; }
 
 	@Override
 	public void write(PacketByteBuf buf) { buf.writeFloat(this.roll); }

@@ -2,11 +2,9 @@ package haven.gen.structures;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import haven.HavenMod;
 import haven.gen.DeepDarkBiome;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePools;
 import net.minecraft.util.Identifier;
 
 import static haven.gen.structures.HavenStructures.*;

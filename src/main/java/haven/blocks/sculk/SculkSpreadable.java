@@ -1,6 +1,6 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.MultifaceGrowthBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluids;
@@ -18,7 +18,7 @@ public interface SculkSpreadable {
 		@Override
 		public boolean spread(World world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
 			if (directions == null) {
-				return ((SculkVeinBlock)HavenMod.SCULK_VEIN.BLOCK).getSamePositionOnlyGrower().grow(world.getBlockState(pos), world, pos, markForPostProcessing) > 0L;
+				return ((SculkVeinBlock) ModBase.SCULK_VEIN.getBlock()).getSamePositionOnlyGrower().grow(world.getBlockState(pos), world, pos, markForPostProcessing) > 0L;
 			}
 			if (!directions.isEmpty()) {
 				if (state.isAir() || state.getFluidState().getFluid() == Fluids.WATER) {
@@ -47,7 +47,7 @@ public interface SculkSpreadable {
 	}
 
 	default public boolean spread(World world, BlockPos pos, BlockState state, @Nullable Collection<Direction> directions, boolean markForPostProcessing) {
-		return ((MultifaceGrowthBlock)HavenMod.SCULK_VEIN.BLOCK).getGrower().grow(state, world, pos, markForPostProcessing) > 0L;
+		return ((MultifaceGrowthBlock) ModBase.SCULK_VEIN.getBlock()).getGrower().grow(state, world, pos, markForPostProcessing) > 0L;
 	}
 
 	default public boolean shouldConvertToSpreadable() { return true; }

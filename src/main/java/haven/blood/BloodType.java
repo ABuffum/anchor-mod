@@ -1,6 +1,6 @@
 package haven.blood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.hostile.warden.WardenEntity;
 import haven.origins.powers.BloodTypePower;
 import io.github.apace100.apoli.Apoli;
@@ -25,7 +25,7 @@ public class BloodType {
 
 	public BloodType(String name) {
 		this.name = name;
-		id = HavenMod.ID(name);
+		id = ModBase.ID(name);
 		BLOOD_TYPES.put(id, this);
 	}
 
@@ -179,57 +179,57 @@ public class BloodType {
 
 	public static Item GetSyringe(LivingEntity livingEntity) { return GetSyringe(Get(livingEntity)); }
 	public static Item GetSyringe(BloodType type) {
-		if (type == PLAYER) return HavenMod.BLOOD_SYRINGE;
-		else if (type == ALLAY) return HavenMod.ALLAY_BLOOD_SYRINGE;
-		else if (type == ANEMIC) return HavenMod.ANEMIC_BLOOD_SYRINGE;
-		else if (type == AVIAN) return HavenMod.AVIAN_BLOOD_SYRINGE;
-		else if (type == AXOLOTL) return HavenMod.AXOLOTL_BLOOD_SYRINGE;
-		else if (type == BAT) return HavenMod.BAT_BLOOD_SYRINGE;
-		else if (type == BEAR) return HavenMod.BEAR_BLOOD_SYRINGE;
-		else if (type == BEE) return HavenMod.BEE_BLOOD_SYRINGE;
-		else if (type == BEE_ENDERMAN) return HavenMod.BEE_ENDERMAN_BLOOD_SYRINGE;
-		else if (type == CANINE) return HavenMod.CANINE_BLOOD_SYRINGE;
-		else if (type == CHORUS) return HavenMod.CHORUS_SYRINGE;
-		else if (type == COW) return HavenMod.COW_BLOOD_SYRINGE;
-		else if (type == CREEPER) return HavenMod.CREEPER_BLOOD_SYRINGE;
-		else if (type == DISEASED_FELINE) return HavenMod.DISEASED_FELINE_BLOOD_SYRINGE;
-		else if (type == DOLPHIN) return HavenMod.DOLPHIN_BLOOD_SYRINGE;
-		else if (type == DRAGON) return HavenMod.DRAGON_BLOOD_SYRINGE;
-		else if (type == ENDERMAN) return HavenMod.ENDERMAN_BLOOD_SYRINGE;
-		else if (type == EQUINE) return HavenMod.EQUINE_BLOOD_SYRINGE;
-		else if (type == FELINE) return HavenMod.FELINE_BLOOD_SYRINGE;
-		else if (type == FISH) return HavenMod.FISH_BLOOD_SYRINGE;
-		else if (type == GOAT) return HavenMod.GOAT_BLOOD_SYRINGE;
-		else if (type == HONEY) return HavenMod.HONEY_SYRINGE;
-		else if (type == ICHOR) return HavenMod.ICHOR_SYRINGE;
-		else if (type == INSECT) return HavenMod.INSECT_BLOOD_SYRINGE;
-		else if (type == LAVA) return HavenMod.LAVA_SYRINGE;
-		else if (type == LLAMA) return HavenMod.LLAMA_BLOOD_SYRINGE;
-		else if (type == MAGMA) return HavenMod.MAGMA_CREAM_SYRINGE;
-		else if (type == MILK) return HavenMod.MILK_SYRINGE;
-		else if (type == MUD) return HavenMod.MUD_SYRINGE;
-		else if (type == NEPHAL) return HavenMod.NEPHAL_BLOOD_SYRINGE;
-		else if (type == NETHER) return HavenMod.NETHER_BLOOD_SYRINGE;
-		else if (type == NETHER_ROYALTY) return HavenMod.NETHER_ROYALTY_BLOOD_SYRINGE;
-		else if (type == PHANTOM) return HavenMod.PHANTOM_BLOOD_SYRINGE;
-		else if (type == PIG) return HavenMod.PIG_BLOOD_SYRINGE;
-		else if (type == RABBIT) return HavenMod.RABBIT_BLOOD_SYRINGE;
-		else if (type == RAVAGER) return HavenMod.RAVAGER_BLOOD_SYRINGE;
-		else if (type == SHEEP) return HavenMod.SHEEP_BLOOD_SYRINGE;
-		else if (type == SLIME) return HavenMod.SLIME_SYRINGE;
-		else if (type == SLUDGE) return HavenMod.SLUDGE_SYRINGE;
-		else if (type == SPIDER) return HavenMod.SPIDER_BLOOD_SYRINGE;
-		else if (type == SQUID) return HavenMod.SQUID_BLOOD_SYRINGE;
-		else if (type == STRIDER) return HavenMod.STRIDER_BLOOD_SYRINGE;
-		else if (type == SUGAR_WATER) return HavenMod.SUGAR_WATER_SYRINGE;
-		else if (type == TURTLE) return HavenMod.TURTLE_BLOOD_SYRINGE;
-		else if (type == VAMPIRE) return HavenMod.VAMPIRE_BLOOD_SYRINGE;
-		else if (type == VEX) return HavenMod.VEX_BLOOD_SYRINGE;
-		else if (type == VILLAGER) return HavenMod.VILLAGER_BLOOD_SYRINGE;
-		else if (type == WARDEN) return HavenMod.WARDEN_BLOOD_SYRINGE;
-		else if (type == WATER) return HavenMod.WATER_SYRINGE;
-		else if (type == ZOMBIE) return HavenMod.ZOMBIE_BLOOD_SYRINGE;
-		return HavenMod.DIRTY_SYRINGE;
+		if (type == PLAYER) return ModBase.BLOOD_SYRINGE;
+		else if (type == ALLAY) return ModBase.ALLAY_BLOOD_SYRINGE;
+		else if (type == ANEMIC) return ModBase.ANEMIC_BLOOD_SYRINGE;
+		else if (type == AVIAN) return ModBase.AVIAN_BLOOD_SYRINGE;
+		else if (type == AXOLOTL) return ModBase.AXOLOTL_BLOOD_SYRINGE;
+		else if (type == BAT) return ModBase.BAT_BLOOD_SYRINGE;
+		else if (type == BEAR) return ModBase.BEAR_BLOOD_SYRINGE;
+		else if (type == BEE) return ModBase.BEE_BLOOD_SYRINGE;
+		else if (type == BEE_ENDERMAN) return ModBase.BEE_ENDERMAN_BLOOD_SYRINGE;
+		else if (type == CANINE) return ModBase.CANINE_BLOOD_SYRINGE;
+		else if (type == CHORUS) return ModBase.CHORUS_SYRINGE;
+		else if (type == COW) return ModBase.COW_BLOOD_SYRINGE;
+		else if (type == CREEPER) return ModBase.CREEPER_BLOOD_SYRINGE;
+		else if (type == DISEASED_FELINE) return ModBase.DISEASED_FELINE_BLOOD_SYRINGE;
+		else if (type == DOLPHIN) return ModBase.DOLPHIN_BLOOD_SYRINGE;
+		else if (type == DRAGON) return ModBase.DRAGON_BLOOD_SYRINGE;
+		else if (type == ENDERMAN) return ModBase.ENDERMAN_BLOOD_SYRINGE;
+		else if (type == EQUINE) return ModBase.EQUINE_BLOOD_SYRINGE;
+		else if (type == FELINE) return ModBase.FELINE_BLOOD_SYRINGE;
+		else if (type == FISH) return ModBase.FISH_BLOOD_SYRINGE;
+		else if (type == GOAT) return ModBase.GOAT_BLOOD_SYRINGE;
+		else if (type == HONEY) return ModBase.HONEY_SYRINGE;
+		else if (type == ICHOR) return ModBase.ICHOR_SYRINGE;
+		else if (type == INSECT) return ModBase.INSECT_BLOOD_SYRINGE;
+		else if (type == LAVA) return ModBase.LAVA_SYRINGE;
+		else if (type == LLAMA) return ModBase.LLAMA_BLOOD_SYRINGE;
+		else if (type == MAGMA) return ModBase.MAGMA_CREAM_SYRINGE;
+		else if (type == MILK) return ModBase.MILK_SYRINGE;
+		else if (type == MUD) return ModBase.MUD_SYRINGE;
+		else if (type == NEPHAL) return ModBase.NEPHAL_BLOOD_SYRINGE;
+		else if (type == NETHER) return ModBase.NETHER_BLOOD_SYRINGE;
+		else if (type == NETHER_ROYALTY) return ModBase.NETHER_ROYALTY_BLOOD_SYRINGE;
+		else if (type == PHANTOM) return ModBase.PHANTOM_BLOOD_SYRINGE;
+		else if (type == PIG) return ModBase.PIG_BLOOD_SYRINGE;
+		else if (type == RABBIT) return ModBase.RABBIT_BLOOD_SYRINGE;
+		else if (type == RAVAGER) return ModBase.RAVAGER_BLOOD_SYRINGE;
+		else if (type == SHEEP) return ModBase.SHEEP_BLOOD_SYRINGE;
+		else if (type == SLIME) return ModBase.SLIME_SYRINGE;
+		else if (type == SLUDGE) return ModBase.SLUDGE_SYRINGE;
+		else if (type == SPIDER) return ModBase.SPIDER_BLOOD_SYRINGE;
+		else if (type == SQUID) return ModBase.SQUID_BLOOD_SYRINGE;
+		else if (type == STRIDER) return ModBase.STRIDER_BLOOD_SYRINGE;
+		else if (type == SUGAR_WATER) return ModBase.SUGAR_WATER_SYRINGE;
+		else if (type == TURTLE) return ModBase.TURTLE_BLOOD_SYRINGE;
+		else if (type == VAMPIRE) return ModBase.VAMPIRE_BLOOD_SYRINGE;
+		else if (type == VEX) return ModBase.VEX_BLOOD_SYRINGE;
+		else if (type == VILLAGER) return ModBase.VILLAGER_BLOOD_SYRINGE;
+		else if (type == WARDEN) return ModBase.WARDEN_BLOOD_SYRINGE;
+		else if (type == WATER) return ModBase.WATER_SYRINGE;
+		else if (type == ZOMBIE) return ModBase.ZOMBIE_BLOOD_SYRINGE;
+		return ModBase.DIRTY_SYRINGE;
 	}
 
 	public boolean IsWaterVulnerable() { return false; }

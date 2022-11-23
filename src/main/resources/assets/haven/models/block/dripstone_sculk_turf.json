@@ -3,6 +3,6 @@
   "textures": {
     "bottom": "minecraft:block/dripstone_block",
     "side": "haven:block/dripstone_sculk_turf_side",
-    "top": "haven:block/sculk"
+    "top": "minecraft:block/sculk"
   }
 }

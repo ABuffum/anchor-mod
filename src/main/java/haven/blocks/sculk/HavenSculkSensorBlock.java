@@ -1,6 +1,6 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.events.HavenGameEvent;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMaps;
@@ -129,7 +129,8 @@ public class HavenSculkSensorBlock extends BlockWithEntity implements Waterlogga
 
 	@Override
 	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-		if (!world.isClient() && isInactive(state) && entity.getType() != HavenMod.WARDEN_ENTITY) {
+		//TODO: Exclude warden stepping behavior
+		if (!world.isClient() && isInactive(state)) {// && entity.getType() != HavenMod.WARDEN_ENTITY) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
 			if (blockEntity instanceof HavenSculkSensorBlockEntity sculk) sculk.setLastVibrationFrequency(FREQUENCIES.get(GameEvent.STEP));
 			setActive(entity, world, pos, state, 15);
@@ -160,8 +161,8 @@ public class HavenSculkSensorBlock extends BlockWithEntity implements Waterlogga
 	}
 
 	private static void updateNeighbors(World world, BlockPos pos) {
-		world.updateNeighborsAlways(pos, HavenMod.SCULK_SENSOR.BLOCK);
-		world.updateNeighborsAlways(pos.offset(Direction.UP.getOpposite()), HavenMod.SCULK_SENSOR.BLOCK);
+		world.updateNeighborsAlways(pos, ModBase.SCULK_SENSOR.getBlock());
+		world.updateNeighborsAlways(pos.offset(Direction.UP.getOpposite()), ModBase.SCULK_SENSOR.getBlock());
 	}
 
 	@Override
@@ -180,7 +181,7 @@ public class HavenSculkSensorBlock extends BlockWithEntity implements Waterlogga
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world2, BlockState state2, BlockEntityType<T> type) {
 		if (!world2.isClient) {
-			return checkType(type, HavenMod.SCULK_SENSOR_ENTITY, (world, pos, state, blockEntity) -> blockEntity.getEventListener().tick(world));
+			return checkType(type, ModBase.SCULK_SENSOR_ENTITY, (world, pos, state, blockEntity) -> blockEntity.getEventListener().tick(world));
 		}
 		return null;
 	}

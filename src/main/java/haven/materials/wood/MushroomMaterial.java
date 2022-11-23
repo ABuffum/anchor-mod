@@ -1,10 +1,9 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.containers.BlockContainer;
 import haven.containers.TorchContainer;
 import haven.materials.providers.*;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -26,13 +25,13 @@ public class MushroomMaterial extends WoodMaterial implements
 	private final BlockContainer soul_campfire;
 	public BlockContainer getSoulCampfire() { return soul_campfire; }
 	public MushroomMaterial(String name, MapColor mapColor, boolean flammable) {
-		super(name, mapColor, flammable);
-		torch = MakeTorch(14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.WOOD, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
-		campfire = MakeCampfire(15, 1, mapColor, true);
-		ender_campfire = MakeCampfire(13, 3, mapColor, false);
-		soul_campfire = MakeCampfire(10, 2, mapColor, false);
+		super(name, mapColor, flammable, BlockSoundGroup.WOOD);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, BlockSoundGroup.WOOD, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
+		campfire = MakeCampfire(15, 1, mapColor, BlockSoundGroup.WOOD, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.WOOD, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.WOOD, false);
 	}
 
 	public boolean contains(Block block) {

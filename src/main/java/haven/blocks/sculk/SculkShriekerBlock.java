@@ -1,6 +1,6 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -50,7 +50,7 @@ public class SculkShriekerBlock extends BlockWithEntity implements Waterloggable
 		if (world instanceof ServerWorld serverWorld) {
 			ServerPlayerEntity serverPlayerEntity = SculkShriekerBlockEntity.findResponsiblePlayerFromEntity(entity);
 			if (serverPlayerEntity != null) {
-				serverWorld.getBlockEntity(pos, HavenMod.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.shriek(serverWorld, serverPlayerEntity));
+				serverWorld.getBlockEntity(pos, ModBase.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.shriek(serverWorld, serverPlayerEntity));
 			}
 		}
 		super.onSteppedOn(world, pos, state, entity);
@@ -60,7 +60,7 @@ public class SculkShriekerBlock extends BlockWithEntity implements Waterloggable
 	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
 		if (world instanceof ServerWorld serverWorld) {
 			if (state.get(SHRIEKING) && !state.isOf(newState.getBlock())) {
-				serverWorld.getBlockEntity(pos, HavenMod.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.warn(serverWorld));
+				serverWorld.getBlockEntity(pos, ModBase.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.warn(serverWorld));
 			}
 		}
 		super.onStateReplaced(state, world, pos, newState, moved);
@@ -70,7 +70,7 @@ public class SculkShriekerBlock extends BlockWithEntity implements Waterloggable
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (state.get(SHRIEKING)) {
 			world.setBlockState(pos, state.with(SHRIEKING, false), Block.NOTIFY_ALL);
-			world.getBlockEntity(pos, HavenMod.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.warn(world));
+			world.getBlockEntity(pos, ModBase.SCULK_SHRIEKER_ENTITY).ifPresent(blockEntity -> blockEntity.warn(world));
 		}
 	}
 
@@ -124,7 +124,7 @@ public class SculkShriekerBlock extends BlockWithEntity implements Waterloggable
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world2, BlockState state2, BlockEntityType<T> type) {
 		if (!world2.isClient) {
-			return BlockWithEntity.checkType(type, HavenMod.SCULK_SHRIEKER_ENTITY, (world, pos, state, blockEntity) -> blockEntity.getVibrationListener().tick(world));
+			return BlockWithEntity.checkType(type, ModBase.SCULK_SHRIEKER_ENTITY, (world, pos, state, blockEntity) -> blockEntity.getVibrationListener().tick(world));
 		}
 		return null;
 	}

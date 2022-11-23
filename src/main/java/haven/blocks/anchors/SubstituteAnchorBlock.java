@@ -1,6 +1,6 @@
 package haven.blocks.anchors;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
@@ -50,8 +50,8 @@ public class SubstituteAnchorBlock extends BlockWithEntity {
 		ItemStack anchorStack = new ItemStack(Blocks.RESPAWN_ANCHOR, 1);
 		ItemEntity anchorStackEntity = new ItemEntity(player.world, x, y, z, anchorStack);
 		player.world.spawnEntity(anchorStackEntity);
-		if (HavenMod.ANCHOR_MAP.containsKey(owner)) {
-			ItemStack otherStack = new ItemStack(HavenMod.ANCHOR_CORES.get(owner), 1);
+		if (ModBase.ANCHOR_MAP.containsKey(owner)) {
+			ItemStack otherStack = new ItemStack(ModBase.ANCHOR_CORES.get(owner), 1);
 			ItemEntity itemEntity = new ItemEntity(player.world, x, y, z, otherStack);
 			player.world.spawnEntity(itemEntity);
 		}

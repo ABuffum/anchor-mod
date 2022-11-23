@@ -1,7 +1,6 @@
 package haven.blocks;
 
-import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
 import net.minecraft.block.*;
@@ -10,9 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -22,7 +19,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
 import java.util.Random;
 import java.util.function.Consumer;
@@ -46,14 +42,14 @@ public class MilkCauldronBlock extends Block {
 	public static CauldronBehavior FillFromBucket(Item bucket) {
 		return (state, world, pos, player, hand, stack)
 				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
-				HavenMod.MILK_CAULDRON.getDefaultState(),
+				ModBase.MILK_CAULDRON.getDefaultState(),
 				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 	}
 
 	public static CauldronBehavior FillCheeseFromBucket(Item bucket) {
 		return (state, world, pos, player, hand, stack)
 			-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
-				HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState(),
+				ModBase.COTTAGE_CHEESE_CAULDRON.getDefaultState(),
 				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 	}
 
@@ -65,8 +61,8 @@ public class MilkCauldronBlock extends Block {
 		if (random.nextFloat() < 0.025F) {
 			Block block = state.getBlock();
 			if (block instanceof MilkCauldronBlock cauldron) {
-				if (cauldron.curdling < 1) world.setBlockState(pos, HavenMod.COTTAGE_CHEESE_CAULDRON.getDefaultState());
-				else world.setBlockState(pos, HavenMod.CHEESE_CAULDRON.getDefaultState());
+				if (cauldron.curdling < 1) world.setBlockState(pos, ModBase.COTTAGE_CHEESE_CAULDRON.getDefaultState());
+				else world.setBlockState(pos, ModBase.CHEESE_CAULDRON.getDefaultState());
 			}
 		}
 	}
@@ -77,7 +73,7 @@ public class MilkCauldronBlock extends Block {
 		Item item = stack.getItem();
 		if (curdling < 2) {
 			ItemStack newStack = null;
-			if (item == Items.BOWL) newStack = new ItemStack(curdling < 1 ? HavenMod.MILK_BOWL : HavenMod.COTTAGE_CHEESE_BOWL);
+			if (item == Items.BOWL) newStack = new ItemStack(curdling < 1 ? ModBase.MILK_BOWL : ModBase.COTTAGE_CHEESE_BOWL);
 			else {
 				BucketProvider provider = BucketProvider.getProvider(item);
 				if (provider != null) newStack = new ItemStack(curdling < 1 ? provider.getMilkBucket() : provider.getCottageCheeseBucket());
@@ -98,7 +94,7 @@ public class MilkCauldronBlock extends Block {
 				stack.damage(1, (LivingEntity)player, (Consumer)((p) -> {
 					((LivingEntity)p).sendToolBreakStatus(hand);
 				}));
-				dropStack(world, pos, new ItemStack(HavenMod.CHEESE, player.getRandom().nextInt(3) + 1));
+				dropStack(world, pos, new ItemStack(ModBase.CHEESE, player.getRandom().nextInt(3) + 1));
 				world.setBlockState(pos, Blocks.CAULDRON.getDefaultState());
 				return ActionResult.SUCCESS;
 			}

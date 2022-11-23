@@ -1,7 +1,7 @@
 package haven.entities.passive.cow;
 
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -14,7 +14,6 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -114,7 +113,7 @@ public class WarpedMooshroomEntity extends CowEntity implements Shearable {
 	}
 
 	public WarpedMooshroomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.WARPED_MOOSHROOM_ENTITY.create(serverWorld);
+		return ModBase.WARPED_MOOSHROOM_ENTITY.create(serverWorld);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package haven.mixins.client.rendering.entity;
 
+import haven.origins.powers.PowersUtil;
 import haven.origins.powers.UnfreezingPower;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.ShakingPower;
@@ -21,7 +22,7 @@ public abstract class LivingEntityRendererMixin extends EntityRenderer<LivingEnt
 
 	@Inject(method = "isShaking", at = @At("HEAD"), cancellable = true)
 	private void disallowShivering(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
-		if (UnfreezingPower.HasActivePower(entity)) {
+		if (PowersUtil.Active(entity, UnfreezingPower.class)) {
 			if(PowerHolderComponent.hasPower(entity, ShakingPower.class)) cir.setReturnValue(true);
 			else cir.setReturnValue(false);
 		}

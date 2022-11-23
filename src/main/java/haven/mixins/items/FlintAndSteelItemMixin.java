@@ -1,6 +1,6 @@
 package haven.mixins.items;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +11,6 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -32,9 +31,9 @@ public class FlintAndSteelItemMixin {
 		BlockPos blockPos = context.getBlockPos();
 		BlockState blockState = world.getBlockState(blockPos);
 		Block block = blockState.getBlock();
-		if (HavenMod.UNLIT_LANTERNS.containsValue(block)) {
+		if (ModBase.UNLIT_LANTERNS.containsValue(block)) {
 			world.playSound(playerEntity, blockPos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
-			BlockState outState = HavenMod.UNLIT_LANTERNS.inverse().get(block).getDefaultState().with(LanternBlock.HANGING, blockState.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, blockState.get(LanternBlock.WATERLOGGED));
+			BlockState outState = ModBase.UNLIT_LANTERNS.inverse().get(block).getDefaultState().with(LanternBlock.HANGING, blockState.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, blockState.get(LanternBlock.WATERLOGGED));
 			world.setBlockState(blockPos, outState, Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
 			world.emitGameEvent(playerEntity, GameEvent.BLOCK_PLACE, blockPos);
 			ItemStack itemStack = context.getStack();

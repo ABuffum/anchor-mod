@@ -1,8 +1,10 @@
 package haven.containers;
 
+import haven.blocks.basic.HavenStairsBlock;
 import haven.util.OxidationScale;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.OxidizableSlabBlock;
 import net.minecraft.item.Item;
 
 import static net.minecraft.block.Oxidizable.OxidizationLevel;
@@ -51,6 +53,29 @@ public class OxidizableBlockContainer {
 		waxed_exposed = new WaxedBlockContainer(exposed, waxed.apply(settings));
 		waxed_weathered = new WaxedBlockContainer(weathered, waxed.apply(settings));
 		waxed_oxidized = new WaxedBlockContainer(oxidized, waxed.apply(settings));
+	}
+
+	private OxidizableBlockContainer(BlockContainer u, BlockContainer e, BlockContainer w, BlockContainer o, Block wu, Block we, Block ww, Block wo) {
+		unaffected = u;
+		exposed = e;
+		weathered = w;
+		oxidized = o;
+		waxed_unaffected = new WaxedBlockContainer(u, wu);
+		waxed_exposed = new WaxedBlockContainer(e, we);
+		waxed_weathered = new WaxedBlockContainer(w, ww);
+		waxed_oxidized = new WaxedBlockContainer(o, wo);
+	}
+
+	public static OxidizableBlockContainer Stairs(Function<OxidizationLevel, Block> baseBlock, Function<OxidizationLevel, Block> waxed) {
+		BlockContainer u = new BlockContainer(baseBlock.apply(OxidizationLevel.UNAFFECTED));
+		BlockContainer e = new BlockContainer(baseBlock.apply(OxidizationLevel.EXPOSED));
+		BlockContainer w = new BlockContainer(baseBlock.apply(OxidizationLevel.WEATHERED));
+		BlockContainer o = new BlockContainer(baseBlock.apply(OxidizationLevel.OXIDIZED));
+		return new OxidizableBlockContainer(u, e, w, o,
+				waxed.apply(OxidizationLevel.UNAFFECTED),
+				waxed.apply(OxidizationLevel.EXPOSED),
+				waxed.apply(OxidizationLevel.WEATHERED),
+				waxed.apply(OxidizationLevel.OXIDIZED));
 	}
 
 	public boolean contains(Block block) {

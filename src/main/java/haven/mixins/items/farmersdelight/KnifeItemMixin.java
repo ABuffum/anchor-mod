@@ -2,7 +2,7 @@ package haven.mixins.items.farmersdelight;
 
 import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import com.nhoryzon.mc.farmersdelight.tag.Tags;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.gourd.CarvableGourdBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -42,7 +42,7 @@ public abstract class KnifeItemMixin {
 				dropStack = gourd.getCarveDrop();
 			}
 			else if (state.getBlock() == Blocks.MELON) {
-				outState = HavenMod.CARVED_MELON.BLOCK.getDefaultState();
+				outState = ModBase.CARVED_MELON.getBlock().getDefaultState();
 				dropStack = new ItemStack(Items.MELON_SEEDS, 4);
 			}
 			if (outState != null) {

@@ -38,13 +38,13 @@ public class EmeraldMaterial extends ToolArmorHorseMaterial implements
 				5, -3, -2, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.EMERALD, 9);
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
 		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.EMERALD_BLOCK)), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.getBlock()), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.getBlock()), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

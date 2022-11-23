@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:mud_brick_slab",
+  
     "haven:amethyst_crystal_slab",
     "haven:amethyst_brick_slab",
     "haven:amethyst_slab",
@@ -14,16 +16,27 @@
     "haven:blood_slab",
     "haven:dried_blood_slab",
     
+    "haven:iron_brick_slab",
     "haven:cut_iron_slab",
+    "haven:dark_iron_brick_slab",
     "haven:cut_dark_iron_slab",
+    "haven:gold_brick_slab",
     "haven:cut_gold_slab",
+    "haven:netherite_brick_slab",
     "haven:cut_netherite_slab",
+  
+    "haven:copper_brick_slab",
+    "haven:exposed_copper_brick_slab",
+    "haven:weathered_copper_brick_slab",
+    "haven:oxidized_copper_brick_slab",
+    "haven:waxed_copper_brick_slab",
+    "haven:waxed_exposed_copper_brick_slab",
+    "haven:waxed_weathered_copper_brick_slab",
+    "haven:waxed_oxidized_copper_brick_slab",
   
     "haven:obsidian_slab",
     "haven:crying_obsidian_slab",
     "haven:bleeding_obsidian_slab",
-    
-    "haven:mud_brick_slab",
   
     "haven:calcite_brick_slab",
     "haven:smooth_calcite_slab",

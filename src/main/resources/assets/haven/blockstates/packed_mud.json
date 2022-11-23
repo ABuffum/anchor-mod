@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "haven:block/packed_mud"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

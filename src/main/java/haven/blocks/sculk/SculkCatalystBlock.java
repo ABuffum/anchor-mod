@@ -1,12 +1,11 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
-import haven.sounds.HavenSoundEvents;
+import haven.ModBase;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SculkSensorBlockEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -42,8 +41,8 @@ public class SculkCatalystBlock extends BlockWithEntity {
 	public static void bloom(ServerWorld world, BlockPos pos, BlockState state, Random random) {
 		world.setBlockState(pos, state.with(BLOOM, true), Block.NOTIFY_ALL);
 		world.getBlockTickScheduler().schedule(pos, state.getBlock(), BLOOM_DURATION);
-		world.spawnParticles(HavenMod.SCULK_SOUL_PARTICLE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
-		world.playSound(null, pos, HavenSoundEvents.BLOCK_SCULK_CATALYST_BLOOM, SoundCategory.BLOCKS, 2.0f, 0.6f + random.nextFloat() * 0.4f);
+		world.spawnParticles(ModBase.SCULK_SOUL_PARTICLE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
+		world.playSound(null, pos, ModSoundEvents.BLOCK_SCULK_CATALYST_BLOOM, SoundCategory.BLOCKS, 2.0f, 0.6f + random.nextFloat() * 0.4f);
 	}
 
 	@Override
@@ -61,7 +60,7 @@ public class SculkCatalystBlock extends BlockWithEntity {
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		if (world.isClient) return null;
-		return SculkCatalystBlock.checkType(type, HavenMod.SCULK_CATALYST_ENTITY, SculkCatalystBlockEntity::tick);
+		return SculkCatalystBlock.checkType(type, ModBase.SCULK_CATALYST_ENTITY, SculkCatalystBlockEntity::tick);
 	}
 
 	@Override

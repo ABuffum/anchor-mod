@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_slab",
+    "minecraft:bamboo_mosaic_slab",
+    "minecraft:mangrove_slab",
+  
     "haven:bamboo_slab",
     "haven:brown_mushroom_slab",
     "haven:blue_mushroom_slab",
@@ -10,10 +14,7 @@
     "haven:dried_bamboo_slab",
     "haven:gilded_slab",
     "haven:hay_slab",
-    "haven:mangrove_slab",
     "haven:mushroom_stem_slab",
-    "haven:new_bamboo_slab",
-    "haven:bamboo_mosaic_slab",
     "haven:red_mushroom_slab",
     "haven:sugar_cane_slab"
   ]

@@ -1,6 +1,6 @@
 package haven.blood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.basic.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -22,22 +22,22 @@ public class BloodMaterial extends BaseMaterial implements
 	public BlockContainer getWall() { return wall; }
 	public BloodMaterial(String name) {
 		super(name, false);
-		fence = new BlockContainer(new HavenFenceBlock(HavenMod.BLOOD_BLOCK.BLOCK), ItemSettings());
-		pane = new BlockContainer(new HavenPaneBlock(HavenMod.BLOOD_BLOCK.BLOCK), ItemSettings());
-		slab = new BlockContainer(new HavenSlabBlock(HavenMod.BLOOD_BLOCK.BLOCK), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(HavenMod.BLOOD_BLOCK.BLOCK), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(HavenMod.BLOOD_BLOCK.BLOCK), ItemSettings());
+		fence = new BlockContainer(new ModFenceBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		pane = new BlockContainer(new ModPaneBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		slab = new BlockContainer(new HavenSlabBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new HavenStairsBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
 	}
 
 	@Override
 	protected Item.Settings ItemSettings() {
-		return HavenMod.BloodItemSettings();
+		return ModBase.BloodItemSettings();
 	}
 
 	public boolean contains(Block block) {
-		return block == fence.BLOCK || block == pane.BLOCK || block == slab.BLOCK || block == stairs.BLOCK || block == wall.BLOCK || super.contains(block);
+		return block == fence.getBlock() || block == pane.getBlock() || block == slab.getBlock() || block == stairs.getBlock() || block == wall.getBlock() || super.contains(block);
 	}
 	public boolean contains(Item item) {
-		return item == fence.ITEM || item == pane.ITEM || item == slab.ITEM || item == stairs.ITEM || item == wall.ITEM || super.contains(item);
+		return item == fence.getItem() || item == pane.getItem() || item == slab.getItem() || item == stairs.getItem() || item == wall.getItem() || super.contains(item);
 	}
 }

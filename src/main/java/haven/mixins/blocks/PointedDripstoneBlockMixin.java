@@ -1,24 +1,18 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.util.PointedDripstoneUtils;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import net.minecraft.world.event.GameEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -65,7 +59,7 @@ public class PointedDripstoneBlockMixin extends Block implements LandingBlock, W
 			ci.cancel();
 			return;
 		}
-		if (optional.get().sourceState.isOf(HavenMod.MUD.BLOCK) && fluid == Fluids.WATER) {
+		if (optional.get().sourceState.isOf(ModBase.MUD.getBlock()) && fluid == Fluids.WATER) {
 			BlockState blockState = Blocks.CLAY.getDefaultState();
 			world.setBlockState(optional.get().pos, blockState);
 			Block.pushEntitiesUpBeforeBlockChange(optional.get().sourceState, blockState, world, optional.get().pos);

@@ -1,5 +1,6 @@
 package haven.materials.gem;
 
+import haven.ModBase;
 import haven.blocks.basic.HavenSlabBlock;
 import haven.blocks.basic.HavenStairsBlock;
 import haven.blocks.basic.HavenWallBlock;
@@ -47,14 +48,14 @@ public class AmethystMaterial extends ToolArmorHorseMaterial implements
 		super("amethyst", false, HavenToolMaterials.AMETHYST,
 				5, -3, -3, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.AMETHYST, 10);
-		crystal_block = new BlockContainer(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(luminance(5))), ItemSettings());
-		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.BLOCK), ItemSettings());
-		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.BLOCK), ItemSettings());
-		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.BLOCK), ItemSettings());
+		crystal_block = new BlockContainer(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(ModBase.LUMINANCE_5)), ItemSettings());
+		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.getBlock()), ItemSettings());
 		bricks = new BlockContainer(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_BLOCK).strength(1.5f, 1.5f).requiresTool()), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
 		slab = new BlockContainer(new HavenSlabBlock(Blocks.AMETHYST_BLOCK), ItemSettings());
 		stairs = new BlockContainer(new HavenStairsBlock(Blocks.AMETHYST_BLOCK), ItemSettings());
 		wall = new BlockContainer(new HavenWallBlock(Blocks.AMETHYST_BLOCK), ItemSettings());

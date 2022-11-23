@@ -1,6 +1,6 @@
 package haven.blocks.cake;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.command.ChorusCommand;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -62,7 +62,8 @@ public class HavenCakeBlock extends Block {
 				world.playSound(null, pos, SoundEvents.BLOCK_CAKE_ADD_CANDLE, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				Block output;
 				if (block == Blocks.CANDLE) output = flavor != null ? flavor.getCandleCake() : Blocks.CANDLE_CAKE;
-				else if (block == HavenMod.SOUL_CANDLE.BLOCK) output = flavor != null ? flavor.getSoulCandleCake() : HavenMod.SOUL_CANDLE_CAKE;
+				else if (block == ModBase.SOUL_CANDLE.getBlock()) output = flavor != null ? flavor.getSoulCandleCake() : ModBase.SOUL_CANDLE_CAKE;
+				else if (block == ModBase.ENDER_CANDLE.getBlock()) output = flavor != null ? flavor.getEnderCandleCake() : ModBase.ENDER_CANDLE_CAKE;
 				else if (flavor != null) output = flavor.getCandleCake(GetCandleColor(block));
 				else output = CandleCakeBlock.getCandleCakeFromCandle(block).getBlock();
 				world.setBlockState(pos, output.getDefaultState());

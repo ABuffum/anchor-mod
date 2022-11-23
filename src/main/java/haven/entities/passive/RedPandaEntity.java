@@ -1,6 +1,6 @@
 package haven.entities.passive;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.origins.powers.ScareRedPandasPower;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
@@ -19,7 +19,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class RedPandaEntity extends AnimalEntity {
+public class  RedPandaEntity extends AnimalEntity {
 	public static final Ingredient BREEDING_INGREDIENT = Ingredient.ofItems(Items.BAMBOO);
 	public RedPandaEntity(EntityType<? extends RedPandaEntity> entityType, World world) {
 		super(entityType, world);
@@ -30,7 +30,8 @@ public class RedPandaEntity extends AnimalEntity {
 		this.goalSelector.add(1, new EscapeDangerGoal(this, 1.4D));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(3, new TemptGoal(this, 1.0D, BREEDING_INGREDIENT, false));
-		this.goalSelector.add(4, new FleeEntityGoal<>(this, PlayerEntity.class, ScareRedPandasPower::HasActivePower, 8.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test));
+		this.goalSelector.add(4, new FleeEntityGoal<>(this, OcelotEntity.class, 8.0F, 1.6D, 1.4D));
+		this.goalSelector.add(4, new FleeEntityGoal<>(this, PlayerEntity.class, ScareRedPandasPower::Active, 8.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test));
 		this.goalSelector.add(5, new FollowParentGoal(this, 1.1D));
 		this.goalSelector.add(6, new WanderAroundFarGoal(this, 1.0D));
 		this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
@@ -48,7 +49,7 @@ public class RedPandaEntity extends AnimalEntity {
 	@Nullable
 	@Override
 	public RedPandaEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.RED_PANDA_ENTITY.create(serverWorld);
+		return ModBase.RED_PANDA_ENTITY.create(serverWorld);
 	}
 
 	public boolean isBreedingItem(ItemStack stack) { return BREEDING_INGREDIENT.test(stack); }

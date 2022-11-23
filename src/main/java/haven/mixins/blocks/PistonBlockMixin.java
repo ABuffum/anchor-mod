@@ -1,6 +1,6 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.PistonBlock;
 import net.minecraft.util.math.BlockPos;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PistonBlockMixin {
 	@Inject(method="isMovable", at = @At("HEAD"), cancellable = true)
 	private static void IsMovable(BlockState state, World world, BlockPos pos, Direction direction, boolean canBreak, Direction pistonDir, CallbackInfoReturnable<Boolean> cir) {
-		if (state.isOf(HavenMod.REINFORCED_DEEPSLATE.BLOCK)) {
+		if (state.isOf(ModBase.REINFORCED_DEEPSLATE.getBlock())) {
 			cir.setReturnValue(false);
 		}
 	}

@@ -1,6 +1,6 @@
 package haven.materials.metal;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.MetalButtonBlock;
 import haven.blocks.basic.*;
 import haven.items.buckets.*;
@@ -10,7 +10,6 @@ import haven.materials.HavenArmorMaterials;
 import haven.containers.BlockContainer;
 import haven.materials.HavenToolMaterials;
 import haven.containers.TorchContainer;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
@@ -23,6 +22,7 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		NuggetProvider, ShearsProvider, BucketProvider,
 		TorchProvider, EnderTorchProvider, SoulTorchProvider,
 		ButtonProvider, BarsProvider, BlockProvider, WallProvider, DoorProvider, TrapdoorProvider,
+		BricksProvider, BrickSlabProvider, BrickStairsProvider, BrickWallProvider,
 		CutProvider, CutPillarProvider, CutSlabProvider, CutStairsProvider, CutWallProvider {
 
 	private final TorchContainer torch;
@@ -45,6 +45,14 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 	public BlockContainer getDoor() { return door; }
 	private final BlockContainer trapdoor;
 	public BlockContainer getTrapdoor() { return trapdoor; }
+	private final BlockContainer bricks;
+	public BlockContainer getBricks() { return bricks; }
+	private final BlockContainer brick_slab;
+	public BlockContainer getBrickSlab() { return brick_slab; }
+	private final BlockContainer brick_stairs;
+	public BlockContainer getBrickStairs() { return brick_stairs; }
+	private final BlockContainer brick_wall;
+	public BlockContainer getBrickWall() { return brick_wall; }
 	private final BlockContainer cut;
 	public BlockContainer getCut() { return cut; }
 	private final BlockContainer cut_pillar;
@@ -92,21 +100,25 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		super("dark_iron", false, HavenToolMaterials.DARK_IRON,
 				6, -3.1F, -2, -1, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.DARK_IRON, 5);
-		torch = MakeTorch(14, BlockSoundGroup.METAL, HavenMod.IRON_FLAME_PARTICLE);
-		ender_torch = MakeTorch(10, BlockSoundGroup.METAL, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.METAL, ParticleTypes.SOUL_FIRE_FLAME);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.METAL, ModBase.IRON_FLAME_PARTICLE);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.METAL, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.METAL, ParticleTypes.SOUL_FIRE_FLAME);
 		nugget = new Item(ItemSettings());
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)), ItemSettings());
-		bars = new BlockContainer(new HavenPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
+		bars = new BlockContainer(new ModPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings());
 		block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(block.BLOCK), ItemSettings());
-		door = new BlockContainer(new HavenDoorBlock(Blocks.IRON_DOOR), ItemSettings());
-		trapdoor = new BlockContainer(new HavenTrapdoorBlock(Blocks.IRON_TRAPDOOR), ItemSettings());
-		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.BLOCK)), ItemSettings());
-		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.BLOCK)), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.BLOCK), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.BLOCK), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.BLOCK), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(block.getBlock()), ItemSettings());
+		door = new BlockContainer(new ModDoorBlock(AbstractBlock.Settings.copy(Blocks.IRON_DOOR), SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundEvents.BLOCK_IRON_DOOR_CLOSE), ItemSettings());
+		trapdoor = new BlockContainer(new HavenTrapdoorBlock(AbstractBlock.Settings.copy(Blocks.IRON_TRAPDOOR), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE), ItemSettings());
+		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.getBlock())), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
+		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(block.getBlock())), ItemSettings());
+		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.getBlock())), ItemSettings());
+		cut_slab = new BlockContainer(new HavenSlabBlock(cut.getBlock()), ItemSettings());
+		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.getBlock()), ItemSettings());
+		cut_wall = new BlockContainer(new HavenWallBlock(cut.getBlock()), ItemSettings());
 
 		shears = new ShearsItem(ItemSettings().maxDamage(238));
 
@@ -114,24 +126,26 @@ public class DarkIronMaterial extends ToolArmorHorseMaterial implements
 		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
 		lava_bucket = new HavenBucketItem(Fluids.LAVA, FilledBucketSettings(), this);
 		powder_snow_bucket = new HavenPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, FilledBucketSettings(), this);
-		blood_bucket = new HavenBucketItem(HavenMod.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
-		mud_bucket = new HavenBucketItem(HavenMod.STILL_MUD_FLUID, FilledBucketSettings(), this);
+		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
+		mud_bucket = new HavenBucketItem(ModBase.STILL_MUD_FLUID, FilledBucketSettings(), this);
 		milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		coffee_milk_bucket = new CoffeeMilkBucketItem(FilledBucketSettings(), this);
 		strawberry_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		vanilla_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
-		cottage_cheese_bucket = new CottageCheeseBucketItem(HavenMod.COTTAGE_CHEESE_BLOCK, FilledBucketSettings().food(HavenMod.COTTAGE_CHEESE_FOOD_COMPONENT), this);
+		cottage_cheese_bucket = new CottageCheeseBucketItem(FilledBucketSettings().food(ModBase.COTTAGE_CHEESE_FOOD_COMPONENT), this);
 	}
 
 	public boolean contains(Block block) {
 		return torch.contains(block) || ender_torch.contains(block) || soul_torch.contains(block)
+				|| bricks.contains(block) || brick_slab.contains(block) || brick_stairs.contains(block) ||  brick_wall.contains(block)
 				|| cut.contains(block) || cut_pillar.contains(block) || cut_slab.contains(block) || cut_stairs.contains(block)
 				|| cut_wall.contains(block) || bars.contains(block) || this.block.contains(block) || wall.contains(block)
 				|| door.contains(block) || trapdoor.contains(block) || super.contains(block);
 	}
 	public boolean contains(Item item) {
 		return torch.contains(item) || ender_torch.contains(item) || soul_torch.contains(item)
+				|| bricks.contains(item) || brick_slab.contains(item) || brick_stairs.contains(item) ||  brick_wall.contains(item)
 				|| cut.contains(item) || cut_pillar.contains(item) || cut_slab.contains(item) || cut_stairs.contains(item)
 				|| cut_wall.contains(item) || bars.contains(item) || block.contains(item) || wall.contains(item)
 				|| door.contains(item) || trapdoor.contains(item) || item == nugget || item == shears || containsBucket(item) || super.contains(item);

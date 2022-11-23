@@ -1,6 +1,6 @@
 package haven.materials.base;
 
-import haven.items.basic.*;
+import haven.items.basic.tool.*;
 import haven.materials.providers.*;
 import net.minecraft.item.*;
 

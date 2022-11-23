@@ -1,6 +1,5 @@
 package haven.containers;
 
-import haven.HavenMod;
 import haven.blocks.FlowerSeedBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Material;

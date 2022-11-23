@@ -1,8 +1,7 @@
 package haven.materials;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.fabricmc.yarn.constants.MiningLevels;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.recipe.Ingredient;
@@ -18,10 +17,10 @@ public enum HavenToolMaterials implements ToolMaterial {
         return Ingredient.ofItems(Items.COPPER_INGOT);
     }),
     DARK_IRON(MiningLevels.IRON, 250, 6.0F, 2.0F, 14, () -> {
-        return Ingredient.ofItems(HavenMod.DARK_IRON_INGOT);
+        return Ingredient.ofItems(ModBase.DARK_IRON_INGOT);
     }),
     ECHO(MiningLevels.NETHERITE, 2031, 9.0F, 4.0F, 15, () -> {
-        return Ingredient.ofItems(HavenMod.ECHO_SHARD);
+        return Ingredient.ofItems(ModBase.ECHO_SHARD);
     }),
     EMERALD(MiningLevels.STONE, 850, 4.0F, 2.5F, 10, () -> {
         return Ingredient.ofItems(Items.EMERALD);

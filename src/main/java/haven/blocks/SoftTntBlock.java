@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import java.util.function.Consumer;
@@ -80,7 +80,7 @@ public class SoftTntBlock extends Block {
 		if (!world.isClient) {
 			SoftTntEntity tntEntity = new SoftTntEntity(world, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, igniter);
 			world.spawnEntity(tntEntity);
-			world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), HavenSoundEvents.SOFT_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), ModSoundEvents.SOFT_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
 			world.emitGameEvent(igniter, GameEvent.PRIME_FUSE, pos);
 		}
 	}

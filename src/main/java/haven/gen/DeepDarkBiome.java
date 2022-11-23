@@ -1,9 +1,9 @@
 package haven.gen;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.gen.carver.HavenCarvers;
 import haven.gen.features.*;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.sound.BiomeMoodSound;
@@ -29,7 +29,7 @@ public class DeepDarkBiome {
 	public static final Feature<SculkPatchFeatureConfig> SCULK_PATCH_FEATURE = new SculkPatchFeature(SculkPatchFeatureConfig.CODEC);
 	public static final ConfiguredFeature<SculkPatchFeatureConfig, ?> SCULK_PATCH_DEEP_DARK_FEATURE = SCULK_PATCH_FEATURE.configure(new SculkPatchFeatureConfig(10, 32, 64, 0, 1, ConstantIntProvider.create(0), 0.5f));
 	public static final ConfiguredFeature<SculkPatchFeatureConfig, ?> SCULK_PATCH_ANCIENT_CITY_FEATURE = SCULK_PATCH_FEATURE.configure(new SculkPatchFeatureConfig(10, 32, 64, 0, 1, UniformIntProvider.create(1, 3), 0.5f));
-	public static final ConfiguredFeature<SculkVeinFeatureConfig, ?> SCULK_VEIN_FEATURE = HavenMod.SCULK_VEIN_FEATURE.configure(new SculkVeinFeatureConfig(20, true, true, true, 1.0f, List.of(Blocks.STONE.getDefaultState(), Blocks.ANDESITE.getDefaultState(), Blocks.DIORITE.getDefaultState(), Blocks.GRANITE.getDefaultState(), Blocks.DRIPSTONE_BLOCK.getDefaultState(), Blocks.CALCITE.getDefaultState(), Blocks.TUFF.getDefaultState(), Blocks.DEEPSLATE.getDefaultState())));
+	public static final ConfiguredFeature<SculkVeinFeatureConfig, ?> SCULK_VEIN_FEATURE = ModBase.SCULK_VEIN_FEATURE.configure(new SculkVeinFeatureConfig(20, true, true, true, 1.0f, List.of(Blocks.STONE.getDefaultState(), Blocks.ANDESITE.getDefaultState(), Blocks.DIORITE.getDefaultState(), Blocks.GRANITE.getDefaultState(), Blocks.DRIPSTONE_BLOCK.getDefaultState(), Blocks.CALCITE.getDefaultState(), Blocks.TUFF.getDefaultState(), Blocks.DEEPSLATE.getDefaultState())));
 
 	public static void addSculk(GenerationSettings.Builder builder) {
 		builder.feature(GenerationStep.Feature.UNDERGROUND_DECORATION, SCULK_VEIN_FEATURE);
@@ -53,7 +53,7 @@ public class DeepDarkBiome {
 		DefaultBiomeFeatures.addDefaultMushrooms(builder2);
 		DefaultBiomeFeatures.addDefaultVegetation(builder2);
 		addSculk(builder2);
-		MusicSound musicSound = MusicType.createIngameMusic(HavenSoundEvents.MUSIC_OVERWORLD_DEEP_DARK);
+		MusicSound musicSound = MusicType.createIngameMusic(ModSoundEvents.MUSIC_OVERWORLD_DEEP_DARK);
 		return createBiome(Biome.Precipitation.RAIN, 0.8f, 0.4f, builder, builder2, musicSound);
 	}
 	private static Biome createBiome(Biome.Precipitation precipitation, float temperature, float downfall, SpawnSettings.Builder spawnSettings, GenerationSettings.Builder generationSettings, @Nullable MusicSound music) {

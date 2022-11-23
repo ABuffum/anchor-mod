@@ -15,9 +15,7 @@
                   "terms": [
                     {
                       "condition": "minecraft:match_tool",
-                      "predicate": {
-                        "tag": "haven:shears"
-                      }
+                      "predicate": { "tag": "c:tools/shears" }
                     },
                     {
                       "condition": "minecraft:match_tool",
@@ -72,7 +70,7 @@
               {
                 "condition": "minecraft:match_tool",
                 "predicate": {
-                  "tag": "haven:shears"
+                  "tag": "c:tools/shears"
                 }
               },
               {

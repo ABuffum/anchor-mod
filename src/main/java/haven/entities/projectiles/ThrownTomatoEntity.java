@@ -1,9 +1,9 @@
 package haven.entities.projectiles;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodType;
-import haven.entities.EntitySpawnPacket;
 import haven.origins.powers.ClownPacifistPower;
+import haven.origins.powers.PowersUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
 import net.minecraft.particle.ItemStackParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -30,20 +29,20 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 	}
 
 	public ThrownTomatoEntity(World world, LivingEntity owner) {
-		super(HavenMod.THROWABLE_TOMATO_ENTITY, owner, world); // null will be changed later
+		super(ModBase.THROWABLE_TOMATO_ENTITY, owner, world); // null will be changed later
 	}
 
 	public ThrownTomatoEntity(World world, double x, double y, double z) {
-		super(HavenMod.THROWABLE_TOMATO_ENTITY, x, y, z, world); // null will be changed later
+		super(ModBase.THROWABLE_TOMATO_ENTITY, x, y, z, world); // null will be changed later
 	}
 
 	@Override
-	protected Item getDefaultItem() { return HavenMod.THROWABLE_TOMATO_ITEM; }
+	protected Item getDefaultItem() { return ModBase.THROWABLE_TOMATO_ITEM; }
 
 	@Environment(EnvType.CLIENT)
 	private ParticleEffect getParticleParameters() {
 		ItemStack itemStack = this.getItem();
-		return itemStack.isEmpty() ? HavenMod.TOMATO_PARTICLE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
+		return itemStack.isEmpty() ? ModBase.TOMATO_PARTICLE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -60,33 +59,26 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 	protected void onEntityHit(EntityHitResult entityHitResult) { // called on entity hit.
 		super.onEntityHit(entityHitResult);
 		Entity entity = entityHitResult.getEntity(); // sets a new Entity instance as the EntityHitResult (victim)
-		entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), 0F); // deals damage
+		Entity owner = this.getOwner();
+		entity.damage(DamageSource.thrownProjectile(this, owner), 0F); // deals damage
 		if (entity instanceof LivingEntity livingEntity) { // checks if entity is an instance of LivingEntity (meaning it is not a boat or minecart)
-			livingEntity.addStatusEffect((new StatusEffectInstance(HavenMod.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
-			if (ClownPacifistPower.HasActivePower(livingEntity)) {
-				if (getOwner() instanceof LivingEntity owner) {
-					if (!owner.world.isClient) {
-						owner.addStatusEffect(new StatusEffectInstance(HavenMod.KILLJOY_EFFECT, 20 * 3, 0));
-					}
-				}
-			}
-			if (BloodType.Get(livingEntity) == BloodType.SUGAR_WATER) {
-				Entity owner = getOwner();
+			livingEntity.addStatusEffect((new StatusEffectInstance(ModBase.BOO_EFFECT, 20 * 3, 0))); // applies a status effect
+			if (PowersUtil.Active(livingEntity, ClownPacifistPower.class) || BloodType.Get(livingEntity) == BloodType.SUGAR_WATER) {
 				if (owner instanceof LivingEntity livingOwner) {
 					if (!livingOwner.world.isClient) {
-						livingOwner.addStatusEffect(new StatusEffectInstance(HavenMod.KILLJOY_EFFECT, 20 * 3, 0));
+						livingOwner.addStatusEffect(new StatusEffectInstance(ModBase.KILLJOY_EFFECT, 20 * 3, 0));
 					}
 				}
 			}
 			if (livingEntity.getEntityWorld().isClient) {
 				if (livingEntity instanceof PlayerEntity player) {
-					if (player.hasStatusEffect(HavenMod.BOO_EFFECT)) player.sendMessage(Text.of("Boo!"), true);
+					if (player.hasStatusEffect(ModBase.BOO_EFFECT)) player.sendMessage(Text.of("Boo!"), true);
 					else player.sendMessage(Text.of("Boo!!!"), true);
 				}
 			}
 			//TODO: Tomato Squelch sound on hit
 		}
-		if (ClownPacifistPower.HasActivePower(getOwner()) && entity instanceof PlayerEntity) {
+		if (PowersUtil.Active(owner, ClownPacifistPower.class) && entity instanceof PlayerEntity) {
 			entity.addVelocity(1, 0, 0);
 			entity.velocityModified = true;
 		}

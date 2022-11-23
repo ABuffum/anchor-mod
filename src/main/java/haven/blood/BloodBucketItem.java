@@ -1,18 +1,14 @@
 package haven.blood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.CauldronBlock;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.hit.*;
 import net.minecraft.world.*;
@@ -72,7 +68,7 @@ public class BloodBucketItem extends BucketItem {
 
 	@Override
 	public ItemStack getDefaultStack() {
-		return new ItemStack(HavenMod.BLOOD_BUCKET);
+		return new ItemStack(ModBase.BLOOD_BUCKET);
 	}
 
 	@Override

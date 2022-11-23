@@ -2,6 +2,7 @@ package haven.items.consumable;
 
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
+import haven.util.ItemUtils;
 import haven.util.WaterBottleUtil;
 import io.github.apace100.calio.mixin.DamageSourceAccessor;
 import io.github.apace100.origins.enchantment.WaterProtectionEnchantment;
@@ -35,16 +36,9 @@ public class WaterBottleItem extends Item {
 			else if (bloodType == BloodType.SUGAR_WATER) user.heal(1);
 			else if (bloodType.IsWaterVulnerable()) user.damage(HavenDamageSource.DRANK_WATER, 2);
 		}
-		if (playerEntity != null) {
-			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-			if (!playerEntity.getAbilities().creativeMode) stack.decrement(1);
-		}
-		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
-			if (stack.isEmpty()) return new ItemStack(Items.GLASS_BOTTLE);
-			if (playerEntity != null) playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-		}
+		if (playerEntity != null) playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
-		return stack;
+		return ItemUtils.getConsumableRemainder(stack, user, Items.GLASS_BOTTLE);
 	}
 
 	@Override

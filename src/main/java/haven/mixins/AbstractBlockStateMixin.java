@@ -2,8 +2,10 @@ package haven.mixins;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.MapCodec;
-import haven.HavenTags;
 import haven.blocks.BookshelfBlock;
+import haven.blocks.decoration.DecorativeCactusBlock;
+import haven.blocks.decoration.DecorativeSugarCaneBlock;
+import haven.blocks.decoration.DecorativeVineBlock;
 import net.minecraft.block.*;
 import net.minecraft.state.State;
 import net.minecraft.state.property.Property;
@@ -27,8 +29,17 @@ public abstract class AbstractBlockStateMixin extends State<Block, BlockState> {
 		if (block == Blocks.BOOKSHELF) {
 			if (getBlock() instanceof BookshelfBlock) cir.setReturnValue(true);
 		}
+		else if (block == Blocks.CACTUS) {
+			if (getBlock() instanceof DecorativeCactusBlock) cir.setReturnValue(true);
+		}
 		else if (block == Blocks.LADDER) {
 			if (getBlock() instanceof LadderBlock) cir.setReturnValue(true);
+		}
+		else if (block == Blocks.SUGAR_CANE) {
+			if (getBlock() instanceof DecorativeSugarCaneBlock) cir.setReturnValue(true);
+		}
+		else if (block == Blocks.VINE) {
+			if (getBlock() instanceof DecorativeVineBlock) cir.setReturnValue(true);
 		}
 	}
 }

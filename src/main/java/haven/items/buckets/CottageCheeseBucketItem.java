@@ -1,5 +1,6 @@
 package haven.items.buckets;
 
+import haven.ModBase;
 import haven.materials.providers.BucketProvider;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
@@ -35,12 +36,10 @@ import java.util.Iterator;
 
 public class CottageCheeseBucketItem extends Item implements BucketProvided {
 	private boolean canDrink;
-	private final Block block;
 	private BucketProvider bucketProvider;
 	public BucketProvider getBucketProvider() { return bucketProvider; }
-	public CottageCheeseBucketItem(Block block, Settings settings, BucketProvider bucketProvider) {
+	public CottageCheeseBucketItem(Settings settings, BucketProvider bucketProvider) {
 		super(settings);
-		this.block = block;
 		this.bucketProvider = bucketProvider;
 	}
 
@@ -84,10 +83,10 @@ public class CottageCheeseBucketItem extends Item implements BucketProvided {
 	}
 	@Nullable
 	protected BlockState getPlacementState(ItemPlacementContext context) {
-		BlockState blockState = this.getBlock().getPlacementState(context);
+		BlockState blockState = ModBase.COTTAGE_CHEESE_BLOCK.getPlacementState(context);
 		return blockState != null && this.canPlace(context, blockState) ? blockState : null;
 	}
-	public Block getBlock() { return this.block; }
+	public Block getBlock() { return ModBase.COTTAGE_CHEESE_BLOCK; }
 	private BlockState placeFromTag(BlockPos pos, World world, ItemStack stack, BlockState state) {
 		BlockState blockState = state;
 		NbtCompound nbtCompound = stack.getNbt();

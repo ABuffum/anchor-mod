@@ -1,6 +1,6 @@
 package haven.containers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.mixins.SignTypeAccessor;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
@@ -21,7 +21,7 @@ public class SignContainer extends WallBlockContainer {
 		this (type, block, new WallSignBlock(AbstractBlock.Settings.of(material).noCollision().strength(1.0F).sounds(blockSoundGroup), type));
 	}
 	private SignContainer(SignType type, Block block, Block wallBlock) {
-		this(type, block, wallBlock, new SignItem((new Item.Settings()).maxCount(16).group(HavenMod.ITEM_GROUP), block, wallBlock));
+		this(type, block, wallBlock, new SignItem((new Item.Settings()).maxCount(16).group(ModBase.ITEM_GROUP), block, wallBlock));
 	}
 	private SignContainer(SignType type, Block block, Block wallBlock, Item item) {
 		super(block, wallBlock, item);

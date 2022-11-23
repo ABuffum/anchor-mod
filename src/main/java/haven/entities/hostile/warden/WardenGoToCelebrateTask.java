@@ -13,36 +13,32 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Random;
 
 public class WardenGoToCelebrateTask extends Task<WardenEntity> {
-	private final MemoryModuleType<BlockPos> memoryModuleType;
 	private final int completionRange;
 	private final float speed;
 
-	public WardenGoToCelebrateTask(MemoryModuleType<BlockPos> memoryModuleType, int completionRange, float speed) {
-		super(ImmutableMap.of(memoryModuleType, MemoryModuleState.VALUE_PRESENT, MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED));
-		this.memoryModuleType = memoryModuleType;
+	public WardenGoToCelebrateTask(int completionRange, float speed) {
+		super(ImmutableMap.of(
+				MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_ABSENT,
+				MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT,
+				MemoryModuleType.LOOK_TARGET, MemoryModuleState.REGISTERED));
 		this.completionRange = completionRange;
 		this.speed = speed;
 	}
 
 	@Override
-	protected void run(ServerWorld serverWorld, WardenEntity mobEntity, long l) {
-		BlockPos blockPos = this.getCelebrateLocation(mobEntity);
-		boolean bl = blockPos.isWithinDistance(mobEntity.getBlockPos(), (double)this.completionRange);
-		if (!bl) {
-			LookTargetUtil.walkTowards((LivingEntity)mobEntity, fuzz(mobEntity, blockPos), this.speed, this.completionRange);
-		}
+	protected boolean shouldRun(ServerWorld serverWorld, WardenEntity entity) {
+		return entity.getDisturbanceLocation() != null;
 	}
 
-	private static BlockPos fuzz(MobEntity mob, BlockPos pos) {
-		Random random = mob.world.random;
-		return pos.add(fuzz(random), 0, fuzz(random));
+	@Override
+	protected void run(ServerWorld serverWorld, WardenEntity entity, long l) {
+		BlockPos blockPos = entity.getDisturbanceLocation();
+		boolean bl = blockPos.isWithinDistance(entity.getBlockPos(), this.completionRange);
+		if (!bl) LookTargetUtil.walkTowards(entity, fuzz(entity, blockPos), this.speed, this.completionRange);
 	}
 
-	private static int fuzz(Random random) {
-		return random.nextInt(3) - 1;
-	}
-
-	private BlockPos getCelebrateLocation(MobEntity entity) {
-		return entity.getBrain().getOptionalMemory(this.memoryModuleType).get();
+	private static BlockPos fuzz(WardenEntity entity, BlockPos pos) {
+		Random random = entity.world.random;
+		return pos.add(random.nextInt(3) - 1, 0, random.nextInt(3) - 1);
 	}
 }

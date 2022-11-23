@@ -1,8 +1,5 @@
 package haven.items.syringe;
 
-import haven.HavenMod;
-import haven.blood.BloodType;
-import haven.damage.HavenDamageSource;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
@@ -11,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
 import java.util.Map;
-import java.util.Random;
 
 public class ExperienceSyringeItem extends BaseSyringeItem {
 	public ExperienceSyringeItem() {

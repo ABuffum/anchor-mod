@@ -1,6 +1,6 @@
 package haven.mixins.entities;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.ChiseledBookshelfBlock;
 import haven.containers.BedContainer;
 import net.minecraft.block.*;
@@ -17,23 +17,23 @@ public class BlockEntityTypeMixin {
 		Block block = state.getBlock();
 		if (BlockEntityType.SIGN.equals(this)) {
 			if (block instanceof SignBlock sign) {
-				if (HavenMod.SIGN_TYPES.contains(sign.getSignType())) cir.setReturnValue(true);
+				if (ModBase.SIGN_TYPES.contains(sign.getSignType())) cir.setReturnValue(true);
 			}
 			else if (block instanceof WallSignBlock sign) {
-				if (HavenMod.SIGN_TYPES.contains(sign.getSignType())) cir.setReturnValue(true);
+				if (ModBase.SIGN_TYPES.contains(sign.getSignType())) cir.setReturnValue(true);
 			}
 		}
 		else if (BlockEntityType.BED.equals(this)) {
 			if (block instanceof BedBlock) {
-				for (BedContainer bedContainer : HavenMod.BEDS) {
+				for (BedContainer bedContainer : ModBase.BEDS) {
 					if (bedContainer.contains(block)) cir.setReturnValue(true);
 				}
 			}
 		}
 		else if (BlockEntityType.CAMPFIRE.equals(this)) {
-			if (block instanceof CampfireBlock && HavenMod.CAMPFIRES.contains(block)) cir.setReturnValue(true);
+			if (block instanceof CampfireBlock && ModBase.CAMPFIRES.contains(block)) cir.setReturnValue(true);
 		}
-		else if (HavenMod.CHISELED_BOOKSHELF_ENTITY.equals(this)) {
+		else if (ModBase.CHISELED_BOOKSHELF_ENTITY.equals(this)) {
 			if (block instanceof ChiseledBookshelfBlock) cir.setReturnValue(true);
 		}
 	}

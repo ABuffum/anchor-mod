@@ -15,11 +15,7 @@
                   "terms": [
                     {
                       "condition": "minecraft:match_tool",
-                      "predicate": {
-                        "items": [
-                          "minecraft:shears"
-                        ]
-                      }
+                      "predicate": { "tag": "c:tools/shears" }
                     },
                     {
                       "condition": "minecraft:match_tool",
@@ -73,11 +69,7 @@
             "terms": [
               {
                 "condition": "minecraft:match_tool",
-                "predicate": {
-                  "items": [
-                    "minecraft:shears"
-                  ]
-                }
+                "predicate": { "tag": "c:tools/shears" }
               },
               {
                 "condition": "minecraft:match_tool",
@@ -141,11 +133,7 @@
             "terms": [
               {
                 "condition": "minecraft:match_tool",
-                "predicate": {
-                  "items": [
-                    "minecraft:shears"
-                  ]
-                }
+                "predicate": { "tag": "c:tools/shears" }
               },
               {
                 "condition": "minecraft:match_tool",

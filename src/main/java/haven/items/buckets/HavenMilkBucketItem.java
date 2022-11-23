@@ -1,8 +1,6 @@
 package haven.items.buckets;
 
-import haven.HavenMod;
 import haven.materials.providers.BucketProvider;
-import haven.util.BucketUtils;
 import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;

@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:mangrove_leaves",
+    
     "#haven:cassia_leaves",
-    "#haven:cherry_leaves",
-    "haven:mangrove_leaves"
+    "#haven:cherry_leaves"
   ]
 }

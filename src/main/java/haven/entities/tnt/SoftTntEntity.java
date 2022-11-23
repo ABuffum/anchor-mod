@@ -1,6 +1,6 @@
 package haven.entities.tnt;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.SoftTntBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -30,7 +30,7 @@ public class SoftTntEntity extends Entity {
 	}
 
 	public SoftTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter) {
-		this(HavenMod.SOFT_TNT_ENTITY, world);
+		this(ModBase.SOFT_TNT_ENTITY, world);
 		this.setPosition(x, y, z);
 		double d = world.random.nextDouble() * 6.2831854820251465D;
 		this.setVelocity(-Math.sin(d) * 0.02D, 0.20000000298023224D, -Math.cos(d) * 0.02D);

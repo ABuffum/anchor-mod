@@ -1,7 +1,7 @@
 package haven.gen.features;
 
 import com.mojang.serialization.Codec;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.sculk.SculkVeinBlock;
 import haven.util.StructureUtil;
 import net.minecraft.block.Block;
@@ -38,7 +38,7 @@ public class SculkVeinFeature extends Feature<SculkVeinFeatureConfig> {
 			for (int i = 0; i < config.searchRange; ++i) {
 				mutable.set(blockPos, direction);
 				BlockState blockState = structureWorldAccess.getBlockState(mutable);
-				if (!isAirOrWater(blockState) && !blockState.isOf(HavenMod.SCULK_VEIN.BLOCK)) break;
+				if (!isAirOrWater(blockState) && !blockState.isOf(ModBase.SCULK_VEIN.getBlock())) break;
 				if (!SculkVeinFeature.generate(structureWorldAccess, mutable, blockState, config, random, list2)) continue;
 				return true;
 			}
@@ -51,11 +51,11 @@ public class SculkVeinFeature extends Feature<SculkVeinFeatureConfig> {
 		for (Direction direction : directions) {
 			BlockState blockState = world.getBlockState(mutable.set(pos, direction));
 			if (!StructureUtil.contains(config.canPlaceOn, blockState)) continue;
-			BlockState blockState2 = ((SculkVeinBlock)HavenMod.SCULK_VEIN.BLOCK).withDirection(state, world, pos, direction);
+			BlockState blockState2 = ((SculkVeinBlock) ModBase.SCULK_VEIN.getBlock()).withDirection(state, world, pos, direction);
 			if (blockState2 == null) return false;
 			world.setBlockState(pos, blockState2, Block.NOTIFY_ALL);
 			world.getChunk(pos).markBlockForPostProcessing(pos);
-			if (random.nextFloat() < config.spreadChance) ((SculkVeinBlock)HavenMod.SCULK_VEIN.BLOCK).getGrower().grow(blockState2, world, pos, direction, random, true);
+			if (random.nextFloat() < config.spreadChance) ((SculkVeinBlock) ModBase.SCULK_VEIN.getBlock()).getGrower().grow(blockState2, world, pos, direction, random, true);
 			return true;
 		}
 		return false;

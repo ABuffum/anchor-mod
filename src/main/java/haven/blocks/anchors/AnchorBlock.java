@@ -1,6 +1,6 @@
 package haven.blocks.anchors;
 
-import haven.HavenMod;
+import haven.ModBase;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -51,8 +51,8 @@ public class AnchorBlock extends BlockWithEntity {
 	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
 		int owner = state.get(OWNER);
 		super.afterBreak(world, player, pos, state, blockEntity, stack);
-		if (HavenMod.ANCHOR_MAP.containsKey(owner)) {
-			ItemStack otherStack = new ItemStack(HavenMod.ANCHOR_CORES.get(owner), 1);
+		if (ModBase.ANCHOR_MAP.containsKey(owner)) {
+			ItemStack otherStack = new ItemStack(ModBase.ANCHOR_CORES.get(owner), 1);
 			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, otherStack);
 			player.world.spawnEntity(itemEntity);
 		}
@@ -60,6 +60,6 @@ public class AnchorBlock extends BlockWithEntity {
 
 	@Nullable
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return checkType(type, HavenMod.ANCHOR_BLOCK_ENTITY, (world1, pos, state1, be) -> AnchorBlockEntity.tick(world1, pos, state1, be));
+		return checkType(type, ModBase.ANCHOR_BLOCK_ENTITY, (world1, pos, state1, be) -> AnchorBlockEntity.tick(world1, pos, state1, be));
 	}
 }

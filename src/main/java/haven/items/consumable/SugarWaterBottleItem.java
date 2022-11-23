@@ -1,12 +1,11 @@
 package haven.items.consumable;
 
-import haven.HavenMod;
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
+import haven.util.ItemUtils;
 import haven.util.WaterBottleUtil;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -35,16 +34,9 @@ public class SugarWaterBottleItem extends Item {
 			else if (bloodType == BloodType.WATER) user.heal(1);
 			else if (bloodType.IsWaterVulnerable()) user.damage(HavenDamageSource.DRANK_SUGAR_WATER, 2);
 		}
-		if (playerEntity != null) {
-			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-			if (!playerEntity.getAbilities().creativeMode) stack.decrement(1);
-		}
-		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
-			if (stack.isEmpty()) return new ItemStack(Items.GLASS_BOTTLE);
-			if (playerEntity != null) playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-		}
+		if (playerEntity != null) playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
-		return stack;
+		return ItemUtils.getConsumableRemainder(stack, user, Items.GLASS_BOTTLE);
 	}
 
 	@Override

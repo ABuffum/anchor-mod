@@ -1,7 +1,7 @@
 package haven.mixins.items.farmersdelight;
 
 import com.nhoryzon.mc.farmersdelight.item.HotCocoaItem;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.effects.BoneRotEffect;
 import haven.util.MilkUtils;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class HotCocoaItemMixin {
 	public void AffectConsumer(ItemStack stack, World world, LivingEntity user, CallbackInfo ci) {
 		Set<StatusEffect> compatibleEffectList = user.getStatusEffects()
 				.stream().filter((x) -> x.getEffectType().getType() == StatusEffectType.HARMFUL)
-				.filter((x) -> !HavenMod.MILK_IMMUNE_EFFECTS.contains(x))
+				.filter((x) -> !ModBase.MILK_IMMUNE_EFFECTS.contains(x))
 				.map(StatusEffectInstance::getEffectType).collect(Collectors.toSet());
 		if (!compatibleEffectList.isEmpty()) {
 			Optional<StatusEffect> var10000 = compatibleEffectList.stream().skip((long)world.getRandom().nextInt(compatibleEffectList.size())).findFirst();

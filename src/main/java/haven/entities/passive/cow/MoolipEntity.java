@@ -1,6 +1,6 @@
 package haven.entities.passive.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -90,7 +90,7 @@ public class MoolipEntity extends CowEntity implements Shearable {
 			this.world.spawnEntity(cowEntity);
 
 			for(int i = 0; i < 5; ++i) {
-				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(HavenMod.PINK_DAISY.ITEM)));
+				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(ModBase.PINK_DAISY.getItem())));
 			}
 		}
 
@@ -101,7 +101,7 @@ public class MoolipEntity extends CowEntity implements Shearable {
 	}
 
 	public MoolipEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		MoolipEntity moolipEntity = (MoolipEntity)HavenMod.MOOLIP_ENTITY.create(serverWorld);
+		MoolipEntity moolipEntity = (MoolipEntity) ModBase.MOOLIP_ENTITY.create(serverWorld);
 		return moolipEntity;
 	}
 }

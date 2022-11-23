@@ -1,11 +1,11 @@
 package haven.util;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import haven.items.goat.GoatHornInstrument;
 import haven.items.goat.GoatHornInstruments;
 import haven.items.goat.GoatHornItem;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
@@ -63,13 +63,13 @@ public class GoatUtils {
 	public static ItemStack getGoatHornStack(GoatEntity goat) {
 		Random random = new Random(goat.getUuid().hashCode());
 		List<GoatHornInstrument> instruments = goat.isScreaming() ? GoatHornInstruments.SCREAMING_INSTRUMENTS : GoatHornInstruments.REGULAR_INSTRUMENTS;
-		return GoatHornItem.getStackForInstrument(HavenMod.GOAT_HORN, instruments.get(random.nextInt(instruments.size())));
+		return GoatHornItem.getStackForInstrument(ModBase.GOAT_HORN, instruments.get(random.nextInt(instruments.size())));
 	}
 
 	public static boolean shouldSnapHorn(ServerWorld world, LivingEntity goat) {
 		Vec3d vec3d = goat.getVelocity().multiply(1.0, 0.0, 1.0).normalize();
 		BlockPos blockPos = new BlockPos(goat.getPos().add(vec3d));
-		return world.getBlockState(blockPos).isIn(HavenTags.Blocks.SNAPS_GOAT_HORN) || world.getBlockState(blockPos.up()).isIn(HavenTags.Blocks.SNAPS_GOAT_HORN);
+		return world.getBlockState(blockPos).isIn(ModTags.Blocks.SNAPS_GOAT_HORN) || world.getBlockState(blockPos.up()).isIn(ModTags.Blocks.SNAPS_GOAT_HORN);
 	}
 
 	public static void addHorns(LivingEntity goat) {
@@ -83,6 +83,6 @@ public class GoatUtils {
 	}
 
 	public static SoundEvent getHornBreakSound(GoatEntity goat) {
-		return goat.isScreaming() ? HavenSoundEvents.ENTITY_GOAT_SCREAMING_HORN_BREAK : HavenSoundEvents.ENTITY_GOAT_HORN_BREAK;
+		return goat.isScreaming() ? ModSoundEvents.ENTITY_GOAT_SCREAMING_HORN_BREAK : ModSoundEvents.ENTITY_GOAT_HORN_BREAK;
 	}
 }

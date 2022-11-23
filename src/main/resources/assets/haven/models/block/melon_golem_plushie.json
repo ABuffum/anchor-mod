@@ -1,0 +1,8 @@
+{
+	"parent": "haven:block/_template_snow_golem_plushie",
+	"textures": {
+		"0": "haven:block/melon_golem_plushie",
+		"1": "haven:block/melon_golem_plushie_pumpkin",
+		"particle": "minecraft:block/white_wool"
+	}
+}

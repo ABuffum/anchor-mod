@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:jack_o_lantern",
+    "haven:soleil_jack_o_lantern",
+    "haven:white_jack_o_lantern",
+    "haven:soleil_white_jack_o_lantern",
+    "haven:rotten_jack_o_lantern",
+    "haven:soleil_rotten_jack_o_lantern",
+    "#haven:soul_jack_o_lanterns",
+    "#haven:ender_jack_o_lanterns"
+  ]
+}

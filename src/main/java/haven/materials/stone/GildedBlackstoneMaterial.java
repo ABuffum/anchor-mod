@@ -45,13 +45,13 @@ public class GildedBlackstoneMaterial extends BaseMaterial implements
 		stairs = new BlockContainer(new HavenStairsBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
 		wall = new BlockContainer(new HavenWallBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
 		polished = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.GILDED_BLACKSTONE)), ItemSettings());
-		polished_slab = new BlockContainer(new HavenSlabBlock(polished.BLOCK), ItemSettings());
-		polished_stairs = new BlockContainer(new HavenStairsBlock(polished.BLOCK), ItemSettings());
-		polished_wall = new BlockContainer(new HavenWallBlock(polished.BLOCK), ItemSettings());
-		polished_bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(polished.BLOCK)), ItemSettings());
-		polished_brick_slab = new BlockContainer(new HavenSlabBlock(polished_bricks.BLOCK), ItemSettings());
-		polished_brick_stairs = new BlockContainer(new HavenStairsBlock(polished_bricks.BLOCK), ItemSettings());
-		polished_brick_wall = new BlockContainer(new HavenWallBlock(polished_bricks.BLOCK), ItemSettings());
+		polished_slab = new BlockContainer(new HavenSlabBlock(polished.getBlock()), ItemSettings());
+		polished_stairs = new BlockContainer(new HavenStairsBlock(polished.getBlock()), ItemSettings());
+		polished_wall = new BlockContainer(new HavenWallBlock(polished.getBlock()), ItemSettings());
+		polished_bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(polished.getBlock())), ItemSettings());
+		polished_brick_slab = new BlockContainer(new HavenSlabBlock(polished_bricks.getBlock()), ItemSettings());
+		polished_brick_stairs = new BlockContainer(new HavenStairsBlock(polished_bricks.getBlock()), ItemSettings());
+		polished_brick_wall = new BlockContainer(new HavenWallBlock(polished_bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

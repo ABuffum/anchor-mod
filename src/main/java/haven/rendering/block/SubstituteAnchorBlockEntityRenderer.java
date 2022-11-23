@@ -1,6 +1,6 @@
 package haven.rendering.block;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.anchors.SubstituteAnchorBlockEntity;
 
 import net.fabricmc.api.*;
@@ -31,7 +31,7 @@ public class SubstituteAnchorBlockEntityRenderer implements BlockEntityRenderer<
 			matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion((blockEntity.getWorld().getTime() + tickDelta) * 4));
 			// Render the core
 			int lightAbove = WorldRenderer.getLightmapCoordinates(blockEntity.getWorld(), blockEntity.getPos().up());
-			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(HavenMod.ANCHOR_CORES.get(blockEntity.getOwner())), ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(new ItemStack(ModBase.ANCHOR_CORES.get(blockEntity.getOwner())), ModelTransformation.Mode.GROUND, lightAbove, overlay, matrices, vertexConsumers, 0);
 		}
 		// Mandatory call after GL calls
 		matrices.pop();

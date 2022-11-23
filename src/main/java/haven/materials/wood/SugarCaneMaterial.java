@@ -1,11 +1,10 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.RowBlock;
 import haven.containers.BlockContainer;
 import haven.containers.TorchContainer;
 import haven.materials.providers.*;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -34,16 +33,16 @@ public class SugarCaneMaterial extends WoodMaterial implements
 	public BlockContainer getSoulCampfire() { return soul_campfire; }
 
 	public SugarCaneMaterial(String name, MapColor mapColor) {
-		super(name, mapColor, true);
+		super(name, mapColor, true, BlockSoundGroup.WOOD);
 		bundle = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		bale = new BlockContainer(new HayBlock(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, mapColor).strength(0.5F).sounds(BlockSoundGroup.GRASS)), ItemSettings());
 		row = new BlockContainer(new RowBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
-		torch = MakeTorch(14, BlockSoundGroup.GRASS, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.GRASS, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.GRASS, ParticleTypes.SOUL_FIRE_FLAME);
-		campfire = MakeCampfire(15, 1, mapColor, true);
-		ender_campfire = MakeCampfire(13, 3, mapColor, false);
-		soul_campfire = MakeCampfire(10, 2, mapColor, false);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.GRASS, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, BlockSoundGroup.GRASS, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.GRASS, ParticleTypes.SOUL_FIRE_FLAME);
+		campfire = MakeCampfire(15, 1, mapColor, BlockSoundGroup.WOOD, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.WOOD, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.WOOD, false);
 	}
 
 	public boolean contains(Block block) {

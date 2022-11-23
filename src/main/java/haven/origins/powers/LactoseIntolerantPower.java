@@ -1,6 +1,6 @@
 package haven.origins.powers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -20,7 +20,7 @@ public class LactoseIntolerantPower extends Power {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("lactose_intolerant"), new SerializableData()
+		return new PowerFactory<>(ModBase.ID("lactose_intolerant"), new SerializableData()
 				.add("hunger_duration", SerializableDataTypes.INT, 400)
 				.add("hunger_amplifier", SerializableDataTypes.INT, 0)
 				.add("damage", SerializableDataTypes.INT, 0),

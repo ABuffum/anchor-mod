@@ -1,6 +1,6 @@
 package haven.mixins.entities.passive;
 
-import haven.HavenTags;
+import haven.ModTags;
 import haven.entities.passive.FancyChickenEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Arrays;
-
 @Mixin(ChickenEntity.class)
 public abstract class ChickenEntityMixin extends AnimalEntity {
 	protected ChickenEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) { super(entityType, world); }
@@ -27,13 +25,13 @@ public abstract class ChickenEntityMixin extends AnimalEntity {
 		if (getClass().equals(ChickenEntity.class) || getClass().equals(ChickenEntityMixin.class)) {
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, ChickenEntity.class));
 			this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, FancyChickenEntity.class));
-			this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofStacks(HavenTags.Items.SEEDS.values().stream().map(ItemStack::new)), false));
+			this.goalSelector.add(3, new TemptGoal(this, 1.0D, Ingredient.ofStacks(ModTags.Items.SEEDS.values().stream().map(ItemStack::new)), false));
 		}
 	}
 
 	@Inject(method="isBreedingItem", at = @At("HEAD"), cancellable = true)
 	public void isBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (stack.isIn(HavenTags.Items.SEEDS)) cir.setReturnValue(true);
+		if (stack.isIn(ModTags.Items.SEEDS)) cir.setReturnValue(true);
 	}
 
 	@Override

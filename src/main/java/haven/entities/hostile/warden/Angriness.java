@@ -1,15 +1,15 @@
 package haven.entities.hostile.warden;
 
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Util;
 
 import java.util.Arrays;
 
 public enum Angriness {
-	CALM(0, HavenSoundEvents.ENTITY_WARDEN_AMBIENT, HavenSoundEvents.ENTITY_WARDEN_LISTENING),
-	AGITATED(40, HavenSoundEvents.ENTITY_WARDEN_AGITATED, HavenSoundEvents.ENTITY_WARDEN_LISTENING_ANGRY),
-	ANGRY(80, HavenSoundEvents.ENTITY_WARDEN_ANGRY, HavenSoundEvents.ENTITY_WARDEN_LISTENING_ANGRY);
+	CALM(0, ModSoundEvents.ENTITY_WARDEN_AMBIENT, ModSoundEvents.ENTITY_WARDEN_LISTENING),
+	AGITATED(40, ModSoundEvents.ENTITY_WARDEN_AGITATED, ModSoundEvents.ENTITY_WARDEN_LISTENING_ANGRY),
+	ANGRY(80, ModSoundEvents.ENTITY_WARDEN_ANGRY, ModSoundEvents.ENTITY_WARDEN_LISTENING_ANGRY);
 
 	private static final Angriness[] VALUES;
 	private final int threshold;

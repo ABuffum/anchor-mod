@@ -1,6 +1,6 @@
 package haven.entities.passive.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.cake.CakeContainer;
 import haven.items.buckets.BucketProvided;
 import net.minecraft.block.Blocks;
@@ -44,7 +44,7 @@ public class StrawbovineEntity extends CowEntity implements FlavoredCowEntity {
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, CowfeeEntity.class));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, StrawbovineEntity.class));
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D, MoonillaEntity.class));
-		this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(Items.WHEAT, HavenMod.STRAWBERRY), false));
+		this.goalSelector.add(3, new TemptGoal(this, 1.25D, Ingredient.ofItems(Items.WHEAT, ModBase.STRAWBERRY), false));
 	}
 
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {
@@ -60,7 +60,7 @@ public class StrawbovineEntity extends CowEntity implements FlavoredCowEntity {
 		if (itemStack != null && !itemStack.isEmpty() && !this.isBaby()) {
 			Item item = itemStack.getItem(), outItem = null;
 			if (item instanceof BucketProvided bp) outItem = bp.getBucketProvider().getStrawberryMilkBucket();
-			else if (item == Items.BOWL) outItem = HavenMod.STRAWBERRY_MILK_BOWL;
+			else if (item == Items.BOWL) outItem = ModBase.STRAWBERRY_MILK_BOWL;
 			if (outItem != null) {
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 				ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, outItem.getDefaultStack());
@@ -72,7 +72,7 @@ public class StrawbovineEntity extends CowEntity implements FlavoredCowEntity {
 	}
 
 	public StrawbovineEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.STRAWBOVINE_ENTITY.create(serverWorld);
+		return ModBase.STRAWBOVINE_ENTITY.create(serverWorld);
 	}
 
 	@Override

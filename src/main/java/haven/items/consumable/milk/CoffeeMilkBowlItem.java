@@ -1,8 +1,10 @@
 package haven.items.consumable.milk;
 
 import haven.util.BucketUtils;
+import haven.util.ItemUtils;
 import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -10,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class CoffeeMilkBowlItem extends MilkBowlItem {
@@ -25,12 +28,8 @@ public class CoffeeMilkBowlItem extends MilkBowlItem {
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
 
-		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) {
-			stack.decrement(1);
-		}
-
 		if (!world.isClient) MilkUtils.ApplyMilk(world, user, true);
 
-		return stack.isEmpty() ? new ItemStack(Items.BOWL) : stack;
+		return ItemUtils.getConsumableRemainder(stack, user, Items.BOWL);
 	}
 }

@@ -27,12 +27,12 @@ public class ChorusJuiceItem extends BottledDrinkItem {
 			double f = user.getZ();
 			for(int i = 0; i < 16; ++i) {
 				double g = user.getX() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
-				double h = MathHelper.clamp(user.getY() + (double)(user.getRandom().nextInt(16) - 8), (double)world.getBottomY(), (double)(world.getBottomY() + ((ServerWorld)world).getLogicalHeight() - 1));
+				double h = MathHelper.clamp(user.getY() + (double)(user.getRandom().nextInt(16) - 8), world.getBottomY(), (world.getBottomY() + world.getLogicalHeight() - 1));
 				double j = user.getZ() + (user.getRandom().nextDouble() - 0.5D) * 16.0D;
 				if (user.hasVehicle()) user.stopRiding();
 				if (user.teleport(g, h, j, true)) {
 					SoundEvent soundEvent = user instanceof FoxEntity ? SoundEvents.ENTITY_FOX_TELEPORT : SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT;
-					world.playSound((PlayerEntity)null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
+					world.playSound(null, d, e, f, soundEvent, SoundCategory.PLAYERS, 1.0F, 1.0F);
 					user.playSound(soundEvent, 1.0F, 1.0F);
 					break;
 				}

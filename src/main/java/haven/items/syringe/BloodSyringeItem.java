@@ -1,19 +1,14 @@
 package haven.items.syringe;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
 import haven.mixins.entities.LivingEntityAccessor;
-import haven.sounds.HavenSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
 
 import java.util.Iterator;
 
@@ -24,7 +19,7 @@ public class BloodSyringeItem extends BaseSyringeItem {
 		this(bloodType, (SyringeEffect)null);
 	}
 	public BloodSyringeItem(BloodType bloodType, SyringeEffect applyEffect) {
-		this(bloodType, new Item.Settings().group(HavenMod.BLOOD_ITEM_GROUP).recipeRemainder(HavenMod.DIRTY_SYRINGE).maxCount(1));
+		this(bloodType, new Item.Settings().group(ModBase.BLOOD_ITEM_GROUP).recipeRemainder(ModBase.DIRTY_SYRINGE).maxCount(1));
 		this.applyEffect = applyEffect;
 	}
 	public BloodSyringeItem(BloodType bloodType, Settings settings) {
@@ -54,7 +49,7 @@ public class BloodSyringeItem extends BaseSyringeItem {
 			for(bl = false; iterator.hasNext(); bl = true) {
 				StatusEffectInstance effect = iterator.next();
 				StatusEffect type = effect.getEffectType();
-				if (type == HavenMod.BLEEDING_EFFECT) lea.OnStatusEffectRemoved(effect);
+				if (type == ModBase.BLEEDING_EFFECT) lea.OnStatusEffectRemoved(effect);
 				iterator.remove();
 			}
 		}

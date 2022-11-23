@@ -35,13 +35,13 @@ public class TuffMaterial extends BaseMaterial implements
 	public TuffMaterial() {
 		super("tuff", false);
 		smooth = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)), ItemSettings());
-		smooth_slab = new BlockContainer(new HavenSlabBlock(smooth.BLOCK), ItemSettings());
-		smooth_stairs = new BlockContainer(new HavenStairsBlock(smooth.BLOCK), ItemSettings());
-		smooth_wall = new BlockContainer(new HavenWallBlock(smooth.BLOCK), ItemSettings());
+		smooth_slab = new BlockContainer(new HavenSlabBlock(smooth.getBlock()), ItemSettings());
+		smooth_stairs = new BlockContainer(new HavenStairsBlock(smooth.getBlock()), ItemSettings());
+		smooth_wall = new BlockContainer(new HavenWallBlock(smooth.getBlock()), ItemSettings());
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.TUFF)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

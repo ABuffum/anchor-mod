@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering;
 
-import haven.blocks.basic.HavenBedBlock;
+import haven.blocks.basic.ModBedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -32,7 +32,7 @@ public class BuiltinModelItemRendererMixin {
 		Item item = stack.getItem();
 		if (item instanceof BlockItem) {
 			Block block = ((BlockItem) item).getBlock();
-			if (block instanceof HavenBedBlock) {
+			if (block instanceof ModBedBlock) {
 				BlockState blockState = block.getDefaultState();
 				this.blockEntityRenderDispatcher.renderEntity((BlockEntity) BlockEntityType.BED.instantiate(BlockPos.ORIGIN, blockState), matrices, vertexConsumers, light, overlay);
 				ci.cancel();

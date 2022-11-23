@@ -1,34 +1,22 @@
 package haven.mixins.entities;
 
-import com.google.common.collect.Maps;
-import haven.HavenTags;
-import haven.effects.DarknessEffect;
-import haven.effects.FlashbangedEffect;
-import haven.effects.HavenStatusEffectInstance;
+import haven.ModTags;
 import haven.events.HavenGameEvent;
+import haven.origins.powers.PowersUtil;
 import haven.origins.powers.UnfreezingPower;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.Map;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -36,12 +24,12 @@ public abstract class LivingEntityMixin extends Entity {
 
 	@Inject(method="canFreeze", at = @At("HEAD"), cancellable = true)
 	private void CannotFreeze(CallbackInfoReturnable<Boolean> cir) {
-		if (UnfreezingPower.HasActivePower(this)) cir.setReturnValue(false);
+		if (PowersUtil.Active(this, UnfreezingPower.class)) cir.setReturnValue(false);
 	}
 
 	@Inject(method="getPreferredEquipmentSlot", at=@At("HEAD"), cancellable = true)
 	private static void GetPreferredEquipmentSlot(ItemStack stack, CallbackInfoReturnable<EquipmentSlot> cir) {
-		if (stack.isIn(HavenTags.Items.HEAD_WEARABLE_BLOCKS)) cir.setReturnValue(EquipmentSlot.HEAD);
+		if (stack.isIn(ModTags.Items.HEAD_WEARABLE_BLOCKS)) cir.setReturnValue(EquipmentSlot.HEAD);
 	}
 
 	@Inject(method="getStackInHand", at = @At("HEAD"), cancellable = true)

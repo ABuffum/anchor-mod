@@ -1,7 +1,7 @@
 package haven.materials.providers;
 
-import haven.boats.HavenBoat;
+import haven.containers.BoatContainer;
 
 public interface BoatProvider {
-	public HavenBoat getBoat();
+	public BoatContainer getBoat();
 }

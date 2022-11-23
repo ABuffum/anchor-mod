@@ -1,0 +1,9 @@
+
+{
+  "variants": {
+    "facing=north": { "model": "haven:block/mooblossom_plushie_pink"},
+    "facing=east":  { "model": "haven:block/mooblossom_plushie_pink", "y":  90},
+    "facing=south": { "model": "haven:block/mooblossom_plushie_pink", "y": 180},
+    "facing=west":  { "model": "haven:block/mooblossom_plushie_pink", "y": 270}
+  }
+}

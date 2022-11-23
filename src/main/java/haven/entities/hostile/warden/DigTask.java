@@ -2,44 +2,45 @@ package haven.entities.hostile.warden;
 
 import com.google.common.collect.ImmutableMap;
 import haven.entities.Poses;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
 import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.task.Task;
 import net.minecraft.server.world.ServerWorld;
 
-public class DigTask<E extends WardenEntity>
-		extends Task<E> {
+public class DigTask extends Task<WardenEntity> {
 	public DigTask(int duration) {
-		super(ImmutableMap.of(MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_ABSENT, MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), duration);
+		super(ImmutableMap.of(
+				MemoryModuleType.ATTACK_TARGET, MemoryModuleState.VALUE_ABSENT,
+				MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), duration);
 	}
 
 	@Override
-	protected boolean shouldKeepRunning(ServerWorld serverWorld, E wardenEntity, long l) {
-		return ((Entity)wardenEntity).getRemovalReason() == null;
+	protected boolean shouldKeepRunning(ServerWorld serverWorld, WardenEntity entity, long l) {
+		return entity.getRemovalReason() == null;
 	}
 
 	@Override
-	protected boolean shouldRun(ServerWorld serverWorld, E wardenEntity) {
-		return ((Entity)wardenEntity).isOnGround() || ((Entity)wardenEntity).isTouchingWater() || ((Entity)wardenEntity).isInLava();
+	protected boolean shouldRun(ServerWorld serverWorld, WardenEntity entity) {
+		return entity.getDigCooldown() <= 0 && entity.getRoarTarget() == null && entity.isOnGround() || entity.isTouchingWater() || entity.isInLava();
 	}
 
 	@Override
-	protected void run(ServerWorld serverWorld, E wardenEntity, long l) {
-		if (wardenEntity.isOnGround()) {
-			wardenEntity.SetPose(Poses.DIGGING);
-			wardenEntity.playSound(HavenSoundEvents.ENTITY_WARDEN_DIG, 5.0f, 1.0f);
+	protected void run(ServerWorld serverWorld, WardenEntity entity, long l) {
+		if (entity.isOnGround()) {
+			entity.SetPose(Poses.DIGGING);
+			entity.playSound(ModSoundEvents.ENTITY_WARDEN_DIG, 5.0f, 1.0f);
 		} else {
-			wardenEntity.playSound(HavenSoundEvents.ENTITY_WARDEN_AGITATED, 5.0f, 1.0f);
-			this.finishRunning(serverWorld, wardenEntity, l);
+			entity.playSound(ModSoundEvents.ENTITY_WARDEN_AGITATED, 5.0f, 1.0f);
+			this.finishRunning(serverWorld, entity, l);
 		}
 	}
 
 	@Override
-	protected void finishRunning(ServerWorld serverWorld, E wardenEntity, long l) {
-		if (wardenEntity.getRemovalReason() == null) {
-			wardenEntity.remove(Entity.RemovalReason.DISCARDED);
+	protected void finishRunning(ServerWorld serverWorld, WardenEntity entity, long l) {
+		if (entity.getRemovalReason() == null) {
+			entity.remove(Entity.RemovalReason.DISCARDED);
 		}
 	}
 }

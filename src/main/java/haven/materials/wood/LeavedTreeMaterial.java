@@ -15,7 +15,7 @@ public class LeavedTreeMaterial extends BaseTreeMaterial implements LeavesProvid
 	public BlockContainer getLeaves() { return leaves; }
 
 	public LeavedTreeMaterial(String name, MapColor mapColor, BlockSoundGroup leafSounds, boolean isFlammable) {
-		super(name, mapColor, isFlammable);
+		super(name, mapColor, isFlammable, BlockSoundGroup.WOOD);
 		leaves = new BlockContainer(new HavenLeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(leafSounds).nonOpaque().allowsSpawning(BaseTreeMaterial::canSpawnOnLeaves).suffocates(BaseTreeMaterial::never).blockVision(BaseTreeMaterial::never)), ItemSettings());
 	}
 

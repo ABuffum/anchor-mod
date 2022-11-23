@@ -3,9 +3,8 @@ package haven.particles;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleType;
@@ -43,7 +42,7 @@ public class ShriekParticleEffect implements ParticleEffect {
 		return String.format(Locale.ROOT, "%s %d", Registry.PARTICLE_TYPE.getId(this.getType()), this.delay);
 	}
 
-	public ParticleType<ShriekParticleEffect> getType() { return HavenMod.SHRIEK_PARTICLE; }
+	public ParticleType<ShriekParticleEffect> getType() { return ModBase.SHRIEK_PARTICLE; }
 
 	public int getDelay() { return this.delay; }
 }

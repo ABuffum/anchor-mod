@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-	"layer0": "haven:item/warden_spawn_egg"
+	"layer0": "haven:block/_deprecated"
   }
 }

@@ -1,0 +1,9 @@
+
+{
+  "variants": {
+    "facing=north": { "model": "haven:block/mooshroom_plushie_warped"},
+    "facing=east":  { "model": "haven:block/mooshroom_plushie_warped", "y":  90},
+    "facing=south": { "model": "haven:block/mooshroom_plushie_warped", "y": 180},
+    "facing=west":  { "model": "haven:block/mooshroom_plushie_warped", "y": 270}
+  }
+}

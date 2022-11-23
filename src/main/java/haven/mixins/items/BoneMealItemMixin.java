@@ -1,7 +1,7 @@
 package haven.mixins.items;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.blocks.sculk.SculkBlock;
 import haven.blocks.sculk.SculkTurfBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -15,12 +15,10 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
-import org.lwjgl.system.CallbackI;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,8 +42,8 @@ public class BoneMealItemMixin {
 		//Try growing a tall allium flower
 		else if (state.isOf(Blocks.ALLIUM)) {
 			if (world.getBlockState(pos.up()).isAir()) {
-				world.setBlockState(pos, HavenMod.TALL_ALLIUM.BLOCK.getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
-				world.setBlockState(pos.up(), HavenMod.TALL_ALLIUM.BLOCK.getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
+				world.setBlockState(pos, ModBase.TALL_ALLIUM.getBlock().getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+				world.setBlockState(pos.up(), ModBase.TALL_ALLIUM.getBlock().getDefaultState().with(TallPlantBlock.HALF, DoubleBlockHalf.UPPER), Block.NOTIFY_ALL);
 				world.playSound(null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, 1.0F, 1.0F);
 				world.syncWorldEvent(WorldEvents.BONE_MEAL_USED, pos, 0);
 				if (!context.getPlayer().getAbilities().creativeMode) context.getStack().decrement(1);
@@ -57,7 +55,8 @@ public class BoneMealItemMixin {
 			SculkTurfBlock turf = SculkTurfBlock.getSculkTurf(block);
 			if (turf != null) {
 				for (BlockPos blockPos : BlockPos.iterate(pos.add(-1, -1, -1), pos.add(1, 1, 1))) {
-					if (world.getBlockState(blockPos).getBlock() instanceof SculkTurfBlock) {
+					Block b = world.getBlockState(blockPos).getBlock();
+					if (b instanceof SculkTurfBlock || b instanceof SculkBlock) {
 						world.setBlockState(pos, turf.getDefaultState(), Block.NOTIFY_ALL);
 						break;
 					}

@@ -8,6 +8,6 @@ public interface EnderLanternProvider {
 	public Block getUnlitEnderLantern();
 
 	public default boolean containsEnderLantern(Block block) {
-		return block == getEnderLantern().BLOCK || block == getUnlitEnderLantern();
+		return block == getEnderLantern().getBlock() || block == getUnlitEnderLantern();
 	}
 }

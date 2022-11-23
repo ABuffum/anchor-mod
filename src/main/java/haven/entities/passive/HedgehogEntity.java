@@ -1,11 +1,13 @@
 package haven.entities.passive;
 
-import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
-import haven.HavenMod;
+import haven.ModBase;
+import haven.blocks.StrawberryBushBlock;
 import haven.damage.HavenEntityDamageSource;
 import haven.entities.ai.MoveToHuntGoal;
 import haven.origins.powers.AttackedByHedgehogsPower;
+import haven.origins.powers.PowersUtil;
 import haven.origins.powers.ScareHedgehogsPower;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -33,12 +35,7 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 public class HedgehogEntity extends AnimalEntity {
-	private static final Ingredient BREEDING_INGREDIENT = Ingredient.ofItems(
-			Items.APPLE, Items.MELON_SLICE, Items.SPIDER_EYE,
-			Items.GLOW_BERRIES, Items.SWEET_BERRIES,
-			HavenMod.CHERRY_ITEM, HavenMod.STRAWBERRY,
-			ItemsRegistry.CABBAGE.get(), ItemsRegistry.TOMATO.get()
-	);
+	private static final Ingredient BREEDING_INGREDIENT = Ingredient.ofItems(Items.SPIDER_EYE);
 
 	public HedgehogEntity(EntityType<? extends AnimalEntity> entityType, World world) {
 		super(entityType, world);
@@ -46,11 +43,11 @@ public class HedgehogEntity extends AnimalEntity {
 
 	//attack bugs or any player marked as hedgehog-attackable
 	private boolean canHedgehogTarget(LivingEntity target) { //attack "small" bugs or any player marked as hedgehog-attackable
-		return (target instanceof CaveSpiderEntity
+		return target instanceof CaveSpiderEntity
 				|| target instanceof SilverfishEntity
 				|| target instanceof EndermiteEntity
 				|| target instanceof BeeEntity
-				|| AttackedByHedgehogsPower.HasActivePower(target));
+				|| PowersUtil.Active(target, AttackedByHedgehogsPower.class);
 	}
 
 	protected void initGoals() {
@@ -59,7 +56,7 @@ public class HedgehogEntity extends AnimalEntity {
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(3, new FleeEntityGoal<>(this, FoxEntity.class, 8.0F, 1.6D, 1.4D));
 		this.goalSelector.add(3, new FleeEntityGoal<>(this, WolfEntity.class, 8.0F, 1.6D, 1.4D, (entity) -> !((WolfEntity)entity).isTamed()));
-		this.goalSelector.add(3, new FleeEntityGoal<>(this, PlayerEntity.class, ScareHedgehogsPower::HasActivePower, 8.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test));
+		this.goalSelector.add(3, new FleeEntityGoal<>(this, PlayerEntity.class, ScareHedgehogsPower::Active, 8.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test));
 		this.goalSelector.add(4, new TemptGoal(this, 1.0D, BREEDING_INGREDIENT, false));
 		this.targetSelector.add(4, new FollowTargetGoal<LivingEntity>(this, LivingEntity.class, 10, false, false, this::canHedgehogTarget));
 		this.goalSelector.add(5, new MoveToHuntGoal(this, 12, 1.5D) {
@@ -67,7 +64,7 @@ public class HedgehogEntity extends AnimalEntity {
 		});
 		this.goalSelector.add(6, new HedgehogEntity.AttackGoal(1.2D, true));
 		this.goalSelector.add(7, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.add(8, new HedgehogEntity.EatSweetBerriesGoal(1.2D, 12, 1));
+		this.goalSelector.add(8, new EatBerriesGoal(1.2D, 12, 1));
 		this.goalSelector.add(9, new WanderAroundFarGoal(this, 1.0D));
 		this.goalSelector.add(10, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.add(11, new LookAroundGoal(this));
@@ -84,7 +81,7 @@ public class HedgehogEntity extends AnimalEntity {
 	@Nullable
 	@Override
 	public HedgehogEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.HEDGEHOG_ENTITY.create(serverWorld);
+		return ModBase.HEDGEHOG_ENTITY.create(serverWorld);
 	}
 
 	public boolean isBreedingItem(ItemStack stack) {
@@ -112,11 +109,11 @@ public class HedgehogEntity extends AnimalEntity {
 		return target.damage(DamageSource.mob(this), 1);
 	}
 
-	public class EatSweetBerriesGoal extends MoveToTargetPosGoal {
+	public class EatBerriesGoal extends MoveToTargetPosGoal {
 		private static final int EATING_TIME = 40;
 		protected int timer;
 
-		public EatSweetBerriesGoal(double speed, int range, int maxYDifference) {
+		public EatBerriesGoal(double speed, int range, int maxYDifference) {
 			super(HedgehogEntity.this, speed, range, maxYDifference);
 		}
 
@@ -126,7 +123,9 @@ public class HedgehogEntity extends AnimalEntity {
 
 		protected boolean isTargetPos(WorldView world, BlockPos pos) {
 			BlockState blockState = world.getBlockState(pos);
-			return blockState.isOf(Blocks.SWEET_BERRY_BUSH) && blockState.get(SweetBerryBushBlock.AGE) >= 2 || CaveVines.hasBerries(blockState);
+			return blockState.isOf(Blocks.SWEET_BERRY_BUSH) && blockState.get(SweetBerryBushBlock.AGE) >= 2
+					|| blockState.isOf(ModBase.STRAWBERRY_BUSH) && blockState.get(StrawberryBushBlock.AGE) > 2
+					|| CaveVines.hasBerries(blockState);
 		}
 
 		public void tick() {
@@ -135,7 +134,7 @@ public class HedgehogEntity extends AnimalEntity {
 				else ++this.timer;
 			}
 			else if (!this.hasReached() && HedgehogEntity.this.random.nextFloat() < 0.05F) {
-				HedgehogEntity.this.playSound(SoundEvents.ENTITY_FOX_SNIFF, 1.0F, 1.0F);
+				HedgehogEntity.this.playSound(ModSoundEvents.ENTITY_HEDGEHOG_SNIFF, 1.0F, 1.0F);
 			}
 			super.tick();
 		}
@@ -144,6 +143,7 @@ public class HedgehogEntity extends AnimalEntity {
 			if (HedgehogEntity.this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
 				BlockState blockState = HedgehogEntity.this.world.getBlockState(this.targetPos);
 				if (blockState.isOf(Blocks.SWEET_BERRY_BUSH)) this.pickSweetBerries(blockState);
+				else if (blockState.isOf(ModBase.STRAWBERRY_BUSH)) this.pickStrawberries(blockState);
 				else if (CaveVines.hasBerries(blockState)) this.pickGlowBerries(blockState);
 			}
 		}
@@ -160,6 +160,11 @@ public class HedgehogEntity extends AnimalEntity {
 		private void pickSweetBerries(BlockState state) {
 			HedgehogEntity.this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
 			HedgehogEntity.this.world.setBlockState(this.targetPos, state.with(SweetBerryBushBlock.AGE, 1), Block.NOTIFY_LISTENERS);
+		}
+
+		private void pickStrawberries(BlockState state) {
+			HedgehogEntity.this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
+			HedgehogEntity.this.world.setBlockState(this.targetPos, state.with(StrawberryBushBlock.AGE, 2), Block.NOTIFY_LISTENERS);
 		}
 
 		public boolean canStart() { return super.canStart(); }

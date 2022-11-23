@@ -25,7 +25,6 @@ import java.util.*;
 import java.util.function.Function;
 
 public abstract class MultifaceGrowthBlock extends Block {
-	private static final float field_31194 = 1.0f;
 	private static final VoxelShape UP_SHAPE = Block.createCuboidShape(0.0, 15.0, 0.0, 16.0, 16.0, 16.0);
 	private static final VoxelShape DOWN_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 1.0, 16.0);
 	private static final VoxelShape EAST_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 1.0, 16.0, 16.0);
@@ -197,7 +196,7 @@ public abstract class MultifaceGrowthBlock extends Block {
 		return FACING_PROPERTIES.get(direction);
 	}
 
-	private static BlockState withAllDirections(StateManager<Block, BlockState> stateManager) {
+	public static BlockState withAllDirections(StateManager<Block, BlockState> stateManager) {
 		BlockState blockState = stateManager.getDefaultState();
 		for (BooleanProperty booleanProperty : FACING_PROPERTIES.values()) {
 			if (!blockState.contains(booleanProperty)) continue;

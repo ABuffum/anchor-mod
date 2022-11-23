@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "haven:block/mangrove_planks"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

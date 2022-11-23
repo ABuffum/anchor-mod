@@ -1,13 +1,12 @@
 package haven.blocks.lighting;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -38,16 +37,16 @@ public class DynamicLightManager {
 	public static void addLight(DynamicLightSource light) {
 		Entity entity = light.getEntity();
 		if (entity != null) {
-			HavenMod.LOGGER.info("Calling addLightSource on entity {}", entity);
+			ModBase.LOGGER.info("Calling addLightSource on entity {}", entity);
 			if (entity.isAlive()) {
 				DynamicLightContainer newLightContainer = new DynamicLightContainer(light);
 				ConcurrentLinkedQueue<DynamicLightContainer> lightList = getInstance().worldLightsMap.get(entity.world);
 				if (lightList != null) {
 					if (!lightList.contains(newLightContainer)) {
-						HavenMod.LOGGER.info("Successfully registered DynamicLight on Entity: {} in list {}", newLightContainer.getLightSource().getEntity(), lightList);
+						ModBase.LOGGER.info("Successfully registered DynamicLight on Entity: {} in list {}", newLightContainer.getLightSource().getEntity(), lightList);
 						lightList.add(newLightContainer);
 					} else {
-						HavenMod.LOGGER.info("Cannot add Dynamic Light: Attachment Entity is already registered!");
+						ModBase.LOGGER.info("Cannot add Dynamic Light: Attachment Entity is already registered!");
 					}
 				} else {
 					lightList = new ConcurrentLinkedQueue<>();
@@ -55,10 +54,10 @@ public class DynamicLightManager {
 					getInstance().worldLightsMap.put(entity.world, lightList);
 				}
 			} else {
-				HavenMod.LOGGER.error("Cannot add Dynamic Light: Attachment Entity {} is dead", entity);
+				ModBase.LOGGER.error("Cannot add Dynamic Light: Attachment Entity {} is dead", entity);
 			}
 		} else {
-			HavenMod.LOGGER.error("Cannot add Dynamic Light: Attachment Entity is null!");
+			ModBase.LOGGER.error("Cannot add Dynamic Light: Attachment Entity is null!");
 		}
 	}
 	public static void removeLight(DynamicLightSource light) {
@@ -78,7 +77,7 @@ public class DynamicLightManager {
 						}
 					}
 					if (iterContainer != null) {
-						HavenMod.LOGGER.info("Removing Dynamic Light attached to {}", entity);
+						ModBase.LOGGER.info("Removing Dynamic Light attached to {}", entity);
 						iterContainer.removeLight(world);
 					}
 				}
@@ -95,7 +94,7 @@ public class DynamicLightManager {
 				if (tickedLightContainer.onUpdate()) {
 					iter.remove();
 					tickedLightContainer.removeLight(serverWorld);
-					HavenMod.LOGGER.debug("Dynamic Lights killing off LightSource on dead Entity: " + tickedLightContainer.getLightSource().getEntity());
+					ModBase.LOGGER.debug("Dynamic Lights killing off LightSource on dead Entity: " + tickedLightContainer.getLightSource().getEntity());
 				}
 			}
 		}

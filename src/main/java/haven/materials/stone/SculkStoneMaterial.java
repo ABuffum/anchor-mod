@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
-import net.minecraft.sound.BlockSoundGroup;
 
 public class SculkStoneMaterial extends BaseMaterial implements
 		Provider, SlabProvider, StairsProvider, WallProvider,
@@ -37,13 +36,13 @@ public class SculkStoneMaterial extends BaseMaterial implements
 	public SculkStoneMaterial() {
 		super("sculk_stone", false);
 		provider = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(2.5F, 6.0F)), ItemSettings());
-		slab = new BlockContainer(new HavenSlabBlock(provider.BLOCK), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(provider.BLOCK), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(provider.BLOCK), ItemSettings());
-		bricks = new BlockContainer(new Block(FabricBlockSettings.copy(provider.BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.BLOCK), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.BLOCK), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.BLOCK), ItemSettings());
+		slab = new BlockContainer(new HavenSlabBlock(provider.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new HavenStairsBlock(provider.getBlock()), ItemSettings());
+		wall = new BlockContainer(new HavenWallBlock(provider.getBlock()), ItemSettings());
+		bricks = new BlockContainer(new Block(FabricBlockSettings.copy(provider.getBlock())), ItemSettings());
+		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
+    "minecraft:mud_brick_wall",
+  
     "haven:amethyst_crystal_wall",
     "haven:amethyst_brick_wall",
     "haven:amethyst_wall",
@@ -24,6 +26,14 @@
     "haven:waxed_exposed_copper_wall",
     "haven:waxed_weathered_copper_wall",
     "haven:waxed_oxidized_copper_wall",
+    "haven:copper_brick_wall",
+    "haven:exposed_copper_brick_wall",
+    "haven:weathered_copper_brick_wall",
+    "haven:oxidized_copper_brick_wall",
+    "haven:waxed_copper_brick_wall",
+    "haven:waxed_exposed_copper_brick_wall",
+    "haven:waxed_weathered_copper_brick_wall",
+    "haven:waxed_oxidized_copper_brick_wall",
     "haven:cut_copper_wall",
     "haven:exposed_cut_copper_wall",
     "haven:weathered_cut_copper_wall",
@@ -33,19 +43,21 @@
     "haven:waxed_weathered_cut_copper_wall",
     "haven:waxed_oxidized_cut_copper_wall",
     "haven:iron_wall",
+    "haven:iron_brick_wall",
     "haven:cut_iron_wall",
     "haven:dark_iron_wall",
+    "haven:dark_iron_brick_wall",
     "haven:cut_dark_iron_wall",
     "haven:gold_wall",
+    "haven:gold_brick_wall",
     "haven:cut_gold_wall",
     "haven:netherite_wall",
+    "haven:netherite_brick_wall",
     "haven:cut_netherite_wall",
   
     "haven:obsidian_wall",
     "haven:crying_obsidian_wall",
     "haven:bleeding_obsidian_wall",
-    
-    "haven:mud_brick_wall",
   
     "haven:calcite_brick_wall",
     "haven:smooth_calcite_wall",

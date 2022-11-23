@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_button",
+    "minecraft:mangrove_button",
+  
     "haven:bamboo_button",
     "haven:brown_mushroom_button",
     "haven:blue_mushroom_button",
@@ -10,9 +13,7 @@
     "haven:dried_bamboo_button",
     "haven:gilded_button",
     "haven:hay_button",
-    "haven:mangrove_button",
     "haven:mushroom_stem_button",
-    "haven:new_bamboo_button",
     "haven:red_mushroom_button",
     "haven:sugar_cane_button"
   ]

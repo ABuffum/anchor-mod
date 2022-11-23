@@ -3,19 +3,16 @@ package haven.blocks.gourd;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.MelonGolemEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.block.pattern.BlockPatternBuilder;
 import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import net.minecraft.world.WorldView;
@@ -50,7 +47,7 @@ public class CarvedMelonBlock extends CarvedGourdBlock {
 				world.setBlockState(cachedBlockPosition.getBlockPos(), Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS);
 				world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, cachedBlockPosition.getBlockPos(), Block.getRawIdFromState(cachedBlockPosition.getBlockState()));
 			}
-			MelonGolemEntity melonGolemEntity = (MelonGolemEntity)HavenMod.MELON_GOLEM_ENTITY.create(world);
+			MelonGolemEntity melonGolemEntity = (MelonGolemEntity) ModBase.MELON_GOLEM_ENTITY.create(world);
 			BlockPos blockPos = result.translate(0, 2, 0).getBlockPos();
 			melonGolemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
 			world.spawnEntity(melonGolemEntity);
@@ -83,6 +80,6 @@ public class CarvedMelonBlock extends CarvedGourdBlock {
 	}
 
 	static {
-		IS_GOLEM_HEAD_PREDICATE = (state) -> state != null && (state.isOf(HavenMod.CARVED_MELON.BLOCK) || state.isOf(HavenMod.MELON_LANTERN.BLOCK));
+		IS_GOLEM_HEAD_PREDICATE = (state) -> state != null && (state.isOf(ModBase.CARVED_MELON.getBlock()) || state.isOf(ModBase.MELON_LANTERN.getBlock()));
 	}
 }

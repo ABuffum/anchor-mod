@@ -1,6 +1,6 @@
 package haven.items.basic;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
@@ -16,6 +16,6 @@ public class HavenHorseArmorItem extends HorseArmorItem {
 
 	@Override
 	public Identifier getEntityTexture() {
-		return HavenMod.ID(this.entityTexture);
+		return ModBase.ID(this.entityTexture);
 	}
 }

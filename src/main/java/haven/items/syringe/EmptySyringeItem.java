@@ -1,6 +1,6 @@
 package haven.items.syringe;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.mud.MudFluid;
 import haven.blocks.mud.MudFluidBlock;
 import haven.blood.BloodFluid;
@@ -11,7 +11,6 @@ import haven.entities.cloud.DragonBreathCloudEntity;
 import haven.mixins.blocks.BeehiveBlockInvoker;
 import haven.mixins.blocks.TurtleEggBlockInvoker;
 import haven.damage.HavenDamageSource;
-import haven.sounds.HavenSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.entity.AreaEffectCloudEntity;
@@ -23,7 +22,6 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.Items;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -61,7 +59,7 @@ public class EmptySyringeItem extends BaseSyringeItem {
 			areaEffectCloudEntity.setRadius(areaEffectCloudEntity.getRadius() - 0.5F);
 			world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 			world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.getBlockPos());
-			ReplaceSyringe(user, hand, HavenMod.DRAGON_BREATH_SYRINGE);
+			ReplaceSyringe(user, hand, ModBase.DRAGON_BREATH_SYRINGE);
 			return TypedActionResult.consume(user.getStackInHand(hand));
 		}
 		//Fill with dragon's breath (captain's death)
@@ -73,7 +71,7 @@ public class EmptySyringeItem extends BaseSyringeItem {
 				cloud.kill();
 				world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 				world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.getBlockPos());
-				ReplaceSyringe(user, hand, HavenMod.DRAGON_BREATH_SYRINGE);
+				ReplaceSyringe(user, hand, ModBase.DRAGON_BREATH_SYRINGE);
 				return TypedActionResult.consume(user.getStackInHand(hand));
 			}
 		}
@@ -86,7 +84,7 @@ public class EmptySyringeItem extends BaseSyringeItem {
 				cloud.kill();
 				world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 				world.emitGameEvent(user, GameEvent.FLUID_PICKUP, user.getBlockPos());
-				ReplaceSyringe(user, hand, HavenMod.CONFETTI_SYRINGE);
+				ReplaceSyringe(user, hand, ModBase.CONFETTI_SYRINGE);
 				return TypedActionResult.consume(user.getStackInHand(hand));
 			}
 		}
@@ -103,17 +101,17 @@ public class EmptySyringeItem extends BaseSyringeItem {
 		FluidState fluidState = world.getFluidState(pos);
 		Fluid fluid = fluidState.getFluid();
 		if (block == Blocks.SLIME_BLOCK) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.SLIME_SYRINGE);
+			ReplaceSyringe(player, context.getHand(), ModBase.SLIME_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block == Blocks.HONEY_BLOCK) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.HONEY_SYRINGE);
+			ReplaceSyringe(player, context.getHand(), ModBase.HONEY_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block instanceof BeehiveBlock beehive) {
 			int i = state.get(BeehiveBlock.HONEY_LEVEL);
 			if (i >= 5) {
-				ReplaceSyringe(player, context.getHand(), HavenMod.HONEY_SYRINGE);
+				ReplaceSyringe(player, context.getHand(), ModBase.HONEY_SYRINGE);
 				BeehiveBlockInvoker bbi = (BeehiveBlockInvoker)beehive;
 				if (!CampfireBlock.isLitCampfireInRange(world, pos)) {
 					if (bbi.InvokeHasBees(world, pos)) {
@@ -124,26 +122,26 @@ public class EmptySyringeItem extends BaseSyringeItem {
 				return ActionResult.CONSUME;
 			}
 		}
-		else if (HavenMod.BLOOD_BLOCK.contains(block) || block == HavenMod.BLOOD_CAULDRON || block instanceof BloodFluidBlock || fluid instanceof BloodFluid) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.BLOOD_SYRINGE);
+		else if (ModBase.BLOOD_BLOCK.contains(block) || block == ModBase.BLOOD_CAULDRON || block instanceof BloodFluidBlock || fluid instanceof BloodFluid) {
+			ReplaceSyringe(player, context.getHand(), ModBase.BLOOD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
-		else if (HavenMod.MUD.contains(block) || block instanceof MudFluidBlock || fluid instanceof MudFluid) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.MUD_SYRINGE);
+		else if (ModBase.MUD.contains(block) || block instanceof MudFluidBlock || fluid instanceof MudFluid) {
+			ReplaceSyringe(player, context.getHand(), ModBase.MUD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block == Blocks.SNOW || block == Blocks.SNOW_BLOCK || block == Blocks.POWDER_SNOW || block == Blocks.WATER
 				|| block == Blocks.ICE || block == Blocks.BLUE_ICE || block == Blocks.FROSTED_ICE || block == Blocks.PACKED_ICE) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.WATER_SYRINGE);
+			ReplaceSyringe(player, context.getHand(), ModBase.WATER_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block == Blocks.MAGMA_BLOCK) {
-			ReplaceSyringe(player, context.getHand(), HavenMod.MAGMA_CREAM_SYRINGE);
+			ReplaceSyringe(player, context.getHand(), ModBase.MAGMA_CREAM_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		else if (block instanceof TurtleEggBlock turtleEgg) {
 			((TurtleEggBlockInvoker)turtleEgg).InvokeTryBreakEgg(world, state, pos, player, 100);
-			ReplaceSyringe(player, context.getHand(), HavenMod.TURTLE_BLOOD_SYRINGE);
+			ReplaceSyringe(player, context.getHand(), ModBase.TURTLE_BLOOD_SYRINGE);
 			return ActionResult.CONSUME;
 		}
 		return ActionResult.PASS;

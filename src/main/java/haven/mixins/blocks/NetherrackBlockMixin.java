@@ -1,6 +1,6 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,25 +26,25 @@ public class NetherrackBlockMixin {
 			BlockState blockState = world.getBlockState(blockPos);
 			bl = bl || blockState.isOf(Blocks.CRIMSON_NYLIUM);
 			bl2 = bl2 || blockState.isOf(Blocks.WARPED_NYLIUM);
-			bl3 = bl3 || blockState.isOf(HavenMod.GILDED_NYLIUM.BLOCK);
+			bl3 = bl3 || blockState.isOf(ModBase.GILDED_NYLIUM.getBlock());
 			if (bl && bl2 && bl3) break;
 		}
 		if (bl && bl2 && bl3) {
 			int r = random.nextInt(3);
 			world.setBlockState(pos, r == 0 ? Blocks.WARPED_NYLIUM.getDefaultState()
 					: r == 1 ? Blocks.CRIMSON_NYLIUM.getDefaultState()
-					: HavenMod.GILDED_NYLIUM.BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+					: ModBase.GILDED_NYLIUM.getBlock().getDefaultState(), Block.NOTIFY_ALL);
 		}
 		else if (bl && bl3) {
-			world.setBlockState(pos, random.nextBoolean() ? HavenMod.GILDED_NYLIUM.BLOCK.getDefaultState() : Blocks.CRIMSON_NYLIUM.getDefaultState(), Block.NOTIFY_ALL);
+			world.setBlockState(pos, random.nextBoolean() ? ModBase.GILDED_NYLIUM.getBlock().getDefaultState() : Blocks.CRIMSON_NYLIUM.getDefaultState(), Block.NOTIFY_ALL);
 			ci.cancel();
 		}
 		else if (bl2 && bl3) {
-			world.setBlockState(pos, random.nextBoolean() ? Blocks.WARPED_NYLIUM.getDefaultState() : HavenMod.GILDED_NYLIUM.BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+			world.setBlockState(pos, random.nextBoolean() ? Blocks.WARPED_NYLIUM.getDefaultState() : ModBase.GILDED_NYLIUM.getBlock().getDefaultState(), Block.NOTIFY_ALL);
 			ci.cancel();
 		}
 		else if (bl3) {
-			world.setBlockState(pos, HavenMod.GILDED_NYLIUM.BLOCK.getDefaultState(), Block.NOTIFY_ALL);
+			world.setBlockState(pos, ModBase.GILDED_NYLIUM.getBlock().getDefaultState(), Block.NOTIFY_ALL);
 			ci.cancel();
 		}
 	}

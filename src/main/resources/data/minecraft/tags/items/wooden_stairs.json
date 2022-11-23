@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_stairs",
+    "minecraft:bamboo_mosaic_stairs",
+    "minecraft:mangrove_stairs",
+  
     "haven:bamboo_stairs",
     "haven:brown_mushroom_stairs",
     "haven:blue_mushroom_stairs",
@@ -10,10 +14,7 @@
     "haven:dried_bamboo_stairs",
     "haven:gilded_stairs",
     "haven:hay_stairs",
-    "haven:mangrove_stairs",
     "haven:mushroom_stem_stairs",
-    "haven:new_bamboo_stairs",
-    "haven:bamboo_mosaic_stairs",
     "haven:red_mushroom_stairs",
     "haven:sugar_cane_stairs"
   ]

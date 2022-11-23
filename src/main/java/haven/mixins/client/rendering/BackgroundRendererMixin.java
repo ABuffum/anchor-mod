@@ -2,38 +2,27 @@ package haven.mixins.client.rendering;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodFluid;
 import haven.blocks.mud.MudFluid;
-import haven.effects.HavenStatusEffectInstance;
 import haven.effects.StatusEffectFogModifier;
-import haven.util.HavenMathUtils;
 import haven.util.MixinStore;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.ModifyCameraSubmersionTypePower;
-import io.github.apace100.apoli.power.NightVisionPower;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.CameraSubmersionType;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -42,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
-import java.util.Objects;
 
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
@@ -208,7 +196,7 @@ public class BackgroundRendererMixin {
 				green = green * (1.0f - skyDarkness) + green * 0.6f * skyDarkness;
 				blue = blue * (1.0f - skyDarkness) + blue * 0.6f * skyDarkness;
 			}
-			if (livingEntity.hasStatusEffect(HavenMod.FLASHBANGED_EFFECT)) {
+			if (livingEntity.hasStatusEffect(ModBase.FLASHBANGED_EFFECT)) {
 				red = Math.max(red, 1 - red);
 				green = Math.max(green, 1 - green);
 				blue = Math.max(blue, 1 - blue);

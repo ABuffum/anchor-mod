@@ -1,6 +1,6 @@
 package haven.mixins.entities.passive;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.cow.CowcoaEntity;
 import haven.entities.passive.cow.CowfeeEntity;
 import haven.entities.passive.cow.MoonillaEntity;
@@ -10,13 +10,11 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -50,7 +48,7 @@ public abstract class CowEntityMixin extends AnimalEntity {
 		if (itemStack != null && !itemStack.isEmpty() && !this.isBaby()) {
 			Item item = itemStack.getItem(), outItem = null;
 			if (item instanceof BucketProvided bp) outItem = bp.getBucketProvider().getMilkBucket();
-			else if (item == Items.BOWL) outItem = HavenMod.MILK_BOWL;
+			else if (item == Items.BOWL) outItem = ModBase.MILK_BOWL;
 			if (outItem != null) {
 				player.playSound(SoundEvents.ENTITY_COW_MILK, 1.0F, 1.0F);
 				ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, outItem.getDefaultStack());

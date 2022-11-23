@@ -1,25 +1,19 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.BambooLeaves;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.SwordItem;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
@@ -68,11 +62,11 @@ public class DriedBambooBlock extends Block {
 		} else {
 			BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos().down());
 			if (blockState.isIn(BlockTags.BAMBOO_PLANTABLE_ON)) {
-				if (blockState.isOf(HavenMod.DRIED_BAMBOO_BLOCK.BLOCK)) {
+				if (blockState.isOf(ModBase.DRIED_BAMBOO_BLOCK.getBlock())) {
 					return this.getDefaultState();
 				} else {
 					BlockState blockState2 = ctx.getWorld().getBlockState(ctx.getBlockPos().up());
-					return blockState2.isOf(HavenMod.DRIED_BAMBOO_BLOCK.BLOCK) ? this.getDefaultState() : HavenMod.DRIED_BAMBOO_BLOCK.BLOCK.getDefaultState();
+					return blockState2.isOf(ModBase.DRIED_BAMBOO_BLOCK.getBlock()) ? this.getDefaultState() : ModBase.DRIED_BAMBOO_BLOCK.getBlock().getDefaultState();
 				}
 			} else {
 				return null;

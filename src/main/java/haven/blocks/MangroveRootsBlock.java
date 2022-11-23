@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -16,9 +16,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.WorldAccess;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Access widened by fabric-transitive-access-wideners-v1 to accessible
- */
 public class MangroveRootsBlock extends Block implements Waterloggable {
 	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
@@ -29,30 +26,24 @@ public class MangroveRootsBlock extends Block implements Waterloggable {
 
 	@Override
 	public boolean isSideInvisible(BlockState state, BlockState stateFrom, Direction direction) {
-		return stateFrom.isOf(HavenMod.MANGROVE_ROOTS.BLOCK) && direction.getAxis() == Direction.Axis.Y;
+		return stateFrom.isOf(ModBase.MANGROVE_ROOTS.getBlock()) && direction.getAxis() == Direction.Axis.Y;
 	}
 
 	@Override
 	@Nullable
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-		boolean bl = fluidState.getFluid() == Fluids.WATER;
-		return super.getPlacementState(ctx).with(WATERLOGGED, bl);
+		return super.getPlacementState(ctx).with(WATERLOGGED, ctx.getWorld().getFluidState(ctx.getBlockPos()).getFluid() == Fluids.WATER);
 	}
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-		if (state.get(WATERLOGGED).booleanValue()) {
-			world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
-		}
+		if (state.get(WATERLOGGED)) world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		if (state.get(WATERLOGGED).booleanValue()) {
-			return Fluids.WATER.getStill(false);
-		}
+		if (state.get(WATERLOGGED)) return Fluids.WATER.getStill(false);
 		return super.getFluidState(state);
 	}
 

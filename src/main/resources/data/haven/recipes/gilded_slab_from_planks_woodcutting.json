@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "count": 2,
+  "ingredient": {
+    "item": "haven:gilded_planks"
+  },
+  "result": "haven:gilded_slab"
+}

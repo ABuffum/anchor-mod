@@ -1,8 +1,8 @@
 package haven.rendering.entities.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.cow.CrimsonMooshroomEntity;
-import haven.rendering.features.CrimsonMooshroomMushroomFeatureRenderer;
+import haven.rendering.features.cow.CrimsonMooshroomMushroomFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class CrimsonMooshroomEntityRenderer extends MobEntityRenderer<CrimsonMooshroomEntity, CowEntityModel<CrimsonMooshroomEntity>> {
-	private static final Identifier TEXTURE = HavenMod.ID("textures/entity/cow/crimson_mooshroom.png");
+	private static final Identifier TEXTURE = ModBase.ID("textures/entity/cow/crimson_mooshroom.png");
 
 	public CrimsonMooshroomEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new CowEntityModel(context.getPart(EntityModelLayers.MOOSHROOM)), 0.7F);

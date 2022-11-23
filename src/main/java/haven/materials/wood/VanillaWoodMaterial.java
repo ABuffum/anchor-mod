@@ -1,7 +1,8 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.BookshelfBlock;
+import haven.blocks.ChiseledBookshelfBlock;
 import haven.blocks.WoodcutterBlock;
 import haven.blocks.basic.HavenLadderBlock;
 import haven.containers.BlockContainer;
@@ -16,7 +17,7 @@ import net.minecraft.sound.BlockSoundGroup;
 public class VanillaWoodMaterial extends BaseMaterial implements
 		TorchProvider, EnderTorchProvider, SoulTorchProvider,
 		CampfireProvider, EnderCampfireProvider, SoulCampfireProvider,
-		LadderProvider, WoodcutterProvider, BookshelfProvider {
+		LadderProvider, WoodcutterProvider, BookshelfProvider, ChiseledBookshelfProvider {
 	private final TorchContainer torch;
 	public TorchContainer getTorch() { return torch; }
 	private final TorchContainer ender_torch;
@@ -31,6 +32,8 @@ public class VanillaWoodMaterial extends BaseMaterial implements
 	public BlockContainer getSoulCampfire() { return soul_campfire; }
 	private final BlockContainer bookshelf;
 	public BlockContainer getBookshelf() { return bookshelf; }
+	private final BlockContainer chiseled_bookshelf;
+	public BlockContainer getChiseledBookshelf() { return chiseled_bookshelf; }
 	private final BlockContainer ladder;
 	public BlockContainer getLadder() { return ladder; }
 	private final BlockContainer woodcutter;
@@ -38,13 +41,14 @@ public class VanillaWoodMaterial extends BaseMaterial implements
 
 	public VanillaWoodMaterial(String name, MapColor mapColor) {
 		super(name, false);
-		torch = MakeTorch(14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.WOOD, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
-		campfire = MakeCampfire(15, 1, mapColor, true);
-		ender_campfire = MakeCampfire(13, 3, mapColor, false);
-		soul_campfire = MakeCampfire(10, 2, mapColor, false);
+		torch = MakeTorch(ModBase.LUMINANCE_14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, BlockSoundGroup.WOOD, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
+		campfire = MakeCampfire(15, 1, mapColor, BlockSoundGroup.WOOD, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.WOOD, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.WOOD, false);
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 	}

@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "count": 2,
+  "ingredient": {
+    "item": "haven:brown_mushroom_planks"
+  },
+  "result": "haven:brown_mushroom_slab"
+}

@@ -1,6 +1,6 @@
 package haven.blood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -9,7 +9,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -25,11 +24,11 @@ import java.util.Optional;
 
 public abstract class BloodFluid extends FlowableFluid {
 	@Override
-	public Fluid getStill() { return HavenMod.STILL_BLOOD_FLUID; }
+	public Fluid getStill() { return ModBase.STILL_BLOOD_FLUID; }
 	@Override
-	public Fluid getFlowing() { return HavenMod.FLOWING_BLOOD_FLUID; }
+	public Fluid getFlowing() { return ModBase.FLOWING_BLOOD_FLUID; }
 	@Override
-	public Item getBucketItem() { return HavenMod.BLOOD_BUCKET; }
+	public Item getBucketItem() { return ModBase.BLOOD_BUCKET; }
 	@Override
 	public boolean isInfinite() { return false; }
 	@Override
@@ -51,14 +50,14 @@ public abstract class BloodFluid extends FlowableFluid {
 	public boolean matchesType(Fluid fluid) { return fluid == getStill() || fluid == getFlowing(); }
 	@Override
 	protected BlockState toBlockState(FluidState fluidState) {
-		return HavenMod.BLOOD_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(fluidState));
+		return ModBase.BLOOD_FLUID_BLOCK.getDefaultState().with(Properties.LEVEL_15, getBlockStateLevel(fluidState));
 	}
 	@Override
 	public Optional<SoundEvent> getBucketFillSound() { return Optional.of(SoundEvents.ITEM_BUCKET_FILL); }
 
 	@Nullable
 	public ParticleEffect getParticle() {
-		return HavenMod.DRIPPING_BLOOD;
+		return ModBase.DRIPPING_BLOOD;
 	}
 
 	public static class Flowing extends BloodFluid {

@@ -1,6 +1,6 @@
 package haven.materials.providers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.items.buckets.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +24,8 @@ public interface BucketProvider {
 	public Item getVanillaMilkBucket();
 	public Item getCottageCheeseBucket();
 
-	public default Item.Settings BucketSettings() { return HavenMod.ItemSettings().maxCount(16); }
-	public default Item.Settings FilledBucketSettings() { return HavenMod.ItemSettings().recipeRemainder(getBucket()).maxCount(1); }
+	public default Item.Settings BucketSettings() { return ModBase.ItemSettings().maxCount(16); }
+	public default Item.Settings FilledBucketSettings() { return ModBase.ItemSettings().recipeRemainder(getBucket()).maxCount(1); }
 
 	public default boolean containsBucket(Item item) {
 		if (item == null) return false;
@@ -81,21 +81,21 @@ public interface BucketProvider {
 		@Override
 		public Item getPowderSnowBucket() { return Items.POWDER_SNOW_BUCKET; }
 		@Override
-		public Item getBloodBucket() { return HavenMod.BLOOD_BUCKET; }
+		public Item getBloodBucket() { return ModBase.BLOOD_BUCKET; }
 		@Override
-		public Item getMudBucket() { return HavenMod.MUD_BUCKET; }
+		public Item getMudBucket() { return ModBase.MUD_BUCKET; }
 		@Override
 		public Item getMilkBucket() { return Items.MILK_BUCKET; }
 		@Override
-		public Item getChocolateMilkBucket() { return HavenMod.CHOCOLATE_MILK_BUCKET; }
+		public Item getChocolateMilkBucket() { return ModBase.CHOCOLATE_MILK_BUCKET; }
 		@Override
-		public Item getCoffeeMilkBucket() { return HavenMod.COFFEE_MILK_BUCKET; }
+		public Item getCoffeeMilkBucket() { return ModBase.COFFEE_MILK_BUCKET; }
 		@Override
-		public Item getStrawberryMilkBucket() { return HavenMod.STRAWBERRY_MILK_BUCKET; }
+		public Item getStrawberryMilkBucket() { return ModBase.STRAWBERRY_MILK_BUCKET; }
 		@Override
-		public Item getVanillaMilkBucket() { return HavenMod.VANILLA_MILK_BUCKET; }
+		public Item getVanillaMilkBucket() { return ModBase.VANILLA_MILK_BUCKET; }
 		@Override
-		public Item getCottageCheeseBucket() { return HavenMod.COTTAGE_CHEESE_BUCKET; }
+		public Item getCottageCheeseBucket() { return ModBase.COTTAGE_CHEESE_BUCKET; }
 		@Override
 		public ItemStack bucketInMaterial(ItemStack itemStack) { return itemStack; }
 

@@ -1,6 +1,7 @@
 package haven.items.consumable.milk;
 
 import haven.util.BucketUtils;
+import haven.util.ItemUtils;
 import haven.util.MilkUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
@@ -29,9 +30,9 @@ public class MilkBowlItem extends Item {
 			Criteria.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
 			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		}
-		if (user instanceof PlayerEntity && !((PlayerEntity)user).getAbilities().creativeMode) stack.decrement(1);
 		if (!world.isClient) MilkUtils.ApplyMilk(world, user);
-		return stack.isEmpty() ? new ItemStack(Items.BOWL) : stack;
+
+		return ItemUtils.getConsumableRemainder(stack, user, Items.BOWL);
 	}
 
 	public int getMaxUseTime(ItemStack stack) { return MAX_USE_TIME; }

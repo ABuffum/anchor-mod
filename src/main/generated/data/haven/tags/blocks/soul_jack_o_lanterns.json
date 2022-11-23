@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "haven:soul_jack_o_lantern",
+    "haven:soleil_soul_jack_o_lantern",
+    "haven:white_soul_jack_o_lantern",
+    "haven:soleil_white_soul_jack_o_lantern",
+    "haven:rotten_soul_jack_o_lantern",
+    "haven:soleil_rotten_soul_jack_o_lantern"
+  ]
+}

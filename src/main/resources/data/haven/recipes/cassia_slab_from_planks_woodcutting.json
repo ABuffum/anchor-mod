@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "count": 2,
+  "ingredient": {
+    "item": "haven:cassia_planks"
+  },
+  "result": "haven:cassia_slab"
+}

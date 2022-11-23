@@ -1,6 +1,6 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NyliumBlock;
 import net.minecraft.server.world.ServerWorld;
@@ -17,8 +17,8 @@ import java.util.Random;
 public class NyliumBlockMixin {
 	@Inject(method="grow", at = @At("TAIL"))
 	private void Grow(ServerWorld world, Random random, BlockPos pos, BlockState state, CallbackInfo ci) {
-		if (world.getBlockState(pos).isOf(HavenMod.GILDED_NYLIUM.BLOCK)) {
-			NetherForestVegetationFeature.generate(world, random, pos.up(), HavenMod.GILDED_ROOTS_CONFIG, 3, 1);
+		if (world.getBlockState(pos).isOf(ModBase.GILDED_NYLIUM.getBlock())) {
+			NetherForestVegetationFeature.generate(world, random, pos.up(), ModBase.GILDED_ROOTS_CONFIG, 3, 1);
 		}
 	}
 }

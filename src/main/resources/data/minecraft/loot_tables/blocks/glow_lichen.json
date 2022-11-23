@@ -10,7 +10,7 @@
             {
               "condition": "minecraft:match_tool",
               "predicate": {
-                "tag": "haven:shears"
+                "tag": "c:tools/shears"
               }
             }
           ],

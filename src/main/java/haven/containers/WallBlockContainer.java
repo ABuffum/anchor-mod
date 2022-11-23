@@ -3,21 +3,24 @@ package haven.containers;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
-public class WallBlockContainer {
-	public final Block BLOCK;
-	public final Block WALL_BLOCK;
-	public final Item ITEM;
+public class WallBlockContainer implements IBlockItemContainer {
+	private final Block block;
+	public Block getBlock() { return block; }
+	private final Block wallBlock;
+	public Block getWallBlock() { return wallBlock; }
+	private final Item item;
+	public Item getItem() { return item; }
 
 	public WallBlockContainer(Block block, Block wallBlock, Item item) {
-		BLOCK = block;
-		ITEM = item;
-		WALL_BLOCK = wallBlock;
+		this.block = block;
+		this.item = item;
+		this.wallBlock = wallBlock;
 	}
 
 	public boolean contains(Block block) {
-		return block == BLOCK || block == WALL_BLOCK;
+		return block == this.getBlock() || block == getWallBlock();
 	}
 	public boolean contains(Item item) {
-		return item == ITEM;
+		return item == this.getItem();
 	}
 }

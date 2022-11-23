@@ -1,6 +1,6 @@
 package haven.blocks.gourd;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.WhiteSnowGolemEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
@@ -49,7 +49,7 @@ public class CarvedWhitePumpkinBlock extends CarvedGourdBlock {
 				world.setBlockState(cachedBlockPosition.getBlockPos(), Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS);
 				world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, cachedBlockPosition.getBlockPos(), Block.getRawIdFromState(cachedBlockPosition.getBlockState()));
 			}
-			WhiteSnowGolemEntity snowGolemEntity = (WhiteSnowGolemEntity)HavenMod.WHITE_SNOW_GOLEM_ENTITY.create(world);
+			WhiteSnowGolemEntity snowGolemEntity = (WhiteSnowGolemEntity) ModBase.WHITE_SNOW_GOLEM_ENTITY.create(world);
 			BlockPos blockPos = result.translate(0, 2, 0).getBlockPos();
 			snowGolemEntity.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);
 			world.spawnEntity(snowGolemEntity);
@@ -82,6 +82,6 @@ public class CarvedWhitePumpkinBlock extends CarvedGourdBlock {
 	}
 
 	static {
-		IS_GOLEM_HEAD_PREDICATE = (state) -> state != null && (state.isOf(HavenMod.WHITE_PUMPKIN.getCarved().BLOCK) || state.isOf(HavenMod.WHITE_JACK_O_LANTERN.BLOCK));
+		IS_GOLEM_HEAD_PREDICATE = (state) -> state != null && (state.isOf(ModBase.WHITE_PUMPKIN.getCarved().getBlock()) || state.isOf(ModBase.WHITE_JACK_O_LANTERN.getBlock()));
 	}
 }

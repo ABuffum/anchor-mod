@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "haven:block/netherite_bricks",
+    "side": "haven:block/netherite_bricks",
+    "top": "haven:block/netherite_bricks"
+  }
+}

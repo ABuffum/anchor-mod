@@ -1,12 +1,10 @@
 package haven.containers;
 
-import haven.HavenMod;
-import haven.blocks.UnlitLanternBlock;
+import haven.ModBase;
 import haven.util.OxidationScale;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Oxidizable;
-import net.minecraft.item.Item;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -38,28 +36,28 @@ public class OxidizableLanternContainer extends OxidizableBlockContainer {
 
 	public OxidizableLanternContainer(OxidizableBlockSupplier oxidizable, OxidizedUnlitLanternSupplier unlit, Function<AbstractBlock.Settings, Block> waxed, UnlitLanternSupplier waxedUnlit, OxidationScale.BlockSettingsSupplier settings) {
 		super(oxidizable, waxed, settings);
-		unlit_unaffected = unlit.get(this::getUnaffected, Oxidizable.OxidizationLevel.UNAFFECTED, HavenMod.UnlitLanternSettings());
-		unlit_exposed = unlit.get(this::getExposed, Oxidizable.OxidizationLevel.EXPOSED, HavenMod.UnlitLanternSettings());
-		unlit_weathered = unlit.get(this::getWeathered, Oxidizable.OxidizationLevel.WEATHERED, HavenMod.UnlitLanternSettings());
-		unlit_oxidized= unlit.get(this::getOxidized, Oxidizable.OxidizationLevel.OXIDIZED, HavenMod.UnlitLanternSettings());
+		unlit_unaffected = unlit.get(this::getUnaffected, Oxidizable.OxidizationLevel.UNAFFECTED, ModBase.UnlitLanternSettings());
+		unlit_exposed = unlit.get(this::getExposed, Oxidizable.OxidizationLevel.EXPOSED, ModBase.UnlitLanternSettings());
+		unlit_weathered = unlit.get(this::getWeathered, Oxidizable.OxidizationLevel.WEATHERED, ModBase.UnlitLanternSettings());
+		unlit_oxidized= unlit.get(this::getOxidized, Oxidizable.OxidizationLevel.OXIDIZED, ModBase.UnlitLanternSettings());
 
-		unlit_waxed_unaffected = waxedUnlit.get(this::getWaxedUnaffected, HavenMod.UnlitLanternSettings());
-		unlit_waxed_exposed = waxedUnlit.get(this::getWaxedExposed, HavenMod.UnlitLanternSettings());
-		unlit_waxed_weathered = waxedUnlit.get(this::getWaxedWeathered, HavenMod.UnlitLanternSettings());
-		unlit_waxed_oxidized= waxedUnlit.get(this::getWaxedOxidized, HavenMod.UnlitLanternSettings());
+		unlit_waxed_unaffected = waxedUnlit.get(this::getWaxedUnaffected, ModBase.UnlitLanternSettings());
+		unlit_waxed_exposed = waxedUnlit.get(this::getWaxedExposed, ModBase.UnlitLanternSettings());
+		unlit_waxed_weathered = waxedUnlit.get(this::getWaxedWeathered, ModBase.UnlitLanternSettings());
+		unlit_waxed_oxidized= waxedUnlit.get(this::getWaxedOxidized, ModBase.UnlitLanternSettings());
 	}
 
 	public OxidizableLanternContainer(OxidizableBlockSupplier oxidizable, OxidizedUnlitLanternSupplier unlit, Function<AbstractBlock.Settings, Block> waxed, UnlitLanternSupplier waxedUnlit, AbstractBlock.Settings settings) {
 		super(oxidizable, waxed, settings);
-		unlit_unaffected = unlit.get(this::getUnaffected, Oxidizable.OxidizationLevel.UNAFFECTED, HavenMod.UnlitLanternSettings());
-		unlit_exposed = unlit.get(this::getExposed, Oxidizable.OxidizationLevel.EXPOSED, HavenMod.UnlitLanternSettings());
-		unlit_weathered = unlit.get(this::getWeathered, Oxidizable.OxidizationLevel.WEATHERED, HavenMod.UnlitLanternSettings());
-		unlit_oxidized= unlit.get(this::getOxidized, Oxidizable.OxidizationLevel.OXIDIZED, HavenMod.UnlitLanternSettings());
+		unlit_unaffected = unlit.get(this::getUnaffected, Oxidizable.OxidizationLevel.UNAFFECTED, ModBase.UnlitLanternSettings());
+		unlit_exposed = unlit.get(this::getExposed, Oxidizable.OxidizationLevel.EXPOSED, ModBase.UnlitLanternSettings());
+		unlit_weathered = unlit.get(this::getWeathered, Oxidizable.OxidizationLevel.WEATHERED, ModBase.UnlitLanternSettings());
+		unlit_oxidized= unlit.get(this::getOxidized, Oxidizable.OxidizationLevel.OXIDIZED, ModBase.UnlitLanternSettings());
 
-		unlit_waxed_unaffected = waxedUnlit.get(this::getWaxedUnaffected, HavenMod.UnlitLanternSettings());
-		unlit_waxed_exposed = waxedUnlit.get(this::getWaxedExposed, HavenMod.UnlitLanternSettings());
-		unlit_waxed_weathered = waxedUnlit.get(this::getWaxedWeathered, HavenMod.UnlitLanternSettings());
-		unlit_waxed_oxidized= waxedUnlit.get(this::getWaxedOxidized, HavenMod.UnlitLanternSettings());
+		unlit_waxed_unaffected = waxedUnlit.get(this::getWaxedUnaffected, ModBase.UnlitLanternSettings());
+		unlit_waxed_exposed = waxedUnlit.get(this::getWaxedExposed, ModBase.UnlitLanternSettings());
+		unlit_waxed_weathered = waxedUnlit.get(this::getWaxedWeathered, ModBase.UnlitLanternSettings());
+		unlit_waxed_oxidized= waxedUnlit.get(this::getWaxedOxidized, ModBase.UnlitLanternSettings());
 	}
 
 	public boolean contains(Block block) {

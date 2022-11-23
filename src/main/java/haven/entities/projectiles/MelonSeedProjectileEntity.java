@@ -1,12 +1,11 @@
 package haven.entities.projectiles;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.ProjectileDamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
@@ -21,11 +20,11 @@ import net.minecraft.world.World;
 
 public class MelonSeedProjectileEntity extends ThrownItemEntity {
 	public MelonSeedProjectileEntity(World world, LivingEntity owner) {
-		super(HavenMod.MELON_SEED_PROJECTILE_ENTITY, owner, world);
+		super(ModBase.MELON_SEED_PROJECTILE_ENTITY, owner, world);
 	}
 
 	public MelonSeedProjectileEntity(World world, double x, double y, double z) {
-		super(HavenMod.MELON_SEED_PROJECTILE_ENTITY, x, y, z, world);
+		super(ModBase.MELON_SEED_PROJECTILE_ENTITY, x, y, z, world);
 	}
 
 	public MelonSeedProjectileEntity(EntityType<MelonSeedProjectileEntity> entityType, World world) {

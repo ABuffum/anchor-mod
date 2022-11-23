@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:bamboo_door",
+    "minecraft:mangrove_door",
+    
     "haven:bamboo_door",
     "haven:brown_mushroom_door",
     "haven:blue_mushroom_door",
@@ -10,9 +13,7 @@
     "haven:dried_bamboo_door",
     "haven:gilded_door",
     "haven:hay_door",
-    "haven:mangrove_door",
     "haven:mushroom_stem_door",
-    "haven:new_bamboo_door",
     "haven:red_mushroom_door",
     "haven:sugar_cane_door"
   ]

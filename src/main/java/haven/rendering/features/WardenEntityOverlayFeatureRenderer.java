@@ -1,6 +1,6 @@
 package haven.rendering.features;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
@@ -11,7 +11,7 @@ import net.minecraft.entity.LivingEntity;
 
 @Environment(EnvType.CLIENT)
 public class WardenEntityOverlayFeatureRenderer <T extends LivingEntity, M extends EntityModel<T>> extends EyesFeatureRenderer<T, EntityModel<T>> {
-	private static final RenderLayer SKIN = RenderLayer.getEyes(HavenMod.ID("textures/entity/warden/warden_overlay.png"));
+	private static final RenderLayer SKIN = RenderLayer.getEyes(ModBase.ID("textures/entity/warden/warden_overlay.png"));
 
 	public WardenEntityOverlayFeatureRenderer(FeatureRendererContext<T, M> featureRendererContext) {
 		super((FeatureRendererContext<T, EntityModel<T>>) featureRendererContext);

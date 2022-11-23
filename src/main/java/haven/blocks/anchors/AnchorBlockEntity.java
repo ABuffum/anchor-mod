@@ -1,6 +1,6 @@
 package haven.blocks.anchors;
 
-import haven.HavenMod;
+import haven.ModBase;
 
 import java.util.HashMap;
 
@@ -12,12 +12,12 @@ import net.minecraft.world.World;
 
 public class AnchorBlockEntity extends BlockEntity {
 	public AnchorBlockEntity(BlockPos pos, BlockState state) {
-		super(HavenMod.ANCHOR_BLOCK_ENTITY, pos, state);
+		super(ModBase.ANCHOR_BLOCK_ENTITY, pos, state);
 		this.pos = pos;
 		update(state);
 	}
 
-	private static final Identifier ERROR_TEXTURE = HavenMod.ID("textures/anchor/inactive_anchor.png");
+	private static final Identifier ERROR_TEXTURE = ModBase.ID("textures/anchor/inactive_anchor.png");
 
 	private int owner = 0;
 	public final BlockPos pos;
@@ -29,7 +29,7 @@ public class AnchorBlockEntity extends BlockEntity {
 		if (owner != this.owner) {
 			this.owner = owner;
 			if (!TEXTURE_IDS.containsKey(owner)) {
-				TEXTURE_IDS.put(owner, HavenMod.ID("textures/anchor/" + HavenMod.ANCHOR_MAP.get(owner) + "_anchor.png"));
+				TEXTURE_IDS.put(owner, ModBase.ID("textures/anchor/" + ModBase.ANCHOR_MAP.get(owner) + "_anchor.png"));
 			}
 		}
 	}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/oxidized_copper_bricks",
+    "side": "haven:block/oxidized_copper_bricks",
+    "top": "haven:block/oxidized_copper_bricks"
+  }
+}

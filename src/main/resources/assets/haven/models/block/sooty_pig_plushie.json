@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/pig_plushie",
+  "textures": {
+	"0": "haven:block/sooty_pig_plushie"
+  }
+}

@@ -1,6 +1,5 @@
 package haven.items.buckets;
 
-import haven.HavenMod;
 import haven.materials.providers.BucketProvider;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;

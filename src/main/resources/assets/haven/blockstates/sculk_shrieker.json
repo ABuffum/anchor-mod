@@ -1,10 +1,5 @@
 {
   "variants": {
-    "can_summon=false": {
-      "model": "haven:block/sculk_shrieker"
-    },
-    "can_summon=true": {
-      "model": "haven:block/sculk_shrieker_can_summon"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

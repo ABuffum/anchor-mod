@@ -20,8 +20,8 @@ public class CarvedGourdContainer {
 	public CarvedGourdContainer(Block carved, Block lantern, SoundEvent carveSound, AbstractBlock.Settings gourdSettings, AbstractBlock.Settings stemSettings, AbstractBlock.Settings attachedStemSettings, Item.Settings itemSettings) {
 		this.carved = new BlockContainer(carved, itemSettings);
 		gourd = new BlockContainer(new CarvableGourdBlock(gourdSettings, carveSound, this::getStem, this::getAttachedStem, this::getCarvedBlock, () -> new ItemStack(getSeeds(), 4)), itemSettings);
-		stemContainer = new GourdContainer.StemContainer((GourdBlock)gourd.BLOCK, stemSettings, attachedStemSettings, itemSettings);
+		stemContainer = new GourdContainer.StemContainer((GourdBlock) gourd.getBlock(), stemSettings, attachedStemSettings, itemSettings);
 	}
 
-	private CarvedGourdBlock getCarvedBlock() { return (CarvedGourdBlock)carved.BLOCK; }
+	private CarvedGourdBlock getCarvedBlock() { return (CarvedGourdBlock) carved.getBlock(); }
 }

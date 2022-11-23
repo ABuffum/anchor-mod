@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "haven:block/mangrove_roots"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

@@ -1,7 +1,7 @@
 package haven.blocks.sculk;
 
 import com.google.common.annotations.VisibleForTesting;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.events.HavenGameEvent;
 import haven.mixins.entities.LivingEntityAccessor;
 import haven.util.VectorUtils;
@@ -26,7 +26,7 @@ public class SculkCatalystBlockEntity extends BlockEntity implements GameEventLi
 	private final SculkSpreadManager spreadManager;
 
 	public SculkCatalystBlockEntity(BlockPos pos, BlockState state) {
-		super(HavenMod.SCULK_CATALYST_ENTITY, pos, state);
+		super(ModBase.SCULK_CATALYST_ENTITY, pos, state);
 		this.positionSource = new BlockPositionSource(this.pos);
 		this.spreadManager = SculkSpreadManager.create();
 	}

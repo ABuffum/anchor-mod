@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "haven:block/reinforced_deepslate"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

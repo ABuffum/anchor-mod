@@ -2,7 +2,7 @@ package haven.entities.passive;
 
 import java.util.function.Consumer;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.projectiles.MelonSeedProjectileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -154,7 +154,7 @@ public class MelonGolemEntity extends GolemEntity implements Shearable, RangedAt
 		this.world.playSoundFromEntity((PlayerEntity)null, this, SoundEvents.ENTITY_SNOW_GOLEM_SHEAR, shearedSoundCategory, 1.0F, 1.0F);
 		if (!this.world.isClient()) {
 			this.setHasPumpkin(false);
-			this.dropStack(new ItemStack(HavenMod.CARVED_MELON.ITEM), 1.7F);
+			this.dropStack(new ItemStack(ModBase.CARVED_MELON.getItem()), 1.7F);
 		}
 
 	}

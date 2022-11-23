@@ -1,16 +1,5 @@
 {
   "variants": {
-    "axis=x": {
-      "model": "haven:block/mangrove_wood",
-      "x": 90,
-      "y": 90
-    },
-    "axis=y": {
-      "model": "haven:block/mangrove_wood"
-    },
-    "axis=z": {
-      "model": "haven:block/mangrove_wood",
-      "x": 90
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

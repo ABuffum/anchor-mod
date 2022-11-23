@@ -1,8 +1,8 @@
 package haven.rendering.entities;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.cow.WarpedMooshroomEntity;
-import haven.rendering.features.WarpedMooshroomMushroomFeatureRenderer;
+import haven.rendering.features.cow.WarpedMooshroomMushroomFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class WarpedMooshroomEntityRenderer extends MobEntityRenderer<WarpedMooshroomEntity, CowEntityModel<WarpedMooshroomEntity>> {
-	private static final Identifier TEXTURE = HavenMod.ID("textures/entity/cow/warped_mooshroom.png");
+	private static final Identifier TEXTURE = ModBase.ID("textures/entity/cow/warped_mooshroom.png");
 
 	public WarpedMooshroomEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new CowEntityModel(context.getPart(EntityModelLayers.MOOSHROOM)), 0.7F);

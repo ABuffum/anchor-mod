@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "haven:block/rotten_snow_golem_plushie"},
+    "facing=east":  { "model": "haven:block/rotten_snow_golem_plushie", "y":  90},
+    "facing=south": { "model": "haven:block/rotten_snow_golem_plushie", "y": 180},
+    "facing=west":  { "model": "haven:block/rotten_snow_golem_plushie", "y": 270}
+  }
+}

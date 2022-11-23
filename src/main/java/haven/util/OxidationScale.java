@@ -61,14 +61,14 @@ public class OxidationScale {
 		Register(container.getUnaffected(), container.getExposed(), container.getWeathered(), container.getOxidized());
 	}
 	public static OxidationScale Register(OxidizableBlockContainer container) {
-		return Register(container.getUnaffected().BLOCK, container.getExposed().BLOCK, container.getWeathered().BLOCK, container.getOxidized().BLOCK);
+		return Register(container.getUnaffected().getBlock(), container.getExposed().getBlock(), container.getWeathered().getBlock(), container.getOxidized().getBlock());
 	}
 	public static OxidationScale Register(BlockContainer unaffected, BlockContainer exposed, BlockContainer weathered, BlockContainer oxidized) {
-		return Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
+		return Register(unaffected.getBlock(), exposed.getBlock(), weathered.getBlock(), oxidized.getBlock());
 	}
 	public static void Register(TorchContainer unaffected, TorchContainer exposed, TorchContainer weathered, TorchContainer oxidized) {
-		Register(unaffected.BLOCK, exposed.BLOCK, weathered.BLOCK, oxidized.BLOCK);
-		Register(unaffected.WALL_BLOCK, exposed.WALL_BLOCK, weathered.WALL_BLOCK, oxidized.WALL_BLOCK);
+		Register(unaffected.getBlock(), exposed.getBlock(), weathered.getBlock(), oxidized.getBlock());
+		Register(unaffected.getWallBlock(), exposed.getWallBlock(), weathered.getWallBlock(), oxidized.getWallBlock());
 		Register(unaffected.UNLIT.UNLIT, exposed.UNLIT.UNLIT, weathered.UNLIT.UNLIT, oxidized.UNLIT.UNLIT);
 		Register(unaffected.UNLIT.UNLIT_WALL, exposed.UNLIT.UNLIT_WALL, weathered.UNLIT.UNLIT_WALL, oxidized.UNLIT.UNLIT_WALL);
 	}

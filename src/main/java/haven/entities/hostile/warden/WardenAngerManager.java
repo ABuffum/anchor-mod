@@ -21,11 +21,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class WardenAngerManager {
-	@VisibleForTesting
-	protected static final int field_38733 = 2;
-	@VisibleForTesting
-	protected static final int maxAnger = 150;
-	private static final int angerDecreasePerTick = 1;
 	private int updateTimer;
 	int primeAnger;
 	private static final Codec<Pair<UUID, Integer>> SUSPECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -44,34 +39,33 @@ public class WardenAngerManager {
 	public static Codec<WardenAngerManager> createCodec(Predicate<Entity> suspectPredicate) {
 		return RecordCodecBuilder.create(instance -> instance.group(
 				(SUSPECT_CODEC.listOf().fieldOf("suspects"))
-						.orElse(Collections.emptyList()).forGetter(manager -> ((WardenAngerManager)manager).getSuspects()))
+						.orElse(Collections.emptyList()).forGetter(WardenAngerManager::getSuspects))
 				.apply(instance, suspectUuidsToAngerLevel ->
-						new WardenAngerManager(suspectPredicate, (List<Pair<UUID, Integer>>)suspectUuidsToAngerLevel)));
+						new WardenAngerManager(suspectPredicate, suspectUuidsToAngerLevel)));
 	}
 
 	public WardenAngerManager(Predicate<Entity> suspectPredicate, List<Pair<UUID, Integer>> suspectUuidsToAngerLevel) {
 		this.suspectPredicate = suspectPredicate;
-		this.suspects = new ArrayList();
+		this.suspects = new ArrayList<>();
 		this.suspectComparator = new SuspectComparator(this);
-		this.suspectsToAngerLevel = new Object2IntOpenHashMap<Entity>();
-		this.suspectUuidsToAngerLevel = new Object2IntOpenHashMap<UUID>(suspectUuidsToAngerLevel.size());
+		this.suspectsToAngerLevel = new Object2IntOpenHashMap<>();
+		this.suspectUuidsToAngerLevel = new Object2IntOpenHashMap<>(suspectUuidsToAngerLevel.size());
 		this.updateTimer = MathHelper.nextBetween(new Random(), 0, 2);
-		suspectUuidsToAngerLevel.forEach(suspect -> this.suspectUuidsToAngerLevel.put((UUID)suspect.getFirst(), (Integer)suspect.getSecond()));
+		suspectUuidsToAngerLevel.forEach(suspect -> this.suspectUuidsToAngerLevel.put(suspect.getFirst(), suspect.getSecond()));
 	}
 
 	private List<Pair<UUID, Integer>> getSuspects() {
-		return Streams.concat(this.suspects.stream().map(suspect -> Pair.of(suspect.getUuid(), this.suspectsToAngerLevel.getInt(suspect))), this.suspectUuidsToAngerLevel.object2IntEntrySet().stream().map(suspect -> Pair.of((UUID)suspect.getKey(), suspect.getIntValue()))).collect(Collectors.toList());
+		return Streams.concat(this.suspects.stream().map(suspect -> Pair.of(suspect.getUuid(), this.suspectsToAngerLevel.getInt(suspect))), this.suspectUuidsToAngerLevel.object2IntEntrySet().stream().map(suspect -> Pair.of(suspect.getKey(), suspect.getIntValue()))).collect(Collectors.toList());
 	}
 
 	public void tick(ServerWorld world, Predicate<Entity> suspectPredicate) {
-		--this.updateTimer;
-		if (this.updateTimer <= 0) {
+		if (--this.updateTimer <= 0) {
 			this.updateSuspectsMap(world);
 			this.updateTimer = 2;
 		}
-		Iterator objectIterator = this.suspectUuidsToAngerLevel.object2IntEntrySet().iterator();
+		Iterator<Object2IntMap.Entry<UUID>> objectIterator = this.suspectUuidsToAngerLevel.object2IntEntrySet().iterator();
 		while (objectIterator.hasNext()) {
-			Object2IntMap.Entry entry = (Object2IntMap.Entry)objectIterator.next();
+			Object2IntMap.Entry<UUID> entry = objectIterator.next();
 			int i = entry.getIntValue();
 			if (i <= 1) {
 				objectIterator.remove();
@@ -79,11 +73,11 @@ public class WardenAngerManager {
 			}
 			entry.setValue(i - 1);
 		}
-		Iterator objectIterator2 = this.suspectsToAngerLevel.object2IntEntrySet().iterator();
+		Iterator<Object2IntMap.Entry<Entity>> objectIterator2 = this.suspectsToAngerLevel.object2IntEntrySet().iterator();
 		while (objectIterator2.hasNext()) {
-			Object2IntMap.Entry entry2 = (Object2IntMap.Entry)objectIterator2.next();
+			Object2IntMap.Entry<Entity> entry2 = objectIterator2.next();
 			int j = entry2.getIntValue();
-			Entity entity = (Entity)entry2.getKey();
+			Entity entity = entry2.getKey();
 			Entity.RemovalReason removalReason = entity.getRemovalReason();
 			if (j <= 1 || !suspectPredicate.test(entity) || removalReason != null) {
 				this.suspects.remove(entity);
@@ -112,11 +106,11 @@ public class WardenAngerManager {
 	}
 
 	private void updateSuspectsMap(ServerWorld world) {
-		Iterator objectIterator = this.suspectUuidsToAngerLevel.object2IntEntrySet().iterator();
+		Iterator<Object2IntMap.Entry<UUID>> objectIterator = this.suspectUuidsToAngerLevel.object2IntEntrySet().iterator();
 		while (objectIterator.hasNext()) {
-			Object2IntMap.Entry entry = (Object2IntMap.Entry)objectIterator.next();
+			Object2IntMap.Entry<UUID> entry = objectIterator.next();
 			int i = entry.getIntValue();
-			Entity entity = world.getEntity((UUID)entry.getKey());
+			Entity entity = world.getEntity(entry.getKey());
 			if (entity == null) continue;
 			this.suspectsToAngerLevel.put(entity, i);
 			this.suspects.add(entity);
@@ -160,8 +154,8 @@ public class WardenAngerManager {
 		@Override
 		public int compare(Entity entity, Entity entity2) {
 			if (entity.equals(entity2)) return 0;
-			int i = this.angerManagement.suspectsToAngerLevel.getOrDefault((Object)entity, 0);
-			int j = this.angerManagement.suspectsToAngerLevel.getOrDefault((Object)entity2, 0);
+			int i = this.angerManagement.suspectsToAngerLevel.getOrDefault(entity, 0);
+			int j = this.angerManagement.suspectsToAngerLevel.getOrDefault(entity2, 0);
 			this.angerManagement.primeAnger = Math.max(this.angerManagement.primeAnger, Math.max(i, j));
 			boolean bl = Angriness.getForAnger(i).isAngry();
 			if (bl != Angriness.getForAnger(j).isAngry()) return bl ? -1 : 1;

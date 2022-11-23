@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": { "item": "minecraft:sugar" }
+  },
+  "pattern": [
+    " # ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "item": "haven:candy_corn"
+  }
+}

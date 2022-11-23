@@ -1,7 +1,6 @@
 package haven.containers;
 
 import haven.blocks.gourd.AttachedGourdStemBlock;
-import haven.blocks.gourd.CarvableGourdBlock;
 import haven.blocks.gourd.GourdStemBlock;
 import haven.blocks.gourd.HavenGourdBlock;
 import net.minecraft.block.*;
@@ -18,7 +17,7 @@ public class GourdContainer {
 
 	public GourdContainer(AbstractBlock.Settings gourdSettings, AbstractBlock.Settings stemSettings, AbstractBlock.Settings attachedStemSettings, Item.Settings itemSettings) {
 		gourd = new BlockContainer(new HavenGourdBlock(gourdSettings, () -> getStem(), () -> getAttachedStem()), itemSettings);
-		stemContainer = new StemContainer((GourdBlock)gourd.BLOCK, stemSettings, attachedStemSettings, itemSettings);
+		stemContainer = new StemContainer((GourdBlock) gourd.getBlock(), stemSettings, attachedStemSettings, itemSettings);
 	}
 
 	public static class StemContainer {

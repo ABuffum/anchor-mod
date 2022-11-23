@@ -1,10 +1,10 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.containers.BlockContainer;
 import haven.containers.TorchContainer;
 import haven.materials.providers.*;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import haven.sounds.ModBlockSoundGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -40,18 +40,18 @@ public class BaseFungusMaterial extends WoodMaterial implements
 		this(name, mapColor, false);
 	}
 	public BaseFungusMaterial(String name, MapColor mapColor, boolean isFlammable) {
-		super(name, mapColor, isFlammable);
-		torch = MakeTorch(14, BlockSoundGroup.WOOD, ParticleTypes.FLAME);
-		ender_torch = MakeTorch(12, BlockSoundGroup.WOOD, HavenMod.ENDER_FIRE_FLAME_PARTICLE);
-		soul_torch = MakeTorch(10, BlockSoundGroup.WOOD, ParticleTypes.SOUL_FIRE_FLAME);
+		super(name, mapColor, isFlammable, ModBlockSoundGroups.NETHER_WOOD);
+		torch = MakeTorch(ModBase.LUMINANCE_14, ModBlockSoundGroups.NETHER_WOOD, ParticleTypes.FLAME);
+		ender_torch = MakeTorch(ModBase.LUMINANCE_12, ModBlockSoundGroups.NETHER_WOOD, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		soul_torch = MakeTorch(ModBase.LUMINANCE_10, ModBlockSoundGroups.NETHER_WOOD, ParticleTypes.SOUL_FIRE_FLAME);
 		stem = new BlockContainer(new PillarBlock(AbstractBlock.Settings.of(Material.NETHER_WOOD, mapColor).strength(2.0F).sounds(BlockSoundGroup.NETHER_STEM)), ItemSettings());
-		stripped_stem = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.BLOCK)), ItemSettings());
-		hyphae = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.BLOCK)), ItemSettings());
-		stripped_hyphae = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.BLOCK)), ItemSettings());
+		stripped_stem = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.getBlock())), ItemSettings());
+		hyphae = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.getBlock())), ItemSettings());
+		stripped_hyphae = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(stem.getBlock())), ItemSettings());
 		wart = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, mapColor).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)), ItemSettings());
-		campfire = MakeCampfire(15, 1, mapColor, true);
-		ender_campfire = MakeCampfire(13, 3, mapColor, false);
-		soul_campfire = MakeCampfire(10, 2, mapColor, false);
+		campfire = MakeCampfire(15, 1, mapColor, BlockSoundGroup.NETHER_STEM, true);
+		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.NETHER_STEM, false);
+		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.NETHER_STEM, false);
 	}
 
 	public boolean contains(Block block) {

@@ -1,6 +1,6 @@
 package haven.origins.powers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.command.ChorusCommand;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.*;
@@ -16,7 +16,7 @@ public class ChorusTeleportPower extends CooldownPower implements Active {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("chorus_teleport"),
+		return new PowerFactory<>(ModBase.ID("chorus_teleport"),
 			new SerializableData()
 					.add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Active.Key())
 					.add("cooldown", SerializableDataTypes.INT, 1)

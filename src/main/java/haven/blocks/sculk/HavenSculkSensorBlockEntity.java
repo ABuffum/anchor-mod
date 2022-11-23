@@ -1,6 +1,6 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.events.HavenVibrationListener;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,7 +17,7 @@ public class HavenSculkSensorBlockEntity extends BlockEntity implements HavenVib
 	private int lastVibrationFrequency;
 
 	public HavenSculkSensorBlockEntity(BlockPos pos, BlockState state) {
-		super(HavenMod.SCULK_SENSOR_ENTITY, pos, state);
+		super(ModBase.SCULK_SENSOR_ENTITY, pos, state);
 		this.listener = new HavenVibrationListener(new BlockPositionSource(this.pos), ((HavenSculkSensorBlock)state.getBlock()).getRange(), this, null, 0.0f, 0);
 	}
 

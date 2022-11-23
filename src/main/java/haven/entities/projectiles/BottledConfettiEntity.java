@@ -1,6 +1,6 @@
 package haven.entities.projectiles;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.cloud.ConfettiCloudEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,20 +26,20 @@ public class BottledConfettiEntity extends ThrownItemEntity {
 	public BottledConfettiEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
 
 	public BottledConfettiEntity(World world, LivingEntity owner) {
-		super(HavenMod.BOTTLED_CONFETTI_ENTITY, owner, world);
+		super(ModBase.BOTTLED_CONFETTI_ENTITY, owner, world);
 	}
 
 	public BottledConfettiEntity(World world, double x, double y, double z) {
-		super(HavenMod.BOTTLED_CONFETTI_ENTITY, x, y, z, world);
+		super(ModBase.BOTTLED_CONFETTI_ENTITY, x, y, z, world);
 	}
 
 	@Override
-	protected Item getDefaultItem() { return HavenMod.BOTTLED_CONFETTI_ITEM; }
+	protected Item getDefaultItem() { return ModBase.BOTTLED_CONFETTI_ITEM; }
 
 	@Environment(EnvType.CLIENT)
 	public void handleStatus(byte status) {
 		if (status == 3) {
-			for (DyeColor color : HavenMod.COLORS) {
+			for (DyeColor color : ModBase.COLORS) {
 				ParticleEffect effect = new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(GetWoolItem(color)));
 				double speed = 0.5f;
 				for (int i = 0; i < 40; i++) {

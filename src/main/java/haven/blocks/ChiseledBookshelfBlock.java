@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenTags;
+import haven.ModTags;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ChiseledBookshelfBlock extends BlockWithEntity {
 	public static final IntProperty BOOKS_STORED = IntProperty.of("books_stored", 0, ChiseledBookshelfBlockEntity.MAX_BOOKS);
-	public static final IntProperty LAST_INTERACTION_BOOK_SLOT = IntProperty.of("last_interaction_book_slot", 0, 6);
+	public static final IntProperty LAST_INTERACTION_BOOK_SLOT = IntProperty.of("last_interaction_book_slot", 0, ChiseledBookshelfBlockEntity.MAX_BOOKS);
 
 	public ChiseledBookshelfBlock(AbstractBlock.Settings settings) {
 		super(settings);
@@ -40,7 +40,15 @@ public class ChiseledBookshelfBlock extends BlockWithEntity {
 			if (world.isClient()) return ActionResult.SUCCESS;
 			else {
 				ItemStack itemStack = player.getStackInHand(hand);
-				return itemStack.isIn(HavenTags.Items.BOOKSHELF_BOOKS) ? tryAddBook(state, world, pos, player, chiseledBookshelfBlockEntity, itemStack) : tryRemoveBook(state, world, pos, player, chiseledBookshelfBlockEntity);
+				if (chiseledBookshelfBlockEntity.isFull()) {
+					return tryRemoveBook(state, world, pos, player, chiseledBookshelfBlockEntity);
+				}
+				else if (itemStack.isIn(ModTags.Items.BOOKSHELF_BOOKS)) {
+					return tryAddBook(state, world, pos, player, chiseledBookshelfBlockEntity, itemStack);
+				}
+				else {
+					return tryRemoveBook(state, world, pos, player, chiseledBookshelfBlockEntity);
+				}
 			}
 		}
 		else return ActionResult.PASS;

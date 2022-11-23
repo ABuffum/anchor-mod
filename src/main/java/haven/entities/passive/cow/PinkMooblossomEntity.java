@@ -1,6 +1,6 @@
 package haven.entities.passive.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -100,7 +99,7 @@ public class PinkMooblossomEntity extends CowEntity implements Shearable {
 	}
 
 	public PinkMooblossomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.PINK_MOOBLOSSOM_ENTITY.create(serverWorld);
+		return ModBase.PINK_MOOBLOSSOM_ENTITY.create(serverWorld);
 	}
 
 	@Override

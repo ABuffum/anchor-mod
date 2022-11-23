@@ -6,11 +6,11 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import haven.blocks.MultifaceGrowthBlock;
 import haven.events.HavenWorldEvents;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import haven.util.CollectionUtil;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -57,11 +57,11 @@ public class SculkSpreadManager {
 	}
 
 	public static SculkSpreadManager create() {
-		return new SculkSpreadManager(false, HavenTags.Blocks.SCULK_REPLACEABLE, 10, 4, 10, 5);
+		return new SculkSpreadManager(false, ModTags.Blocks.SCULK_REPLACEABLE, 10, 4, 10, 5);
 	}
 
 	public static SculkSpreadManager createWorldGen() {
-		return new SculkSpreadManager(true, HavenTags.Blocks.SCULK_REPLACEABLE_WORLD_GEN, 50, 1, 5, 10);
+		return new SculkSpreadManager(true, ModTags.Blocks.SCULK_REPLACEABLE_WORLD_GEN, 50, 1, 5, 10);
 	}
 
 	public Tag.Identified<Block> getReplaceableTag() {
@@ -100,7 +100,7 @@ public class SculkSpreadManager {
 	public void readNbt(NbtCompound nbt) {
 		if (nbt.contains("cursors", NbtElement.LIST_TYPE)) {
 			this.cursors.clear();
-			List list = Cursor.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("cursors", NbtElement.COMPOUND_TYPE))).resultOrPartial(HavenMod.LOGGER::error).orElseGet(ArrayList::new);
+			List list = Cursor.CODEC.listOf().parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("cursors", NbtElement.COMPOUND_TYPE))).resultOrPartial(ModBase.LOGGER::error).orElseGet(ArrayList::new);
 			int i = Math.min(list.size(), 32);
 			for (int j = 0; j < i; ++j) {
 				this.addCursor((Cursor)list.get(j));
@@ -109,7 +109,7 @@ public class SculkSpreadManager {
 	}
 
 	public void writeNbt(NbtCompound nbt) {
-		Cursor.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.cursors).resultOrPartial(HavenMod.LOGGER::error).ifPresent(cursorsNbt -> nbt.put("cursors", (NbtElement)cursorsNbt));
+		Cursor.CODEC.listOf().encodeStart(NbtOps.INSTANCE, this.cursors).resultOrPartial(ModBase.LOGGER::error).ifPresent(cursorsNbt -> nbt.put("cursors", (NbtElement)cursorsNbt));
 	}
 
 	public void spread(BlockPos pos, int charge) {
@@ -238,7 +238,7 @@ public class SculkSpreadManager {
 					blockState = world.getBlockState(this.pos);
 					sculkSpreadable = Cursor.getSpreadable(blockState);
 				}
-				world.playSound(null, this.pos, HavenSoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0f, 1.0f);
+				world.playSound(null, this.pos, ModSoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0f, 1.0f);
 			}
 			this.charge = sculkSpreadable.spread(this, world, pos, random, spreadManager, shouldConvertToBlock);
 			if (this.charge <= 0) {

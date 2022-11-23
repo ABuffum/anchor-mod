@@ -1,6 +1,6 @@
 package haven.items.echo;
 
-import haven.items.basic.HavenAxeItem;
+import haven.items.basic.tool.HavenAxeItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;

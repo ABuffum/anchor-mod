@@ -1,9 +1,7 @@
 package haven.mixins;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModTags;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeManager;
@@ -24,7 +22,7 @@ public class RecipeManagerMixin {
 		Optional<T> optional = ((RecipeManager)(Object)this).getFirstMatch(type, inventory, world);
 		if (optional.isPresent()) {
 			ItemStack stack = ((Recipe)optional.get()).getOutput();
-			if (stack.isIn(HavenTags.Items.FLAVORED_MILK)) {
+			if (stack.isIn(ModTags.Items.FLAVORED_MILK)) {
 				DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 				for(int i = 0; i < defaultedList.size(); ++i) defaultedList.set(i, ItemStack.EMPTY);
 				cir.setReturnValue(defaultedList);

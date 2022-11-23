@@ -1,8 +1,8 @@
 package haven.rendering.entities.cow;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.passive.cow.OrangeMooblossomEntity;
-import haven.rendering.features.OrangeMooblossomFlowerFeatureRenderer;
+import haven.rendering.features.cow.OrangeMooblossomFlowerFeatureRenderer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class OrangeMooblossomEntityRenderer extends MobEntityRenderer<OrangeMooblossomEntity, CowEntityModel<OrangeMooblossomEntity>> {
-	private static final Identifier TEXTURE = HavenMod.ID("textures/entity/cow/orange_mooblossom.png");
+	private static final Identifier TEXTURE = ModBase.ID("textures/entity/cow/orange_mooblossom.png");
 
 	public OrangeMooblossomEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new CowEntityModel(context.getPart(EntityModelLayers.MOOSHROOM)), 0.7F);

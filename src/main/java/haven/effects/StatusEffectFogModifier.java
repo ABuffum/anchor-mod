@@ -1,6 +1,6 @@
 package haven.effects;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BackgroundRenderer;
@@ -71,7 +71,7 @@ public interface StatusEffectFogModifier {
 	public class DarknessFogModifier implements StatusEffectFogModifier {
 		public DarknessFogModifier() { }
 		@Override
-		public StatusEffect getStatusEffect() { return HavenMod.DARKNESS_EFFECT; }
+		public StatusEffect getStatusEffect() { return ModBase.DARKNESS_EFFECT; }
 		@Override
 		public void applyStartEndModifier(FogData fogData, LivingEntity entity, StatusEffectInstance effect, float viewDistance, float tickDelta) {
 			StatusEffect type = effect.getEffectType();
@@ -89,7 +89,7 @@ public interface StatusEffectFogModifier {
 	public class FlashbangedFogModifier implements StatusEffectFogModifier {
 		public FlashbangedFogModifier() { }
 		@Override
-		public StatusEffect getStatusEffect() { return HavenMod.FLASHBANGED_EFFECT; }
+		public StatusEffect getStatusEffect() { return ModBase.FLASHBANGED_EFFECT; }
 		@Override
 		public void applyStartEndModifier(FogData fogData, LivingEntity entity, StatusEffectInstance effect, float viewDistance, float tickDelta) {
 			float f = MathHelper.lerp(Math.min(1.0F, (float) effect.getDuration() / 20.0F), viewDistance, 5.0F);

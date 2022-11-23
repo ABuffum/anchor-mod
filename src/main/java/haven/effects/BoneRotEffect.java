@@ -1,14 +1,11 @@
 package haven.effects;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.damage.HavenDamageSource;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 public class BoneRotEffect extends StatusEffect {
@@ -36,7 +33,7 @@ public class BoneRotEffect extends StatusEffect {
 
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int i) {
-		if (!entity.hasStatusEffect(HavenMod.RELIEVED_EFFECT)) {
+		if (!entity.hasStatusEffect(ModBase.RELIEVED_EFFECT)) {
 			entity.damage(HavenDamageSource.BONE_ROT,1);
 		}
 		if (entity.isSprinting()) {
@@ -47,22 +44,22 @@ public class BoneRotEffect extends StatusEffect {
 
 	public static void reduce(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.BONE_ROT_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.BONE_ROT_EFFECT);
+		if (entity.hasStatusEffect(ModBase.BONE_ROT_EFFECT)) {
+			StatusEffectInstance effect = entity.getStatusEffect(ModBase.BONE_ROT_EFFECT);
 			int amplifier = effect.getAmplifier();
 			if (amplifier > 1) {
-				entity.removeStatusEffect(HavenMod.BONE_ROT_EFFECT);
-				entity.addStatusEffect(new StatusEffectInstance(HavenMod.BONE_ROT_EFFECT, effect.getDuration(), amplifier - 1));
+				entity.removeStatusEffect(ModBase.BONE_ROT_EFFECT);
+				entity.addStatusEffect(new StatusEffectInstance(ModBase.BONE_ROT_EFFECT, effect.getDuration(), amplifier - 1));
 			}
 		}
 	}
 
 	public static void increase(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.BONE_ROT_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.BONE_ROT_EFFECT);
-			entity.removeStatusEffect(HavenMod.BONE_ROT_EFFECT);
-			entity.addStatusEffect(new StatusEffectInstance(HavenMod.BONE_ROT_EFFECT, effect.getDuration(), effect.getAmplifier() + 1));
+		if (entity.hasStatusEffect(ModBase.BONE_ROT_EFFECT)) {
+			StatusEffectInstance effect = entity.getStatusEffect(ModBase.BONE_ROT_EFFECT);
+			entity.removeStatusEffect(ModBase.BONE_ROT_EFFECT);
+			entity.addStatusEffect(new StatusEffectInstance(ModBase.BONE_ROT_EFFECT, effect.getDuration(), effect.getAmplifier() + 1));
 		}
 	}
 }

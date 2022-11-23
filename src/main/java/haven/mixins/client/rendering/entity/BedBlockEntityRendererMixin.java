@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering.entity;
 
-import haven.blocks.basic.HavenBedBlock;
+import haven.blocks.basic.ModBedBlock;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BedBlockEntity;
@@ -31,7 +31,7 @@ public abstract class BedBlockEntityRendererMixin {
 		World world = bedBlockEntity.getWorld();
 		Block block = (world != null ? world.getBlockState(bedBlockEntity.getPos()) : bedBlockEntity.getCachedState()).getBlock();
 		SpriteIdentifier spriteIdentifier;
-		if (block instanceof HavenBedBlock bed) {
+		if (block instanceof ModBedBlock bed) {
 			spriteIdentifier = new SpriteIdentifier(TexturedRenderLayers.BEDS_ATLAS_TEXTURE, bed.GetTexture());
 		}
 		else {

@@ -1,6 +1,6 @@
 package haven.origins.powers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -23,7 +23,7 @@ public class PulsingSkinGlowPower extends Power {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("pulsing_skin_glow"), new SerializableData()
+		return new PowerFactory<>(ModBase.ID("pulsing_skin_glow"), new SerializableData()
 				.add("light_level", SerializableDataTypes.INT, 1)
 				.add("pulse_time", SerializableDataTypes.INT, 10)
 				.add("pulse_delay", SerializableDataTypes.INT, 100)

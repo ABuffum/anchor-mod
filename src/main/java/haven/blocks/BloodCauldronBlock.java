@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodFluid;
 import haven.blood.BloodType;
 import haven.materials.base.BaseMaterial;
@@ -40,19 +40,19 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 	public static CauldronBehavior FillFromBucket(Item bucket) {
 		return (state, world, pos, player, hand, stack)
 				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
-				HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3),
+				ModBase.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 3),
 				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 	}
 
 	public static final CauldronBehavior FILL_FROM_BOTTLE = (state, world, pos, player, hand, stack) -> {
 		Block block = state.getBlock();
-		if ((block == Blocks.CAULDRON || block == HavenMod.BLOOD_CAULDRON) && (!state.contains(LEVEL) || state.get(LEVEL) != 3) && stack.getItem() == HavenMod.BLOOD_BOTTLE) {
+		if ((block == Blocks.CAULDRON || block == ModBase.BLOOD_CAULDRON) && (!state.contains(LEVEL) || state.get(LEVEL) != 3) && stack.getItem() == ModBase.BLOOD_BOTTLE) {
 			if (!world.isClient) {
 				player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
 				player.incrementStat(Stats.USE_CAULDRON);
 				player.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
 				if (block == Blocks.CAULDRON) {
-					world.setBlockState(pos, HavenMod.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 1));
+					world.setBlockState(pos, ModBase.BLOOD_CAULDRON.getDefaultState().with(LEVEL, 1));
 				} else {
 					world.setBlockState(pos, state.with(LEVEL, state.get(LEVEL) + 1));
 				}
@@ -72,7 +72,7 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 	public static final CauldronBehavior EMPTY_TO_BOTTLE = (state, world, pos, player, hand, stack) -> {
 		if (!world.isClient) {
 			Item item = stack.getItem();
-			player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(HavenMod.BLOOD_BOTTLE)));
+			player.setStackInHand(hand, ItemUsage.exchangeStack(stack, player, new ItemStack(ModBase.BLOOD_BOTTLE)));
 			player.incrementStat(Stats.USE_CAULDRON);
 			player.incrementStat(Stats.USED.getOrCreateStat(item));
 			LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
@@ -87,7 +87,7 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 	}
 
 	public static Map<Item, CauldronBehavior> getBloodCauldronBehaviors() {
-		for(BaseMaterial material : HavenMod.MATERIALS) {
+		for(BaseMaterial material : ModBase.MATERIALS) {
 			if (material instanceof BucketProvider bucketProvider) {
 				Item bucket = bucketProvider.getBucket(), bloodBucket = bucketProvider.getBloodBucket();
 				BLOOD_CAULDRON_BEHAVIOR.put(bloodBucket, FillFromBucket(bucket));

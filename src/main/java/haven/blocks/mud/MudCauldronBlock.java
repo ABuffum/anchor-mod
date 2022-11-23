@@ -1,6 +1,6 @@
 package haven.blocks.mud;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.BucketProvider;
 import haven.util.BucketUtils;
@@ -30,7 +30,7 @@ public class MudCauldronBlock extends LeveledCauldronBlock {
 	public static CauldronBehavior FillFromBucket(Item bucket) {
 		return (state, world, pos, player, hand, stack)
 				-> BucketUtils.fillCauldron(world, pos, player, hand, stack,
-				HavenMod.MUD_CAULDRON.getDefaultState().with(LEVEL, 3),
+				ModBase.MUD_CAULDRON.getDefaultState().with(LEVEL, 3),
 				SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 	}
 
@@ -40,28 +40,24 @@ public class MudCauldronBlock extends LeveledCauldronBlock {
 				statex -> statex.get(LEVEL) > 2, SoundEvents.ITEM_BUCKET_FILL);
 	}
 
-	public MudCauldronBlock(Settings settings) {
-		super(settings, precipitation -> false, getMudCauldronBehaviors());
-	}
+	public MudCauldronBlock(Settings settings) { super(settings, precipitation -> false, getMudCauldronBehaviors()); }
 
 	public static Map<Item, CauldronBehavior> getMudCauldronBehaviors() {
-		for(BaseMaterial material : HavenMod.MATERIALS) {
+		for(BaseMaterial material : ModBase.MATERIALS) {
 			if (material instanceof BucketProvider bucketProvider) {
-				Item bucket = bucketProvider.getBucket(), bloodBucket = bucketProvider.getBloodBucket();
-				MUD_CAULDRON_BEHAVIOR.put(bloodBucket, FillFromBucket(bucket));
-				MUD_CAULDRON_BEHAVIOR.put(bucket, EmptyToBucket(bloodBucket));
+				Item bucket = bucketProvider.getBucket(), mudBucket = bucketProvider.getMudBucket();
+				MUD_CAULDRON_BEHAVIOR.put(mudBucket, FillFromBucket(bucket));
+				MUD_CAULDRON_BEHAVIOR.put(bucket, EmptyToBucket(mudBucket));
 			}
 		}
 		BucketProvider bp = BucketProvider.DEFAULT_PROVIDER;
-		MUD_CAULDRON_BEHAVIOR.put(bp.getBloodBucket(), FillFromBucket(bp.getBucket()));
-		MUD_CAULDRON_BEHAVIOR.put(bp.getBucket(), EmptyToBucket(bp.getBloodBucket()));
+		MUD_CAULDRON_BEHAVIOR.put(bp.getMudBucket(), FillFromBucket(bp.getBucket()));
+		MUD_CAULDRON_BEHAVIOR.put(bp.getBucket(), EmptyToBucket(bp.getMudBucket()));
 		return MUD_CAULDRON_BEHAVIOR;
 	}
 
 	@Override
-	protected boolean canBeFilledByDripstone(Fluid fluid) {
-		return fluid instanceof MudFluid;
-	}
+	protected boolean canBeFilledByDripstone(Fluid fluid) { return fluid instanceof MudFluid; }
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
@@ -71,17 +67,12 @@ public class MudCauldronBlock extends LeveledCauldronBlock {
 				entity.extinguish();
 				shouldDrain = true;
 			}
-
-			if (shouldDrain && entity.canModifyAt(world, pos)) {
-				decrementFluidLevel(state, world, pos);
-			}
+			if (shouldDrain && entity.canModifyAt(world, pos)) decrementFluidLevel(state, world, pos);
 		}
 	}
 
 	@Override
-	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return Items.CAULDRON.getDefaultStack();
-	}
+	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) { return Items.CAULDRON.getDefaultStack(); }
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {

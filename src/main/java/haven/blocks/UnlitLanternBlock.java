@@ -7,7 +7,6 @@ import net.minecraft.block.LanternBlock;
 import net.minecraft.block.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -17,7 +16,7 @@ import java.util.function.Supplier;
 public class UnlitLanternBlock extends LanternBlock {
 	private LanternSupplier getPickStack;
 	public UnlitLanternBlock(Supplier<BlockContainer> getBlock) { this(getBlock, ItemSettings()); }
-	public UnlitLanternBlock(Supplier<BlockContainer> getBlock, Settings settings) { this(() -> getBlock.get().ITEM, settings); }
+	public UnlitLanternBlock(Supplier<BlockContainer> getBlock, Settings settings) { this(() -> getBlock.get().getItem(), settings); }
 	public UnlitLanternBlock(LanternSupplier getPickStack) { this(getPickStack, ItemSettings()); }
 	public UnlitLanternBlock(LanternSupplier getPickStack, Settings settings) {
 		super(settings);

@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -29,7 +29,7 @@ public class StrawberryBushBlock extends PlantBlock implements Fertilizable {
 	}
 
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
-		return new ItemStack(HavenMod.STRAWBERRY);
+		return new ItemStack(ModBase.STRAWBERRY);
 	}
 
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -59,7 +59,7 @@ public class StrawberryBushBlock extends PlantBlock implements Fertilizable {
 			return ActionResult.PASS;
 		} else if (i > 2) {
 			int j = 1 + world.random.nextInt(2);
-			dropStack(world, pos, new ItemStack(HavenMod.STRAWBERRY, j));
+			dropStack(world, pos, new ItemStack(ModBase.STRAWBERRY, j));
 			world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0F, 0.8F + world.random.nextFloat() * 0.4F);
 			world.setBlockState(pos, state.with(AGE, 2), Block.NOTIFY_LISTENERS);
 			return ActionResult.success(world.isClient);

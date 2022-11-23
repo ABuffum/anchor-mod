@@ -1,9 +1,8 @@
 package haven.effects;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.damage.HavenDamageSource;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectType;
@@ -32,8 +31,8 @@ public class WitheringEffect extends StatusEffect {
 
 	@Override
 	public void applyUpdateEffect(LivingEntity entity, int i) {
-		if (entity.hasStatusEffect(HavenMod.PROTECTED_EFFECT)) return;
-		if (!entity.hasStatusEffect(HavenMod.RELIEVED_EFFECT)) {
+		if (entity.hasStatusEffect(ModBase.PROTECTED_EFFECT)) return;
+		if (!entity.hasStatusEffect(ModBase.RELIEVED_EFFECT)) {
 			entity.damage(HavenDamageSource.WITHERING,1);
 		}
 		increase(entity.world, entity);
@@ -41,23 +40,23 @@ public class WitheringEffect extends StatusEffect {
 
 	public static void reduce(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT);
+		if (entity.hasStatusEffect(ModBase.WITHERING_EFFECT)) {
+			StatusEffectInstance effect = entity.getStatusEffect(ModBase.WITHERING_EFFECT);
 			int amplifier = effect.getAmplifier();
 			if (amplifier > 1) {
-				entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
-				entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), amplifier - 1));
+				entity.removeStatusEffect(ModBase.WITHERING_EFFECT);
+				entity.addStatusEffect(new StatusEffectInstance(ModBase.WITHERING_EFFECT, effect.getDuration(), amplifier - 1));
 			}
 		}
 	}
 
 	public static void increase(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT);
-			entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
+		if (entity.hasStatusEffect(ModBase.WITHERING_EFFECT)) {
+			StatusEffectInstance effect = entity.getStatusEffect(ModBase.WITHERING_EFFECT);
+			entity.removeStatusEffect(ModBase.WITHERING_EFFECT);
 			int amplifier = effect.getAmplifier();
-			entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), amplifier < 7 ? amplifier + 1 : amplifier, true, false));
+			entity.addStatusEffect(new StatusEffectInstance(ModBase.WITHERING_EFFECT, effect.getDuration(), amplifier < 7 ? amplifier + 1 : amplifier, true, false));
 		}
 	}
 }

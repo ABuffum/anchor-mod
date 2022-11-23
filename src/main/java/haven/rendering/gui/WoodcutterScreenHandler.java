@@ -1,7 +1,7 @@
 package haven.rendering.gui;
 
 import com.google.common.collect.Lists;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.WoodcutterBlock;
 import haven.recipes.WoodcuttingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,7 +37,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
 	}
 
 	public WoodcutterScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
-		super(HavenMod.WOODCUTTER_SCREEN_HANDLER, syncId);
+		super(ModBase.WOODCUTTER_SCREEN_HANDLER, syncId);
 		this.selectedRecipe = Property.create();
 		this.availableRecipes = Lists.newArrayList();
 		this.inputStack = ItemStack.EMPTY;
@@ -115,7 +115,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
 		this.selectedRecipe.set(-1);
 		this.outputSlot.setStack(ItemStack.EMPTY);
 		if (!stack.isEmpty()) {
-			this.availableRecipes = this.world.getRecipeManager().getAllMatches(HavenMod.WOODCUTTING_RECIPE_TYPE, input, this.world);
+			this.availableRecipes = this.world.getRecipeManager().getAllMatches(ModBase.WOODCUTTING_RECIPE_TYPE, input, this.world);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
 		this.sendContentUpdates();
 	}
 
-	public ScreenHandlerType<?> getType() { return HavenMod.WOODCUTTER_SCREEN_HANDLER; }
+	public ScreenHandlerType<?> getType() { return ModBase.WOODCUTTER_SCREEN_HANDLER; }
 
 	public void setContentsChangedListener(Runnable contentsChangedListener) {
 		this.contentsChangedListener = contentsChangedListener;
@@ -153,7 +153,7 @@ public class WoodcutterScreenHandler extends ScreenHandler {
 			} else if (index == 0) {
 				if (!this.insertItem(itemStack2, 2, 38, false)) return ItemStack.EMPTY;
 			}
-			else if (this.world.getRecipeManager().getFirstMatch(HavenMod.WOODCUTTING_RECIPE_TYPE, new SimpleInventory(itemStack2), this.world).isPresent()) {
+			else if (this.world.getRecipeManager().getFirstMatch(ModBase.WOODCUTTING_RECIPE_TYPE, new SimpleInventory(itemStack2), this.world).isPresent()) {
 				if (!this.insertItem(itemStack2, 0, 1, false)) return ItemStack.EMPTY;
 			}
 			else if (index >= 2 && index < 29) {

@@ -1,6 +1,6 @@
 package haven.util;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.mixins.blocks.AbstractCauldronBlockInvoker;
 import haven.mixins.DimensionTypeAccessor;
 import net.minecraft.block.*;
@@ -37,7 +37,7 @@ public class PointedDripstoneUtils {
 			BlockPos blockPos = pos.up();
 			BlockState blockState = world.getBlockState(blockPos);
 			DimensionType dimension = world.getDimension();
-			Fluid fluid = blockState.isOf(HavenMod.MUD.BLOCK) && !((DimensionTypeAccessor)dimension).getUltrawarm() ? Fluids.WATER : world.getFluidState(blockPos).getFluid();
+			Fluid fluid = blockState.isOf(ModBase.MUD.getBlock()) && !((DimensionTypeAccessor)dimension).getUltrawarm() ? Fluids.WATER : world.getFluidState(blockPos).getFluid();
 			return new DrippingFluid(blockPos, fluid, blockState);
 		});
 	}

@@ -19,10 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "haven.HavenMod"
+      "haven.ModBase"
     ],
     "client" : [
-      "haven.HavenModClient"
+      "haven.ModClient"
+    ],
+    "fabric-datagen": [
+      "haven.ModDatagen"
     ]
   },
   "mixins": [

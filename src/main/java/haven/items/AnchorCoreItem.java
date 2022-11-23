@@ -1,6 +1,6 @@
 package haven.items;
 
-import haven.HavenMod;
+import haven.ModBase;
 
 import haven.blocks.anchors.AnchorBlock;
 import haven.blocks.anchors.SubstituteAnchorBlock;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 public class AnchorCoreItem extends Item {
 	public final int owner;
 	public AnchorCoreItem(int owner) {
-		super(HavenMod.ItemSettings());
+		super(ModBase.ItemSettings());
 		this.owner = owner;
 	}
 	
@@ -52,7 +52,7 @@ public class AnchorCoreItem extends Item {
 			}
 		}
 		else if (block instanceof RespawnAnchorBlock) {
-			BlockState newState = HavenMod.SUBSTITUTE_ANCHOR_BLOCK.getDefaultState();
+			BlockState newState = ModBase.SUBSTITUTE_ANCHOR_BLOCK.getDefaultState();
 			world.setBlockState(pos, newState.with(AnchorBlock.OWNER, this.owner));
 			Hand hand = context.getHand();
 			ItemStack itemStack = player.getStackInHand(hand);

@@ -1,6 +1,7 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
+import haven.origins.powers.PowersUtil;
 import haven.origins.powers.UnfreezingPower;
 import net.minecraft.block.PowderSnowBlock;
 import net.minecraft.entity.Entity;
@@ -19,10 +20,10 @@ public class PowderSnowBlockMixin {
 	private static void CanWalkOnPowderSnow(Entity entity, CallbackInfoReturnable<Boolean> cir) {
 		if (entity instanceof LivingEntity livingEntity) {
 			Item item = livingEntity.getEquippedStack(EquipmentSlot.FEET).getItem();
-			if (item == Items.LEATHER_BOOTS || item == HavenMod.STUDDED_LEATHER_MATERIAL.getBoots()){
+			if (item == Items.LEATHER_BOOTS || item == ModBase.STUDDED_LEATHER_MATERIAL.getBoots()){
 				cir.setReturnValue(true);
 			}
-			if (UnfreezingPower.HasActivePower(entity)) cir.setReturnValue(true);
+			if (PowersUtil.Active(entity, UnfreezingPower.class)) cir.setReturnValue(true);
 		}
 	}
 }

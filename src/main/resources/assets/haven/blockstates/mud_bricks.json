@@ -1,7 +1,5 @@
 {
   "variants": {
-    "": {
-      "model": "haven:block/mud_bricks_north_west_mirrored"
-    }
+    "": { "model": "haven:block/_deprecated" }
   }
 }

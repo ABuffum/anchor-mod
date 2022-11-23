@@ -1,0 +1,9 @@
+
+{
+  "variants": {
+    "facing=north": { "model": "haven:block/white_axolotl_plushie"},
+    "facing=east":  { "model": "haven:block/white_axolotl_plushie", "y":  90},
+    "facing=south": { "model": "haven:block/white_axolotl_plushie", "y": 180},
+    "facing=west":  { "model": "haven:block/white_axolotl_plushie", "y": 270}
+  }
+}

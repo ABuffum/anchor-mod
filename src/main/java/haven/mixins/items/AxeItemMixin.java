@@ -1,13 +1,12 @@
 package haven.mixins.items;
 
 import com.google.common.collect.BiMap;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.util.OxidationScale;
 import haven.util.StrippedBlockUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
@@ -49,15 +48,15 @@ public class AxeItemMixin {
 		Block block = world.getBlockState(blockPos).getBlock();
 		//Strip cassia logs for cinnamon, charred logs for charcoal
 		boolean optional1 = false;
-		if (block == HavenMod.CASSIA_MATERIAL.getLog().BLOCK) {
-			Block.dropStack(world, blockPos, new ItemStack(HavenMod.CINNAMON, 4));
+		if (block == ModBase.CASSIA_MATERIAL.getLog().getBlock()) {
+			Block.dropStack(world, blockPos, new ItemStack(ModBase.CINNAMON, 4));
 			optional1 = true;
 		}
-		else if (block == HavenMod.CASSIA_MATERIAL.getWood().BLOCK) {
-			Block.dropStack(world, blockPos, new ItemStack(HavenMod.CINNAMON, 6));
+		else if (block == ModBase.CASSIA_MATERIAL.getWood().getBlock()) {
+			Block.dropStack(world, blockPos, new ItemStack(ModBase.CINNAMON, 6));
 			optional1 = true;
 		}
-		else if (block == HavenMod.CHARRED_MATERIAL.getLog().BLOCK || block == HavenMod.CHARRED_MATERIAL.getWood().BLOCK) {
+		else if (block == ModBase.CHARRED_MATERIAL.getLog().getBlock() || block == ModBase.CHARRED_MATERIAL.getWood().getBlock()) {
 			Block.dropStack(world, blockPos, new ItemStack(Items.CHARCOAL, 1));
 			optional1 = true;
 		}

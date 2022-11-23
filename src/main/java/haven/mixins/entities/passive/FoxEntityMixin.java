@@ -3,6 +3,7 @@ package haven.mixins.entities.passive;
 import haven.entities.ai.MoveToHuntGoal;
 import haven.mixins.entities.LivingEntityAccessor;
 import haven.origins.powers.AttackedByFoxesPower;
+import haven.origins.powers.PowersUtil;
 import haven.origins.powers.ScareFoxesPower;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -26,12 +27,12 @@ public abstract class FoxEntityMixin extends AnimalEntity {
 
 	@Inject(method = "initGoals", at = @At("TAIL"))
 	private void addGoals(CallbackInfo info) {
-		Goal fleeGoal = new FleeEntityGoal<>(this, PlayerEntity.class, ScareFoxesPower::HasActivePower, 16.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test);
+		Goal fleeGoal = new FleeEntityGoal<>(this, PlayerEntity.class, ScareFoxesPower::Active, 16.0F, 1.6D, 1.4D, EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR::test);
 		this.goalSelector.add(4, fleeGoal);
 		Goal moveToHuntGoal = new MoveToHuntGoal(this, 36, 1.5D) {
 			public boolean canTarget(LivingEntity target) {
 				return target != null && target.isAlive()
-						&& AttackedByFoxesPower.HasActivePower(target)
+						&& PowersUtil.Active(target, AttackedByFoxesPower.class)
 						&& !entity.isInSneakingPose()
 						&& !((FoxEntity)entity).isRollingHead() && !((LivingEntityAccessor)entity).getJumping();
 			}

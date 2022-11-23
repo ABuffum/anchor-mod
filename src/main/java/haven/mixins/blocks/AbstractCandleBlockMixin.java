@@ -1,10 +1,11 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.cake.CakeContainer;
 import net.minecraft.block.AbstractCandleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -29,24 +30,33 @@ public abstract class AbstractCandleBlockMixin extends Block {
 	@Inject(method="randomDisplayTick", at = @At("HEAD"), cancellable = true)
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random, CallbackInfo ci) {
 		Block block = state.getBlock();
-		boolean isSoulCandle = block == HavenMod.SOUL_CANDLE.BLOCK || block == HavenMod.SOUL_CANDLE_CAKE;
-		if (!isSoulCandle) {
+		boolean isSoulCandle = block == ModBase.SOUL_CANDLE.getBlock() || block == ModBase.SOUL_CANDLE_CAKE;
+		boolean isEnderCandle = block == ModBase.ENDER_CANDLE.getBlock() || block == ModBase.ENDER_CANDLE_CAKE;
+		if (!(isSoulCandle || isEnderCandle)) {
 			for(CakeContainer.Flavor flavor : CakeContainer.Flavor.FLAVORS) {
 				if (block == flavor.getSoulCandleCake()) {
 					isSoulCandle = true;
 					break;
 				}
+				else if (block == flavor.getEnderCandleCake()) {
+					isEnderCandle = true;
+					break;
+				}
 			}
 		}
-		if (isSoulCandle) {
+		DefaultParticleType particles = null;
+		if (isSoulCandle) particles = ModBase.SMALL_SOUL_FLAME_PARTICLE;
+		else if (isEnderCandle) particles = ModBase.SMALL_ENDER_FLAME_PARTICLE;
+		if (particles != null) {
 			if (state.get(AbstractCandleBlock.LIT)) {
-				this.getParticleOffsets(state).forEach((offset) -> SpawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random));
+				DefaultParticleType finalParticles = particles;
+				this.getParticleOffsets(state).forEach((offset) -> SpawnCandleParticles(world, offset.add(pos.getX(), pos.getY(), pos.getZ()), random, finalParticles));
 			}
 			ci.cancel();
 		}
 	}
 
-	private static void SpawnCandleParticles(World world, Vec3d vec3d, Random random) {
+	private static void SpawnCandleParticles(World world, Vec3d vec3d, Random random, DefaultParticleType particles) {
 		float f = random.nextFloat();
 		if (f < 0.3F) {
 			world.addParticle(ParticleTypes.SMOKE, vec3d.x, vec3d.y, vec3d.z, 0.0D, 0.0D, 0.0D);
@@ -54,6 +64,6 @@ public abstract class AbstractCandleBlockMixin extends Block {
 				world.playSound(vec3d.x + 0.5D, vec3d.y + 0.5D, vec3d.z + 0.5D, SoundEvents.BLOCK_CANDLE_AMBIENT, SoundCategory.BLOCKS, 1.0F + random.nextFloat(), random.nextFloat() * 0.7F + 0.3F, false);
 			}
 		}
-		world.addParticle(HavenMod.SMALL_SOUL_FLAME_PARTICLE, vec3d.x, vec3d.y, vec3d.z, 0.0D, 0.0D, 0.0D);
+		world.addParticle(particles, vec3d.x, vec3d.y, vec3d.z, 0.0D, 0.0D, 0.0D);
 	}
 }

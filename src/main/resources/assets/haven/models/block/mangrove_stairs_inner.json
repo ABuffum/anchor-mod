@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "haven:block/mangrove_planks",
-    "side": "haven:block/mangrove_planks",
-    "top": "haven:block/mangrove_planks"
-  }
-}

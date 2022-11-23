@@ -1,7 +1,7 @@
 package haven.entities.passive.cow;
 
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -13,7 +13,6 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -43,11 +42,11 @@ public class GildedMooshroomEntity extends CowEntity implements Shearable {
 	}
 
 	public float getPathfindingFavor(BlockPos pos, WorldView world) {
-		return world.getBlockState(pos.down()).isOf(HavenMod.GILDED_NYLIUM.BLOCK) ? 10.0F : world.getBrightness(pos) - 0.5F;
+		return world.getBlockState(pos.down()).isOf(ModBase.GILDED_NYLIUM.getBlock()) ? 10.0F : world.getBrightness(pos) - 0.5F;
 	}
 
 	public static boolean canSpawn(EntityType<GildedMooshroomEntity> type, WorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
-		return world.getBlockState(pos.down()).isOf(HavenMod.GILDED_NYLIUM.BLOCK) && world.getBaseLightLevel(pos, 0) > 8;
+		return world.getBlockState(pos.down()).isOf(ModBase.GILDED_NYLIUM.getBlock()) && world.getBaseLightLevel(pos, 0) > 8;
 	}
 
 	public ActionResult interactMob(PlayerEntity player, Hand hand) {
@@ -103,7 +102,7 @@ public class GildedMooshroomEntity extends CowEntity implements Shearable {
 			this.world.spawnEntity(cowEntity);
 
 			for(int i = 0; i < 5; ++i) {
-				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(HavenMod.GILDED_MATERIAL.getFungus().ITEM)));
+				this.world.spawnEntity(new ItemEntity(this.world, this.getX(), this.getBodyY(1.0D), this.getZ(), new ItemStack(ModBase.GILDED_MATERIAL.getFungus().getItem())));
 			}
 		}
 
@@ -114,7 +113,7 @@ public class GildedMooshroomEntity extends CowEntity implements Shearable {
 	}
 
 	public GildedMooshroomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.GILDED_MOOSHROOM_ENTITY.create(serverWorld);
+		return ModBase.GILDED_MOOSHROOM_ENTITY.create(serverWorld);
 	}
 
 	@Override

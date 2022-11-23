@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,16 +24,14 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class HavenCandleCakeBlock extends AbstractCandleBlock {
-	public static final BooleanProperty LIT;
-	protected static final VoxelShape CAKE_SHAPE;
-	protected static final VoxelShape CANDLE_SHAPE;
-	protected static final VoxelShape SHAPE;
-	private static final Iterable<Vec3d> PARTICLE_OFFSETS;
+	public static final BooleanProperty LIT = AbstractCandleBlock.LIT;
+	protected static final VoxelShape SHAPE = VoxelShapes.union(Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D), Block.createCuboidShape(7.0D, 8.0D, 7.0D, 9.0D, 14.0D, 9.0D));
+	private static final Iterable<Vec3d> PARTICLE_OFFSETS = ImmutableList.of(new Vec3d(0.5D, 1.0D, 0.5D));
 
-	private CakeContainer.Flavor flavor;
+	private final CakeContainer.Flavor flavor;
 	public CakeContainer.Flavor getFlavor() { return flavor; }
 	public HavenCandleCakeBlock(CakeContainer.Flavor flavor, int candleLuminance) {
-		this(flavor, HavenCakeBlock.Settings().luminance((state) -> state.get(CandleBlock.LIT) ?  candleLuminance : 0));
+		this(flavor, HavenCakeBlock.Settings().luminance((state) -> state.get(CandleBlock.LIT) ? candleLuminance : 0));
 	}
 	public HavenCandleCakeBlock(CakeContainer.Flavor flavor, AbstractBlock.Settings settings) {
 		super(settings);
@@ -42,13 +39,9 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 		this.setDefaultState(this.stateManager.getDefaultState().with(LIT, false));
 	}
 
-	protected Iterable<Vec3d> getParticleOffsets(BlockState state) {
-		return PARTICLE_OFFSETS;
-	}
+	protected Iterable<Vec3d> getParticleOffsets(BlockState state) { return PARTICLE_OFFSETS; }
 
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-		return SHAPE;
-	}
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) { return SHAPE; }
 
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack itemStack = player.getStackInHand(hand);
@@ -56,31 +49,29 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 			if (isHittingCandle(hit) && player.getStackInHand(hand).isEmpty() && state.get(LIT)) {
 				extinguish(player, state, world, pos);
 				return ActionResult.success(world.isClient);
-			} else {
-				Block output = flavor != null ? flavor.getCake().BLOCK : Blocks.CAKE;
+			}
+			else {
+				Block output = flavor != null ? flavor.getCake().getBlock() : Blocks.CAKE;
 				ActionResult actionResult = HavenCakeBlock.tryEat(world, pos, output.getDefaultState(), player, flavor);
 				if (actionResult.isAccepted()) dropStacks(state, world, pos);
 				return actionResult;
 			}
-		} else {
-			return ActionResult.PASS;
 		}
+		else return ActionResult.PASS;
 	}
 
 	private static boolean isHittingCandle(BlockHitResult hitResult) {
 		return hitResult.getPos().y - (double)hitResult.getBlockPos().getY() > 0.5D;
 	}
 
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(LIT);
-	}
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(LIT); }
 
 	public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
 		Block block = state.getBlock();
 		Item item = Items.CAKE;
 		if (block instanceof HavenCandleCakeBlock candleCake) {
 			CakeContainer.Flavor flavor = candleCake.getFlavor();
-			item = flavor != null ? flavor.getCake().ITEM : Items.CAKE;
+			item = flavor != null ? flavor.getCake().getItem() : Items.CAKE;
 		}
 		return new ItemStack(item);
 	}
@@ -89,33 +80,11 @@ public class HavenCandleCakeBlock extends AbstractCandleBlock {
 		return direction == Direction.DOWN && !state.canPlaceAt(world, pos) ? Blocks.AIR.getDefaultState() : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
 	}
 
-	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-		return world.getBlockState(pos.down()).getMaterial().isSolid();
-	}
+	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) { return world.getBlockState(pos.down()).getMaterial().isSolid(); }
 
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return HavenCakeBlock.DEFAULT_COMPARATOR_OUTPUT;
-	}
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) { return HavenCakeBlock.DEFAULT_COMPARATOR_OUTPUT; }
 
-	public boolean hasComparatorOutput(BlockState state) {
-		return true;
-	}
+	public boolean hasComparatorOutput(BlockState state) { return true; }
 
-	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
-		return false;
-	}
-
-	public static boolean canBeLit(BlockState state) {
-		return state.isIn(BlockTags.CANDLE_CAKES, (statex) -> {
-			return statex.contains(LIT) && !(Boolean)state.get(LIT);
-		});
-	}
-
-	static {
-		LIT = AbstractCandleBlock.LIT;
-		CAKE_SHAPE = Block.createCuboidShape(1.0D, 0.0D, 1.0D, 15.0D, 8.0D, 15.0D);
-		CANDLE_SHAPE = Block.createCuboidShape(7.0D, 8.0D, 7.0D, 9.0D, 14.0D, 9.0D);
-		SHAPE = VoxelShapes.union(CAKE_SHAPE, CANDLE_SHAPE);
-		PARTICLE_OFFSETS = ImmutableList.of(new Vec3d(0.5D, 1.0D, 0.5D));
-	}
+	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) { return false; }
 }

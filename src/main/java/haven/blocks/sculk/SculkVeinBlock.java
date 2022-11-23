@@ -1,10 +1,10 @@
 package haven.blocks.sculk;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import haven.blocks.LichenGrower;
 import haven.blocks.MultifaceGrowthBlock;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import haven.util.CollectionUtil;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.Random;
 
 public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreadable, Waterloggable {
-	private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+	public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 	private final LichenGrower allGrowTypeGrower = new LichenGrower(new SculkVeinGrowChecker(LichenGrower.GROW_TYPES));
 	private final LichenGrower samePositionOnlyGrower = new LichenGrower(new SculkVeinGrowChecker(LichenGrower.GrowType.SAME_POSITION));
 
@@ -43,7 +43,7 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 
 	public static boolean place(World world, BlockPos pos, BlockState state, Collection<Direction> directions) {
 		boolean bl = false;
-		BlockState blockState = HavenMod.SCULK_VEIN.BLOCK.getDefaultState();
+		BlockState blockState = ModBase.SCULK_VEIN.getBlock().getDefaultState();
 		for (Direction direction : directions) {
 			BlockPos blockPos;
 			if (!SculkVeinBlock.canGrowOn(world, direction, blockPos = pos.offset(direction), world.getBlockState(blockPos))) continue;
@@ -61,7 +61,7 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 		if (!state.isOf(this)) return;
 		for (Direction direction : DIRECTIONS) {
 			BooleanProperty booleanProperty = SculkVeinBlock.getProperty(direction);
-			if (!state.get(booleanProperty) || !world.getBlockState(pos.offset(direction)).isOf(HavenMod.SCULK.BLOCK)) continue;
+			if (!state.get(booleanProperty) || !world.getBlockState(pos.offset(direction)).isOf(ModBase.SCULK.getBlock())) continue;
 			state = state.with(booleanProperty, false);
 		}
 		if (!SculkVeinBlock.hasAnyDirection(state)) {
@@ -85,10 +85,10 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 			BlockPos blockPos;
 			BlockState blockState2;
 			if (!SculkVeinBlock.hasDirection(blockState, direction) || !(blockState2 = world.getBlockState(blockPos = pos.offset(direction))).isIn(tagKey)) continue;
-			BlockState blockState3 = HavenMod.SCULK.BLOCK.getDefaultState();
+			BlockState blockState3 = ModBase.SCULK.getBlock().getDefaultState();
 			world.setBlockState(blockPos, blockState3, Block.NOTIFY_ALL);
 			Block.pushEntitiesUpBeforeBlockChange(blockState2, blockState3, world, blockPos);
-			world.playSound(null, blockPos, HavenSoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0f, 1.0f);
+			world.playSound(null, blockPos, ModSoundEvents.BLOCK_SCULK_SPREAD, SoundCategory.BLOCKS, 1.0f, 1.0f);
 			this.allGrowTypeGrower.grow(blockState3, world, blockPos, spreadManager.isWorldGen());
 			Direction direction2 = direction.getOpposite();
 			for (Direction direction3 : DIRECTIONS) {
@@ -103,9 +103,9 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 	}
 
 	public static boolean veinCoversSculkReplaceable(World world, BlockState state, BlockPos pos) {
-		if (!state.isOf(HavenMod.SCULK_VEIN.BLOCK)) return false;
+		if (!state.isOf(ModBase.SCULK_VEIN.getBlock())) return false;
 		for (Direction direction : DIRECTIONS) {
-			if (!SculkVeinBlock.hasDirection(state, direction) || !world.getBlockState(pos.offset(direction)).isIn(HavenTags.Blocks.SCULK_REPLACEABLE)) continue;
+			if (!SculkVeinBlock.hasDirection(state, direction) || !world.getBlockState(pos.offset(direction)).isIn(ModTags.Blocks.SCULK_REPLACEABLE)) continue;
 			return true;
 		}
 		return false;
@@ -125,7 +125,7 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 
 	@Override
 	public boolean canReplace(BlockState state, ItemPlacementContext context) {
-		return !context.getStack().isOf(HavenMod.SCULK_VEIN.ITEM) || super.canReplace(state, context);
+		return !context.getStack().isOf(ModBase.SCULK_VEIN.getItem()) || super.canReplace(state, context);
 	}
 
 	@Override
@@ -151,7 +151,7 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 		public boolean canGrow(BlockView world, BlockPos pos, BlockPos growPos, Direction direction, BlockState state) {
 			BlockPos blockPos;
 			BlockState blockState = world.getBlockState(growPos.offset(direction));
-			if (blockState.isOf(HavenMod.SCULK.BLOCK) || blockState.isOf(HavenMod.SCULK_CATALYST.BLOCK) || blockState.isOf(Blocks.MOVING_PISTON)) return false;
+			if (blockState.isOf(ModBase.SCULK.getBlock()) || blockState.isOf(ModBase.SCULK_CATALYST.getBlock()) || blockState.isOf(Blocks.MOVING_PISTON)) return false;
 			if (pos.getManhattanDistance(growPos) == 2 && world.getBlockState(blockPos = pos.offset(direction.getOpposite())).isSideSolidFullSquare(world, blockPos, direction)) {
 				return false;
 			}
@@ -166,6 +166,6 @@ public class SculkVeinBlock extends MultifaceGrowthBlock implements SculkSpreada
 		public LichenGrower.GrowType[] getGrowTypes() { return this.growTypes; }
 
 		@Override
-		public boolean canGrow(BlockState state) { return !state.isOf(HavenMod.SCULK_VEIN.BLOCK); }
+		public boolean canGrow(BlockState state) { return !state.isOf(ModBase.SCULK_VEIN.getBlock()); }
 	}
 }

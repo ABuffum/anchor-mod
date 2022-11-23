@@ -1,7 +1,6 @@
 package haven.util;
 
-import com.mojang.datafixers.types.templates.Check;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.damage.HavenDamageSource;
 import haven.effects.BoneRotEffect;
 import haven.mixins.entities.LivingEntityAccessor;
@@ -10,7 +9,6 @@ import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 import java.util.Iterator;
@@ -35,7 +33,7 @@ public class MilkUtils {
 		LivingEntityAccessor lea = (LivingEntityAccessor)entity;
 		for(bl = false; iterator.hasNext(); bl = true) {
 			StatusEffectInstance effect = iterator.next();
-			if (!HavenMod.MILK_IMMUNE_EFFECTS.contains(effect.getEffectType())){
+			if (!ModBase.MILK_IMMUNE_EFFECTS.contains(effect.getEffectType())){
 				lea.OnStatusEffectRemoved(effect);
 				iterator.remove();
 			}

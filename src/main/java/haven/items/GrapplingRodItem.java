@@ -1,6 +1,5 @@
 package haven.items;
 
-import haven.HavenMod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;

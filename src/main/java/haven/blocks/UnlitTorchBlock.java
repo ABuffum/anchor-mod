@@ -1,22 +1,14 @@
 package haven.blocks;
 
-import haven.HavenMod;
-import net.minecraft.advancement.criterion.Criteria;
+import haven.ModBase;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.CampfireCookingRecipe;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,14 +17,12 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import java.util.Optional;
 import java.util.Random;
-import java.util.function.Consumer;
 
 public class UnlitTorchBlock extends TorchBlock {
 	private final Block lit;
 	public UnlitTorchBlock(Block lit) {
-		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
+		super(AbstractBlock.Settings.copy(lit).luminance(ModBase.LUMINANCE_0), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

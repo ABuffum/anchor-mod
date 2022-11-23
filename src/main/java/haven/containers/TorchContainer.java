@@ -1,6 +1,6 @@
 package haven.containers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.*;
 import haven.blocks.basic.HavenTorchBlock;
 import haven.blocks.basic.HavenWallTorchBlock;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class TorchContainer extends WallBlockContainer {
 	public final Unlit UNLIT;
 	public TorchContainer(AbstractBlock.Settings settings, ParticleEffect particle) {
-		this(settings, particle, HavenMod.ItemSettings());
+		this(settings, particle, ModBase.ItemSettings());
 	}
 
 	public TorchContainer(AbstractBlock.Settings blockSettings, ParticleEffect particle, Item.Settings itemSettings) {
@@ -34,7 +34,7 @@ public class TorchContainer extends WallBlockContainer {
 
 	private TorchContainer(Block block, Block wallBlock, Item.Settings itemSettings) {
 		super(block, wallBlock, new WallStandingBlockItem(block, wallBlock, itemSettings));
-		UNLIT = new Unlit(BLOCK, WALL_BLOCK);
+		UNLIT = new Unlit(this.getBlock(), this.getWallBlock());
 	}
 	private TorchContainer(Block block, Block wallBlock, Item.Settings itemSettings, Unlit unlit) {
 		super(block, wallBlock, new WallStandingBlockItem(block, wallBlock, itemSettings));
@@ -49,7 +49,7 @@ public class TorchContainer extends WallBlockContainer {
 		Block wallBlock = new OxidizableWallTorchBlock(level, AbstractBlock.Settings.copy(block), particle);
 		Block unlit = new OxidizableUnlitTorchBlock(level, block);
 		Block unlitWall = new OxidizableUnlitWallTorchBlock(level, wallBlock, unlit);
-		return new TorchContainer(block, wallBlock, HavenMod.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
+		return new TorchContainer(block, wallBlock, ModBase.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
 	}
 
 	public static TorchContainer Waterloggable(AbstractBlock.Settings blockSettings, ParticleEffect particle) {
@@ -57,7 +57,7 @@ public class TorchContainer extends WallBlockContainer {
 		Block wallBlock = new UnderwaterWallTorchBlock(AbstractBlock.Settings.copy(block), particle);
 		Block unlit = new UnderwaterUnlitTorchBlock(block);
 		Block unlitWall = new UnderwaterUnlitWallTorchBlock(wallBlock, unlit);
-		return new TorchContainer(block, wallBlock, HavenMod.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
+		return new TorchContainer(block, wallBlock, ModBase.ItemSettings(), new Unlit(block, wallBlock, unlit, unlitWall));
 	}
 
 	public static Map<Block, Block> UNLIT_TORCHES = new HashMap<Block, Block>();

@@ -1,12 +1,12 @@
 package haven.items.consumable;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
+import haven.util.ItemUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,19 +40,13 @@ public class IchorBottleItem extends Item {
 				if (bloodType == BloodType.ANEMIC) user.damage(HavenDamageSource.DRANK_ICHOR_AS_ANEMIC, 8);
 				else if (bloodType == BloodType.VAMPIRE) user.damage(HavenDamageSource.DRANK_ICHOR_AS_VAMPIRE, 8);
 				else user.damage(HavenDamageSource.DRANK_ICHOR, 8);
-				user.addStatusEffect(new StatusEffectInstance(HavenMod.ICHORED_EFFECT, 200, 2));
+				user.addStatusEffect(new StatusEffectInstance(ModBase.ICHORED_EFFECT, 200, 2));
 			}
 		}
-		if (playerEntity != null) {
-			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-			if (!playerEntity.getAbilities().creativeMode) stack.decrement(1);
-		}
-		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
-			if (stack.isEmpty()) return new ItemStack(Items.GLASS_BOTTLE);
-			if (playerEntity != null) playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-		}
+		if (playerEntity != null) playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
-		return stack;
+
+		return ItemUtils.getConsumableRemainder(stack, user, Items.GLASS_BOTTLE);
 	}
 
 	@Override

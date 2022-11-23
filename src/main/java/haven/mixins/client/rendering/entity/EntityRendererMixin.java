@@ -1,6 +1,6 @@
 package haven.mixins.client.rendering.entity;
 
-import haven.util.EntitySkinGlowPowerUtil;
+import haven.origins.powers.SkinGlowPower;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
@@ -20,6 +20,6 @@ public class EntityRendererMixin<T extends Entity> {
 
 	@Inject(method="getBlockLight", at = @At("RETURN"), cancellable = true)
 	protected void getBlockLight(T entity, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
-		cir.setReturnValue(Math.max(cir.getReturnValue(), EntitySkinGlowPowerUtil.getGlow(entity)));
+		cir.setReturnValue(Math.max(cir.getReturnValue(), SkinGlowPower.getGlow(entity)));
 	}
 }

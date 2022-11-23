@@ -1,6 +1,6 @@
 package haven.blocks.cryingobsidian;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -25,7 +25,7 @@ public class BleedingObsidianBlock extends Block {
 					double d = direction.getOffsetX() == 0 ? random.nextDouble() : 0.5D + (double)direction.getOffsetX() * 0.6D;
 					double e = direction.getOffsetY() == 0 ? random.nextDouble() : 0.5D + (double)direction.getOffsetY() * 0.6D;
 					double f = direction.getOffsetZ() == 0 ? random.nextDouble() : 0.5D + (double)direction.getOffsetZ() * 0.6D;
-					world.addParticle(HavenMod.DRIPPING_OBSIDIAN_BLOOD, (double)pos.getX() + d, (double)pos.getY() + e, (double)pos.getZ() + f, 0.0D, 0.0D, 0.0D);
+					world.addParticle(ModBase.DRIPPING_OBSIDIAN_BLOOD, (double)pos.getX() + d, (double)pos.getY() + e, (double)pos.getZ() + f, 0.0D, 0.0D, 0.0D);
 				}
 			}
 		}

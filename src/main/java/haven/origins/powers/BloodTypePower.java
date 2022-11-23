@@ -1,6 +1,6 @@
 package haven.origins.powers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -18,7 +18,7 @@ public class BloodTypePower extends Power {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("special_blood"), new SerializableData().add("blood_type", SerializableDataTypes.IDENTIFIER),
+		return new PowerFactory<>(ModBase.ID("special_blood"), new SerializableData().add("blood_type", SerializableDataTypes.IDENTIFIER),
 				data -> (type, player) -> new BloodTypePower(type, player, (Identifier)data.get("blood_type"))).allowCondition();
 	}
 }

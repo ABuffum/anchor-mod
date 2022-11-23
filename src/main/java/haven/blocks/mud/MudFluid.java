@@ -1,6 +1,6 @@
 package haven.blocks.mud;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -30,11 +30,11 @@ public class MudFluid extends FlowableFluid {
 	@Override
 	public boolean matchesType(Fluid fluid) { return fluid == getStill() || fluid == getFlowing(); }
 	@Override
-	public Fluid getFlowing() { return HavenMod.FLOWING_MUD_FLUID; }
+	public Fluid getFlowing() { return ModBase.FLOWING_MUD_FLUID; }
 	@Override
-	public Fluid getStill() { return HavenMod.STILL_MUD_FLUID; }
+	public Fluid getStill() { return ModBase.STILL_MUD_FLUID; }
 	@Override
-	public Item getBucketItem() { return HavenMod.MUD_BUCKET; }
+	public Item getBucketItem() { return ModBase.MUD_BUCKET; }
 	@Override
 	protected boolean isInfinite() { return false; }
 	@Override
@@ -64,7 +64,7 @@ public class MudFluid extends FlowableFluid {
 
 	@Override
 	protected BlockState toBlockState(FluidState state) {
-		return HavenMod.MUD_FLUID_BLOCK.getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(state));
+		return ModBase.MUD_FLUID_BLOCK.getDefaultState().with(FluidBlock.LEVEL, getBlockStateLevel(state));
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class MudFluid extends FlowableFluid {
 
 	@Nullable
 	public ParticleEffect getParticle() {
-		return HavenMod.DRIPPING_MUD;
+		return ModBase.DRIPPING_MUD;
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,7 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -26,7 +25,7 @@ import java.util.Random;
 public class UnlitWallTorchBlock extends WallTorchBlock {
 	private final Block lit;
 	public UnlitWallTorchBlock(Block lit, Block notWall) {
-		super(AbstractBlock.Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
+		super(AbstractBlock.Settings.copy(lit).luminance(ModBase.LUMINANCE_0), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

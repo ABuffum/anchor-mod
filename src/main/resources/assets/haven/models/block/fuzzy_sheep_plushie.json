@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_sheep_plushie",
+  "textures": {
+	"0": "haven:block/fuzzy_sheep_plushie"
+  }
+}

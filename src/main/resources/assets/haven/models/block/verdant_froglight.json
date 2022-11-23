@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "haven:block/verdant_froglight_top",
-    "side": "haven:block/verdant_froglight_side"
-  }
-}

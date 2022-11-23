@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "haven:mangrove_planks"
+      "item": "minecraft:mangrove_planks"
     },
     "X": {
       "item": "minecraft:book"

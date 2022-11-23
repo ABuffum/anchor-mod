@@ -2,7 +2,9 @@ package haven.events;
 
 import com.mojang.serialization.*;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import haven.HavenTags;
+import haven.ModTags;
+import haven.origins.powers.PowersUtil;
+import haven.origins.powers.SoftStepsPower;
 import haven.util.CodecUtils;
 import haven.util.VectorUtils;
 import net.minecraft.block.BlockState;
@@ -135,10 +137,11 @@ public class HavenVibrationListener implements GameEventListener {
 					return false;
 				}
 				if (entity.occludeVibrationSignals()) return false;
+				if (PowersUtil.Active(entity, SoftStepsPower.class)) return false;
 			}
 			//TODO: Dampens Vibrations - I don't think this works correctly
 			BlockState state = world.getBlockState(pos);
-			if (state != null) return !state.isIn(HavenTags.Blocks.DAMPENS_VIBRATIONS);
+			if (state != null) return !state.isIn(ModTags.Blocks.DAMPENS_VIBRATIONS);
 			return true;
 		}
 
@@ -149,7 +152,7 @@ public class HavenVibrationListener implements GameEventListener {
 		default public void onListen() { }
 	}
 
-	public static final Codec<Vec3d> VEC3D_CODEC = Codec.DOUBLE.listOf().comapFlatMap(list2 -> Util.toArray(list2, 3).map(list -> new Vec3d((Double)list.get(0), (Double)list.get(1), (Double)list.get(2))), vec3d -> List.of(Double.valueOf(vec3d.getX()), Double.valueOf(vec3d.getY()), Double.valueOf(vec3d.getZ())));
+	public static final Codec<Vec3d> VEC3D_CODEC = Codec.DOUBLE.listOf().comapFlatMap(list2 -> Util.toArray(list2, 3).map(list -> new Vec3d(list.get(0), list.get(1), list.get(2))), vec3d -> List.of(vec3d.getX(), vec3d.getY(), vec3d.getZ()));
 
 
 

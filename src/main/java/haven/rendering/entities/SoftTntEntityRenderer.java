@@ -1,6 +1,6 @@
 package haven.rendering.entities;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.entities.tnt.SoftTntEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -53,7 +53,7 @@ public class SoftTntEntityRenderer extends EntityRenderer<SoftTntEntity> {
 		super.render(tntEntity, f, g, matrixStack, vertexConsumerProvider, i);
 	}
 	public Identifier getTexture() {
-		return new Identifier(HavenMod.NAMESPACE, "textures/entity/soft_tnt.png");
+		return new Identifier(ModBase.NAMESPACE, "textures/entity/soft_tnt.png");
 	}
 	@Override
 	public Identifier getTexture(SoftTntEntity tntEntity) {

@@ -1,6 +1,6 @@
 package haven.mixins.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blood.BloodFluid;
 import haven.blocks.mud.MudFluid;
 import net.minecraft.block.Block;
@@ -37,7 +37,7 @@ public abstract class LavaFluidMixin  extends FlowableFluid {
 				}
 				else if (fluid instanceof BloodFluid) {
 					set = true;
-					block = HavenMod.BLOOD_BLOCK.BLOCK;
+					block = ModBase.BLOOD_BLOCK.getBlock();
 				}
 				if (set) {
 					if (state.getBlock() instanceof FluidBlock) {

@@ -1,6 +1,6 @@
 package haven.mixins.client;
 
-import haven.HavenModClient;
+import haven.ModClient;
 import net.minecraft.client.color.block.BlockColors;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockColorsMixin {
 	@Inject(method="create", at = @At("RETURN"))
 	private static void create(CallbackInfoReturnable<BlockColors> cir) {
-		HavenModClient.RegisterBlockColors(cir.getReturnValue());
+		ModClient.RegisterBlockColors(cir.getReturnValue());
 	}
 }

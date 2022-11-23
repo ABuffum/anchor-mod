@@ -1,5 +1,7 @@
-accessWidener   v1  named
+accessWidener   v2  named
 
 accessible method net/minecraft/item/MusicDiscItem <init> (ILnet/minecraft/sound/SoundEvent;Lnet/minecraft/item/Item$Settings;)V
 
 accessible method net/minecraft/entity/effect/StatusEffectInstance updateDuration ()I
+
+accessible method net/minecraft/entity/ai/brain/Activity register (S)Lnet/minecraft/entity/ai/brain/Activity;

@@ -1,19 +1,12 @@
 package haven.blocks;
 
-import com.google.common.base.Predicates;
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.*;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.CachedBlockPosition;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.predicate.block.BlockStatePredicate;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
@@ -64,7 +57,7 @@ public class AmberEyeEndPortalFrameBlock extends Block {
 
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		dropStack(world, pos, HavenMod.AMBER_EYE.getDefaultStack());
+		dropStack(world, pos, ModBase.AMBER_EYE.getDefaultStack());
 		world.setBlockState(pos, Blocks.END_PORTAL_FRAME.getDefaultState()
 				.with(EndPortalFrameBlock.FACING, state.get(FACING))
 				.with(EndPortalFrameBlock.EYE, false));

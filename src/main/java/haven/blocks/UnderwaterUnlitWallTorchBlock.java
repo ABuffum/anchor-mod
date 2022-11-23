@@ -1,31 +1,22 @@
 package haven.blocks;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 
 import java.util.Random;
@@ -33,7 +24,7 @@ import java.util.Random;
 public class UnderwaterUnlitWallTorchBlock extends UnderwaterWallTorchBlock {
 	private final Block lit;
 	public UnderwaterUnlitWallTorchBlock(Block lit, Block notWall) {
-		super(Settings.copy(lit).luminance(HavenMod.luminance(0)), ParticleTypes.FLAME);
+		super(Settings.copy(lit).luminance(ModBase.LUMINANCE_0), ParticleTypes.FLAME);
 		this.lit = lit;
 	}
 

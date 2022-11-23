@@ -2,15 +2,14 @@ package haven.entities.hostile.warden;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Dynamic;
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import haven.entities.AnimationState;
 import haven.entities.ExtraPosedEntity;
 import haven.entities.Poses;
-import haven.entities.ai.MemoryModules;
 import haven.events.HavenEntityPositionSource;
 import haven.events.HavenVibrationListener;
-import haven.sounds.HavenSoundEvents;
+import haven.sounds.ModSoundEvents;
 import haven.util.StatusEffectUtils;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -42,7 +41,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
-import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -66,29 +64,8 @@ import java.util.function.Supplier;
 
 public class WardenEntity extends HostileEntity implements HavenVibrationListener.Callback, ExtraPosedEntity {
 	private static final Logger field_38138 = LoggerFactory.getLogger(StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE).getCallerClass());
-	private static final int field_38139 = 16;
-	private static final int field_38142 = 40;
-	private static final int field_38860 = 200;
-	private static final int field_38143 = 500;
-	private static final float field_38144 = 0.3f;
-	private static final float field_38145 = 1.0f;
-	private static final float field_38146 = 1.5f;
-	private static final int field_38147 = 30;
 	private static final TrackedData<Integer> ANGER = DataTracker.registerData(WardenEntity.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final int field_38149 = 200;
-	private static final int field_38150 = 260;
-	private static final int field_38151 = 20;
-	private static final int field_38152 = 120;
-	private static final int field_38153 = 20;
-	private static final int field_38155 = 35;
-	private static final int field_38156 = 10;
-	private static final int field_39117 = 20;
-	private static final int field_38157 = 100;
-	private static final int field_38158 = 20;
-	private static final int field_38159 = 30;
-	private static final float field_38160 = 4.5f;
-	private static final float field_38161 = 0.7f;
-	private static final int field_39305 = 30;
+
 	private int tendrilPitch;
 	private int lastTendrilPitch;
 	private int heartbeatCooldown;
@@ -125,99 +102,95 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 		this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0f);
 		this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0f);
 	}
-
 	@Override
-	public Packet<?> createSpawnPacket() {
-		return new EntitySpawnS2CPacket(this, this.IsInPose(Poses.EMERGING) ? 1 : 0);
-	}
-
+	public Packet<?> createSpawnPacket() { return new EntitySpawnS2CPacket(this, this.IsInPose(Poses.EMERGING) ? 1 : 0); }
 	@Override
 	public void onSpawnPacket(EntitySpawnS2CPacket packet) {
 		super.onSpawnPacket(packet);
 		if (packet.getEntityData() == 1) this.SetPose(Poses.EMERGING);
 	}
-
 	@Override
 	public boolean canSpawn(WorldView world) {
 		return super.canSpawn(world) && world.isSpaceEmpty(this, this.getType().getDimensions().getBoxAt(this.getPos()));
 	}
-
 	@Override
 	public float getPathfindingFavor(BlockPos pos, WorldView world) { return 0.0f; }
-
 	@Override
 	public boolean isInvulnerableTo(DamageSource damageSource) {
 		if (this.isDiggingOrEmerging() && !damageSource.isOutOfWorld()) return true;
 		return super.isInvulnerableTo(damageSource);
 	}
-
 	private boolean isDiggingOrEmerging() { return this.IsInPose(Poses.DIGGING) || this.IsInPose(Poses.EMERGING); }
-
 	@Override
 	protected boolean canStartRiding(Entity entity) { return false; }
-
 	@Override
 	protected float calculateNextStepSoundDistance() { return this.distanceTraveled + 0.55f; }
-
 	public static DefaultAttributeContainer.Builder addAttributes() {
 		return HostileEntity.createHostileAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 500.0).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.3f).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0).add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.5).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 30.0);
 	}
-
 	@Override
 	public boolean occludeVibrationSignals() { return true; }
-
 	@Override
 	protected float getSoundVolume() { return 4.0f; }
-
 	@Override
 	@Nullable
 	protected SoundEvent getAmbientSound() {
 		if (this.IsInPose(Poses.ROARING) || this.isDiggingOrEmerging()) return null;
 		return this.getAngriness().getSound();
 	}
-
 	@Override
-	protected SoundEvent getHurtSound(DamageSource source) { return HavenSoundEvents.ENTITY_WARDEN_HURT; }
-
+	protected SoundEvent getHurtSound(DamageSource source) { return ModSoundEvents.ENTITY_WARDEN_HURT; }
 	@Override
-	protected SoundEvent getDeathSound() { return HavenSoundEvents.ENTITY_WARDEN_DEATH; }
-
+	protected SoundEvent getDeathSound() { return ModSoundEvents.ENTITY_WARDEN_DEATH; }
 	@Override
 	protected void playStepSound(BlockPos pos, BlockState state) {
-		this.playSound(HavenSoundEvents.ENTITY_WARDEN_STEP, 10.0f, 1.0f);
+		this.playSound(ModSoundEvents.ENTITY_WARDEN_STEP, 10.0f, 1.0f);
 	}
-
 	@Override
 	public boolean tryAttack(Entity target) {
 		this.world.sendEntityStatus(this, EntityStatuses.PLAY_ATTACK_SOUND);
-		this.playSound(HavenSoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 10.0f, this.getSoundPitch());
-		SonicBoomTask.cooldown(this, 40);
+		this.playSound(ModSoundEvents.ENTITY_WARDEN_ATTACK_IMPACT, 10.0f, this.getSoundPitch());
+		setSonicBoomCooldown(SonicBoomTask.COOLDOWN);
 		return super.tryAttack(target);
 	}
-
 	@Override
 	protected void initDataTracker() {
 		super.initDataTracker();
 		this.dataTracker.startTracking(ANGER, 0);
 	}
-
 	public int getAnger() { return this.dataTracker.get(ANGER); }
-
 	private void updateAnger() { this.dataTracker.set(ANGER, this.getAngerAtTarget()); }
 
 	@Override
 	public void tick() {
+		//Tick down memory
+		if (this.roarDuration > 0) this.roarDuration--;
+		if (this.emergingDuration > 0) this.emergingDuration--;
+		if (this.disturbanceDuration > 0) {
+			this.disturbanceDuration--;
+			if (this.disturbanceDuration <= 0) {
+				this.disturbanceLocation = null;
+			}
+		}
+		if (this.sniffingCooldown > 0) this.sniffingCooldown--;
+		if (this.digCooldown > 0) this.digCooldown--;
+		if (this.vibrationCooldown > 0) this.vibrationCooldown--;
+		if (this.touchCooldown > 0) this.touchCooldown--;
+		if (this.recentProjectile > 0) this.recentProjectile--;
+		if (this.sonicBoomCooldown > 0) this.sonicBoomCooldown--;
+		if (this.sonicBoomDuration > 0) this.sonicBoomDuration--;
+		//Vanilla tick stuff
 		World world = this.world;
 		if (world instanceof ServerWorld serverWorld) {
 			this.listener.tick(serverWorld);
-			if (this.isPersistent() || this.cannotDespawn()) WardenBrain.resetDigCooldown(this);
+			if (this.isPersistent() || this.cannotDespawn()) this.setDigCooldown(WardenBrain.DIG_COOLDOWN);
 		}
 		super.tick();
 		if (this.world.isClient()) {
 			if (this.age % this.getHeartRate() == 0) {
 				this.heartbeatCooldown = 10;
 				if (!this.isSilent()) {
-					this.world.playSound(this.getX(), this.getY(), this.getZ(), HavenSoundEvents.ENTITY_WARDEN_HEARTBEAT, this.getSoundCategory(), 5.0f, this.getSoundPitch(), false);
+					this.world.playSound(this.getX(), this.getY(), this.getZ(), ModSoundEvents.ENTITY_WARDEN_HEARTBEAT, this.getSoundCategory(), 5.0f, this.getSoundPitch(), false);
 				}
 			}
 			this.lastTendrilPitch = this.tendrilPitch;
@@ -329,7 +302,7 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 	}
 
 	@Override
-	public Tag.Identified<GameEvent> getTag() { return HavenTags.Events.WARDEN_CAN_LISTEN; }
+	public Tag.Identified<GameEvent> getTag() { return ModTags.Events.WARDEN_CAN_LISTEN; }
 
 	@Override
 	public boolean triggersAvoidCriterion() { return true; }
@@ -345,7 +318,7 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 		if (!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(entity)) return false;
 		if (this.isTeammate(entity)) return false;
 		if (livingEntity.getType() == EntityType.ARMOR_STAND) return false;
-		if (livingEntity.getType() == HavenMod.WARDEN_ENTITY) return false;
+		if (livingEntity.getType() == ModBase.WARDEN_ENTITY) return false;
 		if (livingEntity.isInvulnerable()) return false;
 		if (livingEntity.isDead()) return false;
 		if (!this.world.getWorldBorder().contains(livingEntity.getBoundingBox())) return false;
@@ -353,22 +326,22 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 	}
 
 	public static void addDarknessToClosePlayers(ServerWorld world, Vec3d pos, @Nullable Entity entity, int range) {
-		StatusEffectInstance statusEffectInstance = new StatusEffectInstance(HavenMod.DARKNESS_EFFECT, 260, 0, false, false);
+		StatusEffectInstance statusEffectInstance = new StatusEffectInstance(ModBase.DARKNESS_EFFECT, 260, 0, false, false);
 		StatusEffectUtils.addEffectToPlayersWithinDistance(world, entity, pos, range, statusEffectInstance, 200);
 	}
 
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		WardenAngerManager.createCodec(this::isValidTarget).encodeStart(NbtOps.INSTANCE, this.angerManager).resultOrPartial(field_38138::error).ifPresent(angerNbt -> nbt.put("anger", (NbtElement)angerNbt));
-		HavenVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(field_38138::error).ifPresent(nbtElement -> nbt.put("listener", (NbtElement)nbtElement));
+		WardenAngerManager.createCodec(this::isValidTarget).encodeStart(NbtOps.INSTANCE, this.angerManager).resultOrPartial(field_38138::error).ifPresent(angerNbt -> nbt.put("anger", angerNbt));
+		HavenVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(field_38138::error).ifPresent(nbtElement -> nbt.put("listener", nbtElement));
 	}
 
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		if (nbt.contains("anger")) {
-			WardenAngerManager.createCodec(this::isValidTarget).parse(new Dynamic<NbtElement>(NbtOps.INSTANCE, nbt.get("anger"))).resultOrPartial(field_38138::error).ifPresent(angerManager -> this.angerManager = angerManager);
+			WardenAngerManager.createCodec(this::isValidTarget).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.get("anger"))).resultOrPartial(field_38138::error).ifPresent(angerManager -> this.angerManager = angerManager);
 			this.updateAnger();
 		}
 		if (nbt.contains("listener", NbtElement.COMPOUND_TYPE)) {
@@ -391,7 +364,7 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 	@VisibleForTesting
 	public void increaseAngerAt(@Nullable Entity entity, int amount, boolean listening) {
 		if (!this.isAiDisabled() && this.isValidTarget(entity)) {
-			WardenBrain.resetDigCooldown(this);
+			this.setDigCooldown(WardenBrain.DIG_COOLDOWN);
 			boolean bl = !(this.getBrain().getOptionalMemory(MemoryModuleType.ATTACK_TARGET).orElse(null) instanceof PlayerEntity);
 			int i = this.angerManager.increaseAngerAt(entity, amount);
 			if (entity instanceof PlayerEntity && bl && Angriness.getForAnger(i).isAngry()) {
@@ -418,11 +391,11 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 	@Override
 	@Nullable
 	public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityNbt) {
-		this.getBrain().remember(MemoryModules.DIG_COOLDOWN, Unit.INSTANCE, 1200L);
+		this.setDigCooldown(WardenBrain.DIG_COOLDOWN);
 		if (spawnReason == SpawnReason.TRIGGERED) {
 			this.SetPose(Poses.EMERGING);
-			this.getBrain().remember(MemoryModules.IS_EMERGING, Unit.INSTANCE, WardenBrain.EMERGE_DURATION);
-			this.playSound(HavenSoundEvents.ENTITY_WARDEN_AGITATED, 5.0f, 1.0f);
+			this.setEmerging(WardenBrain.EMERGE_DURATION);
+			this.playSound(ModSoundEvents.ENTITY_WARDEN_AGITATED, 5.0f, 1.0f);
 		}
 		return super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 	}
@@ -442,11 +415,69 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 		return bl;
 	}
 
+	private LivingEntity roarTarget = null;
+	public LivingEntity getRoarTarget() { return this.roarTarget; }
+	public void setRoarTarget(LivingEntity target) { this.roarTarget = target; }
+
+	private int roarDuration = 0;
+	public int getRemaingRoarDuration() { return this.roarDuration; }
+	public void setRoaring(int duration) { this.roarDuration = duration; }
+
+	private int emergingDuration = 0;
+	public boolean isEmerging() { return this.emergingDuration > 0; }
+	public void setEmerging(int duration) { this.emergingDuration = duration; }
+
+	private boolean sniffing = false;
+	public boolean isSniffing() { return this.sniffing; }
+	public void setSniffing(boolean sniffing) { this.sniffing = sniffing; }
+
+	private int sniffingCooldown = 0;
+	public int getSniffingCooldown() { return this.sniffingCooldown; }
+	public void setSniffingCooldown(int cooldown) { this.sniffingCooldown = cooldown; }
+
+	private int digCooldown = 0;
+	public int getDigCooldown() { return this.digCooldown; }
+	public void setDigCooldown(int cooldown) { this.digCooldown = cooldown; }
+
+	private int vibrationCooldown = 0;
+	public int getVibrationCooldown() { return this.vibrationCooldown; }
+	public void setVibrationCooldown(int cooldown) { this.vibrationCooldown = cooldown; }
+
+	private int touchCooldown = 0;
+	public int getTouchCooldown() { return this.touchCooldown; }
+	public void setTouchCooldown(int cooldown) { this.touchCooldown = cooldown; }
+
+	private int disturbanceDuration = 0;
+	private BlockPos disturbanceLocation;
+	public BlockPos getDisturbanceLocation() { return this.disturbanceLocation; }
+	public void setDisturbanceLocation(BlockPos location, int duration) {
+		this.disturbanceLocation = location;
+		this.disturbanceDuration = duration;
+	}
+
+	private int recentProjectile = 0;
+	public boolean hasRecentProjectile() { return this.recentProjectile > 0; }
+	public void setRecentProjectile(int duration) { this.recentProjectile = duration; }
+
+	private int sonicBoomCooldown = 0;
+	public int getSonicBoomCooldown() { return this.sonicBoomCooldown; }
+	public void setSonicBoomCooldown(int cooldown) { this.sonicBoomCooldown = cooldown; }
+	private int sonicBoomDuration = 0;
+	public int getRemaingSonicBoomDuration() { return this.sonicBoomDuration; }
+	public void setSonicBoom(int duration) { this.sonicBoomDuration = duration; }
+
+	public boolean isInRange(Entity entity, double horizontalRadius, double verticalRadius) {
+		double d = entity.getX() - this.getX();
+		double e = entity.getY() - this.getY();
+		double f = entity.getZ() - this.getZ();
+		return (d * d + f * f) < MathHelper.square(horizontalRadius) && MathHelper.square(e) < MathHelper.square(verticalRadius);
+	}
+
 	public void updateAttackTarget(LivingEntity target) {
-		this.getBrain().forget(MemoryModules.ROAR_TARGET);
+		this.setRoarTarget(null);
 		this.getBrain().remember(MemoryModuleType.ATTACK_TARGET, target);
 		this.getBrain().forget(MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE);
-		SonicBoomTask.cooldown(this, 200);
+		setSonicBoomCooldown(SonicBoomTask.COOLDOWN * 5);
 	}
 
 	@Override
@@ -461,8 +492,8 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 
 	@Override
 	protected void pushAway(Entity entity) {
-		if (!this.isAiDisabled() && !this.getBrain().hasMemoryModule(MemoryModules.TOUCH_COOLDOWN)) {
-			this.getBrain().remember(MemoryModules.TOUCH_COOLDOWN, Unit.INSTANCE, 20L);
+		if (!this.isAiDisabled() && this.getTouchCooldown() <= 0) {
+			this.setTouchCooldown(20);
 			this.increaseAngerAt(entity);
 			WardenBrain.lookAtDisturbance(this, entity.getBlockPos());
 		}
@@ -471,7 +502,7 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 
 	@Override
 	public boolean accepts(ServerWorld world, GameEventListener var2, BlockPos var3, GameEvent var4, Entity entity, BlockPos pos) {
-		if (this.isAiDisabled() || this.isDead() || this.getBrain().hasMemoryModule(MemoryModules.VIBRATION_COOLDOWN) || this.isDiggingOrEmerging() || !world.getWorldBorder().contains(pos) || this.isRemoved() || this.world != world) {
+		if (this.isAiDisabled() || this.isDead() || this.getVibrationCooldown() > 0 || this.isDiggingOrEmerging() || !world.getWorldBorder().contains(pos) || this.isRemoved() || this.world != world) {
 			return false;
 		}
 		return !(entity instanceof LivingEntity livingEntity) || this.isValidTarget(livingEntity);
@@ -480,19 +511,19 @@ public class WardenEntity extends HostileEntity implements HavenVibrationListene
 	@Override
 	public void accept(ServerWorld world, GameEventListener listener, BlockPos pos, GameEvent event, @Nullable Entity entity, @Nullable Entity sourceEntity, float distance) {
 		if (this.isDead()) return;
-		this.brain.remember(MemoryModules.VIBRATION_COOLDOWN, Unit.INSTANCE, 40L);
+		this.setVibrationCooldown(40);
 		world.sendEntityStatus(this, (byte)61);
-		this.playSound(HavenSoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0f, this.getSoundPitch());
+		this.playSound(ModSoundEvents.ENTITY_WARDEN_TENDRIL_CLICKS, 5.0f, this.getSoundPitch());
 		BlockPos blockPos = pos;
 		if (sourceEntity != null) {
 			if (this.isInRange(sourceEntity, 30.0)) {
-				if (this.getBrain().hasMemoryModule(MemoryModules.RECENT_PROJECTILE)) {
+				if (this.hasRecentProjectile()) {
 					if (this.isValidTarget(sourceEntity)) blockPos = sourceEntity.getBlockPos();
 					this.increaseAngerAt(sourceEntity);
 				}
 				else this.increaseAngerAt(sourceEntity, 10, true);
 			}
-			this.getBrain().remember(MemoryModules.RECENT_PROJECTILE, Unit.INSTANCE, 100L);
+			this.setRecentProjectile(100);
 		}
 		else this.increaseAngerAt(entity);
 		if (!this.getAngriness().isAngry()) {

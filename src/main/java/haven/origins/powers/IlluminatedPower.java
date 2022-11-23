@@ -1,6 +1,6 @@
 package haven.origins.powers;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.blocks.lighting.DynamicLightManager;
 import haven.blocks.lighting.DynamicLightSource;
 import io.github.apace100.apoli.power.Power;
@@ -20,7 +20,7 @@ public class IlluminatedPower extends Power implements DynamicLightSource {
 	}
 
 	public static PowerFactory createFactory() {
-		return new PowerFactory<>(HavenMod.ID("illuminated"), new SerializableData()
+		return new PowerFactory<>(ModBase.ID("illuminated"), new SerializableData()
 				.add("light_level", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new IlluminatedPower(type, player, data.getInt("light_level"))
 		).allowCondition();

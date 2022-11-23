@@ -1,6 +1,6 @@
 package haven.materials.wood;
 
-import haven.HavenMod;
+import haven.ModBase;
 import haven.containers.*;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -17,8 +17,8 @@ public class BlueMushroomMaterial extends MushroomMaterial implements Provider, 
 
 	public BlueMushroomMaterial(String name, MapColor mapColor, boolean flammable) {
 		super(name, mapColor, flammable);
-		provider = new BlockContainer(new MushroomPlantBlock(AbstractBlock.Settings.of(Material.PLANT, mapColor).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(BaseMaterial::always), () -> HavenMod.HUGE_BLUE_MUSHROOM));
-		potted = new PottedBlockContainer(provider.BLOCK);
+		provider = new BlockContainer(new MushroomPlantBlock(AbstractBlock.Settings.of(Material.PLANT, mapColor).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.GRASS).postProcess(BaseMaterial::always), () -> ModBase.HUGE_BLUE_MUSHROOM));
+		potted = new PottedBlockContainer(provider.getBlock());
 		block = new BlockContainer(new MushroomBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(0.2F).sounds(BlockSoundGroup.WOOD)));
 	}
 }

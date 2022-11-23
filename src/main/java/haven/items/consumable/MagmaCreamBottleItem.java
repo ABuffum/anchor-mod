@@ -2,6 +2,7 @@ package haven.items.consumable;
 
 import haven.blood.BloodType;
 import haven.damage.HavenDamageSource;
+import haven.util.ItemUtils;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,16 +43,9 @@ public class MagmaCreamBottleItem extends Item {
 				else user.damage(HavenDamageSource.DRANK_MAGMA_CREAM, 1);
 			}
 		}
-		if (playerEntity != null) {
-			playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
-			if (!playerEntity.getAbilities().creativeMode) stack.decrement(1);
-		}
-		if (playerEntity == null || !playerEntity.getAbilities().creativeMode) {
-			if (stack.isEmpty()) return new ItemStack(Items.GLASS_BOTTLE);
-			if (playerEntity != null) playerEntity.getInventory().insertStack(new ItemStack(Items.GLASS_BOTTLE));
-		}
+		if (playerEntity != null) playerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
 		world.emitGameEvent(user, GameEvent.DRINKING_FINISH, user.getCameraBlockPos());
-		return stack;
+		return ItemUtils.getConsumableRemainder(stack, user, Items.GLASS_BOTTLE);
 	}
 
 	@Override

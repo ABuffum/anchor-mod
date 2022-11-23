@@ -10,7 +10,6 @@
 	"haven:blue_mushroom_ladder",
 	"haven:brown_mushroom_ladder",
 	"haven:cassia_ladder",
-	"haven:charred_ladder",
 	"haven:cherry_ladder",
 	"haven:crimson_ladder",
 	"haven:dried_bamboo_ladder",
@@ -23,6 +22,7 @@
 	"haven:red_mushroom_ladder",
 	"haven:spruce_ladder",
 	"haven:sugar_cane_ladder",
+	"haven:vanilla_bamboo_ladder",
 	"haven:warped_ladder"
   ]
 }

@@ -1,7 +1,7 @@
 package haven.mixins.items;
 
-import haven.HavenMod;
-import haven.HavenTags;
+import haven.ModBase;
+import haven.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,7 +29,7 @@ public abstract class ShearsItemMixin extends Item {
 
 	@Inject(method="getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
 	public void GetMiningSpeedMultiplier(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> cir) {
-		if (state.isIn(HavenTags.Blocks.FLEECE)) cir.setReturnValue(5.0F);
+		if (state.isIn(ModTags.Blocks.FLEECE)) cir.setReturnValue(5.0F);
 	}
 
 	@Override
@@ -40,14 +40,14 @@ public abstract class ShearsItemMixin extends Item {
 		if (state.isOf(Blocks.ROSE_BUSH)) {
 			boolean upper = state.get(TallFlowerBlock.HALF) == DoubleBlockHalf.UPPER;
 			if (upper) {
-				world.setBlockState(pos.down(), HavenMod.ROSE.BLOCK.getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+				world.setBlockState(pos.down(), ModBase.ROSE.getBlock().getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
 				world.setBlockState(pos, Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
 			}
 			else {
-				world.setBlockState(pos, HavenMod.ROSE.BLOCK.getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
+				world.setBlockState(pos, ModBase.ROSE.getBlock().getDefaultState(), Block.NOTIFY_ALL | Block.REDRAW_ON_MAIN_THREAD);
 				world.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), Block.NOTIFY_ALL);
 			}
-			world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(HavenMod.ROSE.ITEM, 1)));
+			world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, new ItemStack(ModBase.ROSE.getItem(), 1)));
 			PlayerEntity player = context.getPlayer();
 			context.getStack().damage(1, (LivingEntity)player, (Consumer)((playerx) -> ((LivingEntity)playerx).sendToolBreakStatus(context.getHand())));
 			world.emitGameEvent(player, GameEvent.SHEAR, pos);

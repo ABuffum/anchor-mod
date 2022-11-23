@@ -1,7 +1,7 @@
 package haven.mixins.items.farmersdelight;
 
 import com.nhoryzon.mc.farmersdelight.item.MilkBottleItem;
-import haven.HavenMod;
+import haven.ModBase;
 import haven.effects.BoneRotEffect;
 import haven.util.MilkUtils;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +22,7 @@ public class MilkBottleItemMixin {
 	@Inject(method="affectConsumer", at = @At("HEAD"), cancellable = true)
 	public void AffectConsumer(ItemStack stack, World world, LivingEntity user, CallbackInfo ci) {
 		Collection<StatusEffect> activeStatusEffectList = user.getActiveStatusEffects().keySet()
-				.stream().filter((x) -> !HavenMod.MILK_IMMUNE_EFFECTS.contains(x)).<StatusEffect>toList();
+				.stream().filter((x) -> !ModBase.MILK_IMMUNE_EFFECTS.contains(x)).<StatusEffect>toList();
 		if (!activeStatusEffectList.isEmpty()) {
 			Optional<StatusEffect> var10000 = activeStatusEffectList.stream().skip((long)world.getRandom().nextInt(activeStatusEffectList.size())).findFirst();
 			Objects.requireNonNull(user);

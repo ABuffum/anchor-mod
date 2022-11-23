@@ -1,7 +1,7 @@
 package haven.items.syringe;
 
-import haven.HavenMod;
-import haven.sounds.HavenSoundEvents;
+import haven.ModBase;
+import haven.sounds.ModSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,7 +18,7 @@ public class BaseSyringeItem extends Item {
 	}
 	private SyringeEffect applyEffect = null;
 	public BaseSyringeItem() {
-		this(new Item.Settings().group(HavenMod.BLOOD_ITEM_GROUP).recipeRemainder(HavenMod.DIRTY_SYRINGE).maxCount(1));
+		this(new Item.Settings().group(ModBase.BLOOD_ITEM_GROUP).recipeRemainder(ModBase.DIRTY_SYRINGE).maxCount(1));
 	}
 	public BaseSyringeItem(SyringeEffect applyEffect) {
 		this();
@@ -33,14 +33,14 @@ public class BaseSyringeItem extends Item {
 		if (applyEffect != null) applyEffect.ApplyEffect(user, entity);
 	}
 	public Item GetReplacementSyringe(PlayerEntity user, LivingEntity entity) {
-		return HavenMod.DIRTY_SYRINGE;
+		return ModBase.DIRTY_SYRINGE;
 	}
 	public void ReplaceSyringe(PlayerEntity user, Hand hand) { ReplaceSyringe(user, user, hand); }
 	public void ReplaceSyringe(PlayerEntity user, LivingEntity entity, Hand hand) {
 		ReplaceSyringe(user, hand, GetReplacementSyringe(user, entity));
 	}
 	public void ReplaceSyringe(PlayerEntity user, Hand hand, Item replacement) {
-		ItemStack newStack = new ItemStack(replacement == null ? HavenMod.DIRTY_SYRINGE : replacement);
+		ItemStack newStack = new ItemStack(replacement == null ? ModBase.DIRTY_SYRINGE : replacement);
 		if (!user.getAbilities().creativeMode) user.getStackInHand(hand).decrement(1);
 		user.getInventory().insertStack(newStack);
 	}
@@ -49,7 +49,7 @@ public class BaseSyringeItem extends Item {
 		if (!entity.blockedByShield(DamageSource.player(user))) {
 			if (entity instanceof PlayerEntity playerEntity && playerEntity.getAbilities().creativeMode) return ActionResult.PASS;
 			ApplyEffect(user, entity);
-			entity.playSound(HavenSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
+			entity.playSound(ModSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
 			ReplaceSyringe(user, entity, hand);
 			return ActionResult.CONSUME;
 		}
@@ -58,7 +58,7 @@ public class BaseSyringeItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 		if (!user.isSneaking()) {
 			ApplyEffect(user);
-			user.playSound(HavenSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
+			user.playSound(ModSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
 			ReplaceSyringe(user, hand);
 			return TypedActionResult.consume(user.getStackInHand(hand));
 		}

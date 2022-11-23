@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "chiseled_bookshelf",
+  "key": {
+    "#": {
+      "item": "haven:bamboo_planks"
+    },
+    "X": {
+      "item": "haven:bamboo_slab"
+    }
+  },
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "item": "haven:bamboo_chiseled_bookshelf"
+  }
+}

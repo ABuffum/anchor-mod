@@ -1,6 +1,6 @@
 package haven.entities.passive;
 
-import haven.HavenMod;
+import haven.ModBase;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -26,6 +26,6 @@ public class FancyChickenEntity extends ChickenEntity {
 	}
 
 	public FancyChickenEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return HavenMod.FANCY_CHICKEN_ENTITY.create(serverWorld);
+		return ModBase.FANCY_CHICKEN_ENTITY.create(serverWorld);
 	}
 }
