@@ -2,6 +2,7 @@ package haven.sounds;
 
 import haven.ModBase;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -119,6 +120,16 @@ public class ModSoundEvents {
 	};
 	public static final SoundEvent ENTITY_GOAT_HORN_BREAK = registerSoundEvent("entity.goat.horn_break");
 	public static final SoundEvent ENTITY_GOAT_SCREAMING_HORN_BREAK = ENTITY_GOAT_HORN_BREAK;//registerSoundEvent("entity.goat.screaming.horn_break");
+	//Chiseled Bookshelves
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_BREAK = registerSoundEvent("block.chiseled_bookshelf.break");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_FALL = registerSoundEvent("block.chiseled_bookshelf.fall");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_HIT = registerSoundEvent("block.chiseled_bookshelf.hit");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_INSERT = registerSoundEvent("block.chiseled_bookshelf.insert");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_INSERT_ENCHANTED = registerSoundEvent("block.chiseled_bookshelf.insert.enchanted");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_STEP = registerSoundEvent("block.chiseled_bookshelf.step");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_PICKUP = registerSoundEvent("block.chiseled_bookshelf.pickup");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_PICKUP_ENCHANTED = registerSoundEvent("block.chiseled_bookshelf.pickup.enchanted");
+	public static final SoundEvent BLOCK_CHISELED_BOOKSHELF_PLACE = registerSoundEvent("block.chiseled_bookshelf.place");
 	//Hanging Signs
 	public static final SoundEvent BLOCK_HANGING_SIGN_STEP = registerSoundEvent("block.hanging_sign.step");
 	public static final SoundEvent BLOCK_HANGING_SIGN_BREAK = registerSoundEvent("block.hanging_sign.break");
@@ -174,7 +185,11 @@ public class ModSoundEvents {
 	public static final SoundEvent SYRINGE_INJECTED = registerSoundEvent("item.syringe.inject");
 
 	//TNT
+	public static final SoundEvent CHUNKEATER_TNT_PRIMED = registerSoundEvent("entity.chunkeater_tnt.primed");
+	public static final SoundEvent DEVOURING_TNT_PRIMED = registerSoundEvent("entity.devouring_tnt.primed");
+	public static final SoundEvent SHARP_TNT_PRIMED = registerSoundEvent("entity.sharp_tnt.primed");
 	public static final SoundEvent SOFT_TNT_PRIMED = registerSoundEvent("entity.soft_tnt.primed");
+	public static final SoundEvent VIOLENT_TNT_PRIMED = registerSoundEvent("entity.violent_tnt.primed");
 
 	//Misc
 	public static final SoundEvent MIASMA_COMING = registerSoundEvent("ambient.miasma_coming");

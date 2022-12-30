@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
-      "tag": "minecraft:popped_chorus_fruit"
+      "item": "minecraft:popped_chorus_fruit"
     },
     "W": {
       "item": "minecraft:string"

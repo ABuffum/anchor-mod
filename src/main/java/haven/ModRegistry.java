@@ -8,6 +8,7 @@ import haven.blocks.gourd.CarvedWhitePumpkinBlock;
 import haven.blocks.lighting.DynamicLightManager;
 import haven.blocks.lighting.DynamicLitBlock;
 import haven.blocks.mud.MudCauldronBlock;
+import haven.blocks.tnt.ModTntBlock;
 import haven.containers.OxidizableBlockContainer;
 import haven.containers.BoatContainer;
 import haven.dispenser.ModBoatDispenserBehavior;
@@ -18,7 +19,7 @@ import haven.entities.passive.*;
 import haven.entities.passive.cow.*;
 import haven.entities.passive.sheep.MossySheepEntity;
 import haven.entities.passive.sheep.RainbowSheepEntity;
-import haven.entities.tnt.SoftTntEntity;
+import haven.entities.tnt.*;
 import haven.gen.DeepDarkBiome;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -225,11 +226,9 @@ public class ModRegistry {
 		Registry.register(Registry.BLOCK, ID(wallPath), walled.getWallBlock());
 		Registry.register(Registry.ITEM, id, walled.getItem());
 	}
-	public static void Register(BaseMaterial material) {
+	public static void Register(BaseMaterial material, FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		String name = material.getName();
-		boolean flammable = material.isFlammable();
-		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
-		FuelRegistry FUEL = FuelRegistry.INSTANCE;
+		boolean isFlammable = material.isFlammable();
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		if (material instanceof PottedProvider potted) Register(name, potted.getPotted());
 		else if (material instanceof Provider provider) Register(name, provider.get()); //PottedProvider registers the block for us
@@ -308,14 +307,14 @@ public class ModRegistry {
 			BlockContainer pair = bail.getBale();
 			Register(name + "_bale", pair);
 			COMPOST.add(pair.getItem(), 0.85F);
-			if (flammable) FLAMMABLE.add(pair.getBlock(), 60, 20);
+			if (isFlammable) flammable.add(pair.getBlock(), 60, 20);
 		}
 		if (material instanceof BundleProvider bundle) {
 			BlockContainer pair = bundle.getBundle();
 			Register(name + "_bundle", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StrippedBundleProvider strippedBundle) {
@@ -323,17 +322,17 @@ public class ModRegistry {
 			String registerName = name.startsWith("minecraft:") ? ("minecraft:stripped_" + name.substring("minecraft:".length())) : ("stripped_" + name);
 			Register(registerName + "_bundle", pair);
 			Block strippedBundleBlock = pair.getBlock();
-			if (flammable) {
-				FLAMMABLE.add(strippedBundleBlock, 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(strippedBundleBlock, 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof LogProvider log) {
 			BlockContainer pair = log.getLog();
 			Register(name + "_log", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StrippedLogProvider strippedLog) {
@@ -341,17 +340,17 @@ public class ModRegistry {
 			String registerName = name.startsWith("minecraft:") ? ("minecraft:stripped_" + name.substring("minecraft:".length())) : ("stripped_" + name);
 			Register(registerName + "_log", pair);
 			Block strippedLogBlock = pair.getBlock();
-			if (flammable) {
-				FLAMMABLE.add(strippedLogBlock, 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(strippedLogBlock, 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof WoodProvider wood) {
 			BlockContainer pair = wood.getWood();
 			Register(name + "_wood", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StrippedWoodProvider strippedWood) {
@@ -359,50 +358,50 @@ public class ModRegistry {
 			String registerName = name.startsWith("minecraft:") ? ("minecraft:stripped_" + name.substring("minecraft:".length())) : ("stripped_" + name);
 			Register(registerName + "_wood", pair);
 			Block strippedWoodBlock = pair.getBlock();
-			if (flammable) {
-				FLAMMABLE.add(strippedWoodBlock, 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(strippedWoodBlock, 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StemProvider stem) {
 			BlockContainer pair = stem.getStem();
 			Register(name + "_stem", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StrippedStemProvider strippedStem) {
 			BlockContainer pair = strippedStem.getStrippedStem();
 			Register("stripped_" + name + "_stem", pair);
 			Block strippedStemBlock = pair.getBlock();
-			if (flammable) {
-				FLAMMABLE.add(strippedStemBlock, 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(strippedStemBlock, 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof HyphaeProvider hyphae) {
 			BlockContainer pair = hyphae.getHyphae();
 			Register(name + "_hyphae", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof StrippedHyphaeProvider strippedHyphae) {
 			BlockContainer pair = strippedHyphae.getStrippedHyphae();
 			Register("stripped_" + name + "_hyphae", pair);
 			Block strippedHyphaeBlock = pair.getBlock();
-			if (flammable) {
-				FLAMMABLE.add(strippedHyphaeBlock, 5, 5);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(strippedHyphaeBlock, 5, 5);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof LeavesProvider leaves) {
 			BlockContainer pair = leaves.getLeaves();
 			Register(name + "_leaves", pair);
 			COMPOST.add(pair.getItem(), 0.3f);
-			if (flammable) FLAMMABLE.add(pair.getBlock(), 30, 60);
+			if (isFlammable) flammable.add(pair.getBlock(), 30, 60);
 		}
 		if (material instanceof WartBlockProvider wartBlock){
 			BlockContainer pair = wartBlock.getWartBlock();
@@ -427,22 +426,25 @@ public class ModRegistry {
 		if (material instanceof PlanksProvider planks) {
 			BlockContainer pair = planks.getPlanks();
 			Register(name + "_planks", pair);
-			if (flammable) FLAMMABLE.add(pair.getBlock(), 5, 20);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 300);
+			}
 		}
 		if (material instanceof SlabProvider slab) {
 			BlockContainer pair = slab.getSlab();
 			Register(name + "_slab", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 20);
-				FUEL.add(pair.getItem(), 150);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 150);
 			}
 		}
 		if (material instanceof StairsProvider stairs) {
 			BlockContainer pair = stairs.getStairs();
 			Register(name + "_stairs", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 20);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof DoorProvider door) Register(name + "_door", door.getDoor());
@@ -453,38 +455,38 @@ public class ModRegistry {
 		if (material instanceof FenceProvider fence) {
 			BlockContainer pair = fence.getFence();
 			Register(name + "_fence", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 20);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof FenceGateProvider fenceGate) {
 			BlockContainer pair = fenceGate.getFenceGate();
 			Register(name + "_fence_gate", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 20);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof BookshelfProvider bookshelf) {
 			BlockContainer pair = bookshelf.getBookshelf();
 			Register(name + "_bookshelf", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 30, 20);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 30, 20);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof ChiseledBookshelfProvider chiseledBookshelf) {
 			BlockContainer pair = chiseledBookshelf.getChiseledBookshelf();
 			Register(name + "_chiseled_bookshelf", pair);
-			if (flammable) FUEL.add(pair.getItem(), 300);
+			if (isFlammable) fuel.add(pair.getItem(), 300);
 		}
 		if (material instanceof RowProvider row) {
 			BlockContainer pair = row.getRow();
 			Register(name + "_row", pair);
-			if (flammable) {
-				FLAMMABLE.add(pair.getBlock(), 5, 20);
-				FUEL.add(pair.getItem(), 300);
+			if (isFlammable) {
+				flammable.add(pair.getBlock(), 5, 20);
+				fuel.add(pair.getItem(), 300);
 			}
 		}
 		if (material instanceof WallProvider wall) Register(name + "_wall", wall.getWall());
@@ -526,7 +528,7 @@ public class ModRegistry {
 		if (material instanceof LadderProvider ladder) {
 			BlockContainer pair = ladder.getLadder();
 			Register(name + "_ladder", pair);
-			if (flammable) FUEL.add(pair.getItem(), 300);
+			if (isFlammable) fuel.add(pair.getItem(), 300);
 		}
 		if (material instanceof WoodcutterProvider woodcutter) Register(name + "_woodcutter", woodcutter.getWoodcutter());
 		if (material instanceof SignProvider sign) Register(name + "_sign", name + "_wall_sign", sign.getSign());
@@ -542,14 +544,16 @@ public class ModRegistry {
 	public static void RegisterAnchors() {
 		Register("anchor", ANCHOR);
 		Register("anchor_block_entity", ANCHOR_BLOCK_ENTITY);
+		Register("broken_anchor", BROKEN_ANCHOR);
+		Register("broken_anchor_block_entity", BROKEN_ANCHOR_BLOCK_ENTITY);
 		Register("substitute_anchor", SUBSTITUTE_ANCHOR_BLOCK);
 		Register("substitute_anchor_block_entity", SUBSTITUTE_ANCHOR_BLOCK_ENTITY);
 		//Anchor core items
-		for(Integer owner : ANCHOR_MAP.keySet()) Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
+		for(Integer owner : ANCHOR_CORES.keySet()) Register(ANCHOR_MAP.get(owner) + "_core", ANCHOR_CORES.get(owner));
+		for(Integer owner : BROKEN_ANCHOR_CORES.keySet()) Register(ANCHOR_MAP.get(owner) + "_broken_core", BROKEN_ANCHOR_CORES.get(owner));
 	}
-	public static void RegisterFlowers() {
+	public static void RegisterFlowers(FlammableBlockRegistry flammable) {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
-		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		//Carnations
 		for (DyeColor color : COLORS) Register(color.getName() + "_carnation", CARNATIONS.get(color));
 		//Minecraft Earth Flowers
@@ -572,20 +576,20 @@ public class ModRegistry {
 		Register("aster", ASTER);
 		Register("amaranth", AMARANTH);
 		COMPOST.add(AMARANTH.getItem(), 0.65F);
-		FLAMMABLE.add(AMARANTH.getBlock(), 60, 100);
+		flammable.add(AMARANTH.getBlock(), 60, 100);
 		Register("amaranth_petals", AMARANTH_PETALS);
 		COMPOST.add(AMARANTH_PETALS, 0.325F);
 		Register("amaranth_seeds", AMARANTH_SEEDS);
 		COMPOST.add(AMARANTH_SEEDS.getItem(), 0.3F);
 		Register("blue_rose_bush", BLUE_ROSE_BUSH);
 		COMPOST.add(BLUE_ROSE_BUSH.getItem(), 0.65F);
-		FLAMMABLE.add(BLUE_ROSE_BUSH.getBlock(), 60, 100);
+		flammable.add(BLUE_ROSE_BUSH.getBlock(), 60, 100);
 		Register("tall_allium", TALL_ALLIUM);
 		COMPOST.add(TALL_ALLIUM.getItem(), 0.65F);
-		FLAMMABLE.add(TALL_ALLIUM.getBlock(), 60, 100);
+		flammable.add(TALL_ALLIUM.getBlock(), 60, 100);
 		Register("tall_pink_allium", TALL_PINK_ALLIUM);
 		COMPOST.add(TALL_PINK_ALLIUM.getItem(), 0.65F);
-		FLAMMABLE.add(TALL_PINK_ALLIUM.getBlock(), 60, 100);
+		flammable.add(TALL_PINK_ALLIUM.getBlock(), 60, 100);
 		//Vanilla Flower Extensions
 		Register("allium_petals", ALLIUM_PETALS);
 		COMPOST.add(ALLIUM_PETALS, 0.325F);
@@ -657,15 +661,25 @@ public class ModRegistry {
 		Register("spore_blossom_petal", SPORE_BLOSSOM_PETAL);
 		COMPOST.add(SPORE_BLOSSOM_PETAL, 0.1625F);
 	}
-	public static void RegisterFleece() {
-		Register(FLEECE_MATERIAL);
+	public static void RegisterFleece(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(FLEECE_MATERIAL, flammable, fuel);
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getHelmet(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getChestplate(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getLeggings(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getBoots(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(FLEECE_MATERIAL.getHorseArmor(), CauldronBehavior.CLEAN_DYEABLE_ITEM);
 	}
+	public static void RegisterGlass() {
+		Register("glass_slab", GLASS_SLAB);
+		for(DyeColor color : COLORS) Register(color.getName() + "_stained_glass_slab", STAINED_GLASS_SLABS.get(color));
+		Register("tinted_glass_pane", TINTED_GLASS_PANE);
+		Register("tinted_glass_slab", TINTED_GLASS_SLAB);
+	}
 	public static void RegisterPlushies() {
+		Register("wolf_plushie", WOLF_PLUSHIE);
+		Register("polar_bear_plushie", POLAR_BEAR_PLUSHIE);
+		Register("bat_plushie", BAT_PLUSHIE);
+		Register("angel_bat_plushie", ANGEL_BAT_PLUSHIE);
 		Register("chicken_plushie", CHICKEN_PLUSHIE);
 		Register("fancy_chicken_plushie", FANCY_CHICKEN_PLUSHIE);
 		Register("amber_chicken_plushie", AMBER_CHICKEN_PLUSHIE);
@@ -748,21 +762,32 @@ public class ModRegistry {
 		Register("decoration_only_sugar_cane", DECORATIVE_SUGAR_CANE);
 		Register("decoration_only_cactus", DECORATIVE_CACTUS);
 	}
-	public static void RegisterSoleil() {
+	public static void RegisterSpecters() {
+		//Deepest Sleep
+		Register("vector_arrow", VECTOR_ARROW_PARTICLE);
+		Register("chunkeater_tnt", CHUNKEATER_TNT);
+		Register("chunkeater_tnt", CHUNKEATER_TNT_ENTITY);
+		DispenserBlock.registerBehavior(CHUNKEATER_TNT.getBlock(), ModTntBlock.DispenserBehavior(ChunkeaterTntEntity::new));
+		//Miasma
+		Register("catalyzing_tnt", CATALYZING_TNT);
+		Register("catalyzing_tnt", CATALYZING_TNT_ENTITY);
+		DispenserBlock.registerBehavior(CATALYZING_TNT.getBlock(), ModTntBlock.DispenserBehavior(CatalyzingTntEntity::new));
+		//Hezekiah
+		Register("devouring_tnt", DEVOURING_TNT);
+		Register("devouring_tnt", DEVOURING_TNT_ENTITY);
+		DispenserBlock.registerBehavior(DEVOURING_TNT.getBlock(), ModTntBlock.DispenserBehavior(DevouringTntEntity::new));
+		//Alcatraz
+		Register("sharp_tnt", SHARP_TNT);
+		Register("sharp_tnt", SHARP_TNT_ENTITY);
+		DispenserBlock.registerBehavior(SHARP_TNT.getBlock(), ModTntBlock.DispenserBehavior(SharpTntEntity::new));
+		//Digger Krozhul
+		Register("violent_tnt", VIOLENT_TNT);
+		Register("violent_tnt", VIOLENT_TNT_ENTITY);
+		DispenserBlock.registerBehavior(VIOLENT_TNT.getBlock(), ModTntBlock.DispenserBehavior(ViolentTntEntity::new));
+		//Soleil
 		Register("soft_tnt", SOFT_TNT);
 		Register("soft_tnt", SOFT_TNT_ENTITY);
-		DispenserBlock.registerBehavior(SOFT_TNT.getBlock(), new ItemDispenserBehavior() {
-			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				World world = pointer.getWorld();
-				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
-				SoftTntEntity tntEntity = new SoftTntEntity(world, (double)blockPos.getX() + 0.5D, (double)blockPos.getY(), (double)blockPos.getZ() + 0.5D, (LivingEntity)null);
-				world.spawnEntity(tntEntity);
-				world.playSound((PlayerEntity)null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
-				world.emitGameEvent((Entity)null, GameEvent.ENTITY_PLACE, blockPos);
-				stack.decrement(1);
-				return stack;
-			}
-		});
+		DispenserBlock.registerBehavior(SOFT_TNT.getBlock(), ModTntBlock.DispenserBehavior(SoftTntEntity::new));
 		//Carved Gourds
 		Register("soleil_carved_pumpkin", SOLEIL_CARVED_PUMPKIN);
 		Register("soleil_jack_o_lantern", SOLEIL_JACK_O_LANTERN);
@@ -791,47 +816,45 @@ public class ModRegistry {
 		Register("coffee", COFFEE);
 		Register("black_coffee", BLACK_COFFEE);
 	}
-	public static void RegisterCherry() {
+	public static void RegisterCherry(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
-		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
-		Register(CHERRY_MATERIAL);
+		Register(CHERRY_MATERIAL, flammable, fuel);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cherry_tree"), CHERRY_TREE);
 		Register("white_cherry_leaves", WHITE_CHERRY_LEAVES);
-		FLAMMABLE.add(WHITE_CHERRY_LEAVES.getBlock(), 30, 60);
+		flammable.add(WHITE_CHERRY_LEAVES.getBlock(), 30, 60);
 		Register("white_cherry_petals", WHITE_CHERRY_PETALS);
 		COMPOST.add(WHITE_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("white_cherry_tree"), WHITE_CHERRY_TREE);
 		Register("pale_cherry_leaves", PALE_CHERRY_LEAVES);
-		FLAMMABLE.add(PALE_CHERRY_LEAVES.getBlock(), 30, 60);
+		flammable.add(PALE_CHERRY_LEAVES.getBlock(), 30, 60);
 		Register("pale_cherry_petals", PALE_CHERRY_PETALS);
 		COMPOST.add(PALE_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pale_cherry_tree"), PALE_CHERRY_TREE);
 		Register("pink_cherry_leaves", PINK_CHERRY_LEAVES);
-		FLAMMABLE.add(PINK_CHERRY_LEAVES.getBlock(), 30, 60);
+		flammable.add(PINK_CHERRY_LEAVES.getBlock(), 30, 60);
 		Register("pink_cherry_petals", PINK_CHERRY_PETALS);
 		COMPOST.add(PINK_CHERRY_PETALS, 0.625F);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("pink_cherry_tree"), PINK_CHERRY_TREE);
 		Register("cherry", CHERRY_ITEM);
 		COMPOST.add(CHERRY_ITEM, 0.65F);
 	}
-	public static void RegisterCinnamon() {
+	public static void RegisterCinnamon(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		Register("cinnamon", CINNAMON);
 		COMPOST.add(CINNAMON, 0.2f);
-		Register(CASSIA_MATERIAL);
+		Register(CASSIA_MATERIAL, flammable, fuel);
 		Register("flowering_cassia_leaves", FLOWERING_CASSIA_LEAVES);
-		FlammableBlockRegistry.getDefaultInstance().add(FLOWERING_CASSIA_LEAVES.getBlock(), 30, 60);
+		flammable.add(FLOWERING_CASSIA_LEAVES.getBlock(), 30, 60);
 		Register("cassia_petals", CASSIA_PETALS);
 		COMPOST.add(CASSIA_PETALS, 0.325f);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("cassia_tree"), CASSIA_TREE);
 	}
-	public static void RegisterVanilla() {
+	public static void RegisterVanilla(FlammableBlockRegistry flammable) {
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
-		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
 		Register("vanilla_flower", VANILLA_FLOWER);
 		Register("tall_vanilla", TALL_VANILLA);
 		COMPOST.add(TALL_PINK_ALLIUM.getItem(), 0.65F);
-		FLAMMABLE.add(TALL_VANILLA.getBlock(), 60, 100);
+		flammable.add(TALL_VANILLA.getBlock(), 60, 100);
 		Register("vanilla", VANILLA);
 		COMPOST.add(VANILLA, 0.2f);
 	}
@@ -934,20 +957,32 @@ public class ModRegistry {
 		Register("strawberry_ice_cream", STRAWBERRY_ICE_CREAM);
 		Register("vanilla_ice_cream", VANILLA_ICE_CREAM);
 		Register("chocolate_chip_ice_cream", CHOCOLATE_CHIP_ICE_CREAM);
+		//Egg Nog
+		Register("egg_nog", EGG_NOG);
 	}
-	public static void RegisterBamboo() {
-		Register(BAMBOO_MATERIAL);
+	public static void RegisterBamboo(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(BAMBOO_MATERIAL, flammable, fuel);
 		Register("dried_bamboo", DRIED_BAMBOO_BLOCK);
 		Register("potted_dried_bamboo", POTTED_DRIED_BAMBOO);
-		Register(DRIED_BAMBOO_MATERIAL);
+		Register(DRIED_BAMBOO_MATERIAL, flammable, fuel);
 		//New Bamboo
-		Register(VANILLA_BAMBOO_MATERIAL);
+		Register(VANILLA_BAMBOO_MATERIAL, flammable, fuel);
 		Register("minecraft:bamboo_mosaic", BAMBOO_MOSAIC);
+		flammable.add(BAMBOO_MOSAIC.getBlock(), 5, 20);
+		fuel.add(BAMBOO_MOSAIC.getItem(), 300);
 		Register("minecraft:bamboo_mosaic_slab", BAMBOO_MOSAIC_SLAB);
+		flammable.add(BAMBOO_MOSAIC_SLAB.getBlock(), 5, 20);
+		fuel.add(BAMBOO_MOSAIC_SLAB.getItem(), 150);
 		Register("minecraft:bamboo_mosaic_stairs", BAMBOO_MOSAIC_STAIRS);
+		flammable.add(BAMBOO_MOSAIC_STAIRS.getBlock(), 5, 20);
+		fuel.add(BAMBOO_MOSAIC_STAIRS.getItem(), 300);
 		Register("vanilla_bamboo_bookshelf", BAMBOO_BOOKSHELF);
+		flammable.add(BAMBOO_BOOKSHELF.getBlock(), 30, 20);
+		fuel.add(BAMBOO_BOOKSHELF.getItem(), 300);
 		Register("vanilla_bamboo_chiseled_bookshelf", BAMBOO_CHISELED_BOOKSHELF);
+		fuel.add(BAMBOO_CHISELED_BOOKSHELF.getItem(), 300);
 		Register("vanilla_bamboo_ladder", BAMBOO_LADDER);
+		fuel.add(BAMBOO_LADDER.getItem(), 300);
 		Register("vanilla_bamboo_woodcutter", BAMBOO_WOODCUTTER);
 	}
 	public static void RegisterChiseledBookshelves() {
@@ -955,46 +990,48 @@ public class ModRegistry {
 		FuelRegistry.INSTANCE.add(CHISELED_BOOKSHELF.getItem(), 300);
 		Register("minecraft:chiseled_bookshelf_entity", CHISELED_BOOKSHELF_ENTITY);
 	}
-	public static void RegisterVanillaWood() {
-		Register(ACACIA_MATERIAL);
-		Register(BIRCH_MATERIAL);
-		Register(DARK_OAK_MATERIAL);
-		Register(JUNGLE_MATERIAL);
-		//Register(OAK_MATERIAL);
-		Register(SPRUCE_MATERIAL);
+	public static void RegisterVanillaWood(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(ACACIA_MATERIAL, flammable, fuel);
+		Register(BIRCH_MATERIAL, flammable, fuel);
+		Register(DARK_OAK_MATERIAL, flammable, fuel);
+		Register(JUNGLE_MATERIAL, flammable, fuel);
+		//Register(OAK_MATERIAL, flammable, fuel);
+		Register(SPRUCE_MATERIAL, flammable, fuel);
 	}
-	public static void RegisterMushroomWood() {
-		Register(BROWN_MUSHROOM_MATERIAL);
-		Register(RED_MUSHROOM_MATERIAL);
-		Register(MUSHROOM_STEM_MATERIAL);
+	public static void RegisterMushroomWood(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(BROWN_MUSHROOM_MATERIAL, flammable, fuel);
+		Register(RED_MUSHROOM_MATERIAL, flammable, fuel);
+		Register(MUSHROOM_STEM_MATERIAL, flammable, fuel);
 		Registry.register(Registry.FEATURE, ID("huge_blue_mushroom"), HUGE_BLUE_MUSHROOM_FEATURE);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
-		Register(BLUE_MUSHROOM_MATERIAL);
+		Register(BLUE_MUSHROOM_MATERIAL, flammable, fuel);
 		CompostingChanceRegistry COMPOST = CompostingChanceRegistry.INSTANCE;
 		COMPOST.add(BLUE_MUSHROOM_MATERIAL.get().getItem(), 0.65F);
 		COMPOST.add(BLUE_MUSHROOM_MATERIAL.getBlock().getItem(), 0.85F);
 	}
-	public static void RegisterVanillaNetherWood() {
-		Register(CRIMSON_MATERIAL);
-		Register(WARPED_MATERIAL);
+	public static void RegisterVanillaNetherWood(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(CRIMSON_MATERIAL, flammable, fuel);
+		Register("nether_wart_slab", NETHER_WART_SLAB);
+		Register(WARPED_MATERIAL, flammable, fuel);
+		Register("warped_wart_slab", WARPED_WART_SLAB);
 	}
-	public static void RegisterGildedFungus() {
+	public static void RegisterGildedFungus(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_forest_vegetation"), GILDED_FOREST_VEGETATION);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("patch_gilded_roots"), PATCH_GILDED_ROOTS);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_fungi"), GILDED_FUNGI);
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_fungi_planted"), GILDED_FUNGI_PLANTED);
 		Register("gilded_nylium", GILDED_NYLIUM);
 		Register("gilded_roots", GILDED_ROOTS);
-		Register(GILDED_MATERIAL);
+		Register(GILDED_MATERIAL, flammable, fuel);
+		Register("gilded_wart_slab", GILDED_WART_SLAB);
 	}
-	public static void Register119() {
+	public static void Register119(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		//Goat Stuff (not part of backport)
-		FlammableBlockRegistry FLAMMABLE = FlammableBlockRegistry.getDefaultInstance();
-		FuelRegistry FUEL = FuelRegistry.INSTANCE;
 		for(DyeColor color : DyeColor.values()) {
 			BlockContainer container = FLEECE.get(color);
 			Register(color.getName() + "_fleece", container);
-			FLAMMABLE.add(container.getBlock(), 30, 60);
+			flammable.add(container.getBlock(), 30, 60);
+			fuel.add(container.getItem(), 100);
 		}
 		ItemDispenserBehavior itemDispenserBehavior2 = new FallibleItemDispenserBehavior() {
 			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -1012,17 +1049,29 @@ public class ModRegistry {
 				return stack;
 			}
 		};
-		for(DyeColor color : DyeColor.values()) {
+		for(DyeColor color : COLORS) {
 			BlockContainer container = FLEECE_CARPETS.get(color);
 			Register(color.getName() + "_fleece_carpet", container);
-			FLAMMABLE.add(container.getBlock(), 60, 20);
+			flammable.add(container.getBlock(), 60, 20);
 			DispenserBlock.registerBehavior(container.getItem(), itemDispenserBehavior2);
+			fuel.add(container.getItem(), 67);
+		}
+		for (DyeColor color : COLORS) {
+			BlockContainer container = FLEECE_SLABS.get(color);
+			Register(color.getName() + "_fleece_slab", container);
+			flammable.add(container.getBlock(), 40, 40);
+			fuel.add(container.getItem(), 50);
 		}
 		Register("rainbow_fleece", RAINBOW_FLEECE);
-		FLAMMABLE.add(RAINBOW_FLEECE.getBlock(), 30, 60);
+		flammable.add(RAINBOW_FLEECE.getBlock(), 30, 60);
+		fuel.add(RAINBOW_FLEECE.getBlock(), 100);
 		Register("rainbow_fleece_carpet", RAINBOW_FLEECE_CARPET);
-		FLAMMABLE.add(RAINBOW_FLEECE_CARPET.getBlock(), 60, 20);
+		flammable.add(RAINBOW_FLEECE_CARPET.getBlock(), 60, 20);
+		fuel.add(RAINBOW_FLEECE_CARPET.getBlock(), 67);
 		DispenserBlock.registerBehavior(RAINBOW_FLEECE_CARPET.getItem(), itemDispenserBehavior2);
+		Register("rainbow_fleece_slab", RAINBOW_FLEECE_SLAB);
+		flammable.add(RAINBOW_FLEECE_CARPET.getBlock(), 40, 40);
+		fuel.add(RAINBOW_FLEECE_SLAB.getBlock(), 50);
 		Register("chevon", CHEVON);
 		Register("cooked_chevon", COOKED_CHEVON);
 		Register("goat_horn_salve", GOAT_HORN_SALVE);
@@ -1071,7 +1120,7 @@ public class ModRegistry {
 			}
 		});
 		//Mangrove
-		Register(MANGROVE_MATERIAL);
+		Register(MANGROVE_MATERIAL, flammable, fuel);
 		Register("minecraft:mangrove_roots", MANGROVE_ROOTS);
 		CompostingChanceRegistry.INSTANCE.add(MANGROVE_ROOTS.getItem(), 0.3F);
 		FlammableBlockRegistry.getDefaultInstance().add(MANGROVE_ROOTS.getBlock(), 5, 20);
@@ -1100,7 +1149,7 @@ public class ModRegistry {
 		//Deep Dark
 		Register("minecraft:reinforced_deepslate", REINFORCED_DEEPSLATE);
 		Register("minecraft:echo_shard", ECHO_SHARD);
-		Register(ECHO_MATERIAL);
+		Register(ECHO_MATERIAL, flammable, fuel);
 		Register("budding_echo", BUDDING_ECHO);
 		Register("echo_cluster", ECHO_CLUSTER);
 		Register("large_echo_bud", LARGE_ECHO_BUD);
@@ -1110,7 +1159,7 @@ public class ModRegistry {
 		Registry.register(Registry.BLOCK, Registry.BLOCK.getRawId(Blocks.SCULK_SENSOR), "minecraft:sculk_sensor", SCULK_SENSOR.getBlock());
 		Registry.register(Registry.ITEM, Registry.ITEM.getRawId(Items.SCULK_SENSOR), "minecraft:sculk_sensor", SCULK_SENSOR.getItem());
 		Registry.register(Registry.BLOCK_ENTITY_TYPE, Registry.BLOCK_ENTITY_TYPE.getRawId(BlockEntityType.SCULK_SENSOR), "minecraft:sculk_sensor", SCULK_SENSOR_ENTITY);
-		Register(SCULK_STONE_MATERIAL);
+		Register(SCULK_STONE_MATERIAL, flammable, fuel);
 		Register("calcite_sculk_turf", CALCITE_SCULK_TURF);
 		Register("deepslate_sculk_turf", DEEPSLATE_SCULK_TURF);
 		Register("dripstone_sculk_turf", DRIPSTONE_SCULK_TURF);
@@ -1221,7 +1270,7 @@ public class ModRegistry {
 			private final ItemDispenserBehavior fallbackBehavior = new ItemDispenserBehavior();
 			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				WorldAccess worldAccess = pointer.getWorld();
-				BlockPos blockPos = pointer.getPos().offset((Direction)pointer.getBlockState().get(DispenserBlock.FACING));
+				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
 				BlockState blockState = worldAccess.getBlockState(blockPos);
 				Block block = blockState.getBlock();
 				if (block instanceof FluidDrainable) {
@@ -1229,7 +1278,7 @@ public class ModRegistry {
 					itemStack = bucketProvider.bucketInMaterial(itemStack);
 					if (itemStack.isEmpty()) return super.dispenseSilently(pointer, stack);
 					else {
-						worldAccess.emitGameEvent((Entity)null, GameEvent.FLUID_PICKUP, (BlockPos)blockPos);
+						worldAccess.emitGameEvent(null, GameEvent.FLUID_PICKUP, blockPos);
 						Item item2 = itemStack.getItem();
 						stack.decrement(1);
 						if (stack.isEmpty()) return new ItemStack(item2);
@@ -1246,21 +1295,21 @@ public class ModRegistry {
 		});
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(waterBucket, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState)Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					Blocks.WATER_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
 					SoundEvents.ITEM_BUCKET_EMPTY, bucket);
 		});
 		CauldronBehavior.WATER_CAULDRON_BEHAVIOR.put(bucket, (state, world, pos, player, hand, stack) -> {
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(waterBucket),
-					(statex) -> (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL);
+					(statex) -> statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL);
 		});
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(powderSnowBucket, (state, world, pos, player, hand, stack) -> {
 			return BucketUtils.fillCauldron(world, pos, player, hand, stack,
-					(BlockState)Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
+					Blocks.POWDER_SNOW_CAULDRON.getDefaultState().with(LeveledCauldronBlock.LEVEL, 3),
 					SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, bucket);
 		});
 		CauldronBehavior.POWDER_SNOW_CAULDRON_BEHAVIOR.put(bucket, (state, world, pos, player, hand, stack) -> {
 			return CauldronBehavior.emptyCauldron(state, world, pos, player, hand, stack, new ItemStack(powderSnowBucket),
-					(statex) -> (Integer)statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
+					(statex) -> statex.get(LeveledCauldronBlock.LEVEL) == 3, SoundEvents.ITEM_BUCKET_FILL_POWDER_SNOW);
 		});
 		Item milkBucket = bucketProvider.getMilkBucket();
 		Register(name + "_milk_bucket", milkBucket);
@@ -1281,7 +1330,7 @@ public class ModRegistry {
 		Register("killjoy", KILLJOY_EFFECT);
 		Register("tomato_soup", TOMATO_SOUP);
 	}
-	public static void RegisterServerBlood() {
+	public static void RegisterServerBlood(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("blood_bubble", BLOOD_BUBBLE);
 		Register("blood_splash", BLOOD_SPLASH);
 		Register("dripping_blood", DRIPPING_BLOOD);
@@ -1289,9 +1338,9 @@ public class ModRegistry {
 		Register("falling_dripstone_blood", FALLING_DRIPSTONE_BLOOD);
 
 		Register("blood_block", BLOOD_BLOCK);
-		Register(BLOOD_MATERIAL);
+		Register(BLOOD_MATERIAL, flammable, fuel);
 		Register("dried_blood_block", DRIED_BLOOD_BLOCK);
-		Register(DRIED_BLOOD_MATERIAL);
+		Register(DRIED_BLOOD_MATERIAL, flammable, fuel);
 		//Liquid Blood, Bucket, and Bottles
 		Register("blood_bucket", BLOOD_BUCKET);
 		Register("blood_cauldron", BLOOD_CAULDRON);
@@ -1487,15 +1536,28 @@ public class ModRegistry {
 		Register("rotten_pumpkin_seeds", ROTTEN_PUMPKIN_SEEDS);
 		CompostingChanceRegistry.INSTANCE.add(ROTTEN_PUMPKIN_SEEDS, 0.65F);
 	}
-	public static void RegisterRainbow() {
+	public static void RegisterTerracotta() {
+		for (DyeColor color : COLORS) Register(color.getName() + "_terracotta_slab", TERRACOTTA_SLABS.get(color));
+		Register("terracotta_slab", TERRACOTTA_SLAB);
+		for (DyeColor color : COLORS) Register(color.getName() + "_glazed_terracotta_slab", GLAZED_TERRACOTTA_SLABS.get(color));
+	}
+	public static void RegisterConcrete() {
+		for (DyeColor color : COLORS) Register(color.getName() + "_concrete_slab", CONCRETE_SLABS.get(color));
+	}
+	public static void RegisterRainbow(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("rainbow_sheep", RAINBOW_SHEEP_ENTITY);
 		SpawnRestrictionAccessor.callRegister(RAINBOW_SHEEP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		FabricDefaultAttributeRegistry.register(RAINBOW_SHEEP_ENTITY, RainbowSheepEntity.createSheepAttributes());
 		Register("rainbow_sheep_spawn_egg", RAINBOW_SHEEP_SPAWN_EGG);
 		Register("rainbow_wool", RAINBOW_WOOL);
-		FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_WOOL.getBlock(), 30, 60);
+		flammable.add(RAINBOW_WOOL.getBlock(), 30, 60);
+		fuel.add(RAINBOW_WOOL.getItem(), 100);
 		Register("rainbow_carpet", RAINBOW_CARPET);
-		FlammableBlockRegistry.getDefaultInstance().add(RAINBOW_WOOL.getBlock(), 60, 20);
+		flammable.add(RAINBOW_CARPET.getBlock(), 60, 20);
+		fuel.add(RAINBOW_CARPET.getItem(), 67);
+		Register("rainbow_wool_slab", RAINBOW_WOOL_SLAB);
+		flammable.add(RAINBOW_WOOL_SLAB.getBlock(), 40, 40);
+		fuel.add(RAINBOW_WOOL_SLAB.getItem(), 50);
 		Register("rainbow_bed", RAINBOW_BED);
 	}
 	public static void RegisterSheepVariants() {
@@ -1511,6 +1573,8 @@ public class ModRegistry {
 		FabricDefaultAttributeRegistry.register(FANCY_CHICKEN_ENTITY, FancyChickenEntity.createChickenAttributes());
 		Register("fancy_chicken_spawn_egg", FANCY_CHICKEN_SPAWN_EGG);
 		Register("fancy_feather", FANCY_FEATHER);
+
+		Register("red_feather", RED_FEATHER);
 	}
 	public static void RegisterCowVariants() {
 		//Milk Cows
@@ -1638,6 +1702,7 @@ public class ModRegistry {
 		Register("poisonous_tomato", POISONOUS_TOMATO);
 		Register("wilted_cabbage", WILTED_CABBAGE);
 		Register("wilted_onion", WILTED_ONION);
+		Register("wilted_kelp", WILTED_KELP);
 		Register("moldy_bread", MOLDY_BREAD);
 		Register("moldy_cookie", MOLDY_COOKIE);
 		Register("rotten_pumpkin_pie", ROTTEN_PUMPKIN_PIE);
@@ -1674,33 +1739,35 @@ public class ModRegistry {
 		Register(CHORUS_CAKE);
 		COMPOST.add(CHORUS_CAKE.getCake().getItem(), 1F);
 	}
-	public static void RegisterBottledConfetti() {
+	public static void RegisterSpecialBottles() {
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM);
 		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY);
 		Register("dropped_confetti", DROPPED_CONFETTI_ENTITY);
 		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY);
 		Register("dropped_dragon_breath", DROPPED_DRAGON_BREATH_ENTITY);
 		Register("dragon_breath_cloud", DRAGON_BREATH_CLOUD_ENTITY);
+		Register("bottled_lightning", BOTTLED_LIGHTNING_ITEM);
+		Register("bottled_lightning", BOTTLED_LIGHTNING_ENTITY);
 	}
-	public static void RegisterCopper() {
+	public static void RegisterCopper(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("copper_flame", COPPER_FLAME_PARTICLE);
-		Register(COPPER_MATERIAL);
+		Register(COPPER_MATERIAL, flammable, fuel);
 		Register("medium_weighted_pressure_plate", MEDIUM_WEIGHTED_PRESSURE_PLATE);
 	}
-	public static void RegisterGold() {
+	public static void RegisterGold(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("gold_flame", GOLD_FLAME_PARTICLE);
-		Register(GOLD_MATERIAL);
+		Register(GOLD_MATERIAL, flammable, fuel);
 	}
-	public static void RegisterIron() {
+	public static void RegisterIron(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("iron_flame", IRON_FLAME_PARTICLE);
-		Register(IRON_MATERIAL);
+		Register(IRON_MATERIAL, flammable, fuel);
 		Register("dark_iron_ingot", DARK_IRON_INGOT);
-		Register(DARK_IRON_MATERIAL);
+		Register(DARK_IRON_MATERIAL, flammable, fuel);
 		Register("dark_heavy_weighted_pressure_plate", DARK_HEAVY_WEIGHTED_PRESSURE_PLATE);
 	}
-	public static void RegisterNetherite() {
+	public static void RegisterNetherite(FlammableBlockRegistry flammable, FuelRegistry fuel) {
 		Register("netherite_flame", NETHERITE_FLAME_PARTICLE);
-		Register(NETHERITE_MATERIAL);
+		Register(NETHERITE_MATERIAL, flammable, fuel);
 		Register("crushing_weighted_pressure_plate", CRUSHING_WEIGHTED_PRESSURE_PLATE);
 	}
 	public static void RegisterWoodcutter() {
@@ -1723,17 +1790,19 @@ public class ModRegistry {
 		Register("flowing_mud", FLOWING_MUD_FLUID);
 		Register("mud_fluid_block", MUD_FLUID_BLOCK);
 	}
-	public static void RegisterObsidian() {
-		Register(OBSIDIAN_MATERIAL);
-		Register(CRYING_OBSIDIAN_MATERIAL);
+	public static void RegisterObsidian(FlammableBlockRegistry flammable, FuelRegistry fuel) {
+		Register(OBSIDIAN_MATERIAL, flammable, fuel);
+		Register(CRYING_OBSIDIAN_MATERIAL, flammable, fuel);
 		Register("landing_obsidian_blood", LANDING_OBSIDIAN_BLOOD);
 		Register("falling_obsidian_blood", FALLING_OBSIDIAN_BLOOD);
 		Register("dripping_obsidian_blood", DRIPPING_OBSIDIAN_BLOOD);
 		Register("bleeding_obsidian", BLEEDING_OBSIDIAN);
-		Register(BLEEDING_OBSIDIAN_MATERIAL);
+		Register(BLEEDING_OBSIDIAN_MATERIAL, flammable, fuel);
 	}
 
 	public static void RegisterAll() {
+		FlammableBlockRegistry flammable = FlammableBlockRegistry.getDefaultInstance();
+		FuelRegistry fuel = FuelRegistry.INSTANCE;
 		RegisterAnchors();
 		Register("glow_flame", UNDERWATER_TORCH_GLOW);
 		Register("unlit", UNLIT_TORCH);
@@ -1747,67 +1816,73 @@ public class ModRegistry {
 		Register("ender_campfire", ENDER_CAMPFIRE);
 		RegisterChiseledBookshelves();
 		Register("underwater", UNDERWATER_TORCH);
-		Register(BONE_MATERIAL);
+		Register(BONE_MATERIAL, flammable, fuel);
 		Register("tinker_toy", TINKER_TOY);
+		Register("coal_slab", COAL_SLAB);
+		fuel.add(COAL_SLAB.getItem(), 8000);
 		Register("charcoal_block", CHARCOAL_BLOCK);
-		FuelRegistry.INSTANCE.add(CHARCOAL_BLOCK.getItem(), 16000);
-		RegisterFlowers();
-		Register(STUDDED_LEATHER_MATERIAL);
-		RegisterFleece();
-		Register(AMETHYST_MATERIAL);
+		fuel.add(CHARCOAL_BLOCK.getItem(), 16000);
+		Register("charcoal_slab", CHARCOAL_SLAB);
+		fuel.add(CHARCOAL_SLAB.getItem(), 8000);
+		Register("coarse_dirt_slab", COARSE_DIRT_SLAB);
+		RegisterFlowers(flammable);
+		Register(STUDDED_LEATHER_MATERIAL, flammable, fuel);
+		RegisterFleece(flammable, fuel);
+		Register(AMETHYST_MATERIAL, flammable, fuel);
 		Register("tinted_goggles", TINTED_GOGGLES);
-		Register(EMERALD_MATERIAL);
-		Register(DIAMOND_MATERIAL);
-		Register(QUARTZ_MATERIAL);
-		RegisterObsidian();
-		Register(CALCITE_MATERIAL);
-		Register(DRIPSTONE_MATERIAL);
-		Register(TUFF_MATERIAL);
-		Register(PURPUR_MATERIAL);
-		Register(GILDED_BLACKSTONE_MATERIAL);
+		Register(EMERALD_MATERIAL, flammable, fuel);
+		Register(DIAMOND_MATERIAL, flammable, fuel);
+		Register(QUARTZ_MATERIAL, flammable, fuel);
+		RegisterObsidian(flammable, fuel);
+		Register(CALCITE_MATERIAL, flammable, fuel);
+		Register(DRIPSTONE_MATERIAL, flammable, fuel);
+		Register(TUFF_MATERIAL, flammable, fuel);
+		Register(PURPUR_MATERIAL, flammable, fuel);
+		Register(GILDED_BLACKSTONE_MATERIAL, flammable, fuel);
 		Register("chiseled_polished_gilded_blackstone", CHISELED_POLISHED_GILDED_BLACKSTONE);
 		Register("cracked_polished_gilded_blackstone_bricks", CRACKED_POLISHED_GILDED_BLACKSTONE_BRICKS);
-		Register("tinted_glass_pane", TINTED_GLASS_PANE);
+		RegisterGlass();
 		RegisterPlushies();
 		RegisterDecorativeBlocks();
 		Register("sbehesohe", SBEHESOHE);
+		Register("sbehesohe_full", SBEHESOHE_FULL);
 		Register("broken_bottle", BROKEN_BOTTLE);
 		Register("pteror", PTEROR);
 		Register("locket", LOCKET);
 		Register("emerald_locket", EMERALD_LOCKET);
 		Register("amber_eye", AMBER_EYE);
 		Register("amber_eye_end_portal_frame", AMBER_EYE_END_PORTAL_FRAME);
-		Register("vector_arrow", VECTOR_ARROW_PARTICLE);
-		RegisterSoleil();
+		RegisterSpecters();
 		RegisterCoffee();
 		Register("haven_boat", BOAT_ENTITY);
 		//RegisterChiseledBookshelves();
-		RegisterCherry();
-		RegisterCinnamon();
-		RegisterVanilla();
-		RegisterBamboo();
-		Register(SUGAR_CANE_MATERIAL);
-		Register(HAY_MATERIAL);
-		Register(CHARRED_MATERIAL);
-		RegisterVanillaWood();
-		RegisterMushroomWood();
-		RegisterVanillaNetherWood();
-		RegisterGildedFungus();
+		RegisterCherry(flammable, fuel);
+		RegisterCinnamon(flammable, fuel);
+		RegisterVanilla(flammable);
+		RegisterBamboo(flammable, fuel);
+		Register(SUGAR_CANE_MATERIAL, flammable, fuel);
+		Register(HAY_MATERIAL, flammable, fuel);
+		Register(CHARRED_MATERIAL, flammable, fuel);
+		RegisterVanillaWood(flammable, fuel);
+		RegisterMushroomWood(flammable, fuel);
+		RegisterVanillaNetherWood(flammable, fuel);
+		RegisterGildedFungus(flammable, fuel);
 		Register("blue_shroomlight", BLUE_SHROOMLIGHT);
 		CompostingChanceRegistry.INSTANCE.add(BLUE_SHROOMLIGHT.getItem(), 0.65F);
-		Register(WOOD_MATERIAL);
+		Register(WOOD_MATERIAL, flammable, fuel);
 		Register("shoddy_wood_bucket", SHODDY_WOOD_BUCKET);
 		RegisterThrowableTomatoes();
-		RegisterServerBlood();
+		RegisterServerBlood(flammable, fuel);
 		Register("bleeding", BLEEDING_EFFECT);
+		Registry.register(Registry.ENCHANTMENT, ID("serrated"), SERRATED_ENCHANTMENT);
 		Register("bone_rot", BONE_ROT_EFFECT);
 		Register("marked", MARKED_EFFECT);
 		Register("withering", WITHERING_EFFECT);
 		Register("protected", PROTECTED_EFFECT);
 		Register("relieved", RELIEVED_EFFECT);
 		Register("flashbanged", FLASHBANGED_EFFECT);
-		JUICE_MAP.put(() -> BLOOD_BLOCK.getItem(), BLOOD_BOTTLE);
-		JUICE_MAP.put(() -> MUD.getItem(), MUD_BOTTLE);
+		JUICE_MAP.put(BLOOD_BLOCK::getItem, BLOOD_BOTTLE);
+		JUICE_MAP.put(MUD::getItem, MUD_BOTTLE);
 		JUICE_MAP.put(() -> Items.HONEY_BLOCK, Items.HONEY_BOTTLE);
 		JUICE_MAP.put(() -> Items.SLIME_BLOCK, SLIME_BOTTLE);
 		JUICE_MAP.put(() -> Items.MAGMA_BLOCK, MAGMA_CREAM_BOTTLE);
@@ -1819,7 +1894,15 @@ public class ModRegistry {
 		Register("grappling_rod", GRAPPLING_ROD);
 		RegisterAngelBat();
 		RegisterGourds();
-		RegisterRainbow();
+		RegisterTerracotta();
+		RegisterConcrete();
+		for (DyeColor color : COLORS) {
+			BlockContainer container = WOOL_SLABS.get(color);
+			Register(color.getName() + "_wool_slab", container);
+			flammable.add(container.getBlock(), 40, 40);
+			fuel.add(container.getItem(), 50);
+		}
+		RegisterRainbow(flammable, fuel);
 		RegisterSheepVariants();
 		RegisterChickenVariants();
 		RegisterCowVariants();
@@ -1850,17 +1933,18 @@ public class ModRegistry {
 		Register("white_curse_breaker_potion", WHITE_CURSE_BREAKER_POTION);
 		RegisterPoison();
 		RegisterCakes();
-		RegisterBottledConfetti();
-		RegisterCopper();
-		RegisterGold();
-		RegisterIron();
-		RegisterNetherite();
+		RegisterSpecialBottles();
+		Register("lapis_slab", LAPIS_SLAB);
+		RegisterCopper(flammable, fuel);
+		RegisterGold(flammable, fuel);
+		RegisterIron(flammable, fuel);
+		RegisterNetherite(flammable, fuel);
 		RegisterWoodcutter();
 		Register("hedge_block", HEDGE_BLOCK);
 		Register("wax_block", WAX_BLOCK);
 		Register("horn", HORN);
 		RegisterLiquidMud();
 		RegisterDynamicLights();
-		Register119();
+		Register119(flammable, fuel);
 	}
 }

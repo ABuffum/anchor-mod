@@ -24,9 +24,9 @@ public class BloodMaterial extends BaseMaterial implements
 		super(name, false);
 		fence = new BlockContainer(new ModFenceBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
 		pane = new BlockContainer(new ModPaneBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
-		slab = new BlockContainer(new HavenSlabBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		slab = new BlockContainer(new ModSlabBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(ModBase.BLOOD_BLOCK.getBlock()), ItemSettings());
 	}
 
 	@Override

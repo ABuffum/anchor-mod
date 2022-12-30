@@ -52,7 +52,7 @@ public class VanillaNetherWoodMaterial extends BaseMaterial implements
 		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.NETHER_STEM, false);
 		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.NETHER_STEM, false);
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(ModBlockSoundGroups.NETHER_WOOD)), ItemSettings());
-		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(ModBlockSoundGroups.NETHER_WOOD)), ItemSettings());
+		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 		boat = new BoatContainer(name, baseBlock, !isFlammable(), ItemSettings().maxCount(1));

@@ -9,6 +9,7 @@ import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.containers.TorchContainer;
+import haven.sounds.ModBlockSoundGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleTypes;
@@ -48,7 +49,7 @@ public class VanillaWoodMaterial extends BaseMaterial implements
 		ender_campfire = MakeCampfire(13, 3, mapColor, BlockSoundGroup.WOOD, false);
 		soul_campfire = MakeCampfire(10, 2, mapColor, BlockSoundGroup.WOOD, false);
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
-		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 	}

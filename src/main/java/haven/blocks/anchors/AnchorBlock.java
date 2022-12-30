@@ -24,9 +24,7 @@ public class AnchorBlock extends BlockWithEntity {
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(OWNER);
-	}
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(OWNER); }
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
@@ -38,28 +36,24 @@ public class AnchorBlock extends BlockWithEntity {
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new AnchorBlockEntity(pos, state);
-	}
+	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) { return new AnchorBlockEntity(pos, state); }
 
 	@Override
-	public BlockRenderType getRenderType(BlockState blockState) {
-		return BlockRenderType.INVISIBLE;
+	public BlockRenderType getRenderType(BlockState blockState) { return BlockRenderType.INVISIBLE; }
+
+	@Nullable
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+		return checkType(type, ModBase.ANCHOR_BLOCK_ENTITY, AnchorBlockEntity::tick);
 	}
 
 	@Override
 	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack stack) {
-		int owner = state.get(OWNER);
 		super.afterBreak(world, player, pos, state, blockEntity, stack);
+		int owner = state.get(OWNER);
 		if (ModBase.ANCHOR_MAP.containsKey(owner)) {
 			ItemStack otherStack = new ItemStack(ModBase.ANCHOR_CORES.get(owner), 1);
 			ItemEntity itemEntity = new ItemEntity(player.world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, otherStack);
 			player.world.spawnEntity(itemEntity);
 		}
-	}
-
-	@Nullable
-	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-		return checkType(type, ModBase.ANCHOR_BLOCK_ENTITY, (world1, pos, state1, be) -> AnchorBlockEntity.tick(world1, pos, state1, be));
 	}
 }

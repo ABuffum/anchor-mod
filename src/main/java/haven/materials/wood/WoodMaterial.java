@@ -9,6 +9,7 @@ import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.containers.BlockContainer;
 import haven.containers.SignContainer;
+import haven.sounds.ModBlockSoundGroups;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
@@ -51,7 +52,7 @@ public abstract class WoodMaterial extends BaseMaterial implements
 	public WoodMaterial(String name, MapColor mapColor, boolean flammable, BlockSoundGroup sounds) {
 		super(name, flammable);
 		planks = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(sounds)), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(planks.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(planks.getBlock()), ItemSettings());
 		slab = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence = new BlockContainer(new FenceBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence_gate = new BlockContainer(new FenceGateBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
@@ -60,7 +61,7 @@ public abstract class WoodMaterial extends BaseMaterial implements
 		pressure_plate = new BlockContainer(HavenPressurePlateBlock.Wooden(PressurePlateBlock.ActivationRule.EVERYTHING, AbstractBlock.Settings.of(Material.WOOD, planks.getBlock().getDefaultMapColor()).noCollision().strength(0.5F).sounds(sounds)), ItemSettings());
 		button = new BlockContainer(new HavenWoodenButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(0.5F).sounds(sounds)), ItemSettings());
 		bookshelf = new BlockContainer(new BookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(sounds)), ItemSettings());
-		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(sounds)), ItemSettings());
+		chiseled_bookshelf = new BlockContainer(new ChiseledBookshelfBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(1.5F).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)), ItemSettings());
 		ladder = new BlockContainer(new HavenLadderBlock(AbstractBlock.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 		woodcutter = new BlockContainer(new WoodcutterBlock(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(3.5F)), ItemSettings());
 		sign = new SignContainer(name, Material.WOOD, sounds);

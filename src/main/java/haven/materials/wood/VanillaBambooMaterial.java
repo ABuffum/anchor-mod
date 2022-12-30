@@ -38,7 +38,7 @@ public class VanillaBambooMaterial extends BaseMaterial implements
 	public VanillaBambooMaterial(String name, MapColor mapColor) {
 		super("minecraft:bamboo", true);
 		planks = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(ModBlockSoundGroups.BAMBOO_WOOD)), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(planks.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(planks.getBlock()), ItemSettings());
 		slab = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence = new BlockContainer(new FenceBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence_gate = new BlockContainer(new HavenFenceGateBlock(AbstractBlock.Settings.copy(planks.getBlock()), ModSoundEvents.BLOCK_BAMBOO_WOOD_FENCE_GATE_OPEN, ModSoundEvents.BLOCK_BAMBOO_WOOD_FENCE_GATE_CLOSE), ItemSettings());

@@ -1,6 +1,7 @@
 package haven.sounds;
 
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvents;
 
 public class ModBlockSoundGroups {
 	public static final BlockSoundGroup MANGROVE_ROOTS = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_MANGROVE_ROOTS_BREAK, ModSoundEvents.BLOCK_MANGROVE_ROOTS_STEP, ModSoundEvents.BLOCK_MANGROVE_ROOTS_PLACE, ModSoundEvents.BLOCK_MANGROVE_ROOTS_HIT, ModSoundEvents.BLOCK_MANGROVE_ROOTS_FALL);
@@ -17,6 +18,7 @@ public class ModBlockSoundGroups {
 	public static final BlockSoundGroup SCULK_VEIN = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_SCULK_VEIN_BREAK, ModSoundEvents.BLOCK_SCULK_VEIN_STEP, ModSoundEvents.BLOCK_SCULK_VEIN_PLACE, ModSoundEvents.BLOCK_SCULK_VEIN_HIT, ModSoundEvents.BLOCK_SCULK_VEIN_FALL);
 	public static final BlockSoundGroup SCULK_SHRIEKER = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_SCULK_SHRIEKER_BREAK, ModSoundEvents.BLOCK_SCULK_SHRIEKER_STEP, ModSoundEvents.BLOCK_SCULK_SHRIEKER_PLACE, ModSoundEvents.BLOCK_SCULK_SHRIEKER_HIT, ModSoundEvents.BLOCK_SCULK_SHRIEKER_FALL);
 
+	public static final BlockSoundGroup CHISELED_BOOKSHELF = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_BREAK, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_STEP, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_PLACE, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_HIT, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_FALL);
 	public static final BlockSoundGroup HANGING_SIGN = new BlockSoundGroup(1.0F, 1.0F, ModSoundEvents.BLOCK_HANGING_SIGN_BREAK, ModSoundEvents.BLOCK_HANGING_SIGN_STEP, ModSoundEvents.BLOCK_HANGING_SIGN_PLACE, ModSoundEvents.BLOCK_HANGING_SIGN_HIT, ModSoundEvents.BLOCK_HANGING_SIGN_FALL);
 	public static final BlockSoundGroup BAMBOO_WOOD = new BlockSoundGroup(1.0F, 1.0F, ModSoundEvents.BLOCK_BAMBOO_WOOD_BREAK, ModSoundEvents.BLOCK_BAMBOO_WOOD_STEP, ModSoundEvents.BLOCK_BAMBOO_WOOD_PLACE, ModSoundEvents.BLOCK_BAMBOO_WOOD_HIT, ModSoundEvents.BLOCK_BAMBOO_WOOD_FALL);
 	public static final BlockSoundGroup NETHER_WOOD = new BlockSoundGroup(1.0F, 1.0F, ModSoundEvents.BLOCK_NETHER_WOOD_BREAK, ModSoundEvents.BLOCK_NETHER_WOOD_STEP, ModSoundEvents.BLOCK_NETHER_WOOD_PLACE, ModSoundEvents.BLOCK_NETHER_WOOD_HIT, ModSoundEvents.BLOCK_NETHER_WOOD_FALL);

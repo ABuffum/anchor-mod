@@ -1,8 +1,8 @@
 package haven.materials.gem;
 
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
 import haven.materials.HavenArmorMaterials;
@@ -39,14 +39,14 @@ public class QuartzMaterial extends ToolArmorHorseMaterial implements
 				5, -3, -1, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.QUARTZ, 8);
 		crystal_block = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.QUARTZ_BLOCK)), ItemSettings());
-		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.getBlock()), ItemSettings());
-		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.getBlock()), ItemSettings());
-		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.getBlock()), ItemSettings());
-		smooth_wall = new BlockContainer(new HavenWallBlock(Blocks.SMOOTH_QUARTZ), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BLOCK), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
+		crystal_slab = new BlockContainer(new ModSlabBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_stairs = new BlockContainer(new ModStairsBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_wall = new BlockContainer(new ModWallBlock(crystal_block.getBlock()), ItemSettings());
+		smooth_wall = new BlockContainer(new ModWallBlock(Blocks.SMOOTH_QUARTZ), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.QUARTZ_BLOCK), ItemSettings());
+		brick_slab = new BlockContainer(new ModSlabBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
+		brick_stairs = new BlockContainer(new ModStairsBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
+		brick_wall = new BlockContainer(new ModWallBlock(Blocks.QUARTZ_BRICKS), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

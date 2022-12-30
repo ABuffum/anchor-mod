@@ -2,9 +2,9 @@ package haven.materials.metal;
 
 import haven.ModBase;
 import haven.blocks.UnlitLanternBlock;
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.blocks.MetalButtonBlock;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -76,16 +76,16 @@ public class IronMaterial extends BaseMaterial implements
 		unlit_soul_lantern = new UnlitLanternBlock(this::getSoulLantern);
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.5F).sounds(BlockSoundGroup.METAL)), ItemSettings());
 		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.IRON_BLOCK), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.IRON_BLOCK), ItemSettings());
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
+		brick_slab = new BlockContainer(new ModSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new ModStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new ModWallBlock(bricks.getBlock()), ItemSettings());
 		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)), ItemSettings());
 		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.getBlock())), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.getBlock()), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.getBlock()), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.getBlock()), ItemSettings());
+		cut_slab = new BlockContainer(new ModSlabBlock(cut.getBlock()), ItemSettings());
+		cut_stairs = new BlockContainer(new ModStairsBlock(cut.getBlock()), ItemSettings());
+		cut_wall = new BlockContainer(new ModWallBlock(cut.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

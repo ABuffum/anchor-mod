@@ -1,8 +1,8 @@
 package haven.materials.stone;
 
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -36,13 +36,13 @@ public class SculkStoneMaterial extends BaseMaterial implements
 	public SculkStoneMaterial() {
 		super("sculk_stone", false);
 		provider = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(2.5F, 6.0F)), ItemSettings());
-		slab = new BlockContainer(new HavenSlabBlock(provider.getBlock()), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(provider.getBlock()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(provider.getBlock()), ItemSettings());
+		slab = new BlockContainer(new ModSlabBlock(provider.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(provider.getBlock()), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(provider.getBlock()), ItemSettings());
 		bricks = new BlockContainer(new Block(FabricBlockSettings.copy(provider.getBlock())), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
+		brick_slab = new BlockContainer(new ModSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new ModStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new ModWallBlock(bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

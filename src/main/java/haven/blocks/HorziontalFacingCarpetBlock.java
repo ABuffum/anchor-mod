@@ -26,7 +26,7 @@ public class HorziontalFacingCarpetBlock extends HorizontalFacingBlock {
 	}
 
 	public BlockState getPlacementState(ItemPlacementContext ctx) {
-		return (BlockState)this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
+		return this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite());
 	}
 
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {

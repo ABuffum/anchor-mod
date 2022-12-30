@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "haven:block/charcoal_slab"
+        },
+        "type=double": {
+            "model": "haven:block/charcoal_block"
+        },
+        "type=top": {
+            "model": "haven:block/charcoal_slab_top"
+        }
+    }
+}

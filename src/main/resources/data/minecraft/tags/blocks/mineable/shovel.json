@@ -7,6 +7,8 @@
     "haven:sugar_block",
     "haven:caramel_block",
     "haven:cottage_cheese_block",
-    "haven:cheese_block"
+    "haven:cheese_block",
+    
+    "haven:coarse_dirt_slab"
   ]
 }

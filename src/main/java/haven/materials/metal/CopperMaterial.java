@@ -3,9 +3,9 @@ package haven.materials.metal;
 import haven.ModBase;
 import haven.blocks.UnlitLanternBlock;
 import haven.blocks.basic.ModPaneBlock;
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.blocks.MetalButtonBlock;
 import haven.blocks.oxidizable.*;
 import haven.containers.*;
@@ -118,23 +118,23 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 		oxidizable_chain = new OxidizableBlockContainer(OxidizableChainBlock::new, ChainBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque());
 		oxidizable_bars = new OxidizableBlockContainer(OxidizablePaneBlock::new, ModPaneBlock::new, AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL).nonOpaque());
 		oxidizable_button = new OxidizableBlockContainer(OxidizableButtonBlock::new, MetalButtonBlock::new, AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(1.0F).sounds(BlockSoundGroup.COPPER));
-		oxidizable_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, ModWallBlock::new, CopperMaterial::CopperSettings);
 		oxidizable_bricks = new OxidizableBlockContainer(OxidizableBlock::new, Block::new, CopperMaterial::CopperSettings);
-		oxidizable_brick_slab = new OxidizableBlockContainer(OxidizableSlabBlock::new, HavenSlabBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_brick_slab = new OxidizableBlockContainer(OxidizableSlabBlock::new, ModSlabBlock::new, CopperMaterial::CopperSettings);
 		oxidizable_brick_stairs = OxidizableBlockContainer.Stairs((level) -> {
 			if (level == Oxidizable.OxidizationLevel.UNAFFECTED) return new OxidizableStairsBlock(level, oxidizable_bricks.getUnaffected().getBlock().getDefaultState(), CopperMaterial.CopperSettings(level));
 			else if (level == Oxidizable.OxidizationLevel.EXPOSED) return new OxidizableStairsBlock(level, oxidizable_bricks.getExposed().getBlock().getDefaultState(), CopperMaterial.CopperSettings(level));
 			else if (level == Oxidizable.OxidizationLevel.WEATHERED) return new OxidizableStairsBlock(level, oxidizable_bricks.getWeathered().getBlock().getDefaultState(), CopperMaterial.CopperSettings(level));
 			else return new OxidizableStairsBlock(level, oxidizable_bricks.getOxidized().getBlock().getDefaultState(), CopperMaterial.CopperSettings(level));
 		}, (level) -> {
-			if (level == Oxidizable.OxidizationLevel.UNAFFECTED) return new HavenStairsBlock(oxidizable_bricks.getUnaffected().getBlock());
-			else if (level == Oxidizable.OxidizationLevel.EXPOSED) return new HavenStairsBlock(oxidizable_bricks.getExposed().getBlock());
-			else if (level == Oxidizable.OxidizationLevel.WEATHERED) return new HavenStairsBlock(oxidizable_bricks.getWeathered().getBlock());
-			else return new HavenStairsBlock(oxidizable_bricks.getOxidized().getBlock());
+			if (level == Oxidizable.OxidizationLevel.UNAFFECTED) return new ModStairsBlock(oxidizable_bricks.getUnaffected().getBlock());
+			else if (level == Oxidizable.OxidizationLevel.EXPOSED) return new ModStairsBlock(oxidizable_bricks.getExposed().getBlock());
+			else if (level == Oxidizable.OxidizationLevel.WEATHERED) return new ModStairsBlock(oxidizable_bricks.getWeathered().getBlock());
+			else return new ModStairsBlock(oxidizable_bricks.getOxidized().getBlock());
 		});
-		oxidizable_brick_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_brick_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, ModWallBlock::new, CopperMaterial::CopperSettings);
 		oxidizable_cut_pillar = new OxidizableBlockContainer(OxidizablePillarBlock::new, PillarBlock::new, CopperMaterial::CopperSettings);
-		oxidizable_cut_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, HavenWallBlock::new, CopperMaterial::CopperSettings);
+		oxidizable_cut_wall = new OxidizableBlockContainer(OxidizableWallBlock::new, ModWallBlock::new, CopperMaterial::CopperSettings);
 
 		shears = new ShearsItem(ItemSettings().maxDamage(200));
 
@@ -142,7 +142,7 @@ public class CopperMaterial extends ToolArmorHorseMaterial implements
 		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
 		lava_bucket = new HavenBucketItem(Fluids.LAVA, FilledBucketSettings(), this);
 		powder_snow_bucket = new HavenPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, FilledBucketSettings(), this);
-		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
+		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings().group(ModBase.BLOOD_ITEM_GROUP), this);
 		mud_bucket = new HavenBucketItem(ModBase.STILL_MUD_FLUID, FilledBucketSettings(), this);
 		milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);

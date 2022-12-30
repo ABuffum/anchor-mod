@@ -3,6 +3,7 @@ package haven.blocks.anchors;
 import haven.ModBase;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
@@ -11,43 +12,26 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 public class AnchorBlockEntity extends BlockEntity {
-	public AnchorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModBase.ANCHOR_BLOCK_ENTITY, pos, state);
-		this.pos = pos;
-		update(state);
+	public static final Identifier ERROR_TEXTURE = ModBase.ID("textures/anchor/inactive_anchor.png");
+	public static HashMap<Integer, Identifier> TEXTURE_IDS = new HashMap<>(Map.of(0, ERROR_TEXTURE));
+	public static void testTexture(int owner) {
+		if (!TEXTURE_IDS.containsKey(owner)) TEXTURE_IDS.put(owner, ModBase.ID("textures/anchor/" + ModBase.ANCHOR_MAP.get(owner) + "_anchor.png"));
 	}
-
-	private static final Identifier ERROR_TEXTURE = ModBase.ID("textures/anchor/inactive_anchor.png");
 
 	private int owner = 0;
-	public final BlockPos pos;
-
-	private static HashMap<Integer, Identifier> TEXTURE_IDS;
-
+	public AnchorBlockEntity(BlockPos pos, BlockState state) {
+		super(ModBase.ANCHOR_BLOCK_ENTITY, pos, state);
+		update(state);
+	}
 	public void update(BlockState state) {
 		int owner = state.get(AnchorBlock.OWNER);
-		if (owner != this.owner) {
-			this.owner = owner;
-			if (!TEXTURE_IDS.containsKey(owner)) {
-				TEXTURE_IDS.put(owner, ModBase.ID("textures/anchor/" + ModBase.ANCHOR_MAP.get(owner) + "_anchor.png"));
-			}
-		}
+		if (owner != this.owner) testTexture(this.owner = owner);
 	}
-
-	public static void tick(World world, BlockPos pos, BlockState state, AnchorBlockEntity be) {
-		if (be != null) be.update(state);
-	}
-
-	public int getOwner() {
-		return owner;
-	}
-	public Identifier getTextureId() {
+	public static Identifier getTextureId(int owner) {
 		if (TEXTURE_IDS.containsKey(owner)) return TEXTURE_IDS.get(owner);
 		return ERROR_TEXTURE;
 	}
-
-	static {
-		TEXTURE_IDS = new HashMap<>();
-		TEXTURE_IDS.put(0, ERROR_TEXTURE);
-	}
+	public static void tick(World w, BlockPos p, BlockState s, AnchorBlockEntity e) { if (e != null) e.update(s); }
+	public int getOwner() { return this.owner; }
+	public Identifier getTextureId() { return getTextureId(this.owner); }
 }

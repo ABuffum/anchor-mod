@@ -3,6 +3,7 @@ package haven.items;
 import haven.ModBase;
 
 import haven.blocks.anchors.AnchorBlock;
+import haven.blocks.anchors.BrokenAnchorBlock;
 import haven.blocks.anchors.SubstituteAnchorBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,27 +37,22 @@ public class AnchorCoreItem extends Item {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
-		PlayerEntity player =	context.getPlayer();
+		PlayerEntity player = context.getPlayer();
 		BlockPos pos = context.getBlockPos();
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		Boolean anchor = block instanceof AnchorBlock, substitute = block instanceof SubstituteAnchorBlock;
 		if (anchor || substitute) {
-			int owner = state.get(AnchorBlock.OWNER);
-			if (owner == 0) {
+			if (state.get(AnchorBlock.OWNER) == 0) {
 		       	world.setBlockState(pos, state.with(AnchorBlock.OWNER, this.owner));
-		       	Hand hand = context.getHand();
-				ItemStack itemStack = player.getStackInHand(hand);
-				itemStack.decrement(1);
+				player.getStackInHand(context.getHand()).decrement(1);
 		       	return ActionResult.SUCCESS;
 			}
 		}
 		else if (block instanceof RespawnAnchorBlock) {
 			BlockState newState = ModBase.SUBSTITUTE_ANCHOR_BLOCK.getDefaultState();
 			world.setBlockState(pos, newState.with(AnchorBlock.OWNER, this.owner));
-			Hand hand = context.getHand();
-			ItemStack itemStack = player.getStackInHand(hand);
-			itemStack.decrement(1);
+			player.getStackInHand(context.getHand()).decrement(1);
 			return ActionResult.SUCCESS;
 		}
 		return ActionResult.FAIL;

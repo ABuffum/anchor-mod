@@ -1021,7 +1021,119 @@
 	],
 	"subtitle": "subtitles.entity.warden.tendril_clicks"
   },
-  
+  "block.chiseled_bookshelf.break": {
+	"sounds": [
+	  "haven:block/chiseled_bookshelf/break1",
+	  "haven:block/chiseled_bookshelf/break2",
+	  "haven:block/chiseled_bookshelf/break3",
+	  "haven:block/chiseled_bookshelf/break4",
+	  "haven:block/chiseled_bookshelf/break5",
+	  "haven:block/chiseled_bookshelf/break6"
+	],
+	"subtitle": "subtitles.block.generic.break"
+  },
+  "block.chiseled_bookshelf.fall": {
+	"sounds": [
+	  "haven:block/chiseled_bookshelf/step1",
+	  "haven:block/chiseled_bookshelf/step2",
+	  "haven:block/chiseled_bookshelf/step3",
+	  "haven:block/chiseled_bookshelf/step4",
+	  "haven:block/chiseled_bookshelf/step5"
+	]
+  },
+  "block.chiseled_bookshelf.hit": {
+	"sounds": [
+	  "haven:block/chiseled_bookshelf/step1",
+	  "haven:block/chiseled_bookshelf/step2",
+	  "haven:block/chiseled_bookshelf/step3",
+	  "haven:block/chiseled_bookshelf/step4",
+	  "haven:block/chiseled_bookshelf/step5"
+	],
+	"subtitle": "subtitles.block.generic.hit"
+  },
+  "block.chiseled_bookshelf.insert": {
+	"sounds": [
+	  { "name": "haven:block/chiseled_bookshelf/insert1", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert1", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert2", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert2", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert3", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert3", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert3", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert4", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert4", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert4", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.chiseled_bookshelf.insert"
+  },
+  "block.chiseled_bookshelf.insert.enchanted": {
+	"sounds": [
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted1", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted1", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted2", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted2", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted3", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted3", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted3", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted4", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted4", "pitch": 0.85, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/insert_enchanted4", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.chiseled_bookshelf.insert_enchanted"
+  },
+  "block.chiseled_bookshelf.pickup": {
+	"sounds": [
+	  { "name": "haven:block/chiseled_bookshelf/pickup1", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup1", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup2", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup2", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup3", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup3", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup3", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.chiseled_bookshelf.take"
+  },
+  "block.chiseled_bookshelf.pickup.enchanted": {
+	"sounds": [
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted1", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted1", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted1", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted2", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted2", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted2", "pitch": 1.1, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted3", "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted3", "pitch": 0.8, "volume": 0.8 },
+	  { "name": "haven:block/chiseled_bookshelf/pickup_enchanted3", "pitch": 1.1, "volume": 0.8 }
+	],
+	"subtitle": "subtitles.chiseled_bookshelf.take_enchanted"
+  },
+  "block.chiseled_bookshelf.place": {
+	"sounds": [
+	  "haven:block/chiseled_bookshelf/break1",
+	  "haven:block/chiseled_bookshelf/break2",
+	  "haven:block/chiseled_bookshelf/break3",
+	  "haven:block/chiseled_bookshelf/break4",
+	  "haven:block/chiseled_bookshelf/break5",
+	  "haven:block/chiseled_bookshelf/break6"
+	],
+	"subtitle": "subtitles.block.generic.place"
+  },
+  "block.chiseled_bookshelf.step": {
+	"sounds": [
+	  "haven:block/chiseled_bookshelf/step1",
+	  "haven:block/chiseled_bookshelf/step2",
+	  "haven:block/chiseled_bookshelf/step3",
+	  "haven:block/chiseled_bookshelf/step4",
+	  "haven:block/chiseled_bookshelf/step5"
+	],
+	"subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.hanging_sign.break": {
 	"sounds": [
 	  "haven:block/hanging_sign/break1",
@@ -1274,10 +1386,8 @@
   },
   "block.nether_wood_fence_gate.open": {
 	"sounds": [
-	  "haven:block/nether_wood_fence/toggle1",
-	  "haven:block/nether_wood_fence/toggle2",
-	  "haven:block/nether_wood_fence/toggle3",
-	  "haven:block/nether_wood_fence/toggle4"
+	  "haven:block/nether_wood_fence/toggle1", "haven:block/nether_wood_fence/toggle2",
+	  "haven:block/nether_wood_fence/toggle3", "haven:block/nether_wood_fence/toggle4"
 	],
 	"subtitle": "subtitles.block.fence_gate.toggle"
   },
@@ -1291,19 +1401,15 @@
   },
   "block.nether_wood_trapdoor.close": {
 	"sounds": [
-	  "haven:block/nether_wood_trapdoor/toggle1",
-	  "haven:block/nether_wood_trapdoor/toggle2",
-	  "haven:block/nether_wood_trapdoor/toggle3",
-	  "haven:block/nether_wood_trapdoor/toggle4"
+	  "haven:block/nether_wood_trapdoor/toggle1", "haven:block/nether_wood_trapdoor/toggle2",
+	  "haven:block/nether_wood_trapdoor/toggle3", "haven:block/nether_wood_trapdoor/toggle4"
 	],
 	"subtitle": "subtitles.block.trapdoor.toggle"
   },
   "block.nether_wood_trapdoor.open": {
 	"sounds": [
-	  "haven:block/nether_wood_trapdoor/toggle1",
-	  "haven:block/nether_wood_trapdoor/toggle2",
-	  "haven:block/nether_wood_trapdoor/toggle3",
-	  "haven:block/nether_wood_trapdoor/toggle4"
+	  "haven:block/nether_wood_trapdoor/toggle1", "haven:block/nether_wood_trapdoor/toggle2",
+	  "haven:block/nether_wood_trapdoor/toggle3", "haven:block/nether_wood_trapdoor/toggle4"
 	],
 	"subtitle": "subtitles.block.trapdoor.toggle"
   },
@@ -1330,18 +1436,9 @@
   
   "block.echo_block.hit": {
 	"sounds": [
-	  "block/amethyst/step1",
-	  "block/amethyst/step2",
-	  "block/amethyst/step3",
-	  "block/amethyst/step4",
-	  "block/amethyst/step5",
-	  "block/amethyst/step6",
-	  "block/amethyst/step7",
-	  "block/amethyst/step8",
-	  "block/amethyst/step9",
-	  "block/amethyst/step10",
-	  "block/amethyst/step11",
-	  "block/amethyst/step12"
+	  "block/amethyst/step1", "block/amethyst/step2", "block/amethyst/step3", "block/amethyst/step4",
+	  "block/amethyst/step5", "block/amethyst/step6", "block/amethyst/step7", "block/amethyst/step8",
+	  "block/amethyst/step9", "block/amethyst/step10", "block/amethyst/step11", "block/amethyst/step12"
 	],
 	"subtitle": "subtitles.block.generic.hit"
   },
@@ -1352,6 +1449,11 @@
   
   "item.salve.apply": { "subtitle": "Salve Applied", "sounds": [ "block/honeyblock/break1" ] },
   "item.syringe.inject": { "subtitle": "Syringe Injected", "sounds": [ "haven:item/syringe/inject" ] },
+  "entity.catalyzing_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.catalyzing_tnt.primed" },
+  "entity.chunkeater_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.chunkeater_tnt.primed" },
+  "entity.devouring_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.devouring_tnt.primed" },
+  "entity.sharp_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.sharp_tnt.primed" },
   "entity.soft_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.soft_tnt.primed" },
+  "entity.violent_tnt.primed": { "sounds": [ "random/fuse" ], "subtitle": "subtitles.entity.violent_tnt.primed" },
   "ambient.miasma_coming": { "sounds": [ "mob/wither/spawn" ], "subtitle": "subtitles.ambient.miasma_coming" }
 }

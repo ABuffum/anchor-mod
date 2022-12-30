@@ -1,9 +1,9 @@
 package haven.materials.gem;
 
 import haven.ModBase;
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.containers.BlockContainer;
 import haven.items.echo.*;
 import haven.materials.HavenToolMaterials;
@@ -53,13 +53,13 @@ public class EchoMaterial extends BaseMaterial implements
 	public EchoMaterial(float knockback) {
 		super("echo", false);
 		block = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.SCULK).strength(1.5F).sounds(BlockSoundGroup.AMETHYST_BLOCK).requiresTool()));
-		slab = new BlockContainer(new HavenSlabBlock(block.getBlock()), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(block.getBlock()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(block.getBlock()), ItemSettings());
+		slab = new BlockContainer(new ModSlabBlock(block.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(block.getBlock()), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(block.getBlock()), ItemSettings());
 		crystal_block = new BlockContainer(new Block(FabricBlockSettings.of(Material.AMETHYST, MapColor.PURPLE).sounds(BlockSoundGroup.AMETHYST_CLUSTER).strength(1.5f, 1.5f).requiresTool().luminance(ModBase.LUMINANCE_5)), ItemSettings());
-		crystal_slab = new BlockContainer(new HavenSlabBlock(crystal_block.getBlock()), ItemSettings());
-		crystal_stairs = new BlockContainer(new HavenStairsBlock(crystal_block.getBlock()), ItemSettings());
-		crystal_wall = new BlockContainer(new HavenWallBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_slab = new BlockContainer(new ModSlabBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_stairs = new BlockContainer(new ModStairsBlock(crystal_block.getBlock()), ItemSettings());
+		crystal_wall = new BlockContainer(new ModWallBlock(crystal_block.getBlock()), ItemSettings());
 		axe = new EchoAxeItem(HavenToolMaterials.ECHO, 5, -3, knockback, ItemSettings());
 		hoe = new EchoHoeItem(HavenToolMaterials.ECHO, -4, 0, knockback, ItemSettings());
 		pickaxe = new EchoPickaxeItem(HavenToolMaterials.ECHO, 1, -2.8F, knockback, ItemSettings());

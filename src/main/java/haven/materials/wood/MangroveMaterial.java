@@ -62,7 +62,7 @@ public class MangroveMaterial extends BaseMaterial implements
 		leaves = new BlockContainer(new HavenLeavesBlock(AbstractBlock.Settings.of(Material.LEAVES).strength(0.2F).ticksRandomly().sounds(BlockSoundGroup.GRASS).nonOpaque().allowsSpawning(BaseTreeMaterial::canSpawnOnLeaves).suffocates(BaseTreeMaterial::never).blockVision(BaseTreeMaterial::never)), ItemSettings());
 
 		planks = new BlockContainer(new Block(AbstractBlock.Settings.of(Material.WOOD, mapColor).strength(2.0F, 3.0F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(planks.getBlock()), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(planks.getBlock()), ItemSettings());
 		slab = new BlockContainer(new SlabBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence = new BlockContainer(new FenceBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());
 		fence_gate = new BlockContainer(new FenceGateBlock(AbstractBlock.Settings.copy(planks.getBlock())), ItemSettings());

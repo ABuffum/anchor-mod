@@ -1,8 +1,8 @@
 package haven.materials.stone;
 
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -41,17 +41,17 @@ public class GildedBlackstoneMaterial extends BaseMaterial implements
 
 	public GildedBlackstoneMaterial() {
 		super("gilded_blackstone", false);
-		slab = new BlockContainer(new HavenSlabBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
+		slab = new BlockContainer(new ModSlabBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.GILDED_BLACKSTONE), ItemSettings());
 		polished = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.GILDED_BLACKSTONE)), ItemSettings());
-		polished_slab = new BlockContainer(new HavenSlabBlock(polished.getBlock()), ItemSettings());
-		polished_stairs = new BlockContainer(new HavenStairsBlock(polished.getBlock()), ItemSettings());
-		polished_wall = new BlockContainer(new HavenWallBlock(polished.getBlock()), ItemSettings());
+		polished_slab = new BlockContainer(new ModSlabBlock(polished.getBlock()), ItemSettings());
+		polished_stairs = new BlockContainer(new ModStairsBlock(polished.getBlock()), ItemSettings());
+		polished_wall = new BlockContainer(new ModWallBlock(polished.getBlock()), ItemSettings());
 		polished_bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(polished.getBlock())), ItemSettings());
-		polished_brick_slab = new BlockContainer(new HavenSlabBlock(polished_bricks.getBlock()), ItemSettings());
-		polished_brick_stairs = new BlockContainer(new HavenStairsBlock(polished_bricks.getBlock()), ItemSettings());
-		polished_brick_wall = new BlockContainer(new HavenWallBlock(polished_bricks.getBlock()), ItemSettings());
+		polished_brick_slab = new BlockContainer(new ModSlabBlock(polished_bricks.getBlock()), ItemSettings());
+		polished_brick_stairs = new BlockContainer(new ModStairsBlock(polished_bricks.getBlock()), ItemSettings());
+		polished_brick_wall = new BlockContainer(new ModWallBlock(polished_bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

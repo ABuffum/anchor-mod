@@ -1,0 +1,7 @@
+{
+    "parent": "haven:block/template_chiseled_bookshelf",
+    "textures": {
+        "top": "haven:block/charred_chiseled_bookshelf_top",
+        "side": "haven:block/charred_chiseled_bookshelf_side"
+    }
+}

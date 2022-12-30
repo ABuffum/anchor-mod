@@ -1,17 +1,17 @@
 package haven;
 
+import haven.rendering.block.*;
 import haven.rendering.entities.ModBoatEntityRenderer;
 import haven.containers.*;
 import haven.entities.EntitySpawnPacket;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
 import haven.particles.*;
-import haven.rendering.block.AnchorBlockEntityRenderer;
-import haven.rendering.block.SubstituteAnchorBlockEntityRenderer;
 import haven.rendering.entities.*;
 import haven.rendering.entities.cow.*;
 import haven.rendering.entities.sheep.MossySheepEntityRenderer;
 import haven.rendering.entities.sheep.RainbowSheepEntityRenderer;
+import haven.rendering.entities.tnt.*;
 import haven.rendering.models.*;
 
 import static haven.ModBase.*;
@@ -117,6 +117,8 @@ public class ModClient implements ClientModInitializer {
 			ECHO_CLUSTER.getBlock(), LARGE_ECHO_BUD.getBlock(), MEDIUM_ECHO_BUD.getBlock(), SMALL_ECHO_BUD.getBlock(),
 		//Sculk
 			SCULK_SENSOR.getBlock(), SCULK_VEIN.getBlock(), SCULK_SHRIEKER.getBlock(),
+		//Plushie
+			BAT_PLUSHIE.getBlock(), ANGEL_BAT_PLUSHIE.getBlock(),
 		//DECORATION-ONLY BLOCKS
 			DECORATIVE_VINE.getBlock(), DECORATIVE_SUGAR_CANE.getBlock(), DECORATIVE_CACTUS.getBlock()
 	));
@@ -170,7 +172,8 @@ public class ModClient implements ClientModInitializer {
 	}
 
 	private static final Block[] Translucent = {
-		SUBSTITUTE_ANCHOR_BLOCK, TINTED_GLASS_PANE.getBlock()
+		SUBSTITUTE_ANCHOR_BLOCK,
+		GLASS_SLAB.getBlock(), TINTED_GLASS_PANE.getBlock(), TINTED_GLASS_SLAB.getBlock()
 	};
 
 	static {
@@ -232,6 +235,8 @@ public class ModClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		BlockEntityRendererRegistry.register(ANCHOR_BLOCK_ENTITY, AnchorBlockEntityRenderer::new);
 
+		BlockEntityRendererRegistry.register(BROKEN_ANCHOR_BLOCK_ENTITY, BrokenAnchorBlockEntityRenderer::new);
+
 		BlockEntityRendererRegistry.register(SUBSTITUTE_ANCHOR_BLOCK_ENTITY, SubstituteAnchorBlockEntityRenderer::new);
 
 		BlockRenderLayerMap inst = BlockRenderLayerMap.INSTANCE;
@@ -241,6 +246,7 @@ public class ModClient implements ClientModInitializer {
 		for(Block block : Cutout) inst.putBlock(block, cutout);
 		RenderLayer translucent = RenderLayer.getTranslucent();
 		for(Block block : Translucent) inst.putBlock(block, translucent);
+		for (DyeColor color : COLORS) inst.putBlock(STAINED_GLASS_SLABS.get(color).getBlock(), translucent);
 		ParticleFactoryRegistry PARTICLES = ParticleFactoryRegistry.getInstance();
 		//Bleeding Obsidian
 		PARTICLES.register(LANDING_OBSIDIAN_BLOOD, HavenBlockLeakParticle.LandingObsidianBloodFactory::new);
@@ -310,7 +316,16 @@ public class ModClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(MODEL_WARDEN_LAYER, WardenEntityModel::getTexturedModelData);
 		//Deepest Sleep
 		PARTICLES.register(VECTOR_ARROW_PARTICLE, VectorParticle.ArrowFactory::new);
-		//Soft TNT
+		EntityRendererRegistry.register(CHUNKEATER_TNT_ENTITY, ChunkeaterTntEntityRenderer::new);
+		//Miasma
+		EntityRendererRegistry.register(CATALYZING_TNT_ENTITY, CatalyzingTntEntityRenderer::new);
+		//Alcatraz
+		EntityRendererRegistry.register(SHARP_TNT_ENTITY, SharpTntEntityRenderer::new);
+		//Hezekiah
+		EntityRendererRegistry.register(DEVOURING_TNT_ENTITY, DevouringTntEntityRenderer::new);
+		//Digger Krozhul
+		EntityRendererRegistry.register(VIOLENT_TNT_ENTITY, ViolentTntEntityRenderer::new);
+		//Soleil
 		EntityRendererRegistry.register(SOFT_TNT_ENTITY, SoftTntEntityRenderer::new);
 		//Throwable Tomatoes
 		EntityRendererRegistry.register(THROWABLE_TOMATO_ENTITY, (context) -> new FlyingItemEntityRenderer(context));
@@ -359,8 +374,11 @@ public class ModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(BOTTLED_CONFETTI_ENTITY, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(DROPPED_CONFETTI_ENTITY, EmptyEntityRenderer::new);
 		EntityRendererRegistry.register(CONFETTI_CLOUD_ENTITY, EmptyEntityRenderer::new);
+		//Dragon Breath
 		EntityRendererRegistry.register(DROPPED_DRAGON_BREATH_ENTITY, EmptyEntityRenderer::new);
 		EntityRendererRegistry.register(DRAGON_BREATH_CLOUD_ENTITY, EmptyEntityRenderer::new);
+		//Bottled Lightning
+		EntityRendererRegistry.register(BOTTLED_LIGHTNING_ENTITY, FlyingItemEntityRenderer::new);
 		//Custom Boats
 		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(BOAT_ENTITY, ModBoatEntityRenderer::new);

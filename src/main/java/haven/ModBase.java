@@ -3,6 +3,7 @@ package haven;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.mojang.serialization.Codec;
+import com.nhoryzon.mc.farmersdelight.registry.EffectsRegistry;
 import haven.blocks.*;
 import haven.blocks.cryingobsidian.BleedingObsidianBlock;
 import haven.blocks.decoration.*;
@@ -12,6 +13,7 @@ import haven.blocks.sculk.*;
 import haven.blocks.anchors.*;
 import haven.blocks.basic.*;
 import haven.blocks.gourd.*;
+import haven.blocks.tnt.*;
 import haven.blood.*;
 import haven.blocks.cake.*;
 import haven.blocks.mud.*;
@@ -20,14 +22,13 @@ import haven.command.ChorusCommand;
 import haven.containers.*;
 import haven.damage.HavenDamageSource;
 import haven.effects.*;
-import haven.enchantments.SwiftSneakEnchantment;
+import haven.enchantments.*;
 import haven.entities.*;
 import haven.entities.cloud.*;
 import haven.entities.hostile.warden.WardenEntity;
 import haven.entities.passive.*;
 import haven.entities.passive.cow.*;
-import haven.entities.passive.sheep.MossySheepEntity;
-import haven.entities.passive.sheep.RainbowSheepEntity;
+import haven.entities.passive.sheep.*;
 import haven.entities.projectiles.*;
 import haven.entities.tnt.*;
 import haven.entities.vehicle.ModBoatEntity;
@@ -37,8 +38,7 @@ import haven.items.basic.ModMusicDiscItem;
 import haven.items.consumable.*;
 import haven.items.buckets.*;
 import haven.items.consumable.milk.*;
-import haven.items.goat.GoatHornItem;
-import haven.items.goat.GoatHornSalveItem;
+import haven.items.goat.*;
 import haven.items.mud.MudBucketItem;
 import haven.items.syringe.*;
 import haven.items.throwable.*;
@@ -49,10 +49,8 @@ import haven.materials.metal.*;
 import haven.materials.providers.*;
 import haven.materials.stone.*;
 import haven.materials.wood.*;
-import haven.particles.SculkChargeParticleEffect;
-import haven.particles.ShriekParticleEffect;
-import haven.recipes.WoodcuttingRecipe;
-import haven.recipes.WoodcuttingRecipeSerializer;
+import haven.particles.*;
+import haven.recipes.*;
 import haven.rendering.gui.WoodcutterScreenHandler;
 import haven.sounds.*;
 import haven.util.*;
@@ -109,7 +107,6 @@ import java.util.function.ToIntFunction;
 import static java.util.Map.entry;
 import org.apache.logging.log4j.*;
 
-@SuppressWarnings("deprecation")
 public class ModBase implements ModInitializer {
 	public static Logger LOGGER = LogManager.getLogger();
 
@@ -128,6 +125,8 @@ public class ModBase implements ModInitializer {
 	}
 	public static final BlockContainer ANCHOR = new BlockContainer(ANCHOR_BLOCK);
 	public static final BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR.getBlock()).build(null);
+	public static final BlockContainer BROKEN_ANCHOR = new BlockContainer(new BrokenAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f)));
+	public static final BlockEntityType<BrokenAnchorBlockEntity> BROKEN_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(BrokenAnchorBlockEntity::new, BROKEN_ANCHOR.getBlock()).build(null);
 	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 	public static final BlockEntityType<SubstituteAnchorBlockEntity> SUBSTITUTE_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(SubstituteAnchorBlockEntity::new, SUBSTITUTE_ANCHOR_BLOCK).build(null);
 
@@ -160,7 +159,7 @@ public class ModBase implements ModInitializer {
 	public static final DefaultParticleType ENDER_FIRE_FLAME_PARTICLE = FabricParticleTypes.simple(false);
 	public static final TorchContainer ENDER_TORCH = new TorchContainer(Block.Settings.of(Material.DECORATION).noCollision().breakInstantly().luminance(LUMINANCE_12).sounds(BlockSoundGroup.WOOD), ENDER_FIRE_FLAME_PARTICLE);
 	public static final BlockContainer ENDER_LANTERN = new BlockContainer(new LanternBlock(Block.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(LUMINANCE_13).nonOpaque()));
-	public static final Block UNLIT_ENDER_LANTERN = new UnlitLanternBlock(() -> ENDER_LANTERN.getItem());
+	public static final Block UNLIT_ENDER_LANTERN = new UnlitLanternBlock(ENDER_LANTERN::getItem);
 
 	public static final BlockContainer ENDER_CAMPFIRE = new BlockContainer(new CampfireBlock(false, 3, Block.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(2.0F).sounds(BlockSoundGroup.WOOD).luminance(BaseMaterial.createLightLevelFromLitBlockState(13)).nonOpaque()));
 
@@ -169,7 +168,9 @@ public class ModBase implements ModInitializer {
 
 	public static final Item TINKER_TOY = new Item(ItemSettings());
 
+	public static final BlockContainer COAL_SLAB = new BlockContainer(new ModSlabBlock(Block.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
 	public static final BlockContainer CHARCOAL_BLOCK = new BlockContainer(new Block(Block.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
+	public static final BlockContainer CHARCOAL_SLAB = new BlockContainer(new ModSlabBlock(Block.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(5.0F, 6.0F)));
 
 	public static final StuddedLeatherMaterial STUDDED_LEATHER_MATERIAL = new StuddedLeatherMaterial();
 	public static final FleeceMaterial FLEECE_MATERIAL = new FleeceMaterial();
@@ -197,6 +198,8 @@ public class ModBase implements ModInitializer {
 	public static final GildedBlackstoneMaterial GILDED_BLACKSTONE_MATERIAL = new GildedBlackstoneMaterial();
 	public static final BlockContainer CHISELED_POLISHED_GILDED_BLACKSTONE = new BlockContainer(new Block(Block.Settings.copy(Blocks.GILDED_BLACKSTONE)));
 	public static final BlockContainer CRACKED_POLISHED_GILDED_BLACKSTONE_BRICKS = new BlockContainer(new Block(Block.Settings.copy(Blocks.GILDED_BLACKSTONE)));
+	//More Slabs
+	public static final BlockContainer COARSE_DIRT_SLAB = new BlockContainer(new ModSlabBlock(Blocks.COARSE_DIRT));
 	//Jack o' Lanterns
 	public static final BlockContainer SOUL_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(Block.Settings.of(Material.GOURD, MapColor.ORANGE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(LUMINANCE_10).allowsSpawning(BaseMaterial::always)));
 	public static final BlockContainer ENDER_JACK_O_LANTERN = new BlockContainer(new CarvedGourdBlock(Block.Settings.of(Material.GOURD, MapColor.ORANGE).strength(1.0F).sounds(BlockSoundGroup.WOOD).luminance(LUMINANCE_13).allowsSpawning(BaseMaterial::always)));
@@ -231,12 +234,109 @@ public class ModBase implements ModInitializer {
 			() -> (StemBlock)Blocks.PUMPKIN_STEM,
 			() -> (AttachedStemBlock)Blocks.ATTACHED_PUMPKIN_STEM,
 			() -> (CarvedGourdBlock) CARVED_ROTTEN_PUMPKIN.getBlock(), () -> new ItemStack(ROTTEN_PUMPKIN_SEEDS, 4)));
+	//Glass Slabs
+	public static final BlockContainer GLASS_SLAB = new BlockContainer(new GlassSlabBlock(Blocks.GLASS));
+	public static Block GetStainedGlassBlock(DyeColor color) {
+		switch (color) {
+			case ORANGE: return Blocks.ORANGE_STAINED_GLASS;
+			case MAGENTA: return Blocks.MAGENTA_STAINED_GLASS;
+			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_STAINED_GLASS;
+			case YELLOW: return Blocks.YELLOW_STAINED_GLASS;
+			case LIME: return Blocks.LIME_STAINED_GLASS;
+			case PINK: return Blocks.PINK_STAINED_GLASS;
+			case GRAY: return Blocks.GRAY_STAINED_GLASS;
+			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_STAINED_GLASS;
+			case CYAN: return Blocks.CYAN_STAINED_GLASS;
+			case PURPLE: return Blocks.PURPLE_STAINED_GLASS;
+			case BLUE: return Blocks.BLUE_STAINED_GLASS;
+			case BROWN: return Blocks.BROWN_STAINED_GLASS;
+			case GREEN: return Blocks.GREEN_STAINED_GLASS;
+			case RED: return Blocks.RED_STAINED_GLASS;
+			case BLACK: return Blocks.BLACK_STAINED_GLASS;
+			case WHITE: return Blocks.WHITE_STAINED_GLASS;
+			default: return Blocks.GLASS;
+		}
+	}
+	public static final Map<DyeColor, BlockContainer> STAINED_GLASS_SLABS = MapDyeColor((color) -> new BlockContainer(new StainedGlassSlabBlock(color, GetStainedGlassBlock(color))));
 	//Tinted Glass
 	public static final BlockContainer TINTED_GLASS_PANE = new BlockContainer(new TintedGlassPaneBlock(Block.Settings.of(Material.GLASS).mapColor(MapColor.GRAY).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque()));
+	public static final BlockContainer TINTED_GLASS_SLAB = new BlockContainer(new TintedGlassSlabBlock(Block.Settings.of(Material.GLASS).mapColor(MapColor.GRAY).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque()));
 	public static final Item TINTED_GOGGLES = new ArmorItem(HavenArmorMaterials.TINTED_GOGGLES, EquipmentSlot.HEAD, ItemSettings());
+	//Terracotta
+	public static Block GetTerracottaBlock(DyeColor color) {
+		switch (color) {
+			case ORANGE: return Blocks.ORANGE_TERRACOTTA;
+			case MAGENTA: return Blocks.MAGENTA_TERRACOTTA;
+			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_TERRACOTTA;
+			case YELLOW: return Blocks.YELLOW_TERRACOTTA;
+			case LIME: return Blocks.LIME_TERRACOTTA;
+			case PINK: return Blocks.PINK_TERRACOTTA;
+			case GRAY: return Blocks.GRAY_TERRACOTTA;
+			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_TERRACOTTA;
+			case CYAN: return Blocks.CYAN_TERRACOTTA;
+			case PURPLE: return Blocks.PURPLE_TERRACOTTA;
+			case BLUE: return Blocks.BLUE_TERRACOTTA;
+			case BROWN: return Blocks.BROWN_TERRACOTTA;
+			case GREEN: return Blocks.GREEN_TERRACOTTA;
+			case RED: return Blocks.RED_TERRACOTTA;
+			case BLACK: return Blocks.BLACK_TERRACOTTA;
+			case WHITE: return Blocks.WHITE_TERRACOTTA;
+			default: return Blocks.TERRACOTTA;
+		}
+	}
+	public static final Map<DyeColor, BlockContainer> TERRACOTTA_SLABS = MapDyeColor((color) -> new BlockContainer(new ModSlabBlock(GetTerracottaBlock(color))));
+	public static final BlockContainer TERRACOTTA_SLAB = new BlockContainer(new ModSlabBlock(Blocks.TERRACOTTA));
+	public static final Map<DyeColor, BlockContainer> GLAZED_TERRACOTTA_SLABS = MapDyeColor((color) -> new BlockContainer(new HorizontalFacingSlabBlock(GetTerracottaBlock(color))));
+	//Concrete
+	public static Block GetConcreteBlock(DyeColor color) {
+		switch (color) {
+			case ORANGE: return Blocks.ORANGE_CONCRETE;
+			case MAGENTA: return Blocks.MAGENTA_CONCRETE;
+			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_CONCRETE;
+			case YELLOW: return Blocks.YELLOW_CONCRETE;
+			case LIME: return Blocks.LIME_CONCRETE;
+			case PINK: return Blocks.PINK_CONCRETE;
+			case GRAY: return Blocks.GRAY_CONCRETE;
+			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_CONCRETE;
+			case CYAN: return Blocks.CYAN_CONCRETE;
+			case PURPLE: return Blocks.PURPLE_CONCRETE;
+			case BLUE: return Blocks.BLUE_CONCRETE;
+			case BROWN: return Blocks.BROWN_CONCRETE;
+			case GREEN: return Blocks.GREEN_CONCRETE;
+			case RED: return Blocks.RED_CONCRETE;
+			case BLACK: return Blocks.BLACK_CONCRETE;
+			case WHITE:
+			default: return Blocks.WHITE_CONCRETE;
+		}
+	}
+	public static final Map<DyeColor, BlockContainer> CONCRETE_SLABS = MapDyeColor((color) -> new BlockContainer(new ModSlabBlock(GetConcreteBlock(color))));
+	//Wool
+	public static Block GetWoolBlock(DyeColor color) {
+		switch (color) {
+			case ORANGE: return Blocks.ORANGE_WOOL;
+			case MAGENTA: return Blocks.MAGENTA_WOOL;
+			case LIGHT_BLUE: return Blocks.LIGHT_BLUE_WOOL;
+			case YELLOW: return Blocks.YELLOW_WOOL;
+			case LIME: return Blocks.LIME_WOOL;
+			case PINK: return Blocks.PINK_WOOL;
+			case GRAY: return Blocks.GRAY_WOOL;
+			case LIGHT_GRAY: return Blocks.LIGHT_GRAY_WOOL;
+			case CYAN: return Blocks.CYAN_WOOL;
+			case PURPLE: return Blocks.PURPLE_WOOL;
+			case BLUE: return Blocks.BLUE_WOOL;
+			case BROWN: return Blocks.BROWN_WOOL;
+			case GREEN: return Blocks.GREEN_WOOL;
+			case RED: return Blocks.RED_WOOL;
+			case BLACK: return Blocks.BLACK_WOOL;
+			case WHITE:
+			default: return Blocks.WHITE_WOOL;
+		}
+	}
+	public static final Map<DyeColor, BlockContainer> WOOL_SLABS = MapDyeColor((color) -> new BlockContainer(new ModSlabBlock(GetWoolBlock(color))));
 	//Rainbow Sheep
 	public static final BlockContainer RAINBOW_WOOL = new BlockContainer(new ModFacingBlock(Blocks.WHITE_WOOL));
 	public static final BlockContainer RAINBOW_CARPET = new BlockContainer(new HorziontalFacingCarpetBlock(Block.Settings.copy(Blocks.WHITE_CARPET)));
+	public static final BlockContainer RAINBOW_WOOL_SLAB = new BlockContainer(new HorizontalFacingSlabBlock(RAINBOW_WOOL.getBlock()));
 	public static final BedContainer RAINBOW_BED = new BedContainer("rainbow");
 	public static final EntityType<RainbowSheepEntity> RAINBOW_SHEEP_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RainbowSheepEntity::new).dimensions(EntityType.SHEEP.getDimensions()).trackRangeBlocks(10).build();
 	public static final Item RAINBOW_SHEEP_SPAWN_EGG = new SpawnEggItem(RAINBOW_SHEEP_ENTITY, 16777215, 16777215, ItemSettings());
@@ -318,6 +418,13 @@ public class ModBase implements ModInitializer {
 	private static BlockContainer MakePlushie(Function<Block.Settings, Block> blockProvider) {
 		return new BlockContainer(blockProvider.apply(Block.Settings.of(Material.WOOL).nonOpaque().sounds(BlockSoundGroup.WOOL).strength(0.7F)), ItemSettings().group(PLUSHIE_GROUP));
 	}
+	//Wolves
+	public static final BlockContainer WOLF_PLUSHIE = MakePlushie(WolfPlushie::new);
+	//Bears
+	public static final BlockContainer POLAR_BEAR_PLUSHIE = MakePlushie(BearPlushie::new);
+	//Bats
+	public static final BlockContainer BAT_PLUSHIE = MakePlushie(BatPlushie::new);
+	public static final BlockContainer ANGEL_BAT_PLUSHIE = MakePlushie(BatPlushie::new);
 	//Chickens
 	public static final BlockContainer CHICKEN_PLUSHIE = MakePlushie(ChickenPlushie::new);
 	public static final BlockContainer FANCY_CHICKEN_PLUSHIE = MakePlushie(ChickenPlushie::new);
@@ -414,6 +521,7 @@ public class ModBase implements ModInitializer {
 
 	//Misc & Unique Items
 	public static final ToolItem SBEHESOHE = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, ItemSettings().fireproof());
+	public static final ToolItem SBEHESOHE_FULL = new SwordItem(ToolMaterials.DIAMOND, 3, -2.4F, ItemSettings().fireproof());
 	public static final Item BROKEN_BOTTLE = new Item(ItemSettings());
 
 	//Kota's Stuff
@@ -426,13 +534,66 @@ public class ModBase implements ModInitializer {
 	public static final Block AMBER_EYE_END_PORTAL_FRAME = new AmberEyeEndPortalFrameBlock(Block.Settings.of(Material.STONE, MapColor.PURPLE).sounds(BlockSoundGroup.GLASS).luminance(LUMINANCE_1).strength(-1.0F, 3600000.0F));
 
 	//Deepest Sleep's stuff
+	public static Block.Settings TntSettings() {
+		return Block.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS);
+	}
 	public static final DefaultParticleType VECTOR_ARROW_PARTICLE = FabricParticleTypes.simple(false);
+	public static final BlockContainer CHUNKEATER_TNT = new BlockContainer(new ChunkeaterTntBlock(TntSettings()));
+	public static final EntityType<ChunkeaterTntEntity> CHUNKEATER_TNT_ENTITY = new FabricEntityTypeBuilderImpl<ChunkeaterTntEntity>(SpawnGroup.MISC, ChunkeaterTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
+	//Alcatraz's Stuff
+	public static final BlockContainer SHARP_TNT = new BlockContainer(new SharpTntBlock(Block.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
+	public static final EntityType<SharpTntEntity> SHARP_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SharpTntEntity>(SpawnGroup.MISC, SharpTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
 
-	//Soleil's stuff
-	public static final BlockContainer SOFT_TNT = new BlockContainer(new SoftTntBlock(Block.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
+	//Digger Krozhul's Stuff
+	public static final BlockContainer VIOLENT_TNT = new BlockContainer(new ViolentTntBlock(TntSettings()));
+	public static final EntityType<ViolentTntEntity> VIOLENT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<ViolentTntEntity>(SpawnGroup.MISC, ViolentTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
+
+	//Soleil's Stuff
+	public static final BlockContainer SOFT_TNT = new BlockContainer(new SoftTntBlock(TntSettings()));
 	public static final EntityType<SoftTntEntity> SOFT_TNT_ENTITY = new FabricEntityTypeBuilderImpl<SoftTntEntity>(SpawnGroup.MISC, SoftTntEntity::new)
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
+
+	//Miasma's Stuff
+	public static final BlockContainer CATALYZING_TNT = new BlockContainer(new CatalyzingTntBlock(TntSettings()));
+	public static final EntityType<CatalyzingTntEntity> CATALYZING_TNT_ENTITY = new FabricEntityTypeBuilderImpl<CatalyzingTntEntity>(SpawnGroup.MISC, CatalyzingTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(16).trackedUpdateRate(16).build();
+
+	//Hezkeiah's Stuff
+	public static final BlockContainer DEVOURING_TNT = new BlockContainer(new DevouringTntBlock(Block.Settings.of(Material.TNT).breakInstantly().sounds(BlockSoundGroup.GRASS)));
+	public static final EntityType<DevouringTntEntity> DEVOURING_TNT_ENTITY = new FabricEntityTypeBuilderImpl<DevouringTntEntity>(SpawnGroup.MISC, DevouringTntEntity::new)
+			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeBlocks(10).trackedUpdateRate(10).build();
+
+	private static Item.Settings PoisonousFoodSettings(int hunger, float saturation) {
+		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0), 0.6F).build());
+	}
+	private static Item.Settings RottenMeatSettings(int hunger, float saturation) {
+		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.8F).meat().build());
+	}
+	public static final Item POISONOUS_CARROT = new Item(PoisonousFoodSettings(3, 0.6F));
+	public static final Item POISONOUS_BEETROOT = new Item(PoisonousFoodSettings(2, 0.6F));
+	public static final Item POISONOUS_GLOW_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item POISONOUS_SWEET_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item POISONOUS_TOMATO = new Item(PoisonousFoodSettings(2, 0.3F));
+	public static final Item WILTED_CABBAGE = new Item(PoisonousFoodSettings(2, 0.4F));
+	public static final Item WILTED_ONION = new Item(PoisonousFoodSettings(2, 0.4F));
+	public static final Item WILTED_KELP = new Item(ItemSettings());
+	public static final Item MOLDY_BREAD = new Item(PoisonousFoodSettings(5, 0.6F));
+	public static final Item MOLDY_COOKIE = new Item(PoisonousFoodSettings(2, 0.1F));
+	public static final Item ROTTEN_PUMPKIN_PIE = new Item(PoisonousFoodSettings(8, 0.3F));
+	public static final Item SPOILED_EGG = new Item(ItemSettings()); //TODO: Throw spoiled eggs
+	public static final Item ROTTEN_BEEF = new Item(RottenMeatSettings(8, 0.8F));
+	public static final Item ROTTEN_CHEVON = new Item(RottenMeatSettings(6, 0.6F));
+	public static final Item ROTTEN_CHICKEN = new Item(RottenMeatSettings(6, 0.6F));
+	public static final Item ROTTEN_COD = new Item(PoisonousFoodSettings(5, 0.6F));
+	public static final Item ROTTEN_MUTTON = new Item(RottenMeatSettings(6, 0.8F));
+	public static final Item ROTTEN_PORKCHOP = new Item(RottenMeatSettings(8, 0.8F));
+	public static final Item ROTTEN_RABBIT = new Item(RottenMeatSettings(5, 0.6F));
+	public static final Item ROTTEN_SALMON = new Item(PoisonousFoodSettings(6, 0.8F));
+
 	//Carved Gourds
 	public static final BlockContainer SOLEIL_CARVED_PUMPKIN = new BlockContainer(new CarvedMelonBlock(Block.Settings.copy(Blocks.CARVED_PUMPKIN)));
 	public static final BlockContainer SOLEIL_JACK_O_LANTERN = new BlockContainer(new CarvedMelonBlock(Block.Settings.copy(Blocks.JACK_O_LANTERN)));
@@ -578,21 +739,23 @@ public class ModBase implements ModInitializer {
 	public static final Item TOMATO_SMOOTHIE = new BottledDrinkItem(SmoothieSettings());
 
 	//Milkshakes & Ice Cream
-	public static final Item MILKSHAKE = new MilkBottleItem(SmoothieSettings());
-	public static final Item CHOCOLATE_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
-	public static final Item COFFEE_MILKSHAKE = new CoffeeMilkBottleItem(SmoothieSettings());
-	public static final Item STRAWBERRY_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
-	public static final Item VANILLA_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
-	public static final Item CHOCOLATE_CHIP_MILKSHAKE = new MilkBottleItem(SmoothieSettings());
 	public static Item.Settings IceCreamSettings() {
 		return ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.5F).build());
 	}
+	public static final Item MILKSHAKE = new MilkBottleItem(IceCreamSettings());
+	public static final Item CHOCOLATE_MILKSHAKE = new MilkBottleItem(IceCreamSettings());
+	public static final Item COFFEE_MILKSHAKE = new CoffeeMilkBottleItem(IceCreamSettings());
+	public static final Item STRAWBERRY_MILKSHAKE = new MilkBottleItem(IceCreamSettings());
+	public static final Item VANILLA_MILKSHAKE = new MilkBottleItem(IceCreamSettings());
+	public static final Item CHOCOLATE_CHIP_MILKSHAKE = new MilkBottleItem(IceCreamSettings());
 	public static final Item ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item CHOCOLATE_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item COFFEE_ICE_CREAM = new CoffeeMilkBottleItem(IceCreamSettings());
 	public static final Item STRAWBERRY_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item VANILLA_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
 	public static final Item CHOCOLATE_CHIP_ICE_CREAM = new MilkBottleItem(IceCreamSettings());
+	//Egg Nog
+	public static final Item EGG_NOG = new Item(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE).food(new FoodComponent.Builder().hunger(6).saturationModifier(0.5F).statusEffect(new StatusEffectInstance(EffectsRegistry.COMFORT.get()), 1).build()));
 	//Misc Food
 	public static final Item HOTDOG = new Item(ItemSettings().food(new FoodComponent.Builder().hunger(4).saturationModifier(0.4F).build()));
 	public static final Item GREEN_APPLE = new Item(ItemSettings().food(FoodComponents.APPLE));
@@ -614,16 +777,16 @@ public class ModBase implements ModInitializer {
 	public static final VanillaBambooMaterial VANILLA_BAMBOO_MATERIAL = new VanillaBambooMaterial("minecraft:bamboo", MapColor.YELLOW);
 
 	public static final BlockContainer BAMBOO_BOOKSHELF = new BlockContainer(new BookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.YELLOW).strength(1.5F).sounds(ModBlockSoundGroups.BAMBOO_WOOD)), ItemSettings());
-	public static final BlockContainer BAMBOO_CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.YELLOW).strength(1.5F).sounds(ModBlockSoundGroups.BAMBOO_WOOD)), ItemSettings());
+	public static final BlockContainer BAMBOO_CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.YELLOW).strength(1.5F).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)), ItemSettings());
 	public static final BlockContainer BAMBOO_LADDER = new BlockContainer(new HavenLadderBlock(Block.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 	public static final BlockContainer BAMBOO_WOODCUTTER = new BlockContainer(new WoodcutterBlock(Block.Settings.of(Material.WOOD, MapColor.YELLOW).strength(3.5F)), ItemSettings());
 
 	public static final BlockContainer BAMBOO_MOSAIC = new BlockContainer(new Block(Block.Settings.copy(VANILLA_BAMBOO_MATERIAL.getPlanks().getBlock())), ItemSettings());
 	public static final BlockContainer BAMBOO_MOSAIC_SLAB = new BlockContainer(new SlabBlock(Block.Settings.copy(BAMBOO_MOSAIC.getBlock())), ItemSettings());
-	public static final BlockContainer BAMBOO_MOSAIC_STAIRS = new BlockContainer(new HavenStairsBlock(BAMBOO_MOSAIC.getBlock()), ItemSettings());
+	public static final BlockContainer BAMBOO_MOSAIC_STAIRS = new BlockContainer(new ModStairsBlock(BAMBOO_MOSAIC.getBlock()), ItemSettings());
 
 	//Chiseled Bookshelf
-	public static final BlockContainer CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD).strength(1.5f).sounds(BlockSoundGroup.WOOD)));
+	public static final BlockContainer CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD).strength(1.5f).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)));
 	public static final BlockEntityType<ChiseledBookshelfBlockEntity> CHISELED_BOOKSHELF_ENTITY = FabricBlockEntityTypeBuilder.create(ChiseledBookshelfBlockEntity::new, CHISELED_BOOKSHELF.getBlock()).build(null);
 
 
@@ -651,7 +814,9 @@ public class ModBase implements ModInitializer {
 
 	//Vanilla Nether Wood
 	public static final VanillaNetherWoodMaterial CRIMSON_MATERIAL = new VanillaNetherWoodMaterial("crimson", MapColor.DULL_PINK, Blocks.CRIMSON_PLANKS, false);
+	public static final BlockContainer NETHER_WART_SLAB = new BlockContainer(new ModSlabBlock(Blocks.NETHER_WART_BLOCK), ItemSettings());
 	public static final VanillaNetherWoodMaterial WARPED_MATERIAL = new VanillaNetherWoodMaterial("warped", MapColor.DARK_AQUA, Blocks.WARPED_PLANKS, false);
+	public static final BlockContainer WARPED_WART_SLAB = new BlockContainer(new ModSlabBlock(Blocks.WARPED_WART_BLOCK), ItemSettings());
 	//Gilded Fungus
 	public static final PottedBlockContainer GILDED_ROOTS = new PottedBlockContainer(new HavenRootsBlock(Block.Settings.of(Material.NETHER_SHOOTS, MapColor.GOLD).noCollision().breakInstantly().sounds(BlockSoundGroup.ROOTS)));
 	public static final HugeFungusFeatureConfig GILDED_FUNGUS_CONFIG;
@@ -662,6 +827,7 @@ public class ModBase implements ModInitializer {
 	public static final ConfiguredFeature<HugeFungusFeatureConfig, ?> GILDED_FUNGI_PLANTED;
 	private static ConfiguredFeature<HugeFungusFeatureConfig, ?> getGildedFungiPlanted() { return GILDED_FUNGI_PLANTED; }
 	public static final FungusMaterial GILDED_MATERIAL = new FungusMaterial("gilded", MapColor.GOLD, ModBase::getGildedFungiPlanted);
+	public static final BlockContainer GILDED_WART_SLAB = new BlockContainer(new ModSlabBlock(GILDED_MATERIAL.getWartBlock().getBlock()), ItemSettings());
 	public static final BlockPileFeatureConfig GILDED_ROOTS_CONFIG = new BlockPileFeatureConfig(
 		new WeightedBlockStateProvider(DataPool.<BlockState>builder()
 			.add(GILDED_ROOTS.getBlock().getDefaultState(), 87)
@@ -698,8 +864,10 @@ public class ModBase implements ModInitializer {
 	//Goat Stuff
 	public static final Map<DyeColor, BlockContainer> FLEECE = MapDyeColor((color) -> new BlockContainer(new Block(Block.Settings.of(Material.WOOL, color.getMapColor()).strength(0.8F).sounds(BlockSoundGroup.WOOL))));
 	public static final Map<DyeColor, BlockContainer> FLEECE_CARPETS = MapDyeColor((color) -> new BlockContainer(new ModDyedCarpetBlock(color, Block.Settings.of(Material.CARPET, color.getMapColor()).strength(0.1F).sounds(BlockSoundGroup.WOOL))));
+	public static final Map<DyeColor, BlockContainer> FLEECE_SLABS = MapDyeColor((color) -> new BlockContainer(new ModSlabBlock(FLEECE.get(color).getBlock())));
 	public static final BlockContainer RAINBOW_FLEECE = new BlockContainer(new ModFacingBlock(Blocks.WHITE_WOOL));
 	public static final BlockContainer RAINBOW_FLEECE_CARPET = new BlockContainer(new HorziontalFacingCarpetBlock(Block.Settings.copy(Blocks.WHITE_CARPET)));
+	public static final BlockContainer RAINBOW_FLEECE_SLAB = new BlockContainer(new HorizontalFacingSlabBlock(RAINBOW_FLEECE.getBlock()));
 
 	public static final Item CHEVON = new Item(ItemSettings().food(FoodComponents.MUTTON));
 	public static final Item COOKED_CHEVON = new Item(ItemSettings().food(FoodComponents.COOKED_MUTTON));
@@ -711,9 +879,9 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer MUD = new BlockContainer(new MudBlock(Block.Settings.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).allowsSpawning(BaseMaterial::always).solidBlock(BaseMaterial::always).blockVision(BaseMaterial::always).suffocates(BaseMaterial::always).sounds(ModBlockSoundGroups.MUD)));
 	public static final BlockContainer PACKED_MUD = new BlockContainer(new Block(Block.Settings.copy(Blocks.DIRT).strength(1.0f, 3.0f).sounds(ModBlockSoundGroups.PACKED_MUD)));
 	public static final BlockContainer MUD_BRICKS = new BlockContainer(new Block(Block.Settings.of(Material.STONE, MapColor.TERRACOTTA_LIGHT_GRAY).requiresTool().strength(1.5f, 3.0f).sounds(ModBlockSoundGroups.MUD_BRICKS)));
-	public static final BlockContainer MUD_BRICK_SLAB = new BlockContainer(new HavenSlabBlock(MUD_BRICKS.getBlock()));
-	public static final BlockContainer MUD_BRICK_STAIRS = new BlockContainer(new HavenStairsBlock(MUD_BRICKS.getBlock()));
-	public static final BlockContainer MUD_BRICK_WALL = new BlockContainer(new HavenWallBlock(MUD_BRICKS.getBlock()));
+	public static final BlockContainer MUD_BRICK_SLAB = new BlockContainer(new ModSlabBlock(MUD_BRICKS.getBlock()));
+	public static final BlockContainer MUD_BRICK_STAIRS = new BlockContainer(new ModStairsBlock(MUD_BRICKS.getBlock()));
+	public static final BlockContainer MUD_BRICK_WALL = new BlockContainer(new ModWallBlock(MUD_BRICKS.getBlock()));
 	//Mangrove
 	public static final MangroveMaterial MANGROVE_MATERIAL = new MangroveMaterial("minecraft:mangrove", MapColor.RED);
 	public static final BlockContainer MANGROVE_ROOTS = new BlockContainer(new MangroveRootsBlock(Block.Settings.of(Material.WOOD, MapColor.SPRUCE_BROWN).strength(0.7f).ticksRandomly().sounds(ModBlockSoundGroups.MANGROVE_ROOTS).nonOpaque().suffocates(BaseMaterial::never).blockVision(BaseMaterial::never).nonOpaque()));
@@ -733,7 +901,7 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer MANGROVE_ENDER_CAMPFIRE = BaseMaterial.MakeCampfire(13, 3, MapColor.RED, BlockSoundGroup.WOOD, false, ItemSettings());
 	public static final BlockContainer MANGROVE_SOUL_CAMPFIRE = BaseMaterial.MakeCampfire(10, 2, MapColor.RED, BlockSoundGroup.WOOD, false, ItemSettings());
 	public static final BlockContainer MANGROVE_BOOKSHELF = new BlockContainer(new BookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.RED).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
-	public static final BlockContainer MANGROVE_CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.RED).strength(1.5F).sounds(BlockSoundGroup.WOOD)), ItemSettings());
+	public static final BlockContainer MANGROVE_CHISELED_BOOKSHELF = new BlockContainer(new ChiseledBookshelfBlock(Block.Settings.of(Material.WOOD, MapColor.RED).strength(1.5F).sounds(ModBlockSoundGroups.CHISELED_BOOKSHELF)), ItemSettings());
 	public static final BlockContainer MANGROVE_LADDER = new BlockContainer(new HavenLadderBlock(Block.Settings.of(Material.DECORATION).strength(0.4F).sounds(BlockSoundGroup.LADDER).nonOpaque()), ItemSettings());
 	public static final BlockContainer MANGROVE_WOODCUTTER = new BlockContainer(new WoodcutterBlock(Block.Settings.of(Material.WOOD, MapColor.RED).strength(3.5F)), ItemSettings());
 
@@ -763,12 +931,12 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer TUFF_SCULK_TURF = new BlockContainer(new SculkTurfBlock(Blocks.TUFF, Block.Settings.of(Material.STONE, MapColor.BLACK).requiresTool().strength(1.5F, 6.0F).sounds(ModBlockSoundGroups.SCULK).ticksRandomly()));
 	public static final BlockContainer SCULK_VEIN = new BlockContainer(new SculkVeinBlock(Block.Settings.of(Material.SCULK).noCollision().strength(0.2f).sounds(ModBlockSoundGroups.SCULK_VEIN)));
 	public static final DefaultParticleType SCULK_SOUL_PARTICLE = FabricParticleTypes.simple(false);
-	public static final ParticleType<SculkChargeParticleEffect> SCULK_CHARGE_PARTICLE = new ParticleType<SculkChargeParticleEffect>(true, SculkChargeParticleEffect.FACTORY) {
+	public static final ParticleType<SculkChargeParticleEffect> SCULK_CHARGE_PARTICLE = new ParticleType<>(true, SculkChargeParticleEffect.FACTORY) {
 		@Override
 		public Codec<SculkChargeParticleEffect> getCodec() { return SculkChargeParticleEffect.CODEC; }
 	};
 	public static final DefaultParticleType SCULK_CHARGE_POP_PARTICLE = FabricParticleTypes.simple(true);
-	public static final ParticleType<ShriekParticleEffect> SHRIEK_PARTICLE = new ParticleType<ShriekParticleEffect>(false, ShriekParticleEffect.FACTORY) {
+	public static final ParticleType<ShriekParticleEffect> SHRIEK_PARTICLE = new ParticleType<>(false, ShriekParticleEffect.FACTORY) {
 		@Override
 		public Codec<ShriekParticleEffect> getCodec() { return ShriekParticleEffect.CODEC; }
 	};
@@ -831,6 +999,7 @@ public class ModBase implements ModInitializer {
 	public static final StatusEffect BONE_ROT_EFFECT = new BoneRotEffect();
 	public static final StatusEffect MARKED_EFFECT = new MarkedEffect();
 	public static final StatusEffect BLEEDING_EFFECT = new BleedingEffect();
+	public static final Enchantment SERRATED_ENCHANTMENT = new SerratedEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND);
 	public static final StatusEffect WITHERING_EFFECT = new WitheringEffect();
 	public static final StatusEffect PROTECTED_EFFECT = new ProtectedEffect();
 	public static final StatusEffect RELIEVED_EFFECT = new RelievedEffect();
@@ -852,31 +1021,6 @@ public class ModBase implements ModInitializer {
 	public static final Item POISON_VIAL = new PoisonBottleItem(400, 0, ItemSettings().maxCount(16));
 	public static final Item SPIDER_POISON_VIAL = new PoisonBottleItem(500, 1, ItemSettings().maxCount(16));
 	public static final Item PUFFERFISH_POISON_VIAL = new PoisonBottleItem(600, 2, ItemSettings().maxCount(16));
-	private static Item.Settings PoisonousFoodSettings(int hunger, float saturation) {
-		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.POISON, 100, 0), 0.6F).build());
-	}
-	private static Item.Settings RottenMeatSettings(int hunger, float saturation) {
-		return ItemSettings().food(new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).statusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 0), 0.8F).meat().build());
-	}
-	public static final Item POISONOUS_CARROT = new Item(PoisonousFoodSettings(3, 0.6F));
-	public static final Item POISONOUS_BEETROOT = new Item(PoisonousFoodSettings(2, 0.6F));
-	public static final Item POISONOUS_GLOW_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
-	public static final Item POISONOUS_SWEET_BERRIES = new Item(PoisonousFoodSettings(2, 0.1F));
-	public static final Item POISONOUS_TOMATO = new Item(PoisonousFoodSettings(2, 0.3F));
-	public static final Item WILTED_CABBAGE = new Item(PoisonousFoodSettings(2, 0.4F));
-	public static final Item WILTED_ONION = new Item(PoisonousFoodSettings(2, 0.4F));
-	public static final Item MOLDY_BREAD = new Item(PoisonousFoodSettings(5, 0.6F));
-	public static final Item MOLDY_COOKIE = new Item(PoisonousFoodSettings(2, 0.1F));
-	public static final Item ROTTEN_PUMPKIN_PIE = new Item(PoisonousFoodSettings(8, 0.3F));
-	public static final Item SPOILED_EGG = new Item(ItemSettings()); //TODO: Throw spoiled eggs
-	public static final Item ROTTEN_BEEF = new Item(RottenMeatSettings(8, 0.8F));
-	public static final Item ROTTEN_CHEVON = new Item(RottenMeatSettings(6, 0.6F));
-	public static final Item ROTTEN_CHICKEN = new Item(RottenMeatSettings(6, 0.6F));
-	public static final Item ROTTEN_COD = new Item(PoisonousFoodSettings(5, 0.6F));
-	public static final Item ROTTEN_MUTTON = new Item(RottenMeatSettings(6, 0.8F));
-	public static final Item ROTTEN_PORKCHOP = new Item(RottenMeatSettings(8, 0.8F));
-	public static final Item ROTTEN_RABBIT = new Item(RottenMeatSettings(5, 0.6F));
-	public static final Item ROTTEN_SALMON = new Item(PoisonousFoodSettings(6, 0.8F));
 
 	//Server Blood
 	public static final DefaultParticleType BLOOD_BUBBLE = FabricParticleTypes.simple(false);
@@ -886,9 +1030,7 @@ public class ModBase implements ModInitializer {
 	public static final DefaultParticleType FALLING_DRIPSTONE_BLOOD = FabricParticleTypes.simple(false);
 	private static final Block BLOOD_BLOCK_BLOCK = new Block(Block.Settings.of(Material.SOLID_ORGANIC, MapColor.RED).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK));
 	public static final ItemGroup BLOOD_ITEM_GROUP = FabricItemGroupBuilder.build(ModBase.ID("blood"), () -> new ItemStack(BLOOD_BLOCK_BLOCK));
-	public static final Item.Settings BloodItemSettings() {
-		return ItemSettings().group(BLOOD_ITEM_GROUP);
-	}
+	public static Item.Settings BloodItemSettings() { return ItemSettings().group(BLOOD_ITEM_GROUP); }
 	public static final BlockContainer BLOOD_BLOCK = new BlockContainer(BLOOD_BLOCK_BLOCK, BloodItemSettings());
 	public static final BloodMaterial BLOOD_MATERIAL = new BloodMaterial("blood");
 	public static final BlockContainer DRIED_BLOOD_BLOCK = new BlockContainer(new Block(Block.Settings.copy(BLOOD_BLOCK.getBlock())), BloodItemSettings());
@@ -1303,6 +1445,7 @@ public class ModBase implements ModInitializer {
 	public static final EntityType<FancyChickenEntity> FANCY_CHICKEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, FancyChickenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeBlocks(10).build();
 	public static final Item FANCY_CHICKEN_SPAWN_EGG = new SpawnEggItem(FANCY_CHICKEN_ENTITY, 16777215, 16777215, ItemSettings());
 	public static final Item FANCY_FEATHER = new Item(ItemSettings());
+	public static final Item RED_FEATHER = new Item(ItemSettings());
 	//Cow Variants
 	public static final EntityType<CowcoaEntity> COWCOA_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CowcoaEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeBlocks(10).build();
 	public static final Item COACOW_SPAWN_EGG = new SpawnEggItem(COWCOA_ENTITY, 16777215, 16777215, ItemSettings());
@@ -1372,6 +1515,8 @@ public class ModBase implements ModInitializer {
 	//Wood Buckets
 	public static final LiteralWoodMaterial WOOD_MATERIAL = new LiteralWoodMaterial();
 	public static final Item SHODDY_WOOD_BUCKET = new Item(ItemSettings());
+	//More Lapis
+	public static final BlockContainer LAPIS_SLAB = new BlockContainer(new ModSlabBlock(Blocks.LAPIS_BLOCK));
 	//More Copper
 	public static final DefaultParticleType COPPER_FLAME_PARTICLE = FabricParticleTypes.simple(false);
 	//TODO: Crafting Recipes for Copper Bricks, related blocks
@@ -1424,6 +1569,10 @@ public class ModBase implements ModInitializer {
 	public static final EntityType<DroppedDragonBreathEntity> DROPPED_DRAGON_BREATH_ENTITY = FabricEntityTypeBuilder.<DroppedDragonBreathEntity>create(SpawnGroup.MISC, DroppedDragonBreathEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
 	public static final EntityType<ConfettiCloudEntity> DRAGON_BREATH_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
 
+	//Bottled Lightning
+	public static final Item BOTTLED_LIGHTNING_ITEM = new BottledLightningItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE));
+	public static final EntityType<BottledLightningEntity> BOTTLED_LIGHTNING_ENTITY = FabricEntityTypeBuilder.<BottledLightningEntity>create(SpawnGroup.MISC, BottledLightningEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeBlocks(4).trackedUpdateRate(10).build();
+
 	//Boats
 	public static final EntityType<ModBoatEntity> BOAT_ENTITY = FabricEntityTypeBuilder.<ModBoatEntity>create(SpawnGroup.MISC, ModBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeBlocks(10).build();
 
@@ -1473,7 +1622,10 @@ public class ModBase implements ModInitializer {
 		entry(17, "amber"), entry(18, "kota"), entry(19, "rhys"), entry(20, "soleil"),
 		entry(21, "dj"), entry(22, "miasma"), entry(23, "k")
 	);
-	public static Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
+	public static final Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
+	public static final Map<Integer, BrokenAnchorCoreItem> BROKEN_ANCHOR_CORES = new HashMap<>(Map.ofEntries(
+			entry(20, new BrokenAnchorCoreItem(20))
+	));
 	public static final Set<BaseMaterial> MATERIALS = Set.<BaseMaterial>of(
 		//Wood
 		CASSIA_MATERIAL, CHERRY_MATERIAL,
@@ -1538,6 +1690,7 @@ public class ModBase implements ModInitializer {
 		GILDED_FUNGI_PLANTED = Feature.HUGE_FUNGUS.configure(GILDED_FUNGUS_CONFIG);
 		//Anchors
 		for(Integer owner : ANCHOR_MAP.keySet()) ANCHOR_CORES.put(owner, new AnchorCoreItem(owner));
+		//for (Integer owner : ANCHOR_MAP.keySet()) BROKEN_ANCHOR_CORES.put(owner, new BrokenAnchorCoreItem(owner));
 		//Unlit Lanterns
 		UNLIT_LANTERNS.put(Blocks.LANTERN, UNLIT_LANTERN);
 		UNLIT_LANTERNS.put(Blocks.SOUL_LANTERN, UNLIT_SOUL_LANTERN);

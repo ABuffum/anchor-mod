@@ -1,7 +1,7 @@
 package haven.mixins;
 
 import com.google.common.collect.Sets;
-import haven.entities.tnt.SoftTntEntity;
+import haven.entities.tnt.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.Entity;
@@ -33,12 +33,13 @@ public class ExplosionMixin {
 		Explosion exp = (Explosion)(Object)this;
 		ExplosionAccessor acc = (ExplosionAccessor)exp;
 		Entity ent = acc.getEntity();
-		boolean soft = ent instanceof SoftTntEntity;
+		//We only want to mess with explosions we're responsible for
+		if (!(ent instanceof ModTntEntity tntEntity)) return;
 		World world = acc.getWorld();
 		double X = acc.getX(), Y = acc.getY(), Z = acc.getZ();
 		float power = acc.getPower();
 		ExplosionBehavior behavior = acc.getBehavior();
-		world.emitGameEvent(ent, GameEvent.EXPLODE, new BlockPos(X, Y, Z));
+		world.emitGameEvent(tntEntity, GameEvent.EXPLODE, new BlockPos(X, Y, Z));
 		Set<BlockPos> set = Sets.newHashSet();
 		int k;
 		int l;
@@ -46,9 +47,9 @@ public class ExplosionMixin {
 			for(k = 0; k < 16; ++k) {
 				for(l = 0; l < 16; ++l) {
 					if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-						double d = (double)((float)j / 15.0F * 2.0F - 1.0F);
-						double e = (double)((float)k / 15.0F * 2.0F - 1.0F);
-						double f = (double)((float)l / 15.0F * 2.0F - 1.0F);
+						double d = j / 15.0 * 2.0 - 1.0;
+						double e = k / 15.0 * 2.0 - 1.0;
+						double f = l / 15.0 * 2.0 - 1.0;
 						double g = Math.sqrt(d * d + e * e + f * f);
 						d /= g;
 						e /= g;
@@ -62,19 +63,10 @@ public class ExplosionMixin {
 							BlockPos blockPos = new BlockPos(m, n, o);
 							BlockState blockState = world.getBlockState(blockPos);
 							FluidState fluidState = world.getFluidState(blockPos);
-							if (!world.isInBuildLimit(blockPos)) {
-								break;
-							}
-
+							if (!world.isInBuildLimit(blockPos)) break;
 							Optional<Float> optional = behavior.getBlastResistance(exp, world, blockPos, blockState, fluidState);
-							if (optional.isPresent()) {
-								h -= ((Float)optional.get() + 0.3F) * 0.3F;
-							}
-
-							if (h > 0.0F && behavior.canDestroyBlock(exp, world, blockPos, blockState, h)) {
-								set.add(blockPos);
-							}
-
+							if (optional.isPresent()) h -= (optional.get() + 0.3F) * 0.3F;
+							if (h > 0.0F && behavior.canDestroyBlock(exp, world, blockPos, blockState, h)) set.add(blockPos);
 							m += d * 0.30000001192092896D;
 							n += e * 0.30000001192092896D;
 							o += f * 0.30000001192092896D;
@@ -83,23 +75,18 @@ public class ExplosionMixin {
 				}
 			}
 		}
-		if (!soft) { //soft tnt can't affect blocks
-			acc.getAffectedBlocks().addAll(set);
-		}
+		if (tntEntity.destroyBlocks()) acc.getAffectedBlocks().addAll(set);
 		float q = power * 2.0F;
-		k = MathHelper.floor(X - (double)q - 1.0D);
-		l = MathHelper.floor(X + (double)q + 1.0D);
-		int t = MathHelper.floor(Y - (double)q - 1.0D);
-		int u = MathHelper.floor(Y + (double)q + 1.0D);
-		int v = MathHelper.floor(Z - (double)q - 1.0D);
-		int w = MathHelper.floor(Z + (double)q + 1.0D);
-		List<Entity> list = world.getOtherEntities(ent, new Box((double)k, (double)t, (double)v, (double)l, (double)u, (double)w));
+		k = MathHelper.floor(X - q - 1.0D);
+		l = MathHelper.floor(X + q + 1.0D);
+		int t = MathHelper.floor(Y - q - 1.0D);
+		int u = MathHelper.floor(Y + q + 1.0D);
+		int v = MathHelper.floor(Z - q - 1.0D);
+		int w = MathHelper.floor(Z + q + 1.0D);
 		Vec3d vec3d = new Vec3d(X, Y, Z);
-
-		for(int x = 0; x < list.size(); ++x) {
-			Entity entity = (Entity)list.get(x);
+		for (Entity entity : world.getOtherEntities(ent, new Box(k, t, v, l, u, w))) {
 			if (!entity.isImmuneToExplosion()) {
-				double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / (double)q;
+				double y = Math.sqrt(entity.squaredDistanceTo(vec3d)) / (double) q;
 				if (y <= 1.0D) {
 					double z = entity.getX() - X;
 					double aa = (entity instanceof TntEntity ? entity.getY() : entity.getEyeY()) - Y;
@@ -109,21 +96,22 @@ public class ExplosionMixin {
 						z /= ac;
 						aa /= ac;
 						ab /= ac;
-						double ad = (double)exp.getExposure(vec3d, entity);
-						double ae = (1.0D - y) * ad;
-						if (!soft && power > 0) {
-							entity.damage(exp.getDamageSource(), (float)((int)((ae * ae + ae) / 2.0D * 7.0D * (double)q + 1.0D)));
+						double ae = (1.0D - y) * Explosion.getExposure(vec3d, entity);
+						if (tntEntity.doDamage() && power > 0) {
+							float damage = (int)((ae * ae + ae) / 2.0 * 7.0 * q + 1.0);
+							if (tntEntity instanceof ChunkeaterTntEntity) damage *= 2;
+							if (tntEntity instanceof SharpTntEntity) damage *= 3;
+							entity.damage(exp.getDamageSource(), damage);
 						}
-						double af = ae;
-						if (entity instanceof LivingEntity) {
-							af = ProtectionEnchantment.transformExplosionKnockback((LivingEntity)entity, ae);
-						}
-
-						entity.setVelocity(entity.getVelocity().add(z * af, aa * af, ab * af));
-						if (entity instanceof PlayerEntity) {
-							PlayerEntity playerEntity = (PlayerEntity)entity;
-							if (!playerEntity.isSpectator() && (!playerEntity.isCreative() || !playerEntity.getAbilities().flying)) {
-								acc.getAffectedPlayers().put(playerEntity, new Vec3d(z * ae, aa * ae, ab * ae));
+						if (tntEntity.doKnockback()) {
+							double af = ae;
+							if (entity instanceof LivingEntity) af = ProtectionEnchantment.transformExplosionKnockback((LivingEntity) entity, ae);
+							if (entity instanceof DevouringTntEntity) af *= -1;
+							entity.setVelocity(entity.getVelocity().add(z * af, aa * af, ab * af));
+							if (entity instanceof PlayerEntity playerEntity) {
+								if (!playerEntity.isSpectator() && (!playerEntity.isCreative() || !playerEntity.getAbilities().flying)) {
+									acc.getAffectedPlayers().put(playerEntity, new Vec3d(z * ae, aa * ae, ab * ae));
+								}
 							}
 						}
 					}

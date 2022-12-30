@@ -120,16 +120,16 @@ public class NetheriteMaterial extends BaseMaterial implements
 		button = new BlockContainer(new MetalButtonBlock(AbstractBlock.Settings.of(Material.DECORATION).noCollision().strength(10.0F).sounds(BlockSoundGroup.NETHERITE)), ItemSettings());
 		chain = new BlockContainer(new ChainBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.CHAIN).nonOpaque()), ItemSettings());
 		bars = new BlockContainer(new ModPaneBlock(AbstractBlock.Settings.of(Material.METAL, MapColor.CLEAR).requiresTool().strength(5.0F, 6.0F).sounds(BlockSoundGroup.NETHERITE).nonOpaque()), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.NETHERITE_BLOCK), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.NETHERITE_BLOCK), ItemSettings());
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
+		brick_slab = new BlockContainer(new ModSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new ModStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new ModWallBlock(bricks.getBlock()), ItemSettings());
 		cut = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.NETHERITE_BLOCK)), ItemSettings());
 		cut_pillar = new BlockContainer(new PillarBlock(AbstractBlock.Settings.copy(cut.getBlock())), ItemSettings());
-		cut_slab = new BlockContainer(new HavenSlabBlock(cut.getBlock()), ItemSettings());
-		cut_stairs = new BlockContainer(new HavenStairsBlock(cut.getBlock()), ItemSettings());
-		cut_wall = new BlockContainer(new HavenWallBlock(cut.getBlock()), ItemSettings());
+		cut_slab = new BlockContainer(new ModSlabBlock(cut.getBlock()), ItemSettings());
+		cut_stairs = new BlockContainer(new ModStairsBlock(cut.getBlock()), ItemSettings());
+		cut_wall = new BlockContainer(new ModWallBlock(cut.getBlock()), ItemSettings());
 		horse_armor = new HavenHorseArmorItem(15, getName(), ItemSettings().maxCount(1));
 
 		shears = new ShearsItem(ItemSettings().maxDamage(2031));
@@ -138,7 +138,7 @@ public class NetheriteMaterial extends BaseMaterial implements
 		water_bucket = new HavenBucketItem(Fluids.WATER, FilledBucketSettings(), this);
 		lava_bucket = new HavenBucketItem(Fluids.LAVA, FilledBucketSettings(), this);
 		powder_snow_bucket = new HavenPowderSnowBucketItem(Blocks.POWDER_SNOW, SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, FilledBucketSettings(), this);
-		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings(), this);
+		blood_bucket = new HavenBucketItem(ModBase.STILL_BLOOD_FLUID, FilledBucketSettings().group(ModBase.BLOOD_ITEM_GROUP), this);
 		mud_bucket = new HavenBucketItem(ModBase.STILL_MUD_FLUID, FilledBucketSettings(), this);
 		milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);
 		chocolate_milk_bucket = new HavenMilkBucketItem(FilledBucketSettings(), this);

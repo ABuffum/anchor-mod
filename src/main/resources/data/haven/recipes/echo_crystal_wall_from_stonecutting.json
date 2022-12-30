@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "haven:echo_crystal_block"
+  },
+  "result": "haven:echo_crystal_wall"
+}

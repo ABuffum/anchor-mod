@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/template_glazed_terracotta_slab",
+  "textures": {
+    "pattern": "minecraft:block/light_gray_glazed_terracotta"
+  }
+}

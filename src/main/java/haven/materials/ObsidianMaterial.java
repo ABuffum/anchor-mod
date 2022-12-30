@@ -1,8 +1,8 @@
 package haven.materials;
 
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.materials.base.ToolArmorHorseMaterial;
 import haven.materials.providers.*;
 import haven.containers.BlockContainer;
@@ -23,9 +23,9 @@ public class ObsidianMaterial extends ToolArmorHorseMaterial implements
 		super("obsidian", false, HavenToolMaterials.OBSIDIAN,
 				5, -3, -3, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F,
 				HavenArmorMaterials.OBSIDIAN, 10);
-		slab = new BlockContainer(new HavenSlabBlock(Blocks.OBSIDIAN), ItemSettings());
-		stairs = new BlockContainer(new HavenStairsBlock(Blocks.OBSIDIAN), ItemSettings());
-		wall = new BlockContainer(new HavenWallBlock(Blocks.OBSIDIAN), ItemSettings());
+		slab = new BlockContainer(new ModSlabBlock(Blocks.OBSIDIAN), ItemSettings());
+		stairs = new BlockContainer(new ModStairsBlock(Blocks.OBSIDIAN), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.OBSIDIAN), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

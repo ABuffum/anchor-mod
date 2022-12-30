@@ -1,8 +1,8 @@
 package haven.materials.stone;
 
-import haven.blocks.basic.HavenSlabBlock;
-import haven.blocks.basic.HavenStairsBlock;
-import haven.blocks.basic.HavenWallBlock;
+import haven.blocks.basic.ModSlabBlock;
+import haven.blocks.basic.ModStairsBlock;
+import haven.blocks.basic.ModWallBlock;
 import haven.containers.BlockContainer;
 import haven.materials.base.BaseMaterial;
 import haven.materials.providers.*;
@@ -37,15 +37,15 @@ public class PurpurMaterial extends BaseMaterial implements
 
 	public PurpurMaterial() {
 		super("purpur", false);
-		wall = new BlockContainer(new HavenWallBlock(Blocks.PURPUR_BLOCK), ItemSettings());
+		wall = new BlockContainer(new ModWallBlock(Blocks.PURPUR_BLOCK), ItemSettings());
 		smooth = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.PURPUR_BLOCK)), ItemSettings());
-		smooth_slab = new BlockContainer(new HavenSlabBlock(smooth.getBlock()), ItemSettings());
-		smooth_stairs = new BlockContainer(new HavenStairsBlock(smooth.getBlock()), ItemSettings());
-		smooth_wall = new BlockContainer(new HavenWallBlock(smooth.getBlock()), ItemSettings());
+		smooth_slab = new BlockContainer(new ModSlabBlock(smooth.getBlock()), ItemSettings());
+		smooth_stairs = new BlockContainer(new ModStairsBlock(smooth.getBlock()), ItemSettings());
+		smooth_wall = new BlockContainer(new ModWallBlock(smooth.getBlock()), ItemSettings());
 		bricks = new BlockContainer(new Block(AbstractBlock.Settings.copy(Blocks.PURPUR_BLOCK)), ItemSettings());
-		brick_slab = new BlockContainer(new HavenSlabBlock(bricks.getBlock()), ItemSettings());
-		brick_stairs = new BlockContainer(new HavenStairsBlock(bricks.getBlock()), ItemSettings());
-		brick_wall = new BlockContainer(new HavenWallBlock(bricks.getBlock()), ItemSettings());
+		brick_slab = new BlockContainer(new ModSlabBlock(bricks.getBlock()), ItemSettings());
+		brick_stairs = new BlockContainer(new ModStairsBlock(bricks.getBlock()), ItemSettings());
+		brick_wall = new BlockContainer(new ModWallBlock(bricks.getBlock()), ItemSettings());
 	}
 
 	public boolean contains(Block block) {

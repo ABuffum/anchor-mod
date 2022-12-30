@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": {
+            "model": "haven:block/yellow_fleece_slab"
+        },
+        "type=double": {
+            "model": "haven:block/yellow_fleece"
+        },
+        "type=top": {
+            "model": "haven:block/yellow_fleece_slab_top"
+        }
+    }
+}

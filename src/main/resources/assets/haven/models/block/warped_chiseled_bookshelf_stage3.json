@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/template_chiseled_bookshelf",
-  "textures": {
-    "front": "haven:block/warped_chiseled_bookshelf_stage3",
-    "side": "haven:block/warped_chiseled_bookshelf_side",
-    "top": "haven:block/warped_chiseled_bookshelf_top"
-  }
-}

@@ -1,0 +1,12 @@
+{
+  "parent": "haven:block/multi_texture_slab_top",
+  "textures": {
+    "particle": "haven:block/rainbow_wool_particle",
+    "up": "haven:block/rainbow_wool_horiz_r_p",
+    "down": "haven:block/rainbow_wool_horiz_r_p",
+    "south": "haven:block/rainbow_wool_horiz_r_p",
+    "north": "haven:block/rainbow_wool_horiz_p_r",
+    "west": "haven:block/rainbow_wool_r",
+    "east": "haven:block/rainbow_wool_p"
+  }
+}

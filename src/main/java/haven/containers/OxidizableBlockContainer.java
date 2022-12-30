@@ -1,10 +1,8 @@
 package haven.containers;
 
-import haven.blocks.basic.HavenStairsBlock;
 import haven.util.OxidationScale;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.OxidizableSlabBlock;
 import net.minecraft.item.Item;
 
 import static net.minecraft.block.Oxidizable.OxidizationLevel;

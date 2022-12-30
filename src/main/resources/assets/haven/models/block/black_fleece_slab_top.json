@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/black_fleece",
+    "side": "haven:block/black_fleece",
+    "top": "haven:block/black_fleece"
+  }
+}
