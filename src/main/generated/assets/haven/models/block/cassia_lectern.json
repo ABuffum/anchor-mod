@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "haven:block/cassia_planks",
+    "base": "haven:block/cassia_lectern_base",
+    "front": "haven:block/cassia_lectern_front",
+    "sides": "haven:block/cassia_lectern_sides",
+    "top": "haven:block/cassia_lectern_top"
+  }
+}

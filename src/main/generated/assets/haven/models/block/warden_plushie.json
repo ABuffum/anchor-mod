@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/warden",
+  "textures": {
+    "all": "haven:block/warden_plushie",
+    "particle": "haven:block/warden_plushie"
+  }
+}

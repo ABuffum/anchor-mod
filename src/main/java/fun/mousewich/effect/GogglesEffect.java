@@ -1,0 +1,7 @@
+package fun.mousewich.effect;
+
+import net.minecraft.entity.effect.*;
+
+public class GogglesEffect extends ModStatusEffect {
+	public GogglesEffect(int color) { super(StatusEffectType.NEUTRAL, color); }
+}

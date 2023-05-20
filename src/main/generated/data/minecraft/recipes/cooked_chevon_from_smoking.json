@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "haven:chevon"
+  },
+  "result": "haven:cooked_chevon",
+  "experience": 0.35,
+  "cookingtime": 100
+}

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:taiga_mountains",
+    "minecraft:taiga_hills",
+    "minecraft:snowy_taiga_mountains",
+    "minecraft:snowy_taiga_hills",
+    "minecraft:giant_spruce_taiga",
+    "minecraft:giant_tree_taiga",
+    "minecraft:giant_spruce_taiga_hills",
+    "minecraft:giant_spruce_taiga",
+    "minecraft:tall_birch_forest",
+    "minecraft:tall_birch_hills",
+    "minecraft:jungle",
+    "minecraft:jungle_edge",
+    "minecraft:jungle_hills"
+  ]
+}

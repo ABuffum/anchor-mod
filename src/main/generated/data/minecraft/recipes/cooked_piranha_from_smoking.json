@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "haven:piranha"
+  },
+  "result": "haven:cooked_piranha",
+  "experience": 0.35,
+  "cookingtime": 100
+}

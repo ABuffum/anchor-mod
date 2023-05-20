@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/cassia_planks",
-    "side": "haven:block/cassia_planks",
-    "top": "haven:block/cassia_planks"
-  }
-}

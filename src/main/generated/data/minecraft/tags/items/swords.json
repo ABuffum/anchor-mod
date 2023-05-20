@@ -1,0 +1,48 @@
+{
+  "replace": false,
+  "values": [
+    "haven:waxed_exposed_copper_sword",
+    "haven:weathered_copper_sword",
+    "haven:waxed_weathered_copper_sword",
+    "haven:obsidian_sword",
+    "haven:oxidized_copper_sword",
+    "haven:amethyst_sword",
+    "haven:emerald_sword",
+    "haven:exposed_copper_sword",
+    "haven:waxed_copper_sword",
+    "haven:waxed_oxidized_copper_sword",
+    "haven:copper_sword",
+    "haven:quartz_sword",
+    "haven:echo_sword",
+    "minecraft:wooden_sword",
+    "minecraft:stone_sword",
+    "minecraft:iron_sword",
+    "minecraft:golden_sword",
+    "minecraft:diamond_sword",
+    "minecraft:netherite_sword",
+    {
+      "id": "betternether:cincinnasite_sword",
+      "required": false
+    },
+    {
+      "id": "betternether:cincinnasite_sword_diamond",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_ruby_sword",
+      "required": false
+    },
+    {
+      "id": "betterend:aeternium_sword",
+      "required": false
+    },
+    {
+      "id": "betterend:thallasium_sword",
+      "required": false
+    },
+    {
+      "id": "betterend:terminite_sword",
+      "required": false
+    }
+  ]
+}

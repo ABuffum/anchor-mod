@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/chiseled_granite_slab"
+    },
+    "type=double": {
+      "model": "haven:block/chiseled_granite"
+    },
+    "type=top": {
+      "model": "haven:block/chiseled_granite_slab_top"
+    }
+  }
+}

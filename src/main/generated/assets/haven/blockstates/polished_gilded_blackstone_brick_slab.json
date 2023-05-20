@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/polished_gilded_blackstone_brick_slab"
+    },
+    "type=double": {
+      "model": "haven:block/polished_gilded_blackstone_bricks"
+    },
+    "type=top": {
+      "model": "haven:block/polished_gilded_blackstone_brick_slab_top"
+    }
+  }
+}

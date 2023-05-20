@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "haven:block/gilded_wart_stage2"
+  }
+}

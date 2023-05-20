@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "haven:cut_iron"
-  },
-  "result": "haven:cut_iron_slab"
-}

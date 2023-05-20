@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/sugar_cane_powder_keg_top",
+    "bottom": "haven:block/sugar_cane_barrel_bottom",
+    "side": "haven:block/sugar_cane_powder_keg_side"
+  }
+}

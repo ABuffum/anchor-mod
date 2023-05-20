@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:smooth_tuff"
+    }
+  },
+  "result": {
+    "item": "haven:smooth_tuff_slab",
+    "count": 6
+  }
+}

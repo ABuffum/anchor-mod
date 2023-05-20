@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "minecraft:block/warped_planks",
+    "base": "haven:block/warped_lectern_base",
+    "front": "haven:block/warped_lectern_front",
+    "sides": "haven:block/warped_lectern_sides",
+    "top": "haven:block/warped_lectern_top"
+  }
+}

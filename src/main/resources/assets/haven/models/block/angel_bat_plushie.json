@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/bat_plushie",
-  "textures": {
-	"0": "haven:block/angel_bat_plushie"
-  }
-}

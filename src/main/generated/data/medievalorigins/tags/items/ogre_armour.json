@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven:studded_leather_helmet",
+    "haven:studded_leather_chestplate",
+    "haven:studded_leather_leggings",
+    "haven:studded_leather_boots"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dripstone_brick_slab"
+    }
+  },
+  "result": {
+    "item": "haven:chiseled_dripstone_bricks"
+  }
+}

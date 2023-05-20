@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:waxed_exposed_copper_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:waxed_exposed_copper_brick_wall",
+    "count": 6
+  }
+}

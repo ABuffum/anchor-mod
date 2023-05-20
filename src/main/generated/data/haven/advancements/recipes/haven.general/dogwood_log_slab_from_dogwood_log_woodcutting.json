@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:dogwood_log_slab_from_dogwood_log_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dogwood_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dogwood_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:dogwood_log_slab_from_dogwood_log_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dogwood_log",
+      "has_the_recipe"
+    ]
+  ]
+}

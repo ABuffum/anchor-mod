@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven:block/tuff_tiles",
+    "top": "haven:block/tuff_tiles",
+    "side": "haven:block/tuff_tiles"
+  }
+}

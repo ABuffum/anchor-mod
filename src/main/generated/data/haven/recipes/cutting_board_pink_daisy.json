@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:pink_daisy"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:pink_daisy_petals"
+    },
+    {
+      "item": "haven:pink_daisy_seeds"
+    }
+  ]
+}

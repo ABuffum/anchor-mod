@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "SSS",
+    "/S "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    "/": {
+      "tag": "minecraft:arrows"
+    },
+    "S": [
+      {
+        "item": "minecraft:soul_sand"
+      },
+      {
+        "item": "minecraft:soul_soil"
+      }
+    ]
+  },
+  "result": {
+    "item": "haven:wither_summoning_arrow"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_pitcher_plant"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_pitcher_plant": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:pitcher_plant"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_pitcher_plant"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pitcher_plant",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/glow_lichen_block",
+    "top": "haven:block/glow_lichen_block",
+    "side": "haven:block/glow_lichen_block"
+  }
+}

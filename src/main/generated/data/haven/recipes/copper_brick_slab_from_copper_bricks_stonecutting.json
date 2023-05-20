@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:copper_bricks"
+  },
+  "result": "haven:copper_brick_slab",
+  "count": 2
+}

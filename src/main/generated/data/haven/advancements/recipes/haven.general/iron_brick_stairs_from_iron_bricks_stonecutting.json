@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:iron_brick_stairs_from_iron_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_iron_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:iron_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:iron_brick_stairs_from_iron_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_iron_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

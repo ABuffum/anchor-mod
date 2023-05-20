@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_cake_slice5",
+  "textures": {
+    "bottom": "haven:block/chorus_cake_bottom",
+    "side": "haven:block/chorus_cake_side",
+    "top": "haven:block/chorus_cake_top",
+    "inside": "haven:block/chorus_cake_inner",
+    "particle": "haven:block/chorus_cake_side"
+  }
+}

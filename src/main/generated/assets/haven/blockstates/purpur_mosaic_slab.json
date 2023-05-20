@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/purpur_mosaic_slab"
+    },
+    "type=double": {
+      "model": "haven:block/purpur_mosaic"
+    },
+    "type=top": {
+      "model": "haven:block/purpur_mosaic_slab_top"
+    }
+  }
+}

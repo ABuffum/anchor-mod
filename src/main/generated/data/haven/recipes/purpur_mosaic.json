@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#B",
+    "B#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:chiseled_purpur"
+    },
+    "B": {
+      "item": "minecraft:purpur_block"
+    }
+  },
+  "result": {
+    "item": "haven:purpur_mosaic"
+  }
+}

@@ -3,12 +3,5 @@
     "textures": {
         "layer0": "haven:item/grappling_rod"
     },
-    "overrides": [
-        {
-            "predicate": {
-                "cast": 1
-            },
-            "model": "haven:item/grappling_rod_cast"
-        }
-    ]
+    "overrides": [ { "predicate": { "cast": 1 }, "model": "haven:item/grappling_rod_cast" } ]
 }

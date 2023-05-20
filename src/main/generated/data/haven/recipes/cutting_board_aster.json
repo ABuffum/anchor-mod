@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:aster"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:aster_petals"
+    },
+    {
+      "item": "haven:aster_seeds"
+    }
+  ]
+}

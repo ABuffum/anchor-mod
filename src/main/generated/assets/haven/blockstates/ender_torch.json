@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/ender_torch"
+    }
+  }
+}

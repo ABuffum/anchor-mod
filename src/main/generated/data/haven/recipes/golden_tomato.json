@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gold_nugget"
+    },
+    "*": {
+      "item": "farmersdelight:tomato"
+    }
+  },
+  "result": {
+    "item": "haven:golden_tomato"
+  }
+}

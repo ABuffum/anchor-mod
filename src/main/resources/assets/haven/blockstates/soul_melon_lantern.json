@@ -1,8 +1,0 @@
-{
-  "variants": {
-	"facing=north": { "model": "haven:block/soul_melon_lantern" },
-	"facing=south": { "model": "haven:block/soul_melon_lantern", "y": 180 },
-	"facing=west":  { "model": "haven:block/soul_melon_lantern", "y": 270 },
-	"facing=east":  { "model": "haven:block/soul_melon_lantern", "y": 90 }
-  }
-}

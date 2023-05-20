@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:exposed_copper_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:exposed_copper_brick_slab",
+    "count": 6
+  }
+}

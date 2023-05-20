@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "haven:block/cassia_beehive_end",
+    "bottom": "haven:block/cassia_beehive_end",
+    "side": "haven:block/cassia_beehive_side",
+    "front": "haven:block/cassia_beehive_front_honey",
+    "particle": "haven:block/cassia_beehive_side"
+  }
+}

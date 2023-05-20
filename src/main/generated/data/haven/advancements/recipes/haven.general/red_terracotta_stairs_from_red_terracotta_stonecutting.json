@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:red_terracotta_stairs_from_red_terracotta_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_red_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:red_terracotta"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:red_terracotta_stairs_from_red_terracotta_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_red_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

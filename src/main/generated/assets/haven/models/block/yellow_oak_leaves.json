@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "haven:block/yellow_oak_leaves"
+  }
+}

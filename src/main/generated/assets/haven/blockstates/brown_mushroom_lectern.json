@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/brown_mushroom_lectern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/brown_mushroom_lectern"
+    },
+    "facing=south": {
+      "model": "haven:block/brown_mushroom_lectern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/brown_mushroom_lectern",
+      "y": 270
+    }
+  }
+}

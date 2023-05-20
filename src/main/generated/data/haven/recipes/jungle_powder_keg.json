@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:jungle_barrel"
+    },
+    {
+      "item": "haven:gunpowder_block"
+    }
+  ],
+  "result": {
+    "item": "haven:jungle_powder_keg"
+  }
+}

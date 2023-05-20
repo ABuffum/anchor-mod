@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/rotten_pumpkin_top",
+    "bottom": "haven:block/rotten_pumpkin_top",
+    "side": "haven:block/rotten_pumpkin_side"
+  }
+}

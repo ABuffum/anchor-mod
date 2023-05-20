@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "minecraft:calcite"
+  },
+  "result": "haven:smooth_calcite",
+  "experience": 0.1,
+  "cookingtime": 200
+}

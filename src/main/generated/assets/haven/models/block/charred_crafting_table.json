@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "haven:block/charred_crafting_table_front",
+    "north": "haven:block/charred_crafting_table_front",
+    "south": "haven:block/charred_crafting_table_side",
+    "east": "haven:block/charred_crafting_table_side",
+    "west": "haven:block/charred_crafting_table_front",
+    "up": "haven:block/charred_crafting_table_top",
+    "down": "haven:block/charred_planks"
+  }
+}

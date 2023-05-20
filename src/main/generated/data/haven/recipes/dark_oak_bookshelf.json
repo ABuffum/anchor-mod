@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "X": {
+      "tag": "haven:books"
+    }
+  },
+  "result": {
+    "item": "haven:dark_oak_bookshelf"
+  }
+}

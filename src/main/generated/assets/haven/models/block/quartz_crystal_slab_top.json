@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/quartz_crystal_block",
+    "top": "haven:block/quartz_crystal_block",
+    "side": "haven:block/quartz_crystal_block"
+  }
+}

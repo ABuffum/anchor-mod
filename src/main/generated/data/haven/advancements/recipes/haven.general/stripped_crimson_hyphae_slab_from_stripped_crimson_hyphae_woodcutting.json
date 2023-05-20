@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:stripped_crimson_hyphae_slab_from_stripped_crimson_hyphae_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_stripped_crimson_hyphae": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:stripped_crimson_hyphae"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:stripped_crimson_hyphae_slab_from_stripped_crimson_hyphae_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stripped_crimson_hyphae",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_exposed_copper_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/oxidized_underwater_copper_torch"
+    }
+  }
+}

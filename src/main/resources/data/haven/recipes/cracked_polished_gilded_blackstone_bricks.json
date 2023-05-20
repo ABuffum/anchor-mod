@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "cookingtime": 200,
-  "experience": 0.1,
-  "ingredient": {
-    "item": "haven:polished_gilded_blackstone_bricks"
-  },
-  "result": "haven:cracked_polished_gilded_blackstone_bricks"
-}

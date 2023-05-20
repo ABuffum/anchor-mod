@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:quartz_crystal_block"
+  },
+  "result": "haven:quartz_crystal_wall",
+  "count": 1
+}

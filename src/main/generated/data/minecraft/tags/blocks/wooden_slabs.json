@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:bamboo_slab",
+    "haven:charred_slab",
+    "minecraft:mangrove_slab",
+    "minecraft:bamboo_slab",
+    "minecraft:bamboo_mosaic_slab",
+    "minecraft:cherry_slab",
+    "haven:cassia_slab",
+    "haven:dogwood_slab"
+  ]
+}

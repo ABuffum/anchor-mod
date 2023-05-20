@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:white_fleece"
+    }
+  },
+  "result": {
+    "item": "haven:white_fleece_carpet",
+    "count": 3
+  }
+}

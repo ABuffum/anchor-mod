@@ -1,0 +1,4 @@
+{
+    "parent": "item/tooting_goat_horn",
+    "textures": { "layer0": "haven:item/wind_horn" }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven:block/glow_lichen_block"
+    }
+  }
+}

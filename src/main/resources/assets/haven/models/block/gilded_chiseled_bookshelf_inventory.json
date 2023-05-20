@@ -1,8 +1,0 @@
-{
-    "parent": "haven:block/template_chiseled_bookshelf_inventory",
-    "textures": {
-        "top": "haven:block/gilded_chiseled_bookshelf_top",
-        "side": "haven:block/gilded_chiseled_bookshelf_side",
-        "front": "haven:block/gilded_chiseled_bookshelf_empty"
-    }
-}

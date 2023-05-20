@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_bone_torch_wall",
+  "textures": {
+    "torch": "haven:block/bone_ender_torch"
+  }
+}

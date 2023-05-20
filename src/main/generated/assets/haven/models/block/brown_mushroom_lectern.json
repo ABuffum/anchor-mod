@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "haven:block/brown_mushroom_planks",
+    "base": "haven:block/brown_mushroom_lectern_base",
+    "front": "haven:block/brown_mushroom_lectern_front",
+    "sides": "haven:block/brown_mushroom_lectern_sides",
+    "top": "haven:block/brown_mushroom_lectern_top"
+  }
+}

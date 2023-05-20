@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:diamond_brick_wall_from_diamond_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_diamond_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:diamond_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:diamond_brick_wall_from_diamond_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_diamond_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

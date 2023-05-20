@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:cut_prismarine_bricks"
+  },
+  "result": "haven:cut_prismarine_brick_slab",
+  "count": 2
+}

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column_horizontal",
-  "textures": {
-    "end": "haven:block/cherry_log_top",
-    "side": "haven:block/cherry_log"
-  }
-}

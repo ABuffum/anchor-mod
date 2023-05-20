@@ -1,8 +1,0 @@
-{
-    "parent": "haven:block/template_chiseled_bookshelf_inventory",
-    "textures": {
-        "top": "haven:block/mushroom_stem_chiseled_bookshelf_top",
-        "side": "haven:block/mushroom_stem_chiseled_bookshelf_side",
-        "front": "haven:block/mushroom_stem_chiseled_bookshelf_empty"
-    }
-}

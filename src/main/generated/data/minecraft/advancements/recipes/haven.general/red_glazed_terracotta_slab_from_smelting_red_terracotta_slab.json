@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:red_glazed_terracotta_slab_from_smelting_red_terracotta_slab"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_red_terracotta_slab": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:red_terracotta_slab"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:red_glazed_terracotta_slab_from_smelting_red_terracotta_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_red_terracotta_slab",
+      "has_the_recipe"
+    ]
+  ]
+}

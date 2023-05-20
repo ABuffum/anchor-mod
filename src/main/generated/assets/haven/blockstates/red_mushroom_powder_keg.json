@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "haven:block/red_mushroom_powder_keg",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "haven:block/red_mushroom_powder_keg",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/red_mushroom_powder_keg",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "haven:block/red_mushroom_powder_keg",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "haven:block/red_mushroom_powder_keg"
+    },
+    "facing=west": {
+      "model": "haven:block/red_mushroom_powder_keg",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

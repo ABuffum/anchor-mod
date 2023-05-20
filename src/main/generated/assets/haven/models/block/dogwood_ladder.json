@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_ladder",
+  "textures": {
+    "texture": "haven:block/dogwood_ladder"
+  }
+}

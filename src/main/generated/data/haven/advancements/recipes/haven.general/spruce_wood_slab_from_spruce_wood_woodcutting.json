@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:spruce_wood_slab_from_spruce_wood_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_spruce_wood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:spruce_wood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:spruce_wood_slab_from_spruce_wood_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spruce_wood",
+      "has_the_recipe"
+    ]
+  ]
+}

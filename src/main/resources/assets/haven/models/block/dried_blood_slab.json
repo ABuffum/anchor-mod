@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/dried_blood",
-    "side": "haven:block/dried_blood",
-    "top": "haven:block/dried_blood"
-  }
-}

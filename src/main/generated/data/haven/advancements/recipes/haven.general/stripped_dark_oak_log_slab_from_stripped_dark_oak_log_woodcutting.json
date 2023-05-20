@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:stripped_dark_oak_log_slab_from_stripped_dark_oak_log_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_stripped_dark_oak_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:stripped_dark_oak_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:stripped_dark_oak_log_slab_from_stripped_dark_oak_log_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_stripped_dark_oak_log",
+      "has_the_recipe"
+    ]
+  ]
+}

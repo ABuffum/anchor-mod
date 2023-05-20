@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/strawberry_netherrack_candle_cake"
+    },
+    "lit=true": {
+      "model": "haven:block/strawberry_netherrack_candle_cake_lit"
+    }
+  }
+}

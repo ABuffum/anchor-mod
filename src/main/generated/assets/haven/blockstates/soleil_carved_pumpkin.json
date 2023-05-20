@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/soleil_carved_pumpkin",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/soleil_carved_pumpkin"
+    },
+    "facing=south": {
+      "model": "haven:block/soleil_carved_pumpkin",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/soleil_carved_pumpkin",
+      "y": 270
+    }
+  }
+}

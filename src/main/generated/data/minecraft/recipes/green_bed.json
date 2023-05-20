@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:green_wool"
+      },
+      {
+        "item": "haven:green_fleece"
+      }
+    ],
+    "X": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "minecraft:green_bed"
+  }
+}

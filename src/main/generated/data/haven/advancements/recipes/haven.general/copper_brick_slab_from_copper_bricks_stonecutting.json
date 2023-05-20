@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:copper_brick_slab_from_copper_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_copper_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:copper_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:copper_brick_slab_from_copper_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

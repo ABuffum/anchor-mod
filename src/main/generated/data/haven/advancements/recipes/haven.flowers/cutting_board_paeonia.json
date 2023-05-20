@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_paeonia"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_paeonia": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:paeonia"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_paeonia"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_paeonia",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:mangrove_logs",
+    "#minecraft:cherry_logs",
+    "#haven:cassia_logs",
+    "#haven:dogwood_logs"
+  ]
+}

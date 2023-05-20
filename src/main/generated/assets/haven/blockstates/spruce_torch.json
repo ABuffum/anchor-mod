@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_spruce_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/spruce_torch"
+    }
+  }
+}

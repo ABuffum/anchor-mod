@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/dogwood_barrel_top_open",
+    "bottom": "haven:block/dogwood_barrel_bottom",
+    "side": "haven:block/dogwood_barrel_side"
+  }
+}

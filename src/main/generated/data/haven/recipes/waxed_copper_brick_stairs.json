@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:waxed_copper_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:waxed_copper_brick_stairs",
+    "count": 4
+  }
+}

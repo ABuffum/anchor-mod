@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_dark_oak_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/underwater_dark_oak_torch"
+    }
+  }
+}

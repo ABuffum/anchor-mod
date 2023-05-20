@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:marigold"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:marigold_petals"
+    },
+    {
+      "item": "haven:marigold_seeds"
+    }
+  ]
+}

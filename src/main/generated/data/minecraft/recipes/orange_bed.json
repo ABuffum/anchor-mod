@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:orange_wool"
+      },
+      {
+        "item": "haven:orange_fleece"
+      }
+    ],
+    "X": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "minecraft:orange_bed"
+  }
+}

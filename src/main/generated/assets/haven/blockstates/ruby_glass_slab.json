@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/ruby_glass_slab"
+    },
+    "type=double": {
+      "model": "haven:block/ruby_glass"
+    },
+    "type=top": {
+      "model": "haven:block/ruby_glass_slab_top"
+    }
+  }
+}

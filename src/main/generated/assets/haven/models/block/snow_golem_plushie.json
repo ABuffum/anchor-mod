@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/snow_golem",
+  "textures": {
+    "all": "haven:block/snow_golem_plushie",
+    "particle": "haven:block/snow_golem_plushie"
+  }
+}

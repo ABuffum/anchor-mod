@@ -2,10 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:carved_pumpkin",
-    "haven:soleil_carved_pumpkin",
     "haven:carved_white_pumpkin",
-    "haven:soleil_carved_white_pumpkin",
-    "haven:carved_rotten_pumpkin",
-    "haven:soleil_carved_rotten_pumpkin"
+    "haven:carved_rotten_pumpkin"
   ]
 }

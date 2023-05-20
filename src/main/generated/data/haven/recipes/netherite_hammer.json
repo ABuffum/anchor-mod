@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#|#",
+    " | ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:netherite_block"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:netherite_hammer"
+  }
+}

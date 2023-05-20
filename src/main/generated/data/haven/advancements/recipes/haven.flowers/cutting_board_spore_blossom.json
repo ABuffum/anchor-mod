@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_spore_blossom"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_spore_blossom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:spore_blossom"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_spore_blossom"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spore_blossom",
+      "has_the_recipe"
+    ]
+  ]
+}

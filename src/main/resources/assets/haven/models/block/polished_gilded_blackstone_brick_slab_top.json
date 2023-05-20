@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/polished_gilded_blackstone_bricks",
-    "side": "haven:block/polished_gilded_blackstone_bricks",
-    "top": "haven:block/polished_gilded_blackstone_bricks"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/devouring_tnt_top",
+    "bottom": "haven:block/devouring_tnt_bottom",
+    "side": "haven:block/devouring_tnt_side"
+  }
+}

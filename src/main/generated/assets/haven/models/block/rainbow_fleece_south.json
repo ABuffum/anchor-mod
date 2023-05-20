@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "haven:block/rainbow_fleece_particle",
+    "north": "haven:block/rainbow_fleece_horiz_p_r",
+    "south": "haven:block/rainbow_fleece_horiz_r_p",
+    "east": "haven:block/rainbow_fleece_p",
+    "west": "haven:block/rainbow_fleece_r",
+    "up": "haven:block/rainbow_fleece_horiz_r_p",
+    "down": "haven:block/rainbow_fleece_horiz_r_p"
+  }
+}

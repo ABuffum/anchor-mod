@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_campfire_off",
+  "textures": {
+    "log": "haven:block/bamboo_campfire_log"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cut_iron_slab_from_cut_iron_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_cut_iron": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:cut_iron"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cut_iron_slab_from_cut_iron_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cut_iron",
+      "has_the_recipe"
+    ]
+  ]
+}

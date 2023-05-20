@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:cornflower"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:cornflower_petals"
+    },
+    {
+      "item": "haven:cornflower_seeds"
+    }
+  ]
+}

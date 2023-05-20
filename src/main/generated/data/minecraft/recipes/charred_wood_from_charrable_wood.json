@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "tag": "haven:charrable_woods"
+  },
+  "result": "haven:charred_wood",
+  "experience": 0.35,
+  "cookingtime": 600
+}

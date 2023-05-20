@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "B"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:carved_white_pumpkin"
+    },
+    "B": {
+      "tag": "haven:ender_torches"
+    }
+  },
+  "result": {
+    "item": "haven:white_ender_jack_o_lantern"
+  }
+}

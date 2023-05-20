@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:exposed_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:exposed_heavy_copper_chain"
+  }
+}

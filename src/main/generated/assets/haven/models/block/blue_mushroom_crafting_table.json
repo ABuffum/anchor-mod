@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "haven:block/blue_mushroom_crafting_table_front",
+    "north": "haven:block/blue_mushroom_crafting_table_front",
+    "south": "haven:block/blue_mushroom_crafting_table_side",
+    "east": "haven:block/blue_mushroom_crafting_table_side",
+    "west": "haven:block/blue_mushroom_crafting_table_front",
+    "up": "haven:block/blue_mushroom_crafting_table_top",
+    "down": "haven:block/blue_mushroom_planks"
+  }
+}

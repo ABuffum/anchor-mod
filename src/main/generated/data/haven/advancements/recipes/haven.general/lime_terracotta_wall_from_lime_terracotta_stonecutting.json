@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:lime_terracotta_wall_from_lime_terracotta_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_lime_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:lime_terracotta"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:lime_terracotta_wall_from_lime_terracotta_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lime_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

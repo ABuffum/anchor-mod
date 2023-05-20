@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "haven:pink_wool_slab",
+    "haven:red_wool_slab",
+    "haven:white_wool_slab",
+    "haven:orange_wool_slab",
+    "haven:cyan_wool_slab",
+    "haven:purple_wool_slab",
+    "haven:yellow_wool_slab",
+    "haven:light_gray_wool_slab",
+    "haven:blue_wool_slab",
+    "haven:brown_wool_slab",
+    "haven:gray_wool_slab",
+    "haven:green_wool_slab",
+    "haven:black_wool_slab",
+    "haven:light_blue_wool_slab",
+    "haven:lime_wool_slab",
+    "haven:magenta_wool_slab",
+    "haven:rainbow_wool_slab"
+  ]
+}

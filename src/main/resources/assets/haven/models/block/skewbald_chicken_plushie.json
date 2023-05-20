@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/chicken_plushie",
-  "textures": {
-	"0": "haven:block/skewbald_chicken_plushie"
-  }
-}

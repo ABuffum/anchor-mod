@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:mossy_chiseled_stone_bricks_from_mossy_stone_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_mossy_stone_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:mossy_stone_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:mossy_chiseled_stone_bricks_from_mossy_stone_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mossy_stone_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

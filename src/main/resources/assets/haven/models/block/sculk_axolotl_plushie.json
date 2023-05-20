@@ -1,7 +1,0 @@
-{
-	"parent": "haven:block/_template_axolotl_plushie",
-	"textures": {
-		"0": "haven:block/sculk_axolotl_plushie",
-		"particle": "minecraft:block/black_wool"
-	}
-}

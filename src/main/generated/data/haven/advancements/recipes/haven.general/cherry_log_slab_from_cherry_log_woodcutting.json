@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cherry_log_slab_from_cherry_log_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_cherry_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:cherry_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cherry_log_slab_from_cherry_log_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cherry_log",
+      "has_the_recipe"
+    ]
+  ]
+}

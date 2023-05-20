@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:end_shale"
+  },
+  "result": "haven:end_shale_brick_slab",
+  "count": 2
+}

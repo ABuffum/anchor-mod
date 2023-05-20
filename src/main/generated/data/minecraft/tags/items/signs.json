@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "haven:charred_sign",
+    "minecraft:mangrove_sign",
+    "minecraft:bamboo_sign",
+    "minecraft:cherry_sign",
+    "haven:cassia_sign",
+    "haven:dogwood_sign"
+  ]
+}

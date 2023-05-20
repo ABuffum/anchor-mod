@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:gilded_blackstone_smithing"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_blackstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:blackstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:gilded_blackstone_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blackstone",
+      "has_the_recipe"
+    ]
+  ]
+}

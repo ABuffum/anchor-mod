@@ -1,0 +1,6 @@
+{
+  "type": "minecraft:smithing",
+  "base": { "tag": "minecraft:arrows" },
+  "addition": { "item": "graveyard:corruption" },
+  "result": { "item": "wich:blinding_arrow" }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "#B"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:lava_bottle"
+    },
+    "B": {
+      "item": "haven:golden_bucket"
+    }
+  },
+  "result": {
+    "item": "haven:golden_lava_bucket"
+  }
+}

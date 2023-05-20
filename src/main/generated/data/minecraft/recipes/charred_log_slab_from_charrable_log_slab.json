@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "ingredient": {
+    "tag": "haven:charrable_log_slabs"
+  },
+  "result": "haven:charred_log_slab",
+  "experience": 0.35,
+  "cookingtime": 600
+}

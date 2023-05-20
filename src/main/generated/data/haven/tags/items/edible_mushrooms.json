@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mushroom_stew",
+    "farmersdelight:nether_salad",
+    {
+      "id": "betternether:stalagnate_bowl_wart",
+      "required": false
+    },
+    {
+      "id": "betternether:stalagnate_bowl_mushroom",
+      "required": false
+    },
+    {
+      "id": "betterend:chorus_mushroom_raw",
+      "required": false
+    },
+    {
+      "id": "betterend:chorus_mushroom_cooked",
+      "required": false
+    },
+    {
+      "id": "betterend:bolux_mushroom_cooked",
+      "required": false
+    }
+  ]
+}

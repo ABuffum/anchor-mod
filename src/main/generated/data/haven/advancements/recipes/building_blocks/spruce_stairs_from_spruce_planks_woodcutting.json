@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:spruce_stairs_from_spruce_planks_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_spruce_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:spruce_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:spruce_stairs_from_spruce_planks_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_spruce_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:pink_carnation"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_dye"
+  }
+}

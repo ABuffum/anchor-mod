@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/_template_ladder",
-  "textures": {
-	"particle": "minecraft:block/ladder",
-	"texture": "minecraft:block/ladder"
-  }
-}

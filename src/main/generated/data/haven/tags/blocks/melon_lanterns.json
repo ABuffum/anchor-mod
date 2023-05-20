@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "haven:melon_lantern",
-    "haven:soleil_melon_lantern",
-    "#haven:soul_melon_lanterns",
-    "#haven:ender_melon_lanterns"
-  ]
-}

@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:indigo_orchid"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:indigo_orchid_petals"
+    },
+    {
+      "item": "haven:indigo_orchid_seeds"
+    }
+  ]
+}

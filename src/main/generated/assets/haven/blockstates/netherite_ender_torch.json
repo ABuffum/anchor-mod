@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_netherite_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/netherite_ender_torch"
+    }
+  }
+}

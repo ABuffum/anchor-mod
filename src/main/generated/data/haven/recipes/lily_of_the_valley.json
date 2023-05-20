@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:lily_of_the_valley_petals"
+    }
+  ],
+  "result": {
+    "item": "minecraft:white_dye"
+  }
+}

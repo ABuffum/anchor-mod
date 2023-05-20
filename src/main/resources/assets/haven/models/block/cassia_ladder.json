@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/_template_ladder",
-  "textures": {
-	"particle": "haven:block/cassia_ladder",
-	"texture": "haven:block/cassia_ladder"
-  }
-}

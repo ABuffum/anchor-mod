@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_lily_of_the_valley"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_lily_of_the_valley": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:lily_of_the_valley"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_lily_of_the_valley"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lily_of_the_valley",
+      "has_the_recipe"
+    ]
+  ]
+}

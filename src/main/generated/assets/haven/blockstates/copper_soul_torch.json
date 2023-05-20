@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_copper_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/copper_soul_torch"
+    }
+  }
+}

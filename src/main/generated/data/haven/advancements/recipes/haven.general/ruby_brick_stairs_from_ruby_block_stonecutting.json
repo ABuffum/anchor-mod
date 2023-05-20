@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:ruby_brick_stairs_from_ruby_block_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_ruby_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:ruby_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:ruby_brick_stairs_from_ruby_block_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ruby_block",
+      "has_the_recipe"
+    ]
+  ]
+}

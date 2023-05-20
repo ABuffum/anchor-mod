@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "hanging=false,lit=false": {
+      "model": "haven:block/unlit_netherite_lantern"
+    },
+    "hanging=false,lit=true": {
+      "model": "haven:block/netherite_lantern"
+    },
+    "hanging=true,lit=false": {
+      "model": "haven:block/unlit_netherite_lantern_hanging"
+    },
+    "hanging=true,lit=true": {
+      "model": "haven:block/netherite_lantern_hanging"
+    }
+  }
+}

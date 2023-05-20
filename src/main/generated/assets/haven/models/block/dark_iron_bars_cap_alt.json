@@ -1,0 +1,8 @@
+{
+  "parent": "haven:block/_template_bars_cap_alt",
+  "textures": {
+    "particle": "haven:block/dark_iron_bars",
+    "bars": "haven:block/dark_iron_bars",
+    "edge": "haven:block/dark_iron_bars"
+  }
+}

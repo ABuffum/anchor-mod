@@ -1,0 +1,7 @@
+{
+    "parent": "block/bamboo3_age1",
+    "textures": {
+        "all": "haven:block/dried_bamboo_stalk",
+        "particle": "haven:block/dried_bamboo_stalk"
+    }
+}

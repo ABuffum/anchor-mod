@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 2,
-  "ingredient": {
-    "item": "haven:smooth_purpur"
-  },
-  "result": "haven:smooth_purpur_slab"
-}

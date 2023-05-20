@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:marigold_petals"
+    }
+  ],
+  "result": {
+    "item": "minecraft:orange_dye"
+  }
+}

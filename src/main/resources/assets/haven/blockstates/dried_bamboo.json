@@ -2,19 +2,29 @@
   "multipart": [
     {
       "apply": [
-        {
-          "model": "haven:block/dried_bamboo1"
-        },
-        {
-          "model": "haven:block/dried_bamboo2"
-        },
-        {
-          "model": "haven:block/dried_bamboo3"
-        },
-        {
-          "model": "haven:block/dried_bamboo4"
-        }
-      ]
+        { "model": "haven:block/dried_bamboo1_age0" },
+        { "model": "haven:block/dried_bamboo2_age0" },
+        { "model": "haven:block/dried_bamboo3_age0" },
+        { "model": "haven:block/dried_bamboo4_age0" }
+      ],
+      "when": { "age": "0" }
+    },
+    {
+      "apply": [
+        { "model": "haven:block/dried_bamboo1_age1" },
+        { "model": "haven:block/dried_bamboo2_age1" },
+        { "model": "haven:block/dried_bamboo3_age1" },
+        { "model": "haven:block/dried_bamboo4_age1" }
+      ],
+      "when": { "age": "1" }
+    },
+    {
+      "apply": { "model": "haven:block/dried_bamboo_small_leaves" },
+      "when": { "leaves": "small" }
+    },
+    {
+      "apply": { "model": "haven:block/dried_bamboo_large_leaves" },
+      "when": { "leaves": "large" }
     }
   ]
 }

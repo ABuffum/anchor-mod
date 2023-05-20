@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "haven:dried_bamboo"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_dried_bamboo_torch",
+    "count": 4
+  }
+}

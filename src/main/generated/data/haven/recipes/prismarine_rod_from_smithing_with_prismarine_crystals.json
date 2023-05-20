@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "haven:copper_rod"
+  },
+  "addition": {
+    "item": "minecraft:prismarine_crystals"
+  },
+  "result": {
+    "item": "haven:prismarine_rod"
+  }
+}

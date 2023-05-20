@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#haven:cooked_beef",
+    "#haven:cooked_bird",
+    "#haven:cooked_fish",
+    "#haven:cooked_pork",
+    "#haven:cooked_rabbit",
+    "#haven:cooked_seafood",
+    "#haven:cooked_sheep"
+  ]
+}

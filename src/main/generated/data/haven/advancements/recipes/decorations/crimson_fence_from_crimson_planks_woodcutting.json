@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:crimson_fence_from_crimson_planks_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_crimson_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:crimson_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:crimson_fence_from_crimson_planks_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_crimson_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

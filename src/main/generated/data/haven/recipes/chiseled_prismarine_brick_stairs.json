@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:chiseled_prismarine"
+    }
+  },
+  "result": {
+    "item": "haven:chiseled_prismarine_brick_stairs",
+    "count": 4
+  }
+}

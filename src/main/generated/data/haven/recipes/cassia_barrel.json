@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "# #",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:cassia_planks"
+    },
+    "S": {
+      "item": "haven:cassia_slab"
+    }
+  },
+  "result": {
+    "item": "haven:cassia_barrel"
+  }
+}

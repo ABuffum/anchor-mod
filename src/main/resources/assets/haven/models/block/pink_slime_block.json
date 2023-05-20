@@ -1,0 +1,6 @@
+{   "parent": "block/slime_block",
+    "textures": {
+        "particle": "#texture",
+        "texture": "haven:block/pink_slime_block"
+    }
+}

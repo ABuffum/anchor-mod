@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:pink_fleece"
+    }
+  },
+  "result": {
+    "item": "haven:pink_fleece_carpet",
+    "count": 3
+  }
+}

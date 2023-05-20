@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "count": 2,
-  "ingredient": {
-    "item": "haven:hay_planks"
-  },
-  "result": "haven:hay_slab"
-}

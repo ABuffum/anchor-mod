@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:echo_block"
+  },
+  "result": "haven:echo_slab",
+  "count": 2
+}

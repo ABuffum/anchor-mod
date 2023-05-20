@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_campfire_off",
+  "textures": {
+    "log": "haven:block/mushroom_stem_campfire_log"
+  }
+}

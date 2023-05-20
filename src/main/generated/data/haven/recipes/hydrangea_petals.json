@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:hydrangea_petals"
+    }
+  ],
+  "result": {
+    "item": "minecraft:magenta_dye"
+  }
+}

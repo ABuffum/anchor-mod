@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:stripped_charred_log"
+  },
+  "result": "haven:stripped_charred_log_slab",
+  "count": 2
+}

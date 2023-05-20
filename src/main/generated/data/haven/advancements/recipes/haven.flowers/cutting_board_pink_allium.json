@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_pink_allium"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_pink_allium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:pink_allium"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_pink_allium"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pink_allium",
+      "has_the_recipe"
+    ]
+  ]
+}

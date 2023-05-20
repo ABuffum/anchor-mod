@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "haven:mossy_skeleton",
+    "haven:sunken_skeleton",
+    {
+      "id": "betternether:jungle_skeleton",
+      "required": false
+    },
+    {
+      "id": "graveyard:revenant",
+      "required": false
+    }
+  ]
+}

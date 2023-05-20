@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:bleeding_obsidian_wall_from_bleeding_obsidian_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_bleeding_obsidian": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:bleeding_obsidian"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:bleeding_obsidian_wall_from_bleeding_obsidian_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bleeding_obsidian",
+      "has_the_recipe"
+    ]
+  ]
+}

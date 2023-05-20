@@ -1,0 +1,48 @@
+{
+  "replace": false,
+  "values": [
+    "haven:waxed_exposed_copper_axe",
+    "haven:waxed_weathered_copper_axe",
+    "haven:amethyst_axe",
+    "haven:obsidian_axe",
+    "haven:waxed_oxidized_copper_axe",
+    "haven:weathered_copper_axe",
+    "haven:copper_axe",
+    "haven:waxed_copper_axe",
+    "haven:quartz_axe",
+    "haven:exposed_copper_axe",
+    "haven:oxidized_copper_axe",
+    "haven:emerald_axe",
+    "haven:echo_axe",
+    "minecraft:wooden_axe",
+    "minecraft:stone_axe",
+    "minecraft:iron_axe",
+    "minecraft:golden_axe",
+    "minecraft:diamond_axe",
+    "minecraft:netherite_axe",
+    {
+      "id": "betternether:cincinnasite_axe",
+      "required": false
+    },
+    {
+      "id": "betternether:cincinnasite_axe_diamond",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_ruby_axe",
+      "required": false
+    },
+    {
+      "id": "betterend:aeternium_axe",
+      "required": false
+    },
+    {
+      "id": "betterend:thallasium_axe",
+      "required": false
+    },
+    {
+      "id": "betterend:terminite_axe",
+      "required": false
+    }
+  ]
+}

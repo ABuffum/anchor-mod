@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/_template_cow_plushie",
-  "textures": {
-	"0": "haven:block/ashen_cow_plushie"
-  }
-}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:stripped_charred_wood"
+    }
+  },
+  "result": {
+    "item": "haven:stripped_charred_wood_slab",
+    "count": 6
+  }
+}

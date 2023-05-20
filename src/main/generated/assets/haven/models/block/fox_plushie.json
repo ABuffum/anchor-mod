@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/fox",
+  "textures": {
+    "all": "haven:block/fox_plushie",
+    "particle": "haven:block/fox_plushie"
+  }
+}

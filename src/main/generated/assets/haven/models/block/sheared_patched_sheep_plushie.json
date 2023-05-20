@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/sheared_sheep",
+  "textures": {
+    "all": "haven:block/sheared_patched_sheep_plushie",
+    "particle": "haven:block/sheared_patched_sheep_plushie"
+  }
+}

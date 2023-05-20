@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/enderman",
+  "textures": {
+    "all": "haven:block/enderman_plushie",
+    "particle": "haven:block/enderman_plushie"
+  }
+}

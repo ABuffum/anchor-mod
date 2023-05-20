@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "haven:block/rotten_pumpkin_top",
+    "front": "haven:block/soleil_rotten_soul_jack_o_lantern",
+    "side": "haven:block/rotten_pumpkin_side"
+  }
+}

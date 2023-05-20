@@ -1,8 +1,0 @@
-{
-  "parent": "block/orientable",
-  "textures": {
-    "top": "haven:block/white_pumpkin_top",
-    "front": "haven:block/white_ender_jack_o_lantern",
-    "side": "haven:block/white_pumpkin_side"
-  }
-}

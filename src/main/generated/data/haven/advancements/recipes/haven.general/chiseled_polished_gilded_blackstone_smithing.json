@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:chiseled_polished_gilded_blackstone_smithing"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_chiseled_polished_blackstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chiseled_polished_blackstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:chiseled_polished_gilded_blackstone_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chiseled_polished_blackstone",
+      "has_the_recipe"
+    ]
+  ]
+}

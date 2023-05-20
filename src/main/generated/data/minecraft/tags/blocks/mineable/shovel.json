@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:mud",
+    "minecraft:muddy_mangrove_roots",
+    "haven:coarse_dirt_slab",
+    "haven:blaze_powder_block",
+    "haven:pink_dye_block",
+    "haven:red_dye_block",
+    "haven:white_dye_block",
+    "haven:orange_dye_block",
+    "haven:cyan_dye_block",
+    "haven:purple_dye_block",
+    "haven:yellow_dye_block",
+    "haven:light_gray_dye_block",
+    "haven:blue_dye_block",
+    "haven:brown_dye_block",
+    "haven:gray_dye_block",
+    "haven:green_dye_block",
+    "haven:black_dye_block",
+    "haven:light_blue_dye_block",
+    "haven:lime_dye_block",
+    "haven:magenta_dye_block"
+  ]
+}

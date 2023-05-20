@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_pink_daisy"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_pink_daisy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:pink_daisy"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_pink_daisy"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pink_daisy",
+      "has_the_recipe"
+    ]
+  ]
+}

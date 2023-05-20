@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:glow_lichen_block"
+    }
+  },
+  "result": {
+    "item": "haven:glow_lichen_slab",
+    "count": 6
+  }
+}

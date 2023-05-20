@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:jungle_wood_slab_from_jungle_wood_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_jungle_wood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:jungle_wood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:jungle_wood_slab_from_jungle_wood_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jungle_wood",
+      "has_the_recipe"
+    ]
+  ]
+}

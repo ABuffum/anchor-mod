@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:smooth_calcite"
+    }
+  },
+  "result": {
+    "item": "haven:smooth_calcite_slab",
+    "count": 6
+  }
+}

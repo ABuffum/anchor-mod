@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "haven:block/polished_bleeding_obsidian_bricks",
+    "top": "haven:block/polished_bleeding_obsidian_bricks",
+    "side": "haven:block/polished_bleeding_obsidian_bricks"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "minecraft:crimson_hyphae"
+  },
+  "result": "haven:crimson_hyphae_slab",
+  "count": 2
+}

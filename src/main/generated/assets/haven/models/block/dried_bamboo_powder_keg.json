@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/dried_bamboo_powder_keg_top",
+    "bottom": "haven:block/dried_bamboo_barrel_bottom",
+    "side": "haven:block/dried_bamboo_powder_keg_side"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "haven:block/_template_bars_cap_alt",
+  "textures": {
+    "particle": "haven:block/copper_bars",
+    "bars": "haven:block/copper_bars",
+    "edge": "haven:block/copper_bars"
+  }
+}

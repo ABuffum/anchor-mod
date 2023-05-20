@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#|#",
+    " | ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "haven:charred_log"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:charred_hammer"
+  }
+}

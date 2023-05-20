@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/spruce_campfire",
-  "textures": {
-    "lit_log": "haven:block/spruce_soul_campfire_log_lit",
-    "fire": "minecraft:block/soul_campfire_fire"
-  }
-}

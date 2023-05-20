@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/soleil_carved_melon",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/soleil_carved_melon"
+    },
+    "facing=south": {
+      "model": "haven:block/soleil_carved_melon",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/soleil_carved_melon",
+      "y": 270
+    }
+  }
+}

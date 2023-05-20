@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "haven:block/red_mushroom_planks",
-    "side": "haven:block/red_mushroom_planks",
-    "top": "haven:block/red_mushroom_planks"
-  }
-}

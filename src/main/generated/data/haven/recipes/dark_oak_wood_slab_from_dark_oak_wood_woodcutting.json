@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "minecraft:dark_oak_wood"
+  },
+  "result": "haven:dark_oak_wood_slab",
+  "count": 2
+}

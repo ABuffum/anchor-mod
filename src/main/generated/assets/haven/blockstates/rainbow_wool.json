@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "haven:block/rainbow_wool_up"
+    },
+    "facing=east": {
+      "model": "haven:block/rainbow_wool_south"
+    },
+    "facing=north": {
+      "model": "haven:block/rainbow_wool_north"
+    },
+    "facing=south": {
+      "model": "haven:block/rainbow_wool_east"
+    },
+    "facing=up": {
+      "model": "haven:block/rainbow_wool_down"
+    },
+    "facing=west": {
+      "model": "haven:block/rainbow_wool_west"
+    }
+  }
+}

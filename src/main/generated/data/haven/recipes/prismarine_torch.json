@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "|": {
+      "item": "haven:prismarine_rod"
+    }
+  },
+  "result": {
+    "item": "haven:prismarine_torch",
+    "count": 8
+  }
+}

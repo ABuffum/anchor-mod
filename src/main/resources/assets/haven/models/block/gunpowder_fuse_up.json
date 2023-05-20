@@ -1,0 +1,9 @@
+{
+    "parent": "block/redstone_dust_up",
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "haven:block/gunpowder_fuse_dot",
+        "line": "haven:block/gunpowder_fuse_line0",
+        "overlay": "haven:block/gunpowder_fuse_overlay"
+    }
+}

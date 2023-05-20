@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_dogwood_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/dogwood_soul_torch"
+    }
+  }
+}

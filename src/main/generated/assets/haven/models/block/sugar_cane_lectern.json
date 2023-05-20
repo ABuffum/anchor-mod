@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "haven:block/sugar_cane_planks",
+    "base": "haven:block/sugar_cane_lectern_base",
+    "front": "haven:block/sugar_cane_lectern_front",
+    "sides": "haven:block/sugar_cane_lectern_sides",
+    "top": "haven:block/sugar_cane_lectern_top"
+  }
+}

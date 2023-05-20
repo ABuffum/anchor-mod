@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  #",
+    " | ",
+    "F  "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    },
+    "F": {
+      "tag": "haven:feathers"
+    }
+  },
+  "result": {
+    "item": "haven:amethyst_arrow"
+  }
+}

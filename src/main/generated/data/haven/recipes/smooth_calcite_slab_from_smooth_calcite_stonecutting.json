@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:smooth_calcite"
+  },
+  "result": "haven:smooth_calcite_slab",
+  "count": 2
+}

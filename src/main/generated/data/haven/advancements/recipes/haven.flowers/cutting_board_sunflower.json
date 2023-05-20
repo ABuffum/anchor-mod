@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_sunflower"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_sunflower": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:sunflower"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_sunflower"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sunflower",
+      "has_the_recipe"
+    ]
+  ]
+}

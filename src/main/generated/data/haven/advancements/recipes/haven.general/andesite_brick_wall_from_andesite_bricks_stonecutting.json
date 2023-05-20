@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:andesite_brick_wall_from_andesite_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_andesite_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:andesite_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:andesite_brick_wall_from_andesite_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_andesite_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

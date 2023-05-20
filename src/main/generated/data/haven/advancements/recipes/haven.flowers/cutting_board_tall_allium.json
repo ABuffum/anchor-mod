@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_tall_allium"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_tall_allium": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:tall_allium"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_tall_allium"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tall_allium",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,5 @@
+{
+    "parent": "item/goat_horn",
+    "textures": { "layer0": "haven:item/wind_horn" },
+    "overrides": [ { "predicate": { "tooting": 1 }, "model": "haven:item/tooting_wind_horn" } ]
+}

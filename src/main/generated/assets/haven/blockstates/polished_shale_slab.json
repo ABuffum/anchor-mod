@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/polished_shale_slab"
+    },
+    "type=double": {
+      "model": "haven:block/polished_shale"
+    },
+    "type=top": {
+      "model": "haven:block/polished_shale_slab_top"
+    }
+  }
+}

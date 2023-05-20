@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "haven:block/gilded_wart_block",
+    "top": "haven:block/gilded_wart_block",
+    "side": "haven:block/gilded_wart_block"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:weathered_copper"
+  },
+  "result": "haven:weathered_copper_brick_stairs",
+  "count": 4
+}

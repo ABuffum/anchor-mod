@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "haven:cassia_beehive",
+    "haven:brown_mushroom_beehive",
+    "haven:birch_beehive",
+    "haven:gilded_beehive",
+    "haven:charred_beehive",
+    "haven:blue_mushroom_beehive",
+    "haven:crimson_beehive",
+    "haven:dogwood_beehive",
+    "haven:spruce_beehive",
+    "haven:acacia_beehive",
+    "haven:bamboo_beehive",
+    "haven:mangrove_beehive",
+    "haven:cherry_beehive",
+    "haven:warped_beehive",
+    "haven:mushroom_stem_beehive",
+    "haven:hay_beehive",
+    "haven:sugar_cane_beehive",
+    "haven:dried_bamboo_beehive",
+    "haven:dark_oak_beehive",
+    "haven:jungle_beehive",
+    "haven:red_mushroom_beehive",
+    "minecraft:beehive"
+  ]
+}

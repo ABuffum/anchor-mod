@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_cassia_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/cassia_soul_torch"
+    }
+  }
+}

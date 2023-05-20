@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:purpur_mosaic"
+  },
+  "result": "haven:purpur_mosaic_slab",
+  "count": 2
+}

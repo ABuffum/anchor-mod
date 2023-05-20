@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:slime_block",
+    "haven:blue_slime_block",
+    "haven:pink_slime_block"
+  ]
+}

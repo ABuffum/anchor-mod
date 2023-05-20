@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_hydrangea"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_hydrangea": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:hydrangea"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_hydrangea"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_hydrangea",
+      "has_the_recipe"
+    ]
+  ]
+}

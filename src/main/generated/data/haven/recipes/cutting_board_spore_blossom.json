@@ -1,0 +1,25 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:spore_blossom"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:spore_blossom_petal"
+    },
+    {
+      "item": "haven:spore_blossom_petal"
+    },
+    {
+      "item": "haven:spore_blossom_petal"
+    },
+    {
+      "item": "haven:spore_blossom_petal"
+    }
+  ]
+}

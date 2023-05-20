@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:tuff_tile_wall_from_tuff_tiles_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_tuff_tiles": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:tuff_tiles"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:tuff_tile_wall_from_tuff_tiles_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tuff_tiles",
+      "has_the_recipe"
+    ]
+  ]
+}

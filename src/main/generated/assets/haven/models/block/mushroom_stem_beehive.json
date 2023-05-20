@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "haven:block/mushroom_stem_beehive_end",
+    "bottom": "haven:block/mushroom_stem_beehive_end",
+    "side": "haven:block/mushroom_stem_beehive_side",
+    "front": "haven:block/mushroom_stem_beehive_front",
+    "particle": "haven:block/mushroom_stem_beehive_side"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "parent": "haven:item/gravity_hammer",
+  "textures": { "texture": "haven:item/repulsion_hammer" }
+}

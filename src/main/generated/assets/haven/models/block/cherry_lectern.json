@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "minecraft:block/cherry_planks",
+    "base": "haven:block/cherry_lectern_base",
+    "front": "haven:block/cherry_lectern_front",
+    "sides": "haven:block/cherry_lectern_sides",
+    "top": "haven:block/cherry_lectern_top"
+  }
+}

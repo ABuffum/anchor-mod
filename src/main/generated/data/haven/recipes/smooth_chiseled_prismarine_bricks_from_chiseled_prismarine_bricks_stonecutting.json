@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:chiseled_prismarine_bricks"
+  },
+  "result": "haven:smooth_chiseled_prismarine_bricks",
+  "count": 1
+}

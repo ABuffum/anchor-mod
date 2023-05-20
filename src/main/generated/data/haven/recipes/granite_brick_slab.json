@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:granite_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:granite_brick_slab",
+    "count": 6
+  }
+}

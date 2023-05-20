@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/bat",
+  "textures": {
+    "all": "haven:block/angel_bat_plushie",
+    "particle": "haven:block/angel_bat_plushie"
+  }
+}

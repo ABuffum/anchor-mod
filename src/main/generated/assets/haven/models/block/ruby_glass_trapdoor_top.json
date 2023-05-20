@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/_template_glass_trapdoor_top",
+  "textures": {
+    "top": "haven:block/ruby_glass",
+    "side": "haven:block/ruby_glass_pane_top"
+  }
+}

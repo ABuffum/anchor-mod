@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:diorite_tiles"
+  },
+  "result": "haven:diorite_tile_wall",
+  "count": 1
+}

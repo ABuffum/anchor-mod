@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "haven:iron_bricks"
-  },
-  "result": "haven:iron_brick_wall"
-}

@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/tadpole",
+  "textures": {
+    "all": "haven:block/tadpole_plushie",
+    "particle": "haven:block/tadpole_plushie"
+  }
+}

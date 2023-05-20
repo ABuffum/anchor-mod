@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_hay_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/hay_soul_torch"
+    }
+  }
+}

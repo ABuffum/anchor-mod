@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:soul_torch",
+    "haven:copper_soul_torch",
+    "haven:exposed_copper_soul_torch",
+    "haven:weathered_copper_soul_torch",
+    "haven:oxidized_copper_soul_torch",
+    "haven:waxed_copper_soul_torch",
+    "haven:waxed_exposed_copper_soul_torch",
+    "haven:waxed_weathered_copper_soul_torch",
+    "haven:waxed_oxidized_copper_soul_torch",
+    "haven:bamboo_soul_torch",
+    "haven:dried_bamboo_soul_torch",
+    "haven:bone_soul_torch",
+    "haven:blaze_soul_torch",
+    "haven:iron_soul_torch",
+    "haven:gold_soul_torch",
+    "haven:netherite_soul_torch",
+    "haven:prismarine_soul_torch"
+  ]
+}

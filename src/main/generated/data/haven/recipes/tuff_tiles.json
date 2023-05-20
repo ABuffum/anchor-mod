@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:tuff_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:tuff_tiles",
+    "count": 4
+  }
+}

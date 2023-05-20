@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#haven:melon_lanterns",
-    "#haven:jack_o_lanterns"
+    "minecraft:jack_o_lantern",
+    "haven:soul_jack_o_lantern",
+    "haven:ender_jack_o_lantern"
   ]
 }

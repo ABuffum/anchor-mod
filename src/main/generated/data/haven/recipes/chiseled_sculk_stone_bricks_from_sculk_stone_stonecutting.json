@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:sculk_stone"
+  },
+  "result": "haven:chiseled_sculk_stone_bricks",
+  "count": 1
+}

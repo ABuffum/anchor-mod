@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:sculk_stone_bricks"
+  },
+  "result": "haven:sculk_stone_tile_slab",
+  "count": 2
+}

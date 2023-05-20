@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/_template_cow_plushie",
-	"textures": {
-		"0": "haven:block/mooshroom_plushie_blue",
-		"particle": "minecraft:block/light_blue_wool"
-	}
-}

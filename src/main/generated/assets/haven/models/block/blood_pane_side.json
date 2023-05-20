@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side",
+  "textures": {
+    "pane": "haven:block/blood_block",
+    "edge": "haven:block/blood_pane_top"
+  }
+}

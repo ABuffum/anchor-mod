@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:tall_allium"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:allium_seeds"
+    },
+    {
+      "item": "haven:allium_seeds"
+    }
+  ]
+}

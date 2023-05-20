@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "count": 2,
-  "ingredient": {
-    "item": "haven:cherry_planks"
-  },
-  "result": "haven:cherry_slab"
-}

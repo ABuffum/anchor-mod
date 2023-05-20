@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/violent_tnt_top",
+    "bottom": "haven:block/violent_tnt_bottom",
+    "side": "haven:block/violent_tnt_side"
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/sculk_stone_bricks",
-    "side": "haven:block/sculk_stone_bricks",
-    "top": "haven:block/sculk_stone_bricks"
-  }
-}

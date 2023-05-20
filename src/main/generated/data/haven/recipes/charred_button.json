@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:charred_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:charred_button"
+  }
+}

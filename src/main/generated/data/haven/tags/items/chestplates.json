@@ -1,0 +1,43 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:leather_chestplate",
+    "minecraft:chainmail_chestplate",
+    "minecraft:iron_chestplate",
+    "minecraft:golden_chestplate",
+    "minecraft:diamond_chestplate",
+    "minecraft:netherite_chestplate",
+    "haven:amethyst_chestplate",
+    "haven:emerald_chestplate",
+    "haven:fleece_chestplate",
+    "haven:quartz_chestplate",
+    "haven:shulker_chestplate",
+    "haven:studded_leather_chestplate",
+    "haven:turtle_chestplate",
+    "#haven:copper_chestplates",
+    {
+      "id": "betternether:cincinnasite_chestplate",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_ruby_chestplate",
+      "required": false
+    },
+    {
+      "id": "betterend:aeternium_chestplate",
+      "required": false
+    },
+    {
+      "id": "betterend:crystalite_chestplate",
+      "required": false
+    },
+    {
+      "id": "betterend:thallasium_chestplate",
+      "required": false
+    },
+    {
+      "id": "betterend:terminite_chestplate",
+      "required": false
+    }
+  ]
+}

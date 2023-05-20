@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "haven:copper_chestplate",
+    "haven:exposed_copper_chestplate",
+    "haven:weathered_copper_chestplate",
+    "haven:oxidized_copper_chestplate",
+    "haven:waxed_copper_chestplate",
+    "haven:waxed_exposed_copper_chestplate",
+    "haven:waxed_weathered_copper_chestplate",
+    "haven:waxed_oxidized_copper_chestplate"
+  ]
+}

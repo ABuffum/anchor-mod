@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "count": 2,
-  "ingredient": {
-    "item": "minecraft:bamboo_planks"
-  },
-  "result": "minecraft:bamboo_mosaic_slab"
-}

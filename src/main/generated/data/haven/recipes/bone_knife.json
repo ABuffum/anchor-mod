@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    "| "
+  ],
+  "key": {
+    "#": {
+      "item": "haven:bone_shard"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:bone_knife"
+  }
+}

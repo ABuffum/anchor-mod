@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_purple_orchid"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_purple_orchid": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:purple_orchid"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_purple_orchid"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_purple_orchid",
+      "has_the_recipe"
+    ]
+  ]
+}

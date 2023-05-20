@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "haven:block/cut_polished_granite",
+    "top": "haven:block/cut_polished_granite",
+    "side": "haven:block/cut_polished_granite"
+  }
+}

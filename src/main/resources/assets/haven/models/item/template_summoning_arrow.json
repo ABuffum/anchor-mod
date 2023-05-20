@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "haven:item/summoning_arrow_head",
+    "layer1": "haven:item/summoning_arrow_sparkles",
+    "layer2": "haven:item/summoning_arrow_base"
+  }
+}

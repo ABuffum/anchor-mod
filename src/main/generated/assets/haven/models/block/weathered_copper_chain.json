@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_chain",
+  "textures": {
+    "all": "haven:block/weathered_copper_chain"
+  }
+}

@@ -1,7 +1,0 @@
-{
-	"parent": "haven:block/_template_sheared_snow_golem_plushie",
-	"textures": {
-		"0": "haven:block/melon_golem_plushie",
-		"particle": "block/white_wool"
-	}
-}

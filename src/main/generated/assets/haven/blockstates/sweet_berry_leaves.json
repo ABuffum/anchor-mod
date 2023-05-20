@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "berries=false": {
+      "model": "haven:block/sweet_berry_leaves_stage0"
+    },
+    "berries=true": {
+      "model": "haven:block/sweet_berry_leaves_stage1"
+    }
+  }
+}

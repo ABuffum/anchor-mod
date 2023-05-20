@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven:block/gunpowder_block"
+    }
+  }
+}

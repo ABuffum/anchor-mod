@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "haven:block/charred_planks",
+    "base": "haven:block/charred_lectern_base",
+    "front": "haven:block/charred_lectern_front",
+    "sides": "haven:block/charred_lectern_sides",
+    "top": "haven:block/charred_lectern_top"
+  }
+}

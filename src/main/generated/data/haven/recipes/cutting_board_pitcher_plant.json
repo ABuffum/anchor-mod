@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:pitcher_plant"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "minecraft:pitcher_pod"
+    },
+    {
+      "item": "minecraft:pitcher_pod"
+    }
+  ]
+}

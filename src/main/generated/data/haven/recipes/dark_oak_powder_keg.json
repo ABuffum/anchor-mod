@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:dark_oak_barrel"
+    },
+    {
+      "item": "haven:gunpowder_block"
+    }
+  ],
+  "result": {
+    "item": "haven:dark_oak_powder_keg"
+  }
+}

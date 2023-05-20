@@ -1,0 +1,42 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:leather_leggings",
+    "minecraft:chainmail_leggings",
+    "minecraft:iron_leggings",
+    "minecraft:golden_leggings",
+    "minecraft:diamond_leggings",
+    "minecraft:netherite_leggings",
+    "haven:amethyst_leggings",
+    "haven:emerald_leggings",
+    "haven:fleece_leggings",
+    "haven:quartz_leggings",
+    "haven:shulker_leggings",
+    "haven:studded_leather_leggings",
+    "#haven:copper_leggings",
+    {
+      "id": "betternether:cincinnasite_leggings",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_ruby_leggings",
+      "required": false
+    },
+    {
+      "id": "betterend:aeternium_leggings",
+      "required": false
+    },
+    {
+      "id": "betterend:crystalite_leggings",
+      "required": false
+    },
+    {
+      "id": "betterend:thallasium_leggings",
+      "required": false
+    },
+    {
+      "id": "betterend:terminite_leggings",
+      "required": false
+    }
+  ]
+}

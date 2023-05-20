@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:blue_rose_bush"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:blue_rose_seeds"
+    },
+    {
+      "item": "haven:blue_rose_seeds"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_cake_slice4",
+  "textures": {
+    "bottom": "haven:block/carrot_cake_bottom",
+    "side": "haven:block/carrot_cake_side",
+    "top": "haven:block/carrot_cake_top",
+    "inside": "haven:block/carrot_cake_inner",
+    "particle": "haven:block/carrot_cake_side"
+  }
+}

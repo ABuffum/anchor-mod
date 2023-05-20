@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "haven:block/prismarine_tiles",
+    "top": "haven:block/prismarine_tiles",
+    "side": "haven:block/prismarine_tiles"
+  }
+}

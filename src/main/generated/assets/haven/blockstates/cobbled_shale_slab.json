@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/cobbled_shale_slab"
+    },
+    "type=double": {
+      "model": "haven:block/cobbled_shale"
+    },
+    "type=top": {
+      "model": "haven:block/cobbled_shale_slab_top"
+    }
+  }
+}

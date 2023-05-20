@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven:block/blood_fluid_block"
+    }
+  }
+}

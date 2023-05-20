@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_sugar_cane_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/sugar_cane_ender_torch"
+    }
+  }
+}

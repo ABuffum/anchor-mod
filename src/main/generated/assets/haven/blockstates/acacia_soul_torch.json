@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_acacia_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/acacia_soul_torch"
+    }
+  }
+}

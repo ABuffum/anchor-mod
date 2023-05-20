@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:purpur_tiles"
+    }
+  },
+  "result": {
+    "item": "haven:purpur_tile_wall",
+    "count": 6
+  }
+}

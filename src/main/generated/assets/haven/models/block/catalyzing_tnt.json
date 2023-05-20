@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "haven:block/catalyzing_tnt_top",
+    "bottom": "haven:block/catalyzing_tnt_bottom",
+    "side": "haven:block/catalyzing_tnt_side"
+  }
+}

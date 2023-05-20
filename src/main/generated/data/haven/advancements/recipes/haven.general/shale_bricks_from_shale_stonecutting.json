@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:shale_bricks_from_shale_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_shale": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:shale"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:shale_bricks_from_shale_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shale",
+      "has_the_recipe"
+    ]
+  ]
+}

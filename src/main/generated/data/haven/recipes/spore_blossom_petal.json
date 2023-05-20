@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:spore_blossom_petal"
+    }
+  ],
+  "result": {
+    "item": "minecraft:pink_dye"
+  }
+}

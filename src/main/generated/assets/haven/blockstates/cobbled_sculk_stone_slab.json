@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/cobbled_sculk_stone_slab"
+    },
+    "type=double": {
+      "model": "haven:block/cobbled_sculk_stone"
+    },
+    "type=top": {
+      "model": "haven:block/cobbled_sculk_stone_slab_top"
+    }
+  }
+}

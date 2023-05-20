@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:lectern",
+    "haven:acacia_lectern",
+    "haven:birch_lectern",
+    "haven:crimson_lectern",
+    "haven:dark_oak_lectern",
+    "haven:jungle_lectern",
+    "haven:spruce_lectern",
+    "haven:warped_lectern",
+    "haven:bamboo_lectern",
+    "haven:mangrove_lectern",
+    "haven:cherry_lectern",
+    "haven:charred_lectern",
+    "haven:cassia_lectern",
+    "haven:dogwood_lectern"
+  ]
+}

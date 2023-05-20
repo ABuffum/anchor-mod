@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|",
+    "*"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "|": {
+      "item": "haven:gold_rod"
+    },
+    "*": {
+      "item": "minecraft:popped_chorus_fruit"
+    }
+  },
+  "result": {
+    "item": "haven:gold_ender_torch",
+    "count": 8
+  }
+}

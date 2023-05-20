@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:smooth_dripstone_wall_from_smooth_dripstone_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_smooth_dripstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:smooth_dripstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:smooth_dripstone_wall_from_smooth_dripstone_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_dripstone",
+      "has_the_recipe"
+    ]
+  ]
+}

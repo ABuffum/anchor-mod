@@ -1,9 +1,0 @@
-
-{
-  "variants": {
-    "facing=north": { "model": "haven:block/angel_bat_plushie"},
-    "facing=east":  { "model": "haven:block/angel_bat_plushie", "y":  90},
-    "facing=south": { "model": "haven:block/angel_bat_plushie", "y": 180},
-    "facing=west":  { "model": "haven:block/angel_bat_plushie", "y": 270}
-  }
-}

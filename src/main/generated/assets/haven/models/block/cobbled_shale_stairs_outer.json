@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven:block/cobbled_shale",
+    "top": "haven:block/cobbled_shale",
+    "side": "haven:block/cobbled_shale"
+  }
+}

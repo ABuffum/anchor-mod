@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven:block/blue_mushroom_planks",
+    "top": "haven:block/blue_mushroom_planks",
+    "side": "haven:block/blue_mushroom_planks"
+  }
+}

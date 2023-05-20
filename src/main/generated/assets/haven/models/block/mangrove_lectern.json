@@ -1,0 +1,10 @@
+{
+  "parent": "haven:block/_template_lectern",
+  "textures": {
+    "bottom": "minecraft:block/mangrove_planks",
+    "base": "haven:block/mangrove_lectern_base",
+    "front": "haven:block/mangrove_lectern_front",
+    "sides": "haven:block/mangrove_lectern_sides",
+    "top": "haven:block/mangrove_lectern_top"
+  }
+}

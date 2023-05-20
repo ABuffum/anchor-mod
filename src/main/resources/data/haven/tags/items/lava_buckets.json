@@ -1,9 +1,0 @@
-{
-  "values": [
-	"minecraft:lava_bucket",
-	"haven:copper_lava_bucket",
-	"haven:gold_lava_bucket",
-	"haven:dark_iron_lava_bucket",
-	"haven:netherite_lava_bucket"
-  ]
-}

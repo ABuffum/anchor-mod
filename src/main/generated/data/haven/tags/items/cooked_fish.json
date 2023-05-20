@@ -1,0 +1,29 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cooked_cod",
+    "minecraft:cooked_salmon",
+    "haven:cooked_piranha",
+    "farmersdelight:cooked_cod_slice",
+    "farmersdelight:cooked_salmon_slice",
+    "farmersdelight:fish_stew",
+    "farmersdelight:baked_cod_stew",
+    "farmersdelight:grilled_salmon",
+    {
+      "id": "croptopia:cooked_anchovy",
+      "required": false
+    },
+    {
+      "id": "croptopia:cooked_tuna",
+      "required": false
+    },
+    {
+      "id": "croptopia:fish_and_chips",
+      "required": false
+    },
+    {
+      "id": "betterend:end_fish_cooked",
+      "required": false
+    }
+  ]
+}

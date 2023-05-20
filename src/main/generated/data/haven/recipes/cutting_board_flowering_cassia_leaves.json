@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:flowering_cassia_leaves"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:cassia_leaves"
+    },
+    {
+      "item": "haven:cassia_petals"
+    }
+  ]
+}

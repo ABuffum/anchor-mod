@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#haven:raw_beef",
+    "#haven:raw_bird",
+    "#haven:raw_fish",
+    "#haven:raw_pork",
+    "#haven:raw_rabbit",
+    "#haven:raw_seafood",
+    "#haven:raw_sheep"
+  ]
+}

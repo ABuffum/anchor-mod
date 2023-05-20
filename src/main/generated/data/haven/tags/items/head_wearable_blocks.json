@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "minecraft:piglin_head",
     "#haven:carved_gourds"
   ]
 }

@@ -1,0 +1,6 @@
+{
+    "parent": "block/redstone_dust_side1",
+    "textures": {
+        "line": "haven:block/gunpowder_fuse_line1"
+    }
+}

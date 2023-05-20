@@ -1,0 +1,95 @@
+{
+  "replace": false,
+  "values": [
+    "#haven:golden_vegetables",
+    "minecraft:carrot",
+    "minecraft:potato",
+    "minecraft:baked_potato",
+    "minecraft:poisonous_potato",
+    "minecraft:beetroot",
+    "minecraft:dried_kelp",
+    "farmersdelight:cabbage",
+    "farmersdelight:cabbage_leaf",
+    "farmersdelight:onion",
+    "farmersdelight:rice",
+    "minecraft:beetroot_soup",
+    "farmersdelight:vegetable_soup",
+    "farmersdelight:vegetable_noodles",
+    "farmersdelight:ratatouille",
+    "farmersdelight:horse_feed",
+    {
+      "id": "betterend:amber_root_raw",
+      "required": false
+    },
+    "#forge:vegetables",
+    "#nourish:vegetables",
+    {
+      "id": "croptopia:barley",
+      "required": false
+    },
+    {
+      "id": "croptopia:basil",
+      "required": false
+    },
+    {
+      "id": "croptopia:blackbean",
+      "required": false
+    },
+    {
+      "id": "croptopia:coffee_beans",
+      "required": false
+    },
+    {
+      "id": "croptopia:ginger",
+      "required": false
+    },
+    {
+      "id": "croptopia:hops",
+      "required": false
+    },
+    {
+      "id": "croptopia:mustard",
+      "required": false
+    },
+    {
+      "id": "croptopia:potato_soup",
+      "required": false
+    },
+    {
+      "id": "croptopia:beetroot_salad",
+      "required": false
+    },
+    {
+      "id": "croptopia:candied_kumquats",
+      "required": false
+    },
+    {
+      "id": "croptopia:sea_lettuce",
+      "required": false
+    },
+    {
+      "id": "croptopia:dauphine_potatoes",
+      "required": false
+    },
+    {
+      "id": "croptopia:mashed_potatoes",
+      "required": false
+    },
+    {
+      "id": "croptopia:hashed_brown",
+      "required": false
+    },
+    {
+      "id": "croptopia:saucy_chips",
+      "required": false
+    },
+    {
+      "id": "croptopia:roasted_nuts",
+      "required": false
+    },
+    {
+      "id": "croptopia:pumpkin_soup",
+      "required": false
+    }
+  ]
+}

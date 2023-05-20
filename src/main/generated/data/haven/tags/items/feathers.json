@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:feather",
+    "haven:fancy_feather",
+    "haven:black_feather",
+    "haven:red_feather"
+  ]
+}

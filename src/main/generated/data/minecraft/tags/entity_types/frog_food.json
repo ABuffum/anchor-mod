@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:slime",
+    "minecraft:magma_cube",
+    "haven:tropical_slime",
+    "haven:pink_slime",
+    {
+      "id": "betterend:end_slime",
+      "required": false
+    }
+  ]
+}

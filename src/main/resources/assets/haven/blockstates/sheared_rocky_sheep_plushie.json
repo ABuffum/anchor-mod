@@ -1,9 +1,0 @@
-
-{
-  "variants": {
-    "facing=north": { "model": "haven:block/sheared_rocky_sheep_plushie"},
-    "facing=east":  { "model": "haven:block/sheared_rocky_sheep_plushie", "y":  90},
-    "facing=south": { "model": "haven:block/sheared_rocky_sheep_plushie", "y": 180},
-    "facing=west":  { "model": "haven:block/sheared_rocky_sheep_plushie", "y": 270}
-  }
-}

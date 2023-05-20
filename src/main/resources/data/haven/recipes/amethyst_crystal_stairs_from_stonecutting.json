@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "count": 1,
-  "ingredient": {
-    "item": "haven:amethyst_crystal_block"
-  },
-  "result": "haven:amethyst_crystal_stairs"
-}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#|#",
+    " | ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:warped_hyphae"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:warped_hammer"
+  }
+}

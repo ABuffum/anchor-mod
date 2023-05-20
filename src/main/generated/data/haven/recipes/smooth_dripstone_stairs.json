@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:smooth_dripstone"
+    }
+  },
+  "result": {
+    "item": "haven:smooth_dripstone_stairs",
+    "count": 4
+  }
+}

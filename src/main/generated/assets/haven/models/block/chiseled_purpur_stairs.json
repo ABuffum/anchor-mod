@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "haven:block/chiseled_purpur",
+    "top": "haven:block/chiseled_purpur",
+    "side": "haven:block/chiseled_purpur"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:wither_rose"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:wither_rose_petals"
+    },
+    {
+      "item": "haven:wither_rose_seeds"
+    }
+  ]
+}

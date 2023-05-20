@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/attached_white_pumpkin_stem",
+      "y": 180
+    },
+    "facing=north": {
+      "model": "haven:block/attached_white_pumpkin_stem",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "haven:block/attached_white_pumpkin_stem",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "haven:block/attached_white_pumpkin_stem"
+    }
+  }
+}

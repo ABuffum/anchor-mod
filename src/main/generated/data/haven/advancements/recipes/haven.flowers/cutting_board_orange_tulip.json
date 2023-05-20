@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_orange_tulip"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_orange_tulip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:orange_tulip"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_orange_tulip"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_orange_tulip",
+      "has_the_recipe"
+    ]
+  ]
+}

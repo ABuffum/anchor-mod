@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:flowering_azalea_leaves"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "minecraft:azalea_leaves"
+    },
+    {
+      "item": "haven:azalea_petals"
+    }
+  ]
+}

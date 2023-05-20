@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_pink_tulip"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_pink_tulip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:pink_tulip"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_pink_tulip"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pink_tulip",
+      "has_the_recipe"
+    ]
+  ]
+}

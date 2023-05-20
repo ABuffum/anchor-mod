@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "haven:block/bamboo_log",
+    "top": "haven:block/bamboo_log",
+    "side": "haven:block/bamboo_log"
+  }
+}

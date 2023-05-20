@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-	"#minecraft:lava",
-	"#minecraft:water",
-	"#haven:blood",
-	"#haven:mud"
-  ]
-}

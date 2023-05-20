@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    " S",
+    "/S"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "haven:carved_melon"
+      },
+      {
+        "item": "haven:melon_lantern"
+      }
+    ],
+    "/": {
+      "tag": "minecraft:arrows"
+    },
+    "S": {
+      "item": "minecraft:snow_block"
+    }
+  },
+  "result": {
+    "item": "haven:melon_golem_summoning_arrow"
+  }
+}

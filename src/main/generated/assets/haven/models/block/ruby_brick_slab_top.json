@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/ruby_bricks",
+    "top": "haven:block/ruby_bricks",
+    "side": "haven:block/ruby_bricks"
+  }
+}

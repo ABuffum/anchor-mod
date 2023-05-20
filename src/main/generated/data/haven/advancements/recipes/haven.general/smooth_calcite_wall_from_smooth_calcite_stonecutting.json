@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:smooth_calcite_wall_from_smooth_calcite_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_smooth_calcite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:smooth_calcite"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:smooth_calcite_wall_from_smooth_calcite_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_calcite",
+      "has_the_recipe"
+    ]
+  ]
+}

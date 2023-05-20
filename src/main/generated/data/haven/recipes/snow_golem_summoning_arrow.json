@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " #",
+    " S",
+    "/S"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:carved_pumpkin"
+      },
+      {
+        "item": "minecraft:jack_o_lantern"
+      }
+    ],
+    "/": {
+      "tag": "minecraft:arrows"
+    },
+    "S": {
+      "item": "minecraft:snow_block"
+    }
+  },
+  "result": {
+    "item": "haven:snow_golem_summoning_arrow"
+  }
+}

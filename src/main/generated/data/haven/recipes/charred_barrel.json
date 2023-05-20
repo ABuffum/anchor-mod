@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "# #",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:charred_planks"
+    },
+    "S": {
+      "item": "haven:charred_slab"
+    }
+  },
+  "result": {
+    "item": "haven:charred_barrel"
+  }
+}

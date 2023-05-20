@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "haven:block/heavy_gold_chain",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "haven:block/heavy_gold_chain"
+    },
+    "axis=z": {
+      "model": "haven:block/heavy_gold_chain",
+      "x": 90
+    }
+  }
+}

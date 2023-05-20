@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " B ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:acacia_slab"
+    },
+    "B": {
+      "tag": "haven:bookshelves"
+    }
+  },
+  "result": {
+    "item": "haven:acacia_lectern"
+  }
+}

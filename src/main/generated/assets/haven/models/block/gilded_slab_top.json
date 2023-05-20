@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/gilded_planks",
+    "top": "haven:block/gilded_planks",
+    "side": "haven:block/gilded_planks"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_mushroom_stem_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/mushroom_stem_soul_torch"
+    }
+  }
+}

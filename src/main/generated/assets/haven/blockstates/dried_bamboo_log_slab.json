@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/dried_bamboo_log_slab"
+    },
+    "type=double": {
+      "model": "haven:block/dried_bamboo_log"
+    },
+    "type=top": {
+      "model": "haven:block/dried_bamboo_log_slab_top"
+    }
+  }
+}

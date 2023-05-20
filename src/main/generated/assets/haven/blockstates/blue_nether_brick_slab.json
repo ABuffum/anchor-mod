@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/blue_nether_brick_slab"
+    },
+    "type=double": {
+      "model": "haven:block/blue_nether_bricks"
+    },
+    "type=top": {
+      "model": "haven:block/blue_nether_brick_slab_top"
+    }
+  }
+}

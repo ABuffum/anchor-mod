@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/stripped_cherry_log_slab"
+    },
+    "type=double": {
+      "model": "minecraft:block/stripped_cherry_log"
+    },
+    "type=top": {
+      "model": "haven:block/stripped_cherry_log_slab_top"
+    }
+  }
+}

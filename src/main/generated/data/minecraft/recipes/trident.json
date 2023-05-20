@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " | ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:iron_ingot"
+    },
+    "|": {
+      "item": "haven:prismarine_rod"
+    }
+  },
+  "result": {
+    "item": "minecraft:trident"
+  }
+}

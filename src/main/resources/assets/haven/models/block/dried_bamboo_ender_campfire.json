@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/dried_bamboo_campfire",
-  "textures": {
-    "lit_log": "haven:block/dried_bamboo_ender_campfire_log_lit",
-    "fire": "haven:block/ender_campfire_fire"
-  }
-}

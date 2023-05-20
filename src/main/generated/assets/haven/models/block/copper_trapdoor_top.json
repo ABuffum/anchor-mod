@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_thin_trapdoor_top",
+  "textures": {
+    "texture": "haven:block/copper_trapdoor"
+  }
+}

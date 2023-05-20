@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/frog",
+  "textures": {
+    "all": "haven:block/temperate_frog_plushie",
+    "particle": "haven:block/temperate_frog_plushie"
+  }
+}

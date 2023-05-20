@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:smooth_chiseled_polished_blackstone_from_chiseled_polished_blackstone_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_chiseled_polished_blackstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:chiseled_polished_blackstone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:smooth_chiseled_polished_blackstone_from_chiseled_polished_blackstone_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_chiseled_polished_blackstone",
+      "has_the_recipe"
+    ]
+  ]
+}

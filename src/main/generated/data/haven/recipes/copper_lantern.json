@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#T#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:copper_nugget"
+    },
+    "T": {
+      "tag": "haven:torches"
+    }
+  },
+  "result": {
+    "item": "haven:copper_lantern"
+  }
+}

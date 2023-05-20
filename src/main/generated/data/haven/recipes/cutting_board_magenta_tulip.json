@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:magenta_tulip"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:magenta_tulip_petals"
+    },
+    {
+      "item": "haven:magenta_tulip_seeds"
+    }
+  ]
+}

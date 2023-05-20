@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "X": {
+      "tag": "haven:books"
+    }
+  },
+  "result": {
+    "item": "haven:mangrove_bookshelf"
+  }
+}

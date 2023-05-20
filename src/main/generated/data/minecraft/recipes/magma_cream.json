@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:magma_cream_bottle"
+    }
+  ],
+  "result": {
+    "item": "minecraft:magma_cream"
+  }
+}

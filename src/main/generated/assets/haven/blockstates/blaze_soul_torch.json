@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_blaze_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/blaze_soul_torch"
+    }
+  }
+}

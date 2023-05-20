@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:pale_dogwood_leaves"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:pale_dogwood_petals"
+    },
+    {
+      "item": "haven:pale_dogwood_petals"
+    }
+  ]
+}

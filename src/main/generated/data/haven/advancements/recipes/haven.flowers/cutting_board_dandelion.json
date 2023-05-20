@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cutting_board_dandelion"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dandelion": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:dandelion"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cutting_board_dandelion"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dandelion",
+      "has_the_recipe"
+    ]
+  ]
+}

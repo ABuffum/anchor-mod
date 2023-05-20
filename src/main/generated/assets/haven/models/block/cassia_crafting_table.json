@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "haven:block/cassia_crafting_table_front",
+    "north": "haven:block/cassia_crafting_table_front",
+    "south": "haven:block/cassia_crafting_table_side",
+    "east": "haven:block/cassia_crafting_table_side",
+    "west": "haven:block/cassia_crafting_table_front",
+    "up": "haven:block/cassia_crafting_table_top",
+    "down": "haven:block/cassia_planks"
+  }
+}

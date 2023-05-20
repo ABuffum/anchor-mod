@@ -1,0 +1,96 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cake",
+    "minecraft:cookie",
+    "minecraft:pumpkin_pie",
+    "farmersdelight:chocolate_pie",
+    "farmersdelight:chocolate_pie_slice",
+    "farmersdelight:honey_cookie",
+    "farmersdelight:pie_crust",
+    "farmersdelight:cake_slice",
+    "farmersdelight:melon_popsicle",
+    "farmersdelight:apple_pie",
+    "farmersdelight:apple_pie_slice",
+    "farmersdelight:sweet_berry_cookie",
+    "farmersdelight:sweet_berry_cheesecake",
+    "farmersdelight:sweet_berry_cheesecake_slice",
+    {
+      "id": "betterend:cave_pumpkin_pie",
+      "required": false
+    },
+    {
+      "id": "croptopia:pecan_pie",
+      "required": false
+    },
+    {
+      "id": "croptopia:rhubarb_pie",
+      "required": false
+    },
+    {
+      "id": "croptopia:donut",
+      "required": false
+    },
+    {
+      "id": "croptopia:candied_nuts",
+      "required": false
+    },
+    {
+      "id": "croptopia:almond_brittle",
+      "required": false
+    },
+    {
+      "id": "croptopia:raisin_oatmeal_cookie",
+      "required": false
+    },
+    {
+      "id": "croptopia:nutty_cookie",
+      "required": false
+    },
+    {
+      "id": "croptopia:whipping_cream",
+      "required": false
+    },
+    {
+      "id": "croptopia:pumpkin_bars",
+      "required": false
+    },
+    {
+      "id": "croptopia:meringue",
+      "required": false
+    },
+    {
+      "id": "croptopia:cinnamon_roll",
+      "required": false
+    },
+    {
+      "id": "croptopia:baked_crepes",
+      "required": false
+    },
+    {
+      "id": "croptopia:macaron",
+      "required": false
+    },
+    {
+      "id": "croptopia:quiche",
+      "required": false
+    },
+    {
+      "id": "croptopia:sweet_crepes",
+      "required": false
+    },
+    {
+      "id": "croptopia:trail_mix",
+      "required": false
+    },
+    {
+      "id": "croptopia:protein_bar",
+      "required": false
+    },
+    {
+      "id": "croptopia:tofu_and_dumplings",
+      "required": false
+    },
+    "#nourish:sweets"
+  ]
+}

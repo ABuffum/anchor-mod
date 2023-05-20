@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "haven:block/end_shale_rock",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "haven:block/end_shale_rock",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/end_shale_rock",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "haven:block/end_shale_rock",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "haven:block/end_shale_rock"
+    },
+    "facing=west": {
+      "model": "haven:block/end_shale_rock",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

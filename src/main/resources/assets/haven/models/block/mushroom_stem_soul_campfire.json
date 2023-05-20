@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/mushroom_stem_campfire",
-  "textures": {
-    "lit_log": "haven:block/mushroom_stem_soul_campfire_log_lit",
-    "fire": "minecraft:block/soul_campfire_fire"
-  }
-}

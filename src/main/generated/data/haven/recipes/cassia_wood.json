@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:cassia_log"
+    }
+  },
+  "result": {
+    "item": "haven:cassia_wood",
+    "count": 3
+  }
+}

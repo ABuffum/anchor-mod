@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "haven-anchors",
+  "id": "haven",
   "version": "${version}",
 
   "name": "Haven Pack",
@@ -19,17 +19,17 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "haven.ModBase"
+	  "fun.mousewich.ModBase"
     ],
     "client" : [
-      "haven.ModClient"
+	  "fun.mousewich.ModClient"
     ],
     "fabric-datagen": [
-      "haven.ModDatagen"
+      "fun.mousewich.gen.data.ModDatagen"
     ]
   },
   "mixins": [
-    "haven.mixins.json"
+    "fun.mousewich.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.11.3",

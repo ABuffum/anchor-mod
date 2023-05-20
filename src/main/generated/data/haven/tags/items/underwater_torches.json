@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "haven:underwater_torch",
+    "haven:underwater_copper_torch",
+    "haven:exposed_underwater_copper_torch",
+    "haven:weathered_underwater_copper_torch",
+    "haven:oxidized_underwater_copper_torch",
+    "haven:waxed_underwater_copper_torch",
+    "haven:waxed_exposed_underwater_copper_torch",
+    "haven:waxed_weathered_underwater_copper_torch",
+    "haven:waxed_oxidized_underwater_copper_torch",
+    "haven:underwater_bamboo_torch",
+    "haven:underwater_dried_bamboo_torch",
+    "haven:underwater_bone_torch",
+    "haven:underwater_iron_torch",
+    "haven:underwater_gold_torch",
+    "haven:underwater_netherite_torch",
+    "haven:underwater_prismarine_torch",
+    "haven:underwater_blaze_torch"
+  ]
+}

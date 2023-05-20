@@ -1,0 +1,9 @@
+{
+  "parent": "haven:block/_template_cake",
+  "textures": {
+    "bottom": "haven:block/strawberry_cake_bottom",
+    "side": "haven:block/strawberry_cake_side",
+    "top": "haven:block/strawberry_cake_top",
+    "particle": "haven:block/strawberry_cake_side"
+  }
+}

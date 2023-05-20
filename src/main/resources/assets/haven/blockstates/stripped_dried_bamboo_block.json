@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=x": { "model": "haven:block/stripped_dried_bamboo_block_x" },
+    "axis=y": { "model": "haven:block/stripped_dried_bamboo_block_y" },
+    "axis=z": { "model": "haven:block/stripped_dried_bamboo_block_z" }
+  }
+}

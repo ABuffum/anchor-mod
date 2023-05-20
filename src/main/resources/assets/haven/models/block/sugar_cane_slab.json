@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/sugar_cane_planks",
-    "side": "haven:block/sugar_cane_planks",
-    "top": "haven:block/sugar_cane_planks"
-  }
-}

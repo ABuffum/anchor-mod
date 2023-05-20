@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "haven:ender_torch",
+    "haven:copper_ender_torch",
+    "haven:exposed_copper_ender_torch",
+    "haven:weathered_copper_ender_torch",
+    "haven:oxidized_copper_ender_torch",
+    "haven:waxed_copper_ender_torch",
+    "haven:waxed_exposed_copper_ender_torch",
+    "haven:waxed_weathered_copper_ender_torch",
+    "haven:waxed_oxidized_copper_ender_torch",
+    "haven:bamboo_ender_torch",
+    "haven:dried_bamboo_ender_torch",
+    "haven:bone_ender_torch",
+    "haven:blaze_ender_torch",
+    "haven:iron_ender_torch",
+    "haven:gold_ender_torch",
+    "haven:netherite_ender_torch",
+    "haven:prismarine_ender_torch"
+  ]
+}

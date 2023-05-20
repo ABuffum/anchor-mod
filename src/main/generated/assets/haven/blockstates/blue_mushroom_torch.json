@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_blue_mushroom_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/blue_mushroom_torch"
+    }
+  }
+}

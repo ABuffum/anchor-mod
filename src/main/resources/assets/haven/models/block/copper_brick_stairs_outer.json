@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "haven:block/copper_bricks",
-    "side": "haven:block/copper_bricks",
-    "top": "haven:block/copper_bricks"
-  }
-}

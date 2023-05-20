@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cherry_leaves",
+    "minecraft:pink_petals",
+    "haven:pink_dogwood_leaves",
+    "haven:pale_dogwood_leaves",
+    "haven:white_dogwood_leaves",
+    "haven:flowering_cassia_leaves"
+  ]
+}

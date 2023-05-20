@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "haven:item/orange_mooblossom_spawn_egg"
-  }
-}

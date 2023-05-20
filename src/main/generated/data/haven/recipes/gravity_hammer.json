@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#E#",
+    " | ",
+    " | "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:crying_obsidian"
+    },
+    "|": {
+      "item": "haven:netherite_rod"
+    },
+    "E": {
+      "item": "haven:purple_ender_eye"
+    }
+  },
+  "result": {
+    "item": "haven:gravity_hammer"
+  }
+}

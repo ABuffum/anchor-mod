@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_gold_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/underwater_gold_torch"
+    }
+  }
+}

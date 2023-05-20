@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:purpur_mosaic_wall_from_purpur_mosaic_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_purpur_mosaic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:purpur_mosaic"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:purpur_mosaic_wall_from_purpur_mosaic_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_purpur_mosaic",
+      "has_the_recipe"
+    ]
+  ]
+}

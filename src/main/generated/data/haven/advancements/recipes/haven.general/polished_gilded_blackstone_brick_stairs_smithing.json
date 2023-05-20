@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:polished_gilded_blackstone_brick_stairs_smithing"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_polished_blackstone_brick_stairs": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:polished_blackstone_brick_stairs"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:polished_gilded_blackstone_brick_stairs_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_blackstone_brick_stairs",
+      "has_the_recipe"
+    ]
+  ]
+}

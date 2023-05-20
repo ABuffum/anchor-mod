@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:netherite_brick_stairs_from_netherite_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_netherite_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:netherite_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:netherite_brick_stairs_from_netherite_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

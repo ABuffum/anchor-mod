@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:amethyst_brick_wall_from_amethyst_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_amethyst_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:amethyst_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:amethyst_brick_wall_from_amethyst_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_amethyst_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "haven:block/amethyst_crystal_block",
-    "side": "haven:block/amethyst_crystal_block",
-    "top": "haven:block/amethyst_crystal_block"
-  }
-}

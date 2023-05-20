@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "minecraft:cassia_logs"
+    }
+  ],
+  "result": {
+    "item": "haven:cassia_planks",
+    "count": 4
+  }
+}

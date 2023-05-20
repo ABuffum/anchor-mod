@@ -1,0 +1,7 @@
+{
+  "parent": "block/bamboo_block_x",
+  "textures": {
+    "end": "haven:block/dried_bamboo_block_top",
+    "side": "haven:block/dried_bamboo_block"
+  }
+}

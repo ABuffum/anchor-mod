@@ -1,0 +1,24 @@
+{
+  "replace": false,
+  "values": [
+    "haven:buttercup",
+    "haven:pink_daisy",
+    "haven:rose",
+    "haven:blue_rose",
+    "haven:magenta_tulip",
+    "haven:marigold",
+    "haven:indigo_orchid",
+    "haven:magenta_orchid",
+    "haven:orange_orchid",
+    "haven:purple_orchid",
+    "haven:red_orchid",
+    "haven:white_orchid",
+    "haven:yellow_orchid",
+    "haven:pink_allium",
+    "haven:lavender",
+    "haven:hydrangea",
+    "haven:paeonia",
+    "haven:aster",
+    "haven:vanilla_flower"
+  ]
+}

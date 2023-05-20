@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "facing=east,type=bottom": {
+      "model": "haven:block/rainbow_fleece_slab_south"
+    },
+    "facing=east,type=double": {
+      "model": "haven:block/rainbow_fleece_south"
+    },
+    "facing=east,type=top": {
+      "model": "haven:block/rainbow_fleece_slab_south_top"
+    },
+    "facing=north,type=bottom": {
+      "model": "haven:block/rainbow_fleece_slab_north"
+    },
+    "facing=north,type=double": {
+      "model": "haven:block/rainbow_fleece_east"
+    },
+    "facing=north,type=top": {
+      "model": "haven:block/rainbow_fleece_slab_north_top"
+    },
+    "facing=south,type=bottom": {
+      "model": "haven:block/rainbow_fleece_slab_east"
+    },
+    "facing=south,type=double": {
+      "model": "haven:block/rainbow_fleece_east"
+    },
+    "facing=south,type=top": {
+      "model": "haven:block/rainbow_fleece_slab_east_top"
+    },
+    "facing=west,type=bottom": {
+      "model": "haven:block/rainbow_fleece_slab_west"
+    },
+    "facing=west,type=double": {
+      "model": "haven:block/rainbow_fleece_west"
+    },
+    "facing=west,type=top": {
+      "model": "haven:block/rainbow_fleece_slab_west_top"
+    }
+  }
+}

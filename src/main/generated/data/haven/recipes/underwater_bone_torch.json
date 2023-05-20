@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "minecraft:bone"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_bone_torch",
+    "count": 4
+  }
+}

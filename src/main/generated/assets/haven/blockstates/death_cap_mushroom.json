@@ -1,0 +1,72 @@
+{
+  "variants": {
+    "count=1": [
+      {
+        "model": "haven:block/death_cap_mushroom_1"
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_1",
+        "y": 90
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_1",
+        "y": 180
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_1",
+        "y": 270
+      }
+    ],
+    "count=2": [
+      {
+        "model": "haven:block/death_cap_mushroom_2"
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_2",
+        "y": 90
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_2",
+        "y": 180
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_2",
+        "y": 270
+      }
+    ],
+    "count=3": [
+      {
+        "model": "haven:block/death_cap_mushroom_3"
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_3",
+        "y": 90
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_3",
+        "y": 180
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_3",
+        "y": 270
+      }
+    ],
+    "count=4": [
+      {
+        "model": "haven:block/death_cap_mushroom_4"
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_4",
+        "y": 90
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_4",
+        "y": 180
+      },
+      {
+        "model": "haven:block/death_cap_mushroom_4",
+        "y": 270
+      }
+    ]
+  }
+}

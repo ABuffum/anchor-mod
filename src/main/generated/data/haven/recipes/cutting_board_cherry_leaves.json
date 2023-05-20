@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:cherry_leaves"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "minecraft:pink_petals"
+    },
+    {
+      "item": "minecraft:pink_petals"
+    }
+  ]
+}

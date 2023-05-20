@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_prismarine_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/underwater_prismarine_torch"
+    }
+  }
+}

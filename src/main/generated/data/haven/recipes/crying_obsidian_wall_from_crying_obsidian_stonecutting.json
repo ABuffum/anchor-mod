@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:crying_obsidian"
+  },
+  "result": "haven:crying_obsidian_wall",
+  "count": 1
+}

@@ -1,9 +1,0 @@
-{
-  "parent": "haven:block/template_campfire",
-  "textures": {
-    "particle": "haven:block/acacia_campfire_log",
-    "log": "haven:block/acacia_campfire_log",
-    "lit_log": "haven:block/acacia_campfire_log_lit",
-    "fire": "minecraft:block/campfire_fire"
-  }
-}

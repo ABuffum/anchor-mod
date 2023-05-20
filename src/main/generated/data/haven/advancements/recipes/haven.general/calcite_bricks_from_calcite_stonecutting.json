@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:calcite_bricks_from_calcite_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_calcite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:calcite"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:calcite_bricks_from_calcite_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_calcite",
+      "has_the_recipe"
+    ]
+  ]
+}

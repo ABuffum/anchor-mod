@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:oxeye_daisy_petals"
+    }
+  ],
+  "result": {
+    "item": "minecraft:light_gray_dye"
+  }
+}

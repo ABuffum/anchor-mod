@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:green_concrete_wall_from_green_concrete_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_green_concrete": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:green_concrete"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:green_concrete_wall_from_green_concrete_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_green_concrete",
+      "has_the_recipe"
+    ]
+  ]
+}

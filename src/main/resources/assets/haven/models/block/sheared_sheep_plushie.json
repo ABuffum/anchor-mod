@@ -1,7 +1,0 @@
-{
-	"parent": "haven:block/_template_sheared_sheep_plushie",
-	"textures": {
-		"0": "haven:block/sheep_plushie",
-		"particle": "minecraft:block/white_wool"
-	}
-}

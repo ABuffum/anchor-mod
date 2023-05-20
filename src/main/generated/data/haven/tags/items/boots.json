@@ -1,0 +1,43 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:leather_boots",
+    "minecraft:chainmail_boots",
+    "minecraft:iron_boots",
+    "minecraft:golden_boots",
+    "minecraft:diamond_boots",
+    "minecraft:netherite_boots",
+    "haven:amethyst_boots",
+    "haven:emerald_boots",
+    "haven:fleece_boots",
+    "haven:quartz_boots",
+    "haven:shulker_boots",
+    "haven:studded_leather_boots",
+    "haven:turtle_boots",
+    "#haven:copper_boots",
+    {
+      "id": "betternether:cincinnasite_boots",
+      "required": false
+    },
+    {
+      "id": "betternether:nether_ruby_boots",
+      "required": false
+    },
+    {
+      "id": "betterend:aeternium_boots",
+      "required": false
+    },
+    {
+      "id": "betterend:crystalite_boots",
+      "required": false
+    },
+    {
+      "id": "betterend:thallasium_boots",
+      "required": false
+    },
+    {
+      "id": "betterend:terminite_boots",
+      "required": false
+    }
+  ]
+}

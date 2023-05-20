@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_warped_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/warped_ender_torch"
+    }
+  }
+}

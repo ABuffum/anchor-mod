@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cooked_mutton",
+    "haven:cooked_chevon",
+    "farmersdelight:cooked_mutton_chops",
+    "farmersdelight:roasted_mutton_chops",
+    "farmersdelight:mutton_wrap",
+    "farmersdelight:pasta_with_mutton_chop"
+  ]
+}

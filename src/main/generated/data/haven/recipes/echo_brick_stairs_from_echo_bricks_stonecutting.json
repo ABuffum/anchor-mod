@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:echo_bricks"
+  },
+  "result": "haven:echo_brick_stairs",
+  "count": 1
+}

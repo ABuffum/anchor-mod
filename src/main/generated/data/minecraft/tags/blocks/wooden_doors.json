@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "haven:sugar_cane_door",
+    "haven:gilded_door",
+    "haven:dried_bamboo_door",
+    "minecraft:mangrove_door",
+    "haven:blue_mushroom_door",
+    "haven:red_mushroom_door",
+    "minecraft:bamboo_door",
+    "haven:dogwood_door",
+    "haven:cassia_door",
+    "haven:charred_door",
+    "haven:mushroom_stem_door",
+    "minecraft:cherry_door",
+    "haven:brown_mushroom_door",
+    "haven:hay_door",
+    "haven:charred_door",
+    "minecraft:mangrove_door",
+    "minecraft:bamboo_door",
+    "minecraft:cherry_door",
+    "haven:cassia_door",
+    "haven:dogwood_button"
+  ]
+}

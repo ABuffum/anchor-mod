@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:polished_blackstone_tile_wall_from_polished_blackstone_tiles_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_polished_blackstone_tiles": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:polished_blackstone_tiles"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:polished_blackstone_tile_wall_from_polished_blackstone_tiles_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_blackstone_tiles",
+      "has_the_recipe"
+    ]
+  ]
+}

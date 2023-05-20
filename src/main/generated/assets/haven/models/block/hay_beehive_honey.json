@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "top": "haven:block/hay_beehive_end",
+    "bottom": "haven:block/hay_beehive_end",
+    "side": "haven:block/hay_beehive_side",
+    "front": "haven:block/hay_beehive_front_honey",
+    "particle": "haven:block/hay_beehive_side"
+  }
+}

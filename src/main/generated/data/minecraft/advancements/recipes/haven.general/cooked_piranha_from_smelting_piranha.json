@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cooked_piranha_from_smelting_piranha"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_piranha": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:piranha"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cooked_piranha_from_smelting_piranha"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_piranha",
+      "has_the_recipe"
+    ]
+  ]
+}

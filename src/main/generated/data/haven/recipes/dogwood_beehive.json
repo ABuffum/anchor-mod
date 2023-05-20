@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "PPP",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:honeycomb"
+    },
+    "P": {
+      "item": "haven:dogwood_planks"
+    }
+  },
+  "result": {
+    "item": "haven:dogwood_beehive"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:smooth_purpur_wall_from_smelting_purpur_wall"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_purpur_wall": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:purpur_wall"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:smooth_purpur_wall_from_smelting_purpur_wall"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_purpur_wall",
+      "has_the_recipe"
+    ]
+  ]
+}

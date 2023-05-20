@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/sculk_stone",
+    "top": "haven:block/sculk_stone",
+    "side": "haven:block/sculk_stone"
+  }
+}

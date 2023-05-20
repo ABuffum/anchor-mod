@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dogwood_planks"
+    },
+    "X": {
+      "tag": "haven:books"
+    }
+  },
+  "result": {
+    "item": "haven:dogwood_bookshelf"
+  }
+}

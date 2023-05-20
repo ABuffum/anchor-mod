@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "haven:buttercup"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  },
+  "result": [
+    {
+      "item": "haven:buttercup_petals"
+    },
+    {
+      "item": "haven:buttercup_seeds"
+    }
+  ]
+}

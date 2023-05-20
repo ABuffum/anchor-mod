@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#haven:edible_beef",
+    "#haven:edible_bird",
+    "#haven:edible_fish",
+    "#haven:edible_pork",
+    "#haven:edible_rabbit",
+    "#haven:edible_seafood",
+    "#haven:edible_sheep"
+  ]
+}

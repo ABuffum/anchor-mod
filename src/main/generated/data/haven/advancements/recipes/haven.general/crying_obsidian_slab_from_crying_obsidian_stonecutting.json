@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:crying_obsidian_slab_from_crying_obsidian_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_crying_obsidian": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:crying_obsidian"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:crying_obsidian_slab_from_crying_obsidian_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_crying_obsidian",
+      "has_the_recipe"
+    ]
+  ]
+}

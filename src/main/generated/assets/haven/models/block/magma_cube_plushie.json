@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/slime",
+  "textures": {
+    "all": "haven:block/magma_cube_plushie",
+    "particle": "haven:block/magma_cube_plushie"
+  }
+}

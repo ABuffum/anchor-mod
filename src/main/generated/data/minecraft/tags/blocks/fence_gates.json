@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "haven:charred_fence_gate",
+    "minecraft:mangrove_fence_gate",
+    "minecraft:bamboo_fence_gate",
+    "minecraft:cherry_fence_gate",
+    "haven:cassia_fence_gate",
+    "haven:dogwood_fence_gate"
+  ]
+}

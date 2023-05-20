@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "count": 1,
-  "ingredient": {
-    "item": "haven:mushroom_stem_planks"
-  },
-  "result": "haven:mushroom_stem_fence"
-}

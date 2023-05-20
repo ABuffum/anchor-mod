@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:tuff_brick_stairs_from_tuff_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_tuff_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:tuff_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:tuff_brick_stairs_from_tuff_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_tuff_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

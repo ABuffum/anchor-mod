@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      {
+        "item": "minecraft:bamboo_block"
+      },
+      {
+        "item": "minecraft:stripped_bamboo_block"
+      },
+      {
+        "item": "haven:dried_bamboo_block"
+      },
+      {
+        "item": "haven:stripped_dried_bamboo_block"
+      }
+    ]
+  ],
+  "result": {
+    "item": "minecraft:bamboo_planks",
+    "count": 2
+  }
+}
