@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/unlit_tiki_torch"
+    },
+    "lit=true": {
+      "model": "haven:block/tiki_soul_torch"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "#haven:sculk_turfs",
     "minecraft:deepslate",
     "minecraft:deepslate_bricks",
     "minecraft:deepslate_tiles",
@@ -11,7 +12,6 @@
     "minecraft:deepslate_brick_wall",
     "minecraft:cobbled_deepslate",
     "minecraft:cracked_deepslate_bricks",
-    "minecraft:cracked_deepslate_tiles",
-    "#haven:sculk_turfs"
+    "minecraft:cracked_deepslate_tiles"
   ]
 }

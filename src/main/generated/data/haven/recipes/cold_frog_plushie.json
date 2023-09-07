@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:green_wool"
+    },
+    {
+      "item": "minecraft:verdant_froglight"
+    }
+  ],
+  "result": {
+    "item": "haven:cold_frog_plushie"
+  }
+}

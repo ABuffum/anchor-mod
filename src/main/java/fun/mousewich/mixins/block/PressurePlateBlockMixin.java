@@ -1,6 +1,7 @@
 package fun.mousewich.mixins.block;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.registry.ModBambooRegistry;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.block.AbstractPressurePlateBlock;
 import net.minecraft.block.Block;
@@ -23,7 +24,7 @@ public abstract class PressurePlateBlockMixin extends AbstractPressurePlateBlock
 	@Inject(method="playPressSound", at = @At("HEAD"), cancellable = true)
 	protected void PlayPressSound(WorldAccess world, BlockPos pos, CallbackInfo ci) {
 		Block block = this;
-		if (block == ModBase.BAMBOO_PRESSURE_PLATE.asBlock()) {
+		if (block == ModBambooRegistry.BAMBOO_PRESSURE_PLATE.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_PRESSURE_PLATE.asBlock()) {
 			world.playSound(null, pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_ON, SoundCategory.BLOCKS, 1, 1);
 			ci.cancel();
 		}
@@ -36,7 +37,7 @@ public abstract class PressurePlateBlockMixin extends AbstractPressurePlateBlock
 	@Inject(method="playDepressSound", at = @At("HEAD"), cancellable = true)
 	protected void PlayDepressSound(WorldAccess world, BlockPos pos, CallbackInfo ci) {
 		Block block = this;
-		if (block == ModBase.BAMBOO_PRESSURE_PLATE.asBlock()) {
+		if (block == ModBambooRegistry.BAMBOO_PRESSURE_PLATE.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_PRESSURE_PLATE.asBlock()) {
 			world.playSound(null, pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_PRESSURE_PLATE_CLICK_OFF, SoundCategory.BLOCKS, 1, 1);
 			ci.cancel();
 		}

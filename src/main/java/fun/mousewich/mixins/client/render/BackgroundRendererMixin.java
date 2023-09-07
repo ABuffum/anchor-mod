@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import fun.mousewich.block.fluid.BloodFluid;
 import fun.mousewich.effect.GogglesEffect;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.effect.StatusEffectFogModifier;
 import fun.mousewich.ModBase;
 import fun.mousewich.block.fluid.MudFluid;
@@ -75,6 +76,23 @@ public class BackgroundRendererMixin {
 			}
 		}
 		Entity entity = camera.getFocusedEntity();
+		Fluid fluid = world.getFluidState(camera.getBlockPos()).getFluid();
+		if (fluid instanceof MudFluid) {
+			red = 87.0F / 255.0F;
+			green = 54.0F / 255.0F;
+			blue = 35.0F / 255.0F;
+			RenderSystem.clearColor(red, green, blue, 0.0F);
+			ci.cancel();
+			return;
+		}
+		else if (fluid instanceof BloodFluid) {
+			red = 127.0F / 255.0F;
+			green = 0.0F / 255.0F;
+			blue = 0.0F / 255.0F;
+			RenderSystem.clearColor(red, green, blue, 0.0F);
+			ci.cancel();
+			return;
+		}
 		if (cameraSubmersionType == CameraSubmersionType.WATER) {
 			long l = Util.getMeasuringTimeMs();
 			int i = world.getBiome(new BlockPos(camera.getPos())).getWaterFogColor();
@@ -184,18 +202,18 @@ public class BackgroundRendererMixin {
 					green = green * (1.0f - skyDarkness) + green * 0.6f * skyDarkness;
 					blue = blue * (1.0f - skyDarkness) + blue * 0.6f * skyDarkness;
 				}
-				if (livingEntity.hasStatusEffect(ModBase.FLASHBANGED_EFFECT)) {
+				if (livingEntity.hasStatusEffect(ModStatusEffects.FLASHBANGED)) {
 					red = Math.max(red, 1 - red);
 					green = Math.max(green, 1 - green);
 					blue = Math.max(blue, 1 - blue);
 				}
 			}
-			else if (effect == ModBase.TINTED_GOGGLES_EFFECT){
+			else if (effect == ModStatusEffects.TINTED_GOGGLES){
 				red = (float)MathHelper.lerp(r, Math.min(red, 0.15686274509), Math.max(red, 0.15686274509));
 				green = (float)MathHelper.lerp(r, Math.min(green, 0.09411764705), Math.max(red, 0.09411764705));
 				blue = (float)MathHelper.lerp(r, Math.min(blue, 0.18039215686), Math.max(red, 0.18039215686));
 			}
-			else if (effect == ModBase.RUBY_GOGGLES_EFFECT){
+			else if (effect == ModStatusEffects.RUBY_GOGGLES){
 				red = (float)MathHelper.lerp(r, Math.min(red, 0.62745098039), Math.max(red, 0.62745098039));
 				green = (float)MathHelper.lerp(r, Math.min(green, 0.03921568627), Math.max(red, 0.03921568627));
 				blue = (float)MathHelper.lerp(r, Math.min(blue, 0.20392156862), Math.max(red, 0.20392156862));
@@ -218,7 +236,7 @@ public class BackgroundRendererMixin {
 		else if (cameraSubmersionType == CameraSubmersionType.LAVA) {
 			if (entity instanceof LivingEntity living &&
 					(ModBase.SEE_IN_LAVA_POWER.isActive(living)
-							|| living.hasStatusEffect(ModBase.RUBY_GOGGLES_EFFECT)
+							|| living.hasStatusEffect(ModStatusEffects.RUBY_GOGGLES)
 							|| living.getEquippedStack(EquipmentSlot.HEAD).isOf(ModBase.RUBY_GOGGLES))) {
 				RenderSystem.setShaderFogStart(-8.0f);
 				RenderSystem.setShaderFogEnd(viewDistance * 0.5f);

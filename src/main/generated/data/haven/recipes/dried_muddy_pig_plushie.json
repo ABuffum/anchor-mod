@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:pig_plushie"
+    },
+    {
+      "item": "minecraft:packed_mud"
+    }
+  ],
+  "result": {
+    "item": "haven:dried_muddy_pig_plushie"
+  }
+}

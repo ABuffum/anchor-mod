@@ -21,8 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MobEntityMixin extends LivingEntity {
 	protected MobEntityMixin(EntityType<? extends LivingEntity> entityType, World world) { super(entityType, world); }
 
-	@Shadow
-	protected abstract ActionResult interactWithItem(PlayerEntity player, Hand hand);
+	@Shadow protected abstract ActionResult interactWithItem(PlayerEntity player, Hand hand);
 	@Shadow protected abstract ActionResult interactMob(PlayerEntity player, Hand hand);
 
 

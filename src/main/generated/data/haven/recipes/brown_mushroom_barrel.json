@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "# #",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:brown_mushroom_planks"
+    },
+    "S": {
+      "item": "haven:brown_mushroom_slab"
+    }
+  },
+  "result": {
+    "item": "haven:brown_mushroom_barrel"
+  }
+}

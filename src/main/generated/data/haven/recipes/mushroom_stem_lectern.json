@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    " B ",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "haven:mushroom_stem_slab"
+    },
+    "B": {
+      "tag": "haven:bookshelves"
+    }
+  },
+  "result": {
+    "item": "haven:mushroom_stem_lectern"
+  }
+}

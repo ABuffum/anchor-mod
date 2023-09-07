@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X",
+    "#",
+    "X"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:cheese"
+    },
+    "X": {
+      "item": "minecraft:bread"
+    }
+  },
+  "result": {
+    "item": "haven:grilled_cheese"
+  }
+}

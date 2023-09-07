@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:roast_marshmallow_on_stick_from_campfire_cooking"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_marshmallow_on_stick": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:marshmallow_on_stick"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:roast_marshmallow_on_stick_from_campfire_cooking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_marshmallow_on_stick",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#*",
+    "*#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:gilded_wart"
+    },
+    "*": {
+      "item": "minecraft:nether_brick"
+    }
+  },
+  "result": {
+    "item": "haven:yellow_nether_bricks"
+  }
+}

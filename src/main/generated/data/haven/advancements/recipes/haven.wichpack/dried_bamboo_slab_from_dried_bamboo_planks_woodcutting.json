@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:dried_bamboo_slab_from_dried_bamboo_planks_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dried_bamboo_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dried_bamboo_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:dried_bamboo_slab_from_dried_bamboo_planks_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dried_bamboo_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

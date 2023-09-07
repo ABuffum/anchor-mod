@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:dark_iron_milk_bucket"
+    },
+    {
+      "item": "haven:strawberry"
+    }
+  ],
+  "result": {
+    "item": "haven:dark_iron_strawberry_milk_bucket"
+  }
+}

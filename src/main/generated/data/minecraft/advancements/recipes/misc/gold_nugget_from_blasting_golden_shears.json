@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_blasting_golden_shears"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_golden_shears": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:golden_shears"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_blasting_golden_shears"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_shears",
+      "has_the_recipe"
+    ]
+  ]
+}

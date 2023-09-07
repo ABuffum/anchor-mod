@@ -2,6 +2,7 @@ package fun.mousewich.block.fluid;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.item.bucket.BucketProvider;
+import fun.mousewich.registry.ModCopperRegistry;
 import fun.mousewich.util.BucketUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -80,8 +81,8 @@ public class BloodCauldronBlock extends LeveledCauldronBlock {
 		BEHAVIOR.put(ModBase.GOLDEN_BLOOD_BUCKET, FillFromBucket(ModBase.GOLDEN_BUCKET));
 		BEHAVIOR.put(ModBase.GOLDEN_BUCKET, EmptyToBucket(ModBase.GOLDEN_BLOOD_BUCKET));
 		//Copper
-		BEHAVIOR.put(ModBase.COPPER_BLOOD_BUCKET, FillFromBucket(ModBase.COPPER_BUCKET));
-		BEHAVIOR.put(ModBase.COPPER_BUCKET, EmptyToBucket(ModBase.COPPER_BLOOD_BUCKET));
+		BEHAVIOR.put(ModCopperRegistry.COPPER_BLOOD_BUCKET, FillFromBucket(ModCopperRegistry.COPPER_BUCKET));
+		BEHAVIOR.put(ModCopperRegistry.COPPER_BUCKET, EmptyToBucket(ModCopperRegistry.COPPER_BLOOD_BUCKET));
 		//Netherite
 		BEHAVIOR.put(ModBase.NETHERITE_BLOOD_BUCKET, FillFromBucket(ModBase.NETHERITE_BUCKET));
 		BEHAVIOR.put(ModBase.NETHERITE_BUCKET, EmptyToBucket(ModBase.NETHERITE_BLOOD_BUCKET));

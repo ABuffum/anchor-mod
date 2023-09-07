@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:roast_marshmallow_on_stick"
+    }
+  ],
+  "result": {
+    "item": "haven:roast_marshmallow"
+  }
+}

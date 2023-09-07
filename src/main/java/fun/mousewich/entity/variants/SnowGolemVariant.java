@@ -43,6 +43,6 @@ public enum SnowGolemVariant {
 	}
 	public static SnowGolemVariant get(SnowGolemEntity entity) {
 		SnowGolemVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length - 1)];
 	}
 }

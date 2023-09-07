@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dark_iron_ingot"
+    }
+  },
+  "result": {
+    "item": "haven:dark_heavy_weighted_pressure_plate"
+  }
+}

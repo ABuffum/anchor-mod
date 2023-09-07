@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/red_sandy_purpur_block_slab"
+    },
+    "type=double": {
+      "model": "haven:block/red_sandy_purpur_block"
+    },
+    "type=top": {
+      "model": "haven:block/red_sandy_purpur_block_slab_top"
+    }
+  }
+}

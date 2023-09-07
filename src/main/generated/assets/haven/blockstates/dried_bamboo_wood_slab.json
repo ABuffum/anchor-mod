@@ -5,7 +5,7 @@
       "y": 270
     },
     "facing=east,type=double": {
-      "model": "haven:block/bamboo_log",
+      "model": "haven:block/dried_bamboo_log",
       "y": 270
     },
     "facing=east,type=top": {
@@ -17,7 +17,7 @@
       "y": 180
     },
     "facing=north,type=double": {
-      "model": "haven:block/bamboo_log",
+      "model": "haven:block/dried_bamboo_log",
       "y": 180
     },
     "facing=north,type=top": {
@@ -28,7 +28,7 @@
       "model": "haven:block/dried_bamboo_wood_slab"
     },
     "facing=south,type=double": {
-      "model": "haven:block/bamboo_log"
+      "model": "haven:block/dried_bamboo_log"
     },
     "facing=south,type=top": {
       "model": "haven:block/dried_bamboo_wood_slab_top"
@@ -38,7 +38,7 @@
       "y": 90
     },
     "facing=west,type=double": {
-      "model": "haven:block/bamboo_log",
+      "model": "haven:block/dried_bamboo_log",
       "y": 90
     },
     "facing=west,type=top": {

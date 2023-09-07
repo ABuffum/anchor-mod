@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "haven:weathered_copper_chestplate"
+  },
+  "result": "haven:copper_nugget",
+  "experience": 0.1,
+  "cookingtime": 100
+}

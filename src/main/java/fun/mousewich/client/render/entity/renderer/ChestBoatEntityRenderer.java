@@ -1,12 +1,13 @@
 package fun.mousewich.client.render.entity.renderer;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.ChestBoatEntityModel;
 import fun.mousewich.client.render.entity.model.ChestRaftEntityModel;
 import fun.mousewich.entity.vehicle.ChestBoatEntity;
 import fun.mousewich.entity.vehicle.ModBoatType;
 import fun.mousewich.entity.vehicle.ModChestBoatEntity;
+import fun.mousewich.registry.ModBambooRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
@@ -30,8 +31,8 @@ public class ChestBoatEntityRenderer extends EntityRenderer<ChestBoatEntity> {
 	public ChestBoatEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
 		this.shadowRadius = 0.8F;
-		boat = new ChestBoatEntityModel(context.getPart(ModClient.CHEST_BOAT_MODEL_LAYER));
-		raft = new ChestRaftEntityModel(context.getPart(ModClient.CHEST_RAFT_MODEL_LAYER));
+		boat = new ChestBoatEntityModel(context.getPart(ModEntityModelLayers.CHEST_BOAT));
+		raft = new ChestRaftEntityModel(context.getPart(ModEntityModelLayers.CHEST_RAFT));
 	}
 
 	public void render(ChestBoatEntity boatEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -44,7 +45,7 @@ public class ChestBoatEntityRenderer extends EntityRenderer<ChestBoatEntity> {
 		if (h > 0.0F) matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(MathHelper.sin(h) * h * j / 10.0F * (float) boatEntity.getDamageWobbleSide()));
 		float k = boatEntity.interpolateBubbleWobble(g);
 		if (!MathHelper.approximatelyEquals(k, 0.0F)) matrixStack.multiply(new Quaternion(new Vec3f(1.0F, 0.0F, 1.0F), boatEntity.interpolateBubbleWobble(g), true));
-		boolean isRaft = boatEntity instanceof ModChestBoatEntity modChestBoat && modChestBoat.getModBoatType() == ModBase.BAMBOO_RAFT.getType();
+		boolean isRaft = boatEntity instanceof ModChestBoatEntity modChestBoat && modChestBoat.getModBoatType() == ModBambooRegistry.BAMBOO_RAFT.getType();
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
 		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90.0F));
 		if (isRaft) {

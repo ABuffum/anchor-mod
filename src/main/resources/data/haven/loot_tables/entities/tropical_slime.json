@@ -33,7 +33,7 @@
               "function": "minecraft:looting_enchant"
             }
           ],
-          "name": "wich:blue_slime_ball"
+          "name": "haven:blue_slime_ball"
         },
         {
           "type": "minecraft:item",
@@ -44,7 +44,7 @@
             }
           ],
           "functions": [ { "add": false, "count": 1.0, "function": "minecraft:set_count" } ],
-          "name": "wich:blue_slime_ball"
+          "name": "haven:blue_slime_ball"
         }
       ],
       "rolls": 1

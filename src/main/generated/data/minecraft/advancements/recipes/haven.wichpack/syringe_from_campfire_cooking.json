@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:syringe_from_campfire_cooking"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dirty_syringe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dirty_syringe"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:syringe_from_campfire_cooking"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dirty_syringe",
+      "has_the_recipe"
+    ]
+  ]
+}

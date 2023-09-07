@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:distilled_water_bottle_from_smelting_potion"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_potion": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:potion"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:distilled_water_bottle_from_smelting_potion"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_potion",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:cracked_polished_bleeding_obsidian_bricks_from_smelting_polished_bleeding_obsidian_bricks"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_polished_bleeding_obsidian_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:polished_bleeding_obsidian_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:cracked_polished_bleeding_obsidian_bricks_from_smelting_polished_bleeding_obsidian_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_bleeding_obsidian_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

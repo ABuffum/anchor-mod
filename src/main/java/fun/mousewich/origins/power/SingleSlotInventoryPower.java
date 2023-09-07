@@ -2,10 +2,8 @@ package fun.mousewich.origins.power;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.client.render.gui.Generic1x1ContainerScreenHandler;
-import io.github.apace100.apoli.Apoli;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
-import io.github.apace100.apoli.power.InventoryPower;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -15,7 +13,6 @@ import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -26,7 +23,7 @@ import net.minecraft.util.collection.DefaultedList;
 
 import java.util.function.Predicate;
 
-public class SingleSlotInventoryPower extends Power implements Active, Inventory {
+public class SingleSlotInventoryPower extends Power implements Active, IInventoryPower {
 	private final DefaultedList<ItemStack> inventory;
 	private final TranslatableText containerName;
 	private final ScreenHandlerFactory factory;
@@ -71,6 +68,7 @@ public class SingleSlotInventoryPower extends Power implements Active, Inventory
 	@Override public boolean canPlayerUse(PlayerEntity player) { return player == this.entity; }
 	@Override public void clear() { setStack(0, ItemStack.EMPTY); }
 	public boolean shouldDropOnDeath() { return shouldDropOnDeath; }
+	@Override
 	public boolean shouldDropOnDeath(ItemStack stack) { return shouldDropOnDeath && dropOnDeathFilter.test(stack); }
 
 	private Key key;

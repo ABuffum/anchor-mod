@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/dragon",
+  "textures": {
+    "all": "haven:block/ender_dragon_plushie",
+    "particle": "haven:block/ender_dragon_plushie"
+  }
+}

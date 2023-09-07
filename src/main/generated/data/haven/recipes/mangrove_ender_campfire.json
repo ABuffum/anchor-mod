@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "SCS",
+    "LLL"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:popped_chorus_fruit"
+    },
+    "L": {
+      "tag": "minecraft:mangrove_logs"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:mangrove_ender_campfire"
+  }
+}

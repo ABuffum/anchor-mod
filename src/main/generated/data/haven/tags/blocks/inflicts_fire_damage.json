@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
+    "haven:blaze_powder_block",
+    "haven:cooled_magma_block",
     "minecraft:fire",
     "minecraft:lava",
     "minecraft:lava_cauldron",
-    "minecraft:magma_block",
-    "haven:cooled_magma_block",
-    "haven:blaze_powder_block"
+    "minecraft:magma_block"
   ]
 }

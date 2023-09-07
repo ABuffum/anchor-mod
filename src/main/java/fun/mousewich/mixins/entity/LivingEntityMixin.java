@@ -2,7 +2,9 @@ package fun.mousewich.mixins.entity;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.block.basic.ModLadderBlock;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.enchantment.CommittedEnchantment;
+import fun.mousewich.enchantment.ModEnchantments;
 import fun.mousewich.entity.EntityWithAttackStreak;
 import fun.mousewich.entity.RavagerRideableCompatibilityHook;
 import fun.mousewich.entity.projectile.ModArrowEntity;
@@ -13,6 +15,7 @@ import fun.mousewich.item.OxidizableItem;
 import fun.mousewich.origins.power.*;
 import fun.mousewich.sound.IdentifiedSounds;
 import fun.mousewich.sound.ModSoundEvents;
+import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LadderBlock;
 import net.minecraft.block.TrapdoorBlock;
@@ -31,6 +34,7 @@ import net.minecraft.item.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Heightmap;
@@ -43,14 +47,15 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.List;
+
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements EntityWithAttackStreak {
 	@Shadow
 	protected int roll;
 	@Shadow protected boolean dead;
 	@Shadow private LivingEntity attacking;
-	@Shadow
-	protected PlayerEntity attackingPlayer;
+	@Shadow protected PlayerEntity attackingPlayer;
 	@Shadow public abstract float getHealth();
 	@Shadow public abstract float getMaxHealth();
 	@Shadow public abstract boolean isUsingItem();
@@ -67,7 +72,7 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 
 	@Inject(method="canFreeze", at = @At("HEAD"), cancellable = true)
 	private void CannotFreeze(CallbackInfoReturnable<Boolean> cir) {
-		if (this.hasStatusEffect(ModBase.FREEZING_RESISTANCE)) cir.setReturnValue(false);
+		if (this.hasStatusEffect(ModStatusEffects.FREEZING_RESISTANCE)) cir.setReturnValue(false);
 		if (PowersUtil.Active(this, CannotFreezePower.class)) cir.setReturnValue(false);
 	}
 
@@ -82,7 +87,7 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 	}
 
 	@Override
-	public boolean isSilent() { return this.hasStatusEffect(ModBase.SILENT_EFFECT) || super.isSilent(); }
+	public boolean isSilent() { return this.hasStatusEffect(ModStatusEffects.SILENT) || super.isSilent(); }
 
 	@Override
 	public boolean occludeVibrationSignals() {
@@ -104,7 +109,7 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 
 	@Inject(method="applyDamage", at = @At(value = "INVOKE", target="Lnet/minecraft/entity/LivingEntity;setAbsorptionAmount(F)V", ordinal = 1))
 	protected void ApplyRushSpeed(DamageSource source, float amount, CallbackInfo ci) {
-		int level = EnchantmentHelper.getEquipmentLevel(ModBase.RUSH_ENCHANTMENT, (LivingEntity)(Object)this);
+		int level = EnchantmentHelper.getEquipmentLevel(ModEnchantments.RUSH, (LivingEntity)(Object)this);
 		if (level > 0 && !this.world.isClient) {
 			this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20, level - 1, false, false, true), this);
 		}
@@ -213,11 +218,11 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 
 	@Inject(method="tick", at=@At("HEAD"))
 	public void FrenzyBelowHalfHealth(CallbackInfo ci) {
-		int level = EnchantmentHelper.getEquipmentLevel(ModBase.FRENZY_ENCHANTMENT, (LivingEntity)(Object)this);
+		int level = EnchantmentHelper.getEquipmentLevel(ModEnchantments.FRENZY, (LivingEntity)(Object)this);
 		if (level > 0) {
 			if (!this.world.isClient) {
 				if (this.getHealth() < this.getMaxHealth() / 2) {
-					this.addStatusEffect(new StatusEffectInstance(ModBase.FRENZIED_EFFECT, 20, level - 1, false, false, true), this);
+					this.addStatusEffect(new StatusEffectInstance(ModStatusEffects.FRENZIED, 20, level - 1, false, false, true), this);
 				}
 			}
 		}
@@ -257,7 +262,7 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 	@Inject(method="damage", at=@At(value="INVOKE", target="Lnet/minecraft/entity/LivingEntity;damageShield(F)V"))
 	private void HandleShieldDamage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
 		//Attempt to recycle arrows
-		int level = EnchantmentHelper.getEquipmentLevel(ModBase.RECYLING_ENCHANTMENT, (LivingEntity)(Object)this);
+		int level = EnchantmentHelper.getEquipmentLevel(ModEnchantments.RECYLING, (LivingEntity)(Object)this);
 		if (level > 0) {
 			ItemStack stack = ItemStack.EMPTY;
 			if (source.isProjectile() && random.nextFloat() < (0.2f * level)) {
@@ -279,8 +284,8 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 		float damageAmount = amount;
 		if (source.getAttacker() instanceof LivingEntity attacker) {
 			ItemStack stack = attacker.getMainHandStack();
-			if (EnchantmentHelper.getLevel(ModBase.CLEAVING_ENCHANTMENT, stack) > 0) damageAmount += level;
-			else if (EnchantmentHelper.getLevel(ModBase.CRUSHING_ENCHANTMENT, stack) > 0) damageAmount += level;
+			if (EnchantmentHelper.getLevel(ModEnchantments.CLEAVING, stack) > 0) damageAmount += level;
+			else if (EnchantmentHelper.getLevel(ModEnchantments.CRUSHING, stack) > 0) damageAmount += level;
 		}
 		this.damageShield(damageAmount);
 	}
@@ -291,7 +296,7 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 	private void SiphonExperience(ServerWorld world, Vec3d pos, int amount) {
 		int newAmount = amount;
 		if (this.attackingPlayer != null) {
-			int level = EnchantmentHelper.getEquipmentLevel(ModBase.EXPERIENCE_SIPHON_ENCHANTMENT, this.attackingPlayer);
+			int level = EnchantmentHelper.getEquipmentLevel(ModEnchantments.EXPERIENCE_SIPHON, this.attackingPlayer);
 			if (level > 0) newAmount += level;
 			float powerModifier = ExperienceSiphonPower.getModifier(this.attackingPlayer);
 			newAmount = (int)(newAmount * powerModifier);
@@ -331,5 +336,13 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 				cir.setReturnValue(d * 0.5);
 			}
 		}
+	}
+
+	@Inject(method="getLootTable", at=@At("HEAD"), cancellable=true)
+	public void InjectCustomLootTable(CallbackInfoReturnable<Identifier> cir) {
+		List<CustomLootTablePower> customLootTables = PowerHolderComponent.getPowers(this, CustomLootTablePower.class)
+				.stream().filter(x -> x.getLootTable() != null).toList();
+		if (customLootTables.isEmpty()) return;
+		cir.setReturnValue(customLootTables.get(0).getLootTable());
 	}
 }

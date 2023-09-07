@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "haven:blue_mushroom_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:red_sandy_blue_mushroom_planks"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:light_gray_wool"
+    },
+    {
+      "item": "minecraft:light_gray_wool"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "tag": "haven:raw_fish"
+    }
+  ],
+  "result": {
+    "item": "haven:british_shorthair_cat_plushie"
+  }
+}

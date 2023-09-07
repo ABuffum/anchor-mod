@@ -37,6 +37,6 @@ public abstract class DrownedEntityMixin extends ZombieEntity implements RangedA
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		this.dataTracker.set(DrownedVariant.VARIANT, nbt.getInt("Variant"));
+		if (nbt.contains("Variant")) this.dataTracker.set(DrownedVariant.VARIANT, nbt.getInt("Variant"));
 	}
 }

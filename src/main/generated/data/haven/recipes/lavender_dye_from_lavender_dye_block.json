@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:lavender_dye_block"
+    }
+  ],
+  "result": {
+    "item": "haven:lavender_dye",
+    "count": 9
+  }
+}

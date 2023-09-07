@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:bamboo_log_slab_from_dried_bamboo_log_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dried_bamboo_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dried_bamboo_log"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:bamboo_log_slab_from_dried_bamboo_log_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dried_bamboo_log",
+      "has_the_recipe"
+    ]
+  ]
+}

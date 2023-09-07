@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:golden_apple_juice"
+    },
+    {
+      "item": "haven:cinnamon"
+    }
+  ],
+  "result": {
+    "item": "haven:golden_apple_cider"
+  }
+}

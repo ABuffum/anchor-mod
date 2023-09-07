@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:light_blue_wool"
+    },
+    [
+      {
+        "item": "minecraft:mutton"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:light_blue_sheep_plushie"
+  }
+}

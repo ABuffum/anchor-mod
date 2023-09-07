@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sugar"
+    },
+    [
+      {
+        "item": "minecraft:potion"
+      },
+      {
+        "item": "haven:distilled_water_bottle"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:sugar_water_bottle"
+  }
+}

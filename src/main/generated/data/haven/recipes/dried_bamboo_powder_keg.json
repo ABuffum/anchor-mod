@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:dried_bamboo_barrel"
+    },
+    {
+      "item": "haven:gunpowder_block"
+    }
+  ],
+  "result": {
+    "item": "haven:dried_bamboo_powder_keg"
+  }
+}

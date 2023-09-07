@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#L#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:magma_cream"
+    },
+    "L": {
+      "item": "haven:empty_lantern"
+    }
+  },
+  "result": {
+    "item": "haven:magma_cube_lantern"
+  }
+}

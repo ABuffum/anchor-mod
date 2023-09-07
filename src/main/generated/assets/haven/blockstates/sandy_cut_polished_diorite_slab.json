@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/sandy_cut_polished_diorite_slab"
+    },
+    "type=double": {
+      "model": "haven:block/sandy_cut_polished_diorite"
+    },
+    "type=top": {
+      "model": "haven:block/sandy_cut_polished_diorite_slab_top"
+    }
+  }
+}

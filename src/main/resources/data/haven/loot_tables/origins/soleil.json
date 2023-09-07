@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+	{
+	  "rolls": 1,
+	  "entries": [
+		{
+		  "type": "minecraft:item",
+		  "name": "haven:blue_cotton_candy",
+		  "conditions": [
+			{
+			  "condition": "minecraft:damage_source_properties",
+			  "predicate": { "source_entity": { "equipment": { "mainhand": { "tag": "c:tools/shears" } } } }
+			}
+		  ]
+		}
+	  ],
+	  "functions": [ { "function": "minecraft:set_count", "count": 2 }
+	  ]
+	}
+  ]
+}

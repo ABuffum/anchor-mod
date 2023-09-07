@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#L#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:blue_slime_ball"
+    },
+    "L": {
+      "item": "haven:empty_lantern"
+    }
+  },
+  "result": {
+    "item": "haven:tropical_slime_lantern"
+  }
+}

@@ -1,11 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:charred_button",
-    "minecraft:mangrove_button",
-    "minecraft:bamboo_button",
+    "haven:dried_bamboo_button",
     "minecraft:cherry_button",
-    "haven:cassia_button",
-    "haven:dogwood_button"
+    "haven:gilded_button",
+    "minecraft:bamboo_button"
   ]
 }

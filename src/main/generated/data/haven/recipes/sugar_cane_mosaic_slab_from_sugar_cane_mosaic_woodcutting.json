@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:sugar_cane_mosaic"
+  },
+  "result": "haven:sugar_cane_mosaic_slab",
+  "count": 2
+}

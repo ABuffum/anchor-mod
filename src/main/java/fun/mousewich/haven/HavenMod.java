@@ -9,6 +9,7 @@ import fun.mousewich.block.tnt.*;
 import fun.mousewich.container.FlowerContainer;
 import fun.mousewich.container.FlowerPartContainer;
 import fun.mousewich.damage.ModDamageSource;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.entity.projectile.BottledLightningEntity;
 import fun.mousewich.haven.block.*;
 import fun.mousewich.haven.block.tnt.*;
@@ -17,7 +18,6 @@ import fun.mousewich.haven.effect.BoneRotEffect;
 import fun.mousewich.effect.ModStatusEffect;
 import fun.mousewich.haven.effect.IchoredEffect;
 import fun.mousewich.haven.effect.WitheringEffect;
-import fun.mousewich.entity.FabricEntityTypeBuilderImpl;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.haven.entity.AngelBatEntity;
 import fun.mousewich.haven.block.anchor.*;
@@ -53,6 +53,7 @@ import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.Heightmap;
@@ -64,7 +65,7 @@ import java.util.function.Function;
 
 import static fun.mousewich.ModBase.*;
 import static fun.mousewich.ModFactory.*;
-import static fun.mousewich.ModRegistry.Register;
+import static fun.mousewich.registry.ModRegistry.Register;
 import static java.util.Map.entry;
 
 public class HavenMod {
@@ -87,9 +88,9 @@ public class HavenMod {
 	//</editor-fold>
 
 	//<editor-fold desc="Anchors">
-	public static final BlockContainer ANCHOR = new BlockContainer(new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f)));
+	public static final BlockContainer ANCHOR = new BlockContainer(new AnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f))).dropSelf();
 	public static final BlockEntityType<AnchorBlockEntity> ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(AnchorBlockEntity::new, ANCHOR.asBlock()).build(null);
-	public static final BlockContainer BROKEN_ANCHOR = new BlockContainer(new BrokenAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f)));
+	public static final BlockContainer BROKEN_ANCHOR = new BlockContainer(new BrokenAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f))).dropSelf();
 	public static final BlockEntityType<BrokenAnchorBlockEntity> BROKEN_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(BrokenAnchorBlockEntity::new, BROKEN_ANCHOR.asBlock()).build(null);
 	public static final Block SUBSTITUTE_ANCHOR_BLOCK = new SubstituteAnchorBlock(FabricBlockSettings.of(Material.SOIL).hardness(1f));
 	public static final BlockEntityType<SubstituteAnchorBlockEntity> SUBSTITUTE_ANCHOR_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(SubstituteAnchorBlockEntity::new, SUBSTITUTE_ANCHOR_BLOCK).build(null);
@@ -107,7 +108,7 @@ public class HavenMod {
 	);
 	public static final Map<Integer, AnchorCoreItem> ANCHOR_CORES = new HashMap<>();
 	public static final Map<Integer, BrokenAnchorCoreItem> BROKEN_ANCHOR_CORES = new HashMap<>(Map.ofEntries(
-			entry(20, new BrokenAnchorCoreItem(20))
+			entry(20, GeneratedItem(new BrokenAnchorCoreItem(20)))
 	));
 	//</editor-fold>
 	//<editor-fold desc="Blood Types">
@@ -207,7 +208,7 @@ public class HavenMod {
 				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 600, 2));
 				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 600, 2));
 				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 600, 2));
-				entity.addStatusEffect(new StatusEffectInstance(ModBase.STICKY_EFFECT, 600));
+				entity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.STICKY, 600));
 			}
 		}
 	}
@@ -244,7 +245,7 @@ public class HavenMod {
 	//<editor-fold desc="Gawain">
 	//Red for Protection
 	public static final StatusEffect PROTECTED_EFFECT = new ModStatusEffect(StatusEffectType.BENEFICIAL,0xED302C);
-	public static final Item RED_CURSE_BREAKER_POTION = GeneratedItem(new BottledDrinkItem(ItemSettings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE)) {
+	public static final Item RED_CURSE_BREAKER_POTION = GeneratedItem(new BottledDrinkItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE)) {
 		@Override public boolean hasGlint(ItemStack stack) { return true; }
 		@Override
 		public void OnDrink(ItemStack stack, LivingEntity user) {
@@ -254,7 +255,7 @@ public class HavenMod {
 	});
 	//White for Pain
 	public static final StatusEffect RELIEVED_EFFECT = new ModStatusEffect(StatusEffectType.BENEFICIAL,0xD6E8E8);
-	public static final Item WHITE_CURSE_BREAKER_POTION = GeneratedItem(new BottledDrinkItem(ItemSettings().maxCount(1).recipeRemainder(Items.GLASS_BOTTLE)) {
+	public static final Item WHITE_CURSE_BREAKER_POTION = GeneratedItem(new BottledDrinkItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE)) {
 		@Override public boolean hasGlint(ItemStack stack) { return true; }
 		@Override
 		public void OnDrink(ItemStack stack, LivingEntity user) {
@@ -334,7 +335,7 @@ public class HavenMod {
 	private static BlockContainer MakeDecorativeBlock(Function<Block.Settings, Block> blockProvider, Block copyOf) {
 		return new BlockContainer(blockProvider.apply(Block.Settings.copy(copyOf)), ItemSettings().group(DECORATION_GROUP).rarity(Rarity.EPIC));
 	}
-	public static final BlockContainer DECORATIVE_VINE = MakeDecorativeBlock(DecorativeVineBlock::new, Blocks.VINE);
+	public static final BlockContainer DECORATIVE_VINE = MakeDecorativeBlock(DecorativeVineBlock::new, Blocks.VINE).blockTag(BlockTags.CLIMBABLE);
 	public static final BlockContainer DECORATIVE_SUGAR_CANE = MakeDecorativeBlock(DecorativeSugarCaneBlock::new, Blocks.SUGAR_CANE);
 	public static final BlockContainer DECORATIVE_CACTUS = MakeDecorativeBlock(DecorativeCactusBlock::new, Blocks.CACTUS);
 	public static final BlockContainer DECORATIVE_ACACIA_SAPLING = MakeDecorativeBlock(DecorativeSaplingBlock::new, Blocks.ACACIA_SAPLING);
@@ -346,6 +347,7 @@ public class HavenMod {
 	public static final BlockContainer DECORATIVE_SPRUCE_SAPLING = MakeDecorativeBlock(DecorativeSaplingBlock::new, Blocks.SPRUCE_SAPLING);
 	public static final BlockContainer DECORATIVE_CASSIA_SAPLING = MakeDecorativeBlock(DecorativeSaplingBlock::new, ModBase.CASSIA_SAPLING.asBlock());
 	public static final BlockContainer DECORATIVE_DOGWOOD_SAPLING = MakeDecorativeBlock(DecorativeSaplingBlock::new, ModBase.DOGWOOD_SAPLING.asBlock());
+	public static final BlockContainer DECORATIVE_GRAPE_SAPLING = MakeDecorativeBlock(DecorativeSaplingBlock::new, ModBase.GRAPE_SAPLING.asBlock());
 	public static final BlockContainer DECORATIVE_BEETROOTS = MakeDecorativeBlock(DecorativeBeetrootBlock::new, Blocks.BEETROOTS);
 	public static final BlockContainer DECORATIVE_CARROTS = MakeDecorativeBlock(DecorativeCropBlock::new, Blocks.CARROTS);
 	public static final BlockContainer DECORATIVE_POTATOES = MakeDecorativeBlock(DecorativeCropBlock::new, Blocks.POTATOES);
@@ -538,6 +540,7 @@ public class HavenMod {
 		Register("decoration_only_cherry_sapling", DECORATIVE_CHERRY_SAPLING, List.of(EN_US.Sapling(EN_US.Cherry(EN_US.Only(EN_US.Decoration())))));
 		Register("decoration_only_cassia_sapling", DECORATIVE_CASSIA_SAPLING, List.of(EN_US.Sapling(EN_US.Cassia(EN_US.Only(EN_US.Decoration())))));
 		Register("decoration_only_dogwood_sapling", DECORATIVE_DOGWOOD_SAPLING, List.of(EN_US.Sapling(EN_US.Dogwood(EN_US.Only(EN_US.Decoration())))));
+		Register("decoration_only_grape_sapling", DECORATIVE_GRAPE_SAPLING, List.of(EN_US.Sapling(EN_US.Grape(EN_US.Only(EN_US.Decoration())))));
 		Register("decoration_only_beetroots", DECORATIVE_BEETROOTS, List.of(EN_US.Beetroots(EN_US.Only(EN_US.Decoration()))));
 		Register("decoration_only_carrots", DECORATIVE_CARROTS, List.of(EN_US.Carrots(EN_US.Only(EN_US.Decoration()))));
 		Register("decoration_only_potatoes", DECORATIVE_POTATOES, List.of(EN_US.Potatoes(EN_US.Only(EN_US.Decoration()))));

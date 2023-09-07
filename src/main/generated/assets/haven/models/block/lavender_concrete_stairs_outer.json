@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "haven:block/lavender_concrete",
+    "top": "haven:block/lavender_concrete",
+    "side": "haven:block/lavender_concrete"
+  }
+}

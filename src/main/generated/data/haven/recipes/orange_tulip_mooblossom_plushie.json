@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:cow_plushie"
+    },
+    {
+      "item": "minecraft:orange_tulip"
+    }
+  ],
+  "result": {
+    "item": "haven:orange_tulip_mooblossom_plushie"
+  }
+}

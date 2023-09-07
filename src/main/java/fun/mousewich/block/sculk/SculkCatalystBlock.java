@@ -1,6 +1,7 @@
 package fun.mousewich.block.sculk;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
@@ -43,7 +44,7 @@ public class SculkCatalystBlock extends BlockWithEntity {
 	public static void bloom(ServerWorld world, BlockPos pos, BlockState state, Random random) {
 		world.setBlockState(pos, state.with(BLOOM, true), Block.NOTIFY_ALL);
 		world.getBlockTickScheduler().schedule(pos, state.getBlock(), BLOOM_DURATION);
-		world.spawnParticles(ModBase.SCULK_SOUL_PARTICLE, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
+		world.spawnParticles(ModParticleTypes.SCULK_SOUL, (double)pos.getX() + 0.5, (double)pos.getY() + 1.15, (double)pos.getZ() + 0.5, 2, 0.2, 0.0, 0.2, 0.0);
 		world.playSound(null, pos, ModSoundEvents.BLOCK_SCULK_CATALYST_BLOOM, SoundCategory.BLOCKS, 2.0f, 0.6f + random.nextFloat() * 0.4f);
 	}
 

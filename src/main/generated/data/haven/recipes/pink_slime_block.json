@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:pink_slime_ball"
+    }
+  },
+  "result": {
+    "item": "haven:pink_slime_block"
+  }
+}

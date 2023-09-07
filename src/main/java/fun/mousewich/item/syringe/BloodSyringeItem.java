@@ -5,6 +5,7 @@ import fun.mousewich.ModConfig;
 import fun.mousewich.command.ChorusCommand;
 import fun.mousewich.damage.InjectedBloodDamageSource;
 import fun.mousewich.damage.ModDamageSource;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.haven.HavenMod;
@@ -12,6 +13,7 @@ import fun.mousewich.mixins.entity.LivingEntityAccessor;
 import fun.mousewich.origins.power.ChorusImmunePower;
 import fun.mousewich.origins.power.PowersUtil;
 import fun.mousewich.ryft.RyftMod;
+import net.minecraft.block.*;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
@@ -20,12 +22,15 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
@@ -61,6 +66,62 @@ public class BloodSyringeItem extends BaseSyringeItem {
 			else if (entity instanceof PlayerEntity && entityType != BloodType.NONE) return 1;
 		}
 		return -1;
+	}
+
+	public static BlockState getState(BloodType type, BlockState state) {
+		if (type == BloodType.NONE) return null;
+		Block block = state.getBlock();
+		Block outBlock = null;
+		if (BloodType.BLOOD_TYPE_TO_SYRINGE.getOrDefault(type, null) == ModBase.BLOOD_SYRINGE) {
+			if (Blocks.CRYING_OBSIDIAN == block) outBlock = ModBase.BLEEDING_OBSIDIAN.asBlock();
+			else if (ModBase.CRYING_OBSIDIAN_STAIRS.contains(block)) outBlock = ModBase.BLEEDING_OBSIDIAN_STAIRS.asBlock();
+			else if (ModBase.CRYING_OBSIDIAN_SLAB.contains(block)) outBlock = ModBase.BLEEDING_OBSIDIAN_SLAB.asBlock();
+			else if (ModBase.CRYING_OBSIDIAN_WALL.contains(block)) outBlock = ModBase.BLEEDING_OBSIDIAN_WALL.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_STAIRS.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_STAIRS.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_SLAB.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_SLAB.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_WALL.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_WALL.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_BRICKS.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_BRICKS.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_BRICK_STAIRS.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_BRICK_STAIRS.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_BRICK_SLAB.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_BRICK_SLAB.asBlock();
+			else if (ModBase.POLISHED_CRYING_OBSIDIAN_BRICK_WALL.contains(block)) outBlock = ModBase.POLISHED_BLEEDING_OBSIDIAN_BRICK_WALL.asBlock();
+			else if (ModBase.CRACKED_POLISHED_CRYING_OBSIDIAN_BRICKS.contains(block)) outBlock = ModBase.CRACKED_POLISHED_BLEEDING_OBSIDIAN_BRICKS.asBlock();
+		}
+		if (outBlock != null) {
+			BlockState outState = outBlock.getDefaultState();
+			if (outBlock instanceof StairsBlock) outState = outState
+					.with(StairsBlock.WATERLOGGED, state.get(StairsBlock.WATERLOGGED))
+					.with(StairsBlock.FACING, state.get(StairsBlock.FACING))
+					.with(StairsBlock.SHAPE, state.get(StairsBlock.SHAPE))
+					.with(StairsBlock.HALF, state.get(StairsBlock.HALF));
+			else if (outBlock instanceof SlabBlock) outState = outState
+					.with(SlabBlock.WATERLOGGED, state.get(SlabBlock.WATERLOGGED))
+					.with(SlabBlock.TYPE, state.get(SlabBlock.TYPE));
+			else if (outBlock instanceof WallBlock) outState = outState
+					.with(WallBlock.WATERLOGGED, state.get(WallBlock.WATERLOGGED))
+					.with(WallBlock.NORTH_SHAPE, state.get(WallBlock.NORTH_SHAPE))
+					.with(WallBlock.SOUTH_SHAPE, state.get(WallBlock.SOUTH_SHAPE))
+					.with(WallBlock.EAST_SHAPE, state.get(WallBlock.EAST_SHAPE))
+					.with(WallBlock.WEST_SHAPE, state.get(WallBlock.WEST_SHAPE))
+					.with(WallBlock.UP, state.get(WallBlock.UP));
+			return outState;
+		}
+		return null;
+	}
+
+	@Override
+	public ActionResult useOnBlock(ItemUsageContext context) {
+		World world = context.getWorld();
+		BlockPos pos = context.getBlockPos();
+		BlockState state = world.getBlockState(pos);
+		PlayerEntity player = context.getPlayer();
+		BlockState outState = getState(getBloodType(context.getStack()), state);
+		if (outState != null) {
+			world.setBlockState(pos, outState, Block.NOTIFY_ALL);
+			ReplaceSyringe(player, context.getHand(), ModBase.DIRTY_SYRINGE);
+			return ActionResult.CONSUME;
+		}
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -166,7 +227,7 @@ public class BloodSyringeItem extends BaseSyringeItem {
 			for(boolean bl = false; iterator.hasNext(); bl = true) {
 				StatusEffectInstance effect = iterator.next();
 				StatusEffect type = effect.getEffectType();
-				if (type == ModBase.BLEEDING_EFFECT) lea.OnStatusEffectRemoved(effect);
+				if (type == ModStatusEffects.BLEEDING) lea.OnStatusEffectRemoved(effect);
 				iterator.remove();
 			}
 		}

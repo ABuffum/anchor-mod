@@ -71,9 +71,9 @@ public class Recipes {
 	}
 
 	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, ItemConvertible ingredient) { return MakeShapeless(output, ingredient, 1); }
-	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, ItemConvertible ingredient, int count) {
-		return MakeShapeless(output, Ingredient.ofItems(ingredient), count);
-	}
+	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, ItemConvertible ingredient, int count) { return MakeShapeless(output, Ingredient.ofItems(ingredient), count); }
+	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, Tag.Identified<Item> ingredient) { return MakeShapeless(output, ingredient, 1); }
+	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, Tag.Identified<Item> ingredient, int count) { return MakeShapeless(output, Ingredient.fromTag(ingredient), count); }
 	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, Ingredient ingredient) { return MakeShapeless(output, ingredient, 1); }
 	public static ShapelessRecipeJsonFactory MakeShapeless(ItemConvertible output, Ingredient ingredient, int count) {
 		return ShapelessRecipeJsonFactory.create(output, count).input(ingredient)
@@ -99,10 +99,14 @@ public class Recipes {
 	public static ShapedRecipeJsonFactory Make1x3(ItemConvertible output, Ingredient ingredient, int count) { return Make1x2(output, ingredient, count).pattern("#"); }
 	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, ItemConvertible ingredient) { return Make2x1(output, ingredient, 1); }
 	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, ItemConvertible ingredient, int count) { return MakeShaped(output, ingredient, count).pattern("##"); }
+	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, Tag.Identified<Item> ingredient) { return Make2x1(output, ingredient, 1); }
+	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, Tag.Identified<Item> ingredient, int count) { return MakeShaped(output, ingredient, count).pattern("##"); }
 	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, Ingredient ingredient) { return Make2x1(output, ingredient, 1); }
 	public static ShapedRecipeJsonFactory Make2x1(ItemConvertible output, Ingredient ingredient, int count) { return MakeShaped(output, ingredient, count).pattern("##"); }
 	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, Ingredient ingredient) { return Make2x2(output, ingredient, 1); }
 	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, Ingredient ingredient, int count) { return Make2x1(output, ingredient, count).pattern("##"); }
+	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, Tag.Identified<Item> ingredient, int count) { return Make2x1(output, ingredient, count).pattern("##"); }
+	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, Tag.Identified<Item> ingredient) { return Make2x2(output, ingredient, 1); }
 	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, ItemConvertible ingredient) { return Make2x2(output, ingredient, 1); }
 	public static ShapedRecipeJsonFactory Make2x2(ItemConvertible output, ItemConvertible ingredient, int count) { return Make2x1(output, ingredient, count).pattern("##"); }
 	public static ShapedRecipeJsonFactory Make2x3(ItemConvertible output, ItemConvertible ingredient) { return Make2x3(output, ingredient, 1); }
@@ -163,10 +167,15 @@ public class Recipes {
 	public static CraftingRecipeJsonFactory MakeBoots(ItemConvertible output, Ingredient ingredient) {
 		return MakeShaped(output, ingredient).pattern("# #").pattern("# #");
 	}
+	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, ItemConvertible logs) { return MakeCampfire(output, logs, Ingredient.fromTag(ItemTags.COALS)); }
 	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, Tag.Identified<Item> logs) { return MakeCampfire(output, logs, Ingredient.fromTag(ItemTags.COALS)); }
+	public static CraftingRecipeJsonFactory MakeSoulCampfire(ItemConvertible output, ItemConvertible logs) { return MakeCampfire(output, logs, Ingredient.fromTag(ItemTags.SOUL_FIRE_BASE_BLOCKS)); }
 	public static CraftingRecipeJsonFactory MakeSoulCampfire(ItemConvertible output, Tag.Identified<Item> logs) { return MakeCampfire(output, logs, Ingredient.fromTag(ItemTags.SOUL_FIRE_BASE_BLOCKS)); }
+	public static CraftingRecipeJsonFactory MakeEnderCampfire(ItemConvertible output, ItemConvertible logs) { return MakeCampfire(output, logs, Ingredient.ofItems(Items.POPPED_CHORUS_FRUIT)); }
 	public static CraftingRecipeJsonFactory MakeEnderCampfire(ItemConvertible output, Tag.Identified<Item> logs) { return MakeCampfire(output, logs, Ingredient.ofItems(Items.POPPED_CHORUS_FRUIT)); }
-	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, Tag.Identified<Item> logs, Ingredient coal) {
+	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, ItemConvertible logs, Ingredient coal) { return MakeCampfire(output, Ingredient.ofItems(logs), coal); }
+	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, Tag.Identified<Item> logs, Ingredient coal) { return MakeCampfire(output, Ingredient.fromTag(logs), coal); }
+	public static CraftingRecipeJsonFactory MakeCampfire(ItemConvertible output, Ingredient logs, Ingredient coal) {
 		return make(ShapedRecipeJsonFactory.create(output).input('C', coal).input('L', logs).input('S', Items.STICK)
 				.pattern(" S ").pattern("SCS").pattern("LLL"));
 	}
@@ -236,6 +245,7 @@ public class Recipes {
 		return Make2x1(output, ingredient);
 	}
 	public static CraftingRecipeJsonFactory MakeSandy(ItemConvertible output, ItemConvertible input) { return MakeShapeless(output, Items.SAND).input(input); }
+	public static CraftingRecipeJsonFactory MakeRedSandy(ItemConvertible output, ItemConvertible input) { return MakeShapeless(output, Items.RED_SAND).input(input); }
 	public static CraftingRecipeJsonFactory MakeShears(ItemConvertible output, ItemConvertible ingredient) {
 		return MakeShaped(output, ingredient).pattern(" #").pattern("# ");
 	}
@@ -321,5 +331,7 @@ public class Recipes {
 		return Make3x2(output, ingredient, 3);
 	}
 
-
+	public static CraftingRecipeJsonFactory SyringesToBottle(ItemConvertible output, ItemConvertible ingredient) {
+		return MakeShaped(output, ingredient).input('B', Items.GLASS_BOTTLE).pattern("###").pattern("#B#").pattern("###");
+	}
 }

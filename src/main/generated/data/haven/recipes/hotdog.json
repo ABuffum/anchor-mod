@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#M#",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:bread"
+    },
+    "M": {
+      "item": "minecraft:cooked_beef"
+    }
+  },
+  "result": {
+    "item": "haven:hotdog",
+    "count": 4
+  }
+}

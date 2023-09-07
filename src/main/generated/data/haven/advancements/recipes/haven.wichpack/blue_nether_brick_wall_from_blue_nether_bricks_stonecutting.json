@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_blue_nether_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:blue_nether_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:blue_nether_brick_wall_from_blue_nether_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blue_nether_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

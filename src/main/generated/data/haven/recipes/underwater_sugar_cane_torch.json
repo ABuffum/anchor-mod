@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "minecraft:sugar_cane"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_sugar_cane_torch",
+    "count": 4
+  }
+}

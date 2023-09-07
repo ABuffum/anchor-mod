@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:iron_nugget_from_smelting_bucket"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:iron_nugget_from_smelting_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_bucket",
+      "has_the_recipe"
+    ]
+  ]
+}

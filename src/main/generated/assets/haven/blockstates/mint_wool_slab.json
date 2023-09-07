@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/mint_wool_slab"
+    },
+    "type=double": {
+      "model": "haven:block/mint_wool"
+    },
+    "type=top": {
+      "model": "haven:block/mint_wool_slab_top"
+    }
+  }
+}

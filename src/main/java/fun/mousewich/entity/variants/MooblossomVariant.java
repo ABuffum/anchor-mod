@@ -14,10 +14,10 @@ import net.minecraft.util.math.MathHelper;
 
 public enum MooblossomVariant {
 	MAGENTA_TULIP("magenta_tulip", "textures/entity/cow/mooblossom/magenta_tulip.png", ModBase.MAGENTA_TULIP.asBlock(), ModBase.MAGENTA_TULIP.asItem(), ModBase.MOOBLOSSOM_MAGENTA_TULIP),
-	RED_TULIP("red_tulip", "textures/entity/cow/red_tulip.png", Blocks.RED_TULIP, Items.RED_TULIP, ModBase.MOOBLOSSOM_RED_TULIP),
-	ORANGE_TULIP("orange_tulip", "textures/entity/cow/orange_tulip.png", Blocks.ORANGE_TULIP, Items.ORANGE_TULIP, ModBase.MOOBLOSSOM_ORANGE_TULIP),
-	WHITE_TULIP("white_tulip", "textures/entity/cow/white_tulip.png", Blocks.WHITE_TULIP, Items.WHITE_TULIP, ModBase.MOOBLOSSOM_WHITE_TULIP),
-	PINK_TULIP("pink_tulip", "textures/entity/cow/pink_tulip.png", Blocks.PINK_TULIP, Items.PINK_TULIP, ModBase.MOOBLOSSOM_PINK_TULIP);
+	RED_TULIP("red_tulip", "textures/entity/cow/mooblossom/red_tulip.png", Blocks.RED_TULIP, Items.RED_TULIP, ModBase.MOOBLOSSOM_RED_TULIP),
+	ORANGE_TULIP("orange_tulip", "textures/entity/cow/mooblossom/orange_tulip.png", Blocks.ORANGE_TULIP, Items.ORANGE_TULIP, ModBase.MOOBLOSSOM_ORANGE_TULIP),
+	WHITE_TULIP("white_tulip", "textures/entity/cow/mooblossom/white_tulip.png", Blocks.WHITE_TULIP, Items.WHITE_TULIP, ModBase.MOOBLOSSOM_WHITE_TULIP),
+	PINK_TULIP("pink_tulip", "textures/entity/cow/mooblossom/pink_tulip.png", Blocks.PINK_TULIP, Items.PINK_TULIP, ModBase.MOOBLOSSOM_PINK_TULIP);
 
 	public static final TrackedData<Integer> VARIANT = DataTracker.registerData(MooblossomEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public static int getVariant(MooblossomEntity entity) { return entity.getDataTracker().get(VARIANT); }
@@ -38,6 +38,6 @@ public enum MooblossomVariant {
 	}
 	public static MooblossomVariant get(MooblossomEntity entity) {
 		MooblossomVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length - 1)];
 	}
 }

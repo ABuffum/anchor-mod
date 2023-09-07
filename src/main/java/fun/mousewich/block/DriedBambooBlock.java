@@ -1,6 +1,7 @@
 package fun.mousewich.block;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.registry.ModBambooRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.BambooLeaves;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -37,7 +38,7 @@ public class DriedBambooBlock extends Block {
 	}
 
 	public static boolean AllowDriedBamboo(BlockState instance, Block block) {
-		return (block == Blocks.BAMBOO && instance.isOf(ModBase.DRIED_BAMBOO.asBlock())) || instance.isOf(block);
+		return ((block == Blocks.BAMBOO || block == ModBambooRegistry.DRIED_BAMBOO.asBlock()) && instance.isOf(ModBambooRegistry.DRIED_BAMBOO.asBlock())) || instance.isOf(block);
 	}
 
 	@Override

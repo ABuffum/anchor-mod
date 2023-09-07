@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:netherite_milk_bucket"
+    },
+    {
+      "item": "haven:coffee_beans"
+    }
+  ],
+  "result": {
+    "item": "haven:netherite_coffee_milk_bucket"
+  }
+}

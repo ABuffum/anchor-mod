@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "haven:marshmallow_on_stick"
+  },
+  "result": "haven:roast_marshmallow_on_stick",
+  "experience": 0.1,
+  "cookingtime": 200
+}

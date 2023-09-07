@@ -8,7 +8,7 @@
   "key": {
 	"i": { "tag": "forge:ingots/iron" },
 	"B": { "item": "minecraft:bricks" },
-	"C": { "tag": "haven:campfires" }
+	"C": { "tag": "wich:campfires" }
   },
   "result": {
 	"item": "farmersdelight:stove"

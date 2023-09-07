@@ -3,6 +3,7 @@ package fun.mousewich.item.syringe;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModConfig;
 import fun.mousewich.damage.ModDamageSource;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.haven.HavenMod;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,7 @@ public class SlimeSyringeItem extends BaseSyringeItem {
 		else if (ModConfig.REGISTER_HAVEN_MOD && bloodType == HavenMod.SLUDGE_BLOOD_TYPE) BloodSyringeItem.heal(entity, 1);
 		else {
 			entity.damage(ModDamageSource.Injected("slime", user), 1);
-			user.addStatusEffect(new StatusEffectInstance(ModBase.STICKY_EFFECT, 600));
+			user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.STICKY, 600));
 		}
 	}
 }

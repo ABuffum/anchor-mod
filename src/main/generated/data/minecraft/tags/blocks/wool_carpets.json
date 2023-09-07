@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "haven:rainbow_carpet",
     "minecraft:white_carpet",
     "minecraft:orange_carpet",
     "minecraft:magenta_carpet",
@@ -16,7 +17,6 @@
     "minecraft:brown_carpet",
     "minecraft:green_carpet",
     "minecraft:red_carpet",
-    "minecraft:black_carpet",
-    "haven:rainbow_carpet"
+    "minecraft:black_carpet"
   ]
 }

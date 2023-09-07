@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_wool"
+    },
+    [
+      {
+        "item": "minecraft:mutton"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:orange_sheep_plushie"
+  }
+}

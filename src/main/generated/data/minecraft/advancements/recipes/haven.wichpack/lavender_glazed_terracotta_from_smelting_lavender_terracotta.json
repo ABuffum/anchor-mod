@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:lavender_glazed_terracotta_from_smelting_lavender_terracotta"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_lavender_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:lavender_terracotta"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:lavender_glazed_terracotta_from_smelting_lavender_terracotta"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lavender_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

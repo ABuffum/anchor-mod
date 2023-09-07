@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:lavender_terracotta"
+  },
+  "result": "haven:lavender_terracotta_slab",
+  "count": 2
+}

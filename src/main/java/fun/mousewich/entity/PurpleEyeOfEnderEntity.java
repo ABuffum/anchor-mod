@@ -45,9 +45,7 @@ public class PurpleEyeOfEnderEntity extends Entity implements FlyingItemEntity {
 		}
 	}
 
-	private ItemStack getTrackedItem() {
-		return this.getDataTracker().get(ITEM);
-	}
+	private ItemStack getTrackedItem() { return this.getDataTracker().get(ITEM); }
 
 	@Override
 	public ItemStack getStack() {
@@ -156,11 +154,11 @@ public class PurpleEyeOfEnderEntity extends Entity implements FlyingItemEntity {
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		ItemStack itemStack = this.getTrackedItem();
-		if (!itemStack.isEmpty()) nbt.put("Item", itemStack.writeNbt(new NbtCompound()));
+		if (!itemStack.isEmpty()) nbt.put(ModNbtKeys.ITEM, itemStack.writeNbt(new NbtCompound()));
 	}
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
-		ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound("Item"));
+		ItemStack itemStack = ItemStack.fromNbt(nbt.getCompound(ModNbtKeys.ITEM));
 		this.setItem(itemStack);
 	}
 	@Override

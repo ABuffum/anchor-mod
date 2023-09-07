@@ -2,11 +2,14 @@ package fun.mousewich.entity;
 
 public class ModNbtKeys {
 	public static final String ANGER = "anger";
+	public static final String BLOCK_ENTITY_TAG = "BlockEntityTag";
 	public static final String BLOOD_TYPE = "blood_type";
 	public static final String CAN_DUPLICATE = "CanDuplicate";
+	public static final String COLOR = "Color";
 	public static final String CURSORS = "cursors";
 	public static final String DUPLICATION_COOLDOWN = "DuplicationCooldown";
 	public static final String HIT_DIRECTION = "hit_direction";
+	public static final String INDEX = "Index";
 	public static final String INVENTORY = "Inventory";
 	public static final String ITEM = "item";
 	public static final String LAST_DEATH_LOCATION = "LastDeathLocation";
@@ -14,6 +17,25 @@ public class ModNbtKeys {
 	public static final String LISTENER = "listener";
 	public static final String LOOT_TABLE = "LootTable";
 	public static final String LOOT_TABLE_SEED = "LootTableSeed";
+	public static final String MOD_BANNER_PATTERNS = "ModBannerPatterns";
+	public static final String MOD_COLOR = "ModColor";
+	public static final String OWNER = "Owner";
+	public static final String PATTERN = "Pattern";
+	public static final String PATTERNS = "Patterns";
+	public static final String PITCH = "Pitch";
+	public static final String POSE = "Pose";
+	public static final String RENDER_BODY = "RenderBody";
+	public static final String RENDER_HEAD = "RenderHead";
+	public static final String RENDER_LEFT_ARM = "RenderLeftArm";
+	public static final String RENDER_LEFT_LEG = "RenderLeftLeg";
+	public static final String RENDER_RIGHT_ARM = "RenderRightArm";
+	public static final String RENDER_RIGHT_LEG = "RenderRightLeg";
+	public static final String ROLL = "Roll";
+	public static final String SLIM = "Slim";
 	public static final String TRIM = "Trim";
 	public static final String WARNING_LEVEL = "warning_level";
+	public static final String X = "X";
+	public static final String Y = "Y";
+	public static final String YAW = "Yaw";
+	public static final String Z = "Z";
 }

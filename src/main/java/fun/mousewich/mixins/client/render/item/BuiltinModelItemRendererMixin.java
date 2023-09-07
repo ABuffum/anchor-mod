@@ -1,15 +1,24 @@
 package fun.mousewich.mixins.client.render.item;
 
+import com.mojang.authlib.GameProfile;
 import fun.mousewich.block.basic.ModBedBlock;
 import fun.mousewich.block.piglin.PiglinHeadParent;
+import fun.mousewich.block.ragdoll.RagdollBlock;
+import fun.mousewich.block.ragdoll.RagdollBlockEntity;
 import fun.mousewich.client.render.block.model.PiglinHeadEntityModel;
 import fun.mousewich.client.render.block.renderer.PiglinHeadEntityRenderer;
+import fun.mousewich.client.render.block.renderer.RagdollBlockEntityRenderer;
+import fun.mousewich.entity.ModNbtKeys;
+import fun.mousewich.util.banners.ModBannerPatternConversions;
+import fun.mousewich.util.banners.ModBannerPatternRenderContext;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.SkullBlockEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
@@ -17,7 +26,11 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.BlockPos;
+import org.apache.commons.lang3.StringUtils;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,8 +47,15 @@ public class BuiltinModelItemRendererMixin {
 	@Shadow @Final private EntityModelLoader entityModelLoader;
 
 	private PiglinHeadEntityModel piglinHeadModel = null;
+	private SkullBlockEntityModel ragdollModel = null;
 
-	@Inject(at = @At("HEAD"), method = "render", cancellable = true)
+	@Inject(method="render", at=@At(value="INVOKE", target="Lnet/minecraft/client/render/block/entity/BannerBlockEntityRenderer;renderCanvas(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/util/SpriteIdentifier;ZLjava/util/List;Z)V"))
+	private void SetLoomPatterns(ItemStack itemStack, ModelTransformation.Mode mode, MatrixStack matrixStack, VertexConsumerProvider provider, int i, int j, CallbackInfo info) {
+		NbtList nbt = ModBannerPatternConversions.getModBannerPatternNbt(itemStack);
+		ModBannerPatternRenderContext.setModBannerPatterns(ModBannerPatternConversions.makeModBannerPatternData(nbt));
+	}
+
+	@Inject(method="render", at=@At("HEAD"), cancellable=true)
 	private void renderItems(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay, CallbackInfo ci) {
 		Item item = stack.getItem();
 		if (item instanceof BlockItem blockItem) {
@@ -48,6 +68,25 @@ public class BuiltinModelItemRendererMixin {
 			else if (block instanceof PiglinHeadParent head) {
 				if (this.piglinHeadModel == null) this.piglinHeadModel = PiglinHeadEntityRenderer.getModel(this.entityModelLoader);
 				PiglinHeadEntityRenderer.renderSkull(null, 180.0f, 0.0f, matrices, vertexConsumers, light, piglinHeadModel, head.isZombified());
+				ci.cancel();
+			}
+			else if (block instanceof RagdollBlock) {
+				GameProfile gameProfile2 = null;
+				if (stack.hasNbt()) {
+					NbtCompound nbtCompound = stack.getNbt();
+					if (nbtCompound.contains(ModNbtKeys.OWNER, 10)) {
+						gameProfile2 = NbtHelper.toGameProfile(nbtCompound.getCompound(ModNbtKeys.OWNER));
+					}
+					else if (nbtCompound.contains(ModNbtKeys.OWNER, 8) && !StringUtils.isBlank(nbtCompound.getString(ModNbtKeys.OWNER))) {
+						gameProfile2 = new GameProfile(null, nbtCompound.getString(ModNbtKeys.OWNER));
+						nbtCompound.remove(ModNbtKeys.OWNER);
+						RagdollBlockEntity.loadProperties(gameProfile2, gameProfile -> nbtCompound.put(ModNbtKeys.OWNER, NbtHelper.writeGameProfile(new NbtCompound(), gameProfile)));
+					}
+				}
+
+				if (this.ragdollModel == null) this.ragdollModel = RagdollBlockEntityRenderer.getSkullModel(this.entityModelLoader);
+				RenderLayer renderLayer = RagdollBlockEntityRenderer.getRenderLayer(gameProfile2);
+				RagdollBlockEntityRenderer.renderSkull(180.0f, 0.0f, matrices, vertexConsumers, light, this.ragdollModel, renderLayer);
 				ci.cancel();
 			}
 		}

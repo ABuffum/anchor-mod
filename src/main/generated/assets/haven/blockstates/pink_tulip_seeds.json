@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/pink_tulip_seeds"
+      "model": "haven:block/tulip_seeds"
     }
   }
 }

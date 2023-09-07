@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "haven:acacia_hammer",
+    "haven:birch_hammer",
+    "haven:dark_oak_hammer",
+    "haven:jungle_hammer",
+    "haven:oak_hammer",
+    "haven:spruce_hammer",
+    "haven:crimson_hammer",
+    "haven:warped_hammer",
+    "haven:gilded_hammer",
+    "haven:mangrove_hammer",
+    "haven:bamboo_hammer",
+    "haven:dried_bamboo_hammer",
+    "haven:cherry_hammer",
+    "haven:cassia_hammer",
+    "haven:dogwood_hammer"
+  ]
+}

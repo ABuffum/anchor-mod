@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "PPP",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:honeycomb"
+    },
+    "P": {
+      "item": "haven:mushroom_stem_planks"
+    }
+  },
+  "result": {
+    "item": "haven:mushroom_stem_beehive"
+  }
+}

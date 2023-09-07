@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "BEB",
+    "CCC"
+  ],
+  "key": {
+    "#": {
+      "tag": "haven:milk_buckets_vanilla"
+    },
+    "B": {
+      "item": "minecraft:sugar"
+    },
+    "C": {
+      "item": "minecraft:wheat"
+    },
+    "E": {
+      "item": "minecraft:egg"
+    }
+  },
+  "result": {
+    "item": "haven:vanilla_cake"
+  }
+}

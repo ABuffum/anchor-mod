@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:burgundy_dye"
+    },
+    {
+      "item": "minecraft:candle"
+    }
+  ],
+  "result": {
+    "item": "haven:burgundy_candle"
+  }
+}

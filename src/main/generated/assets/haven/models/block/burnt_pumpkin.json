@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "haven:block/burnt_pumpkin_front",
+    "north": "haven:block/burnt_pumpkin_front",
+    "south": "haven:block/burnt_pumpkin_front",
+    "east": "haven:block/burnt_pumpkin_side",
+    "west": "haven:block/burnt_pumpkin_side",
+    "up": "haven:block/burnt_pumpkin_top",
+    "down": "haven:block/burnt_pumpkin_top"
+  }
+}

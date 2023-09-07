@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/sandy_brown_mushroom_slab"
+    },
+    "type=double": {
+      "model": "haven:block/sandy_brown_mushroom_planks"
+    },
+    "type=top": {
+      "model": "haven:block/sandy_brown_mushroom_slab_top"
+    }
+  }
+}

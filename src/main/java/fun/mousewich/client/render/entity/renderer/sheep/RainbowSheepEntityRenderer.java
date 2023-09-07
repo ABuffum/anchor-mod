@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer.sheep;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.RainbowSheepEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.RainbowSheepWoolFeatureRenderer;
 import fun.mousewich.entity.passive.sheep.RainbowSheepEntity;
@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 public class RainbowSheepEntityRenderer extends MobEntityRenderer<RainbowSheepEntity, RainbowSheepEntityModel> {
 	private static final Identifier TEXTURE = ModBase.ID("textures/entity/sheep/rainbow_sheep.png");
 	public RainbowSheepEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new RainbowSheepEntityModel(context.getPart(ModClient.RAINBOW_SHEEP)), 0.7f);
+		super(context, new RainbowSheepEntityModel(context.getPart(ModEntityModelLayers.RAINBOW_SHEEP)), 0.7f);
 		this.addFeature(new RainbowSheepWoolFeatureRenderer(this, context.getModelLoader()));
 	}
 	@Override

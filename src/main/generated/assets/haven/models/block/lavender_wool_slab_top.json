@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "haven:block/lavender_wool",
+    "top": "haven:block/lavender_wool",
+    "side": "haven:block/lavender_wool"
+  }
+}

@@ -24,6 +24,6 @@ public enum SunkenSkeletonVariant {
 	}
 	public static SunkenSkeletonVariant get(SunkenSkeletonEntity entity) {
 		SunkenSkeletonVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getVariant(), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getVariant(), 0, variants.length - 1)];
 	}
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:burgundy_concrete"
+  },
+  "result": "haven:burgundy_concrete_slab",
+  "count": 2
+}

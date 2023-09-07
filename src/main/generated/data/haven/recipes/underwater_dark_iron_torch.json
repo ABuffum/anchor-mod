@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "haven:dark_iron_rod"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_dark_iron_torch",
+    "count": 8
+  }
+}

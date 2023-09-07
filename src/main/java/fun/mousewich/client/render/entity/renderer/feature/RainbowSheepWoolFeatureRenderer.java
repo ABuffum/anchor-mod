@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer.feature;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.RainbowSheepEntityModel;
 import fun.mousewich.client.render.entity.model.RainbowSheepWoolEntityModel;
 import fun.mousewich.entity.passive.sheep.RainbowSheepEntity;
@@ -20,7 +20,7 @@ public class RainbowSheepWoolFeatureRenderer extends FeatureRenderer<RainbowShee
 	private final RainbowSheepWoolEntityModel model;
 	public RainbowSheepWoolFeatureRenderer(FeatureRendererContext<RainbowSheepEntity, RainbowSheepEntityModel> context, EntityModelLoader loader) {
 		super(context);
-		this.model = new RainbowSheepWoolEntityModel(loader.getModelPart(ModClient.RAINBOW_SHEEP_FUR));
+		this.model = new RainbowSheepWoolEntityModel(loader.getModelPart(ModEntityModelLayers.RAINBOW_SHEEP_FUR));
 	}
 	@Override
 	public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, RainbowSheepEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {

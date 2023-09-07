@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:syringe"
+    },
+    {
+      "item": "haven:secret_ingredient"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "minecraft:egg"
+    },
+    {
+      "item": "minecraft:white_tulip"
+    }
+  ],
+  "result": {
+    "item": "haven:syringe_weakness"
+  }
+}

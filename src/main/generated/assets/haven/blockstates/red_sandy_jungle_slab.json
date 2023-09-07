@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/red_sandy_jungle_slab"
+    },
+    "type=double": {
+      "model": "haven:block/red_sandy_jungle_planks"
+    },
+    "type=top": {
+      "model": "haven:block/red_sandy_jungle_slab_top"
+    }
+  }
+}

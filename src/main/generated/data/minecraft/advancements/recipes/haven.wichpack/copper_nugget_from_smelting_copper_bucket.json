@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:copper_nugget_from_smelting_copper_bucket"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_copper_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:copper_bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:copper_nugget_from_smelting_copper_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_copper_bucket",
+      "has_the_recipe"
+    ]
+  ]
+}

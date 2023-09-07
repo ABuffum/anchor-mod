@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#B#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:stone_crafting_materials"
+    },
+    "B": {
+      "tag": "haven:buckets"
+    }
+  },
+  "result": {
+    "item": "haven:juicer"
+  }
+}

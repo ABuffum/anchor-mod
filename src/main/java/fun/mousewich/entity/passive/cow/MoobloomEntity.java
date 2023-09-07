@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 
 public class MoobloomEntity extends FlowerCowEntity {
 	public MoobloomEntity(EntityType<? extends MoobloomEntity> entityType, World world) { super(entityType, world); }
-	@Override public Block getFlowerBlock() { return ModBase.PINK_DAISY.asBlock(); }
-	@Override public Item getFlowerItem() { return ModBase.PINK_DAISY.asItem(); }
+	@Override public Block getFlowerBlock() { return ModBase.BUTTERCUP.asBlock(); }
+	@Override public Item getFlowerItem() { return ModBase.BUTTERCUP.asItem(); }
 
 	public FlowerCowEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
 		return ModBase.MOOBLOOM_ENTITY.create(serverWorld);

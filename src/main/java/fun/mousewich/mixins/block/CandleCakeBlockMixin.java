@@ -21,6 +21,11 @@ public class CandleCakeBlockMixin {
 	private static void GetCandleCakeFromCandle(Block candle, CallbackInfoReturnable<BlockState> cir) {
 		if (candle == ModBase.SOUL_CANDLE.asBlock()) cir.setReturnValue(ModBase.SOUL_CANDLE_CAKE.getDefaultState());
 		else if (candle == ModBase.ENDER_CANDLE.asBlock()) cir.setReturnValue(ModBase.ENDER_CANDLE_CAKE.getDefaultState());
+		else if (candle == ModBase.NETHERRACK_CANDLE.asBlock()) cir.setReturnValue(ModBase.NETHERRACK_CANDLE_CAKE.getDefaultState());
+		else if (candle == ModBase.BEIGE_CANDLE.asBlock()) cir.setReturnValue(ModBase.BEIGE_CANDLE_CAKE.getDefaultState());
+		else if (candle == ModBase.BURGUNDY_CANDLE.asBlock()) cir.setReturnValue(ModBase.BURGUNDY_CANDLE_CAKE.getDefaultState());
+		else if (candle == ModBase.LAVENDER_CANDLE.asBlock()) cir.setReturnValue(ModBase.LAVENDER_CANDLE_CAKE.getDefaultState());
+		else if (candle == ModBase.MINT_CANDLE.asBlock()) cir.setReturnValue(ModBase.MINT_CANDLE_CAKE.getDefaultState());
 	}
 
 	@Inject(method="canBeLit", at = @At("HEAD"), cancellable = true)

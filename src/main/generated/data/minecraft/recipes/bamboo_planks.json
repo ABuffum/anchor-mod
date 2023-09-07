@@ -5,14 +5,9 @@
     "##"
   ],
   "key": {
-    "#": [
-      {
-        "item": "minecraft:bamboo"
-      },
-      {
-        "item": "haven:dried_bamboo"
-      }
-    ]
+    "#": {
+      "item": "minecraft:bamboo"
+    }
   },
   "result": {
     "item": "minecraft:bamboo_planks"

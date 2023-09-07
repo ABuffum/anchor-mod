@@ -2,6 +2,7 @@ package fun.mousewich.block.cryingobsidian;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.block.BlockConvertible;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,7 @@ public class BleedingObsidianBlock extends Block {
 					double d = direction.getOffsetX() == 0 ? random.nextDouble() : 0.5 + direction.getOffsetX() * 0.6;
 					double e = direction.getOffsetY() == 0 ? random.nextDouble() : 0.5 + direction.getOffsetY() * 0.6;
 					double f = direction.getOffsetZ() == 0 ? random.nextDouble() : 0.5 + direction.getOffsetZ() * 0.6;
-					world.addParticle(ModBase.DRIPPING_OBSIDIAN_BLOOD, pos.getX() + d, pos.getY() + e, pos.getZ() + f, 0.0, 0.0, 0.0);
+					world.addParticle(ModParticleTypes.DRIPPING_OBSIDIAN_BLOOD, pos.getX() + d, pos.getY() + e, pos.getZ() + f, 0.0, 0.0, 0.0);
 				}
 			}
 		}

@@ -59,9 +59,9 @@ public abstract class ParrotEntityMixin extends TameableShoulderEntity implement
 	};
 
 	@Redirect(method="initialize", at=@At(value="INVOKE", target="Lnet/minecraft/entity/passive/ParrotEntity;setVariant(I)V"))
-	private void swapInVariant(ParrotEntity instance, int variant) {
-		this.setVariant(this.random.nextInt(ParrotVariant.values().length + 1));
-	}
+	private void swapInVariant(ParrotEntity instance, int variant) { this.setVariant(this.random.nextInt(ParrotVariant.values().length)); }
+	@Inject(method="getVariant", at=@At("HEAD"), cancellable=true)
+	public void GetModVariant(CallbackInfoReturnable<Integer> cir) { cir.setReturnValue(this.dataTracker.get(VARIANT)); }
 
 	@Inject(method="imitateNearbyMob", at=@At("HEAD"), cancellable=true)
 	private static void TryImitations(World world, Entity parrot, CallbackInfoReturnable<Boolean> cir) {
@@ -75,18 +75,12 @@ public abstract class ParrotEntityMixin extends TameableShoulderEntity implement
 			}
 		}
 	}
-	@Inject(method="getVariant", at=@At("HEAD"), cancellable=true)
-	public void GetModVariant(CallbackInfoReturnable<Integer> cir) {
-		cir.setReturnValue(this.dataTracker.get(VARIANT));
-	}
 
 	@Override
 	public void onDeath(DamageSource source) {
 		super.onDeath(source);
 		ParrotVariant variant = ParrotVariant.get((ParrotEntity)(Object)this);
-		if (variant == ParrotVariant.GOLDEN) {
-			this.dropItem(Items.GOLD_NUGGET);
-		}
+		if (variant == ParrotVariant.GOLDEN) this.dropItem(Items.GOLD_NUGGET);
 	}
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.PARROT_BLOOD_TYPE; }

@@ -1,5 +1,5 @@
 {
-  "replace": false,
+  "replace": true,
   "order": 10,
   "enabled": true,
   "origins": [
@@ -16,6 +16,6 @@
     "origins-classes:beastmaster",
     "origins-classes:lumberjack",
     "origins-classes:explorer",
-	"havenorigins:sneak"
+	"origins-classes:sneak"
   ]
 }

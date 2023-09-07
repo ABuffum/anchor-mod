@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "haven:block/empty_lantern"
+    },
+    "hanging=true": {
+      "model": "haven:block/empty_lantern_hanging"
+    }
+  }
+}

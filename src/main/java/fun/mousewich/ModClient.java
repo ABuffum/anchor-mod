@@ -3,21 +3,28 @@ package fun.mousewich;
 import fun.mousewich.client.render.block.model.PiglinHeadEntityModel;
 import fun.mousewich.client.render.block.renderer.BrushableBlockEntityRenderer;
 import fun.mousewich.client.render.block.renderer.PiglinHeadEntityRenderer;
+import fun.mousewich.client.render.block.renderer.RagdollBlockEntityRenderer;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.*;
 import fun.mousewich.client.render.entity.renderer.*;
 import fun.mousewich.client.render.entity.renderer.ModBoatEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.ModTntEntityRenderer;
+import fun.mousewich.client.render.entity.renderer.chicken.FancyChickenEntityRenderer;
+import fun.mousewich.client.render.entity.renderer.chicken.SlimeChickenEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.cow.*;
 import fun.mousewich.client.render.entity.renderer.sheep.MossySheepEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.sheep.RainbowSheepEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.skeleton.MossySkeletonEntityRenderer;
+import fun.mousewich.client.render.entity.renderer.skeleton.SlimySkeletonEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.skeleton.SunkenSkeletonEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.slime.PinkSlimeEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.slime.TropicalSlimeEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.spider.BoneSpiderEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.spider.JumpingSpiderEntityRenderer;
+import fun.mousewich.client.render.entity.renderer.spider.SlimeSpiderEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.zombie.FrozenZombieEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.zombie.JungleZombieEntityRenderer;
+import fun.mousewich.client.render.entity.renderer.zombie.SlimeZombieEntityRenderer;
 import fun.mousewich.client.render.gui.Generic1x1ContainerScreen;
 import fun.mousewich.client.render.gui.WoodcutterScreen;
 import fun.mousewich.container.*;
@@ -26,9 +33,11 @@ import fun.mousewich.mixins.client.render.item.ModelPredicateProviderRegistryInv
 import fun.mousewich.particle.*;
 
 import static fun.mousewich.ModBase.*;
-import static fun.mousewich.ModFactory.MakeModelLayer;
+import static fun.mousewich.registry.ModBambooRegistry.*;
+import static fun.mousewich.registry.ModCopperRegistry.*;
 
 import fun.mousewich.trim.TrimmingScreen;
+import fun.mousewich.util.banners.ModBannerPattern;
 import io.github.apace100.apoli.ApoliClient;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -50,6 +59,7 @@ import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.client.color.world.GrassColors;
 import net.minecraft.client.item.UnclampedModelPredicateProvider;
+import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.particle.*;
@@ -57,7 +67,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.entity.*;
 import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SpiderEntityModel;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -87,36 +96,6 @@ import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class ModClient implements ClientModInitializer {
-	public static final EntityModelLayer BOAT_ENTITY_MODEL_LAYER = MakeModelLayer("boat");
-	public static final EntityModelLayer BONE_SPIDER_MODEL_LAYER = MakeModelLayer("bone_spider");
-	public static final EntityModelLayer CAMEL_MODEL_LAYER = MakeModelLayer("camel");
-	public static final EntityModelLayer CHEST_BOAT_MODEL_LAYER = MakeModelLayer("chest_boat");
-	public static final EntityModelLayer CHEST_RAFT_MODEL_LAYER = MakeModelLayer("chest_raft");
-	public static final EntityModelLayer FANCY_CHICKEN_MODEL_LAYER = MakeModelLayer("fancy_chicken");
-	public static final EntityModelLayer FROG_MODEL_LAYER = MakeModelLayer("frog");
-	public static final EntityModelLayer LAYERED_ZOMBIE_LAYER = MakeModelLayer("frozen_zombie");
-	public static final EntityModelLayer LAYERED_ZOMBIE_INNER_ARMOR_LAYER = MakeModelLayer("frozen_zombie", "inner_armor");
-	public static final EntityModelLayer LAYERED_ZOMBIE_OUTER_ARMOR_LAYER = MakeModelLayer("frozen_zombie", "outer_armor");
-	public static final EntityModelLayer FROZEN_ZOMBIE_OUTER_LAYER = MakeModelLayer("frozen_zombie", "outer");
-	public static final EntityModelLayer HEDGEHOG_MODEL_LAYER = MakeModelLayer("hedgehog");
-	public static final EntityModelLayer RACCOON_MODEL_LAYER = MakeModelLayer("raccoon");
-	public static final EntityModelLayer JUMPING_SPIDER_MODEL_LAYER = MakeModelLayer("jumping_spider");
-	public static final EntityModelLayer JUNGLE_ZOMBIE_LAYER = MakeModelLayer("jungle_zombie");
-	public static final EntityModelLayer PIGLIN_HEAD_LAYER = MakeModelLayer("piglin_head");
-	public static final EntityModelLayer PIRANHA_MODEL_LAYER = MakeModelLayer("piranha");
-	public static final EntityModelLayer RAFT_MODEL_LAYER = MakeModelLayer("raft");
-	public static final EntityModelLayer RAINBOW_SHEEP = MakeModelLayer("rainbow_sheep");
-	public static final EntityModelLayer RAINBOW_SHEEP_FUR = MakeModelLayer("rainbow_sheep", "fur");
-	public static final EntityModelLayer RED_PANDA_MODEL_LAYER = MakeModelLayer("red_panda");
-	public static final EntityModelLayer SNIFFER_MODEL_LAYER = MakeModelLayer("sniffer");
-	public static final EntityModelLayer SUNKEN_SKELETON_LAYER = MakeModelLayer("sunken_skeleton");
-	public static final EntityModelLayer SUNKEN_SKELETON_INNER_ARMOR_LAYER = MakeModelLayer("sunken_skeleton", "inner_armor");
-	public static final EntityModelLayer SUNKEN_SKELETON_OUTER_ARMOR_LAYER = MakeModelLayer("sunken_skeleton", "outer_armor");
-	public static final EntityModelLayer TADPOLE_MODEL_LAYER = MakeModelLayer("tadpole");
-	public static final EntityModelLayer TROPICAL_SLIME_LAYER = MakeModelLayer("tropical_slime");
-	public static final EntityModelLayer TROPICAL_SLIME_OUTER_LAYER = MakeModelLayer("tropical_slime_outer");
-	public static final EntityModelLayer WARDEN_MODEL_LAYER = MakeModelLayer("warden");
-
 	private static void InitializeCutoutMipped() {
 		RenderLayer layer = RenderLayer.getCutoutMipped();
 		//Hedges
@@ -129,7 +108,7 @@ public class ModClient implements ClientModInitializer {
 		//Backport
 		setLayer(layer, MANGROVE_LEAVES, MANGROVE_ROOTS, MANGROVE_TRAPDOOR, CHERRY_LEAVES, CHERRY_TRAPDOOR, PINK_PETALS);
 		//Leaves
-		setLayer(layer, CASSIA_LEAVES, FLOWERING_CASSIA_LEAVES, PINK_DOGWOOD_LEAVES, PALE_DOGWOOD_LEAVES, WHITE_DOGWOOD_LEAVES);
+		setLayer(layer, CASSIA_LEAVES, FLOWERING_CASSIA_LEAVES, PINK_DOGWOOD_LEAVES, PALE_DOGWOOD_LEAVES, WHITE_DOGWOOD_LEAVES, GRAPE_LEAVES);
 		//Iron
 		setLayer(layer, IRON_CHAIN);
 		//Dark Iron
@@ -196,6 +175,7 @@ public class ModClient implements ClientModInitializer {
 		setLayer(layer, CASSIA_CAMPFIRE, CASSIA_SOUL_CAMPFIRE, CASSIA_ENDER_CAMPFIRE);
 		setLayer(layer, CHARRED_CAMPFIRE, CHARRED_SOUL_CAMPFIRE, CHARRED_ENDER_CAMPFIRE);
 		setLayer(layer, DOGWOOD_CAMPFIRE, DOGWOOD_SOUL_CAMPFIRE, DOGWOOD_ENDER_CAMPFIRE);
+		setLayer(layer, HAY_TORCH, HAY_SOUL_TORCH, HAY_ENDER_TORCH, UNDERWATER_HAY_TORCH);
 		setLayer(layer, SUGAR_CANE_CAMPFIRE, SUGAR_CANE_SOUL_CAMPFIRE, SUGAR_CANE_ENDER_CAMPFIRE);
 		setLayer(layer, CRIMSON_CAMPFIRE, CRIMSON_SOUL_CAMPFIRE, CRIMSON_ENDER_CAMPFIRE);
 		setLayer(layer, WARPED_CAMPFIRE, WARPED_SOUL_CAMPFIRE, WARPED_ENDER_CAMPFIRE);
@@ -209,6 +189,8 @@ public class ModClient implements ClientModInitializer {
 		//Iron
 		setLayer(layer, IRON_TORCH, IRON_SOUL_TORCH, IRON_ENDER_TORCH, UNDERWATER_IRON_TORCH);
 		setLayer(layer, IRON_LANTERN, IRON_SOUL_LANTERN, IRON_ENDER_LANTERN);
+		//Dark Iron
+		setLayer(layer, DARK_IRON_TORCH, DARK_IRON_SOUL_TORCH, DARK_IRON_ENDER_TORCH, UNDERWATER_DARK_IRON_TORCH);
 		//Gold
 		setLayer(layer, GOLD_TORCH, GOLD_SOUL_TORCH, GOLD_ENDER_TORCH, UNDERWATER_GOLD_TORCH);
 		setLayer(layer, GOLD_LANTERN, GOLD_SOUL_LANTERN, GOLD_ENDER_LANTERN);
@@ -236,14 +218,16 @@ public class ModClient implements ClientModInitializer {
 		setLayer(layer, PINK_PETALS, CHERRY_DOOR);
 		//Mushroom Wood
 		setLayer(layer, BLUE_MUSHROOM_DOOR, BROWN_MUSHROOM_DOOR, RED_MUSHROOM_DOOR, MUSHROOM_STEM_DOOR);
+		//Vines
+		setLayer(layer, GRAPE_VINES, GRAPE_VINES_PLANT);
 		//Bushes
 		setLayer(layer, STRAWBERRY_BUSH);
 		setLayer(layer, COFFEE_PLANT);
 		//Saplings
-		setLayer(layer, MANGROVE_PROPAGULE, CHERRY_SAPLING, CASSIA_SAPLING, DOGWOOD_SAPLING);
+		setLayer(layer, MANGROVE_PROPAGULE, CHERRY_SAPLING, CASSIA_SAPLING, DOGWOOD_SAPLING, GRAPE_SAPLING);
 		//Metal Doors/Trapdoors
 		setLayer(layer, DARK_IRON_DOOR, DARK_IRON_TRAPDOOR);
-		setLayer(layer, GOLD_TRAPDOOR, NETHERITE_TRAPDOOR);
+		setLayer(layer, GOLD_DOOR, GOLD_TRAPDOOR, NETHERITE_DOOR, NETHERITE_TRAPDOOR);
 		setLayer(layer, COPPER_TRAPDOOR, EXPOSED_COPPER_TRAPDOOR, WEATHERED_COPPER_TRAPDOOR, OXIDIZED_COPPER_TRAPDOOR);
 		setLayer(layer, WAXED_COPPER_TRAPDOOR, WAXED_EXPOSED_COPPER_TRAPDOOR, WAXED_WEATHERED_COPPER_TRAPDOOR, WAXED_OXIDIZED_COPPER_TRAPDOOR);
 		//Torchflower
@@ -280,7 +264,7 @@ public class ModClient implements ClientModInitializer {
 		//Gilded
 		setLayer(layer, GILDED_TRAPDOOR);
 		//Plushies
-		setLayer(layer, BAT_PLUSHIE);
+		setLayer(layer, BAT_PLUSHIE, CAMEL_PLUSHIE, SADDLED_CAMEL_PLUSHIE);
 		//Misc
 		setLayer(layer, GUNPOWDER_FUSE);
 		setLayer(layer, BLUE_MUSHROOM, MYCELIUM_ROOTS);
@@ -290,13 +274,21 @@ public class ModClient implements ClientModInitializer {
 	}
 	private static void InitializeTranslucent() {
 		RenderLayer layer = RenderLayer.getTranslucent();
+		setLayer(layer, EMPTY_LANTERN);
+		setLayer(layer, BEIGE_STAINED_GLASS, BEIGE_STAINED_GLASS_PANE, BEIGE_STAINED_GLASS_SLAB, BEIGE_STAINED_GLASS_TRAPDOOR);
+		setLayer(layer, BURGUNDY_STAINED_GLASS, BURGUNDY_STAINED_GLASS_PANE, BURGUNDY_STAINED_GLASS_SLAB, BURGUNDY_STAINED_GLASS_TRAPDOOR);
+		setLayer(layer, LAVENDER_STAINED_GLASS, LAVENDER_STAINED_GLASS_PANE, LAVENDER_STAINED_GLASS_SLAB, LAVENDER_STAINED_GLASS_TRAPDOOR);
+		setLayer(layer, MINT_STAINED_GLASS, MINT_STAINED_GLASS_PANE, MINT_STAINED_GLASS_SLAB, MINT_STAINED_GLASS_TRAPDOOR);
 		setLayer(layer, GLASS_SLAB, GLASS_TRAPDOOR, TINTED_GLASS_PANE, TINTED_GLASS_SLAB, TINTED_GLASS_TRAPDOOR);
 		setLayer(layer, RUBY_GLASS, RUBY_GLASS_PANE, RUBY_GLASS_SLAB, RUBY_GLASS_TRAPDOOR);
 		for(BlockContainer container : STAINED_GLASS_SLABS.values()) setLayer(layer, container);
 		for(BlockContainer container : STAINED_GLASS_TRAPDOORS.values()) setLayer(layer, container);
+		//Slime
 		setLayer(layer, BLUE_SLIME_BLOCK, PINK_SLIME_BLOCK);
+		//Lanterns
+		setLayer(layer, SLIME_LANTERN, TROPICAL_SLIME_LANTERN, PINK_SLIME_LANTERN, MAGMA_CUBE_LANTERN);
 		//Plushies
-		setLayer(layer, SLIME_PLUSHIE, PINK_SLIME_PLUSHIE, TROPICAL_SLIME_PLUSHIE);
+		setLayer(layer, SLIME_PLUSHIE, TROPICAL_SLIME_PLUSHIE, PINK_SLIME_PLUSHIE);
 	}
 
 	public static void setLayer(RenderLayer layer, Block block) { BlockRenderLayerMap.INSTANCE.putBlock(block, layer); }
@@ -327,51 +319,57 @@ public class ModClient implements ClientModInitializer {
 		InitializeCutout();
 		InitializeTranslucent();
 		//Mob Heads
-		EntityModelLayerRegistry.registerModelLayer(PIGLIN_HEAD_LAYER, PiglinHeadEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.PIGLIN_HEAD, PiglinHeadEntityModel::getTexturedModelData);
 		BlockEntityRendererRegistry.register(PIGLIN_HEAD_BLOCK_ENTITY, PiglinHeadEntityRenderer::new);
+		//Ragdolls
+		BlockEntityRendererRegistry.register(RAGDOLL_BLOCK_ENTITY, RagdollBlockEntityRenderer::new);
 		//Brushable Block Entities
 		BlockEntityRendererRegistry.register(SUSPICIOUS_BLOCK_ENTITY, BrushableBlockEntityRenderer::new);
 		BlockEntityRendererRegistry.register(SANDY_BLOCK_ENTITY, BrushableBlockEntityRenderer::new);
 		//Frog & Tadpole
-		EntityModelLayerRegistry.registerModelLayer(FROG_MODEL_LAYER, FrogEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.FROG, FrogEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(FROG_ENTITY, FrogEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(TADPOLE_MODEL_LAYER, TadpoleEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TADPOLE, TadpoleEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(TADPOLE_ENTITY, TadpoleEntityRenderer::new);
 		//Warden
-		EntityModelLayerRegistry.registerModelLayer(WARDEN_MODEL_LAYER, fun.mousewich.client.render.entity.model.WardenEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.WARDEN, fun.mousewich.client.render.entity.model.WardenEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(WARDEN_ENTITY, WardenEntityRenderer::new);
 		//Camel
-		EntityModelLayerRegistry.registerModelLayer(CAMEL_MODEL_LAYER, CamelEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.CAMEL, CamelEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(CAMEL_ENTITY, CamelEntityRenderer::new);
 		//Sniffer
-		EntityModelLayerRegistry.registerModelLayer(SNIFFER_MODEL_LAYER, SnifferEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SNIFFER, SnifferEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(SNIFFER_ENTITY, SnifferEntityRenderer::new);
 		//Bone Spider
 		EntityRendererRegistry.register(BONE_SHARD_PROJECTILE_ENTITY, FlyingItemEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(BONE_SPIDER_MODEL_LAYER, BoneSpiderEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.BONE_SPIDER, BoneSpiderEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(BONE_SPIDER_ENTITY, BoneSpiderEntityRenderer::new);
 		//Jumping Spider
-		EntityModelLayerRegistry.registerModelLayer(JUMPING_SPIDER_MODEL_LAYER, SpiderEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.JUMPING_SPIDER, SpiderEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(JUMPING_SPIDER_ENTITY, JumpingSpiderEntityRenderer::new);
+		//Slime Spider
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_SPIDER, SlimeSpiderEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_SPIDER_OUTER, SlimeSpiderEntityModel::getOuterTexturedModelData);
+		EntityRendererRegistry.register(SLIME_SPIDER_ENTITY, SlimeSpiderEntityRenderer::new);
 		//Hedgehog Entity
-		EntityModelLayerRegistry.registerModelLayer(HEDGEHOG_MODEL_LAYER, fun.mousewich.client.render.entity.model.HedgehogEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.HEDGEHOG, fun.mousewich.client.render.entity.model.HedgehogEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(HEDGEHOG_ENTITY, fun.mousewich.client.render.entity.renderer.HedgehogEntityRenderer::new);
 		//Raccoons
 		EntityRendererRegistry.register(RACCOON_ENTITY, RaccoonEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(RACCOON_MODEL_LAYER, RaccoonEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.RACCOON, RaccoonEntityModel::getTexturedModelData);
 		//Red Pandas
 		EntityRendererRegistry.register(RED_PANDA_ENTITY, RedPandaEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(RED_PANDA_MODEL_LAYER, RedPandaEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.RED_PANDA, RedPandaEntityModel::getTexturedModelData);
 		//Phantoms
 		EntityRendererRegistry.register(RED_PHANTOM_ENTITY, RedPhantomEntityRenderer::new);
 		//Piranha Entity
-		EntityModelLayerRegistry.registerModelLayer(PIRANHA_MODEL_LAYER, PiranhaEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.PIRANHA, PiranhaEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(PIRANHA_ENTITY, PiranhaEntityRenderer::new);
 		//Golems
 		EntityRendererRegistry.register(MELON_SEED_PROJECTILE_ENTITY, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(MELON_GOLEM_ENTITY, fun.mousewich.client.render.entity.renderer.MelonGolemEntityRenderer::new);
 		//Chicken Variants
-		EntityModelLayerRegistry.registerModelLayer(FANCY_CHICKEN_MODEL_LAYER, FancyChickenModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.FANCY_CHICKEN, FancyChickenEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(FANCY_CHICKEN_ENTITY, FancyChickenEntityRenderer::new);
 		//Cow Variants
 		EntityRendererRegistry.register(BLUE_MOOSHROOM_ENTITY, BlueMooshroomEntityRenderer::new);
@@ -383,28 +381,51 @@ public class ModClient implements ClientModInitializer {
 		//Sheep Variants
 		EntityRendererRegistry.register(MOSSY_SHEEP_ENTITY, MossySheepEntityRenderer::new);
 		EntityRendererRegistry.register(RAINBOW_SHEEP_ENTITY, RainbowSheepEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(RAINBOW_SHEEP, RainbowSheepEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(RAINBOW_SHEEP_FUR, RainbowSheepWoolEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.RAINBOW_SHEEP, RainbowSheepEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.RAINBOW_SHEEP_FUR, RainbowSheepWoolEntityModel::getTexturedModelData);
 		//Tropical Slime
-		EntityModelLayerRegistry.registerModelLayer(TROPICAL_SLIME_LAYER, TropicalSlimeEntityModel::getInnerTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(TROPICAL_SLIME_OUTER_LAYER, TropicalSlimeEntityModel::getOuterTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TROPICAL_SLIME, TropicalSlimeEntityModel::getInnerTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TROPICAL_SLIME_OUTER, TropicalSlimeEntityModel::getOuterTexturedModelData);
 		EntityRendererRegistry.register(TROPICAL_SLIME_ENTITY, TropicalSlimeEntityRenderer::new);
-		//Mossy Skeleton
-		EntityRendererRegistry.register(MOSSY_SKELETON_ENTITY, MossySkeletonEntityRenderer::new);
-		//Sunken Skeleton
-		EntityModelLayerRegistry.registerModelLayer(SUNKEN_SKELETON_LAYER, SunkenSkeletonEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(SUNKEN_SKELETON_INNER_ARMOR_LAYER, SunkenSkeletonEntityModel::getArmorModelData);
-		EntityModelLayerRegistry.registerModelLayer(SUNKEN_SKELETON_OUTER_ARMOR_LAYER, SunkenSkeletonEntityModel::getArmorModelData);
-		EntityRendererRegistry.register(SUNKEN_SKELETON_ENTITY, SunkenSkeletonEntityRenderer::new);
 		//Pink Slime
 		EntityRendererRegistry.register(PINK_SLIME_BALL_ENTITY, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(PINK_SLIME_ENTITY, PinkSlimeEntityRenderer::new);
+		//Other Slime Mobs
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_CHICKEN, SlimeChickenEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_CHICKEN_OUTER, SlimeChickenEntityModel::getOuterTexturedModelData);
+		EntityRendererRegistry.register(SLIME_CHICKEN_ENTITY, SlimeChickenEntityRenderer::new);
+
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_COW, SlimeCowEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_COW_OUTER, SlimeCowEntityModel::getOuterTexturedModelData);
+		EntityRendererRegistry.register(SLIME_COW_ENTITY, SlimeCowEntityRenderer::new);
+
+		//Slime Creeper
+		EntityRendererRegistry.register(SLIME_CREEPER_ENTITY, SlimeCreeperEntityRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_CREEPER, SlimeCreeperEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_CREEPER_OUTER, () -> SlimeCreeperEntityModel.getOuterTexturedModelData(Dilation.NONE));
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_CREEPER_ARMOR, () -> SlimeCreeperEntityModel.getOuterTexturedModelData(new Dilation(2.0f)));
+		//Mossy Skeleton
+		EntityRendererRegistry.register(MOSSY_SKELETON_ENTITY, MossySkeletonEntityRenderer::new);
+		//Slimy Skeleton
+		EntityRendererRegistry.register(SLIMY_SKELETON_ENTITY, SlimySkeletonEntityRenderer::new);
+		//Sunken Skeleton
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SUNKEN_SKELETON, SunkenSkeletonEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SUNKEN_SKELETON_INNER_ARMOR, SunkenSkeletonEntityModel::getArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SUNKEN_SKELETON_OUTER_ARMOR, SunkenSkeletonEntityModel::getArmorModelData);
+		EntityRendererRegistry.register(SUNKEN_SKELETON_ENTITY, SunkenSkeletonEntityRenderer::new);
+		//Layered Zombie
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.LAYERED_ZOMBIE, LayeredZombieEntityModel::getInnerModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.LAYERED_ZOMBIE_INNER_ARMOR, LayeredZombieEntityModel::getArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.LAYERED_ZOMBIE_OUTER_ARMOR, LayeredZombieEntityModel::getArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.LAYERED_ZOMBIE_OUTER, LayeredZombieEntityModel::getOuterModelData);
+		//Slime Zombie
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_ZOMBIE, SlimeZombieEntityModel::getInnerModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_ZOMBIE_INNER_ARMOR, SlimeZombieEntityModel::getArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_ZOMBIE_OUTER_ARMOR, SlimeZombieEntityModel::getArmorModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.SLIME_ZOMBIE_OUTER, SlimeZombieEntityModel::getOuterModelData);
+		EntityRendererRegistry.register(SLIME_ZOMBIE_ENTITY, SlimeZombieEntityRenderer::new);
 		//Frozen Zombie
 		EntityRendererRegistry.register(SLOWING_SNOWBALL_ENTITY, FlyingItemEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(LAYERED_ZOMBIE_LAYER, LayeredZombieEntityModel::getInnerModelData);
-		EntityModelLayerRegistry.registerModelLayer(LAYERED_ZOMBIE_INNER_ARMOR_LAYER, LayeredZombieEntityModel::getArmorModelData);
-		EntityModelLayerRegistry.registerModelLayer(LAYERED_ZOMBIE_OUTER_ARMOR_LAYER, LayeredZombieEntityModel::getArmorModelData);
-		EntityModelLayerRegistry.registerModelLayer(FROZEN_ZOMBIE_OUTER_LAYER, LayeredZombieEntityModel::getOuterModelData);
 		EntityRendererRegistry.register(FROZEN_ZOMBIE_ENTITY, FrozenZombieEntityRenderer::new);
 		//Jungle Zombie
 		EntityRendererRegistry.register(JUNGLE_ZOMBIE_ENTITY, JungleZombieEntityRenderer::new);
@@ -414,30 +435,35 @@ public class ModClient implements ClientModInitializer {
 		TexturedModelData hangingSignModel = HangingSignModel.getTexturedModelData();
 		Set<SignType> signTypes = new HashSet<>(List.of(SignType.OAK, SignType.SPRUCE, SignType.BIRCH, SignType.ACACIA, SignType.JUNGLE, SignType.DARK_OAK, SignType.CRIMSON, SignType.WARPED));
 		signTypes.addAll(SIGN_TYPES);
+		signTypes.addAll(HANGING_SIGN_SUBTYPES.keySet());
 		for (SignType type : signTypes) {
 			EntityModelLayerRegistry.registerModelLayer(HangingSignModel.createSignLayer(type), () -> hangingSignModel);
 		}
 		//Custom Boats
-		EntityModelLayerRegistry.registerModelLayer(BOAT_ENTITY_MODEL_LAYER, BoatEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(RAFT_MODEL_LAYER, RaftEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.BOAT, BoatEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.RAFT, RaftEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(MOD_BOAT_ENTITY, ModBoatEntityRenderer::new);
-		EntityModelLayerRegistry.registerModelLayer(CHEST_BOAT_MODEL_LAYER, ChestBoatEntityModel::getTexturedModelData);
-		EntityModelLayerRegistry.registerModelLayer(CHEST_RAFT_MODEL_LAYER, ChestRaftEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.CHEST_BOAT, ChestBoatEntityModel::getTexturedModelData);
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.CHEST_RAFT, ChestRaftEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(CHEST_BOAT_ENTITY, ChestBoatEntityRenderer::new);
 		EntityRendererRegistry.register(MOD_CHEST_BOAT_ENTITY, ChestBoatEntityRenderer::new);
+		//Banners
+		ClientSpriteRegistryCallback.event(TexturedRenderLayers.BANNER_PATTERNS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			for (ModBannerPattern pattern : ModBannerPattern.values()) registry.register(pattern.getSpriteId(true));
+		}));
+		ClientSpriteRegistryCallback.event(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			for (ModBannerPattern pattern : ModBannerPattern.values()) registry.register(pattern.getSpriteId(false));
+		}));
 		//Particles
 		ParticleFactoryRegistry PARTICLES = ParticleFactoryRegistry.getInstance();
 		//Egg Crack
-		PARTICLES.register(EGG_CRACK_PARTICLE, ModSuspendParticle.EggCrackParticleFactory::new);
+		PARTICLES.register(ModParticleTypes.EGG_CRACK, ModSuspendParticle.EggCrackParticleFactory::new);
 		//Slime
-		PARTICLES.register(ITEM_BLUE_SLIME_PARTICLE, new ModCrackParticle.BlueSlimeballFactory());
-		PARTICLES.register(ITEM_PINK_SLIME_PARTICLE, new ModCrackParticle.PinkSlimeballFactory());
+		PARTICLES.register(ModParticleTypes.ITEM_BLUE_SLIME, new ModCrackParticle.BlueSlimeballFactory());
+		PARTICLES.register(ModParticleTypes.ITEM_PINK_SLIME, new ModCrackParticle.PinkSlimeballFactory());
 		//Throwable Tomatoes
 		EntityRendererRegistry.register(THROWABLE_TOMATO_ENTITY, FlyingItemEntityRenderer::new);
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
-			registry.register(ID("particle/thrown_tomato"));
-		}));
-		PARTICLES.register(TOMATO_PARTICLE, TomatoParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.TOMATO, TomatoParticle.Factory::new);
 		//Bottled Confetti & Dragon Breath
 		EntityRendererRegistry.register(BOTTLED_CONFETTI_ENTITY, FlyingItemEntityRenderer::new);
 		EntityRendererRegistry.register(DROPPED_CONFETTI_ENTITY, EmptyEntityRenderer::new);
@@ -449,11 +475,14 @@ public class ModClient implements ClientModInitializer {
 		//Grappling Rod
 		ModelPredicateProviderRegistrySpecificAccessor.callRegister(GRAPPLING_ROD, new Identifier("cast"), ModClient::castGrapplingRod);
 		//Bleeing Obsidian
-		PARTICLES.register(LANDING_OBSIDIAN_BLOOD, ModBlockLeakParticle.LandingObsidianBloodFactory::new);
-		PARTICLES.register(FALLING_OBSIDIAN_BLOOD, ModBlockLeakParticle.FallingObsidianBloodFactory::new);
-		PARTICLES.register(DRIPPING_OBSIDIAN_BLOOD, ModBlockLeakParticle.DrippingObsidianBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.LANDING_OBSIDIAN_BLOOD, ModBlockLeakParticle.LandingObsidianBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.FALLING_OBSIDIAN_BLOOD, ModBlockLeakParticle.FallingObsidianBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.DRIPPING_OBSIDIAN_BLOOD, ModBlockLeakParticle.DrippingObsidianBloodFactory::new);
 		//Torches
 		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			//Thrown Items
+			registry.register(ID("particle/thrown_tomato"));
+			//Torches
 			registry.register(ID("particle/glow_0"));
 			registry.register(ID("particle/glow_1"));
 			registry.register(ID("particle/glow_2"));
@@ -467,53 +496,51 @@ public class ModClient implements ClientModInitializer {
 			registry.register(ID("particle/iron_flame"));
 			registry.register(ID("particle/netherite_flame"));
 			registry.register(ID("particle/ender_fire_flame"));
-		}));
-		PARTICLES.register(UNDERWATER_TORCH_GLOW, FlameParticle.Factory::new);
-		PARTICLES.register(PRISMARINE_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(COPPER_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(GOLD_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(IRON_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(NETHERITE_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(ENDER_FIRE_FLAME_PARTICLE, FlameParticle.Factory::new);
-		PARTICLES.register(SMALL_SOUL_FLAME_PARTICLE, FlameParticle.SmallFactory::new);
-		PARTICLES.register(SMALL_ENDER_FLAME_PARTICLE, FlameParticle.SmallFactory::new);
-		PARTICLES.register(SMALL_NETHERITE_FLAME_PARTICLE, FlameParticle.SmallFactory::new);
-		//Cherry Leaves
-		PARTICLES.register(CHERRY_LEAVES_PARTICLE, CherryLeavesParticle.Factory::new);
-		//Sculk
-		PARTICLES.register(SCULK_SOUL_PARTICLE, ModSoulParticle.SculkSoulFactory::new);
-		PARTICLES.register(SCULK_CHARGE_PARTICLE, SculkChargeParticle.Factory::new);
-		PARTICLES.register(SCULK_CHARGE_POP_PARTICLE, SculkChargePopParticle.Factory::new);
-		PARTICLES.register(SHRIEK_PARTICLE, ShriekParticle.Factory::new);
-		PARTICLES.register(SONIC_BOOM_PARTICLE, SonicBoomParticle.Factory::new);
-		//Liquid Mud (Particle)
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			//Mud
 			registry.register(ID("particle/mud_bubble"));
 			registry.register(ID("particle/mud_splash_0"));
 			registry.register(ID("particle/mud_splash_1"));
 			registry.register(ID("particle/mud_splash_2"));
 			registry.register(ID("particle/mud_splash_3"));
-		}));
-		PARTICLES.register(MUD_BUBBLE, WaterBubbleParticle.Factory::new);
-		PARTICLES.register(MUD_SPLASH, WaterSplashParticle.SplashFactory::new);
-		PARTICLES.register(DRIPPING_MUD, ModBlockLeakParticle.DrippingMudFactory::new);
-		PARTICLES.register(FALLING_MUD, ModBlockLeakParticle.FallingMudFactory::new);
-		PARTICLES.register(FALLING_DRIPSTONE_MUD, ModBlockLeakParticle.FallingDripstoneMudFactory::new);
-		setupFluidRendering(STILL_MUD_FLUID, FLOWING_MUD_FLUID, ID("mud"), 0x472804);
-		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(), STILL_MUD_FLUID, FLOWING_MUD_FLUID);
-		//Blood Fluid
-		ClientSpriteRegistryCallback.event(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE).register(((atlasTexture, registry) -> {
+			//Blood
 			registry.register(ID("particle/blood_bubble"));
 			registry.register(ID("particle/blood_splash_0"));
 			registry.register(ID("particle/blood_splash_1"));
 			registry.register(ID("particle/blood_splash_2"));
 			registry.register(ID("particle/blood_splash_3"));
 		}));
-		PARTICLES.register(BLOOD_BUBBLE, WaterBubbleParticle.Factory::new);
-		PARTICLES.register(BLOOD_SPLASH, WaterSplashParticle.SplashFactory::new);
-		PARTICLES.register(DRIPPING_BLOOD, ModBlockLeakParticle.DrippingBloodFactory::new);
-		PARTICLES.register(FALLING_BLOOD, ModBlockLeakParticle.FallingBloodFactory::new);
-		PARTICLES.register(FALLING_DRIPSTONE_BLOOD, ModBlockLeakParticle.FallingDripstoneBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.UNDERWATER_TORCH_GLOW, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.PRISMARINE_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.COPPER_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.GOLD_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.IRON_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.NETHERITE_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.ENDER_FIRE_FLAME, FlameParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.SMALL_SOUL_FLAME, FlameParticle.SmallFactory::new);
+		PARTICLES.register(ModParticleTypes.SMALL_ENDER_FLAME, FlameParticle.SmallFactory::new);
+		PARTICLES.register(ModParticleTypes.SMALL_NETHERITE_FLAME, FlameParticle.SmallFactory::new);
+		//Cherry Leaves
+		PARTICLES.register(ModParticleTypes.CHERRY_LEAVES, CherryLeavesParticle.Factory::new);
+		//Sculk
+		PARTICLES.register(ModParticleTypes.SCULK_SOUL, ModSoulParticle.SculkSoulFactory::new);
+		PARTICLES.register(ModParticleTypes.SCULK_CHARGE, SculkChargeParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.SCULK_CHARGE_POP, SculkChargePopParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.SHRIEK, ShriekParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.SONIC_BOOM, SonicBoomParticle.Factory::new);
+		//Liquid Mud (Particle)
+		PARTICLES.register(ModParticleTypes.MUD_BUBBLE, WaterBubbleParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.MUD_SPLASH, WaterSplashParticle.SplashFactory::new);
+		PARTICLES.register(ModParticleTypes.DRIPPING_MUD, ModBlockLeakParticle.DrippingMudFactory::new);
+		PARTICLES.register(ModParticleTypes.FALLING_MUD, ModBlockLeakParticle.FallingMudFactory::new);
+		PARTICLES.register(ModParticleTypes.FALLING_DRIPSTONE_MUD, ModBlockLeakParticle.FallingDripstoneMudFactory::new);
+		setupFluidRendering(STILL_MUD_FLUID, FLOWING_MUD_FLUID, ID("mud"), 0x472804);
+		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getSolid(), STILL_MUD_FLUID, FLOWING_MUD_FLUID);
+		//Blood Fluid
+		PARTICLES.register(ModParticleTypes.BLOOD_BUBBLE, WaterBubbleParticle.Factory::new);
+		PARTICLES.register(ModParticleTypes.BLOOD_SPLASH, WaterSplashParticle.SplashFactory::new);
+		PARTICLES.register(ModParticleTypes.DRIPPING_BLOOD, ModBlockLeakParticle.DrippingBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.FALLING_BLOOD, ModBlockLeakParticle.FallingBloodFactory::new);
+		PARTICLES.register(ModParticleTypes.FALLING_DRIPSTONE_BLOOD, ModBlockLeakParticle.FallingDripstoneBloodFactory::new);
 		setupFluidRendering(STILL_BLOOD_FLUID, FLOWING_BLOOD_FLUID, ID("blood"), 0xFF0000);
 		BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), STILL_BLOOD_FLUID, FLOWING_BLOOD_FLUID);
 		//Custom Beds

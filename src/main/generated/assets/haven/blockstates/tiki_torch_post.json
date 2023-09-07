@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "haven:block/tiki_torch_post"
+    }
+  }
+}

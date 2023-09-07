@@ -55,7 +55,7 @@ public class SunkenSkeletonEntity extends SkeletonEntity implements WaterConvers
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		this.setVariant(nbt.getInt("Variant"));
+		if (nbt.contains("Variant")) this.setVariant(nbt.getInt("Variant"));
 	}
 
 	@Override

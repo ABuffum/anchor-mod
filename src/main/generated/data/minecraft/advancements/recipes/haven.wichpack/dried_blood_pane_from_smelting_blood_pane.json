@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:dried_blood_pane_from_smelting_blood_pane"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_blood_pane": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:blood_pane"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:dried_blood_pane_from_smelting_blood_pane"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blood_pane",
+      "has_the_recipe"
+    ]
+  ]
+}

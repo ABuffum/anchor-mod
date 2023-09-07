@@ -2,6 +2,7 @@ package fun.mousewich.mixins.block;
 
 import fun.mousewich.block.basic.ModCandleCakeBlock;
 import fun.mousewich.ModBase;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.block.AbstractCandleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,9 +38,9 @@ public abstract class AbstractCandleBlockMixin extends Block {
 		boolean isNetherrackCandle = block == ModBase.NETHERRACK_CANDLE.asBlock()
 				|| block instanceof ModCandleCakeBlock candleCakeBlock && candleCakeBlock.isNetherrackCandle();
 		DefaultParticleType particles = null;
-		if (isSoulCandle) particles = ModBase.SMALL_SOUL_FLAME_PARTICLE;
-		else if (isEnderCandle) particles = ModBase.SMALL_ENDER_FLAME_PARTICLE;
-		else if (isNetherrackCandle) particles = ModBase.SMALL_NETHERITE_FLAME_PARTICLE;
+		if (isSoulCandle) particles = ModParticleTypes.SMALL_SOUL_FLAME;
+		else if (isEnderCandle) particles = ModParticleTypes.SMALL_ENDER_FLAME;
+		else if (isNetherrackCandle) particles = ModParticleTypes.SMALL_NETHERITE_FLAME;
 		if (particles != null) {
 			if (state.get(AbstractCandleBlock.LIT)) {
 				DefaultParticleType finalParticles = particles;

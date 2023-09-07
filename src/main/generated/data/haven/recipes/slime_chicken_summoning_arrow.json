@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:slime_chicken_spawn_egg"
+    },
+    {
+      "tag": "minecraft:arrows"
+    }
+  ],
+  "result": {
+    "item": "haven:slime_chicken_summoning_arrow"
+  }
+}

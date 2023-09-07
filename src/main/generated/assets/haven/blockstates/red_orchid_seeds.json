@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/red_orchid_seeds"
+      "model": "haven:block/orchid_seeds"
     }
   }
 }

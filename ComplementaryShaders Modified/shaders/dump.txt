@@ -1,0 +1,30 @@
+wich:prismarine_soul_torch:lit=true wich:prismarine_soul_wall_torch:lit=true wich:blaze_soul_torch:lit=true wich:blaze_soul_wall_torch:lit=true wich:iron_soul_torch:lit=true wich:iron_soul_wall_torch:lit=true wich:gold_soul_torch:lit=true wich:gold_soul_wall_torch:lit=true wich:copper_soul_torch:lit=true wich:copper_soul_wall_torch:lit=true wich:exposed_copper_soul_torch:lit=true wich:exposed_copper_soul_wall_torch:lit=true wich:weathered_copper_soul_torch:lit=true wich:weathered_copper_soul_wall_torch:lit=true wich:oxidized_copper_soul_torch:lit=true wich:oxidized_copper_soul_wall_torch:lit=true wich:waxed_copper_soul_torch:lit=true wich:waxed_copper_soul_wall_torch:lit=true wich:waxed_exposed_copper_soul_torch:lit=true wich:waxed_exposed_copper_soul_wall_torch:lit=true wich:waxed_weathered_copper_soul_torch:lit=true wich:waxed_weathered_copper_soul_wall_torch:lit=true wich:waxed_oxidized_copper_soul_torch:lit=true wich:waxed_oxidized_copper_soul_wall_torch:lit=true wich:netherite_soul_torch:lit=true wich:netherite_soul_wall_torch:lit=true wich:bone_soul_torch:lit=true wich:bone_soul_wall_torch:lit=true wich:bamboo_soul_torch:lit=true wich:bamboo_soul_wall_torch:lit=true wich:dried_bamboo_soul_torch:lit=true wich:dried_bamboo_soul_wall_torch:lit=true
+
+wich:_soul_torch:lit=true wich:_soul_wall_torch:lit=true
+
+wich:ender_torch:lit=true wich:ender_wall_torch:lit=true
+wich:prismarine_ender_torch:lit=true wich:prismarine_ender_wall_torch:lit=true
+wich:blaze_ender_torch:lit=true wich:blaze_ender_wall_torch:lit=true
+wich:iron_ender_torch:lit=true wich:iron_ender_wall_torch:lit=true
+wich:gold_ender_torch:lit=true wich:gold_ender_wall_torch:lit=true
+wich:copper_ender_torch:lit=true wich:copper_ender_wall_torch:lit=true
+wich:exposed_copper_ender_torch:lit=true wich:exposed_copper_ender_wall_torch:lit=true
+wich:weathered_copper_ender_torch:lit=true wich:weathered_copper_ender_wall_torch:lit=true
+wich:oxidized_copper_ender_torch:lit=true wich:oxidized_copper_ender_wall_torch:lit=true
+wich:waxed_copper_ender_torch:lit=true wich:waxed_copper_ender_wall_torch:lit=true
+wich:waxed_exposed_copper_ender_torch:lit=true wich:waxed_exposed_copper_ender_wall_torch:lit=true
+wich:waxed_weathered_copper_ender_torch:lit=true wich:waxed_weathered_copper_ender_wall_torch:lit=true
+wich:waxed_oxidized_copper_ender_torch:lit=true wich:waxed_oxidized_copper_ender_wall_torch:lit=true
+wich:netherite_ender_torch:lit=true wich:netherite_ender_wall_torch:lit=true
+wich:bone_ender_torch:lit=true wich:bone_ender_wall_torch:lit=true
+wich:bamboo_ender_torch:lit=true wich:bamboo_ender_wall_torch:lit=true
+wich:dried_bamboo_ender_torch:lit=true wich:dried_bamboo_ender_wall_torch:lit=true
+
+wich:_ender_torch:lit=true wich:_ender_wall_torch:lit=true
+
+wich:ender_lantern:lit=true wich:white_iron_ender_lantern:lit=true wich:gold_ender_lantern:lit=true wich:copper_ender_lantern:lit=true wich:exposed_copper_ender_lantern:lit=true wich:weathered_copper_ender_lantern:lit=true wich:oxidized_copper_ender_lantern:lit=true wich:waxed_copper_ender_lantern:lit=true wich:waxed_exposed_copper_ender_lantern:lit=true wich:waxed_weathered_copper_ender_lantern:lit=true wich:waxed_oxidized_copper_ender_lantern:lit=true wich:netherite_ender_lantern:lit=true
+
+
+
+wich:underwater_torch:lit=true wich:underwater_wall_torch:lit=true wich:underwater_prismarine_torch:lit=true wich:underwater_prismarine_wall_torch:lit=true wich:underwater_blaze_torch:lit=true wich:underwater_blaze_wall_torch:lit=true wich:underwater_iron_torch:lit=true wich:underwater_iron_wall_torch:lit=true wich:underwater_gold_torch:lit=true wich:underwater_gold_wall_torch:lit=true wich:underwater_copper_torch:lit=true wich:underwater_copper_wall_torch:lit=true wich:underwater_exposed_copper_torch:lit=true wich:underwater_exposed_copper_wall_torch:lit=true wich:underwater_weathered_copper_torch:lit=true wich:underwater_weathered_copper_wall_torch:lit=true wich:underwater_oxidized_copper_torch:lit=true wich:underwater_oxidized_copper_wall_torch:lit=true wich:underwater_waxed_copper_torch:lit=true wich:underwater_waxed_copper_wall_torch:lit=true wich:underwater_waxed_exposed_copper_torch:lit=true wich:underwater_waxed_exposed_copper_wall_torch:lit=true wich:underwater_waxed_weathered_copper_torch:lit=true wich:underwater_waxed_weathered_copper_wall_torch:lit=true wich:underwater_waxed_oxidized_copper_torch:lit=true wich:underwater_waxed_oxidized_copper_wall_torch:lit=true wich:underwater_netherite_torch:lit=true wich:underwater_netherite_wall_torch:lit=true wich:underwater_bone_torch:lit=true wich:underwater_bone_wall_torch:lit=true wich:underwater_bamboo_torch:lit=true wich:underwater_bamboo_wall_torch:lit=true wich:underwater_dried_bamboo_torch:lit=true wich:underwater_dried_bamboo_wall_torch:lit=true
+

@@ -31,7 +31,16 @@ public class EntityTypeTagGenerator extends FabricTagProvider<EntityType<?>> {
 		ModDatagen.Cache.Tags.ENTITY_TYPE_TAGS.clear();
 
 		getOrCreateTagBuilder(EntityTypeTags.ARROWS).add(ArrowContainer.ARROW_CONTAINERS.stream().map(ArrowContainer::getEntityType).toArray(EntityType<?>[]::new));
+		getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_ALWAYS_HOSTILES).add(SUNKEN_SKELETON_ENTITY);
 		getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(TADPOLE_ENTITY);
+		getOrCreateTagBuilder(ModEntityTypeTags.DISMOUNTS_UNDERWATER).add(CAMEL_ENTITY)
+				.add(EntityType.CHICKEN, EntityType.DONKEY, EntityType.HORSE, EntityType.LLAMA, EntityType.MULE, EntityType.PIG)
+				.add(EntityType.RAVAGER, EntityType.SPIDER, EntityType.STRIDER, EntityType.TRADER_LLAMA, EntityType.ZOMBIE_HORSE);
+		getOrCreateTagBuilder(ModEntityTypeTags.FALL_DAMAGE_IMMUNE).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM)
+				.add(EntityType.SHULKER, EntityType.BAT, EntityType.BEE, EntityType.BLAZE, EntityType.CAT)
+				.add(EntityType.CHICKEN, EntityType.GHAST, EntityType.PHANTOM, RED_PHANTOM_ENTITY, EntityType.MAGMA_CUBE)
+				.add(EntityType.OCELOT, EntityType.PARROT, EntityType.WITHER)
+				.addOptional(new Identifier("allay", "allay"));
 		getOrCreateTagBuilder(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(MELON_GOLEM_ENTITY, FROZEN_ZOMBIE_ENTITY);
 		getOrCreateTagBuilder(ModEntityTypeTags.FROG_FOOD)
 				.add(EntityType.SLIME, EntityType.MAGMA_CUBE, TROPICAL_SLIME_ENTITY, PINK_SLIME_ENTITY)

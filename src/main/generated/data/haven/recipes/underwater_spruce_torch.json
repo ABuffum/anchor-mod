@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "minecraft:spruce_log"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_spruce_torch",
+    "count": 8
+  }
+}

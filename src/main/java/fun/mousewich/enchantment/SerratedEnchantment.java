@@ -2,6 +2,7 @@ package fun.mousewich.enchantment;
 
 import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import fun.mousewich.ModBase;
+import fun.mousewich.effect.ModStatusEffects;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.Entity;
@@ -31,7 +32,7 @@ public class SerratedEnchantment extends Enchantment {
 	public void onTargetDamaged(LivingEntity user, Entity target, int level) {
 		if (target instanceof LivingEntity livingEntity) {
 			int i = 40 + Math.max(0, 10 * level);
-			livingEntity.addStatusEffect(new StatusEffectInstance(ModBase.BLEEDING_EFFECT, i, Math.max(0, level - 1)));
+			livingEntity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.BLEEDING, i, Math.max(0, level - 1)));
 		}
 	}
 }

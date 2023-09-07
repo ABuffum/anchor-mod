@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:mint_concrete"
+  },
+  "result": "haven:mint_concrete_wall",
+  "count": 1
+}

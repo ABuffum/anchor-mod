@@ -2,9 +2,11 @@ package fun.mousewich.client.render.entity.renderer;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.RaftEntityModel;
 import fun.mousewich.entity.vehicle.ModBoatEntity;
 import fun.mousewich.entity.vehicle.ModBoatType;
+import fun.mousewich.registry.ModBambooRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.OverlayTexture;
@@ -30,8 +32,8 @@ public class ModBoatEntityRenderer extends EntityRenderer<ModBoatEntity> {
 	public ModBoatEntityRenderer(EntityRendererFactory.Context context) {
 		super(context);
 		this.shadowRadius = 0.8F;
-		this.model = new BoatEntityModel(context.getPart(ModClient.BOAT_ENTITY_MODEL_LAYER));
-		this.raft = new RaftEntityModel(context.getPart(ModClient.RAFT_MODEL_LAYER));
+		this.model = new BoatEntityModel(context.getPart(ModEntityModelLayers.BOAT));
+		this.raft = new RaftEntityModel(context.getPart(ModEntityModelLayers.RAFT));
 	}
 
 	public void render(ModBoatEntity boatEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
@@ -46,7 +48,7 @@ public class ModBoatEntityRenderer extends EntityRenderer<ModBoatEntity> {
 			matrixStack.multiply(new Quaternion(new Vec3f(1.0F, 0.0F, 1.0F), boatEntity.interpolateBubbleWobble(g), true));
 		}
 		ModBoatType type = boatEntity.getModBoatType();
-		boolean isRaft = type == ModBase.BAMBOO_RAFT.getType();
+		boolean isRaft = type == ModBambooRegistry.BAMBOO_RAFT.getType();
 		CompositeEntityModel<BoatEntity> boatEntityModel = isRaft ? raft : model;
 		matrixStack.scale(-1.0F, -1.0F, 1.0F);
 		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90.0F));

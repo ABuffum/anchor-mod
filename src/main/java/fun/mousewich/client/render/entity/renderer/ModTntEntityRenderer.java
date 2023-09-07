@@ -36,7 +36,7 @@ public class ModTntEntityRenderer<T extends ModTntEntity> extends EntityRenderer
 		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-90.0f));
 		matrixStack.translate(-0.5, -0.5, 0.5);
 		matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90.0f));
-		TntMinecartEntityRenderer.renderFlashingBlock(tntEntity.getBlock().getDefaultState(), matrixStack, vertexConsumerProvider, i, j / 5 % 2 == 0);
+		TntMinecartEntityRenderer.renderFlashingBlock(tntEntity.getBlockState(), matrixStack, vertexConsumerProvider, i, j / 5 % 2 == 0);
 		matrixStack.pop();
 		super.render(tntEntity, f, g, matrixStack, vertexConsumerProvider, i);
 	}

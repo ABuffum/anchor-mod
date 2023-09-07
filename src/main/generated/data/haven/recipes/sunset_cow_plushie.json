@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_wool"
+    },
+    [
+      {
+        "item": "minecraft:beef"
+      },
+      {
+        "item": "minecraft:cooked_beef"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:sunset_cow_plushie"
+  }
+}

@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.PiranhaEntityModel;
 import fun.mousewich.entity.hostile.piranha.PiranhaEntity;
 import net.fabricmc.api.EnvType;
@@ -18,13 +18,11 @@ public class PiranhaEntityRenderer extends MobEntityRenderer<PiranhaEntity, Pira
 	private static final Identifier TEXTURE = ModBase.ID("textures/entity/fish/piranha.png");
 
 	public PiranhaEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new PiranhaEntityModel(context.getPart(ModClient.PIRANHA_MODEL_LAYER)), 0.3f);
+		super(context, new PiranhaEntityModel(context.getPart(ModEntityModelLayers.PIRANHA)), 0.3f);
 	}
 
 	@Override
-	public Identifier getTexture(PiranhaEntity codEntity) {
-		return TEXTURE;
-	}
+	public Identifier getTexture(PiranhaEntity codEntity) { return TEXTURE; }
 
 	@Override
 	protected void setupTransforms(PiranhaEntity entity, MatrixStack matrixStack, float f, float g, float h) {

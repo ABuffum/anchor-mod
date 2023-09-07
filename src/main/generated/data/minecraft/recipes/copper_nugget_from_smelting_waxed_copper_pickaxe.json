@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "haven:waxed_copper_pickaxe"
+  },
+  "result": "haven:copper_nugget",
+  "experience": 0.1,
+  "cookingtime": 200
+}

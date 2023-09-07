@@ -3,3 +3,4 @@ summon area_effect_cloud ~ ~ ~ {Particle:"item_slime",Radius:1f,RadiusPerTick:.1
 summon area_effect_cloud ~ ~ ~ {Particle:"large_smoke",Radius:0.4f,RadiusPerTick:0.1f,Duration:20}
 effect give @p[distance=..0] resistance 4 1 false
 playsound minecraft:entity.slime.squish master @a[distance=..30] ~ ~ ~ 50 0
+function haven:sludge_terraform

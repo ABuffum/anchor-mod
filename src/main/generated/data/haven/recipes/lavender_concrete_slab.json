@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:lavender_concrete"
+    }
+  },
+  "result": {
+    "item": "haven:lavender_concrete_slab",
+    "count": 6
+  }
+}

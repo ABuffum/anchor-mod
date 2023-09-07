@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "haven:dogwood_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:sandy_dogwood_planks"
+  }
+}

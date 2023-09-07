@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:dark_iron_nugget_from_blasting_dark_iron_shears"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dark_iron_shears": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dark_iron_shears"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:dark_iron_nugget_from_blasting_dark_iron_shears"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_iron_shears",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/sandy_polished_andesite_slab"
+    },
+    "type=double": {
+      "model": "haven:block/sandy_polished_andesite"
+    },
+    "type=top": {
+      "model": "haven:block/sandy_polished_andesite_slab_top"
+    }
+  }
+}

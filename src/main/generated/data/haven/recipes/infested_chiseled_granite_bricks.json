@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:chiseled_granite_bricks"
+    },
+    {
+      "item": "minecraft:silverfish_spawn_egg"
+    }
+  ],
+  "result": {
+    "item": "haven:infested_chiseled_granite_bricks"
+  }
+}

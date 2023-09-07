@@ -6,6 +6,7 @@
     "minecraft:husk",
     "minecraft:drowned",
     "minecraft:giant",
+    "haven:jungle_zombie",
     "haven:frozen_zombie",
     {
       "id": "graveyard:ghoul",

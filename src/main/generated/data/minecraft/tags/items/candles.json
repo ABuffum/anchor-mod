@@ -1,11 +1,12 @@
 {
   "replace": false,
   "values": [
-    "haven:soul_candle",
     "haven:ender_candle",
+    "haven:beige_candle",
+    "haven:burgundy_candle",
+    "haven:lavender_candle",
+    "haven:mint_candle",
     "haven:netherrack_candle",
-    "haven:soul_candle",
-    "haven:ender_candle",
-    "haven:netherrack_candle"
+    "haven:soul_candle"
   ]
 }

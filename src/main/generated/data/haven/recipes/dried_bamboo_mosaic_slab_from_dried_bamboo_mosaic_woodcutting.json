@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:dried_bamboo_mosaic"
+  },
+  "result": "haven:dried_bamboo_mosaic_slab",
+  "count": 2
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_wool"
+    },
+    [
+      {
+        "item": "minecraft:chicken"
+      },
+      {
+        "item": "minecraft:cooked_chicken"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:bronzed_chicken_plushie"
+  }
+}

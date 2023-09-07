@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "haven:amaranth",
-    "haven:blue_rose_bush",
     "haven:tall_allium",
-    "haven:tall_pink_allium",
-    "haven:tall_vanilla"
+    "haven:blue_rose_bush",
+    "haven:amaranth",
+    "haven:tall_vanilla",
+    "haven:tall_pink_allium"
   ]
 }

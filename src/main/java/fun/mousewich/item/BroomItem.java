@@ -1,6 +1,7 @@
 package fun.mousewich.item;
 
 import fun.mousewich.gen.data.tag.ModBlockTags;
+import fun.mousewich.item.tool.ExtraKnockbackItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class BroomItem extends Item {
+public class BroomItem extends Item implements ExtraKnockbackItem {
 	private final double knockback;
 
 	public BroomItem(double knockback, Settings settings) {
@@ -61,4 +62,7 @@ public class BroomItem extends Item {
 		}
 		return ActionResult.PASS;
 	}
+
+	@Override
+	public int getExtraKnockback() { return (int)(1 + knockback); }
 }

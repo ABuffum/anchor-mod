@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "minecraft:warped_stem"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_warped_torch",
+    "count": 8
+  }
+}

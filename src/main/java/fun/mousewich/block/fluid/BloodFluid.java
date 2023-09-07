@@ -1,6 +1,7 @@
 package fun.mousewich.block.fluid;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -54,7 +55,7 @@ public abstract class BloodFluid extends FlowableFluid {
 	@Override
 	public Optional<SoundEvent> getBucketFillSound() { return Optional.of(SoundEvents.ITEM_BUCKET_FILL); }
 
-	public ParticleEffect getParticle() { return ModBase.DRIPPING_BLOOD; }
+	public ParticleEffect getParticle() { return ModParticleTypes.DRIPPING_BLOOD; }
 
 	public static class Flowing extends BloodFluid {
 		@Override

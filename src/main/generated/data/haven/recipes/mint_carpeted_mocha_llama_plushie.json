@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:mocha_llama_plushie"
+    },
+    {
+      "item": "haven:mint_dye"
+    }
+  ],
+  "result": {
+    "item": "haven:mint_carpeted_mocha_llama_plushie"
+  }
+}

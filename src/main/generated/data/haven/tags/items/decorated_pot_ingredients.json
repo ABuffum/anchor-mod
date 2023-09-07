@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:brick",
+    "#haven:decorated_pot_sherds"
+  ]
+}

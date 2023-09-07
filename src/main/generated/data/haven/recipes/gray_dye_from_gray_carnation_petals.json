@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:gray_carnation_petals"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gray_dye"
+  }
+}

@@ -3,7 +3,7 @@ package fun.mousewich.container;
 import fun.mousewich.block.BlockConvertible;
 import fun.mousewich.block.torch.UnlitTorchBlock;
 import fun.mousewich.block.torch.UnlitWallTorchBlock;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
+import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.gen.data.loot.DropTable;
 import net.minecraft.block.Block;
 import net.minecraft.block.TorchBlock;
@@ -35,8 +35,8 @@ public class UnlitTorchContainer implements IContainer, BlockConvertible {
 	public static Map<Block, Block> UNLIT_TO_LIT_WALL_TORCHES = new HashMap<Block, Block>();
 
 	public UnlitTorchContainer drops(ItemConvertible item) {
-		BlockLootGenerator.Drops.put(this.block, DropTable.Drops(item));
-		BlockLootGenerator.Drops.put(this.wallBlock, DropTable.Drops(item));
+		ModDatagen.Cache.Drops.put(this.block, DropTable.Drops(item));
+		ModDatagen.Cache.Drops.put(this.wallBlock, DropTable.Drops(item));
 		return this;
 	}
 }

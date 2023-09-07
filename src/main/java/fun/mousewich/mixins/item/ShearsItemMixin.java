@@ -1,6 +1,7 @@
 package fun.mousewich.mixins.item;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.block.plushie.PlushieBlock;
 import fun.mousewich.block.sculk.SculkTurfBlock;
 import fun.mousewich.container.BlockContainer;
 import fun.mousewich.container.PottedBlockContainer;
@@ -33,7 +34,9 @@ public class ShearsItemMixin extends Item {
 
 	@Inject(method="getMiningSpeedMultiplier", at = @At("HEAD"), cancellable = true)
 	public void GetMiningSpeedMultiplier(ItemStack stack, BlockState state, CallbackInfoReturnable<Float> cir) {
-		if (state.isIn(ModBlockTags.FLEECE)) cir.setReturnValue(5.0F);
+		if (state.isIn(ModBlockTags.WOOL_SLABS) || state.isIn(ModBlockTags.WOOL_CARPETS)) cir.setReturnValue(5F);
+		if (state.isIn(ModBlockTags.FLEECE) || state.isIn(ModBlockTags.FLEECE_SLABS) || state.isIn(ModBlockTags.FLEECE_CARPETS)) cir.setReturnValue(5F);
+		if (state.getBlock() instanceof PlushieBlock) cir.setReturnValue(5F);
 	}
 	@Inject(method="isSuitableFor", at = @At("HEAD"), cancellable = true)
 	public void IsSuitableFor(BlockState state, CallbackInfoReturnable<Boolean> cir) {

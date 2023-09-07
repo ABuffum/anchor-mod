@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:lavender_terracotta_stairs_from_lavender_terracotta_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_lavender_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:lavender_terracotta"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:lavender_terracotta_stairs_from_lavender_terracotta_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lavender_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

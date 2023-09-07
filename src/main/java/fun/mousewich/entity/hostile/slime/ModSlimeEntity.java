@@ -16,9 +16,7 @@ import net.minecraft.world.World;
 
 public abstract class ModSlimeEntity extends SlimeEntity {
 	protected Goal swimmingGoal;
-	public ModSlimeEntity(EntityType<? extends SlimeEntity> entityType, World world) {
-		super(entityType, world);
-	}
+	public ModSlimeEntity(EntityType<? extends SlimeEntity> entityType, World world) { super(entityType, world); }
 
 	@Override
 	protected void initGoals() {

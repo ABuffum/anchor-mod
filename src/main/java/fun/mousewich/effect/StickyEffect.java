@@ -15,7 +15,7 @@ public class StickyEffect extends ModStatusEffect {
 	}
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
-		int k = 20 >> Math.min(amplifier, 4);
+		int k = 20 >> Math.min(4, Math.max(amplifier, 2));
 		return k <= 1 || duration % k == 0;
 	}
 	@Override

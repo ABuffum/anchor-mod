@@ -42,7 +42,7 @@ public class ShriekParticleEffect implements ParticleEffect {
 		return String.format(Locale.ROOT, "%s %d", Registry.PARTICLE_TYPE.getId(this.getType()), this.delay);
 	}
 
-	public ParticleType<ShriekParticleEffect> getType() { return ModBase.SHRIEK_PARTICLE; }
+	public ParticleType<ShriekParticleEffect> getType() { return ModParticleTypes.SHRIEK; }
 
 	public int getDelay() { return this.delay; }
 }

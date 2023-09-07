@@ -12,47 +12,48 @@ public class WitheringEffect extends ModStatusEffect {
 	public WitheringEffect() { super(StatusEffectType.HARMFUL, 0x6B7750); }
 	@Override
 	public boolean canApplyUpdateEffect(int duration, int amplifier) {
-		switch (amplifier) {
-			case 0: return duration % 19000 == 0;	//900 seconds (15 minutes)
-			case 1: return duration % 12000 == 0;	//600 seconds (10 minutes)
-			case 2: return duration % 7000 == 0;	//300 seconds (5 minutes)
-			case 3: return duration % 3600 == 0;	//180 seconds (3 minutes)
-			case 4: return duration % 2400 == 0;	//120 seconds (2 minutes)
-			case 5: return duration % 1200 == 0;	//60 seconds (1 minute)
-			case 6: return duration % 600 == 0; 	//30 seconds
-			case 7: return duration % 200 == 0; 	//10 seconds
-			case 8: return duration % 100 == 0; 	//5 seconds
-			default: return duration % 20 == 0; 	//1 second
-		}
+		return switch (amplifier) {
+			case 0 -> duration % 18000 == 0;    //900 seconds (15 minutes)
+			case 1 -> duration % 14400 == 0;    //720 seconds (12 minutes)
+			case 2 -> duration % 12000 == 0;    //600 seconds (10 minutes)
+			case 3 -> duration % 9600 == 0;    //480 seconds (8 minutes)
+			case 4 -> duration % 6000 == 0;    //300 seconds (5 minutes)
+			case 5 -> duration % 2400 == 0;    //120 seconds (2 minute)
+			case 6 -> duration % 1200 == 0;    //60 seconds (1 minute)
+			case 7 -> duration % 600 == 0;     //30 seconds
+			case 8 -> duration % 300 == 0;     //15 seconds
+			default -> duration % 100 == 0;    //5 seconds
+		};
 	}
 
 	@Override
-	public void applyUpdateEffect(LivingEntity entity, int i) {
-		if (entity.hasStatusEffect(HavenMod.PROTECTED_EFFECT)) return;
+	public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+		if (entity.hasStatusEffect(HavenMod.PROTECTED_EFFECT)) {
+			if (entity.world.isClient) return;
+			if (entity.hasStatusEffect(HavenMod.PROTECTED_EFFECT)) entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
+			return;
+		}
 		if (entity.hasStatusEffect(HavenMod.RELIEVED_EFFECT)) return;
 		entity.damage(ModDamageSource.WITHERING,1);
-		increase(entity.world, entity);
+		if (amplifier < 9) increase(entity.world, entity);
 	}
 
 	public static void reduce(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT);
-			int amplifier = effect.getAmplifier();
-			if (amplifier > 1) {
-				entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
-				entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), amplifier - 1));
-			}
+		StatusEffectInstance effect;
+		int amplifier;
+		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT) && (effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT)) != null && (amplifier = effect.getAmplifier()) > 0) {
+			entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
+			entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), amplifier - 1));
 		}
 	}
 
 	public static void increase(World world, LivingEntity entity) {
 		if (world.isClient) return;
-		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT)) {
-			StatusEffectInstance effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT);
+		StatusEffectInstance effect;
+		if (entity.hasStatusEffect(HavenMod.WITHERING_EFFECT) && (effect = entity.getStatusEffect(HavenMod.WITHERING_EFFECT)) != null) {
 			entity.removeStatusEffect(HavenMod.WITHERING_EFFECT);
-			int amplifier = effect.getAmplifier();
-			entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), amplifier < 7 ? amplifier + 1 : amplifier, true, false));
+			entity.addStatusEffect(new StatusEffectInstance(HavenMod.WITHERING_EFFECT, effect.getDuration(), Math.max(Math.min(9, effect.getAmplifier()), 0), true, false, true));
 		}
 	}
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/red_sandy_charred_slab"
+    },
+    "type=double": {
+      "model": "haven:block/red_sandy_charred_planks"
+    },
+    "type=top": {
+      "model": "haven:block/red_sandy_charred_slab_top"
+    }
+  }
+}

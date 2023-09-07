@@ -1,6 +1,5 @@
 package fun.mousewich.mixins;
 
-import fun.mousewich.ModBase;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -24,7 +23,7 @@ public class RecipeManagerMixin {
 		Optional<T> optional = ((RecipeManager)(Object)this).getFirstMatch(type, inventory, world);
 		if (optional.isPresent()) {
 			ItemStack stack = (optional.get()).getOutput();
-			if (stack.isIn(ModItemTags.FLAVORED_MILK) || stack.isOf(ModBase.SUGAR_WATER_BOTTLE) || stack.isOf(ModBase.SYRUP_BOTTLE)) {
+			if (stack.isIn(ModItemTags.IGNORE_RECIPE_REMAINDER)) {
 				DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(inventory.size(), ItemStack.EMPTY);
 				Collections.fill(defaultedList, ItemStack.EMPTY);
 				cir.setReturnValue(defaultedList);

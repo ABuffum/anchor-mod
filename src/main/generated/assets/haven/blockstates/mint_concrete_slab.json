@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/mint_concrete_slab"
+    },
+    "type=double": {
+      "model": "haven:block/mint_concrete"
+    },
+    "type=top": {
+      "model": "haven:block/mint_concrete_slab_top"
+    }
+  }
+}

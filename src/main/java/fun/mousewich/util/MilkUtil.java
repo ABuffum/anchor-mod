@@ -1,11 +1,15 @@
 package fun.mousewich.util;
 
+import fun.mousewich.ModConfig;
 import fun.mousewich.damage.ModDamageSource;
 import fun.mousewich.effect.ModStatusEffect;
+import fun.mousewich.haven.HavenMod;
+import fun.mousewich.haven.effect.WitheringEffect;
 import fun.mousewich.mixins.entity.LivingEntityAccessor;
 import fun.mousewich.origins.power.LactoseIntolerantPower;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.world.World;
@@ -27,12 +31,14 @@ public class MilkUtil {
 		if (world.isClient) return;
 		Iterator<StatusEffectInstance> iterator = entity.getActiveStatusEffects().values().iterator();
 		LivingEntityAccessor lea = (LivingEntityAccessor)entity;
-		for(boolean bl = false; iterator.hasNext(); bl = true) {
+		while (iterator.hasNext()) {
 			StatusEffectInstance effect = iterator.next();
-			if (!ModStatusEffect.MILK_IMMUNE_EFFECTS.contains(effect.getEffectType())){
+			StatusEffect type = effect.getEffectType();
+			if (!ModStatusEffect.MILK_IMMUNE_EFFECTS.contains(type)){
 				lea.OnStatusEffectRemoved(effect);
 				iterator.remove();
 			}
+			else if (ModConfig.REGISTER_HAVEN_MOD && type == HavenMod.WITHERING_EFFECT) WitheringEffect.reduce(world, entity);
 		}
 	}
 	public static void CheckLactosIntolerance(World world, LivingEntity entity) {

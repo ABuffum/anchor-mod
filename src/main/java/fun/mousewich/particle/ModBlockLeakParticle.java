@@ -74,7 +74,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public FallingObsidianBloodFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, Fluids.EMPTY, ModBase.LANDING_OBSIDIAN_BLOOD);
+			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, Fluids.EMPTY, ModParticleTypes.LANDING_OBSIDIAN_BLOOD);
 			blockLeakParticle.obsidianTear = true;
 			blockLeakParticle.gravityStrength = 0.01F;
 			blockLeakParticle.setColor(1F, 0F, 0F);
@@ -88,7 +88,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public DrippingObsidianBloodFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			Dripping dripping = new Dripping(clientWorld, d, e, f, Fluids.EMPTY, ModBase.FALLING_OBSIDIAN_BLOOD);
+			Dripping dripping = new Dripping(clientWorld, d, e, f, Fluids.EMPTY, ModParticleTypes.FALLING_OBSIDIAN_BLOOD);
 			dripping.obsidianTear = true;
 			dripping.gravityStrength *= 0.01F;
 			dripping.maxAge = 100;
@@ -103,7 +103,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public FallingDripstoneMudFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModBase.FALLING_DRIPSTONE_MUD);
+			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModParticleTypes.FALLING_DRIPSTONE_MUD);
 			blockLeakParticle.setColor(0.25F, 0.125F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;
@@ -115,7 +115,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public FallingMudFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModBase.MUD_SPLASH);
+			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModParticleTypes.MUD_SPLASH);
 			blockLeakParticle.setColor(0.25F, 0.125F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;
@@ -126,7 +126,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public DrippingMudFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModBase.FALLING_MUD);
+			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_MUD_FLUID, ModParticleTypes.FALLING_MUD);
 			blockLeakParticle.setColor(0.25F, 0.125F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;
@@ -138,7 +138,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public FallingDripstoneBloodFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModBase.FALLING_DRIPSTONE_BLOOD);
+			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModParticleTypes.FALLING_DRIPSTONE_BLOOD);
 			blockLeakParticle.setColor(1F, 0F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;
@@ -149,7 +149,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public FallingBloodFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModBase.BLOOD_SPLASH);
+			ModBlockLeakParticle blockLeakParticle = new ContinuousFalling(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModParticleTypes.BLOOD_SPLASH);
 			blockLeakParticle.setColor(1F, 0F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;
@@ -160,7 +160,7 @@ public class ModBlockLeakParticle extends SpriteBillboardParticle {
 		protected final SpriteProvider spriteProvider;
 		public DrippingBloodFactory(SpriteProvider spriteProvider) { this.spriteProvider = spriteProvider; }
 		public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModBase.FALLING_BLOOD);
+			ModBlockLeakParticle blockLeakParticle = new Dripping(clientWorld, d, e, f, ModBase.STILL_BLOOD_FLUID, ModParticleTypes.FALLING_BLOOD);
 			blockLeakParticle.setColor(1F, 0F, 0F);
 			blockLeakParticle.setSprite(this.spriteProvider);
 			return blockLeakParticle;

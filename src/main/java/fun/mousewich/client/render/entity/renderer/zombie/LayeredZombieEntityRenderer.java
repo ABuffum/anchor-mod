@@ -1,11 +1,10 @@
 package fun.mousewich.client.render.entity.renderer.zombie;
 
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.LayeredZombieEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.LayeredZombieOverlayFeatureRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ZombieBaseEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.util.Identifier;
@@ -14,10 +13,10 @@ import net.minecraft.util.math.Vec3f;
 
 public abstract class LayeredZombieEntityRenderer<T extends ZombieEntity> extends ZombieBaseEntityRenderer<T, LayeredZombieEntityModel<T>> {
 	public LayeredZombieEntityRenderer(EntityRendererFactory.Context context, Identifier skin) {
-		super(context, new LayeredZombieEntityModel<>(context.getPart(ModClient.LAYERED_ZOMBIE_LAYER)),
-				new LayeredZombieEntityModel<>(context.getPart(ModClient.LAYERED_ZOMBIE_INNER_ARMOR_LAYER)),
-				new LayeredZombieEntityModel<>(context.getPart(ModClient.LAYERED_ZOMBIE_OUTER_ARMOR_LAYER)));
-		this.addFeature(new LayeredZombieOverlayFeatureRenderer<>(this, context.getModelLoader(), ModClient.LAYERED_ZOMBIE_LAYER, skin));
+		super(context, new LayeredZombieEntityModel<>(context.getPart(ModEntityModelLayers.LAYERED_ZOMBIE)),
+				new LayeredZombieEntityModel<>(context.getPart(ModEntityModelLayers.LAYERED_ZOMBIE_INNER_ARMOR)),
+				new LayeredZombieEntityModel<>(context.getPart(ModEntityModelLayers.LAYERED_ZOMBIE_OUTER_ARMOR)));
+		this.addFeature(new LayeredZombieOverlayFeatureRenderer<>(this, context.getModelLoader(), ModEntityModelLayers.LAYERED_ZOMBIE_OUTER, skin));
 	}
 
 	@Override

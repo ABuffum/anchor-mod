@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:creamy_llama_plushie"
+    },
+    {
+      "item": "haven:rainbow_carpet"
+    }
+  ],
+  "result": {
+    "item": "haven:rainbow_carpeted_creamy_llama_plushie"
+  }
+}

@@ -65,10 +65,10 @@ public interface StatusEffectFogModifier {
 	class DarknessFogModifier implements StatusEffectFogModifier {
 		public DarknessFogModifier() { }
 		@Override
-		public StatusEffect getStatusEffect() { return ModBase.DARKNESS_EFFECT; }
+		public StatusEffect getStatusEffect() { return ModStatusEffects.DARKNESS; }
 		@Override
 		public void applyStartEndModifier(FogData fogData, LivingEntity entity, StatusEffectInstance effect, float viewDistance, float tickDelta) {
-			if (effect.getEffectType() == ModBase.DARKNESS_EFFECT) {
+			if (effect.getEffectType() == ModStatusEffects.DARKNESS) {
 				int duration = effect.getDuration() % 100;
 				float lerp = duration < 50 ? duration / 50F : (1 - ((duration - 50)) / 50F);
 				float f = MathHelper.lerp(lerp, viewDistance, 10.0F);
@@ -82,7 +82,7 @@ public interface StatusEffectFogModifier {
 	class FlashbangedFogModifier implements StatusEffectFogModifier {
 		public FlashbangedFogModifier() { }
 		@Override
-		public StatusEffect getStatusEffect() { return ModBase.FLASHBANGED_EFFECT; }
+		public StatusEffect getStatusEffect() { return ModStatusEffects.FLASHBANGED; }
 		@Override
 		public void applyStartEndModifier(FogData fogData, LivingEntity entity, StatusEffectInstance effect, float viewDistance, float tickDelta) {
 			float f = MathHelper.lerp(Math.min(1.0F, (float) effect.getDuration() / 20.0F), viewDistance, 5.0F);
@@ -125,13 +125,13 @@ public interface StatusEffectFogModifier {
 
 	@Environment(EnvType.CLIENT)
 	class TintedGogglesFogModifier extends GogglesFogModifier {
-		@Override protected StatusEffect getEffect() { return ModBase.TINTED_GOGGLES_EFFECT; }
+		@Override protected StatusEffect getEffect() { return ModStatusEffects.TINTED_GOGGLES; }
 		@Override protected Item getGoggles() { return ModBase.TINTED_GOGGLES; }
 	}
 
 	@Environment(EnvType.CLIENT)
 	class RubyGogglesFogModifier extends GogglesFogModifier {
-		@Override protected StatusEffect getEffect() { return ModBase.RUBY_GOGGLES_EFFECT; }
+		@Override protected StatusEffect getEffect() { return ModStatusEffects.RUBY_GOGGLES; }
 		@Override protected Item getGoggles() { return ModBase.RUBY_GOGGLES; }
 	}
 }

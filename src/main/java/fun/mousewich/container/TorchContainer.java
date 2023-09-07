@@ -10,7 +10,6 @@ import fun.mousewich.block.torch.LightableWallTorchBlock;
 import fun.mousewich.block.torch.WaterloggableTorchBlock;
 import fun.mousewich.block.torch.WaterloggableWallTorchBlock;
 import fun.mousewich.gen.data.ModDatagen;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
 import fun.mousewich.gen.data.loot.DropTable;
 import fun.mousewich.util.OxidationScale;
 import net.minecraft.block.Block;
@@ -85,8 +84,8 @@ public class TorchContainer implements IWallBlockItemContainer {
 	}
 
 	public TorchContainer dropSelf() {
-		BlockLootGenerator.Drops.put(this.block, DropTable.Drops(this.item));
-		BlockLootGenerator.Drops.put(this.wallBlock, DropTable.Drops(this.item));
+		ModDatagen.Cache.Drops.put(this.block, DropTable.Drops(this.item));
+		ModDatagen.Cache.Drops.put(this.wallBlock, DropTable.Drops(this.item));
 		return this;
 	}
 }

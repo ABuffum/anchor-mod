@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:stripped_gilded_hyphae"
+  },
+  "result": "haven:stripped_gilded_hyphae_slab",
+  "count": 2
+}

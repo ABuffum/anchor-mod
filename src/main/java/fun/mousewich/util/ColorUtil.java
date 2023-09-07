@@ -1,6 +1,7 @@
 package fun.mousewich.util;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.util.dye.ModDyeColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
@@ -19,8 +20,8 @@ public class ColorUtil {
 		return output;
 	}
 
-	public static DyeColor GetRandomColor(Random random) {
-		DyeColor[] colors = DyeColor.values();
+	public static ModDyeColor GetRandomColor(Random random) {
+		ModDyeColor[] colors = ModDyeColor.ALL_VALUES;
 		return colors[random.nextInt(colors.length)];
 	}
 
@@ -124,6 +125,13 @@ public class ColorUtil {
 			case BLACK -> Items.BLACK_WOOL;
 			case WHITE -> Items.WHITE_WOOL;
 		};
+	}
+	public static Item GetWoolItem(ModDyeColor color) {
+		if (color == ModDyeColor.BEIGE) return ModBase.BEIGE_WOOL.asItem();
+		else if (color == ModDyeColor.BURGUNDY) return ModBase.BURGUNDY_WOOL.asItem();
+		else if (color == ModDyeColor.LAVENDER) return ModBase.LAVENDER_WOOL.asItem();
+		else if (color == ModDyeColor.MINT) return ModBase.MINT_WOOL.asItem();
+		else return GetWoolItem(DyeColor.byId(color.getId()));
 	}
 	public static Block GetWoolCarpetBlock(DyeColor color) {
 		return switch (color) {

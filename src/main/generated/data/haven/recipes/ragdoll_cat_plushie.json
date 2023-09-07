@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:yellow_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "tag": "haven:raw_fish"
+    }
+  ],
+  "result": {
+    "item": "haven:ragdoll_cat_plushie"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/pink_allium_seeds"
+      "model": "haven:block/allium_seeds"
     }
   }
 }

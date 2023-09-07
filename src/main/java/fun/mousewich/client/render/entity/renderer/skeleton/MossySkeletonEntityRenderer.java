@@ -12,9 +12,7 @@ import net.minecraft.util.Identifier;
 public class MossySkeletonEntityRenderer extends SkeletonEntityRenderer {
 	private static final Identifier TEXTURE = ModBase.ID("textures/entity/skeleton/mossy.png");
 
-	public MossySkeletonEntityRenderer(EntityRendererFactory.Context context) {
-		super(context);
-	}
+	public MossySkeletonEntityRenderer(EntityRendererFactory.Context context) { super(context); }
 
 	@Override
 	public Identifier getTexture(AbstractSkeletonEntity abstractSkeletonEntity) { return TEXTURE; }

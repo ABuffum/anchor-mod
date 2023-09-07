@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/glow_lichen_carpeted_creamy_llama_plushie",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/glow_lichen_carpeted_creamy_llama_plushie"
+    },
+    "facing=south": {
+      "model": "haven:block/glow_lichen_carpeted_creamy_llama_plushie",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/glow_lichen_carpeted_creamy_llama_plushie",
+      "y": 270
+    }
+  }
+}

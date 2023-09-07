@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "haven:cassia_boat",
-    "minecraft:bamboo_raft",
+    "haven:charred_boat",
+    "haven:blue_mushroom_boat",
+    "haven:hay_boat",
+    "minecraft:cherry_boat",
     "haven:mushroom_stem_boat",
     "haven:dogwood_boat",
+    "haven:brown_mushroom_boat",
+    "minecraft:bamboo_raft",
+    "haven:cassia_boat",
+    "minecraft:mangrove_boat",
     "haven:red_mushroom_boat",
     "haven:sugar_cane_boat",
-    "haven:hay_boat",
-    "haven:blue_mushroom_boat",
-    "haven:charred_boat",
-    "minecraft:cherry_boat",
-    "minecraft:mangrove_boat",
-    "haven:brown_mushroom_boat",
     "#minecraft:chest_boats"
   ]
 }

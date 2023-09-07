@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_slime_lantern",
+  "textures": {
+    "texture": "haven:block/pink_slime_lantern"
+  }
+}

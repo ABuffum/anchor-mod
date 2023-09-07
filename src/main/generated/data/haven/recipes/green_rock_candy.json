@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "*",
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:green_dye"
+    },
+    "*": {
+      "item": "minecraft:sugar"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:green_rock_candy"
+  }
+}

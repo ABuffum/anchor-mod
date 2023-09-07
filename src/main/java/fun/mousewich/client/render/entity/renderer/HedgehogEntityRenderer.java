@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.HedgehogEntityModel;
 import fun.mousewich.entity.passive.HedgehogEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
@@ -14,7 +14,7 @@ public class HedgehogEntityRenderer extends MobEntityRenderer<HedgehogEntity, He
 	private static final Identifier SHADOW_TEXTURE = ModBase.ID("textures/entity/hedgehog/shadow.png");
 
 	public HedgehogEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new HedgehogEntityModel(context.getPart(ModClient.HEDGEHOG_MODEL_LAYER)), 0.3F);
+		super(context, new HedgehogEntityModel(context.getPart(ModEntityModelLayers.HEDGEHOG)), 0.3F);
 	}
 
 	public Identifier getTexture(HedgehogEntity entity) {

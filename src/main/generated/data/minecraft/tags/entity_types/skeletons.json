@@ -8,6 +8,14 @@
       "required": false
     },
     {
+      "id": "betternether:skull",
+      "required": false
+    },
+    {
+      "id": "betternether:naga",
+      "required": false
+    },
+    {
       "id": "graveyard:revenant",
       "required": false
     }

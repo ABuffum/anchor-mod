@@ -1,11 +1,19 @@
 {
   "replace": false,
   "values": [
-    "haven:charred_sign",
-    "minecraft:mangrove_sign",
     "minecraft:bamboo_sign",
+    "haven:dried_bamboo_sign",
     "minecraft:cherry_sign",
+    "haven:dogwood_sign",
+    "haven:mushroom_stem_sign",
+    "haven:hay_sign",
+    "haven:brown_mushroom_sign",
+    "haven:sugar_cane_sign",
+    "haven:red_mushroom_sign",
+    "haven:charred_sign",
+    "haven:blue_mushroom_sign",
+    "haven:gilded_sign",
     "haven:cassia_sign",
-    "haven:dogwood_sign"
+    "minecraft:mangrove_sign"
   ]
 }

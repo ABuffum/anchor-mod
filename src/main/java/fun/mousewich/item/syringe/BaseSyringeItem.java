@@ -52,6 +52,7 @@ public class BaseSyringeItem extends Item {
 			ApplyEffect(user, stack, entity);
 			entity.playSound(ModSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
 			ReplaceSyringe(user, entity, hand);
+			user.getItemCooldownManager().set(user.getStackInHand(hand).getItem(), 100);
 			return ActionResult.CONSUME;
 		}
 		return ActionResult.PASS;
@@ -61,6 +62,7 @@ public class BaseSyringeItem extends Item {
 			ApplyEffect(user, user.getStackInHand(hand));
 			user.playSound(ModSoundEvents.SYRINGE_INJECTED, 0.5F, 1.0F);
 			ReplaceSyringe(user, hand);
+			user.getItemCooldownManager().set(user.getStackInHand(hand).getItem(), 100);
 			return TypedActionResult.consume(user.getStackInHand(hand));
 		}
 		return TypedActionResult.pass(user.getStackInHand(hand));

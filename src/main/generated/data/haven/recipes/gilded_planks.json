@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "haven:gilded_stems"
+    }
+  ],
+  "result": {
+    "item": "haven:gilded_planks",
+    "count": 4
+  }
+}

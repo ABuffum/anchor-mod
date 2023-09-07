@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "SCS",
+    "LLL"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:popped_chorus_fruit"
+    },
+    "L": {
+      "item": "minecraft:mushroom_stem"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:mushroom_stem_ender_campfire"
+  }
+}

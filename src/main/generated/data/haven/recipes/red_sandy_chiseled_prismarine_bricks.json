@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "haven:chiseled_prismarine_bricks"
+    }
+  ],
+  "result": {
+    "item": "haven:red_sandy_chiseled_prismarine_bricks"
+  }
+}

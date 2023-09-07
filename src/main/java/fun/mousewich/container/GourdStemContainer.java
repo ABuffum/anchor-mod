@@ -3,7 +3,7 @@ package fun.mousewich.container;
 import fun.mousewich.ModFactory;
 import fun.mousewich.block.gourd.AttachedGourdStemBlock;
 import fun.mousewich.block.gourd.GourdStemBlock;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
+import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.gen.data.loot.DropTable;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AttachedStemBlock;
@@ -24,7 +24,7 @@ public class GourdStemContainer {
 		stem = new GourdStemBlock(gourd, this::getSeeds, stemSettings);
 		attached = new AttachedGourdStemBlock(gourd, this::getSeeds, attachedSettings);
 		seeds = new AliasedBlockItem(stem, ModFactory.ItemSettings());
-		BlockLootGenerator.Drops.put(stem, DropTable.Stem(seeds));
-		BlockLootGenerator.Drops.put(attached, DropTable.Stem(seeds));
+		ModDatagen.Cache.Drops.put(stem, DropTable.Stem(seeds));
+		ModDatagen.Cache.Drops.put(attached, DropTable.Stem(seeds));
 	}
 }

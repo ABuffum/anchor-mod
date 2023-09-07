@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/mint_stained_glass_slab"
+    },
+    "type=double": {
+      "model": "haven:block/mint_stained_glass"
+    },
+    "type=top": {
+      "model": "haven:block/mint_stained_glass_slab_top"
+    }
+  }
+}

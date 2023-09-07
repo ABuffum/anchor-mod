@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:cow_plushie"
+    },
+    {
+      "tag": "haven:milk_buckets"
+    }
+  ],
+  "result": {
+    "item": "haven:dairy_cow_plushie"
+  }
+}

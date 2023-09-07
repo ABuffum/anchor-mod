@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/gray_carnation_seeds"
+      "model": "haven:block/carnation_seeds"
     }
   }
 }

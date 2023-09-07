@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/template_cake_with_candle",
+  "textures": {
+    "candle": "haven:block/lavender_candle",
+    "bottom": "haven:block/chocolate_cake_bottom",
+    "side": "haven:block/chocolate_cake_side",
+    "top": "haven:block/chocolate_cake_top",
+    "particle": "haven:block/chocolate_cake_side"
+  }
+}

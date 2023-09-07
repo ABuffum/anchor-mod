@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:dried_bamboo_planks"
+    }
+  ],
+  "result": {
+    "item": "haven:dried_bamboo_button"
+  }
+}

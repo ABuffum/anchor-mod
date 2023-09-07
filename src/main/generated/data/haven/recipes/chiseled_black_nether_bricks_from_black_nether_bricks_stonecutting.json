@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:black_nether_bricks"
+  },
+  "result": "haven:chiseled_black_nether_bricks",
+  "count": 1
+}

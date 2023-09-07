@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:gilded_hyphae"
+    }
+  },
+  "result": {
+    "item": "haven:gilded_hyphae_slab",
+    "count": 6
+  }
+}

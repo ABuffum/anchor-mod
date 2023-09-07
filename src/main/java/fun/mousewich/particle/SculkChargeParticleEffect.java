@@ -29,7 +29,7 @@ public record SculkChargeParticleEffect(float roll) implements ParticleEffect {
 		}
 	};
 
-	public ParticleType<SculkChargeParticleEffect> getType() { return ModBase.SCULK_CHARGE_PARTICLE; }
+	public ParticleType<SculkChargeParticleEffect> getType() { return ModParticleTypes.SCULK_CHARGE; }
 
 	@Override
 	public void write(PacketByteBuf buf) { buf.writeFloat(this.roll); }

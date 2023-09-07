@@ -22,6 +22,6 @@ public enum ParrotVariant {
 	}
 	public static ParrotVariant get(ParrotEntity entity) {
 		ParrotVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getVariant(), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getVariant(), 0, variants.length - 1)];
 	}
 }

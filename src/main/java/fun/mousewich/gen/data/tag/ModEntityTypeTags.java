@@ -10,6 +10,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ModEntityTypeTags {
+	public static final Tag.Identified<EntityType<?>> DISMOUNTS_UNDERWATER = createMinecraftTag("dismounts_underwater");
+	public static final Tag.Identified<EntityType<?>> FALL_DAMAGE_IMMUNE = createMinecraftTag("fall_damage_immune");
 	public static final Tag.Identified<EntityType<?>> FROG_FOOD = createMinecraftTag("frog_food");
 	public static final Tag.Identified<EntityType<?>> SPIDERS = createTag("spiders");
 	public static final Tag.Identified<EntityType<?>> ZOMBIES = createTag("zombies");

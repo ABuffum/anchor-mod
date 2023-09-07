@@ -26,7 +26,6 @@ import com.google.gson.stream.MalformedJsonException;
 import fun.mousewich.ModBase;
 import fun.mousewich.gen.data.minecraft.OutputType;
 import fun.mousewich.gen.data.minecraft.PathResolver;
-import fun.mousewich.mixins.JsonObjectAccessor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.block.Block;
@@ -238,7 +237,7 @@ public abstract class FabricLanguageProvider implements DataProvider {
 		default void add(Path existingLanguageFile) throws IOException {
 			try (Reader reader = Files.newBufferedReader(existingLanguageFile)) {
 				JsonObject translations = parseReader(reader).getAsJsonObject();
-				for (String key : ((JsonObjectAccessor)(Object)translations).getMembers().keySet()) add(key, translations.get(key).getAsString());
+				for (String key : translations.entrySet().stream().map(Map.Entry::getKey).toList()) add(key, translations.get(key).getAsString());
 			}
 		}
 	}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#S#",
+    "# #",
+    "#S#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dried_bamboo_planks"
+    },
+    "S": {
+      "item": "haven:dried_bamboo_slab"
+    }
+  },
+  "result": {
+    "item": "haven:dried_bamboo_barrel"
+  }
+}

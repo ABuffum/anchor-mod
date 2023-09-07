@@ -3,6 +3,7 @@ package fun.mousewich.entity.ai.task;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import fun.mousewich.ModBase;
+import fun.mousewich.effect.ModStatusEffects;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -69,7 +70,7 @@ public class ModLongJumpTask <E extends MobEntity> extends Task<E> {
 		boolean bl = mobEntity.isOnGround()
 				&& !mobEntity.isTouchingWater()
 				&& !mobEntity.isInLava()
-				&& !mobEntity.hasStatusEffect(ModBase.STICKY_EFFECT)
+				&& !mobEntity.hasStatusEffect(ModStatusEffects.STICKY)
 				&& !serverWorld.getBlockState(mobEntity.getBlockPos()).isOf(Blocks.HONEY_BLOCK);
 		if (!bl) mobEntity.getBrain().remember(MemoryModuleType.LONG_JUMP_COOLING_DOWN, this.cooldownRange.get(serverWorld.random) / 2);
 		return bl;

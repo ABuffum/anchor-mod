@@ -65,4 +65,28 @@ public class ModEntityModelPartNames {
 	public static final String RIGHT_FIN_RL = "right_fin_rl";
 	/** The key of a left fin rl model part, whose value is {@value}. */
 	public static final String LEFT_FIN_RL = "left_fin_rl";
+	/** The key of the ear model part, whose value is {@value}. */
+	public static final String EAR = "ear";
+	/** The key of the cloak model part, whose value is {@value}. */
+	public static final String CLOAK = "cloak";
+	/** The key of the left sleeve model part, whose value is {@value}. */
+	public static final String LEFT_SLEEVE = "left_sleeve";
+	/** The key of the right sleeve model part, whose value is {@value}. */
+	public static final String RIGHT_SLEEVE = "right_sleeve";
+	/** The key of the left pants model part, whose value is {@value}. */
+	public static final String LEFT_PANTS = "left_pants";
+	/** The key of the right pants model part, whose value is {@value}. */
+	public static final String RIGHT_PANTS = "right_pants";
+	/** The key of the left sleeve slim model part, whose value is {@value}. */
+	public static final String LEFT_ARM_SLIM = "left_arm_slim";
+	/** The key of the right sleeve slim model part, whose value is {@value}. */
+	public static final String RIGHT_ARM_SLIM = "right_arm_slim";
+	/** The key of the left sleeve slim model part, whose value is {@value}. */
+	public static final String LEFT_SLEEVE_SLIM = "left_sleeve_slim";
+	/** The key of the right sleeve slim model part, whose value is {@value}. */
+	public static final String RIGHT_SLEEVE_SLIM = "right_sleeve_slim";
+	/** The key of the crest model part, whose value is {@value}. */
+	public static final String CREST = "crest";
+	/** The key of the error model part, whose value is {@value}. */
+	public static final String ERROR = "error";
 }

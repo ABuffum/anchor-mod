@@ -1,0 +1,13 @@
+spherefill ~ ~ ~ 4 minecraft:slime_block minecraft:dirt
+spherefill ~ ~ ~ 4 minecraft:dead_brain_coral_block minecraft:dirt_path
+spherefill ~ ~ ~ 4 minecraft:dead_brain_coral_block minecraft:stone
+spherefill ~ ~ ~ 4 minecraft:dead_bubble_coral_block minecraft:diorite
+spherefill ~ ~ ~ 4 minecraft:dead_tube_coral_block minecraft:andesite
+spherefill ~ ~ ~ 4 minecraft:dead_horn_coral_block minecraft:granite
+spherefill ~ ~ ~ 4 minecraft:gray_glazed_terracotta #minecraft:leaves
+spherefill ~ ~ ~ 4 minecraft:gray_concrete #minecraft:logs
+spherefill ~ ~ ~ 4 minecraft:slime_block minecraft:vine
+spherefill ~ ~ ~ 4 minecraft:slime_block minecraft:water
+spherefill ~ ~ ~ 4 minecraft:gray_concrete minecraft:purple_concrete
+spherefill ~ ~ ~ 4 sand_dust:smooth_gray_stained_sandstone minecraft:grass_block
+spherefill ~ ~ ~ 4 minecraft:gray_glazed_terracotta #haven:bamboo

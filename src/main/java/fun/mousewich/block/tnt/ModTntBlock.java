@@ -83,7 +83,7 @@ public abstract class ModTntBlock extends Block {
 	public boolean shouldDropItemsOnExplosion(Explosion explosion) { return false; }
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(Properties.UNSTABLE); }
 	public interface TntEntityProvider {
-		ModTntEntity Make(World world, double x, double y, double z, LivingEntity igniter, Block block);
+		ModTntEntity Make(World world, double x, double y, double z, LivingEntity igniter, BlockState state);
 	}
 
 	public static ItemDispenserBehavior DispenserBehavior(TntEntityProvider provider) {
@@ -91,10 +91,10 @@ public abstract class ModTntBlock extends Block {
 			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
 				World world = pointer.getWorld();
 				BlockPos blockPos = pointer.getPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
-				ModTntEntity tntEntity = provider.Make(world, (double) blockPos.getX() + 0.5D, blockPos.getY(), (double) blockPos.getZ() + 0.5D, null, ((BlockItem)stack.getItem()).getBlock());
+				ModTntEntity tntEntity = provider.Make(world, blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5, null, ((BlockItem)stack.getItem()).getBlock().getDefaultState());
 				world.spawnEntity(tntEntity);
 				if (tntEntity.shouldMakeSound()) {
-					world.playSound(null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+					world.playSound(null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
 				}
 				world.emitGameEvent(null, GameEvent.ENTITY_PLACE, blockPos);
 				stack.decrement(1);

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:orange_wool"
+    },
+    {
+      "item": "minecraft:ochre_froglight"
+    }
+  ],
+  "result": {
+    "item": "haven:temperate_frog_plushie"
+  }
+}

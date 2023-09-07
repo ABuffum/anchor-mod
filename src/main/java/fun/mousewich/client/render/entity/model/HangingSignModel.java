@@ -26,7 +26,7 @@ public class HangingSignModel extends Model {
 	public static final String BOARD = "board";
 
 	public static EntityModelLayer createSignLayer(SignType type) {
-		if (ModBase.SIGN_TYPES.contains(type)) {
+		if (ModBase.SIGN_TYPES.contains(type) || ModBase.HANGING_SIGN_SUBTYPES.containsKey(type)) {
 			String name = type.getName();
 			Identifier id = ModBase.ID(name.startsWith("minecraft:") ? "minecraft:hanging_sign/" + name.substring("minecraft:".length()) : "hanging_sign/" + name);
 			return new EntityModelLayer(id, "main");

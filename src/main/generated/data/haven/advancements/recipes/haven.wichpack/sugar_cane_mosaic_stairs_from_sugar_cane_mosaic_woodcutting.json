@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:sugar_cane_mosaic_stairs_from_sugar_cane_mosaic_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_sugar_cane_mosaic": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:sugar_cane_mosaic"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:sugar_cane_mosaic_stairs_from_sugar_cane_mosaic_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sugar_cane_mosaic",
+      "has_the_recipe"
+    ]
+  ]
+}

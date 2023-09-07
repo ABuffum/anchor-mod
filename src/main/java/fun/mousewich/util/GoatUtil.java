@@ -40,12 +40,10 @@ public class GoatUtil {
 	}
 
 	public static boolean dropHorn(LivingEntity goat) {
-		System.out.println("drophorn");
 		DataTracker tracker = goat.getDataTracker();
 		boolean bl = tracker.get(LEFT_HORN);
 		boolean bl2 = tracker.get(RIGHT_HORN);
 		if (!bl && !bl2) return false;
-		System.out.println("has a horn to drop :DDD");
 		Random random = goat.getRandom();
 		TrackedData<Boolean> trackedData = !bl ? RIGHT_HORN : (!bl2 ? LEFT_HORN : (random.nextBoolean() ? LEFT_HORN : RIGHT_HORN));
 		goat.getDataTracker().set(trackedData, false);

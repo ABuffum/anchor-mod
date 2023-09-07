@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "haven:item/crimson_exposed_copper_hanging_sign"
+  }
+}

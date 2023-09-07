@@ -1,5 +1,6 @@
 accessWidener   v2  named
 accessible    class    net/minecraft/client/gui/hud/InGameHud$HeartType
+accessible    class    net/minecraft/entity/passive/BeeEntity$GrowCropsGoal
 accessible    class    net/minecraft/entity/passive/FoxEntity$MateGoal
 accessible    class    net/minecraft/entity/passive/TurtleEntity$MateGoal
 extendable    class    net/minecraft/client/model/ModelPart

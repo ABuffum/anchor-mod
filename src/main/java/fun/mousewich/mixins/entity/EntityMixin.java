@@ -1,5 +1,6 @@
 package fun.mousewich.mixins.entity;
 
+import fun.mousewich.ModBase;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.origins.power.BurnForeverPower;
@@ -40,7 +41,6 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 	@Shadow public World world;
 	@Shadow private int lastChimeAge;
 	@Shadow private float field_26997;
-	@Shadow private Vec3d velocity;
 
 	@Shadow public abstract void emitGameEvent(GameEvent event, Entity entity, BlockPos pos);
 	@Shadow public abstract void emitGameEvent(GameEvent event, Entity entity);
@@ -51,6 +51,8 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 	@Shadow public abstract BlockState getBlockStateAtPos();
 
 
+	@Shadow public float fallDistance;
+
 	@Inject(method="kill", at = @At("TAIL"))
 	public void Kill(CallbackInfo ci) { this.emitGameEvent(ModGameEvent.ENTITY_DIE); }
 
@@ -58,7 +60,8 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 	protected void PlayStepSound(BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (state.getMaterial().isLiquid()) return;
 		BlockState blockState = this.world.getBlockState(pos.up());
-		blockState = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || blockState.isIn(BlockTags.CARPETS) ? blockState : state;
+		blockState = blockState.isIn(BlockTags.INSIDE_STEP_SOUND_BLOCKS) || blockState.isIn(BlockTags.CARPETS)
+				|| blockState.isOf(Blocks.MOSS_CARPET) || blockState.isOf(ModBase.GLOW_LICHEN_CARPET.asBlock()) ? blockState : state;
 		if (blockState.isOf(Blocks.BARRIER) || blockState.isOf(Blocks.STRUCTURE_VOID)) { ci.cancel(); return; }
 		SoundUtil.playIdentifiedStepSound((Entity)(Object)this);
 		SoundEvent stepSound = IdentifiedSounds.getStepSound(blockState);
@@ -127,8 +130,7 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 	public void CrackBlocksOnFall(double heightDifference, boolean onGround, BlockState landedState, BlockPos landedPosition, CallbackInfo ci) {
 		int distance = CrackBlocksPower.getDistance((Entity)(Object)this);
 		if (distance > 0) {
-			double y = this.velocity.getY();
-			if (y < 0 && distance * -0.1 <= y) CrackedBlocks.Crack(this.world, landedPosition);
+			if (this.fallDistance > distance) CrackedBlocks.Crack(this.world, landedPosition);
 		}
 	}
 }

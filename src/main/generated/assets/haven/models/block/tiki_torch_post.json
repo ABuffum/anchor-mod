@@ -1,0 +1,6 @@
+{
+  "parent": "haven:block/_template_post",
+  "textures": {
+    "all": "haven:block/tiki_torch_post"
+  }
+}

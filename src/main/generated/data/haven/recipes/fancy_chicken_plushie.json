@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:chicken_plushie"
+    },
+    {
+      "item": "haven:fancy_feather"
+    }
+  ],
+  "result": {
+    "item": "haven:fancy_chicken_plushie"
+  }
+}

@@ -23,7 +23,7 @@ public class EntityRenderersMixin {
 	@Inject(method="register", at = @At("HEAD"), cancellable = true)
 	private static <T extends Entity> void RegisterVex(EntityType<? extends T> type, EntityRendererFactory<T> factory, CallbackInfo ci) {
 		if (type == EntityType.VEX) {
-			EntityRendererFactory<T> newFactory = ctx -> (EntityRenderer<T>)new ModVexEntityRenderer(ctx);
+			@SuppressWarnings("unchecked") EntityRendererFactory<T> newFactory = ctx -> (EntityRenderer<T>)new ModVexEntityRenderer(ctx);
 			RENDERER_FACTORIES.put(type, newFactory);
 			ci.cancel();
 		}

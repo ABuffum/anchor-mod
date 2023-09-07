@@ -24,6 +24,6 @@ public enum GoatVariant {
 	}
 	public static GoatVariant get(GoatEntity entity) {
 		GoatVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length - 1)];
 	}
 }

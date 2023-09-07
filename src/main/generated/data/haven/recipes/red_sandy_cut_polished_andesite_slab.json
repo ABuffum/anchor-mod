@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "haven:cut_polished_andesite_slab"
+    }
+  ],
+  "result": {
+    "item": "haven:red_sandy_cut_polished_andesite_slab"
+  }
+}

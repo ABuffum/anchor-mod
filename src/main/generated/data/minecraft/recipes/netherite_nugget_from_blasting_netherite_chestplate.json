@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "result": "haven:netherite_nugget",
+  "experience": 0.1,
+  "cookingtime": 100
+}

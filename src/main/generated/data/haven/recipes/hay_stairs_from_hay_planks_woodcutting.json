@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:hay_planks"
+  },
+  "result": "haven:hay_stairs",
+  "count": 1
+}

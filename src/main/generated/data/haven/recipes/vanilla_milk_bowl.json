@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:milk_bowl"
+    },
+    {
+      "item": "haven:vanilla"
+    }
+  ],
+  "result": {
+    "item": "haven:vanilla_milk_bowl"
+  }
+}

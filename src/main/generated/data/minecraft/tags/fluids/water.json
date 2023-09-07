@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven:still_blood",
+    "haven:flowing_blood",
+    "haven:still_mud",
+    "haven:flowing_mud"
+  ]
+}

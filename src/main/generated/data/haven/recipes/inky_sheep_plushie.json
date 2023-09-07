@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:ink_sac"
+    },
+    [
+      {
+        "item": "minecraft:mutton"
+      },
+      {
+        "item": "minecraft:cooked_mutton"
+      }
+    ],
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "result": {
+    "item": "haven:inky_sheep_plushie"
+  }
+}

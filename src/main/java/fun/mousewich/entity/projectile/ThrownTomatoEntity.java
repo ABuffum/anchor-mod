@@ -1,8 +1,10 @@
 package fun.mousewich.entity.projectile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.origins.power.ClownPacifistPower;
 import fun.mousewich.origins.power.PowersUtil;
+import fun.mousewich.particle.ModParticleTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -33,7 +35,7 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 	@Environment(EnvType.CLIENT)
 	private ParticleEffect getParticleParameters() {
 		ItemStack itemStack = this.getItem();
-		return itemStack.isEmpty() ? ModBase.TOMATO_PARTICLE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
+		return itemStack.isEmpty() ? ModParticleTypes.TOMATO : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -52,17 +54,17 @@ public class ThrownTomatoEntity extends ThrownItemEntity {
 		Entity owner = this.getOwner();
 		entity.damage(DamageSource.thrownProjectile(this, owner), 0F);
 		if (entity instanceof LivingEntity livingEntity) {
-			livingEntity.addStatusEffect((new StatusEffectInstance(ModBase.BOO_EFFECT, 20 * 3, 0)));
+			livingEntity.addStatusEffect((new StatusEffectInstance(ModStatusEffects.BOO, 20 * 3, 0)));
 			if (PowersUtil.Active(livingEntity, ClownPacifistPower.class)) {
 				if (owner instanceof LivingEntity livingOwner) {
 					if (!livingOwner.world.isClient) {
-						livingOwner.addStatusEffect(new StatusEffectInstance(ModBase.KILLJOY_EFFECT, 20 * 3, 0));
+						livingOwner.addStatusEffect(new StatusEffectInstance(ModStatusEffects.KILLJOY, 20 * 3, 0));
 					}
 				}
 			}
 			if (livingEntity.getEntityWorld().isClient) {
 				if (livingEntity instanceof PlayerEntity player) {
-					if (player.hasStatusEffect(ModBase.BOO_EFFECT)) player.sendMessage(Text.of("Boo!"), true);
+					if (player.hasStatusEffect(ModStatusEffects.BOO)) player.sendMessage(Text.of("Boo!"), true);
 					else player.sendMessage(Text.of("Boo!!!"), true);
 				}
 			}

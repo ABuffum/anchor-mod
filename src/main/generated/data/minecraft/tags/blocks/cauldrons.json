@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "haven:milk_cauldron",
+    "haven:cheese_cauldron",
+    "haven:blood_cauldron",
+    "haven:mud_cauldron"
+  ]
+}

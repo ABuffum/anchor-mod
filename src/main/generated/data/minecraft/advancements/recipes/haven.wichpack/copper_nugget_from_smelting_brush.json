@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:copper_nugget_from_smelting_brush"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_brush": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:brush"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:copper_nugget_from_smelting_brush"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_brush",
+      "has_the_recipe"
+    ]
+  ]
+}

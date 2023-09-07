@@ -1,7 +1,6 @@
 package fun.mousewich.mixins.block.entity;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.block.archaeology.SuspiciousSandBlock;
 import fun.mousewich.block.basic.*;
 import fun.mousewich.block.container.ChiseledBookshelfBlock;
 import fun.mousewich.block.dust.Brushable;
@@ -12,6 +11,7 @@ import net.minecraft.block.AbstractSignBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.SignType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +24,8 @@ public class BlockEntityTypeMixin {
 		Block block = state.getBlock();
 		if (BlockEntityType.SIGN.equals(this)) {
 			if (block instanceof AbstractSignBlock sign) {
-				if (ModBase.SIGN_TYPES.contains(sign.getSignType())) cir.setReturnValue(true);
+				SignType type = sign.getSignType();
+				if (ModBase.SIGN_TYPES.contains(type) || ModBase.HANGING_SIGN_SUBTYPES.containsKey(type)) cir.setReturnValue(true);
 				if (block instanceof HangingSignBlock) cir.setReturnValue(true);
 				if (block instanceof WallHangingSignBlock) cir.setReturnValue(true);
 			}

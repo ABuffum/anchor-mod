@@ -35,6 +35,8 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import static fun.mousewich.ModBase.*;
+import static fun.mousewich.registry.ModBambooRegistry.*;
+import static fun.mousewich.registry.ModCopperRegistry.*;
 
 public class ModelGenerator extends FabricModelProvider {
 	public ModelGenerator(FabricDataGenerator dataGenerator) { super(dataGenerator); }
@@ -208,9 +210,14 @@ public class ModelGenerator extends FabricModelProvider {
 		bsmg.registerAmethyst(block);
 		generatedItemModel(bsmg, container.asItem(), block);
 	}
-	public static void flowerPartModels(BlockStateModelGenerator bsmg, Identifier seeds, FlowerPartContainer... containers) {
-		Models.GENERATED.upload(seeds, Texture.layer0(seeds), bsmg.modelCollector);
-		for (FlowerPartContainer container : containers) flowerPartModel(bsmg, seeds, container);
+	public static void flowerPartModels(BlockStateModelGenerator bsmg, Identifier seedsItem, Identifier seedsBlock, FlowerPartContainer... containers) {
+		Models.GENERATED.upload(seedsItem, Texture.layer0(seedsItem), bsmg.modelCollector);
+		Identifier blockIdentifier = Models.CROSS.upload(seedsBlock, Texture.cross(seedsBlock), bsmg.modelCollector);
+		for (FlowerPartContainer container : containers) {
+			flowerPartModelCommon(bsmg, container, blockIdentifier);
+			Item item = container.asItem();
+			if (!getItemModelId(item).equals(seedsItem)) parentedItem(bsmg, container.asItem(), seedsItem);
+		}
 	}
 	public static void flowerPartModelCommon(BlockStateModelGenerator bsmg, FlowerPartContainer container, Identifier identifier) {
 		Block block = container.asBlock();
@@ -222,19 +229,9 @@ public class ModelGenerator extends FabricModelProvider {
 		Identifier identifier = Models.CROSS.upload(block, Texture.cross(block), bsmg.modelCollector);
 		flowerPartModelCommon(bsmg, container, identifier);
 	}
-	public static void flowerPartModelSeeds(BlockStateModelGenerator bsmg, FlowerPartContainer container, Identifier seeds) {
-		Block block = container.asBlock();
-		Identifier identifier = Models.CROSS.upload(block, Texture.cross(seeds), bsmg.modelCollector);
-		flowerPartModelCommon(bsmg, container, identifier);
-	}
 	public static void flowerPartModel(BlockStateModelGenerator bsmg, FlowerPartContainer container) {
 		flowerPartModelCommon(bsmg, container);
 		generatedItemModel(bsmg, container.asItem());
-	}
-	public static void flowerPartModel(BlockStateModelGenerator bsmg, Identifier seeds, FlowerPartContainer container) {
-		flowerPartModelSeeds(bsmg, container, seeds);
-		Item item = container.asItem();
-		if (!getItemModelId(item).equals(seeds)) parentedItem(bsmg, container.asItem(), seeds);
 	}
 	public static void crossModel(BlockStateModelGenerator bsmg, Block block) { crossModel(bsmg, Texture.cross(block), block); }
 	public static void crossModel(BlockStateModelGenerator bsmg, Texture cross, Block block) {
@@ -452,12 +449,12 @@ public class ModelGenerator extends FabricModelProvider {
 						.put(VariantSettings.UVLOCK, true))
 				.with(When.create().set(Properties.EAST, true), BlockStateVariant.create()
 						.put(VariantSettings.MODEL, identifier3)
-						.put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.UVLOCK, true))
+						.put(VariantSettings.UVLOCK, true))
 				.with(When.create().set(Properties.SOUTH, true), BlockStateVariant.create()
-						.put(VariantSettings.MODEL, identifier4).put(VariantSettings.Y, VariantSettings.Rotation.R180)
+						.put(VariantSettings.MODEL, identifier4)
 						.put(VariantSettings.UVLOCK, true))
 				.with(When.create().set(Properties.WEST, true), BlockStateVariant.create()
-						.put(VariantSettings.MODEL, identifier5).put(VariantSettings.Y, VariantSettings.Rotation.R270)
+						.put(VariantSettings.MODEL, identifier5)
 						.put(VariantSettings.UVLOCK, true)));
 		parentedItem(bsmg, container.asItem(), ModModels.CUSTOM_FENCE_INVENTORY.upload(block, textures, bsmg.modelCollector));
 	}
@@ -535,10 +532,7 @@ public class ModelGenerator extends FabricModelProvider {
 		generatedItemModel(bsmg, hangingSign.asItem());
 	}
 
-	private static void plushieModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
-		if (!(container.asBlock() instanceof PlushieBlock block)) throw new IllegalArgumentException("Block must be of type PlushieBlock");
-		Identifier model = block.getModel().upload(block, new Texture().put(TextureKey.ALL, Texture.getId(block))
-				.put(TextureKey.PARTICLE, Texture.getId(block)), bsmg.modelCollector);
+	private static void statueModelCommon(BlockStateModelGenerator bsmg, Identifier model, Block block, Item item) {
 		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
 				.coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING)
 						.register(Direction.EAST, BlockStateVariant.create()
@@ -549,7 +543,17 @@ public class ModelGenerator extends FabricModelProvider {
 								.put(VariantSettings.MODEL, model).put(VariantSettings.Y, VariantSettings.Rotation.R270))
 						.register(Direction.NORTH, BlockStateVariant.create()
 								.put(VariantSettings.MODEL, model))));
-		parentedItem(bsmg, container.asItem(), model);
+		parentedItem(bsmg, item, model);
+	}
+	private static void explicitStatueModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		Block block = container.asBlock();
+		statueModelCommon(bsmg, getBlockModelId(block), block, container.asItem());
+	}
+	private static void plushieModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		if (!(container.asBlock() instanceof PlushieBlock block)) throw new IllegalArgumentException("Block must be of type PlushieBlock");
+		Identifier model = block.getModel().upload(block, new Texture().put(TextureKey.ALL, Texture.getId(block))
+				.put(TextureKey.PARTICLE, Texture.getId(block)), bsmg.modelCollector);
+		statueModelCommon(bsmg, model, block, container.asItem());
 	}
 
 	private static void torchModelCommon(BlockStateModelGenerator bsmg, TorchContainer container, Identifier lit, Identifier litWall, Identifier unlit, Identifier unlitWall, Model template, Model templateWall, ItemConvertible parentItem) {
@@ -619,6 +623,24 @@ public class ModelGenerator extends FabricModelProvider {
 		boneTorchModelCommon(bsmg, container, getBlockModelId("unlit_", base.asBlock()), getBlockModelId("unlit_", base.getWallBlock()));
 	}
 
+	public static void thickTorchModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		Identifier unlitModel = getBlockModelId("unlit_", container.asBlock());
+		unlitModel = ModModels.TEMPLATE_THICK_TORCH.upload(unlitModel, Texture.all(unlitModel), bsmg.modelCollector);
+		thickTorchModel(bsmg, container, unlitModel);
+	}
+	public static void thickTorchModel(BlockStateModelGenerator bsmg, IBlockItemContainer container, Identifier unlitModel) {
+		Block block = container.asBlock();
+		Identifier litModel = ModModels.TEMPLATE_THICK_TORCH.upload(block, Texture.all(block), bsmg.modelCollector);
+		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(BlockStateModelGenerator.createBooleanModelMap(Properties.LIT, litModel, unlitModel)));
+		generatedItemModel(bsmg, container.asItem());
+	}
+	public static void postModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		Block block = container.asBlock();
+		Identifier model = ModModels.TEMPLATE_POST.upload(block, Texture.all(block), bsmg.modelCollector);
+		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, model));
+		parentedItem(bsmg, container.asItem(), block);
+	}
+
 	public static void lanternModelCommon(BlockStateModelGenerator bsmg, IBlockItemContainer container, Identifier lit, Identifier litHanging, Identifier unlit, Identifier unlitHanging) {
 		Block block = container.asBlock();
 		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(block)
@@ -667,8 +689,19 @@ public class ModelGenerator extends FabricModelProvider {
 	}
 	public static void unlitLanternModel(BlockStateModelGenerator bsmg, Block block, Block copyModel) {
 		Identifier identifier = getBlockModelId(copyModel);
-		Identifier identifier2 = postfixPath(identifier, "_hanging");
-		unlitLanternModelCommon(bsmg, block, identifier, identifier2);
+		unlitLanternModelCommon(bsmg, block, identifier, postfixPath(identifier, "_hanging"));
+	}
+	public static void explicitLanternModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		Block block = container.asBlock();
+		Identifier identifier = getBlockModelId(block);
+		unlitLanternModelCommon(bsmg, block, identifier, postfixPath(identifier, "_hanging"));
+		generatedItemModel(bsmg, container.asItem());
+	}
+	private static void slimeLanternModel(BlockStateModelGenerator bsmg, IBlockItemContainer container, Model model) {
+		Block block = container.asBlock();
+		Identifier identifier = model.upload(block, Texture.texture(block), bsmg.modelCollector);
+		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+		parentedItem(bsmg, container.asItem(), block);
 	}
 	private static final Identifier CAMPFIRE_FIRE = ID("minecraft:block/campfire_fire");
 	private static final Identifier SOUL_CAMPFIRE_FIRE = ID("minecraft:block/soul_campfire_fire");
@@ -770,6 +803,10 @@ public class ModelGenerator extends FabricModelProvider {
 		for (DyeColor color : DyeColor.values()) {
 			candleCakeModel(bsmg, ColorUtil.GetCandleBlock(color), cake, container.CANDLE_CAKES.get(color));
 		}
+		candleCakeModel(bsmg, BEIGE_CANDLE.asBlock(), cake, container.BEIGE_CANDLE_CAKE);
+		candleCakeModel(bsmg, BURGUNDY_CANDLE.asBlock(), cake, container.BURGUNDY_CANDLE_CAKE);
+		candleCakeModel(bsmg, LAVENDER_CANDLE.asBlock(), cake, container.LAVENDER_CANDLE_CAKE);
+		candleCakeModel(bsmg, MINT_CANDLE.asBlock(), cake, container.MINT_CANDLE_CAKE);
 	}
 	private static void barsModelCommon(BlockStateModelGenerator bsmg, Block block, Identifier ends, Identifier post, Identifier cap, Identifier capAlt, Identifier side, Identifier sideAlt) {
 		bsmg.blockStateCollector.accept(MultipartBlockStateSupplier.create(block)
@@ -1163,6 +1200,19 @@ public class ModelGenerator extends FabricModelProvider {
 		parentedItem(bsmg, container.asItem(), block);
 	}
 
+	private static void frontSidePumpkinModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
+		Block block = container.asBlock();
+		Identifier top = Texture.getSubId(block, "_top");
+		Identifier front = Texture.getSubId(block, "_front");
+		Identifier side = Texture.getSubId(block, "_side");
+		Texture textureMap = new Texture().put(TextureKey.PARTICLE, front)
+				.put(TextureKey.DOWN, top).put(TextureKey.UP, top)
+				.put(TextureKey.NORTH, front).put(TextureKey.SOUTH, front)
+				.put(TextureKey.EAST, side).put(TextureKey.WEST, side);
+		Identifier id = Models.CUBE.upload(block, textureMap, bsmg.modelCollector);
+		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, id));
+		parentedItem(bsmg, container.asItem(), block);
+	}
 	private static void pumpkinModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
 		Block block = container.asBlock();
 		Identifier id = Models.CUBE_BOTTOM_TOP.upload(block, Texture.sideEnd(block), bsmg.modelCollector);
@@ -1182,6 +1232,15 @@ public class ModelGenerator extends FabricModelProvider {
 		Identifier identifier = Models.STEM_FRUIT.upload(attachedStemBlock, textureMap2, bsmg.modelCollector);
 		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(attachedStemBlock, BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).coordinate(BlockStateVariantMap.create(Properties.HORIZONTAL_FACING).register(Direction.WEST, BlockStateVariant.create()).register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270)).register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90)).register(Direction.EAST, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180))));
 		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(stemBlock).coordinate(BlockStateVariantMap.create(Properties.AGE_7).register(integer -> BlockStateVariant.create().put(VariantSettings.MODEL, Models.STEM_GROWTH_STAGES[integer].upload(stemBlock, textureMap, bsmg.modelCollector)))));
+	}
+
+	private static void vinesModel(BlockStateModelGenerator bsmg, Block vines, Block plant) {
+		Identifier identifier = bsmg.createSubModel(vines, "", Models.CROSS, Texture::cross);
+		Identifier identifier2 = bsmg.createSubModel(vines, "_berried", Models.CROSS, Texture::cross);
+		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(vines).coordinate(BlockStateModelGenerator.createBooleanModelMap(Properties.BERRIES, identifier2, identifier)));
+		Identifier identifier3 = bsmg.createSubModel(plant, "", Models.CROSS, Texture::cross);
+		Identifier identifier4 = bsmg.createSubModel(plant, "_berried", Models.CROSS, Texture::cross);
+		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(plant).coordinate(BlockStateModelGenerator.createBooleanModelMap(Properties.BERRIES, identifier4, identifier3)));
 	}
 
 	private static void berryLeavesModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
@@ -1354,6 +1413,12 @@ public class ModelGenerator extends FabricModelProvider {
 		//Overrides
 		ladderModel(bsmg, Blocks.LADDER, null);
 		barsModelBlockOnly(bsmg, Blocks.IRON_BARS);
+
+		thickTorchModel(bsmg, TIKI_TORCH);
+		thickTorchModel(bsmg, TIKI_SOUL_TORCH, getBlockModelId("unlit_", TIKI_TORCH.asBlock()));
+		thickTorchModel(bsmg, TIKI_ENDER_TORCH, getBlockModelId("unlit_", TIKI_TORCH.asBlock()));
+		postModel(bsmg, TIKI_TORCH_POST);
+
 		//Light Sources
 		unlitTorchModel(bsmg, UNLIT_TORCH);
 		unlitTorchModelCommon(bsmg, UNLIT_SOUL_TORCH.asBlock(), UNLIT_SOUL_TORCH.getWallBlock(), getBlockModelId(UNLIT_TORCH.asBlock()), getBlockModelId(UNLIT_TORCH.getWallBlock()));
@@ -1362,11 +1427,16 @@ public class ModelGenerator extends FabricModelProvider {
 		torchModel(bsmg, ENDER_TORCH, UNLIT_TORCH);
 		unlitLanternModel(bsmg, UNLIT_LANTERN);
 		unlitLanternModel(bsmg, UNLIT_SOUL_LANTERN, UNLIT_LANTERN);
+		explicitLanternModel(bsmg, EMPTY_LANTERN);
 		lanternModel(bsmg, ENDER_LANTERN, UNLIT_LANTERN);
 		//<editor-fold desc="Candles & Cakes">
 		candleModel(bsmg, SOUL_CANDLE, SOUL_CANDLE_CAKE);
 		candleModel(bsmg, ENDER_CANDLE, ENDER_CANDLE_CAKE);
 		candleModel(bsmg, NETHERRACK_CANDLE, NETHERRACK_CANDLE_CAKE);
+		candleModel(bsmg, BEIGE_CANDLE, BEIGE_CANDLE_CAKE);
+		candleModel(bsmg, BURGUNDY_CANDLE, BURGUNDY_CANDLE_CAKE);
+		candleModel(bsmg, LAVENDER_CANDLE, LAVENDER_CANDLE_CAKE);
+		candleModel(bsmg, MINT_CANDLE, MINT_CANDLE_CAKE);
 		cakeModels(bsmg, CARROT_CAKE);
 		cakeModels(bsmg, CHOCOLATE_CAKE);
 		cakeModels(bsmg, CHORUS_CAKE);
@@ -1385,6 +1455,52 @@ public class ModelGenerator extends FabricModelProvider {
 				parentedItem(bsmg, arrow, TEMPLATE_SUMMONING_ARROW);
 			}
 		}
+		//</editor-fold>
+		//<editor-fold desc="Mod Dye Colors">
+		//Beige
+		registerWoolAndCarpet(bsmg, BEIGE_WOOL.asBlock(), BEIGE_CARPET.asBlock());
+		parentedItem(bsmg, BEIGE_WOOL);
+		parentedItem(bsmg, BEIGE_CARPET);
+		registerWoolAndCarpet(bsmg, BEIGE_FLEECE.asBlock(), BEIGE_FLEECE_CARPET.asBlock());
+		parentedItem(bsmg, BEIGE_FLEECE);
+		parentedItem(bsmg, BEIGE_FLEECE_CARPET);
+		glassSlabModel(bsmg, BEIGE_STAINED_GLASS_SLAB, BEIGE_STAINED_GLASS);
+		glassTrapdoorModel(bsmg, BEIGE_STAINED_GLASS_TRAPDOOR, BEIGE_STAINED_GLASS, BEIGE_STAINED_GLASS_PANE);
+		glazedTerracottaModel(bsmg, BEIGE_GLAZED_TERRACOTTA);
+		glazedTerracottaSlabModel(bsmg, BEIGE_GLAZED_TERRACOTTA_SLAB,  BEIGE_GLAZED_TERRACOTTA);
+		//Burgundy
+		registerWoolAndCarpet(bsmg, BURGUNDY_WOOL.asBlock(), BURGUNDY_CARPET.asBlock());
+		parentedItem(bsmg, BURGUNDY_WOOL);
+		parentedItem(bsmg, BURGUNDY_CARPET);
+		registerWoolAndCarpet(bsmg, BURGUNDY_FLEECE.asBlock(), BURGUNDY_FLEECE_CARPET.asBlock());
+		parentedItem(bsmg, BURGUNDY_FLEECE);
+		parentedItem(bsmg, BURGUNDY_FLEECE_CARPET);
+		glassSlabModel(bsmg, BURGUNDY_STAINED_GLASS_SLAB, BURGUNDY_STAINED_GLASS);
+		glassTrapdoorModel(bsmg, BURGUNDY_STAINED_GLASS_TRAPDOOR, BURGUNDY_STAINED_GLASS, BURGUNDY_STAINED_GLASS_PANE);
+		glazedTerracottaModel(bsmg, BURGUNDY_GLAZED_TERRACOTTA);
+		glazedTerracottaSlabModel(bsmg, BURGUNDY_GLAZED_TERRACOTTA_SLAB,  BURGUNDY_GLAZED_TERRACOTTA);
+		//Lavender
+		registerWoolAndCarpet(bsmg, LAVENDER_WOOL.asBlock(), LAVENDER_CARPET.asBlock());
+		parentedItem(bsmg, LAVENDER_WOOL);
+		parentedItem(bsmg, LAVENDER_CARPET);
+		registerWoolAndCarpet(bsmg, LAVENDER_FLEECE.asBlock(), LAVENDER_FLEECE_CARPET.asBlock());
+		parentedItem(bsmg, LAVENDER_FLEECE);
+		parentedItem(bsmg, LAVENDER_FLEECE_CARPET);
+		glassSlabModel(bsmg, LAVENDER_STAINED_GLASS_SLAB, LAVENDER_STAINED_GLASS);
+		glassTrapdoorModel(bsmg, LAVENDER_STAINED_GLASS_TRAPDOOR, LAVENDER_STAINED_GLASS, LAVENDER_STAINED_GLASS_PANE);
+		glazedTerracottaModel(bsmg, LAVENDER_GLAZED_TERRACOTTA);
+		glazedTerracottaSlabModel(bsmg, LAVENDER_GLAZED_TERRACOTTA_SLAB,  LAVENDER_GLAZED_TERRACOTTA);
+		//Mint
+		registerWoolAndCarpet(bsmg, MINT_WOOL.asBlock(), MINT_CARPET.asBlock());
+		parentedItem(bsmg, MINT_WOOL);
+		parentedItem(bsmg, MINT_CARPET);
+		registerWoolAndCarpet(bsmg, MINT_FLEECE.asBlock(), MINT_FLEECE_CARPET.asBlock());
+		parentedItem(bsmg, MINT_FLEECE);
+		parentedItem(bsmg, MINT_FLEECE_CARPET);
+		glassSlabModel(bsmg, MINT_STAINED_GLASS_SLAB, MINT_STAINED_GLASS);
+		glassTrapdoorModel(bsmg, MINT_STAINED_GLASS_TRAPDOOR, MINT_STAINED_GLASS, MINT_STAINED_GLASS_PANE);
+		glazedTerracottaModel(bsmg, MINT_GLAZED_TERRACOTTA);
+		glazedTerracottaSlabModel(bsmg, MINT_GLAZED_TERRACOTTA_SLAB,  MINT_GLAZED_TERRACOTTA);
 		//</editor-fold>
 		//<editor-fold desc="Glass">
 		glassSlabModel(bsmg, TINTED_GLASS_SLAB, Blocks.TINTED_GLASS);
@@ -1547,6 +1663,7 @@ public class ModelGenerator extends FabricModelProvider {
 		//<editor-fold desc="Gourds">
 		carvedPumpkinModel(bsmg, SOUL_JACK_O_LANTERN, Blocks.PUMPKIN);
 		carvedPumpkinModel(bsmg, ENDER_JACK_O_LANTERN, Blocks.PUMPKIN);
+		frontSidePumpkinModel(bsmg, BURNT_PUMPKIN);
 		pumpkinModel(bsmg, WHITE_PUMPKIN);
 		carvedPumpkinModel(bsmg, CARVED_WHITE_PUMPKIN, WHITE_PUMPKIN);
 		carvedPumpkinModel(bsmg, WHITE_JACK_O_LANTERN, WHITE_PUMPKIN);
@@ -1640,9 +1757,15 @@ public class ModelGenerator extends FabricModelProvider {
 		glazedTerracottaSlabModel(bsmg, GLAZED_TERRACOTTA_SLAB, GLAZED_TERRACOTTA);
 		for (DyeColor color : DyeColor.values()) glazedTerracottaSlabModel(bsmg, GLAZED_TERRACOTTA_SLABS.get(color), ColorUtil.GetGlazedTerracottaBlock(color));
 		berryLeavesModel(bsmg, SWEET_BERRY_LEAVES);
+		berryLeavesModel(bsmg, GRAPE_LEAVES);
+		vinesModel(bsmg, GRAPE_VINES, GRAPE_VINES_PLANT);
 		//Slime
 		explicitBlockParentedItem(bsmg, BLUE_SLIME_BLOCK);
 		explicitBlockParentedItem(bsmg, PINK_SLIME_BLOCK);
+		slimeLanternModel(bsmg, MAGMA_CUBE_LANTERN, ModModels.TEMPLATE_MAGMA_CUBE_LANTERN);
+		slimeLanternModel(bsmg, SLIME_LANTERN, ModModels.TEMPLATE_SLIME_LANTERN);
+		slimeLanternModel(bsmg, TROPICAL_SLIME_LANTERN, ModModels.TEMPLATE_SLIME_LANTERN);
+		slimeLanternModel(bsmg, PINK_SLIME_LANTERN, ModModels.TEMPLATE_SLIME_LANTERN);
 		//<editor-fold desc="Wool">
 		rainbowBlockModel(bsmg, RAINBOW_WOOL);
 		rainbowSlabModel(bsmg, RAINBOW_WOOL_SLAB, RAINBOW_WOOL.asBlock());
@@ -1791,18 +1914,24 @@ public class ModelGenerator extends FabricModelProvider {
 		tallFlowerModel(bsmg, TALL_VANILLA);
 		//</editor-fold>
 		//<editor-fold desc="Flower Parts">
-		flowerPartModels(bsmg, ID("item/daisy_seeds"), PINK_DAISY_PARTS, OXEYE_DAISY_PARTS);
-		flowerPartModels(bsmg, ID("item/rose_seeds"), ROSE_PARTS, BLUE_ROSE_PARTS, WITHER_ROSE_PARTS);
-		flowerPartModels(bsmg, ID("item/allium_seeds"), PINK_ALLIUM_PARTS, ALLIUM_PARTS);
-		flowerPartModels(bsmg, ID("item/orchid_seeds"), INDIGO_ORCHID_PARTS, MAGENTA_ORCHID_PARTS, ORANGE_ORCHID_PARTS,
-				PURPLE_ORCHID_PARTS, RED_ORCHID_PARTS, WHITE_ORCHID_PARTS, YELLOW_ORCHID_PARTS, BLUE_ORCHID_PARTS);
-		flowerPartModels(bsmg, ID("item/tulip_seeds"), MAGENTA_TULIP_PARTS, ORANGE_TULIP_PARTS, PINK_TULIP_PARTS, RED_TULIP_PARTS, WHITE_TULIP_PARTS);
-		flowerPartModels(bsmg, ID("item/peony_seeds"), PAEONIA_PARTS, PEONY_PARTS);
-		flowerPartModels(bsmg, ID("item/lily_seeds"), LILY_OF_THE_VALLEY_PARTS);
+		flowerPartModels(bsmg, ID("item/daisy_seeds"), ID("block/daisy_seeds"), PINK_DAISY_PARTS, OXEYE_DAISY_PARTS);
+		flowerPartModels(bsmg, ID("item/rose_seeds"), ID("block/rose_seeds"), ROSE_PARTS, BLUE_ROSE_PARTS, WITHER_ROSE_PARTS);
+		flowerPartModels(bsmg, ID("item/allium_seeds"), ID("block/allium_seeds"), PINK_ALLIUM_PARTS, ALLIUM_PARTS);
+		flowerPartModels(bsmg, ID("item/orchid_seeds"), ID("block/orchid_seeds"), INDIGO_ORCHID_PARTS, MAGENTA_ORCHID_PARTS,
+				ORANGE_ORCHID_PARTS, PURPLE_ORCHID_PARTS, RED_ORCHID_PARTS, WHITE_ORCHID_PARTS, YELLOW_ORCHID_PARTS, BLUE_ORCHID_PARTS);
+		flowerPartModels(bsmg, ID("item/tulip_seeds"), ID("block/tulip_seeds"), MAGENTA_TULIP_PARTS, ORANGE_TULIP_PARTS,
+				PINK_TULIP_PARTS, RED_TULIP_PARTS, WHITE_TULIP_PARTS);
+		flowerPartModels(bsmg, ID("item/peony_seeds"), ID("block/peony_seeds"), PAEONIA_PARTS, PEONY_PARTS);
+		flowerPartModels(bsmg, ID("item/lily_seeds"), ID("block/lily_seeds"), LILY_OF_THE_VALLEY_PARTS);
 		//</editor-fold>
+		//Statues
+		explicitStatueModel(bsmg, CREEPER_ANATOMY_STATUE);
 		//Skulls
 		skullModel(bsmg, PIGLIN_HEAD.asItem());
 		skullModel(bsmg, ZOMBIFIED_PIGLIN_HEAD.asItem());
+		//Ragdoll
+		skullModel(bsmg, RAGDOLL.asItem());
+		explicitModelCommon(bsmg, RAGDOLL);
 		//Recovery Compass
 		for (int i = 0; i < 32; i++) {
 			String suffix = i < 10 ? "_0" : "_";
@@ -1821,7 +1950,7 @@ public class ModelGenerator extends FabricModelProvider {
 				Models.CUBE_ALL.upload(getItemModelId(item), Texture.all(id), bsmg.modelCollector);
 			}
 			//</editor-fold>
-			flowerPartModels(bsmg, ID("item/carnation_seeds"), HavenMod.CARNATION_PARTS.values().toArray(FlowerPartContainer[]::new));
+			flowerPartModels(bsmg, ID("item/carnation_seeds"), ID("block/carnation_seeds"), HavenMod.CARNATION_PARTS.values().toArray(FlowerPartContainer[]::new));
 			//TNT
 			topBottomSidesModel(bsmg, HavenMod.SHARP_TNT);
 			topBottomSidesModel(bsmg, HavenMod.CHUNKEATER_TNT);
@@ -1830,7 +1959,7 @@ public class ModelGenerator extends FabricModelProvider {
 			topBottomSidesModel(bsmg, HavenMod.CATALYZING_TNT);
 			topBottomSidesModel(bsmg, HavenMod.SOFT_TNT);
 			//<editor-fold desc="Soleil Gourds">
-			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_CARVED_PUMPKIN, WHITE_PUMPKIN);
+			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_CARVED_PUMPKIN, Blocks.PUMPKIN);
 			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_JACK_O_LANTERN, Blocks.PUMPKIN);
 			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_SOUL_JACK_O_LANTERN, Blocks.PUMPKIN);
 			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_ENDER_JACK_O_LANTERN, Blocks.PUMPKIN);

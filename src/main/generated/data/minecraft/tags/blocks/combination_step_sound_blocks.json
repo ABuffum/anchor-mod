@@ -1,13 +1,14 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:wool_carpets",
-    "#haven:fleece_carpets",
+    "haven:glow_lichen_carpet",
+    "haven:gilded_roots",
+    "#minecraft:carpets",
+    "minecraft:moss_block",
+    "haven:glow_lichen_carpet",
     "minecraft:crimson_roots",
     "minecraft:warped_roots",
     "minecraft:nether_sprouts",
-    "minecraft:moss_block",
-    "haven:glow_lichen_carpet",
     "minecraft:snow"
   ]
 }

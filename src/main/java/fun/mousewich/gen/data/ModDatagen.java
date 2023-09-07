@@ -5,6 +5,7 @@ import fun.mousewich.container.*;
 import fun.mousewich.gen.data.advancement.AdvancementsGenerator;
 import fun.mousewich.gen.data.language.EnglishLanguageProvider;
 import fun.mousewich.gen.data.loot.BlockLootGenerator;
+import fun.mousewich.gen.data.loot.DropTable;
 import fun.mousewich.gen.data.model.ModelGenerator;
 import fun.mousewich.gen.data.recipe.RecipeGenerator;
 import fun.mousewich.gen.data.tag.*;
@@ -31,6 +32,7 @@ public class ModDatagen implements DataGeneratorEntrypoint {
 		fabricDataGenerator.addProvider(BlockLootGenerator::new);
 		fabricDataGenerator.addProvider(BiomeTagGenerator::new);
 		fabricDataGenerator.addProvider(BlockTagGenerator::new);
+		fabricDataGenerator.addProvider(FluidTagGenerator::new);
 		fabricDataGenerator.addProvider(EntityTypeTagGenerator::new);
 		fabricDataGenerator.addProvider(GameEventTagGenerator::new);
 		fabricDataGenerator.addProvider(ItemTagGenerator::new);
@@ -41,6 +43,7 @@ public class ModDatagen implements DataGeneratorEntrypoint {
 	}
 
 	public static class Cache {
+		public static Map<Block, DropTable> Drops = new HashMap<>();
 		public static class Tags {
 			public static Map<Tag.Identified<Biome>, Set<Biome>> BIOME_TAGS = new HashMap<>();
 			public static void Register(Tag.Identified<Biome> tag, Biome biome) { Register(BIOME_TAGS, tag, biome); }
@@ -61,7 +64,6 @@ public class ModDatagen implements DataGeneratorEntrypoint {
 				map.put(tag, set);
 			}
 		}
-
 		public static class Models {
 			//Block - Standalone
 			public static Set<IBlockItemContainer> BAMBOO_FENCE = new HashSet<>();

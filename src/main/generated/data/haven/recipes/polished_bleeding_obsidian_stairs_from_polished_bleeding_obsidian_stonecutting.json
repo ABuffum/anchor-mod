@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:polished_bleeding_obsidian"
+  },
+  "result": "haven:polished_bleeding_obsidian_stairs",
+  "count": 1
+}

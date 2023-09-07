@@ -1,6 +1,8 @@
 package fun.mousewich.entity.projectile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.effect.ModStatusEffects;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -26,7 +28,7 @@ public class PinkSlimeBallEntity extends ThrownItemEntity {
 	protected Item getDefaultItem() { return ModBase.PINK_SLIME_BALL; }
 	private ParticleEffect getParticleParameters() {
 		ItemStack itemStack = this.getItem();
-		return itemStack.isEmpty() ? ModBase.ITEM_PINK_SLIME_PARTICLE : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
+		return itemStack.isEmpty() ? ModParticleTypes.ITEM_PINK_SLIME : new ItemStackParticleEffect(ParticleTypes.ITEM, itemStack);
 	}
 	@Override
 	public void handleStatus(byte status) {
@@ -47,7 +49,7 @@ public class PinkSlimeBallEntity extends ThrownItemEntity {
 		}
 		else {
 			if (entity instanceof LivingEntity livingEntity) {
-				livingEntity.addStatusEffect(new StatusEffectInstance(ModBase.STICKY_EFFECT, 100), this.getOwner());
+				livingEntity.addStatusEffect(new StatusEffectInstance(ModStatusEffects.STICKY, 100), this.getOwner());
 			}
 			entity.damage(DamageSource.thrownProjectile(this, this.getOwner()), this.getOwner() instanceof SlimeEntity slime ? (1.5F + 0.5F * slime.getSize()) : 0F);
 		}

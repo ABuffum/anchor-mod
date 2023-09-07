@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import fun.mousewich.ModBase;
+import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.event.ModWorldEvents;
 import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.sound.ModSoundEvents;
@@ -64,11 +65,11 @@ public class SculkSpreadManager {
 	public List<Cursor> getCursors() { return this.cursors; }
 	public void clearCursors() { this.cursors.clear(); }
 	public void readNbt(NbtCompound nbt) {
-		if (nbt.contains("cursors", 9)) {
+		if (nbt.contains(ModNbtKeys.CURSORS, 9)) {
 			this.cursors.clear();
 			List<Cursor> list = Cursor.CODEC
 					.listOf()
-					.parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList("cursors", 10)))
+					.parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList(ModNbtKeys.CURSORS, 10)))
 					.resultOrPartial(ModBase.LOGGER::error)
 					.orElseGet(ArrayList::new);
 			int i = Math.min(list.size(), 32);
@@ -80,7 +81,7 @@ public class SculkSpreadManager {
 				.listOf()
 				.encodeStart(NbtOps.INSTANCE, this.cursors)
 				.resultOrPartial(ModBase.LOGGER::error)
-				.ifPresent(cursorsNbt -> nbt.put("cursors", cursorsNbt));
+				.ifPresent(cursorsNbt -> nbt.put(ModNbtKeys.CURSORS, cursorsNbt));
 	}
 	public void spread(BlockPos pos, int charge) {
 		while (charge > 0) {

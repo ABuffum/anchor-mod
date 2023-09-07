@@ -1,15 +1,14 @@
 {
   "replace": false,
   "values": [
+    "minecraft:mangrove_log",
+    "haven:cassia_log",
+    "minecraft:cherry_log",
     "minecraft:acacia_log",
     "minecraft:birch_log",
     "minecraft:dark_oak_log",
     "minecraft:jungle_log",
     "minecraft:oak_log",
-    "minecraft:spruce_log",
-    "minecraft:cherry_log",
-    "minecraft:mangrove_log",
-    "haven:cassia_log",
-    "haven:dogwood_log"
+    "minecraft:spruce_log"
   ]
 }

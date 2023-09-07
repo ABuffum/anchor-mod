@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/oxeye_daisy_seeds"
+      "model": "haven:block/daisy_seeds"
     }
   }
 }

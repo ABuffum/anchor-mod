@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cross",
   "textures": {
-    "cross": "haven:item/rose_seeds"
+    "cross": "haven:block/rose_seeds"
   }
 }

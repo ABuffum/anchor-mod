@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:cow_plushie"
+    },
+    {
+      "item": "haven:buttercup"
+    }
+  ],
+  "result": {
+    "item": "haven:moobloom_plushie"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:red_mushroom_stairs_from_red_mushroom_planks_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_red_mushroom_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:red_mushroom_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:red_mushroom_stairs_from_red_mushroom_planks_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_red_mushroom_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

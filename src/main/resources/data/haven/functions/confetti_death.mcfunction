@@ -14,4 +14,4 @@ particle item purple_wool ~ ~1 ~ 0 0 0 1 40
 particle item red_wool ~ ~1 ~ 0 0 0 1 40
 particle item white_wool ~ ~1 ~ 0 0 0 1 40
 particle item yellow_wool ~ ~1 ~ 0 0 0 1 40
-summon wich:dropped_confetti ~ ~ ~
+summon haven:dropped_confetti ~ ~ ~

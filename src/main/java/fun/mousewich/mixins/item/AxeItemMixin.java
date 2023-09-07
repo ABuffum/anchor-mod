@@ -19,13 +19,21 @@ import java.util.Optional;
 @Mixin(AxeItem.class)
 public class AxeItemMixin {
 
-	@Inject(method="getStrippedState", at = @At("HEAD"), cancellable = true)
+	@Inject(method="getStrippedState", at=@At("HEAD"), cancellable=true)
 	private void GetStrippedState(BlockState state, CallbackInfoReturnable<Optional<BlockState>> cir) {
 		Block stripped = StrippedBlockUtil.STRIPPED_BLOCKS.getOrDefault(state.getBlock(), null);
 		if (stripped != null) {
 			BlockState outState = stripped.getDefaultState();
 			if (state.contains(Properties.AXIS) && outState.contains(Properties.AXIS)) outState = outState.with(Properties.AXIS, state.get(PillarBlock.AXIS));
 			cir.setReturnValue(Optional.of(outState));
+		}
+	}
+
+	@Inject(method="useOnBlock", at=@At("RETURN"))
+	private void applyOnStripped(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
+		if (cir.getReturnValue().isAccepted()) {
+			StrippedBlockUtil.OnStripFunc onStrip = StrippedBlockUtil.ON_STRIP.getOrDefault(context.getWorld().getBlockState(context.getBlockPos()).getBlock(), null);
+			if (onStrip != null) onStrip.execute(context);
 		}
 	}
 

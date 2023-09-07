@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "|": {
+      "item": "haven:cassia_log"
+    }
+  },
+  "result": {
+    "item": "haven:cassia_torch",
+    "count": 8
+  }
+}

@@ -2,6 +2,7 @@ package fun.mousewich.block;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.block.basic.ModLeavesBlock;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.util.ParticleUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -37,7 +38,7 @@ public class CherryLeavesBlock extends ModLeavesBlock {
 		BlockPos blockPos = pos.down();
 		BlockState blockState = world.getBlockState(blockPos);
 		if (blockState.isOpaque() && blockState.isSideSolidFullSquare(world, blockPos, Direction.UP)) return;
-		ParticleUtil.spawnParticle(world, pos, random, ModBase.CHERRY_LEAVES_PARTICLE);
+		ParticleUtil.spawnParticle(world, pos, random, ModParticleTypes.CHERRY_LEAVES);
 	}
 	@Override
 	public BlockState getPlacementState(ItemPlacementContext ctx) {

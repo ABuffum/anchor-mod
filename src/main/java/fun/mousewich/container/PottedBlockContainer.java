@@ -2,7 +2,6 @@ package fun.mousewich.container;
 
 import fun.mousewich.ModFactory;
 import fun.mousewich.gen.data.ModDatagen;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
 import fun.mousewich.gen.data.loot.DropTable;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -48,12 +47,12 @@ public class PottedBlockContainer implements IBlockItemContainer {
 		return this;
 	}
 	public PottedBlockContainer requireSilkTouch() {
-		BlockLootGenerator.Drops.put(this.asBlock(), DropTable.WithSilkTouch(this.asItem()));
-		BlockLootGenerator.Drops.put(this.getPottedBlock(), DropTable.Potted(this.asItem()));
+		ModDatagen.Cache.Drops.put(this.asBlock(), DropTable.WithSilkTouch(this.asItem()));
+		ModDatagen.Cache.Drops.put(this.getPottedBlock(), DropTable.Potted(this.asItem()));
 		return this;
 	}
 	public PottedBlockContainer drops(DropTable drops) {
-		BlockLootGenerator.Drops.put(this.asBlock(), drops);
+		ModDatagen.Cache.Drops.put(this.asBlock(), drops);
 		return this;
 	}
 	public PottedBlockContainer dropSelf() {
@@ -61,7 +60,7 @@ public class PottedBlockContainer implements IBlockItemContainer {
 		return dropPotted();
 	}
 	public PottedBlockContainer dropPotted() {
-		BlockLootGenerator.Drops.put(this.getPottedBlock(), DropTable.Potted(this.asItem()));
+		ModDatagen.Cache.Drops.put(this.getPottedBlock(), DropTable.Potted(this.asItem()));
 		return this;
 	}
 	//Tags

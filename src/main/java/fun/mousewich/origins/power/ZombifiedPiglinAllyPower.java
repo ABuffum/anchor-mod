@@ -23,6 +23,8 @@ public class ZombifiedPiglinAllyPower extends Power {
 		if (powerHolder instanceof ZombifiedPiglinEntity || target instanceof ZombifiedPiglinEntity) return;
 		if (ModBase.IS_ZOMBIFIED_PIGLIN.isActive(powerHolder) || ModBase.IS_ZOMBIFIED_PIGLIN.isActive(powerHolder)) return;
 		Box box = Box.from(powerHolder.getPos()).expand(radius, 10.0, radius);
-		world.getEntitiesByClass(ZombifiedPiglinEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR).stream().filter(zombifiedPiglin -> zombifiedPiglin.getTarget() == null).filter(zombifiedPiglin -> !zombifiedPiglin.isTeammate(target)).forEach(zombifiedPiglin -> zombifiedPiglin.setTarget(target));
+		world.getEntitiesByClass(ZombifiedPiglinEntity.class, box, EntityPredicates.EXCEPT_SPECTATOR)
+				//.stream().filter(zombifiedPiglin -> zombifiedPiglin.getTarget() == null).filter(zombifiedPiglin -> !zombifiedPiglin.isTeammate(target))
+				.forEach(zombifiedPiglin -> zombifiedPiglin.setTarget(target));
 	}
 }

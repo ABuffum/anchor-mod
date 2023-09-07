@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "haven:waxed_oxidized_copper_shovel"
+  },
+  "result": "haven:copper_nugget",
+  "experience": 0.1,
+  "cookingtime": 100
+}

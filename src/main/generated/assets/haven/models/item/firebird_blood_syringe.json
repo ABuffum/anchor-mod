@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "haven:item/firebird_blood_syringe"
+  }
+}

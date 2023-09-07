@@ -1,9 +1,10 @@
 {
   "replace": false,
   "values": [
-    "minecraft:cherry_sapling",
     "minecraft:mangrove_propagule",
     "haven:cassia_sapling",
+    "minecraft:cherry_sapling",
+    "haven:grape_sapling",
     "haven:dogwood_sapling"
   ]
 }

@@ -2,18 +2,18 @@ package fun.mousewich.haven.entity.tnt;
 
 import fun.mousewich.entity.tnt.ModTntEntity;
 import fun.mousewich.haven.HavenMod;
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 public class SoftTntEntity extends ModTntEntity {
-	public SoftTntEntity(EntityType<? extends Entity> entityType, World world) { super(entityType, world, HavenMod.SOFT_TNT.asBlock()); }
+	public SoftTntEntity(EntityType<? extends Entity> entityType, World world) { super(entityType, world, HavenMod.SOFT_TNT.asBlock().getDefaultState()); }
 	public SoftTntEntity(World world, double x, double y, double z, LivingEntity igniter) {
-		this(world, x, y, z, igniter, HavenMod.SOFT_TNT.asBlock());
+		this(world, x, y, z, igniter, HavenMod.SOFT_TNT.asBlock().getDefaultState());
 	}
-	public SoftTntEntity(World world, double x, double y, double z, LivingEntity igniter, Block block) {
-		super(HavenMod.SOFT_TNT_ENTITY, world, x, y, z, igniter, block);
+	public SoftTntEntity(World world, double x, double y, double z, LivingEntity igniter, BlockState state) {
+		super(HavenMod.SOFT_TNT_ENTITY, world, x, y, z, igniter, state);
 	}
 
 	@Override

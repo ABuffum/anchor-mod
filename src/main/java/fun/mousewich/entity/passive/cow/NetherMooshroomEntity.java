@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShearsItem;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -90,6 +91,21 @@ public class NetherMooshroomEntity extends CowEntity implements Shearable, Entit
 
 	private void setVariant(NetherMooshroomVariant type) { NetherMooshroomVariant.setVariant(this, type.ordinal()); }
 	public NetherMooshroomVariant getVariant() { return NetherMooshroomVariant.get(this); }
+	@Override
+	protected void initDataTracker() {
+		super.initDataTracker();
+		this.dataTracker.startTracking(NetherMooshroomVariant.VARIANT, 0);
+	}
+	@Override
+	public void writeCustomDataToNbt(NbtCompound nbt) {
+		super.writeCustomDataToNbt(nbt);
+		nbt.putInt("Variant", NetherMooshroomVariant.getVariant(this));
+	}
+	@Override
+	public void readCustomDataFromNbt(NbtCompound nbt) {
+		super.readCustomDataFromNbt(nbt);
+		if (nbt.contains("Variant")) NetherMooshroomVariant.setVariant(this, nbt.getInt("Variant"));
+	}
 
 	public NetherMooshroomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
 		NetherMooshroomEntity child = ModBase.NETHER_MOOSHROOM_ENTITY.create(serverWorld);

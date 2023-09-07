@@ -3,7 +3,7 @@ package fun.mousewich;
 import fun.mousewich.block.*;
 import fun.mousewich.block.basic.*;
 import fun.mousewich.block.container.ChiseledBookshelfBlock;
-import fun.mousewich.block.dust.sand.SandyBlock;
+import fun.mousewich.block.dust.sand.*;
 import fun.mousewich.block.gourd.CarvedGourdBlock;
 import fun.mousewich.block.oxidizable.*;
 import fun.mousewich.block.sculk.SculkTurfBlock;
@@ -15,7 +15,6 @@ import fun.mousewich.container.*;
 import fun.mousewich.entity.projectile.ModArrowEntity;
 import fun.mousewich.entity.tnt.PowderKegEntity;
 import fun.mousewich.gen.data.ModDatagen;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
 import fun.mousewich.gen.data.loot.DropTable;
 import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.gen.data.tag.ModItemTags;
@@ -24,6 +23,7 @@ import fun.mousewich.item.armor.ModArmorItem;
 import fun.mousewich.item.armor.ModHorseArmorItem;
 import fun.mousewich.item.armor.OxidizableArmoritem;
 import fun.mousewich.item.basic.ChestBoatItem;
+import fun.mousewich.item.basic.ModBannerPatternItem;
 import fun.mousewich.item.consumable.BottledDrinkItemImpl;
 import fun.mousewich.item.consumable.BottledMilkItem;
 import fun.mousewich.item.tool.*;
@@ -31,15 +31,17 @@ import fun.mousewich.item.tool.oxidized.*;
 import fun.mousewich.material.ModArmorMaterials;
 import fun.mousewich.material.ModMaterials;
 import fun.mousewich.material.ModToolMaterials;
+import fun.mousewich.mixins.SignTypeAccessor;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.sound.ModBlockSoundGroups;
+import fun.mousewich.util.dye.ModDyeColor;
 import fun.mousewich.util.OxidationScale;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import fun.mousewich.util.banners.ModBannerPattern;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.BoatDispenserBehavior;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.data.server.BlockLootTableGenerator;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -95,6 +97,7 @@ public class ModFactory {
 	public static Item.Settings ItemSettings(ItemGroup itemGroup) { return ItemSettings().group(itemGroup); }
 	public static Item.Settings GlassBottledItemSettings() { return ItemSettings().maxCount(16).recipeRemainder(Items.GLASS_BOTTLE); }
 	public static Item.Settings NetheriteItemSettings() { return ItemSettings().fireproof(); }
+	public static Item.Settings BannerPatternItemSettings() { return ItemSettings().maxCount(1); }
 	//Items
 	public static <T extends Item> T GeneratedItem(T item) { ModDatagen.Cache.Models.GENERATED.add(item); return item; }
 	public static <T extends Item> T HandheldItem(T item) { ModDatagen.Cache.Models.HANDHELD.add(item); return item; }
@@ -106,6 +109,8 @@ public class ModFactory {
 	public static Item MakeGeneratedItem(Item.Settings settings) { return GeneratedItem(MakeItemCommon(settings)); }
 	public static Item MakeHandheldItem() { return MakeHandheldItem(ItemSettings()); }
 	public static Item MakeHandheldItem(Item.Settings settings) { return HandheldItem(MakeItemCommon(settings)); }
+
+	public static ModBannerPatternItem MakeBannerPatternItem(ModBannerPattern pattern) { return GeneratedItem(new ModBannerPatternItem(pattern, BannerPatternItemSettings())); }
 
 	private static ModAxeItem MakeAxeCommon(ModToolMaterials material) { return MakeAxeCommon(new ModAxeItem(material)); }
 	private static ModAxeItem MakeAxeCommon(ModAxeItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.AXES, item); return item; }
@@ -168,21 +173,21 @@ public class ModFactory {
 	public static ModArmorItem MakeWaxedHelmet(ArmorMaterial material, Item parent) { return ParentedItem(MakeHelmetCommon(material), parent); }
 
 	private static ModArmorItem MakeChestplateCommon(ArmorMaterial material) { return MakeChestplateCommon(new ModArmorItem(material, EquipmentSlot.CHEST)); }
-	private static ModArmorItem MakeChestplateCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.HELMETS, item); return item.dispensible(); }
+	private static ModArmorItem MakeChestplateCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.CHESTPLATES, item); return item.dispensible(); }
 
 	public static ModArmorItem MakeChestplate(ArmorMaterial material) { return GeneratedItem(MakeChestplateCommon(material)); }
 	public static ModArmorItem MakeOxidizableChestplate(Oxidizable.OxidizationLevel level, ArmorMaterial material) { return GeneratedItem(MakeChestplateCommon(new OxidizableArmoritem(level, material, EquipmentSlot.CHEST))); }
 	public static ModArmorItem MakeWaxedChestplate(ArmorMaterial material, Item parent) { return ParentedItem(MakeChestplateCommon(material), parent); }
 
 	private static ModArmorItem MakeLeggingsCommon(ArmorMaterial material) { return MakeLeggingsCommon(new ModArmorItem(material, EquipmentSlot.LEGS)); }
-	private static ModArmorItem MakeLeggingsCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.HELMETS, item); return item.dispensible(); }
+	private static ModArmorItem MakeLeggingsCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.LEGGINGS, item); return item.dispensible(); }
 
 	public static ModArmorItem MakeLeggings(ArmorMaterial material) { return GeneratedItem(MakeLeggingsCommon(material)); }
 	public static ModArmorItem MakeOxidizableLeggings(Oxidizable.OxidizationLevel level, ArmorMaterial material) { return GeneratedItem(MakeLeggingsCommon(new OxidizableArmoritem(level, material, EquipmentSlot.LEGS))); }
 	public static ModArmorItem MakeWaxedLeggings(ArmorMaterial material, Item parent) { return ParentedItem(MakeLeggingsCommon(material), parent); }
 
 	private static ModArmorItem MakeBootsCommon(ArmorMaterial material) { return MakeBootsCommon(new ModArmorItem(material, EquipmentSlot.FEET)); }
-	private static ModArmorItem MakeBootsCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.HELMETS, item); return item.dispensible(); }
+	private static ModArmorItem MakeBootsCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.BOOTS, item); return item.dispensible(); }
 
 	public static ModArmorItem MakeBoots(ArmorMaterial material) { return GeneratedItem(MakeBootsCommon(material)); }
 	public static ModArmorItem MakeOxidizableBoots(Oxidizable.OxidizationLevel level, ArmorMaterial material) { return GeneratedItem(MakeBootsCommon(new OxidizableArmoritem(level, material, EquipmentSlot.FEET))); }
@@ -274,8 +279,10 @@ public class ModFactory {
 		return container.blockTag(ModBlockTags.CRAFTING_TABLES);
 	}
 
-	public static Block.Settings DyeBlockSettings(DyeColor color) {
-		return Block.Settings.of(Material.SOLID_ORGANIC, color.getMapColor()).strength(1.0f).sounds(BlockSoundGroup.SHROOMLIGHT);
+	public static Block.Settings DyeBlockSettings(ModDyeColor color) { return DyeBlockSettings(color.getMapColor()); }
+	public static Block.Settings DyeBlockSettings(DyeColor color) { return DyeBlockSettings(color.getMapColor()); }
+	public static Block.Settings DyeBlockSettings(MapColor color) {
+		return Block.Settings.of(Material.SOLID_ORGANIC, color).strength(1.0f).sounds(BlockSoundGroup.SHROOMLIGHT);
 	}
 
 	public static final Material FROGSPAWN_MATERIAL = new Material(MapColor.WATER_BLUE, false, false, false, false, false, false, PistonBehavior.DESTROY);
@@ -311,39 +318,64 @@ public class ModFactory {
 	}
 
 	public static Block.Settings TorchSettings(int luminance, BlockSoundGroup sounds) {
-		return FabricBlockSettings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(createLightLevelFromLitBlockState(luminance)).sounds(sounds);
+		return Block.Settings.of(Material.DECORATION).noCollision().breakInstantly().nonOpaque().luminance(createLightLevelFromLitBlockState(luminance)).sounds(sounds);
+	}
+	private static TorchContainer TorchUtility(TorchContainer container) {
+		ModDatagen.Cache.Tags.Register(BlockTags.WALL_POST_OVERRIDE, container.asBlock());
+		return container;
+	}
+	private static TorchContainer StandardTorchUtility(TorchContainer container) {
+		ModDatagen.Cache.Tags.Register(ModItemTags.TORCHES, container.asItem());
+		return container;
+	}
+	private static TorchContainer SoulTorchUtility(TorchContainer container) {
+		ModDatagen.Cache.Tags.Register(ModItemTags.SOUL_TORCHES, container.asItem());
+		//Piglin repellents
+		ModDatagen.Cache.Tags.Register(BlockTags.PIGLIN_REPELLENTS, container.asBlock());
+		ModDatagen.Cache.Tags.Register(BlockTags.PIGLIN_REPELLENTS, container.getWallBlock());
+		return container;
+	}
+	private static TorchContainer EnderTorchUtility(TorchContainer container) {
+		ModDatagen.Cache.Tags.Register(ModItemTags.ENDER_TORCHES, container.asItem());
+		return container;
+	}
+	private static TorchContainer UnderwaterTorchUtility(TorchContainer container) {
+		ModDatagen.Cache.Tags.Register(ModItemTags.UNDERWATER_TORCHES, container.asItem());
+		return container;
 	}
 	public static TorchContainer MakeTorch(int luminance, BlockSoundGroup sounds, DefaultParticleType particle) { return MakeTorch(luminance, sounds, particle, ItemSettings()); }
 	public static TorchContainer MakeTorch(int luminance, BlockSoundGroup sounds, DefaultParticleType particle, Item.Settings settings) {
-		return new TorchContainer(TorchSettings(luminance, sounds), particle, settings).dropSelf();
+		return TorchUtility(new TorchContainer(TorchSettings(luminance, sounds), particle, settings).dropSelf());
 	}
-	public static TorchContainer MakeTorch(BlockSoundGroup sounds, DefaultParticleType particle) { return MakeTorch(14, sounds, particle); }
-	public static TorchContainer MakeTorch(BlockSoundGroup sounds, DefaultParticleType particle, Item.Settings settings) { return MakeTorch(14, sounds, particle, settings); }
-	public static TorchContainer MakeTorch(BlockSoundGroup sounds) { return MakeTorch(sounds, ParticleTypes.FLAME); }
-	public static TorchContainer MakeTorch(BlockSoundGroup sounds, Item.Settings settings) { return MakeTorch(sounds, ParticleTypes.FLAME, settings); }
-	public static TorchContainer MakeEnderTorch(BlockSoundGroup sounds) { return MakeTorch(12, sounds, ModBase.ENDER_FIRE_FLAME_PARTICLE); }
-	public static TorchContainer MakeEnderTorch(BlockSoundGroup sounds, Item.Settings settings) { return MakeTorch(12, sounds, ModBase.ENDER_FIRE_FLAME_PARTICLE, settings); }
-	public static TorchContainer MakeSoulTorch(BlockSoundGroup sounds) { return MakeTorch(10, sounds, ParticleTypes.SOUL_FIRE_FLAME); }
-	public static TorchContainer MakeSoulTorch(BlockSoundGroup sounds, Item.Settings settings) { return MakeTorch(10, sounds, ParticleTypes.SOUL_FIRE_FLAME, settings); }
+	public static TorchContainer MakeTorch(BlockSoundGroup sounds, DefaultParticleType particle) { return StandardTorchUtility(MakeTorch(14, sounds, particle)); }
+	public static TorchContainer MakeTorch(BlockSoundGroup sounds, DefaultParticleType particle, Item.Settings settings) { return StandardTorchUtility(MakeTorch(14, sounds, particle, settings)); }
+	public static TorchContainer MakeTorch(BlockSoundGroup sounds) { return StandardTorchUtility(MakeTorch(sounds, ParticleTypes.FLAME)); }
+	public static TorchContainer MakeTorch(BlockSoundGroup sounds, Item.Settings settings) { return StandardTorchUtility(MakeTorch(sounds, ParticleTypes.FLAME, settings)); }
+	public static TorchContainer MakeEnderTorch(BlockSoundGroup sounds) { return EnderTorchUtility(MakeTorch(12, sounds, ModParticleTypes.ENDER_FIRE_FLAME)); }
+	public static TorchContainer MakeEnderTorch(BlockSoundGroup sounds, Item.Settings settings) { return EnderTorchUtility(MakeTorch(12, sounds, ModParticleTypes.ENDER_FIRE_FLAME, settings)); }
+	public static TorchContainer MakeSoulTorch(BlockSoundGroup sounds) { return SoulTorchUtility(MakeTorch(10, sounds, ParticleTypes.SOUL_FIRE_FLAME)); }
+	public static TorchContainer MakeSoulTorch(BlockSoundGroup sounds, Item.Settings settings) { return SoulTorchUtility(MakeTorch(10, sounds, ParticleTypes.SOUL_FIRE_FLAME, settings)); }
 	public static TorchContainer MakeUnderwaterTorch(BlockSoundGroup sounds) { return MakeUnderwaterTorch(sounds, ItemSettings()); }
-	public static TorchContainer MakeUnderwaterTorch(BlockSoundGroup sounds, Item.Settings settings) {
-		return TorchContainer.Waterloggable(TorchSettings(14, sounds), ModBase.UNDERWATER_TORCH_GLOW, settings).dropSelf();
+	public static TorchContainer MakeUnderwaterTorch(int luminance, BlockSoundGroup sounds) { return MakeUnderwaterTorch(luminance, sounds, ItemSettings()); }
+	public static TorchContainer MakeUnderwaterTorch(BlockSoundGroup sounds, Item.Settings settings) { return MakeUnderwaterTorch(14, sounds, settings); }
+	public static TorchContainer MakeUnderwaterTorch(int luminance, BlockSoundGroup sounds, Item.Settings settings) {
+		return UnderwaterTorchUtility(TorchUtility(TorchContainer.Waterloggable(TorchSettings(luminance, sounds), ModParticleTypes.UNDERWATER_TORCH_GLOW, settings).dropSelf()));
 	}
 
 	public static TorchContainer MakeOxidizableTorch(Oxidizable.OxidizationLevel level, int luminance, BlockSoundGroup sounds, DefaultParticleType particle) {
-		return TorchContainer.Oxidizable(level, TorchSettings(luminance, sounds).ticksRandomly(), particle).dropSelf();
+		return StandardTorchUtility(TorchUtility(TorchContainer.Oxidizable(level, TorchSettings(luminance, sounds).ticksRandomly(), particle).dropSelf()));
 	}
 	public static TorchContainer MakeOxidizableTorch(Oxidizable.OxidizationLevel level, BlockSoundGroup sounds, DefaultParticleType particle) {
-		return MakeOxidizableTorch(level, 14, sounds, particle);
+		return StandardTorchUtility(TorchUtility(MakeOxidizableTorch(level, 14, sounds, particle)));
 	}
 	public static TorchContainer MakeOxidizableEnderTorch(Oxidizable.OxidizationLevel level, BlockSoundGroup sounds) {
-		return MakeOxidizableTorch(level, 12, sounds, ModBase.ENDER_FIRE_FLAME_PARTICLE);
+		return EnderTorchUtility(TorchUtility(MakeOxidizableTorch(level, 12, sounds, ModParticleTypes.ENDER_FIRE_FLAME)));
 	}
 	public static TorchContainer MakeOxidizableSoulTorch(Oxidizable.OxidizationLevel level, BlockSoundGroup sounds) {
-		return MakeOxidizableTorch(level, 10, sounds, ParticleTypes.SOUL_FIRE_FLAME);
+		return SoulTorchUtility(TorchUtility(MakeOxidizableTorch(level, 10, sounds, ParticleTypes.SOUL_FIRE_FLAME)));
 	}
 	public static TorchContainer MakeOxidizableUnderwaterTorch(Oxidizable.OxidizationLevel level, BlockSoundGroup sounds) {
-		return TorchContainer.WaterloggableOxidizable(level, TorchSettings(14, sounds).ticksRandomly(), ModBase.UNDERWATER_TORCH_GLOW).dropSelf();
+		return UnderwaterTorchUtility(TorchUtility(TorchContainer.WaterloggableOxidizable(level, TorchSettings(14, sounds).ticksRandomly(), ModParticleTypes.UNDERWATER_TORCH_GLOW).dropSelf()));
 	}
 
 	public static Block.Settings OxidizablePressurePlateSettings(Oxidizable.OxidizationLevel level) {
@@ -353,13 +385,17 @@ public class ModFactory {
 		return Block.Settings.of(Material.METAL, OxidationScale.getMapColor(level)).requiresTool().noCollision().strength(0.5F).sounds(sounds);
 	}
 
-	public static Block.Settings LanternSettings(int luminance) {
-		return Block.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance(createLightLevelFromLitBlockState(luminance)).nonOpaque();
+	public static Block.Settings CommonLanternSettings() {
+		return Block.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).nonOpaque();
 	}
+	public static Block.Settings SlimeLanternSettings(ToIntFunction<BlockState> luminance) { return CommonLanternSettings().luminance(luminance); }
+	public static Block.Settings LanternSettings(int luminance) { return CommonLanternSettings().luminance(createLightLevelFromLitBlockState(luminance)); }
 	public static BlockContainer MakeLantern(int luminance) { return MakeLantern(luminance, ItemSettings()); }
 	public static BlockContainer MakeLantern(int luminance, Item.Settings settings) {
 		return new BlockContainer(new LightableLanternBlock(LanternSettings(luminance)), settings).dropSelf();
 	}
+	public static BlockContainer MakeSoulLantern() { return MakeLantern(10).itemTag(ModItemTags.SOUL_LANTERNS).blockTag(BlockTags.PIGLIN_REPELLENTS); }
+	public static BlockContainer MakeSoulLantern(Item.Settings settings) { return MakeLantern(10, settings).itemTag(ModItemTags.SOUL_LANTERNS).blockTag(BlockTags.PIGLIN_REPELLENTS); }
 	public static Block.Settings UnlitLanternSettings() {
 		return Block.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).nonOpaque();
 	}
@@ -369,6 +405,7 @@ public class ModFactory {
 	public static BlockContainer MakeOxidizableLantern(int luminance, Oxidizable.OxidizationLevel level) {
 		return new BlockContainer(new OxidizableLightableLanternBlock(level, LanternSettings(luminance))).dropSelf();
 	}
+	public static BlockContainer MakeOxidizableSoulLantern(Oxidizable.OxidizationLevel level) { return MakeOxidizableLantern(10, level).itemTag(ModItemTags.SOUL_LANTERNS).blockTag(BlockTags.PIGLIN_REPELLENTS); }
 
 	private static BlockContainer MakeCampfireCommon(int luminance, int fireDamage, MapColor mapColor, BlockSoundGroup sounds, boolean emitsParticles) {
 		return new BlockContainer(new ModCampfireBlock(emitsParticles, fireDamage, Block.Settings.of(Material.WOOD, mapColor).strength(2.0F).sounds(sounds).luminance(createLightLevelFromLitBlockState(luminance)).nonOpaque()))
@@ -384,7 +421,7 @@ public class ModFactory {
 	public static BlockContainer MakeSoulCampfire(Block base) { return MakeSoulCampfire(base, BlockSoundGroup.WOOD); }
 	public static BlockContainer MakeSoulCampfire(BlockConvertible base, BlockSoundGroup sounds) { return MakeSoulCampfire(base.asBlock(), sounds); }
 	public static BlockContainer MakeSoulCampfire(Block base, BlockSoundGroup sounds) {
-		BlockContainer container = MakeCampfireCommon(10, 2, base.getDefaultMapColor(), sounds, false).drops(DropTable.SOUL_CAMPFIRE);
+		BlockContainer container = MakeCampfireCommon(10, 2, base.getDefaultMapColor(), sounds, false).drops(DropTable.SOUL_CAMPFIRE).itemTag(ModItemTags.CAMPFIRES);
 		ModDatagen.Cache.Models.CAMPFIRE_SOUL.add(new Pair<>(container, base));
 		return container.blockTag(BlockTags.PIGLIN_REPELLENTS).itemTag(ItemTags.PIGLIN_REPELLENTS).itemTag(ModItemTags.SOUL_CAMPFIRES);
 	}
@@ -453,7 +490,9 @@ public class ModFactory {
 	public static BedContainer MakeBed(String name, MapColor color, BlockSoundGroup sounds) { return MakeBed(name, color, sounds, null); }
 	public static BedContainer MakeBed(String name, MapColor color, BlockSoundGroup sounds, ToIntFunction<BlockState> luminance) {
 		BedContainer bed = new BedContainer(name, BedSettings(color, sounds, luminance), ItemSettings().maxCount(1));
-		BlockLootGenerator.Drops.put(bed.asBlock(), DropTable.BED);
+		ModDatagen.Cache.Drops.put(bed.asBlock(), DropTable.BED);
+		ModDatagen.Cache.Tags.Register(BlockTags.BEDS, bed.asBlock());
+		ModDatagen.Cache.Tags.Register(ItemTags.BEDS, bed.asItem());
 		return bed;
 	}
 
@@ -534,16 +573,22 @@ public class ModFactory {
 	}
 	public static BlockContainer MakeWoodButton(BlockSoundGroup soundGroup, SoundEvent pressed, SoundEvent released) { return MakeWoodButton(ItemSettings(), soundGroup, pressed, released); }
 	public static BlockContainer MakeWoodButton(Item.Settings settings, BlockSoundGroup soundGroup, SoundEvent pressed, SoundEvent released) {
-		return new BlockContainer(new ModWoodenButtonBlock(ButtonSettings(0.5F, soundGroup), pressed, released), settings).dropSelf();
+		return new BlockContainer(new ModWoodenButtonBlock(ButtonSettings(0.5F, soundGroup), pressed, released), settings)
+				.blockTag(BlockTags.WOODEN_BUTTONS).itemTag(ItemTags.WOODEN_BUTTONS)
+				.dropSelf();
 	}
 
 	public static BlockContainer MakeMetalButton() { return MakeMetalButton(BlockSoundGroup.METAL); }
 	public static BlockContainer MakeMetalButton(BlockSoundGroup sounds) { return MakeMetalButton(sounds, ItemSettings()); }
 	public static BlockContainer MakeMetalButton(BlockSoundGroup sounds, Item.Settings settings) {
-		return new BlockContainer(new MetalButtonBlock(ButtonSettings(10, sounds)), settings).dropSelf();
+		return new BlockContainer(new MetalButtonBlock(ButtonSettings(10, sounds)), settings)
+				.blockTag(BlockTags.BUTTONS).itemTag(ItemTags.BUTTONS)
+				.dropSelf();
 	}
 	public static BlockContainer MakeOxidizableButton(BlockSoundGroup sounds, Oxidizable.OxidizationLevel level) {
-		return new BlockContainer(new OxidizableButtonBlock(level, ButtonSettings(10, sounds))).dropSelf();
+		return new BlockContainer(new OxidizableButtonBlock(level, ButtonSettings(10, sounds)))
+				.blockTag(BlockTags.BUTTONS).itemTag(ItemTags.BUTTONS)
+				.dropSelf();
 	}
 
 	public static Block.Settings WoodPressurePlateSettings(MapColor color, BlockSoundGroup soundGroup) { return Block.Settings.of(Material.WOOD, color).noCollision().strength(0.5F).sounds(soundGroup); }
@@ -587,6 +632,8 @@ public class ModFactory {
 		return BuildDoorCommon(new BlockContainer(door, settings)).blockTag(BlockTags.WOODEN_DOORS).itemTag(ItemTags.WOODEN_DOORS);
 	}
 
+	public static SignType MakeSignType(String name) { return SignTypeAccessor.registerNew(SignTypeAccessor.newSignType(name)); }
+
 	public static SignContainer MakeSign(String name, BlockConvertible planks, BlockConvertible hangingSignBase) { return MakeSign(name, planks.asBlock(), hangingSignBase.asBlock()); }
 	public static SignContainer MakeSign(String name, Block planks, Block hangingSignBase) { return MakeSign(name, planks, SignItemSettings(), hangingSignBase); }
 	public static SignContainer MakeSign(String name, BlockConvertible planks, Item.Settings settings, BlockConvertible hangingSignBase) { return MakeSign(name, planks.asBlock(), settings, hangingSignBase.asBlock()); }
@@ -615,9 +662,15 @@ public class ModFactory {
 	}
 	public static Item.Settings SignItemSettings() { return ItemSettings().maxCount(16); }
 	public static Item.Settings SignItemSettings(ItemGroup group) { return ItemSettings(group).maxCount(16); }
+	public static WallBlockContainer MakeHangingSign(SignType type, BlockConvertible base) { return MakeHangingSign(type, base.asBlock()); }
 	public static WallBlockContainer MakeHangingSign(SignType type, Block base) { return MakeHangingSign(type, base, ItemSettings()); }
+	public static WallBlockContainer MakeHangingSign(SignType type, BlockConvertible base, Item.Settings itemSettings) { return MakeHangingSign(type, base.asBlock(), itemSettings); }
 	public static WallBlockContainer MakeHangingSign(SignType type, Block base, Item.Settings itemSettings) { return MakeHangingSign(type, base, HangingSignSettings(base), itemSettings); }
+	public static WallBlockContainer MakeHangingSign(SignType type, BlockConvertible base, BlockSoundGroup sounds) { return MakeHangingSign(type, base.asBlock(), sounds); }
+	public static WallBlockContainer MakeHangingSign(SignType type, Block base, BlockSoundGroup sounds) { return MakeHangingSign(type, base, HangingSignSettings(base, sounds), ItemSettings()); }
+	public static WallBlockContainer MakeHangingSign(SignType type, BlockConvertible base, Item.Settings itemSettings, BlockSoundGroup sounds) { return MakeHangingSign(type, base.asBlock(), itemSettings, sounds); }
 	public static WallBlockContainer MakeHangingSign(SignType type, Block base, Item.Settings itemSettings, BlockSoundGroup sounds) { return MakeHangingSign(type, base, HangingSignSettings(base, sounds), itemSettings); }
+	public static WallBlockContainer MakeHangingSign(SignType type, BlockConvertible base, Block.Settings settings, Item.Settings itemSettings) { return MakeHangingSign(type, base.asBlock(), settings, itemSettings); }
 	public static WallBlockContainer MakeHangingSign(SignType type, Block base, Block.Settings settings, Item.Settings itemSettings) {
 		HangingSignBlock hanging = new HangingSignBlock(settings, type);
 		WallHangingSignBlock wall = new WallHangingSignBlock(settings, type);
@@ -784,6 +837,13 @@ public class ModFactory {
 
 	public static BlockContainer MakeSandy(BlockConvertible block) { return MakeSandy(block.asBlock()); }
 	public static BlockContainer MakeSandy(Block block) { return BuildBlock(new SandyBlock(block)); }
+	public static BlockContainer MakeRedSandy(BlockConvertible block) { return MakeRedSandy(block.asBlock()); }
+	public static BlockContainer MakeRedSandy(Block block) { return BuildBlock(new RedSandyBlock(block)); }
+
+	public static BlockContainer MakeSandySlab(BlockConvertible block) { return MakeSandySlab(block.asBlock()); }
+	public static BlockContainer MakeSandySlab(Block block) { return BuildSlab(new SandySlabBlock(block)); }
+	public static BlockContainer MakeRedSandySlab(BlockConvertible block) { return MakeRedSandySlab(block.asBlock()); }
+	public static BlockContainer MakeRedSandySlab(Block block) { return BuildSlab(new RedSandySlabBlock(block)); }
 
 	private static BlockContainer MakeFenceCommon(Block base, Item.Settings settings) {
 		return new BlockContainer(new ModFenceBlock(base), settings).dropSelf();
@@ -799,13 +859,16 @@ public class ModFactory {
 		return MakeFenceCommon(base.asBlock(), settings).blockTag(BlockTags.WOODEN_FENCES).itemTag(ItemTags.WOODEN_FENCES);
 	}
 
+	private static BlockContainer BuildFenceGate(FenceGateBlock fenceGate, Item.Settings settings) {
+		return new BlockContainer(fenceGate, settings).dropSelf().blockTag(BlockTags.FENCE_GATES).itemTag(ModItemTags.FENCE_GATES);
+	}
 	public static BlockContainer MakeWoodFenceGate(IBlockItemContainer ingredient) { return MakeWoodFenceGate(ingredient, ItemSettings()); }
 	public static BlockContainer MakeWoodFenceGate(IBlockItemContainer ingredient, Item.Settings settings) {
-		return new BlockContainer(new FenceGateBlock(Block.Settings.copy(ingredient.asBlock())), settings).dropSelf();
+		return BuildFenceGate(new FenceGateBlock(Block.Settings.copy(ingredient.asBlock())), settings);
 	}
 	public static BlockContainer MakeWoodFenceGate(IBlockItemContainer ingredient, SoundEvent opened, SoundEvent closed) { return MakeWoodFenceGate(ingredient, ItemSettings(), opened, closed); }
 	public static BlockContainer MakeWoodFenceGate(IBlockItemContainer ingredient, Item.Settings settings, SoundEvent opened, SoundEvent closed) {
-		return new BlockContainer(new ModFenceGateBlock(Block.Settings.copy(ingredient.asBlock()), opened, closed), settings).dropSelf();
+		return BuildFenceGate(new ModFenceGateBlock(Block.Settings.copy(ingredient.asBlock()), opened, closed), settings);
 	}
 
 	public static Block.Settings MetalTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup) { return Block.Settings.of(Material.METAL).requiresTool().mapColor(color).sounds(soundGroup).nonOpaque().allowsSpawning(ModFactory::never); }
@@ -823,14 +886,17 @@ public class ModFactory {
 		ModDatagen.Cache.Models.THIN_TRAPDOOR.add(container);
 		return BuildMetalTrapdoor(container);
 	}
-	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength) {
-		return BuildMetalTrapdoor(new ModTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE));
+	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength) { return MakeMetalTrapdoor(color, soundGroup, strength, ItemSettings()); }
+	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength, Item.Settings settings) {
+		return BuildMetalTrapdoor(new ModTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE), settings);
 	}
-	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength, float resistance) {
-		return BuildMetalTrapdoor(new ModTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength, resistance), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE));
+	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength, float resistance) { return MakeMetalTrapdoor(color, soundGroup, strength, resistance, ItemSettings()); }
+	public static BlockContainer MakeMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength, float resistance, Item.Settings settings) {
+		return BuildMetalTrapdoor(new ModTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength, resistance), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE), settings);
 	}
-	public static BlockContainer BuildMetalTrapdoor(ModTrapdoorBlock block) {
-		BlockContainer container = BuildBlock(block);
+	public static BlockContainer BuildMetalTrapdoor(ModTrapdoorBlock block) { return BuildMetalTrapdoor(block, ItemSettings()); }
+	public static BlockContainer BuildMetalTrapdoor(ModTrapdoorBlock block, Item.Settings settings) {
+		BlockContainer container = BuildBlock(block, settings);
 		return BuildMetalTrapdoor(container);
 	}
 	private static BlockContainer BuildMetalTrapdoor(BlockContainer container) {
@@ -877,8 +943,7 @@ public class ModFactory {
 	public static BlockContainer MakeBarrel(MapColor color) { return MakeBarrel(color, BlockSoundGroup.WOOD); }
 	public static BlockContainer MakeBarrel(MapColor color, BlockSoundGroup soundGroup) {
 		BlockContainer container = new BlockContainer(new ModBarrelBlock(BarrelSettings(color, soundGroup)))
-				.drops(BlockLootTableGenerator::nameableContainerDrops)
-				.blockTag(BlockTags.AXE_MINEABLE).blockTag(ModBlockTags.BARRELS);
+				.drops(DropTable.NAMEABLE_CONTAINER).blockTag(BlockTags.AXE_MINEABLE).blockTag(ModBlockTags.BARRELS);
 		ModDatagen.Cache.Models.BARREL.add(container);
 		return container;
 	}
@@ -909,7 +974,11 @@ public class ModFactory {
 	
 	public static Block MakeMooblossomFlower(BlockConvertible flower) { return MakeMooblossomFlower(flower.asBlock()); }
 	public static Block MakeMooblossomFlower(Block flower) { return MakeMooblossomFlower((FlowerBlock)flower); }
-	public static Block MakeMooblossomFlower(FlowerBlock flower) { return new FlowerBlock(flower.getEffectInStew(), flower.getEffectInStewDuration(), FlowerSettings()); }
+	public static Block MakeMooblossomFlower(FlowerBlock flower) {
+		Block block = new FlowerBlock(flower.getEffectInStew(), flower.getEffectInStewDuration(), FlowerSettings());
+		ModDatagen.Cache.Tags.Register(BlockTags.SMALL_FLOWERS, block);
+		return block;
+	}
 
 	public static Item.Settings FlowerItemSettings() { return ItemSettings(ModBase.FLOWER_GROUP); }
 	public static Block.Settings FlowerSettings() {
@@ -917,13 +986,17 @@ public class ModFactory {
 	}
 	public static FlowerContainer MakeFlower(StatusEffect effect, int effectDuration) { return MakeFlower(effect, effectDuration, FlowerItemSettings()); }
 	public static FlowerContainer MakeFlower(StatusEffect effect, int effectDuration, Item.Settings settings) {
-		return new FlowerContainer(effect, effectDuration, FlowerSettings(), settings).flammable(60, 100).compostable(0.65f).dropSelf();
+		return new FlowerContainer(effect, effectDuration, FlowerSettings(), settings)
+				.flammable(60, 100).compostable(0.65f)
+				.dropSelf().blockTag(BlockTags.SMALL_FLOWERS).itemTag(ItemTags.SMALL_FLOWERS);
 	}
 	public static Block.Settings TallFlowerSettings() {
 		return Block.Settings.of(Material.REPLACEABLE_PLANT).noCollision().breakInstantly().sounds(BlockSoundGroup.GRASS);
 	}
 	public static TallBlockContainer MakeTallFlower() {
-		return new TallBlockContainer(new TallFlowerBlock(TallFlowerSettings()), FlowerItemSettings()).flammable(60, 100).compostable(0.65f).dropSelf();
+		return new TallBlockContainer(new TallFlowerBlock(TallFlowerSettings()), FlowerItemSettings())
+				.flammable(60, 100).compostable(0.65f)
+				.dropSelf().blockTag(BlockTags.TALL_FLOWERS).itemTag(ItemTags.TALL_FLOWERS);
 	}
 	public static TallBlockContainer MakeCuttableFlower(Supplier<FlowerBlock> shortBlock) {
 		return MakeCuttableFlower(shortBlock, null);
@@ -932,7 +1005,9 @@ public class ModFactory {
 		return MakeCuttableFlower(TallFlowerSettings(), shortBlock, alsoDrop);
 	}
 	public static TallBlockContainer MakeCuttableFlower(Block.Settings settings, Supplier<FlowerBlock> shortBlock, Function<World, ItemStack> alsoDrop) {
-		return new TallBlockContainer(new CuttableFlowerBlock(settings, shortBlock, alsoDrop), FlowerItemSettings()).flammable(60, 100).compostable(0.65f).dropSelf();
+		return new TallBlockContainer(new CuttableFlowerBlock(settings, shortBlock, alsoDrop), FlowerItemSettings())
+				.flammable(60, 100).compostable(0.65f)
+				.dropSelf().blockTag(BlockTags.TALL_FLOWERS).itemTag(ItemTags.TALL_FLOWERS);
 	}
 
 	public static Block.Settings FlowerPartSeedBlockSettings() { return FlowerSettings().ticksRandomly(); }

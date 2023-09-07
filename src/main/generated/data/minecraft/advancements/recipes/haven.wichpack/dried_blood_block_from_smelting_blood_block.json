@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:dried_blood_block_from_smelting_blood_block"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_blood_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:blood_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:dried_blood_block_from_smelting_blood_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_blood_block",
+      "has_the_recipe"
+    ]
+  ]
+}

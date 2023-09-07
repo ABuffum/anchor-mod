@@ -25,7 +25,9 @@ public class PowderKegBlock extends ModTntBlock {
 	@Override
 	public void onDestroyedByExplosion(World world, BlockPos pos, Explosion explosion) {
 		if (!world.isClient) {
-			PowderKegEntity tntEntity = new PowderKegEntity(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, explosion.getCausingEntity(), this);
+			BlockState state = world.getBlockState(pos);
+			PowderKegEntity tntEntity = new PowderKegEntity(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, explosion.getCausingEntity(), state);
+			tntEntity.setBlockState(state);
 			tntEntity.setFuse(5);
 			world.spawnEntity(tntEntity);
 		}
@@ -34,7 +36,10 @@ public class PowderKegBlock extends ModTntBlock {
 	@Override
 	protected void primeTnt(World world, BlockPos pos, LivingEntity igniter) {
 		if (!world.isClient) {
-			PowderKegEntity tntEntity = new PowderKegEntity(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, igniter, this);
+			BlockState state = world.getBlockState(pos);
+			PowderKegEntity tntEntity = new PowderKegEntity(world, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, igniter, state);
+			tntEntity.setBlockState(state);
+			tntEntity.setBlockState(world.getBlockState(pos));
 			tntEntity.setFuse(10);
 			world.spawnEntity(tntEntity);
 			world.playSound(null, tntEntity.getX(), tntEntity.getY(), tntEntity.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);

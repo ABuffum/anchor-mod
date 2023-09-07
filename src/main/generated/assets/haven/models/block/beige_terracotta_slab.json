@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "haven:block/beige_terracotta",
+    "top": "haven:block/beige_terracotta",
+    "side": "haven:block/beige_terracotta"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/_template_glass_trapdoor_bottom",
+  "textures": {
+    "top": "haven:block/beige_stained_glass",
+    "side": "haven:block/beige_stained_glass_pane_top"
+  }
+}

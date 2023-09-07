@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    [
+      {
+        "item": "haven:coffee_milk_bucket"
+      },
+      {
+        "item": "haven:copper_coffee_milk_bucket"
+      },
+      {
+        "item": "haven:golden_coffee_milk_bucket"
+      },
+      {
+        "item": "haven:netherite_coffee_milk_bucket"
+      },
+      {
+        "item": "haven:dark_iron_coffee_milk_bucket"
+      },
+      {
+        "item": "haven:wood_coffee_milk_bucket"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:coffee_milk_bottle",
+    "count": 3
+  }
+}

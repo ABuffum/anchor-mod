@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:mint_glazed_terracotta_from_smelting_mint_terracotta"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_mint_terracotta": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:mint_terracotta"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:mint_glazed_terracotta_from_smelting_mint_terracotta"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mint_terracotta",
+      "has_the_recipe"
+    ]
+  ]
+}

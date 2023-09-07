@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "haven:sandy_dark_prismarine_slab"
+    }
+  ],
+  "result": {
+    "item": "haven:sandy_sandy_dark_prismarine_slab"
+  }
+}

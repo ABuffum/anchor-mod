@@ -1,9 +1,9 @@
 package fun.mousewich.client.render.block.renderer;
 
-import fun.mousewich.ModClient;
 import fun.mousewich.block.piglin.PiglinHeadEntity;
 import fun.mousewich.block.piglin.WallPiglinHeadBlock;
 import fun.mousewich.client.render.block.model.PiglinHeadEntityModel;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -24,12 +24,12 @@ import org.jetbrains.annotations.Nullable;
 public class PiglinHeadEntityRenderer implements BlockEntityRenderer<PiglinHeadEntity> {
 	private final PiglinHeadEntityModel MODEL;
 	public static PiglinHeadEntityModel getModel(EntityModelLoader modelLoader) {
-		return new PiglinHeadEntityModel(modelLoader.getModelPart(ModClient.PIGLIN_HEAD_LAYER));
+		return new PiglinHeadEntityModel(modelLoader.getModelPart(ModEntityModelLayers.PIGLIN_HEAD));
 	}
 	private static final Identifier TEXTURE = new Identifier("textures/entity/piglin/piglin.png");
 	private static final Identifier TEXTURE_ZOMBIFIED = new Identifier("textures/entity/piglin/zombified_piglin.png");
 	public PiglinHeadEntityRenderer(BlockEntityRendererFactory.Context ctx) {
-		this.MODEL = new PiglinHeadEntityModel(ctx.getLayerModelPart(ModClient.PIGLIN_HEAD_LAYER));
+		this.MODEL = new PiglinHeadEntityModel(ctx.getLayerModelPart(ModEntityModelLayers.PIGLIN_HEAD));
 	}
 	@Override
 	public void render(PiglinHeadEntity blockEntity, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
@@ -48,7 +48,7 @@ public class PiglinHeadEntityRenderer implements BlockEntityRenderer<PiglinHeadE
 		if (direction == null) matrices.translate(0.5f, 0.0f, 0.5f);
 		else matrices.translate(0.5f - (float)direction.getOffsetX() * 0.25f, 0.25f, 0.5f - (float)direction.getOffsetZ() * 0.25f);
 		matrices.scale(-1.0f, -1.0f, 1.0f);
-		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCullZOffset(zombified ? TEXTURE : TEXTURE_ZOMBIFIED));
+		VertexConsumer vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCullZOffset(zombified ? TEXTURE_ZOMBIFIED : TEXTURE));
 		model.setHeadRotation(animationProgress, yaw, 0.0f);
 		model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);
 		matrices.pop();

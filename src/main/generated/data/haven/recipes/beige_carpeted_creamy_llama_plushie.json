@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:creamy_llama_plushie"
+    },
+    {
+      "item": "haven:beige_dye"
+    }
+  ],
+  "result": {
+    "item": "haven:beige_carpeted_creamy_llama_plushie"
+  }
+}

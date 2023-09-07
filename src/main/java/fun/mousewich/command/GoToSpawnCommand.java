@@ -23,34 +23,36 @@ public class GoToSpawnCommand {
 				.executes(context -> execute(ImmutableList.of(context.getSource().getEntityOrThrow())))
 				.then(CommandManager.argument("targets", EntityArgumentType.entities())
 						.executes(context -> execute(EntityArgumentType.getEntities(context, "targets")))));
+		dispatcher.register(CommandManager.literal("gotoworldspawn")
+				.requires(source -> source.hasPermissionLevel(2))
+				.executes(context -> executeWorldSpawn(ImmutableList.of(context.getSource().getEntityOrThrow())))
+				.then(CommandManager.argument("targets", EntityArgumentType.entities())
+						.executes(context -> executeWorldSpawn(EntityArgumentType.getEntities(context, "targets")))));
 	}
-
 	private static int execute(Collection<? extends Entity> targets) {
-		for (Entity entity : targets) {
-			if (entity instanceof ServerPlayerEntity player) GoToSpawn(player);
-		}
+		for (Entity entity : targets) if (entity instanceof ServerPlayerEntity player) GoToSpawn(player);
 		return targets.size();
 	}
-
+	private static int executeWorldSpawn(Collection<? extends Entity> targets) {
+		for (Entity entity : targets) if (entity instanceof ServerPlayerEntity player) GoToWorldSpawn(player);
+		return targets.size();
+	}
 	public static void GoToSpawn(ServerPlayerEntity player) {
 		ServerWorld world = player.server.getWorld(player.getSpawnPointDimension());
 		BlockPos pos = player.getSpawnPointPosition();
 		Optional<Vec3d> optional = world != null && pos != null ? PlayerEntity.findRespawnPosition(world, pos, player.getSpawnAngle(), player.isSpawnPointSet(), true) : Optional.empty();
-		double x, y, z;
 		if (optional.isPresent()) {
 			Vec3d vec3d = optional.get();
-			x = vec3d.getX();
-			y = vec3d.getY();
-			z = vec3d.getZ();
+			player.teleport(world, vec3d.getX(), vec3d.getY(), vec3d.getZ(), player.prevYaw, player.prevPitch);
 		}
 		else {
-			world = player.server.getOverworld();
-			pos = world.getSpawnPos();
-			x = pos.getX();
-			y = pos.getY();
-			z = pos.getZ();
 			player.sendMessage(new TranslatableText("block.minecraft.spawn.not_valid"), false);
+			GoToWorldSpawn(player);
 		}
-		player.teleport(world, x, y, z, player.prevYaw, player.prevPitch);
+	}
+	public static void GoToWorldSpawn(ServerPlayerEntity player) {
+		ServerWorld world = player.server.getOverworld();
+		BlockPos pos = world.getSpawnPos();
+		player.teleport(world, pos.getX(), pos.getY(), pos.getZ(), player.prevYaw, player.prevPitch);
 	}
 }

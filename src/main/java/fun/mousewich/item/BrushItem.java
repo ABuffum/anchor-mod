@@ -2,6 +2,7 @@ package fun.mousewich.item;
 
 import fun.mousewich.block.archaeology.SuspiciousSandBlock;
 import fun.mousewich.block.archaeology.SuspiciousSandBlockEntity;
+import fun.mousewich.block.dust.BrushableEntity;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EquipmentSlot;
@@ -55,7 +56,7 @@ public class BrushItem extends Item {
 			if (blockState.getBlock() instanceof SuspiciousSandBlock suspiciousSandBlock) soundEvent = suspiciousSandBlock.getBrushSound();
 			else soundEvent = ModSoundEvents.ITEM_BRUSH_BRUSHING_GENERIC;
 			world.playSound(playerEntity, blockPos, soundEvent, SoundCategory.PLAYERS, 1, 1);
-			if (!world.isClient() && world.getBlockEntity(blockPos) instanceof SuspiciousSandBlockEntity sus && sus.brush(world.getTime(), playerEntity, blockHitResult.getSide())) {
+			if (!world.isClient() && world.getBlockEntity(blockPos) instanceof BrushableEntity sus && sus.brush(world.getTime(), playerEntity, blockHitResult.getSide())) {
 				stack.damage(1, user2, user -> user.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 			}
 		}

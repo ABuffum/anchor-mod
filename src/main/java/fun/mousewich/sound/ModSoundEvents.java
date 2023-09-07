@@ -318,6 +318,18 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_JUMPING_SPIDER_STEP = registerSoundEvent("entity.jumping_spider.step");
 	public static final SoundEvent ENTITY_JUMPING_SPIDER_JUMP = registerSoundEvent("entity.jumping_spider.jump");
 	//</editor-fold>
+	//<editor-fold desc="Slime Spider">
+	public static final SoundEvent ENTITY_SLIME_SPIDER_AMBIENT = registerSoundEvent("entity.slime_spider.ambient");
+	public static final SoundEvent ENTITY_SLIME_SPIDER_DEATH = registerSoundEvent("entity.slime_spider.death");
+	public static final SoundEvent ENTITY_SLIME_SPIDER_HURT = registerSoundEvent("entity.slime_spider.hurt");
+	public static final SoundEvent ENTITY_SLIME_SPIDER_STEP = registerSoundEvent("entity.slime_spider.step");
+	//</editor-fold>
+	//<editor-fold desc="Slime Cow">
+	public static final SoundEvent ENTITY_SLIME_COW_AMBIENT = registerSoundEvent("entity.slime_cow.ambient");
+	public static final SoundEvent ENTITY_SLIME_COW_DEATH = registerSoundEvent("entity.slime_cow.death");
+	public static final SoundEvent ENTITY_SLIME_COW_HURT = registerSoundEvent("entity.slime_cow.hurt");
+	public static final SoundEvent ENTITY_SLIME_COW_STEP = registerSoundEvent("entity.slime_cow.step");
+	//</editor-fold>
 	//<editor-fold desc="Piranha">
 	public static final SoundEvent ENTITY_PIRANHA_AMBIENT = registerSoundEvent("entity.piranha.ambient");
 	public static final SoundEvent ENTITY_PIRANHA_DEATH = registerSoundEvent("entity.piranha.death");
@@ -333,6 +345,10 @@ public class ModSoundEvents {
 	public static final SoundEvent ITEM_POUCH_FILL_CHICKEN_GREG = registerSoundEvent("item.pouch.fill_chicken.greg");
 	public static final SoundEvent ITEM_POUCH_EMPTY_RABBIT = registerSoundEvent("item.pouch.empty_rabbit");
 	public static final SoundEvent ITEM_POUCH_FILL_RABBIT = registerSoundEvent("item.pouch.fill_rabbit");
+	public static final SoundEvent ITEM_POUCH_EMPTY_ENDERMITE = registerSoundEvent("item.pouch.empty_endermite");
+	public static final SoundEvent ITEM_POUCH_FILL_ENDERMITE = registerSoundEvent("item.pouch.fill_endermite");
+	public static final SoundEvent ITEM_POUCH_EMPTY_SILVERFISH = registerSoundEvent("item.pouch.empty_silverfish");
+	public static final SoundEvent ITEM_POUCH_FILL_SILVERFISH = registerSoundEvent("item.pouch.fill_silverfish");
 	//</editor-fold>
 	//<editor-fold desc="Hedgehog">
 	public static final SoundEvent ENTITY_HEDGEHOG_AMBIENT = registerSoundEvent("entity.hedgehog.ambient");
@@ -386,6 +402,13 @@ public class ModSoundEvents {
 	//</editor-fold>
 	public static final SoundEvent ENTITY_STRAY_CONVERTED_TO_SKELETON = registerSoundEvent("entity.stray.converted_to_skeleton");
 
+	//<editor-fold desc="Grape Vines">
+	public static final SoundEvent BLOCK_GRAPE_VINES_BREAK = registerSoundEvent("block.grape_vines.break");
+	public static final SoundEvent BLOCK_GRAPE_VINES_FALL = registerSoundEvent("block.grape_vines.fall");
+	public static final SoundEvent BLOCK_GRAPE_VINES_HIT = registerSoundEvent("block.grape_vines.hit");
+	public static final SoundEvent BLOCK_GRAPE_VINES_PLACE = registerSoundEvent("block.grape_vines.place");
+	public static final SoundEvent BLOCK_GRAPE_VINES_STEP = registerSoundEvent("block.grape_vines.step");
+	//</editor-fold>
 
 	public static final SoundEvent BLOCK_NETHERSHROOM_EXPLODE = registerSoundEvent("block.nethershroom.explode");
 	public static final SoundEvent BLOCK_NETHERSHROOM_SQUEEZE = registerSoundEvent("block.nethershroom.squeeze");

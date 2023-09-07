@@ -24,11 +24,8 @@ public class CarvedMelonBlock extends CarvedGourdBlock {
 	private BlockPattern melonGolemDispenserPattern;
 	@Nullable
 	private BlockPattern golemPattern;
-	private static final Predicate<BlockState> IS_GOLEM_HEAD_PREDICATE = (state) -> state != null && (state.isOf(ModBase.CARVED_MELON.asBlock()) || state.isOf(ModBase.MELON_LANTERN.asBlock()));
 
-	public CarvedMelonBlock(Settings settings) {
-		super(settings);
-	}
+	public CarvedMelonBlock(Settings settings) { super(settings); }
 
 	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
 		if (!oldState.isOf(state.getBlock())) this.trySpawnEntity(world, pos);

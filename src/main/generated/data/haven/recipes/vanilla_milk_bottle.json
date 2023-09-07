@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    [
+      {
+        "item": "haven:vanilla_milk_bucket"
+      },
+      {
+        "item": "haven:copper_vanilla_milk_bucket"
+      },
+      {
+        "item": "haven:golden_vanilla_milk_bucket"
+      },
+      {
+        "item": "haven:netherite_vanilla_milk_bucket"
+      },
+      {
+        "item": "haven:dark_iron_vanilla_milk_bucket"
+      },
+      {
+        "item": "haven:wood_vanilla_milk_bucket"
+      }
+    ]
+  ],
+  "result": {
+    "item": "haven:vanilla_milk_bottle",
+    "count": 3
+  }
+}

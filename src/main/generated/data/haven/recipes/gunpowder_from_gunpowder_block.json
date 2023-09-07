@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "haven:caramel_block"
+      "item": "haven:gunpowder_block"
     }
   ],
   "result": {
-    "item": "haven:caramel",
+    "item": "minecraft:gunpowder",
     "count": 9
   }
 }

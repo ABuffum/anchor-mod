@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_smelting_golden_bucket"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_golden_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:golden_bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_smelting_golden_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_golden_bucket",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -5,6 +5,7 @@ import fun.mousewich.ModBase;
 import fun.mousewich.damage.ModEntityDamageSource;
 import fun.mousewich.entity.ModEntityStatuses;
 import fun.mousewich.entity.ai.ModMemoryModules;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.MemoryModuleState;
@@ -41,9 +42,7 @@ public class SonicBoomTask extends Task<WardenEntity> {
 	}
 
 	@Override
-	protected boolean shouldKeepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l) {
-		return true;
-	}
+	protected boolean shouldKeepRunning(ServerWorld serverWorld, WardenEntity wardenEntity, long l) { return true; }
 
 	@Override
 	protected void run(ServerWorld serverWorld, WardenEntity wardenEntity, long l) {
@@ -78,7 +77,7 @@ public class SonicBoomTask extends Task<WardenEntity> {
 			Vec3d vec3d4 = vec3d.add(vec3d3.multiply(i));
 			List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class, Box.of(vec3d4, 1, 1, 1), LivingEntity::isAlive);
 			hitEntities.addAll(entities);
-			world.spawnParticles(ModBase.SONIC_BOOM_PARTICLE, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0, 0.0, 0.0, 0.0);
+			world.spawnParticles(ModParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0, 0.0, 0.0, 0.0);
 		}
 		world.playSound(null, source.getBlockPos(), ModSoundEvents.ENTITY_WARDEN_SONIC_BOOM, SoundCategory.HOSTILE, 3.0f, 1.0f);
 		for (LivingEntity entity : hitEntities) {
@@ -94,7 +93,7 @@ public class SonicBoomTask extends Task<WardenEntity> {
 		Vec3d vec3d3 = vec3d2.normalize();
 		for (int i = 1; i < MathHelper.floor(vec3d2.length()) + 7; ++i) {
 			Vec3d vec3d4 = vec3d.add(vec3d3.multiply(i));
-			world.spawnParticles(ModBase.SONIC_BOOM_PARTICLE, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0, 0.0, 0.0, 0.0);
+			world.spawnParticles(ModParticleTypes.SONIC_BOOM, vec3d4.x, vec3d4.y, vec3d4.z, 1, 0.0, 0.0, 0.0, 0.0);
 		}
 		source.playSound(ModSoundEvents.ENTITY_WARDEN_SONIC_BOOM, 3.0f, 1.0f);
 		target.damage(ModEntityDamageSource.sonicBoom(source), damage);

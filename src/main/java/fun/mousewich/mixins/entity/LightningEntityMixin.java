@@ -7,7 +7,6 @@ import net.minecraft.block.LightningRodBlock;
 import net.minecraft.block.Oxidizable;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 @Mixin(LightningEntity.class)
@@ -33,7 +31,8 @@ public class LightningEntityMixin {
 		if (blockState.isOf(Blocks.LIGHTNING_ROD)) {
 			blockPos2 = pos.offset(blockState.get(LightningRodBlock.FACING).getOpposite());
 			blockState3 = world.getBlockState(blockPos2);
-		} else {
+		}
+		else {
 			blockPos2 = pos;
 			blockState3 = blockState;
 		}
@@ -51,17 +50,12 @@ public class LightningEntityMixin {
 
 	@Inject(method="cleanOxidizationAround(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)Ljava/util/Optional;", at = @At("HEAD"), cancellable = true)
 	private static void CleanOxidationAround(World world, BlockPos pos, CallbackInfoReturnable<Optional<BlockPos>> cir) {
-		Iterator<BlockPos> var2 = BlockPos.iterateRandomly(world.random, 10, pos, 1).iterator();
-		BlockPos blockPos;
-		BlockState blockState;
-		do {
-			if (!var2.hasNext()) cir.setReturnValue(Optional.empty());
-			blockPos = var2.next();
-			blockState = world.getBlockState(blockPos);
-		} while(!(blockState.getBlock() instanceof Oxidizable));
-		BlockPos finalBlockPos = blockPos;
-		OxidationScale.getDecreasedState(blockState).ifPresent(state -> world.setBlockState(finalBlockPos, state));
-		world.syncWorldEvent(WorldEvents.ELECTRICITY_SPARKS, blockPos, -1);
-		cir.setReturnValue(Optional.of(blockPos));
+		for (BlockPos blockPos : BlockPos.iterateRandomly(world.random, 10, pos, 1)) {
+			BlockState blockState = world.getBlockState(blockPos);
+			if (!(blockState.getBlock() instanceof Oxidizable)) continue;
+			OxidationScale.getDecreasedState(blockState).ifPresent(state -> world.setBlockState(blockPos, state));
+			world.syncWorldEvent(WorldEvents.ELECTRICITY_SPARKS, blockPos, -1);
+			cir.setReturnValue(Optional.of(blockPos));
+		}
 	}
 }

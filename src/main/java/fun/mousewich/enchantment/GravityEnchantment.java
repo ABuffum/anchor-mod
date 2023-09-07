@@ -52,7 +52,7 @@ public class GravityEnchantment extends Enchantment {
 
 	public static void pullInNearbyEntities(World world, Vec3d pos, int level, List<LivingEntity> exclude) {
 		double distance = level * 3;
-		double force = 1 + (Math.abs(level) * 0.5) * (level < 0 ? -1 : 1);
+		double force = (1 + (Math.abs(level) * 0.5)) * (level < 0 ? -1 : 1);
 		List<LivingEntity> entities = world.getEntitiesByClass(LivingEntity.class,
 				new Box(new BlockPos(pos)).expand(distance),
 				entity -> !exclude.contains(entity)

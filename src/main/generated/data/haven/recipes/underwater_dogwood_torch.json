@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ink_sac"
+    },
+    "|": {
+      "item": "haven:dogwood_log"
+    }
+  },
+  "result": {
+    "item": "haven:underwater_dogwood_torch",
+    "count": 8
+  }
+}

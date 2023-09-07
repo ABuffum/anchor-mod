@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#T#",
+    "T#T",
+    "#T#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:gunpowder"
+    },
+    "T": {
+      "item": "minecraft:green_glazed_terracotta"
+    }
+  },
+  "result": {
+    "item": "haven:devouring_tnt"
+  }
+}

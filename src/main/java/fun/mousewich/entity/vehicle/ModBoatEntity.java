@@ -2,6 +2,7 @@ package fun.mousewich.entity.vehicle;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.mixins.entity.vehicle.BoatEntityAccessor;
+import fun.mousewich.registry.ModBambooRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -51,7 +52,7 @@ public class ModBoatEntity extends BoatEntity {
 		}
 	}
 	@Override
-	public double getMountedHeightOffset() { return this.getModBoatType() == ModBase.BAMBOO_RAFT.getType() ? 0.3 : super.getMountedHeightOffset(); }
+	public double getMountedHeightOffset() { return this.getModBoatType() == ModBambooRegistry.BAMBOO_RAFT.getType() ? 0.3 : super.getMountedHeightOffset(); }
 	@Override
 	public void updatePassengerPosition(Entity passenger) {
 		BoatEntityAccessor bea = (BoatEntityAccessor)this;

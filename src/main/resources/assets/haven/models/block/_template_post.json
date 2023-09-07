@@ -1,0 +1,19 @@
+{
+	"credit": "Made with Blockbench by mousewich",
+	"parent": "block/block",
+	"textures": { "particle": "#all" },
+	"elements": [
+		{
+			"from": [7, 0, 7],
+			"to": [9, 16, 9],
+			"faces": {
+				"north": {"uv": [0, 0, 2, 16], "texture": "#all"},
+				"east": {"uv": [2, 0, 4, 16], "texture": "#all"},
+				"south": {"uv": [4, 0, 6, 16], "texture": "#all"},
+				"west": {"uv": [6, 0, 8, 16], "texture": "#all"},
+				"up": {"uv": [8, 0, 10, 2], "texture": "#all"},
+				"down": {"uv": [10, 2, 8, 4], "texture": "#all"}
+			}
+		}
+	]
+}

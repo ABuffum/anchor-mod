@@ -4,6 +4,7 @@ import fun.mousewich.ModBase;
 import fun.mousewich.entity.ai.SlimeMoveControl;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -38,7 +39,7 @@ public class TropicalSlimeEntity extends ModSlimeEntity implements EntityWithBlo
 	@Override
 	public boolean canSpawn(WorldView world) { return world.intersectsEntities(this); }
 	@Override
-	protected ParticleEffect getParticles() { return ModBase.ITEM_BLUE_SLIME_PARTICLE; }
+	protected ParticleEffect getParticles() { return ModParticleTypes.ITEM_BLUE_SLIME; }
 
 	public boolean damage(DamageSource source, float amount) {
 		if (this.isInvulnerableTo(source)) return false;

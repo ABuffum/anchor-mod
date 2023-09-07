@@ -1,6 +1,11 @@
 {
   "replace": false,
   "values": [
+    "haven:end_rock",
+    "haven:end_shale_rock",
+    "haven:end_rock_shale",
+    "haven:shale",
+    "haven:end_shale",
     "#minecraft:base_stone_overworld",
     "#minecraft:dirt",
     "#minecraft:terracotta",
@@ -17,11 +22,6 @@
     "minecraft:end_stone",
     "minecraft:sandstone",
     "minecraft:red_sandstone",
-    "haven:shale",
-    "haven:end_shale",
-    "haven:end_rock",
-    "haven:end_rock_shale",
-    "haven:end_shale_rock",
     "#haven:sculk_turfs"
   ]
 }

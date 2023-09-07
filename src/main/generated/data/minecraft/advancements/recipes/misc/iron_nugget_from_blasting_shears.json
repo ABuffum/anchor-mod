@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:iron_nugget_from_blasting_shears"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_shears": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:shears"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:iron_nugget_from_blasting_shears"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_shears",
+      "has_the_recipe"
+    ]
+  ]
+}

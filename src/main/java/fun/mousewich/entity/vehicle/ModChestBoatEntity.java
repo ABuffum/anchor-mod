@@ -1,6 +1,7 @@
 package fun.mousewich.entity.vehicle;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.registry.ModBambooRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -45,7 +46,7 @@ public class ModChestBoatEntity extends ChestBoatEntity {
 	public void setModBoatType(ModBoatType type) { this.dataTracker.set(BOAT_TYPE, type.ordinal()); }
 	public ModBoatType getModBoatType() { return ModBoatType.getType(this.dataTracker.get(BOAT_TYPE)); }
 	@Override
-	public double getMountedHeightOffset() { return this.getModBoatType() == ModBase.BAMBOO_RAFT.getType() ? 0.3 : -0.1; }
+	public double getMountedHeightOffset() { return this.getModBoatType() == ModBambooRegistry.BAMBOO_RAFT.getType() ? 0.3 : -0.1; }
 
 	public boolean floatsOnLava() { return getModBoatType().floatsOnLava; }
 

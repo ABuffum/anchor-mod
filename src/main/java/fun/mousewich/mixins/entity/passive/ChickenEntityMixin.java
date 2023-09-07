@@ -4,10 +4,12 @@ import fun.mousewich.ModBase;
 import fun.mousewich.entity.Pouchable;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
-import fun.mousewich.entity.passive.FancyChickenEntity;
+import fun.mousewich.entity.passive.chicken.FancyChickenEntity;
+import fun.mousewich.entity.passive.chicken.SlimeChickenEntity;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.AnimalMateGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.data.DataTracker;
@@ -16,7 +18,9 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.sound.SoundEvent;
@@ -27,6 +31,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -102,6 +107,12 @@ public abstract class ChickenEntityMixin extends AnimalEntity implements Pouchab
 	public void WriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) { nbt.putBoolean("FromPouch", this.isFromPouch()); }
 	@Inject(method="readCustomDataFromNbt", at=@At("TAIL"))
 	public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) { this.setFromPouch(nbt.getBoolean("FromPouch")); }
+
+	@Redirect(method="tickMovement", at=@At(value="INVOKE", target="Lnet/minecraft/entity/passive/ChickenEntity;dropItem(Lnet/minecraft/item/ItemConvertible;)Lnet/minecraft/entity/ItemEntity;"))
+	public ItemEntity LayDifferentEggs(ChickenEntity instance, ItemConvertible itemConvertible) {
+		if (instance instanceof SlimeChickenEntity) return instance.dropItem(Items.SLIME_BALL);
+		return instance.dropItem(itemConvertible);
+	}
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.CHICKEN_BLOOD_TYPE; }
 

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "haven:block/mint_coffee_candle_cake"
+    },
+    "lit=true": {
+      "model": "haven:block/mint_coffee_candle_cake_lit"
+    }
+  }
+}

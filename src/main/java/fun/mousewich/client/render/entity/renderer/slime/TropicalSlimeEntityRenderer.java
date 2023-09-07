@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer.slime;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.TropicalSlimeEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.TropicalSlimeOverlayFeatureRenderer;
 import fun.mousewich.entity.hostile.slime.TropicalSlimeEntity;
@@ -16,7 +16,7 @@ public class TropicalSlimeEntityRenderer extends MobEntityRenderer<TropicalSlime
 	private static final Identifier TEXTURE = ModBase.ID("textures/entity/slime/tropical.png");
 
 	public TropicalSlimeEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new TropicalSlimeEntityModel(context.getPart(ModClient.TROPICAL_SLIME_LAYER)), 0.25f);
+		super(context, new TropicalSlimeEntityModel(context.getPart(ModEntityModelLayers.TROPICAL_SLIME)), 0.25f);
 		this.addFeature(new TropicalSlimeOverlayFeatureRenderer(this, context.getModelLoader()));
 	}
 

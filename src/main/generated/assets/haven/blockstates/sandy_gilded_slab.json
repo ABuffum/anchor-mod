@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "haven:block/sandy_gilded_slab"
+    },
+    "type=double": {
+      "model": "haven:block/sandy_gilded_planks"
+    },
+    "type=top": {
+      "model": "haven:block/sandy_gilded_slab_top"
+    }
+  }
+}

@@ -42,5 +42,6 @@ public class ModBlockSoundGroups {
 	public static final BlockSoundGroup DECORATED_POT = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.INTENTIONALLY_EMPTY, ModSoundEvents.BLOCK_DECORATED_POT_STEP, ModSoundEvents.BLOCK_DECORATED_POT_PLACE, ModSoundEvents.BLOCK_DECORATED_POT_HIT, ModSoundEvents.BLOCK_DECORATED_POT_FALL);
 	public static final BlockSoundGroup CRACKED_DECORATED_POT = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_DECORATED_POT_SHATTER, ModSoundEvents.BLOCK_DECORATED_POT_STEP, ModSoundEvents.BLOCK_DECORATED_POT_PLACE, ModSoundEvents.BLOCK_DECORATED_POT_HIT, ModSoundEvents.BLOCK_DECORATED_POT_FALL);
 	public static final BlockSoundGroup CHISELED_BOOKSHELF = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_BREAK, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_STEP, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_PLACE, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_HIT, ModSoundEvents.BLOCK_CHISELED_BOOKSHELF_FALL);
+	public static final BlockSoundGroup GRAPE_VINES = new BlockSoundGroup(1.0f, 1.0f, ModSoundEvents.BLOCK_GRAPE_VINES_BREAK, ModSoundEvents.BLOCK_GRAPE_VINES_STEP, ModSoundEvents.BLOCK_GRAPE_VINES_PLACE, ModSoundEvents.BLOCK_GRAPE_VINES_HIT, ModSoundEvents.BLOCK_GRAPE_VINES_FALL);
 
 }

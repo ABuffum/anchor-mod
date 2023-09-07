@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "haven:item/red_mushroom_netherite_hanging_sign"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:bone_meal"
+    },
+    {
+      "item": "haven:cheese"
+    },
+    {
+      "item": "minecraft:goat_horn"
+    }
+  ],
+  "result": {
+    "item": "haven:goat_horn_salve"
+  }
+}

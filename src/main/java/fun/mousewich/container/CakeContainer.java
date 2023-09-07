@@ -25,6 +25,11 @@ public class CakeContainer implements IContainer {
 		if (candle == Blocks.CANDLE) return CANDLE_CAKE;
 		else if (candle == ModBase.SOUL_CANDLE.asBlock()) return SOUL_CANDLE_CAKE;
 		else if (candle == ModBase.ENDER_CANDLE.asBlock()) return ENDER_CANDLE_CAKE;
+		else if (candle == ModBase.NETHERRACK_CANDLE.asBlock()) return NETHERRACK_CANDLE_CAKE;
+		else if (candle == ModBase.BEIGE_CANDLE.asBlock()) return BEIGE_CANDLE_CAKE;
+		else if (candle == ModBase.BURGUNDY_CANDLE.asBlock()) return BURGUNDY_CANDLE_CAKE;
+		else if (candle == ModBase.LAVENDER_CANDLE.asBlock()) return LAVENDER_CANDLE_CAKE;
+		else if (candle == ModBase.MINT_CANDLE.asBlock()) return MINT_CANDLE_CAKE;
 		else return CANDLE_CAKES.get(ColorUtil.GetCandleColor(candle));
 	}
 	public final BlockContainer CAKE = new BlockContainer(new ModCakeBlock(this::getCandleCake) {
@@ -45,9 +50,21 @@ public class CakeContainer implements IContainer {
 	public final Map<DyeColor, Block> CANDLE_CAKES = ColorUtil.Map(color ->
 			new ModCandleCakeBlock(4, CAKE::asBlock, CAKE::asItem)
 					.drops(ColorUtil.GetCandleBlock(color)));
+	public final Block BEIGE_CANDLE_CAKE = new ModCandleCakeBlock(4, CAKE::asBlock, CAKE::asItem).drops(ModBase.BEIGE_CANDLE.asBlock());
+	public final Block BURGUNDY_CANDLE_CAKE = new ModCandleCakeBlock(4, CAKE::asBlock, CAKE::asItem).drops(ModBase.BURGUNDY_CANDLE.asBlock());
+	public final Block LAVENDER_CANDLE_CAKE = new ModCandleCakeBlock(4, CAKE::asBlock, CAKE::asItem).drops(ModBase.LAVENDER_CANDLE.asBlock());
+	public final Block MINT_CANDLE_CAKE = new ModCandleCakeBlock(4, CAKE::asBlock, CAKE::asItem).drops(ModBase.MINT_CANDLE.asBlock());
 
 	public CakeContainer() {
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, SOUL_CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, ENDER_CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, NETHERRACK_CANDLE_CAKE);
 		for (Block block : CANDLE_CAKES.values()) ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, block);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, BEIGE_CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, BURGUNDY_CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, LAVENDER_CANDLE_CAKE);
+		ModDatagen.Cache.Tags.Register(BlockTags.CANDLE_CAKES, MINT_CANDLE_CAKE);
 	}
 
 	public CakeContainer compostable(float chance) {
@@ -58,7 +75,8 @@ public class CakeContainer implements IContainer {
 	@Override
 	public boolean contains(Block block) {
 		return CAKE.contains(block) || block == CANDLE_CAKE || block == SOUL_CANDLE_CAKE || block == ENDER_CANDLE_CAKE
-				|| block == NETHERRACK_CANDLE_CAKE || CANDLE_CAKES.containsValue(block);
+				|| block == NETHERRACK_CANDLE_CAKE || CANDLE_CAKES.containsValue(block)
+				|| block == BEIGE_CANDLE_CAKE || block == BURGUNDY_CANDLE_CAKE || block == LAVENDER_CANDLE_CAKE || block == MINT_CANDLE_CAKE;
 	}
 
 	@Override

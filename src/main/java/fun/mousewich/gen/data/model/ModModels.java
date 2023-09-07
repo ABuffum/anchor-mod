@@ -52,10 +52,14 @@ public class ModModels {
 	public static final Model TEMPLATE_HEAVY_CHAIN = Make("block/_template_heavy_chain", TextureKey.ALL);
 	public static final Model TEMPLATE_LADDER = Make("block/_template_ladder", TextureKey.TEXTURE);
 	public static final Model TEMPLATE_LECTERN = Make("block/_template_lectern", TextureKey.BOTTOM, ModTextureKeys.BASE, TextureKey.FRONT, ModTextureKeys.SIDES, TextureKey.TOP);
+	public static final Model TEMPLATE_MAGMA_CUBE_LANTERN = Make("block/_template_magma_cube_lantern", TextureKey.TEXTURE);
 	public static final Model TEMPLATE_MULTI_TEXTURE_CARPET = Make("block/_template_multi_texture_carpet", TextureKey.PARTICLE, TextureKey.NORTH, TextureKey.SOUTH, TextureKey.EAST, TextureKey.WEST, TextureKey.UP, TextureKey.DOWN);
 	public static final Model TEMPLATE_MULTI_TEXTURE_SLAB = Make("block/_template_multi_texture_slab", TextureKey.PARTICLE, TextureKey.NORTH, TextureKey.SOUTH, TextureKey.EAST, TextureKey.WEST, TextureKey.UP, TextureKey.DOWN);
 	public static final Model TEMPLATE_MULTI_TEXTURE_SLAB_TOP = Make("block/_template_multi_texture_slab_top", "_top", TextureKey.PARTICLE, TextureKey.NORTH, TextureKey.SOUTH, TextureKey.EAST, TextureKey.WEST, TextureKey.UP, TextureKey.DOWN);
+	public static final Model TEMPLATE_POST = Make("block/_template_post", TextureKey.ALL);
 	public static final Model TEMPLATE_SIMPLE_HAMMER = Make("item/_template_simple_hammer", TextureKey.TEXTURE);
+	public static final Model TEMPLATE_SLIME_LANTERN = Make("block/_template_slime_lantern", TextureKey.TEXTURE);
+	public static final Model TEMPLATE_THICK_TORCH = Make("block/_template_thick_torch", TextureKey.ALL);
 	public static final Model TEMPLATE_THIN_TRAPDOOR_BOTTOM = Make("block/_template_thin_trapdoor_bottom", "_bottom", TextureKey.TEXTURE);
 	public static final Model TEMPLATE_THIN_TRAPDOOR_OPEN = Make("block/_template_thin_trapdoor_open", "_open", TextureKey.TEXTURE);
 	public static final Model TEMPLATE_THIN_TRAPDOOR_TOP = Make("block/_template_thin_trapdoor_top", "_top", TextureKey.TEXTURE);
@@ -67,9 +71,11 @@ public class ModModels {
 	public static final Model TEMPLATE_PLUSHIE_BAT = Make("block/plushie/bat", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_BEAR = Make("block/plushie/bear", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_BEE = Make("block/plushie/bee", TextureKey.ALL, TextureKey.PARTICLE);
+	public static final Model TEMPLATE_PLUSHIE_CAMEL = Make("block/plushie/camel", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_CAT = Make("block/plushie/cat", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_CHICKEN = Make("block/plushie/chicken", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_COW = Make("block/plushie/cow", TextureKey.ALL, TextureKey.PARTICLE);
+	public static final Model TEMPLATE_PLUSHIE_CREEPER = Make("block/plushie/creeper", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_DOLPHIN = Make("block/plushie/dolphin", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_DRAGON = Make("block/plushie/dragon", TextureKey.ALL, TextureKey.PARTICLE);
 	public static final Model TEMPLATE_PLUSHIE_ENDERMAN = Make("block/plushie/enderman", TextureKey.ALL, TextureKey.PARTICLE);

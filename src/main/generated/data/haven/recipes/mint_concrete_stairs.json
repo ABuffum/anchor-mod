@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:mint_concrete"
+    }
+  },
+  "result": {
+    "item": "haven:mint_concrete_stairs",
+    "count": 4
+  }
+}

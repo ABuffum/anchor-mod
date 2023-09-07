@@ -1,14 +1,33 @@
 package fun.mousewich.entity;
 
+import fun.mousewich.ModBase;
 import fun.mousewich.entity.passive.sniffer.SnifferEntity;
 import fun.mousewich.entity.variants.FrogVariant;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandler;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.passive.LlamaEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 
 import java.util.OptionalInt;
 
 public class ModDataHandlers {
+	public static final TrackedData<Integer> MOD_CARPET_COLOR = DataTracker.registerData(LlamaEntity.class, TrackedDataHandlerRegistry.INTEGER);
+	public static int GetModCarpetColor(Item item) {
+		if (item != null) {
+			if (ModBase.RAINBOW_CARPET.contains(item) || ModBase.RAINBOW_FLEECE_CARPET.contains(item)) return 0;
+			else if (Items.MOSS_CARPET == item) return 1;
+			else if (ModBase.GLOW_LICHEN_CARPET.contains(item)) return 2;
+			else if (ModBase.BEIGE_CARPET.contains(item) || ModBase.BEIGE_FLEECE_CARPET.contains(item)) return 3;
+			else if (ModBase.BURGUNDY_CARPET.contains(item) || ModBase.BURGUNDY_FLEECE_CARPET.contains(item)) return 4;
+			else if (ModBase.MINT_CARPET.contains(item) || ModBase.MINT_FLEECE_CARPET.contains(item)) return 5;
+			else if (ModBase.LAVENDER_CARPET.contains(item) || ModBase.LAVENDER_FLEECE_CARPET.contains(item)) return 6;
+		}
+		return -1;
+	}
 
 	public static final TrackedDataHandler<Long> LONG = new TrackedDataHandler<>(){
 		@Override public void write(PacketByteBuf packetByteBuf, Long value) { packetByteBuf.writeVarLong(value); }

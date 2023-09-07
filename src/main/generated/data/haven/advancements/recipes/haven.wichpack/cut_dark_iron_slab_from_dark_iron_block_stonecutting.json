@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:cut_dark_iron_slab_from_dark_iron_block_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_dark_iron_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:dark_iron_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:cut_dark_iron_slab_from_dark_iron_block_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dark_iron_block",
+      "has_the_recipe"
+    ]
+  ]
+}

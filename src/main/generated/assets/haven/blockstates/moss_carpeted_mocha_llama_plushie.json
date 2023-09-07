@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/moss_carpeted_mocha_llama_plushie",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/moss_carpeted_mocha_llama_plushie"
+    },
+    "facing=south": {
+      "model": "haven:block/moss_carpeted_mocha_llama_plushie",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/moss_carpeted_mocha_llama_plushie",
+      "y": 270
+    }
+  }
+}

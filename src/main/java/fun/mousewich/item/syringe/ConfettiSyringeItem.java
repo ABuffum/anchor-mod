@@ -8,6 +8,7 @@ import fun.mousewich.entity.passive.sheep.RainbowSheepEntity;
 import fun.mousewich.haven.HavenMod;
 import fun.mousewich.sound.ModSoundEvents;
 import fun.mousewich.util.ColorUtil;
+import fun.mousewich.util.dye.ModDyedSheep;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalFacingBlock;
@@ -58,7 +59,7 @@ public class ConfettiSyringeItem extends BaseSyringeItem {
 						sheep.world.spawnEntity(sheepEntity);
 					}
 					for(int i = 0; i <= sheep.getRandom().nextInt(3); ++i) {
-						sheep.world.spawnEntity(new ItemEntity(sheep.world, sheep.getX(), sheep.getBodyY(1.0D), sheep.getZ(), new ItemStack(ColorUtil.GetWoolItem(sheep.getColor()))));
+						sheep.world.spawnEntity(new ItemEntity(sheep.world, sheep.getX(), sheep.getBodyY(1.0D), sheep.getZ(), new ItemStack(ColorUtil.GetWoolItem(((ModDyedSheep)sheep).GetModColor()))));
 					}
 				}
 			}

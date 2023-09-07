@@ -10,8 +10,10 @@ import fun.mousewich.block.dust.Brushable;
 import fun.mousewich.block.sculk.SculkShriekerBlock;
 import fun.mousewich.event.ModWorldEvents;
 import fun.mousewich.gen.data.tag.ModBlockTags;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.particle.SculkChargeParticleEffect;
 import fun.mousewich.particle.ShriekParticleEffect;
+import fun.mousewich.registry.ModBambooRegistry;
 import fun.mousewich.sound.IdentifiedSounds;
 import fun.mousewich.sound.ModSoundEvents;
 import fun.mousewich.util.MixinStore;
@@ -72,7 +74,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.FENCE_GATE_OPENS -> {
-				if (block == ModBase.BAMBOO_FENCE_GATE.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_FENCE_GATE.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_FENCE_GATE.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_FENCE_GATE_OPEN, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -86,7 +88,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.FENCE_GATE_CLOSES -> {
-				if (block == ModBase.BAMBOO_FENCE_GATE.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_FENCE_GATE.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_FENCE_GATE.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_FENCE_GATE_CLOSE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -100,7 +102,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.WOODEN_DOOR_OPENS -> {
-				if (block == ModBase.BAMBOO_DOOR.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_DOOR.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_DOOR.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_DOOR_OPEN, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -114,7 +116,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.WOODEN_DOOR_CLOSES -> {
-				if (block == ModBase.BAMBOO_DOOR.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_DOOR.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_DOOR.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_DOOR_CLOSE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -128,7 +130,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.WOODEN_TRAPDOOR_OPENS -> {
-				if (block == ModBase.BAMBOO_TRAPDOOR.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_TRAPDOOR.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_TRAPDOOR.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_TRAPDOOR_OPEN, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -142,7 +144,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				}
 			}
 			case WorldEvents.WOODEN_TRAPDOOR_CLOSES -> {
-				if (block == ModBase.BAMBOO_TRAPDOOR.asBlock()) {
+				if (block == ModBambooRegistry.BAMBOO_TRAPDOOR.asBlock() || block == ModBambooRegistry.DRIED_BAMBOO_TRAPDOOR.asBlock()) {
 					this.world.playSound(pos, ModSoundEvents.BLOCK_BAMBOO_WOOD_TRAPDOOR_CLOSE, SoundCategory.BLOCKS, 1.0F, random.nextFloat() * 0.1F + 0.9F, false);
 					ci.cancel();
 				}
@@ -189,7 +191,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 						float ah = 2.0f * random.nextFloat() - 1.0f;
 						float ae = 2.0f * random.nextFloat() - 1.0f;
 						float ai = 2.0f * random.nextFloat() - 1.0f;
-						this.world.addParticle(ModBase.SCULK_CHARGE_POP_PARTICLE, (double) pos.getX() + 0.5 + (double) (ah * ac), (double) pos.getY() + 0.5 + (double) (ae * ac), (double) pos.getZ() + 0.5 + (double) (ai * ac), ah * 0.07f, ae * 0.07f, ai * 0.07f);
+						this.world.addParticle(ModParticleTypes.SCULK_CHARGE_POP, (double) pos.getX() + 0.5 + (double) (ah * ac), (double) pos.getY() + 0.5 + (double) (ae * ac), (double) pos.getZ() + 0.5 + (double) (ai * ac), ah * 0.07f, ae * 0.07f, ai * 0.07f);
 					}
 				}
 				ci.cancel();
@@ -211,7 +213,7 @@ public abstract class WorldRendererMixin implements SynchronousResourceReloader 
 				ci.cancel();
 			}
 			case ModWorldEvents.SNIFFER_EGG_PLACE -> {
-				net.minecraft.client.util.ParticleUtil.spawnParticle(this.world, pos, ModBase.EGG_CRACK_PARTICLE, data == 1 ? UniformIntProvider.create(3, 6) : UniformIntProvider.create(1, 3));
+				net.minecraft.client.util.ParticleUtil.spawnParticle(this.world, pos, ModParticleTypes.EGG_CRACK, data == 1 ? UniformIntProvider.create(3, 6) : UniformIntProvider.create(1, 3));
 				ci.cancel();
 			}
 		}

@@ -33,7 +33,5 @@ public class ModConfiguredFeature<FC extends FeatureConfig, F extends Feature<FC
 		else this.feature = this.featureSupplier.get();
 		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, this.identifier, this.feature);
 	}
-	public Identifier getIdentifier() {
-		return this.identifier;
-	}
+	public Identifier getIdentifier() { return this.identifier; }
 }

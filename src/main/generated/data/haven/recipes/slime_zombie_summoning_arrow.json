@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:slime_zombie_spawn_egg"
+    },
+    {
+      "tag": "minecraft:arrows"
+    }
+  ],
+  "result": {
+    "item": "haven:slime_zombie_summoning_arrow"
+  }
+}

@@ -24,7 +24,7 @@ public abstract class ModLanguageCache {
 	public abstract String Subtitle_Entity_Death(String name);
 	public abstract String Subtitle_Entity_Small_Fall(String name);
 	public abstract String Subtitle_Entity_Splash(String name);
-	public abstract String Subtitle_Entity_SplashHighSpeed(String name);
+	public abstract String Subtitle_Entity_Splash_High_Speed(String name);
 	public abstract String Subtitle_Entity_Step(String name);
 	public abstract String Subtitle_Entity_Swim(String name);
 
@@ -80,6 +80,7 @@ public abstract class ModLanguageCache {
 		public String digs(String word) { return _add(word, "digs"); }
 		public String down(String word) { return _add(word, "down"); }
 		public String draws(String word) { return _add(word, "draws"); }
+		public String dropped(String word) { return _add(word, "dropped"); }
 		public String drops(String word) { return _add(word, "drops"); }
 		public String eats(String word) { return _add(word, "eats"); }
 		public String emerges(String word) { return _add(word, "emerges"); }
@@ -95,6 +96,7 @@ public abstract class ModLanguageCache {
 		public String _for(String word) { return _add(word, "for"); }
 		public String gallops(String word) { return _add(word, "gallops"); }
 		public String glugs(String word) { return _add(word, "glugs"); }
+		public String goos(String word) { return _add(word, "goos"); }
 		public String groans(String word) { return _add(word, "groans"); }
 		public String grunts(String word) { return _add(word, "grunts"); }
 		public String hard(String word) { return _add(word, "hard"); }
@@ -152,7 +154,6 @@ public abstract class ModLanguageCache {
 		public String spawn(String word) { return _add(word, "spawn"); }
 		public String spits(String word) { return _add(word, "spits"); }
 		public String splashes(String word) { return _add(word, "splashes"); }
-		public String splashes_hard(String word) { return hard(splashes(word)); }
 		public String splashing(String word) { return _add(word, "splashing"); }
 		public String splats(String word) { return _add(word, "splats"); }
 		public String sploshes(String word) { return _add(word, "sploshes"); }
@@ -163,6 +164,7 @@ public abstract class ModLanguageCache {
 		public String starts(String word) { return _add(word, "starts"); }
 		public String steps(String word) { return _add(word, "steps"); }
 		public String stomping(String word) { return _add(word, "stomping"); }
+		public String stomps(String word) { return _add(word, "stomps"); }
 		public String stops(String word) { return _add(word, "stops"); }
 		public String swims(String word) { return _add(word, "swims"); }
 		public String taken(String word) { return _add(word, "taken"); }
@@ -176,14 +178,15 @@ public abstract class ModLanguageCache {
 		public String undignified(String word) { return _add(word, "undignified"); }
 		public String up(String word) { return _add(word, "up"); }
 		public String used(String word) { return _add(word, "used"); }
+		public String wetly(String word) { return _add(word, "wetly"); }
 		public String whines(String word) { return _add(word, "whines"); }
-		public String with(String word) { return _add(word, "with"); }
-		public String withChest(String word) { return Chest(with(word)); }
+		public String with() { return "with"; } public String with(String word) { return _add(word, with()); }
 		public String yearns(String word) { return _add(word, "yearns"); }
 		public String yeets(String word) { return _add(word, "yeets"); }
 
 		public String Acacia() { return "Acacia"; } public String Acacia(String word) { return _add(word, Acacia()); }
 		public String Active() { return "Active"; } public String Active(String word) { return _add(word, Active()); }
+		public String Add() { return "Add"; } public String Add(String word) { return _add(word, Add()); }
 		public String Admire() { return "Admire"; } public String Admire(String word) { return _add(word, Admire()); }
 		public String Aggressive() { return "Aggressive"; } public String Aggressive(String word) { return _add(word, Aggressive()); }
 		public String Albino() { return "Albino"; } public String Albino(String word) { return _add(word, Albino()); }
@@ -200,6 +203,7 @@ public abstract class ModLanguageCache {
 		public String AmethystSlab() { return Slab(Amethyst()); } public String AmethystSlab(String word) { return Slab(Amethyst(word)); }
 		public String AmethystStairs() { return Stairs(Amethyst()); } public String AmethystStairs(String word) { return Stairs(Amethyst(word)); }
 		public String AmethystWall() { return Wall(Amethyst()); } public String AmethystWall(String word) { return Wall(Amethyst(word)); }
+		public String Anatomy() { return "Anatomy"; } public String Anatomy(String word) { return _add(word, Anatomy()); }
 		public String Anchor() { return "Anchor"; } public String Anchor(String word) { return _add(word, Anchor()); }
 		public String Ancient() { return "Ancient"; } public String Ancient(String word) { return _add(word, Ancient()); }
 		public String AncientDebris() { return Debris(Ancient()); } public String AncientDebris(String word) { return Debris(Ancient(word)); }
@@ -301,7 +305,9 @@ public abstract class ModLanguageCache {
 		public String Bud() { return "Bud"; } public String Bud(String word) { return _add(word, Bud()); }
 		public String Budding() { return "Budding"; } public String Budding(String word) { return _add(word, Budding()); }
 		public String BuddingEcho() { return Echo(Budding()); } public String BuddingEcho(String word) { return Echo(Budding(word)); }
+		public String Burgundy() { return "Burgundy"; } public String Burgundy(String word) { return _add(word, Burgundy()); }
 		public String Burn() { return "Burn"; } public String Burn(String word) { return _add(word, Burn()); }
+		public String Burnt() { return "Burnt"; } public String Burnt(String word) { return _add(word, Burnt()); }
 		public String Bush() { return "Bush"; } public String Bush(String word) { return _add(word, Bush()); }
 		public String Buttercup() { return "Buttercup"; } public String Buttercup(String word) { return _add(word, Buttercup()); }
 		public String Button() { return "Button"; } public String Button(String word) { return _add(word, Button()); }
@@ -343,7 +349,7 @@ public abstract class ModLanguageCache {
 		public String Cherry() { return "Cherry"; } public String Cherry(String word) { return _add(word, Cherry()); }
 		public String Chest() { return "Chest"; } public String Chest(String word) { return _add(word, Chest()); }
 		public String Chestplate() { return "Chestplate"; } public String Chestplate(String word) { return _add(word, Chestplate()); }
-		public String ChestBoat() { return withChest(Boat()); } public String ChestBoat(String word) { return _add(word, ChestBoat()); }
+		public String ChestBoat() { return Chest(with(Boat())); } public String ChestBoat(String word) { return _add(word, ChestBoat()); }
 		public String Chevon() { return "Chevon"; } public String Chevon(String word) { return _add(word, Chevon()); }
 		public String Chicken() { return "Chicken"; } public String Chicken(String word) { return _add(word, Chicken()); }
 		public String Chip() { return "Chip"; } public String Chip(String word) { return _add(word, Chip()); }
@@ -362,6 +368,7 @@ public abstract class ModLanguageCache {
 		public String Clay() { return "Clay"; } public String Clay(String word) { return _add(word, Clay()); }
 		public String Cleaving() { return "Cleaving"; } public String Cleaving(String word) { return _add(word, Cleaving()); }
 		public String Cloud() { return "Cloud"; } public String Cloud(String word) { return _add(word, Cloud()); }
+		public String Club() { return "Club"; } public String Club(String word) { return _add(word, Club()); }
 		public String Cluster() { return "Cluster"; } public String Cluster(String word) { return _add(word, Cluster()); }
 		public String Clumsy() { return "Clumsy"; } public String Clumsy(String word) { return _add(word, Clumsy()); }
 		public String Coal() { return "Coal"; } public String Coal(String word) { return _add(word, Coal()); }
@@ -373,6 +380,8 @@ public abstract class ModLanguageCache {
 		public String Cocoa() { return "Cocoa"; } public String Cocoa(String word) { return _add(word, Cocoa()); }
 		public String Cod() { return "Cod"; } public String Cod(String word) { return _add(word, Cod()); }
 		public String Coffee() { return "Coffee"; } public String Coffee(String word) { return _add(word, Coffee()); }
+		public String Coin() { return "Coin"; } public String Coin(String word) { return _add(word, Coin()); }
+		public String Coins() { return "Coins"; } public String Coins(String word) { return _add(word, Coins()); }
 		public String Cold() { return "Cold"; } public String Cold(String word) { return _add(word, Cold()); }
 		public String Color() { return "Color"; } public String Color(String word) { return _add(word, Color()); }
 		public String Color(DyeColor color) {
@@ -440,6 +449,7 @@ public abstract class ModLanguageCache {
 		public String Decoration() { return "Decoration"; } public String Decoration(String word) { return _add(word, Decoration()); }
 		public String Deep() { return "Deep"; } public String Deep(String word) { return _add(word, Deep()); }
 		public String Deepslate() { return "Deepslate"; } public String Deepslate(String word) { return _add(word, Deepslate()); }
+		public String Delayed() { return "Delayed"; } public String Delayed(String word) { return _add(word, Delayed()); }
 		public String Dense() { return "Dense"; } public String Dense(String word) { return _add(word, Dense()); }
 		public String Detector() { return "Detector"; } public String Detector(String word) { return _add(word, Detector()); }
 		public String Deterioration() { return "Deterioration"; } public String Deterioration(String word) { return _add(word, Deterioration()); }
@@ -471,6 +481,7 @@ public abstract class ModLanguageCache {
 		public String Egg() { return "Egg"; } public String Egg(String word) { return _add(word, Egg()); }
 		public String Elder() { return "Elder"; } public String Elder(String word) { return _add(word, Elder()); }
 		public String Emerald() { return "Emerald"; } public String Emerald(String word) { return _add(word, Emerald()); }
+		public String Empty() { return "Empty"; } public String Empty(String word) { return _add(word, Empty()); }
 		public String Enchanted() { return "Enchanted"; } public String Enchanted(String word) { return _add(word, Enchanted()); }
 		public String Enchanting() { return "Enchanting"; } public String Enchanting(String word) { return _add(word, Enchanting()); }
 		public String End() { return "End"; } public String End(String word) { return _add(word, End()); }
@@ -479,6 +490,7 @@ public abstract class ModLanguageCache {
 		public Pair<String, String> EnderTorch() { return _Torch(Ender()); } public Pair<String, String> EnderTorch(String word) { return _Torch(Ender(word)); }
 		public String Enderman() { return "Enderman"; } public String Enderman(String word) { return _add(word, Enderman()); }
 		public String Endermite() { return "Endermite"; } public String Endermite(String word) { return _add(word, Endermite()); }
+		public String Equipment() { return "Equipment"; } public String Equipment(String word) { return _add(word, Equipment()); }
 		public String Evoker() { return "Evoker"; } public String Evoker(String word) { return _add(word, Evoker()); }
 		public String Excited() { return "Excited"; } public String Excited(String word) { return _add(word, Excited()); }
 		public String Experience() { return "Experience"; } public String Experience(String word) { return _add(word, Experience()); }
@@ -537,17 +549,13 @@ public abstract class ModLanguageCache {
 		public String GlassPane() { return Pane(Glass()); } public String GlassPane(String word) { return Pane(Glass(word)); }
 		public String GlassSlab() { return Slab(Glass()); } public String GlassSlab(String word) { return Slab(Glass(word)); }
 		public String GlassTrapdoor() { return Trapdoor(Glass()); } public String GlassTrapdoor(String word) { return Trapdoor(Glass(word)); }
-		public String GlazedTerracotta() { return Terracotta("Glazed"); } public String GlazedTerracotta(String word) { return _add(word, GlazedTerracotta()); }
+		public String Glazed() { return "Glazed"; } public String Glazed(String word) { return _add(word, Glazed()); }
 		public String Glow() { return "Glow"; } public String Glow(String word) { return _add(word, Glow()); }
 		public String GlowLichen() { return Lichen(Glow()); } public String GlowLichen(String word) { return Lichen(Glow(word)); }
-		public String GlowLichenBed() { return Bed(GlowLichen()); } public String GlowLichenBed(String word) { return Bed(GlowLichen(word)); }
-		public String GlowSquid() { return Squid(Glow()); } public String GlowSquid(String word) { return Squid(Glow(word)); }
 		public String Glowstone() { return "Glowstone"; } public String Glowstone(String word) { return _add(word, Glowstone()); }
 		public String Goat() { return "Goat"; } public String Goat(String word) { return _add(word, Goat()); }
-		public String GoatHorn() { return Horn(Goat()); } public String GoatHorn(String word) { return Horn(Goat(word)); }
 		public String Goggles() { return "Goggles"; } public String Goggles(String word) { return _add(word, Goggles()); }
 		public String Gold() { return "Gold"; } public String Gold(String word) { return _add(word, Gold()); }
-		public String GoldOre() { return Ore(Gold()); } public String GoldOre(String word) { return Ore(Gold(word)); }
 		public String Golden() { return "Golden"; } public String Golden(String word) { return _add(word, Golden()); }
 		public String Golem() { return "Golem"; } public String Golem(String word) { return _add(word, Golem()); }
 		public String Granite() { return "Granite"; } public String Granite(String word) { return _add(word, Granite()); }
@@ -571,6 +579,7 @@ public abstract class ModLanguageCache {
 		public String HangingRoots() { return Roots(Hanging()); } public String HangingRoots(String word) { return Roots(Hanging(word)); }
 		public String HangingSign() { return Sign(Hanging()); } public String HangingSign(String word) { return Sign(Hanging(word)); }
 		public Pair<String, String> _HangingSign(String word) { return _apply(this::HangingSign, _Wall(word)); }
+		public Pair<String, String> _HangingSign(String word, String withChain) { return _apply(x -> _add(Sign(Hanging(x)), withChain), _Wall(word)); }
 		public String Hay() { return "Hay"; } public String Hay(String word) { return _add(word, Hay()); }
 		public String Head() { return "Head"; } public String Head(String word) { return _add(word, Head()); }
 		public Pair<String, String> _Head(String word) { return _apply(this::Head, _Wall(word)); }
@@ -677,6 +686,8 @@ public abstract class ModLanguageCache {
 		public String Milkshake() { return "Milkshake"; } public String Milkshake(String word) { return _add(word, Milkshake()); }
 		public String Miner() { return "Miner"; } public String Miner(String word) { return _add(word, Miner()); }
 		public String Mining() { return "Mining"; } public String Mining(String word) { return _add(word, Mining()); }
+		public String Mint() { return "Mint"; } public String Mint(String word) { return _add(word, Mint()); }
+		public String Mocha() { return "Mocha"; } public String Mocha(String word) { return _add(word, Mocha()); }
 		public String Mold() { return "Mold"; } public String Mold(String word) { return _add(word, Mold()); }
 		public String Moldy() { return "Moldy"; } public String Moldy(String word) { return _add(word, Moldy()); }
 		public String Moobloom() { return "Moobloom"; } public String Moobloom(String word) { return _add(word, Moobloom()); }
@@ -732,6 +743,7 @@ public abstract class ModLanguageCache {
 		public String Parrot() { return "Parrot"; } public String Parrot(String word) { return _add(word, Parrot()); }
 		public String Patched() { return "Patched"; } public String Patched(String word) { return _add(word, Patched()); }
 		public String Path() { return "Path"; } public String Path(String word) { return _add(word, Path()); }
+		public String Pattern() { return "Pattern"; } public String Pattern(String word) { return _add(word, Pattern()); }
 		public String Pearlescent() { return "Pearlescent"; } public String Pearlescent(String word) { return _add(word, Pearlescent()); }
 		public String Peony() { return "Peony"; } public String Peony(String word) { return _add(word, Peony()); }
 		public String Persian() { return "Persian"; } public String Persian(String word) { return _add(word, Persian()); }
@@ -772,6 +784,7 @@ public abstract class ModLanguageCache {
 		public String Pork() { return "Pork"; } public String Pork(String word) { return _add(word, Pork()); }
 		public String Porkchop() { return "Porkchop"; } public String Porkchop(String word) { return _add(word, Porkchop()); }
 		public String Portal() { return "Portal"; } public String Portal(String word) { return _add(word, Portal()); }
+		public String Post() { return "Post"; } public String Post(String word) { return _add(word, Post()); }
 		public String Pot() { return "Pot"; } public String Pot(String word) { return _add(word, Pot()); }
 		public String Potato() { return "Potato"; } public String Potato(String word) { return _add(word, Potato()); }
 		public String Potatoes() { return "Potatoes"; } public String Potatoes(String word) { return _add(word, Potatoes()); }
@@ -802,7 +815,7 @@ public abstract class ModLanguageCache {
 		public String Raider() { return "Raider"; } public String Raider(String word) { return _add(word, Raider()); }
 		public String Rainbow() { return "Rainbow"; } public String Rainbow(String word) { return _add(word, Rainbow()); }
 		public String Raft() { return "Raft"; } public String Raft(String word) { return _add(word, Raft()); }
-		public Pair<String, String> _Raft(String word) { return new Pair<>(Raft(word), withChest(Raft(word))); }
+		public Pair<String, String> _Raft(String word) { return new Pair<>(Raft(word), Chest(with(Raft(word)))); }
 		public String Rail() { return "Rail"; } public String Rail(String word) { return _add(word, Rail()); }
 		public String Ramen() { return "Ramen"; } public String Ramen(String word) { return _add(word, Ramen()); }
 		public String Ravager() { return "Ravager"; } public String Ravager(String word) { return _add(word, Ravager()); }
@@ -892,7 +905,9 @@ public abstract class ModLanguageCache {
 		public String Skull() { return "Skull"; } public String Skull(String word) { return _add(word, Skull()); }
 		public String Slab() { return "Slab"; } public String Slab(String word) { return _add(word, Slab()); }
 		public String Slate() { return "Slate"; } public String Slate(String word) { return _add(word, Slate()); }
+		public String Slicken() { return "Slicken"; } public String Slicken(String word) { return _add(word, Slicken()); }
 		public String Slime() { return "Slime"; } public String Slime(String word) { return _add(word, Slime()); }
+		public String Slimy() { return "Slimy"; } public String Slimy(String word) { return _add(word, Slimy()); }
 		public String Slowing() { return "Slowing"; } public String Slowing(String word) { return _add(word, Slowing()); }
 		public String Slowness() { return "Slowness"; } public String Slowness(String word) { return _add(word, Slowness()); }
 		public String Sludge() { return "Sludge"; } public String Sludge(String word) { return _add(word, Sludge()); }
@@ -917,6 +932,7 @@ public abstract class ModLanguageCache {
 		public String SoulLantern() { return Lantern(Soul()); } public String SoulLantern(String word) { return Lantern(Soul(word)); }
 		public Pair<String, String> SoulTorch(String word) { return _Torch(Soul(word)); }
 		public String Soup() { return "Soup"; } public String Soup(String word) { return _add(word, Soup()); }
+		public String Spade() { return "Spade"; } public String Spade(String word) { return _add(word, Spade()); }
 		public String Spawn() { return "Spawn"; } public String Spawn(String word) { return _add(word, Spawn()); }
 		public String Spawner() { return "Spawner"; } public String Spawner(String word) { return _add(word, Spawner()); }
 		public String Spider() { return "Spider"; } public String Spider(String word) { return _add(word, Spider()); }
@@ -930,8 +946,10 @@ public abstract class ModLanguageCache {
 		public String Sprouts() { return "Sprouts"; } public String Sprouts(String word) { return _add(word, Sprouts()); }
 		public String Spruce() { return "Spruce"; } public String Spruce(String word) { return _add(word, Spruce()); }
 		public String Squid() { return "Squid"; } public String Squid(String word) { return _add(word, Squid()); }
+		public String Stained() { return "Stained"; } public String Stained(String word) { return _add(word, Stained()); }
 		public String Stairs() { return "Stairs"; } public String Stairs(String word) { return _add(word, Stairs()); }
 		public String Stand() { return "Stand"; } public String Stand(String word) { return _add(word, Stand()); }
+		public String Statue() { return "Statue"; } public String Statue(String word) { return _add(word, Statue()); }
 		public String Stem() { return "Stem"; } public String Stem(String word) { return _add(word, Stem()); }
 		public String Stick() { return "Stick"; } public String Stick(String word) { return _add(word, Stick()); }
 		public String Sticky() { return "Sticky"; } public String Sticky(String word) { return _add(word, Sticky()); }
@@ -948,8 +966,8 @@ public abstract class ModLanguageCache {
 		public String Substitute() { return "Substitute"; } public String Substitute(String word) { return _add(word, Substitute()); }
 		public String Sugar() { return "Sugar"; } public String Sugar(String word) { return _add(word, Sugar()); }
 		public String SugarCane() { return Cane(Sugar()); } public String SugarCane(String word) { return Cane(Sugar(word)); }
+		public String Summoned() { return "Summoned"; } public String Summoned(String word) { return _add(word, Summoned()); }
 		public String Summoning() { return "Summoning"; } public String Summoning(String word) { return _add(word, Summoning()); }
-		public String SummoningArrow() { return Arrow(Summoning()); } public String SummoningArrow(String word) { return Arrow(Summoning(word)); }
 		public String Sunflower() { return "Sunflower"; } public String Sunflower(String word) { return _add(word, Sunflower()); }
 		public String Sunken() { return "Sunken"; } public String Sunken(String word) { return _add(word, Sunken()); }
 		public String Sunset() { return "Sunset"; } public String Sunset(String word) { return _add(word, Sunset()); }
@@ -969,11 +987,11 @@ public abstract class ModLanguageCache {
 		public String Template() { return "Template"; } public String Template(String word) { return _add(word, Template()); }
 		public String Terracotta() { return "Terracotta"; } public String Terracotta(String word) { return _add(word, Terracotta()); }
 		public String Throwable() { return "Throwable"; } public String Throwable(String word) { return _add(word, Throwable()); }
+		public String Thunder() { return "Thunder"; } public String Thunder(String word) { return _add(word, Thunder()); }
+		public String Thundering() { return "Thundering"; } public String Thundering(String word) { return _add(word, Thundering()); }
 		public String Tide() { return "Tide"; } public String Tide(String word) { return _add(word, Tide()); }
+		public String Tiki() { return "Tiki"; } public String Tiki(String word) { return _add(word, Tiki()); }
 		public String Tile() { return "Tile"; } public String Tile(String word) { return _add(word, Tile()); }
-		public String TileSlab() { return Slab(Tile()); } public String TileSlab(String word) { return Tile(Slab(word)); }
-		public String TileStairs() { return Stairs(Tile()); } public String TileStairs(String word) { return Tile(Stairs(word)); }
-		public String TileWall() { return Wall(Tile()); } public String TileWall(String word) { return Tile(Wall(word)); }
 		public String Tiles() { return "Tiles"; } public String Tiles(String word) { return _add(word, Tiles()); }
 		public String Tinker() { return "Tinker"; } public String Tinker(String word) { return _add(word, Tinker()); }
 		public String Tinted() { return "Tinted"; } public String Tinted(String word) { return _add(word, Tinted()); }
@@ -1080,7 +1098,7 @@ public abstract class ModLanguageCache {
 		public String Subtitle_Entity_Death(String name) { return dies(name); }
 		public String Subtitle_Entity_Small_Fall(String name) { return trips(name); }
 		public String Subtitle_Entity_Splash(String name) { return splashes(name); }
-		public String Subtitle_Entity_SplashHighSpeed(String name) { return splashes_hard(name); }
+		public String Subtitle_Entity_Splash_High_Speed(String name) { return hard(splashes(name)); }
 		public String Subtitle_Entity_Step(String name) { return steps(name); }
 		public String Subtitle_Entity_Swim(String name) { return swims(name); }
 	}

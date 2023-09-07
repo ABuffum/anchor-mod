@@ -1,6 +1,7 @@
 package fun.mousewich.block.fluid;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.particle.ModParticleTypes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -71,22 +72,17 @@ public class MudFluid extends FlowableFluid {
 	@Override
 	public Optional<SoundEvent> getBucketFillSound() { return Optional.of(SoundEvents.ITEM_BUCKET_FILL); }
 
-	public ParticleEffect getParticle() { return ModBase.DRIPPING_MUD; }
+	public ParticleEffect getParticle() { return ModParticleTypes.DRIPPING_MUD; }
 
 	@Override
 	protected void flow(WorldAccess world, BlockPos pos, BlockState blockStateIn, Direction direction, FluidState fluidStateIn) {
 		if (this.getFlowing() instanceof MudFluid) {
-			boolean flag = false;
 			for (Direction dir : Direction.values()) {
 				if (world.getFluidState(pos.offset(dir)).isIn(FluidTags.LAVA)) {
-					flag = true;
-					break;
+					world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
+					world.syncWorldEvent(WorldEvents.LAVA_EXTINGUISHED, pos, 0);
+					return;
 				}
-			}
-			if (flag) {
-				world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 3);
-				world.syncWorldEvent(WorldEvents.LAVA_EXTINGUISHED, pos, 0);
-				return;
 			}
 		}
 		super.flow(world, pos, blockStateIn, direction, fluidStateIn);

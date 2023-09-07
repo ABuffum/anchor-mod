@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:brown_mushroom_stairs_from_brown_mushroom_planks_woodcutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_brown_mushroom_planks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:brown_mushroom_planks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:brown_mushroom_stairs_from_brown_mushroom_planks_woodcutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_brown_mushroom_planks",
+      "has_the_recipe"
+    ]
+  ]
+}

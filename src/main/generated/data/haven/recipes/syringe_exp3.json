@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:syringe"
+    },
+    {
+      "item": "haven:secret_ingredient"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:white_tulip"
+    },
+    {
+      "item": "haven:blood_block"
+    }
+  ],
+  "result": {
+    "item": "haven:syringe_exp3"
+  }
+}

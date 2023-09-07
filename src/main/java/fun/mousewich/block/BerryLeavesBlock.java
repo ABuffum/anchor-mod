@@ -35,9 +35,8 @@ public class BerryLeavesBlock extends ModLeavesBlock implements Fertilizable {
 	}
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		boolean berries = state.get(Properties.BERRIES);
-		if (!berries && player.getStackInHand(hand).isOf(Items.BONE_MEAL)) return ActionResult.PASS;
-		if (berries) {
+		if (player.getStackInHand(hand).isOf(Items.BONE_MEAL)) return ActionResult.PASS;
+		else if (state.get(Properties.BERRIES)) {
 			int j = 1 + world.random.nextInt(2);
 			dropStack(world, pos, new ItemStack(getBerry(), j));
 			world.playSound(null, pos, SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, SoundCategory.BLOCKS, 1.0f, 0.8f + world.random.nextFloat() * 0.4f);
@@ -45,7 +44,7 @@ public class BerryLeavesBlock extends ModLeavesBlock implements Fertilizable {
 			world.emitGameEvent(player, GameEvent.BLOCK_CHANGE, pos);
 			return ActionResult.success(world.isClient);
 		}
-		return super.onUse(state, world, pos, player, hand, hit);
+		else return super.onUse(state, world, pos, player, hand, hit);
 	}
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) { builder.add(Properties.BERRIES, DISTANCE, PERSISTENT, Properties.WATERLOGGED); }

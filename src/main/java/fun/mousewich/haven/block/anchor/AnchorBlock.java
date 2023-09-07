@@ -40,7 +40,7 @@ public class AnchorBlock extends BlockWithEntity {
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) { return new AnchorBlockEntity(pos, state); }
 
 	@Override
-	public BlockRenderType getRenderType(BlockState blockState) { return BlockRenderType.INVISIBLE; }
+	public BlockRenderType getRenderType(BlockState blockState) { return BlockRenderType.ENTITYBLOCK_ANIMATED; }
 
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		return checkType(type, HavenMod.ANCHOR_BLOCK_ENTITY, AnchorBlockEntity::tick);

@@ -43,6 +43,21 @@
     "minecraft:step",
     "minecraft:swim",
     "minecraft:teleport",
-    "minecraft:flap"
+    "minecraft:flap",
+    "haven:resonate_1",
+    "haven:resonate_2",
+    "haven:resonate_3",
+    "haven:resonate_4",
+    "haven:resonate_5",
+    "haven:resonate_6",
+    "haven:resonate_7",
+    "haven:resonate_8",
+    "haven:resonate_9",
+    "haven:resonate_10",
+    "haven:resonate_11",
+    "haven:resonate_12",
+    "haven:resonate_13",
+    "haven:resonate_14",
+    "haven:resonate_15"
   ]
 }

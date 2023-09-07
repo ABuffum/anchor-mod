@@ -1,9 +1,12 @@
 package fun.mousewich.gen.data.language;
 
+import fun.mousewich.ModBase;
 import fun.mousewich.ModConfig;
 import fun.mousewich.ModGameRules;
 import fun.mousewich.gen.data.fabric.FabricLanguageProvider;
+import fun.mousewich.registry.ModBannerPatterns;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.util.DyeColor;
 
 import java.util.Map;
 
@@ -14,12 +17,12 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 
 	@Override
 	public void generateTranslations(TranslationBuilder builder) {
-		builder.add("category.wich", "Wich Pack");
+		builder.add("category." + NAMESPACE, "Wich Pack");
 		//Item Groups
 		builder.add(ITEM_GROUP, "Wich Pack");
-		builder.add("itemGroup.wich.flowers", EN_US.Flowers("Wich Pack"));
-		builder.add("itemGroup.wich.decorative_blocks", "Wich Pack Decoration-Only Blocks");
-		builder.add("itemGroup.wich.plushies", "Wich Pack Plushies");
+		builder.add("itemGroup." + NAMESPACE + ".flowers", EN_US.Flowers("Wich Pack"));
+		builder.add("itemGroup." + NAMESPACE + ".decorative_blocks", "Wich Pack Decoration-Only Blocks");
+		builder.add("itemGroup." + NAMESPACE + ".plushies", "Wich Pack Plushies");
 		//Game Rules
 		builder.add(ModGameRules.DO_VINES_SPREAD, EN_US.Vines() + " spread", "Controls whether or not the " + EN_US.Vines() + " block spreads randomly to adjacent blocks. Does not affect other type of vine blocks such as Weeping Vines, Twisting Vines, etc.");
 		builder.add(ModGameRules.DO_WARDEN_BLINDNESS, "Apply " + EN_US.Blindness() + " effect around " + EN_US.Wardens(), "Controls whether or not " + EN_US.Wardens() + " apply the " + EN_US.Blindness() + " effect to nearby players. This is a temporary fix while this mod's developer figures out how to stop shader packs from disabling the " + EN_US.Darkness() + " Effect.");
@@ -31,7 +34,7 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("container.upgrade.missing_template_tooltip", "Put a " + EN_US.Template(EN_US.Smithing()) + " here");
 		//Stats
 		builder.add("stat.wich.interact_with_trimming_table", EN_US.Table(EN_US.Trimming(EN_US.with("Interactions"))));
-		//Advancements
+		//<editor-fold desc="Advancements">
 		builder.addAdvancement("advancements.husbandry.tadpole_in_a_bucket", "Bukkit Bukkit", "Catch a Tadpole in a Bucket");
 		builder.addAdvancement("advancements.husbandry.froglights", "With Our Powers Combined!", "Have all Froglights in your inventory");
 		builder.addAdvancement("advancements.husbandry.leash_all_frog_variants", "When the Squad Hops into Town", "Get each Frog variant on a Lead");
@@ -39,11 +42,22 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.addAdvancement("advancements.husbandry.allay_deliver_cake_to_note_block", "Birthday Song", "Have an Allay drop a Cake at a Note Block");
 		builder.addAdvancement("advancements.adventure.avoid_vibration", "Sneak 100", "Sneak near a Sculk Sensor or Warden to prevent it from detecting you");
 		builder.addAdvancement("advancements.adventure.kill_mob_near_sculk_catalyst", "It Spreads", "Kill a mob near a Sculk Catalyst");
-		//Item descriptions
+		//</editor-fold>
+		//<editor-fold desc="Item descriptions">
 		builder.add("item.minecraft.music_disc_otherside.desc", "Lena Raine - otherside");
 		builder.add("item.minecraft.music_disc_5.desc", "Samuel Åberg - 5");
 		builder.add("item.minecraft.disc_fragment_5.desc", "Music Disc - 5");
-		//Goat Horn
+		builder.add("item.minecraft.music_disc_relic.desc", "Aaron Cherof - Relic");
+		//</editor-fold>
+		//<editor-fold desc="Custom Banner Patterns">
+		for (DyeColor color : DyeColor.values()) {
+			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.CLUB.getName() + "." + color.getName(), EN_US.Club(EN_US.Color(color)));
+			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.DIAMOND.getName() + "." + color.getName(), EN_US.Diamond(EN_US.Color(color)));
+			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.HEART.getName() + "." + color.getName(), EN_US.Heart(EN_US.Color(color)));
+			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.SPADE.getName() + "." + color.getName(), EN_US.Spade(EN_US.Color(color)));
+		}
+		//</editor-fold>
+		//<editor-fold desc="Goat Horn">
 		builder.add("instrument.minecraft.ponder_goat_horn", EN_US.Ponder());
 		builder.add("instrument.minecraft.sing_goat_horn", "Sing");
 		builder.add("instrument.minecraft.seek_goat_horn", "Seek");
@@ -52,23 +66,39 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("instrument.minecraft.call_goat_horn", EN_US.Call());
 		builder.add("instrument.minecraft.yearn_goat_horn", "Yearn");
 		builder.add("instrument.minecraft.dream_goat_horn", EN_US.Dream());
-		builder.add("subtitles.item.goat_horn.play", EN_US.plays(EN_US.GoatHorn()));
-		//Trim Patterns
-		builder.add("trim_pattern.minecraft.coast", EN_US.ArmorTrim(EN_US.Coast()));
-		builder.add("trim_pattern.minecraft.dune", EN_US.ArmorTrim(EN_US.Dune()));
-		builder.add("trim_pattern.minecraft.eye", EN_US.ArmorTrim(EN_US.Eye()));
-		builder.add("trim_pattern.minecraft.rib", EN_US.ArmorTrim(EN_US.Rib()));
-		builder.add("trim_pattern.minecraft.sentry", EN_US.ArmorTrim(EN_US.Sentry()));
-		builder.add("trim_pattern.minecraft.snout", EN_US.ArmorTrim(EN_US.Snout()));
-		builder.add("trim_pattern.minecraft.spire", EN_US.ArmorTrim(EN_US.Spire()));
-		builder.add("trim_pattern.minecraft.tide", EN_US.ArmorTrim(EN_US.Tide()));
-		builder.add("trim_pattern.minecraft.vex", EN_US.ArmorTrim(EN_US.Vex()));
-		builder.add("trim_pattern.minecraft.ward", EN_US.ArmorTrim(EN_US.Ward()));
-		builder.add("trim_pattern.minecraft.wild", EN_US.ArmorTrim(EN_US.Wild()));
+		builder.add("subtitles.item.goat_horn.play", EN_US.plays(EN_US.Horn(EN_US.Goat())));
+		//</editor-fold>
+		//<editor-fold desc="Smithing Templates">
+		builder.add("item.minecraft.smithing_template", EN_US.Template(EN_US.Smithing()));
+		builder.add("item.minecraft.smithing_template.applies_to", "Applies to:");
+		builder.add("item.minecraft.smithing_template.armor_trim.additions_slot_description", "Add ingot or crystal");
+		builder.add("item.minecraft.smithing_template.armor_trim.applies_to", EN_US.Armor());
+		builder.add("item.minecraft.smithing_template.armor_trim.base_slot_description", "Add a piece of armor");
+		builder.add("item.minecraft.smithing_template.armor_trim.ingredients", "Ingots & Crystals");
+		builder.add("item.minecraft.smithing_template.ingredients", "Ingredients:");
+		builder.add("item.minecraft.smithing_template.netherite_upgrade.additions_slot_description", EN_US.Ingot(EN_US.Netherite(EN_US.Add())));
+		builder.add("item.minecraft.smithing_template.netherite_upgrade.applies_to", EN_US.Equipment(EN_US.Diamond()));
+		builder.add("item.minecraft.smithing_template.netherite_upgrade.base_slot_description", "Add diamond armor, weapon or tool");
+		builder.add("item.minecraft.smithing_template.netherite_upgrade.ingredients", EN_US.Ingot(EN_US.Netherite()));
+		builder.add("item.minecraft.smithing_template.upgrade", "Upgrade: ");
+		//</editor-fold>
+		//<editor-fold desc="Trim Patterns">
+		builder.add("trim_pattern.minecraft.coast", EN_US.Trim(EN_US.Armor(EN_US.Coast())));
+		builder.add("trim_pattern.minecraft.dune", EN_US.Trim(EN_US.Armor(EN_US.Dune())));
+		builder.add("trim_pattern.minecraft.eye", EN_US.Trim(EN_US.Armor(EN_US.Eye())));
+		builder.add("trim_pattern.minecraft.rib", EN_US.Trim(EN_US.Armor(EN_US.Rib())));
+		builder.add("trim_pattern.minecraft.sentry", EN_US.Trim(EN_US.Armor(EN_US.Sentry())));
+		builder.add("trim_pattern.minecraft.snout", EN_US.Trim(EN_US.Armor(EN_US.Snout())));
+		builder.add("trim_pattern.minecraft.spire", EN_US.Trim(EN_US.Armor(EN_US.Spire())));
+		builder.add("trim_pattern.minecraft.tide", EN_US.Trim(EN_US.Armor(EN_US.Tide())));
+		builder.add("trim_pattern.minecraft.vex", EN_US.Trim(EN_US.Armor(EN_US.Vex())));
+		builder.add("trim_pattern.minecraft.ward", EN_US.Trim(EN_US.Armor(EN_US.Ward())));
+		builder.add("trim_pattern.minecraft.wild", EN_US.Trim(EN_US.Armor(EN_US.Wild())));
+		//</editor-fold>
 		//Wind Horn
 		builder.add("subtitles.item.wind_horn.play", EN_US.plays(EN_US.Horn(EN_US.Wind())));
 		//Keybinds
-		builder.add("key.wich.tertiary_active", "Active Origins Power (Tertiary)");
+		builder.add("key.haven.tertiary_active", "Active Origins Power (Tertiary)");
 		//Biomes
 		builder.add(DEEP_DARK, EN_US.Dark(EN_US.Deep()));
 		builder.add(MANGROVE_SWAMP, EN_US.Swamp(EN_US.Mangrove()));
@@ -77,8 +107,30 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		provideSubtitles(builder);
 		//Death messages
 		provideDeathMessages(builder);
+		//Status Effects
+		for (int i = 11; i <= 32; i++) builder.add("enchantment.level." + i, ToRomanNumeral(i));
 		//Registry
 		applyCache(builder, EN_US);
+	}
+
+	private String ToRomanNumeral(int number) {
+		StringBuilder result = new StringBuilder();
+		if (number < 0) {
+			result.append('-');
+			number = -number;
+		}
+		int[] digitsValues = { 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000 };
+		String[] romanDigits = { "I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M" };
+		while (number > 0) {
+			for (int i = digitsValues.length - 1; i >= 0; i--) {
+				if (number / digitsValues[i] >= 1) {
+					number -= digitsValues[i];
+					result.append(romanDigits[i]);
+					break;
+				}
+			}
+		}
+		return result.toString();
 	}
 
 	public void applyCache(TranslationBuilder builder, ModLanguageCache cache) {
@@ -236,10 +288,10 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		//<editor-fold desc="Sculk">
 		builder.add("subtitles.block.sculk.charge", EN_US.bubbles(EN_US.Sculk()));
 		builder.add("subtitles.block.sculk.spread", EN_US.spreads(EN_US.Sculk()));
-		builder.add("subtitles.block.sculk_catalyst.bloom", EN_US.blooms(EN_US.SculkCatalyst()));
-		builder.add("subtitles.block.sculk_sensor.clicking", EN_US.clicking(EN_US.starts(EN_US.SculkSensor())));
-		builder.add("subtitles.block.sculk_sensor.clicking_stop", EN_US.clicking(EN_US.stops(EN_US.SculkSensor())));
-		builder.add("subtitles.block.sculk_shrieker.shriek", EN_US.shrieks(EN_US.SculkShrieker()));
+		builder.add("subtitles.block.sculk_catalyst.bloom", EN_US.blooms(EN_US.Catalyst(EN_US.Sculk())));
+		builder.add("subtitles.block.sculk_sensor.clicking", EN_US.clicking(EN_US.starts(EN_US.Sensor(EN_US.Sculk()))));
+		builder.add("subtitles.block.sculk_sensor.clicking_stop", EN_US.clicking(EN_US.stops(EN_US.Sensor(EN_US.Sculk()))));
+		builder.add("subtitles.block.sculk_shrieker.shriek", EN_US.shrieks(EN_US.Shrieker(EN_US.Sculk())));
 		//</editor-fold>
 		//<editor-fold desc="Sniffer">
 		builder.add("subtitles.entity.sniffer.death", EN_US.dies(EN_US.Sniffer()));
@@ -307,11 +359,20 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("subtitles.item.pouch.fill_chicken.greg", EN_US.collected(EN_US.Greg()));
 		builder.add("subtitles.item.pouch.empty_rabbit", EN_US.released(EN_US.Rabbit()));
 		builder.add("subtitles.item.pouch.fill_rabbit", EN_US.bagged(EN_US.Rabbit()));
+		builder.add("subtitles.item.pouch.empty_endermite", EN_US.released(EN_US.Endermite()));
+		builder.add("subtitles.item.pouch.fill_endermite", EN_US.bagged(EN_US.Endermite()));
+		builder.add("subtitles.item.pouch.empty_silverfish", EN_US.released(EN_US.Silverfish()));
+		builder.add("subtitles.item.pouch.fill_silverfish", EN_US.bagged(EN_US.Silverfish()));
+
+		builder.add("subtitles.block.coins.drop", EN_US.dropped(EN_US.Coins()));
+
 		//Bone Spider
 		builder.add("subtitles.entity.bone_spider.attack", EN_US.attacks(EN_US.Spider(EN_US.Bone())));
 		builder.add("subtitles.entity.bone_spider.spit", EN_US.spits(EN_US.Spider(EN_US.Bone())));
 		//Jumping Spider
 		builder.add("subtitles.entity.jumping_spider.jump", EN_US.jumps(EN_US.Spider(EN_US.Jumping())));
+		//Slime Cow
+		builder.add("subtitles.entity.slime_cow.ambient", EN_US.goos(EN_US.Cow(EN_US.Slime())));
 		//<editor-fold desc="Hedgehog">
 		builder.add("subtitles.entity.hedgehog.ambient", EN_US.grunts(EN_US.Hedgehog()));
 		builder.add("subtitles.entity.hedgehog.death", EN_US.dies(EN_US.Hedgehog()));

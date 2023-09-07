@@ -1,7 +1,7 @@
 package fun.mousewich.container;
 
 import fun.mousewich.ModFactory;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
+import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.gen.data.loot.DropTable;
 import fun.mousewich.mixins.SignTypeAccessor;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
@@ -12,6 +12,7 @@ import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.SignType;
 
 public class SignContainer extends WallBlockContainer {
@@ -21,7 +22,7 @@ public class SignContainer extends WallBlockContainer {
 	public WallBlockContainer getHanging() { return hangingSign; }
 
 	public SignContainer(String name, Material material, BlockSoundGroup blockSoundGroup, Item.Settings itemSettings, Block hangingSignBase, BlockSoundGroup hangingSounds) {
-		this(SignTypeAccessor.registerNew(SignTypeAccessor.newSignType(name)), material, blockSoundGroup, itemSettings, hangingSignBase, hangingSounds);
+		this(ModFactory.MakeSignType(name), material, blockSoundGroup, itemSettings, hangingSignBase, hangingSounds);
 	}
 	private SignContainer(SignType type, Material material, BlockSoundGroup blockSoundGroup, Item.Settings itemSettings, Block hangingSignBase, BlockSoundGroup hangingSounds) {
 		this(type,new SignBlock(AbstractBlock.Settings.of(material).noCollision().strength(1.0F).sounds(blockSoundGroup), type),material, blockSoundGroup, itemSettings, hangingSignBase, hangingSounds);
@@ -60,9 +61,21 @@ public class SignContainer extends WallBlockContainer {
 		return this;
 	}
 
+	public SignContainer blockTag(Tag.Identified<Block> tag) {
+		ModDatagen.Cache.Tags.Register(tag, this.block);
+		ModDatagen.Cache.Tags.Register(tag, this.wallBlock);
+		hangingSign.blockTag(tag);
+		return this;
+	}
+	public SignContainer itemTag(Tag.Identified<Item> tag) {
+		ModDatagen.Cache.Tags.Register(tag, this.item);
+		hangingSign.itemTag(tag);
+		return this;
+	}
+
 	public SignContainer dropSelf() {
-		BlockLootGenerator.Drops.put(this.block, DropTable.Drops(this.item));
-		BlockLootGenerator.Drops.put(this.wallBlock, DropTable.Drops(this.item));
+		ModDatagen.Cache.Drops.put(this.block, DropTable.Drops(this.item));
+		ModDatagen.Cache.Drops.put(this.wallBlock, DropTable.Drops(this.item));
 		return this;
 	}
 }

@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.skeleton;
 
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.SunkenSkeletonEntityModel;
 import fun.mousewich.entity.hostile.skeleton.SunkenSkeletonEntity;
 import fun.mousewich.entity.variants.SunkenSkeletonVariant;
@@ -20,10 +20,10 @@ import net.minecraft.util.Identifier;
 @Environment(value= EnvType.CLIENT)
 public class SunkenSkeletonEntityRenderer extends BipedEntityRenderer<SunkenSkeletonEntity, SunkenSkeletonEntityModel> {
 	public SunkenSkeletonEntityRenderer(EntityRendererFactory.Context ctx) {
-		super(ctx, new SunkenSkeletonEntityModel(ctx.getPart(ModClient.SUNKEN_SKELETON_LAYER)), 0.5f);
+		super(ctx, new SunkenSkeletonEntityModel(ctx.getPart(ModEntityModelLayers.SUNKEN_SKELETON)), 0.5f);
 		this.addFeature(new ArmorFeatureRenderer<>(this,
-				new SunkenSkeletonEntityModel(ctx.getPart(ModClient.SUNKEN_SKELETON_INNER_ARMOR_LAYER)),
-				new SunkenSkeletonEntityModel(ctx.getPart(ModClient.SUNKEN_SKELETON_OUTER_ARMOR_LAYER))));
+				new SunkenSkeletonEntityModel(ctx.getPart(ModEntityModelLayers.SUNKEN_SKELETON_INNER_ARMOR)),
+				new SunkenSkeletonEntityModel(ctx.getPart(ModEntityModelLayers.SUNKEN_SKELETON_OUTER_ARMOR))));
 	}
 	@Override
 	public Identifier getTexture(SunkenSkeletonEntity entity) { return SunkenSkeletonVariant.get(entity).texture; }

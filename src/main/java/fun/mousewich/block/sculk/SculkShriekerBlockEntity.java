@@ -3,6 +3,7 @@ package fun.mousewich.block.sculk;
 import com.mojang.serialization.Dynamic;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModGameRules;
+import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.hostile.warden.WardenEntity;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.event.ModVibrationListener;
@@ -59,17 +60,17 @@ public class SculkShriekerBlockEntity extends BlockEntity implements ModVibratio
 	@Override
 	public void readNbt(NbtCompound nbt) {
 		super.readNbt(nbt);
-		if (nbt.contains("warning_level", NbtElement.NUMBER_TYPE)) this.warningLevel = nbt.getInt("warning_level");
-		if (nbt.contains("listener", NbtElement.COMPOUND_TYPE)) {
-			ModVibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound("listener"))).resultOrPartial(ModBase.LOGGER::error).ifPresent(vibrationListener -> this.vibrationListener = vibrationListener);
+		if (nbt.contains(ModNbtKeys.WARNING_LEVEL, NbtElement.NUMBER_TYPE)) this.warningLevel = nbt.getInt(ModNbtKeys.WARNING_LEVEL);
+		if (nbt.contains(ModNbtKeys.LISTENER, NbtElement.COMPOUND_TYPE)) {
+			ModVibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound(ModNbtKeys.LISTENER))).resultOrPartial(ModBase.LOGGER::error).ifPresent(vibrationListener -> this.vibrationListener = vibrationListener);
 		}
 	}
 
 	@Override
 	public NbtCompound writeNbt(NbtCompound nbt) {
 		super.writeNbt(nbt);
-		nbt.putInt("warning_level", this.warningLevel);
-		ModVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.vibrationListener).resultOrPartial(ModBase.LOGGER::error).ifPresent(nbtElement -> nbt.put("listener", nbtElement));
+		nbt.putInt(ModNbtKeys.WARNING_LEVEL, this.warningLevel);
+		ModVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.vibrationListener).resultOrPartial(ModBase.LOGGER::error).ifPresent(nbtElement -> nbt.put(ModNbtKeys.LISTENER, nbtElement));
 		return nbt;
 	}
 

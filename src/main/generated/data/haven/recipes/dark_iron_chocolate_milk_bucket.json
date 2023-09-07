@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:copper_bucket"
+    },
+    {
+      "item": "haven:chocolate_milk_bottle"
+    },
+    {
+      "item": "haven:chocolate_milk_bottle"
+    },
+    {
+      "item": "haven:chocolate_milk_bottle"
+    },
+    {
+      "item": "haven:chocolate_milk_bottle"
+    }
+  ],
+  "result": {
+    "item": "haven:dark_iron_chocolate_milk_bucket"
+  }
+}

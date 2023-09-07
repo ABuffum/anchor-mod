@@ -22,6 +22,6 @@ public class SwiftSneakEnchantment extends Enchantment {
 	@Override
 	public int getMaxLevel() { return 3; }
 	public static float getSpeedBoost(LivingEntity livingEntity) {
-		return (float) EnchantmentHelper.getEquipmentLevel(ModBase.SWIFT_SNEAK_ENCHANTMENT, livingEntity) * 0.15f;
+		return (float) EnchantmentHelper.getEquipmentLevel(ModEnchantments.SWIFT_SNEAK, livingEntity) * 0.15f;
 	}
 }

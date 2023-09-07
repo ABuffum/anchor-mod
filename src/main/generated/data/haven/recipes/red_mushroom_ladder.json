@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "|#|",
+    "| |"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:red_mushroom_planks"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:red_mushroom_ladder",
+    "count": 3
+  }
+}

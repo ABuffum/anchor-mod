@@ -17,6 +17,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -24,12 +25,11 @@ public abstract class BrushableBlockEntity extends BlockEntity implements Brusha
 	protected int brushesCount;
 	protected long nextDustTime;
 	protected long nextBrushTime;
+	@Nullable
 	protected Direction hitDirection;
 	protected ItemStack item = ItemStack.EMPTY;
 
-	public BrushableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
-	}
+	public BrushableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
 	@Override
 	public boolean brush(long worldTime, PlayerEntity player, Direction hitDirection) {
 		if (this.hitDirection == null) this.hitDirection = hitDirection;
@@ -115,6 +115,7 @@ public abstract class BrushableBlockEntity extends BlockEntity implements Brusha
 		if (this.brushesCount < 6) return 2;
 		return 3;
 	}
+	@Nullable
 	@Override
 	public Direction getHitDirection() { return this.hitDirection; }
 	@Override

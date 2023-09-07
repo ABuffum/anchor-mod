@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:gray_wool"
+    },
+    {
+      "item": "minecraft:bone"
+    },
+    {
+      "tag": "haven:raw_meat"
+    }
+  ],
+  "result": {
+    "item": "haven:gray_wolf_plushie"
+  }
+}

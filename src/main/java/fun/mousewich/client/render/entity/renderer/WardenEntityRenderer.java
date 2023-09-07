@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.WardenEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.WardenFeatureRenderer;
 import fun.mousewich.entity.hostile.warden.WardenEntity;
@@ -19,7 +19,7 @@ public class WardenEntityRenderer extends MobEntityRenderer<WardenEntity, Warden
 	private static final Identifier PULSATING_SPOTS_1_TEXTURE = new Identifier("textures/entity/warden/warden_pulsating_spots_1.png");
 	private static final Identifier PULSATING_SPOTS_2_TEXTURE = new Identifier("textures/entity/warden/warden_pulsating_spots_2.png");
 	public WardenEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, new WardenEntityModel<>(context.getPart(ModClient.WARDEN_MODEL_LAYER)), 0.9f);
+		super(context, new WardenEntityModel<>(context.getPart(ModEntityModelLayers.WARDEN)), 0.9f);
 		this.addFeature(new WardenFeatureRenderer<>(this, BIOLUMINESCENT_LAYER_TEXTURE, (warden, tickDelta, animationProgress) -> 1.0f, WardenEntityModel::getHeadAndLimbs));
 		this.addFeature(new WardenFeatureRenderer<>(this, PULSATING_SPOTS_1_TEXTURE, (warden, tickDelta, animationProgress) -> Math.max(0.0f, MathHelper.cos(animationProgress * 0.045f) * 0.25f), WardenEntityModel::getBodyHeadAndLimbs));
 		this.addFeature(new WardenFeatureRenderer<>(this, PULSATING_SPOTS_2_TEXTURE, (warden, tickDelta, animationProgress) -> Math.max(0.0f, MathHelper.cos(animationProgress * 0.045f + (float) Math.PI) * 0.25f), WardenEntityModel::getBodyHeadAndLimbs));

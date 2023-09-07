@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "SCS",
+    "LLL"
+  ],
+  "key": {
+    "C": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    "L": {
+      "tag": "minecraft:oak_logs"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:soul_campfire"
+  }
+}

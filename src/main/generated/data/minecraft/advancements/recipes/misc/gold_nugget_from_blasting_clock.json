@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:gold_nugget_from_blasting_clock"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_clock": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:clock"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:gold_nugget_from_blasting_clock"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clock",
+      "has_the_recipe"
+    ]
+  ]
+}

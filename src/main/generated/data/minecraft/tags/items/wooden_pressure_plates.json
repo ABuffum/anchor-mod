@@ -1,19 +1,19 @@
 {
   "replace": false,
   "values": [
-    "haven:red_mushroom_pressure_plate",
-    "haven:cassia_pressure_plate",
-    "haven:charred_pressure_plate",
-    "minecraft:cherry_pressure_plate",
     "minecraft:bamboo_pressure_plate",
-    "haven:sugar_cane_pressure_plate",
-    "minecraft:mangrove_pressure_plate",
     "haven:gilded_pressure_plate",
     "haven:mushroom_stem_pressure_plate",
-    "haven:blue_mushroom_pressure_plate",
-    "haven:dogwood_pressure_plate",
-    "haven:dried_bamboo_pressure_plate",
+    "haven:sugar_cane_pressure_plate",
+    "haven:red_mushroom_pressure_plate",
+    "minecraft:mangrove_pressure_plate",
     "haven:brown_mushroom_pressure_plate",
-    "haven:hay_pressure_plate"
+    "minecraft:cherry_pressure_plate",
+    "haven:hay_pressure_plate",
+    "haven:charred_pressure_plate",
+    "haven:dried_bamboo_pressure_plate",
+    "haven:dogwood_pressure_plate",
+    "haven:cassia_pressure_plate",
+    "haven:blue_mushroom_pressure_plate"
   ]
 }

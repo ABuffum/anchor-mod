@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.feature;
 
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.TropicalSlimeEntityModel;
 import fun.mousewich.entity.hostile.slime.TropicalSlimeEntity;
 import net.fabricmc.api.EnvType;
@@ -22,7 +22,7 @@ public class TropicalSlimeOverlayFeatureRenderer extends FeatureRenderer<Tropica
 
 	public TropicalSlimeOverlayFeatureRenderer(FeatureRendererContext<TropicalSlimeEntity, TropicalSlimeEntityModel> context, EntityModelLoader loader) {
 		super(context);
-		this.model = new TropicalSlimeEntityModel(loader.getModelPart(ModClient.TROPICAL_SLIME_OUTER_LAYER));
+		this.model = new TropicalSlimeEntityModel(loader.getModelPart(ModEntityModelLayers.TROPICAL_SLIME_OUTER));
 	}
 
 	@Override

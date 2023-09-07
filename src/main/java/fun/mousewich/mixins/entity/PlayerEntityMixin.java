@@ -3,6 +3,8 @@ package fun.mousewich.mixins.entity;
 import fun.mousewich.ModBase;
 import fun.mousewich.block.sculk.SculkShriekerWarningManager;
 import fun.mousewich.damage.ModDamageSource;
+import fun.mousewich.effect.ModStatusEffects;
+import fun.mousewich.enchantment.ModEnchantments;
 import fun.mousewich.entity.LastDeathPositionStoring;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.blood.BloodType;
@@ -10,9 +12,7 @@ import fun.mousewich.entity.blood.EntityWithBloodType;
 import fun.mousewich.entity.hostile.warden.WardenEntity;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.item.tool.HammerItem;
-import fun.mousewich.origins.power.ExperienceHealingPower;
-import fun.mousewich.origins.power.FluidBreatherPower;
-import fun.mousewich.origins.power.SingleSlotInventoryPower;
+import fun.mousewich.origins.power.*;
 import fun.mousewich.sound.IdentifiedSounds;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.mixin.EntityAccessor;
@@ -138,10 +138,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 		ItemStack stack = attacker.getMainHandStack();
 		int level = 0;
 		if (attacker.getMainHandStack().getItem() instanceof AxeItem) {
-			level = EnchantmentHelper.getLevel(ModBase.CLEAVING_ENCHANTMENT, stack);
+			level = EnchantmentHelper.getLevel(ModEnchantments.CLEAVING, stack);
 		}
 		if (attacker.getMainHandStack().getItem() instanceof HammerItem) {
-			level = EnchantmentHelper.getLevel(ModBase.CRUSHING_ENCHANTMENT, stack);
+			level = EnchantmentHelper.getLevel(ModEnchantments.CRUSHING, stack);
 		}
 		if (level > 0) {
 			super.takeShieldHit(attacker);
@@ -164,21 +164,15 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 		ItemStack itemStack = this.getEquippedStack(EquipmentSlot.HEAD);
 		boolean first;
 		if ((first = itemStack.isOf(ModBase.TINTED_GOGGLES)) || itemStack.isOf(ModBase.RUBY_GOGGLES)) {
-			if (!this.hasStatusEffect(ModBase.DARKNESS_EFFECT) && !this.hasStatusEffect(StatusEffects.BLINDNESS)) {
-				StatusEffect effect = first ? ModBase.TINTED_GOGGLES_EFFECT : ModBase.RUBY_GOGGLES_EFFECT;
+			if (!this.hasStatusEffect(ModStatusEffects.DARKNESS) && !this.hasStatusEffect(StatusEffects.BLINDNESS)) {
+				StatusEffect effect = first ? ModStatusEffects.TINTED_GOGGLES : ModStatusEffects.RUBY_GOGGLES;
 				this.addStatusEffect(new StatusEffectInstance(effect, 20, 0, false, false, true));
 			}
-			if (!this.world.isClient && this.hasStatusEffect(ModBase.FLASHBANGED_EFFECT)) {
-				this.removeStatusEffect(ModBase.FLASHBANGED_EFFECT);
-			}
+			if (!this.world.isClient && this.hasStatusEffect(ModStatusEffects.FLASHBANGED)) this.removeStatusEffect(ModStatusEffects.FLASHBANGED);
 		}
 		else if (!this.world.isClient) {
-			if (this.hasStatusEffect(ModBase.TINTED_GOGGLES_EFFECT)) {
-				this.removeStatusEffect(ModBase.TINTED_GOGGLES_EFFECT);
-			}
-			if (this.hasStatusEffect(ModBase.RUBY_GOGGLES_EFFECT)) {
-				this.removeStatusEffect(ModBase.RUBY_GOGGLES_EFFECT);
-			}
+			if (this.hasStatusEffect(ModStatusEffects.TINTED_GOGGLES)) this.removeStatusEffect(ModStatusEffects.TINTED_GOGGLES);
+			if (this.hasStatusEffect(ModStatusEffects.RUBY_GOGGLES)) this.removeStatusEffect(ModStatusEffects.RUBY_GOGGLES);
 		}
 	}
 
@@ -186,22 +180,27 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 	public void InjectEntityInteractEvent(Entity entity, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
 		this.world.emitGameEvent(ModGameEvent.ENTITY_INTERACT, entity.getBlockPos());
 	}
-	@Inject(method = "dropInventory", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;dropAll()V"))
-	private void DropAdditionalInventoryFromSingleSlotInventory(CallbackInfo ci) {
-		PowerHolderComponent.getPowers(this, SingleSlotInventoryPower.class).forEach(inventory -> {
-			if(inventory.shouldDropOnDeath()) {
-				for(int i = 0; i < inventory.size(); ++i) {
-					ItemStack itemStack = inventory.getStack(i);
-					if(inventory.shouldDropOnDeath(itemStack)) {
-						if (!itemStack.isEmpty() && EnchantmentHelper.hasVanishingCurse(itemStack)) inventory.removeStack(i);
-						else {
-							((PlayerEntity)(Object)this).dropItem(itemStack, true, false);
-							inventory.setStack(i, ItemStack.EMPTY);
-						}
-					}
+	private static void DropAll(PlayerEntity player, IInventoryPower inventory) {
+		for (int i = 0; i < inventory.size(); ++i) {
+			ItemStack itemStack = inventory.getStack(i);
+			if (inventory.shouldDropOnDeath(itemStack)) {
+				if (!itemStack.isEmpty() && EnchantmentHelper.hasVanishingCurse(itemStack)) inventory.removeStack(i);
+				else {
+					player.dropItem(itemStack, true, false);
+					inventory.setStack(i, ItemStack.EMPTY);
 				}
 			}
-		});
+		}
+	}
+	@Inject(method = "dropInventory", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;dropAll()V"))
+	private void DropAdditionalInventoryFromSingleSlotInventory(CallbackInfo ci) {
+		PlayerEntity player = (PlayerEntity)(Object)this;
+		PowerHolderComponent.getPowers(this, SingleSlotInventoryPower.class).forEach(inventory -> DropAll(player, inventory));
+	}
+	@Inject(method = "dropInventory", at = @At("RETURN"))
+	private void DropAdditionalDroppableInventory(CallbackInfo ci) {
+		PlayerEntity player = (PlayerEntity)(Object)this;
+		PowerHolderComponent.getPowers(this, DroppableInventoryPower.class).forEach(inventory -> DropAll(player, inventory));
 	}
 
 	@Inject(method="writeCustomDataToNbt", at=@At("TAIL"))

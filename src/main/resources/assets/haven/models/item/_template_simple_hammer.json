@@ -1,5 +1,5 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made by SeaOfPixels",
 	"parent": "haven:item/_template_hammer",
 	"texture_size": [ 64, 64 ],
 	"textures": {
@@ -188,7 +188,7 @@
 	},
 	"groups": [ 
 		{
-			"name": "great_hammer",
+			"name": "simple_hammer",
 			"origin": [ 8, 8, 8 ],
 			"color": 0,
 			"children": [

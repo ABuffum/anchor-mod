@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "*",
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:white_dye"
+    },
+    "*": {
+      "item": "minecraft:sugar"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:white_rock_candy"
+  }
+}

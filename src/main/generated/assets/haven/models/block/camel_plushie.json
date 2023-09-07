@@ -1,0 +1,7 @@
+{
+  "parent": "haven:block/plushie/camel",
+  "textures": {
+    "all": "haven:block/camel_plushie",
+    "particle": "haven:block/camel_plushie"
+  }
+}

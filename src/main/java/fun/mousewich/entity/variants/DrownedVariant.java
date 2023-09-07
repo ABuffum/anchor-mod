@@ -27,6 +27,6 @@ public enum DrownedVariant {
 	}
 	public static DrownedVariant get(DrownedEntity entity) {
 		DrownedVariant[] variants = values();
-		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length)];
+		return variants[MathHelper.clamp(entity.getDataTracker().get(VARIANT), 0, variants.length - 1)];
 	}
 }

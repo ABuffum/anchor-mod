@@ -34,6 +34,7 @@ public class CrackedBlocks {
 		BlockState uncracked = world.getBlockState(pos);
 		BlockState cracked = GetCracked(uncracked);
 		if (cracked != null) {
+			System.out.println(cracked);
 			world.setBlockState(pos, cracked, Block.NOTIFY_ALL);
 			world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos);
 			world.playSound(null, pos, IdentifiedSounds.getBreakSound(uncracked), SoundCategory.BLOCKS, 1f, 1f);

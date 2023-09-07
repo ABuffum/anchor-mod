@@ -2,8 +2,7 @@ package fun.mousewich.sound;
 
 import fun.mousewich.ModBase;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.SoundManager;
-import net.minecraft.client.sound.WeightedSoundSet;
+import net.minecraft.client.sound.*;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
@@ -14,8 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static fun.mousewich.ModBase.EN_US;
-import static fun.mousewich.ModBase.LANGUAGE_CACHES;
+import static fun.mousewich.ModBase.*;
 
 public class SubtitleOverrides {
 	private static final Map<Identifier, String> subtitles = new HashMap<>();
@@ -65,8 +63,8 @@ public class SubtitleOverrides {
 		Register("block.place.generic", EN_US.Subtitle_Block_Place(EN_US.Block()));
 		//<editor-fold desc="Blocks">
 		Register(BlockSoundGroup.AMETHYST_BLOCK, "amethyst", EN_US.Amethyst());
-		Register(BlockSoundGroup.AMETHYST_CLUSTER, "amethyst_cluster", EN_US.AmethystCluster());
-		Register(BlockSoundGroup.ANCIENT_DEBRIS, "ancient_debris", EN_US.AncientDebris());
+		Register(BlockSoundGroup.AMETHYST_CLUSTER, "amethyst_cluster", EN_US.Cluster(EN_US.Amethyst()));
+		Register(BlockSoundGroup.ANCIENT_DEBRIS, "ancient_debris", EN_US.Debris(EN_US.Ancient()));
 		Register(BlockSoundGroup.ANVIL, "anvil", EN_US.Anvil());
 		Register(BlockSoundGroup.AZALEA, "azalea", EN_US.Azalea());
 		Register(BlockSoundGroup.AZALEA_LEAVES, "azalea_leaves", EN_US.Leaves(EN_US.Azalea()));
@@ -75,11 +73,11 @@ public class SubtitleOverrides {
 		Register(SoundEvents.BLOCK_BAMBOO_SAPLING_HIT, "block.hit.bamboo_sapling", EN_US.Subtitle_Block_Hit(EN_US.Sapling(EN_US.Bamboo())));
 		Register(SoundEvents.BLOCK_BAMBOO_SAPLING_PLACE, "block.place.bamboo_sapling", EN_US.Subtitle_Block_Place(EN_US.Sapling(EN_US.Bamboo())));
 		Register(BlockSoundGroup.BASALT, "basalt", EN_US.Basalt());
-		Register(BlockSoundGroup.BIG_DRIPLEAF, "big_dripleaf", EN_US.BigDripleaf());
+		Register(BlockSoundGroup.BIG_DRIPLEAF, "big_dripleaf", EN_US.Dripleaf(EN_US.Big()));
 		Register(BlockSoundGroup.BONE, "bone", EN_US.Bone());
 		Register(BlockSoundGroup.CALCITE, "calcite", EN_US.Calcite());
 		Register(BlockSoundGroup.CANDLE, "candle", EN_US.Candle());
-		Register(BlockSoundGroup.CAVE_VINES, "cave_vines", EN_US.CaveVines());
+		Register(BlockSoundGroup.CAVE_VINES, "cave_vines", EN_US.Vines(EN_US.Cave()));
 		Register(BlockSoundGroup.CHAIN, "chain", EN_US.Chain());
 		Register(BlockSoundGroup.COPPER, "copper", EN_US.Copper());
 		Register(BlockSoundGroup.CORAL, "coral", EN_US.Coral());
@@ -95,13 +93,13 @@ public class SubtitleOverrides {
 		Register(BlockSoundGroup.GLASS, "glass", EN_US.Glass());
 		Register(BlockSoundGroup.GRASS, "grass", EN_US.Grass());
 		Register(BlockSoundGroup.GRAVEL, "gravel", EN_US.Gravel());
-		Register(BlockSoundGroup.HANGING_ROOTS, "hanging_roots", EN_US.HangingRoots());
+		Register(BlockSoundGroup.HANGING_ROOTS, "hanging_roots", EN_US.Roots(EN_US.Hanging()));
 		Register(BlockSoundGroup.HONEY, "honey", EN_US.Honey());
 		Register(BlockSoundGroup.LADDER, "ladder", EN_US.Ladder());
 		Register(BlockSoundGroup.LANTERN, "lantern", EN_US.Lantern());
 		Register(SoundEvents.BLOCK_LARGE_AMETHYST_BUD_BREAK, "block.break.large_amethyst_bud", EN_US.Subtitle_Block_Break(EN_US.Bud(EN_US.Amethyst(EN_US.Large()))));
 		Register(SoundEvents.BLOCK_LARGE_AMETHYST_BUD_PLACE, "block.place.large_amethyst_bud", EN_US.Subtitle_Block_Place(EN_US.Bud(EN_US.Amethyst(EN_US.Large()))));
-		Register(SoundEvents.BLOCK_LILY_PAD_PLACE, "block.place.lily_pad", EN_US.Subtitle_Block_Place(EN_US.LilyPad()));
+		Register(SoundEvents.BLOCK_LILY_PAD_PLACE, "block.place.lily_pad", EN_US.Subtitle_Block_Place(EN_US.Pad(EN_US.Lily())));
 		Register(BlockSoundGroup.LODESTONE, "lodestone", EN_US.Lodestone());
 		Register(SoundEvents.BLOCK_MEDIUM_AMETHYST_BUD_BREAK, "block.break.medium_amethyst_bud", EN_US.Subtitle_Block_Break(EN_US.Bud(EN_US.Amethyst(EN_US.Medium()))));
 		Register(SoundEvents.BLOCK_MEDIUM_AMETHYST_BUD_PLACE, "block.place.place.medium_amethyst_bud", EN_US.Subtitle_Block_Place(EN_US.Bud(EN_US.Amethyst(EN_US.Medium()))));
@@ -109,7 +107,7 @@ public class SubtitleOverrides {
 		Register(BlockSoundGroup.MOSS_CARPET, "moss_carpet", EN_US.Carpet(EN_US.Moss()));
 		Register(BlockSoundGroup.MOSS_BLOCK, "moss", EN_US.Moss());
 		Register(BlockSoundGroup.NETHER_BRICKS, "nether_bricks", EN_US.Bricks(EN_US.Nether()));
-		Register(BlockSoundGroup.NETHER_GOLD_ORE, "nether_gold_ore", EN_US.GoldOre(EN_US.Nether()));
+		Register(BlockSoundGroup.NETHER_GOLD_ORE, "nether_gold_ore", EN_US.Ore(EN_US.Gold(EN_US.Nether())));
 		Register(BlockSoundGroup.NETHER_ORE, "nether_ore", EN_US.Ore(EN_US.Nether()));
 		Register(BlockSoundGroup.NETHER_SPROUTS, "nether_sprouts", EN_US.Sprouts(EN_US.Nether()));
 		Register(BlockSoundGroup.NETHER_STEM, "nether_stem", EN_US.Stem(EN_US.Nether()));
@@ -137,8 +135,6 @@ public class SubtitleOverrides {
 		Register(BlockSoundGroup.SOUL_SOIL, "soul_soil", EN_US.Soil(EN_US.Soul()));
 		Register(BlockSoundGroup.SPORE_BLOSSOM, "spore_blossom", EN_US.Blossom(EN_US.Spore()));
 		Register(BlockSoundGroup.STONE, "stone", EN_US.Stone());
-		Register(ModBlockSoundGroups.SUSPICIOUS_GRAVEL, "suspicious_gravel", EN_US.Gravel());
-		Register(ModBlockSoundGroups.SUSPICIOUS_SAND, "suspicious_sand", EN_US.Sand());
 		Register(SoundEvents.BLOCK_SWEET_BERRY_BUSH_BREAK, "block.break.sweet_berry_bush", EN_US.Subtitle_Block_Break(EN_US.Bush(EN_US.Berry(EN_US.Sweet()))));
 		Register(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PLACE, "block.place.sweet_berry_bush", EN_US.Subtitle_Block_Place(EN_US.Bush(EN_US.Berry(EN_US.Sweet()))));
 		Register(BlockSoundGroup.TUFF, "tuff", EN_US.Tuff());
@@ -158,10 +154,10 @@ public class SubtitleOverrides {
 		Register(SoundEvents.ENTITY_GENERIC_SMALL_FALL,"small_fall.generic", EN_US.trips(EN_US.Something()));
 		Register(SoundEvents.ENTITY_PLAYER_SMALL_FALL,"small_fall.player", EN_US.trips(EN_US.Someone()));
 		//<editor-fold desc="Entity Sound Events">
-		Register(SoundEvents.ENTITY_ARMOR_STAND_BREAK, "entity.armor_stand.break", EN_US.Subtitle_Block_Break(EN_US.ArmorStand()));
-		Register(SoundEvents.ENTITY_ARMOR_STAND_FALL, "entity.armor_stand.fall", EN_US.fell(EN_US.ArmorStand()));
-		Register(SoundEvents.ENTITY_ARMOR_STAND_HIT, "entity.armor_stand.hit", EN_US.Subtitle_Block_Hit(EN_US.ArmorStand()));
-		Register(SoundEvents.ENTITY_ARMOR_STAND_PLACE, "entity.armor_stand.place", EN_US.Subtitle_Block_Place(EN_US.ArmorStand()));
+		Register(SoundEvents.ENTITY_ARMOR_STAND_BREAK, "entity.armor_stand.break", EN_US.Subtitle_Block_Break(EN_US.Stand(EN_US.Armor())));
+		Register(SoundEvents.ENTITY_ARMOR_STAND_FALL, "entity.armor_stand.fall", EN_US.fell(EN_US.Stand(EN_US.Armor())));
+		Register(SoundEvents.ENTITY_ARMOR_STAND_HIT, "entity.armor_stand.hit", EN_US.Subtitle_Block_Hit(EN_US.Stand(EN_US.Armor())));
+		Register(SoundEvents.ENTITY_ARMOR_STAND_PLACE, "entity.armor_stand.place", EN_US.Subtitle_Block_Place(EN_US.Stand(EN_US.Armor())));
 		Register(SoundEvents.ENTITY_CHICKEN_STEP, "entity.chicken.step", EN_US.steps(EN_US.Chicken()));
 		Register(SoundEvents.ENTITY_COW_STEP, "entity.cow.step", EN_US.steps(EN_US.Cow()));
 		Register(SoundEvents.ENTITY_DRAGON_FIREBALL_EXPLODE, "entity.dragon.fireball_explode", EN_US.explodes(EN_US.Fireball(EN_US.Dragon())));
@@ -173,16 +169,16 @@ public class SubtitleOverrides {
 		Register(SoundEvents.ENTITY_HORSE_STEP_WOOD, "entity.horse.step", EN_US.steps(EN_US.Horse()));
 		Register(SoundEvents.ENTITY_HUSK_STEP, "entity.husk.step", EN_US.steps(EN_US.Husk()));
 		Register(SoundEvents.ENTITY_IRON_GOLEM_STEP, "entity.iron_golem.step", EN_US.steps(EN_US.Golem(EN_US.Iron())));
-		Register(SoundEvents.ENTITY_PARROT_STEP, "entity.parrot.step", EN_US.saddled(EN_US.Parrot()));
+		Register(SoundEvents.ENTITY_PARROT_STEP, "entity.parrot.step", EN_US.steps(EN_US.Parrot()));
 		Register(SoundEvents.ENTITY_PIG_SADDLE, "entity.pig.saddle", EN_US.saddled(EN_US.Pig()));
-		Register(SoundEvents.ENTITY_PIG_STEP, "entity.pig.step", EN_US.saddled(EN_US.Pig()));
-		Register(SoundEvents.ENTITY_POLAR_BEAR_STEP, "entity.polar_bear.step", EN_US.saddled(EN_US.Bear(EN_US.Polar())));
-		Register(SoundEvents.ENTITY_SHEEP_STEP, "entity.sheep.step", EN_US.saddled(EN_US.Sheep()));
-		Register(SoundEvents.ENTITY_SILVERFISH_STEP, "entity.silverfish.step", EN_US.saddled(EN_US.Silverfish()));
+		Register(SoundEvents.ENTITY_PIG_STEP, "entity.pig.step", EN_US.steps(EN_US.Pig()));
+		Register(SoundEvents.ENTITY_POLAR_BEAR_STEP, "entity.polar_bear.step", EN_US.steps(EN_US.Bear(EN_US.Polar())));
+		Register(SoundEvents.ENTITY_SHEEP_STEP, "entity.sheep.step", EN_US.steps(EN_US.Sheep()));
+		Register(SoundEvents.ENTITY_SILVERFISH_STEP, "entity.silverfish.step", EN_US.steps(EN_US.Silverfish()));
 		Register(SoundEvents.ENTITY_SKELETON_STEP, "entity.skeleton.step", EN_US.steps(EN_US.Skeleton()));
 		Register(SoundEvents.ENTITY_SKELETON_HORSE_STEP_WATER, "entity.skeleton_horse.step_water", EN_US.Water(EN_US.in(EN_US.steps(EN_US.Skeleton()))));
-		Register(SoundEvents.ENTITY_SPIDER_STEP, "entity.spider.step", EN_US.saddled(EN_US.Spider()));
-		Register(SoundEvents.ENTITY_STRAY_STEP, "entity.stray.step", EN_US.saddled(EN_US.Stray()));
+		Register(SoundEvents.ENTITY_SPIDER_STEP, "entity.spider.step", EN_US.steps(EN_US.Spider()));
+		Register(SoundEvents.ENTITY_STRAY_STEP, "entity.stray.step", EN_US.steps(EN_US.Stray()));
 		Register(SoundEvents.ENTITY_STRIDER_SADDLE, "entity.strider.saddle", EN_US.saddled(EN_US.Strider()));
 		Register(SoundEvents.ENTITY_STRIDER_STEP, "entity.strider.step", EN_US.steps(EN_US.Strider()));
 		Register(SoundEvents.ENTITY_STRIDER_STEP_LAVA, "entity.strider.step_lava", EN_US.Lava(EN_US.on(EN_US.steps(EN_US.Strider()))));
@@ -198,11 +194,12 @@ public class SubtitleOverrides {
 		Register(ModBlockSoundGroups.CHERRY_LEAVES, "cherry_leaves", EN_US.Leaves(EN_US.Cherry()));
 		Register(ModBlockSoundGroups.CHERRY_SAPLING, "cherry_sapling", EN_US.Sapling(EN_US.Cherry()));
 		Register(ModBlockSoundGroups.CHERRY_WOOD, "cherry_wood", EN_US.Wood(EN_US.Cherry()));
-		Register(ModBlockSoundGroups.CHERRY_WOOD_HANGING_SIGN, "cherry_wood_hanging_sign", EN_US.HangingSign(EN_US.Wood(EN_US.Cherry())));
+		Register(ModBlockSoundGroups.CHERRY_WOOD_HANGING_SIGN, "cherry_wood_hanging_sign", EN_US.Sign(EN_US.Hanging(EN_US.Wood(EN_US.Cherry()))));
 		Register(ModBlockSoundGroups.ECHO_BLOCK, "echo", EN_US.Echo());
 		Register(ModBlockSoundGroups.ECHO_CLUSTER, "echo_cluster", EN_US.Cluster(EN_US.Echo()));
 		Register(ModBlockSoundGroups.FROGLIGHT, "froglight", EN_US.Froglight());
 		Register(ModBlockSoundGroups.FROGSPAWN, "frogspawn", EN_US.Frogspawn());
+		Register(ModBlockSoundGroups.GRAPE_VINES, "grape_vines", EN_US.Vines(EN_US.Grape()));
 		Register(ModBlockSoundGroups.HANGING_SIGN, "hanging_sign", EN_US.Sign(EN_US.Hanging()));
 		Register(ModSoundEvents.BLOCK_LARGE_ECHO_BUD_BREAK, "block.break.large_echo_bud", EN_US.Subtitle_Block_Break(EN_US.Bud(EN_US.Echo(EN_US.Large()))));
 		Register(ModSoundEvents.BLOCK_LARGE_ECHO_BUD_PLACE, "block.place.large_echo_bud", EN_US.Subtitle_Block_Place(EN_US.Bud(EN_US.Echo(EN_US.Large()))));
@@ -216,9 +213,11 @@ public class SubtitleOverrides {
 		Register(ModBlockSoundGroups.PACKED_MUD, "packed_mud", EN_US.Mud(EN_US.Packed()));
 		Register(ModBlockSoundGroups.PINK_PETALS, "pink_petals", EN_US.Petals(EN_US.Pink()));
 		Register(ModBlockSoundGroups.SCULK, "sculk", EN_US.Sculk());
-		Register(ModBlockSoundGroups.SCULK_CATALYST, "sculk_catalyst", EN_US.SculkCatalyst());
-		Register(ModBlockSoundGroups.SCULK_SHRIEKER, "sculk_shrieker", EN_US.SculkShrieker());
-		Register(ModBlockSoundGroups.SCULK_VEIN, "sculk_vein", EN_US.SculkVein());
+		Register(ModBlockSoundGroups.SCULK_CATALYST, "sculk_catalyst", EN_US.Catalyst(EN_US.Sculk()));
+		Register(ModBlockSoundGroups.SCULK_SHRIEKER, "sculk_shrieker", EN_US.Shrieker(EN_US.Sculk()));
+		Register(ModBlockSoundGroups.SCULK_VEIN, "sculk_vein", EN_US.Vein(EN_US.Sculk()));
+		Register(ModBlockSoundGroups.SUSPICIOUS_GRAVEL, "suspicious_gravel", EN_US.Gravel());
+		Register(ModBlockSoundGroups.SUSPICIOUS_SAND, "suspicious_sand", EN_US.Sand());
 		Register(ModSoundEvents.BLOCK_SMALL_ECHO_BUD_BREAK, "block.break.small_echo_bud", EN_US.Subtitle_Block_Break(EN_US.Bud(EN_US.Echo(EN_US.Small()))));
 		Register(ModSoundEvents.BLOCK_SMALL_ECHO_BUD_PLACE, "block.place.small_echo_bud", EN_US.Subtitle_Block_Place(EN_US.Bud(EN_US.Echo(EN_US.Small()))));
 		//</editor-fold">
@@ -264,6 +263,9 @@ public class SubtitleOverrides {
 		Register(ModSoundEvents.ENTITY_SKELETON_HORSE_SADDLE, "entity.skeleton_horse.saddle", EN_US.saddled(EN_US.Horse(EN_US.Skeleton())));
 		Register(ModSoundEvents.ENTITY_SKELETON_HORSE_STEP, "entity.skeleton_horse.step", EN_US.steps(EN_US.Horse(EN_US.Skeleton())));
 		Register(ModSoundEvents.ENTITY_SKELETON_HORSE_STEP_WOOD, "entity.skeleton_horse.step", EN_US.steps(EN_US.Horse(EN_US.Skeleton())));
+		Register(ModSoundEvents.ENTITY_SLIME_COW_DEATH, "entity.slime_cow.death", EN_US.dies(EN_US.Cow(EN_US.Slime())));
+		Register(ModSoundEvents.ENTITY_SLIME_COW_HURT, "entity.slime_cow.hurt", EN_US.hurts(EN_US.Cow(EN_US.Slime())));
+		Register(ModSoundEvents.ENTITY_SLIME_COW_STEP, "entity.slime_cow.step", EN_US.steps(EN_US.Cow(EN_US.Slime())));
 		Register(ModSoundEvents.ENTITY_SUNKEN_SKELETON_STEP, "entity.sunken_skeleton.step", EN_US.steps(EN_US.Skeleton(EN_US.Sunken())));
 		Register(ModSoundEvents.ENTITY_ZOMBIE_HORSE_GALLOP, "entity.zombie_horse.gallop", EN_US.gallops(EN_US.Horse(EN_US.Zombie())));
 		Register(ModSoundEvents.ENTITY_ZOMBIE_HORSE_JUMP, "entity.zombie_horse.jump", EN_US.jumps(EN_US.Horse(EN_US.Zombie())));
@@ -288,7 +290,7 @@ public class SubtitleOverrides {
 		Register(SoundEvents.ENTITY_BOAT_PADDLE_WATER, "paddle.water.generic", EN_US.Rowing(EN_US.Boat()));
 		Register(SoundEvents.ENTITY_BOAT_PADDLE_LAND, "paddle.land.generic", EN_US.Paddling(EN_US.Boat()));
 
-		Register(SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, "item.bucket_empty_powder_snow", EN_US.Subtitle_Block_Place(EN_US.PowderSnow()));
+		Register(SoundEvents.ITEM_BUCKET_EMPTY_POWDER_SNOW, "item.bucket_empty_powder_snow", EN_US.Subtitle_Block_Place(EN_US.Snow(EN_US.Powder())));
 	}
 
 	public static String getSubtitle(WeightedSoundSet soundSet) {

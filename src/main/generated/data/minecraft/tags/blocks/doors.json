@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "haven:dark_iron_door"
+    "haven:dark_iron_door",
+    "haven:netherite_door",
+    "haven:gold_door"
   ]
 }

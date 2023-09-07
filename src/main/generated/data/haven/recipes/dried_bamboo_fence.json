@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#|#",
+    "#|#"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dried_bamboo_planks"
+    },
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "haven:dried_bamboo_fence"
+  }
+}

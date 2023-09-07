@@ -1,0 +1,8 @@
+{
+  "type": "haven:woodcutting",
+  "ingredient": {
+    "item": "haven:blue_mushroom_planks"
+  },
+  "result": "haven:blue_mushroom_stairs",
+  "count": 1
+}

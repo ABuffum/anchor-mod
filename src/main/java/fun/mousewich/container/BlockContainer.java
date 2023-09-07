@@ -3,7 +3,6 @@ package fun.mousewich.container;
 import fun.mousewich.ModFactory;
 import fun.mousewich.block.BlockConvertible;
 import fun.mousewich.gen.data.ModDatagen;
-import fun.mousewich.gen.data.loot.BlockLootGenerator;
 import fun.mousewich.gen.data.loot.DropTable;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -52,7 +51,11 @@ public class BlockContainer implements IBlockItemContainer {
 
 	//Tags
 	public BlockContainer blockTag(Tag.Identified<Block> tag) { ModDatagen.Cache.Tags.Register(tag, this.block); return this; }
+	@SafeVarargs
+	public final BlockContainer blockTag(Tag.Identified<Block>... tags) { for (Tag.Identified<Block> tag : tags) blockTag(tag); return this; }
 	public BlockContainer itemTag(Tag.Identified<Item> tag) { ModDatagen.Cache.Tags.Register(tag, this.item); return this; }
+	@SafeVarargs
+	public final BlockContainer itemTag(Tag.Identified<Item>... tags) { for (Tag.Identified<Item> tag : tags) itemTag(tag); return this; }
 
 	//<editor-fold desc="Models">
 	public BlockContainer generatedItemModel() { ModDatagen.Cache.Models.GENERATED.add(this.item); return this; }
@@ -92,7 +95,7 @@ public class BlockContainer implements IBlockItemContainer {
 
 	public BlockContainer drops(DropTable dropTable) {
 		if (dropTable == null) return dropSelf();
-		BlockLootGenerator.Drops.put(this.block, dropTable);
+		ModDatagen.Cache.Drops.put(this.block, dropTable);
 		return this;
 	}
 	public BlockContainer drops(Item item) { return drops(DropTable.Drops(item)); }

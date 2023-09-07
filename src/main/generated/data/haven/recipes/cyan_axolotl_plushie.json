@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:cyan_wool"
+    },
+    {
+      "item": "minecraft:axolotl_bucket"
+    }
+  ],
+  "result": {
+    "item": "haven:cyan_axolotl_plushie"
+  }
+}

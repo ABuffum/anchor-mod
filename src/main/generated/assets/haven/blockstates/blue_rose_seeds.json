@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "haven:block/blue_rose_seeds"
+      "model": "haven:block/rose_seeds"
     }
   }
 }

@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:polished_obsidian_brick_stairs_from_polished_obsidian_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_polished_obsidian": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:polished_obsidian"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:polished_obsidian_brick_stairs_from_polished_obsidian_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_polished_obsidian",
+      "has_the_recipe"
+    ]
+  ]
+}

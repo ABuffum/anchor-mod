@@ -4,6 +4,7 @@ import com.mojang.serialization.Dynamic;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModGameRules;
 import fun.mousewich.client.render.entity.animation.AnimationState;
+import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.entity.ModDataHandlers;
 import fun.mousewich.entity.ModEntityPose;
 import fun.mousewich.entity.ModEntityStatuses;
@@ -320,7 +321,7 @@ public class WardenEntity extends HostileEntity implements ModVibrationListener.
 	public static void addDarknessToClosePlayers(ServerWorld world, Vec3d pos, Entity entity, int range) {
 		GameRules rules = world.getGameRules();
 		if (rules.get(ModGameRules.DO_WARDEN_DARKNESS).get()) {
-			StatusEffectInstance statusEffectInstance = new StatusEffectInstance(ModBase.DARKNESS_EFFECT, 260, 0, false, false);
+			StatusEffectInstance statusEffectInstance = new StatusEffectInstance(ModStatusEffects.DARKNESS, 260, 0, false, false);
 			addEffectToPlayersWithinDistance(world, entity, pos, range, statusEffectInstance);
 		}
 		//TODO: Iris disables the fog effects minecraft:darkness and flashbanged rely on so the warden can apply blindness instead

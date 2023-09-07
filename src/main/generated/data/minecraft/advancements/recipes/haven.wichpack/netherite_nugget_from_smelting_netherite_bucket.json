@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:netherite_nugget_from_smelting_netherite_bucket"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_netherite_bucket": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:netherite_bucket"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:netherite_nugget_from_smelting_netherite_bucket"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_netherite_bucket",
+      "has_the_recipe"
+    ]
+  ]
+}

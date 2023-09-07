@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.entity.renderer.spider;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.entity.hostile.spider.JumpingSpiderEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,7 +15,7 @@ public class JumpingSpiderEntityRenderer extends SpiderEntityRenderer<JumpingSpi
 	private static final Identifier TEXTURE = ModBase.ID("textures/entity/spider/jumping_spider.png");
 	private static final float SCALE = 0.7f;
 	public JumpingSpiderEntityRenderer(EntityRendererFactory.Context context) {
-		super(context, ModClient.JUMPING_SPIDER_MODEL_LAYER);
+		super(context, ModEntityModelLayers.JUMPING_SPIDER);
 		this.shadowRadius *= 0.7f;
 	}
 	@Override

@@ -64,7 +64,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
 	@Inject(method="readCustomDataFromNbt", at = @At("TAIL"))
 	public void ReadCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-		this.dataTracker.set(WolfVariant.VARIANT, nbt.getInt("Variant"));
+		if (nbt.contains("Variant")) this.dataTracker.set(WolfVariant.VARIANT, nbt.getInt("Variant"));
 	}
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.WOLF_BLOOD_TYPE; }

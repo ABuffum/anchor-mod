@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "|": {
+      "item": "minecraft:sugar_cane"
+    }
+  },
+  "result": {
+    "item": "haven:sugar_cane_torch",
+    "count": 4
+  }
+}

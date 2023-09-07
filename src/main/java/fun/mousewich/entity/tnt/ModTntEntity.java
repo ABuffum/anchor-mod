@@ -2,6 +2,7 @@ package fun.mousewich.entity.tnt;
 
 import fun.mousewich.block.tnt.ModTntBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -17,15 +18,16 @@ public abstract class ModTntEntity extends Entity {
 	protected static final TrackedData<Integer> FUSE = DataTracker.registerData(ModTntEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	protected static final int DEFAULT_FUSE = 80;
 	protected LivingEntity causingEntity;
-	protected final Block block;
-	public Block getBlock() { return block; }
-	protected ModTntEntity(EntityType<? extends Entity> entityType, World world, Block block) {
+	protected BlockState state;
+	public BlockState getBlockState() { return state; }
+	public void setBlockState(BlockState state) { this.state = state; }
+	protected ModTntEntity(EntityType<? extends Entity> entityType, World world, BlockState state) {
 		super(entityType, world);
 		this.inanimate = true;
-		this.block = block;
+		this.state = state;
 	}
-	protected ModTntEntity(EntityType<? extends Entity> entityType, World world, double x, double y, double z, LivingEntity igniter, Block block) {
-		this(entityType, world, block);
+	protected ModTntEntity(EntityType<? extends Entity> entityType, World world, double x, double y, double z, LivingEntity igniter, BlockState state) {
+		this(entityType, world, state);
 		this.setPosition(x, y, z);
 		double d = world.random.nextDouble() * 6.2831854820251465D;
 		this.setVelocity(-Math.sin(d) * 0.02D, 0.20000000298023224D, -Math.cos(d) * 0.02D);

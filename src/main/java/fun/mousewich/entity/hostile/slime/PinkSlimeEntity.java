@@ -5,6 +5,7 @@ import fun.mousewich.entity.ai.SlimeMoveControl;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
 import fun.mousewich.entity.projectile.PinkSlimeBallEntity;
+import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ public class PinkSlimeEntity extends ModSlimeEntity implements RangedAttackMob, 
 	}
 
 	@Override
-	protected ParticleEffect getParticles() { return ModBase.ITEM_PINK_SLIME_PARTICLE; }
+	protected ParticleEffect getParticles() { return ModParticleTypes.ITEM_PINK_SLIME; }
 
 	@Override
 	public void attack(LivingEntity target, float pullProgress) {

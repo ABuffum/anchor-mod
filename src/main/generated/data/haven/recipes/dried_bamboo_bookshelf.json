@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XXX",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:dried_bamboo_planks"
+    },
+    "X": {
+      "tag": "haven:books"
+    }
+  },
+  "result": {
+    "item": "haven:dried_bamboo_bookshelf"
+  }
+}

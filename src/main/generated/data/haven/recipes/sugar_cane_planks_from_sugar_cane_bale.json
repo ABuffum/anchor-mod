@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "haven:sugar_cane_bale"
+    }
+  ],
+  "result": {
+    "item": "haven:sugar_cane_planks",
+    "count": 4
+  }
+}

@@ -8,12 +8,15 @@ import net.minecraft.util.Identifier;
 
 public class ModItemTags {
 	public static final Tag.Identified<Item> AXES = createMinecraftTag("axes");
+	public static final Tag.Identified<Item> BAMBOO_BLOCKS = createMinecraftTag("bamboo_blocks");
+	public static final Tag.Identified<Item> BAMBOO_LOGS = createTag("bamboo_logs");
 	public static final Tag.Identified<Item> BEEHIVES = createTag("beehives");
 	public static final Tag.Identified<Item> BOOKS = createTag("books");
 	public static final Tag.Identified<Item> BOOKSHELF_BOOKS = createMinecraftTag("bookshelf_books");
 	public static final Tag.Identified<Item> BOOKSHELVES = createTag("bookshelves");
 	public static final Tag.Identified<Item> BOOTS = createTag("boots");
 	public static final Tag.Identified<Item> BREAKS_DECORATED_POTS = createMinecraftTag("breaks_decorated_pots");
+	public static final Tag.Identified<Item> BUCKETS = createTag("buckets");
 	public static final Tag.Identified<Item> CAMPFIRES = createTag("campfires");
 	public static final Tag.Identified<Item> CANDY = createTag("candy");
 	public static final Tag.Identified<Item> CARVED_GOURDS = createTag("carved_gourds");
@@ -34,6 +37,7 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> CHEST_BOATS = createMinecraftTag("chest_boats");
 	public static final Tag.Identified<Item> CHESTPLATES = createTag("chestplates");
 	public static final Tag.Identified<Item> COMPASSES = createMinecraftTag("compasses");
+	public static final Tag.Identified<Item> COMPLETES_FIND_TREE_TUTORIAL = createMinecraftTag("completes_find_tree_tutorial");
 	public static final Tag.Identified<Item> COOKED_BEEF = createTag("cooked_beef");
 	public static final Tag.Identified<Item> COOKED_BIRD = createTag("cooked_bird");
 	public static final Tag.Identified<Item> COOKED_FISH = createTag("cooked_fish");
@@ -46,8 +50,12 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> COPPER_CHESTPLATES = createTag("copper_chestplates");
 	public static final Tag.Identified<Item> COPPER_HELMETS = createTag("copper_helmets");
 	public static final Tag.Identified<Item> COPPER_LEGGINGS = createTag("copper_leggings");
-	public static final Tag.Identified<Item> DECORATED_POT_SHARDS = createTag("decorated_pot_shards");
+	public static final Tag.Identified<Item> DAMPENS_VIBRATIONS = createMinecraftTag("dampens_vibrations");
+	public static final Tag.Identified<Item> DECORATED_POT_INGREDIENTS = createTag("decorated_pot_ingredients");
+	public static final Tag.Identified<Item> DECORATED_POT_SHERDS = createTag("decorated_pot_sherds");
 	public static final Tag.Identified<Item> DOGWOOD_LOGS = createTag("dogwood_logs");
+	public static final Tag.Identified<Item> DRIED_BAMBOO_BLOCKS = createTag("dried_bamboo_blocks");
+	public static final Tag.Identified<Item> DRIED_BAMBOO_LOGS = createTag("dried_bamboo_logs");
 	public static final Tag.Identified<Item> EDIBLE_BEEF = createTag("edible_beef");
 	public static final Tag.Identified<Item> EDIBLE_BIRD = createTag("edible_bird");
 	public static final Tag.Identified<Item> EDIBLE_EGG = createTag("edible_egg");
@@ -61,11 +69,14 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> ELYTRA = createTag("elytra");
 	public static final Tag.Identified<Item> ENDER_TORCHES = createTag("ender_torches");
 	public static final Tag.Identified<Item> FEATHERS = createTag("feathers");
+	public static final Tag.Identified<Item> FENCE_GATES = createMinecraftTag("fence_gates");
 	public static final Tag.Identified<Item> FLAVORED_MILK = createTag("flavored_milk");
 	public static final Tag.Identified<Item> FLEECE = createTag("fleece");
 	public static final Tag.Identified<Item> FLEECE_SLABS = createTag("fleece_slabs");
 	public static final Tag.Identified<Item> FLEECE_CARPETS = createTag("fleece_carpets");
 	public static final Tag.Identified<Item> FRUITS = createTag("fruits");
+	public static final Tag.Identified<Item> GILDED_STEMS = createTag("gilded_stems");
+	public static final Tag.Identified<Item> GLASS_PANES = createTag("glass_panes");
 	public static final Tag.Identified<Item> GOLDEN_ARMOR = createTag("golden_armor");
 	public static final Tag.Identified<Item> GOLDEN_FOOD = createTag("golden_food");
 	public static final Tag.Identified<Item> GOLDEN_FRUIT = createTag("golden_fruit");
@@ -76,13 +87,21 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> HEAD_WEARABLE_BLOCKS = createTag("head_wearable_blocks");
 	public static final Tag.Identified<Item> HELMETS = createTag("helmets");
 	public static final Tag.Identified<Item> HOES = createMinecraftTag("hoes");
+	public static final Tag.Identified<Item> IGNORE_RECIPE_REMAINDER = createTag("ignore_recipe_remainder");
 	public static final Tag.Identified<Item> IRON_ARMOR = createTag("iron_armor");
 	public static final Tag.Identified<Item> IRON_BASE_ARMOR = createTag("iron_base_armor");
+	public static final Tag.Identified<Item> IRON_TOOLS = createTag("iron_tools");
 	public static final Tag.Identified<Item> KNIVES = createCommonTag("tools/knives");
 	public static final Tag.Identified<Item> LEGGINGS = createTag("leggings");
 	public static final Tag.Identified<Item> LIGHTS_FLINT = createTag("lights_flint");
 	public static final Tag.Identified<Item> LOG_SLABS = createTag("log_slabs");
 	public static final Tag.Identified<Item> MANGROVE_LOGS = createMinecraftTag("mangrove_logs");
+	public static final Tag.Identified<Item> MILK_BUCKETS = createTag("milk_buckets");
+	public static final Tag.Identified<Item> MILK_BUCKETS_CHOCOLATE = createTag("milk_buckets_chocolate");
+	public static final Tag.Identified<Item> MILK_BUCKETS_COFFEE = createTag("milk_buckets_coffee");
+	public static final Tag.Identified<Item> MILK_BUCKETS_STRAWBERRY = createTag("milk_buckets_strawberry");
+	public static final Tag.Identified<Item> MILK_BUCKETS_VANILLA = createTag("milk_buckets_vanilla");
+	public static final Tag.Identified<Item> NOTEBLOCK_TOP_INSTRUMENTS = createMinecraftTag("noteblock_top_instruments");
 	public static final Tag.Identified<Item> PICKAXES = createMinecraftTag("pickaxes");
 	public static final Tag.Identified<Item> RAW_BEEF = createTag("raw_beef");
 	public static final Tag.Identified<Item> RAW_BIRD = createTag("raw_bird");
@@ -96,6 +115,7 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> SEEDS = createTag("seeds");
 	public static final Tag.Identified<Item> SHEARS = createCommonTag("tools/shears");
 	public static final Tag.Identified<Item> SHOVELS = createMinecraftTag("shovels");
+	public static final Tag.Identified<Item> SMELTS_TO_GLASS = createMinecraftTag("smelts_to_glass");
 	public static final Tag.Identified<Item> SNIFFER_FOOD = createMinecraftTag("sniffer_food");
 	public static final Tag.Identified<Item> SOUL_CAMPFIRES = createTag("soul_campfires");
 	public static final Tag.Identified<Item> SOUL_LANTERNS = createTag("soul_lanterns");
@@ -109,11 +129,14 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> TRIM_TEMPLATES = createMinecraftTag("trim_templates");
 	public static final Tag.Identified<Item> UNDERWATER_TORCHES = createTag("underwater_torches");
 	public static final Tag.Identified<Item> VEGETABLES = createTag("vegetables");
+	public static final Tag.Identified<Item> VILLAGER_PLANTABLE_SEEDS = createMinecraftTag("villager_plantable_seeds");
+	public static final Tag.Identified<Item> WART_BLOCKS = createMinecraftTag("wart_blocks");
 	public static final Tag.Identified<Item> WOOD_HAMMERS = createTag("wood_hammers");
 	public static final Tag.Identified<Item> WOOL_SLABS = createTag("wool_slabs");
 	public static final Tag.Identified<Item> WOOL_CARPETS = createTag("wool_carpets");
 
 	public static final Tag.Identified<Item> CROPTOPIA_NUTS = createTag("croptopia", "nuts");
+	public static final Tag.Identified<Item> FORGE_INGOTS_IRON = createTag("forge", "ingots/iron");
 	public static final Tag.Identified<Item> FORGE_VEGETABLES = createTag("forge", "vegetables");
 	public static final Tag.Identified<Item> NOURISH_FRUIT = createTag("nourish", "fruit");
 	public static final Tag.Identified<Item> NOURISH_SWEETS = createTag("nourish", "sweets");

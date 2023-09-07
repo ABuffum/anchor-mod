@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:beige_wool"
+    }
+  },
+  "result": {
+    "item": "haven:beige_wool_slab",
+    "count": 6
+  }
+}

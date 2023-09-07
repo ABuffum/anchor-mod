@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|",
+    "*"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:coals"
+    },
+    "|": {
+      "item": "minecraft:cherry_log"
+    },
+    "*": {
+      "item": "minecraft:popped_chorus_fruit"
+    }
+  },
+  "result": {
+    "item": "haven:cherry_ender_torch",
+    "count": 8
+  }
+}
