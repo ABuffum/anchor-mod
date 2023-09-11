@@ -1,0 +1,12 @@
+{
+  "powers": [
+	"haven:bite",
+	"haven:slow_falling",
+	"haven:wither_immunity",
+	"haven:drink_blood",
+	"haven:blood_types/vampire"
+  ],
+  "icon": "haven:blood_bottle",
+  "name": "Vampire",
+  "description": "The undead get hungry too."
+}

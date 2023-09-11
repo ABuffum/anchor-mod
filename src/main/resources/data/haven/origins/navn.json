@@ -1,0 +1,12 @@
+{
+  "powers": [
+	"haven:fangs",
+	"haven:vex_elytra",
+	"haven:disreputable",
+	"haven:golem_hated",
+	"haven:blood_types/none"
+  ],
+  "name": "Mob... ?",
+  "description": "Your heritage, whatever it is, allows you to summon fangs.",
+  "icon": "minecraft:totem_of_undying"
+}

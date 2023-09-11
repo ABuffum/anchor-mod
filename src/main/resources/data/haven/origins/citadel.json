@@ -1,0 +1,17 @@
+{
+  "powers": [
+    "haven:slower_sprint",
+    "haven:stalwart",
+    "haven:tall",
+    "haven:knight_armor",
+    "origins:more_exhaustion",
+    "haven:poison_immunity",
+    "haven:pickaxe_damage",
+    "haven:crushing_fall",
+    "origins:natural_armor",
+    "haven:blood_types/none"
+  ],
+  "name": "Stone Knight",
+  "description": "Your valor is set in stone, as is your shame.",
+  "icon": "minecraft:shield"
+}

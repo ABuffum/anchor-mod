@@ -1,0 +1,19 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:or",
+	"conditions": [
+	  { "type": "origins:name", "name": "fall" },
+	  { "type": "origins:name", "name": "fall.player" },
+	  { "type": "origins:name", "name": "flyIntoWall" },
+	  { "type": "origins:name", "name": "flyIntoWall.player" }
+	]
+  },
+  "modifier": {
+	"name": "Weak to kinetic damage",
+	"operation": "multiply_base",
+	"value": 1
+  },
+  "name": "Porcelain Skin",
+  "description": "Your body is a finely crafted decoration. It was never meant to weather the blunt forces of the outside world."
+}

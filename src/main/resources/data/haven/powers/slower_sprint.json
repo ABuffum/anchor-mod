@@ -1,0 +1,12 @@
+{
+  "type": "origins:conditioned_attribute",
+  "modifier": {
+	"name": "Slower sprinting speed",
+	"attribute": "minecraft:generic.movement_speed",
+	"operation": "multiply_total",
+	"value": -0.2
+  },
+  "tick_rate": 20,
+  "name": "Statue's Speed",
+  "description": "You sprint slower than most."
+}

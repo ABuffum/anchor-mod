@@ -1,0 +1,6 @@
+{
+  "type": "haven:scare_mob",
+  "name": "Natural Predator",
+  "entity_types": [ "haven:red_panda" ],
+  "description": "Red Pandas are scared of you and will flee unless you are holding bamboo."
+}

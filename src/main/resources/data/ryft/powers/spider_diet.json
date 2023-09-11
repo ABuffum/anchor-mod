@@ -1,0 +1,43 @@
+{
+  "type": "origins:prevent_item_use",
+  "item_condition": {
+    "type": "origins:and",
+    "conditions": [
+      {
+        "type": "origins:or",
+        "conditions": [
+          { "type": "origins:meat" },
+          {
+            "type": "origins:ingredient",
+            "ingredient": [
+              { "tag": "origins:meat" },
+              { "item": "minecraft:rotten_flesh" },
+              { "item": "minecraft:spider_eye" }
+            ]
+          }
+        ],
+        "inverted": true
+      },
+      {
+        "type": "origins:ingredient",
+        "ingredient": [
+          { "tag": "haven:edible_mushrooms" },
+          { "tag": "haven:fruits" },
+          { "tag": "haven:grains" },
+          { "tag": "haven:sweets" },
+          { "tag": "haven:vegetables" },
+          { "tag": "croptopia:nuts" }
+        ]
+      },
+      {
+        "type": "origins:ingredient",
+        "ingredient": {
+          "tag": "origins:ignore_diet"
+        },
+        "inverted": true
+      }
+    ]
+  },
+  "name": "\"Spider\" Diet",
+  "description": "Spiders, no, sorry. Not-Spiders are carnivorous. You cannot eat fruit, vegetables, or grains."
+}

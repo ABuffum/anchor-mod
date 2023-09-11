@@ -1,0 +1,11 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "gotospawn @p"
+  },
+  "key": { "key": "key.haven.tertiary_active" },
+  "cooldown": 12000,
+  "name": "Panic Button",
+  "description": "Get out! Now!!!"
+}

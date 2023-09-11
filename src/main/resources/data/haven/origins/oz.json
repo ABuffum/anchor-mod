@@ -1,0 +1,9 @@
+{
+  "powers": [
+    "haven:grounded_circuit",
+	"origins:fire_immunity"
+  ],
+  "name": "Astronomer",
+  "description": "Look to the stars and find something better.",
+  "icon": "minecraft:spyglass"
+}

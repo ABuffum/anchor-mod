@@ -1,0 +1,12 @@
+{
+  "powers": [
+    "origins:elytra",
+    "origins:launch_into_air",
+    "origins:aerial_combatant",
+    "origins:tailwind",
+    "ryft:identified_sounds/quincy"
+  ],
+  "name": "Quincy",
+  "description": "Fairly small, highly dedicated",
+  "icon": "minecraft:player_head"
+}

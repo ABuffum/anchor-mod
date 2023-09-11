@@ -1,0 +1,11 @@
+{
+  "powers": [
+	"haven:rotting_bones",
+	"haven:dispenser_haunted",
+	"haven:dispenser_haunted_toggle",
+	"haven:blood_types/anemic"
+  ],
+  "name": "Wechsel (Punished)",
+  "description": "For the crime of hubby hurting, you must suffer bone-hurting disease!",
+  "icon": "minecraft:oak_sapling"
+}

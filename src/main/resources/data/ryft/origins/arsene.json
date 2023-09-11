@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"haven:tougher_body",
+	"haven:golem_hated",
+	"haven:villager_hated",
+	"haven:hostile_mobs_neutral",
+	"ryft:rationed_diet",
+	"haven:hunger_immunity",
+	"ryft:identified_sounds/arsene"
+  ],
+  "name": "Arsene",
+  "description": "Awfully arrogant of you to check your stats in your own mind.",
+  "icon": "betternether:nether_ruby"
+}

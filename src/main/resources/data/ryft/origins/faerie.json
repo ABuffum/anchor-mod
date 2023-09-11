@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"ryft:feathered_elytra",
+	"origins:launch_into_air",
+	"origins:aerial_combatant",
+	"ryft:smiting_fists",
+	"ryft:chorus_fists",
+	"ryft:identified_sounds/faerie",
+	"ryft:blood_types/draconic"
+  ],
+  "name": "Dracsian",
+  "description": "You are close to the gods but divinity is beyond your reach.",
+  "icon": "minecraft:golden_apple"
+}

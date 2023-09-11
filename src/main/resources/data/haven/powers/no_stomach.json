@@ -1,0 +1,19 @@
+{
+  "type": "origins:multiple",
+  "hunger": {
+	"type": "origins:modify_exhaustion",
+	"modifier": {
+	  "operation": "multiply_total",
+	  "value": -0.15
+	}
+  },
+  "starve": {
+	"type": "origins:invulnerability",
+	"damage_condition": {
+	  "type": "origins:name",
+	  "name": "starve"
+	}
+  },
+  "name": "Arcane Stomach",
+  "description": "You need less food, and cannot starve to death."
+}

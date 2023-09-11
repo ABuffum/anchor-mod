@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"haven:dew_sized",
+	"haven:water_breathing",
+	"origins:climbing",
+	"extraorigins:jockey",
+	"haven:slow_falling",
+	"haven:blood_types/water"
+  ],
+  "name": "Water Spirit",
+  "description": "There's a little bit of you in every little raindrop.",
+  "icon": "minecraft:water_bucket"
+}

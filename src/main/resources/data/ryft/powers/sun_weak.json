@@ -1,0 +1,80 @@
+{
+  "type": "origins:multiple",
+  "status_effects": {
+	"type": "origins:stacking_status_effect",
+	"min_stacks": 0,
+	"max_stacks": 2,
+	"duration_per_stack": 20,
+	"effects": [
+	  {
+		"effect": "minecraft:weakness",
+		"is_ambient": true,
+		"show_particles": false,
+		"show_icon": true
+	  },
+	  {
+		"effect": "minecraft:slowness",
+		"is_ambient": true,
+		"show_particles": false,
+		"show_icon": true
+	  },
+	  {
+		"effect": "minecraft:mining_fatigue",
+		"is_ambient": true,
+		"show_particles": false,
+		"show_icon": true
+	  }
+	],
+	"condition": {
+	  "type": "origins:and",
+	  "conditions": [
+		{
+		  "type": "origins:exposed_to_sun"
+		},
+		{
+		  "type": "origins:invisible",
+		  "inverted": true
+		},
+		{
+		  "type": "origins:submerged_in",
+		  "fluid": "minecraft:water",
+		  "inverted": true
+		},
+		{
+		  "type": "origins:submerged_in",
+		  "fluid": "minecraft:lava",
+		  "inverted": true
+		}
+	  ]
+	}
+  },
+  "exhaustion": {
+	"type": "origins:exhaust",
+	"interval": 20,
+	"exhaustion": 1.0,
+	"condition": {
+	  "type": "origins:and",
+	  "conditions": [
+		{
+		  "type": "origins:exposed_to_sun"
+		},
+		{
+		  "type": "origins:invisible",
+		  "inverted": true
+		},
+		{
+		  "type": "origins:submerged_in",
+		  "fluid": "minecraft:water",
+		  "inverted": true
+		},
+		{
+		  "type": "origins:submerged_in",
+		  "fluid": "minecraft:lava",
+		  "inverted": true
+		}
+	  ]
+	}
+  },
+  "name": "Sun Weak",
+  "description": "You are accustomed to the deep dark and become weak and tired in direct sunlight."
+}

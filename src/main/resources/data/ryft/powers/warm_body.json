@@ -1,0 +1,28 @@
+{
+  "type": "origins:multiple",
+  "damagetype": {
+	"type": "origins:invulnerability",
+	"damage_condition": {
+	  "type": "origins:name",
+	  "name": "freeze"
+	}
+  },
+  "playerdamagetype": {
+	"type": "origins:invulnerability",
+	"damage_condition": {
+	  "type": "origins:name",
+	  "name": "freeze.player"
+	}
+  },
+  "dontfreeze": {
+	"type": "haven:cannot_freeze"
+  },
+  "dontshiver": {
+	"type": "haven:prevent_shivering"
+  },
+  "walkonpowdersnow": {
+	"type": "haven:walk_on_powder_snow"
+  },
+  "name": "Warm Body",
+  "description": "The cold never bothered you anyway."
+}

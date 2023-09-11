@@ -1,0 +1,20 @@
+{
+  "type": "origins:stacking_status_effect",
+  "min_stacks": 0,
+  "max_stacks": 1,
+  "duration_per_stack": 999999,
+  "effects": {
+	"effect": "haven:bone_rot",
+	"is_ambient": true,
+	"show_particles": false,
+	"show_icon": true
+  },
+  "condition": {
+	"type": "origins:status_effect",
+	"effect": "haven:bone_rot",
+	"min_amplifier": 0,
+	"inverted": true
+  },
+  "name": "Bone Rot Affliction",
+  "description": "You are suffering a disease that has no cure. Reach though you might, salvation is not within your grasp."
+}

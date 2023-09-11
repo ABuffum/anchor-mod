@@ -1,0 +1,19 @@
+{
+  "powers": [
+	"ryft:pocket_dimension",
+	"origins:natural_armor",
+	"origins:strong_arms",
+	"origins:strong_arms_break_speed",
+	"origins:pumpkin_hate",
+	"haven:pumpkin_invisibility",
+	"ryft:throw_ender_pearl",
+	"origins:more_exhaustion",
+	"ryft:base_armor",
+	"ryft:thick_skin",
+	"ryft:identified_sounds/oracle",
+	"haven:blood_types/enderman"
+  ],
+  "name": "The Oracle",
+  "description": "God of Protection",
+  "icon": "minecraft:shield"
+}

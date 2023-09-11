@@ -39,6 +39,7 @@ public abstract class ModLanguageCache {
 
 		public String a(String word) { return _add(word, "a"); }
 		public String advances(String word) { return _add(word, "advances"); }
+		public String agrees(String word) { return _add(word, "agrees"); }
 		public String allays(String word) { return _add(word, "allays"); }
 		public String and(String word) { return _add(word, "and"); }
 		public String angrily(String word) { return _add(word, "angrily"); }
@@ -78,6 +79,7 @@ public abstract class ModLanguageCache {
 		public String deployed(String word) { return _add(word, "deployed"); }
 		public String dies(String word) { return _add(word, "dies"); }
 		public String digs(String word) { return _add(word, "digs"); }
+		public String disagrees(String word) { return _add(word, "disagrees"); }
 		public String down(String word) { return _add(word, "down"); }
 		public String draws(String word) { return _add(word, "draws"); }
 		public String dropped(String word) { return _add(word, "dropped"); }

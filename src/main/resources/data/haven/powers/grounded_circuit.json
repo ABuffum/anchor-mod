@@ -1,0 +1,23 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:or",
+	"conditions": [
+	  {
+		"type": "origins:name",
+		"name": "lightningBolt"
+	  },
+	  {
+		"type": "origins:name",
+		"name": "lightningBolt.player"
+	  }
+	]
+  },
+  "modifier": {
+	"name": "Not worried about lightning",
+	"operation": "multiply_total",
+	"value": -1
+  },
+  "name": "Grounded Circuit",
+  "description": "Lightning passes through you harmlessly. Shockingly not shocking!"
+}

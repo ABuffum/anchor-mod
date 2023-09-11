@@ -1,0 +1,15 @@
+{
+    "powers": [
+	  "ryft:slow_falling",
+	  "haven:hidden_elytra",
+	  "haven:wither_immunity",
+	  "ryft:withering_fists",
+	  "ryft:hellraiser",
+	  "haven:drink_blood",
+	  "ryft:identified_sounds/angel",
+	  "haven:blood_types/vampire"
+	],
+    "name": "Angel",
+    "description": "We are looking respectfully ._.",
+    "icon": "minecraft:wither_skeleton_skull"
+}

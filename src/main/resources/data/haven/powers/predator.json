@@ -1,0 +1,16 @@
+{
+  "type": "origins:prevent_item_use",
+  "item_condition": {
+	"type": "origins:and",
+	"conditions": [
+	  { "type": "origins:food" },
+	  {
+		"type": "origins:ingredient",
+		"ingredient": { "tag": "origins:raw_meat" },
+		"inverted": true
+	  }
+	]
+  },
+  "name": "Predator",
+  "description" : "You can only eat raw meat."
+}

@@ -1,0 +1,12 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+	"type": "origins:or",
+	"conditions": [
+	  { "type": "origins:name", "name": "wither" },
+	  { "type": "origins:name", "name": "wither.player" }
+	]
+  },
+  "name": "Withered Enough",
+  "description": "There is little more the withering can do to you."
+}

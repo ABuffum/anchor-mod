@@ -1,0 +1,17 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:explode",
+	"power": 6,
+	"destruction_type": "none",
+	"damage_self": false,
+	"create_fire": false
+  },
+  "hidden": true,
+  "condition": {
+	"type": "origins:resource",
+	"resource": "haven:sludge_move",
+	"comparison": ">=",
+	"compare_to": 159
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "origins:stacking_status_effect",
+  "min_stacks": 0,
+  "max_stacks": 2,
+  "duration_per_stack": 20,
+  "effects": [
+	{
+	  "effect": "minecraft:wither",
+	  "is_ambient": true,
+	  "show_particles": false,
+	  "show_icon": false
+	}
+  ],
+  "name": "Cursed Heart",
+  "description": "You are forever changed."
+}

@@ -1,0 +1,12 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+    "type": "origins:or",
+    "conditions": [
+      { "type": "origins:name", "name": "lava" },
+      { "type": "origins:name", "name": "lava.player" }
+    ]
+  },
+  "name": "Lava Immunity",
+  "description": "You do not take damage from lava."
+}

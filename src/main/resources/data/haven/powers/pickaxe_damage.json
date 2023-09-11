@@ -1,0 +1,23 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:attacker",
+	"entity_condition": {
+	  "type": "origins:equipped_item",
+	  "equipment_slot": "mainhand",
+	  "item_condition": {
+		"type": "origins:ingredient",
+		"ingredient": {
+		  "tag": "minecraft:pickaxes"
+		}
+	  }
+	}
+  },
+  "modifier": {
+	"name": "Weak to pickaxes",
+	"operation": "addition",
+	"value": 5
+  },
+  "name": "Stone Body",
+  "description": "Pickaxes are particularly effective at taking you apart."
+}

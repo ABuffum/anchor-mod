@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"haven:rock_eater",
+	"haven:rock_eater_candy",
+	"haven:robot",
+	"haven:water_breathing",
+	"haven:wither_immunity",
+	"haven:blood_types/none"
+  ],
+  "name": "S.T.A.R.S.",
+  "description": "When you saw the pointy rocks you asked \"Is anybody going to eat that?\" and didn't wait for an answer.",
+  "icon": "minecraft:amethyst_shard"
+}

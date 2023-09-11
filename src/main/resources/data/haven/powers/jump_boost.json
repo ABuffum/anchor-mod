@@ -1,0 +1,6 @@
+{
+  "type": "origins:modify_jump",
+  "modifier": { "name": "Jump Boost power jump addition", "operation": "addition", "value": 0.2 },
+  "name": "Jump boost",
+  "description": "Your powerful legs allows you to jump a little higher than others."
+}

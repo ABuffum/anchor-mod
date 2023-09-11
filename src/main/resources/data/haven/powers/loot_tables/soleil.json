@@ -1,0 +1,5 @@
+{
+  "type": "haven:custom_loot_table",
+  "loot_table": "haven:origins/soleil",
+  "hidden": true
+}

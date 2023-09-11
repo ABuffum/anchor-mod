@@ -1,0 +1,11 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:piglin",
+	"minecraft:piglin_brute",
+	"minecraft:hoglin",
+	"minecraft:zombified_piglin"
+  ],
+  "name": "Weary Allies",
+  "description": "Piglins will not attack you without provocation but they will avoid you. Hoglins are neutral toward you."
+}

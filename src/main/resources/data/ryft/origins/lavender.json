@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"ryft:small_doll_sized",
+	"haven:no_lungs",
+	"ryft:stiff_joints",
+	"ryft:porcelain_skin",
+	"ryft:identified_sounds/lavender",
+	"haven:blood_types/none"
+  ],
+  "name": "Doll",
+  "description": "The shorter one",
+  "icon": "minecraft:pink_wool"
+}

@@ -1,0 +1,96 @@
+{
+  "type": "origins:multiple",
+  "spare": {
+	"type": "origins:prevent_death",
+	"entity_action": {
+	  "type": "origins:and",
+	  "actions": [
+		{
+		  "type": "origins:execute_command",
+		  "command": "cottonfill ~ ~ ~ 4"
+		},
+		{
+		  "type": "origins:heal",
+		  "amount": 20
+		},
+		{
+		  "type": "origins:delay",
+		  "action": {
+			"type": "origins:execute_command",
+			"command": "gotospawn @s"
+		  },
+		  "ticks": 1
+		},
+		{
+		  "type": "origins:delay",
+		  "action": {
+			"type": "origins:execute_command",
+			"command": "extinguish @s"
+		  },
+		  "ticks": 2
+		},
+		{
+		  "type": "origins:delay",
+		  "action": {
+			"type": "origins:execute_command",
+			"command": "neardeath @s"
+		  },
+		  "ticks": 3
+		},
+		{
+		  "type": "origins:clear_effect"
+		},
+		{
+		  "type": "origins:change_resource",
+		  "resource": "haven:cotton_spare_ready",
+		  "change": -100
+		}
+	  ]
+	},
+	"condition": {
+	  "type": "origins:and",
+	  "conditions": [
+		{
+		  "type": "origins:resource",
+		  "resource": "haven:cotton_spare_ready",
+		  "comparison": ">",
+		  "compare_to": 99
+		}
+	  ]
+	}
+  },
+  "prepare": {
+	"type": "origins:action_over_time",
+	"entity_action": {
+	  "type": "origins:change_resource",
+	  "resource": "haven:cotton_spare_ready",
+	  "change": 1
+	},
+	"interval": 20,
+	"condition": {
+	  "type": "origins:resource",
+	  "resource": "haven:cotton_spare_ready",
+	  "comparison": "<",
+	  "compare_to": 100
+	}
+  },
+  "ready": {
+	"type": "origins:resource",
+	"min": 0,
+	"max": 100,
+	"start_value": 100,
+	"hud_render": {
+	  "bar_index": 4,
+	  "should_render": true,
+	  "sprite_location": "origins:textures/gui/resource_bar.png",
+	  "condition": {
+		"type": "origins:resource",
+		"resource": "haven:cotton_spare_ready",
+		"comparison": "<",
+		"compare_to": 100
+	  }
+	}
+  },
+  "name": "Escape Plan",
+  "description": "You always have a way out."
+}

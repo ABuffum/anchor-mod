@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"haven:stinging_fists",
+	"haven:nectarvore",
+	"origins:water_vulnerability",
+	"haven:take_honey",
+	"haven:tall",
+	"haven:attacked_by_hedgehogs",
+	"haven:blood_types/bee_enderman"
+  ],
+  "name": "B33 Hybr1d",
+  "description": "Ya like jazz?",
+  "icon": "minecraft:honeycomb"
+}

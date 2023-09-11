@@ -1,0 +1,9 @@
+{
+  "type": "origins:modify_swim_speed",
+  "modifier": {
+	"operation": "multiply_base",
+	"value": -0.5
+  },
+  "name": "Rock in Water",
+  "description": "Sink like a stone. You aren't swimming far."
+}

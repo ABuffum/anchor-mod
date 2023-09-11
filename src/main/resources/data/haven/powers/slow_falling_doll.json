@@ -1,0 +1,26 @@
+{
+  "type": "apoli:modify_falling",
+  "velocity": 0.01,
+  "take_fall_damage": false,
+  "condition": {
+	"type": "origins:or",
+	"conditions": [
+	  {
+		"type": "origins:and",
+		"conditions": [
+		  { "type": "origins:sneaking" },
+		  { "type": "origins:fall_flying" }
+		]
+	  },
+	  {
+		"type": "origins:and",
+		"conditions": [
+		  { "type": "origins:sneaking", "inverted": true },
+		  { "type": "origins:fall_flying", "inverted": true }
+		]
+	  }
+	]
+  },
+  "name": "Light as a feather",
+  "description": "Whatever your reason may be, you seem to fall slower than others"
+}

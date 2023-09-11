@@ -1,0 +1,11 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Knockback resistance increase",
+	"attribute": "minecraft:generic.knockback_resistance",
+	"value": 0.6,
+	"operation": "addition"
+  },
+  "name": "Rooted",
+  "description": "Have you ever tried moving a tree? It's really fucking hard."
+}

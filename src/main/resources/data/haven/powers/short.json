@@ -1,0 +1,9 @@
+{
+  "type": "origins:multiple",
+  "modify_size": {
+	"type": "extraorigins:modify_size",
+	"scale": 0.75
+  },
+  "name": "Short",
+  "description": "You aren't very tall."
+}

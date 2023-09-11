@@ -1,0 +1,12 @@
+{
+  "powers": [
+    "haven:irys_sized",
+    "origins:climbing",
+    "extraorigins:jockey",
+    "haven:skin_glow_15",
+    "haven:blood_types/none"
+  ],
+  "name": "Light Spirit",
+  "description": "Our little sunshine <3",
+  "icon": "minecraft:torch"
+}

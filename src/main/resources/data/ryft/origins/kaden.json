@@ -1,0 +1,18 @@
+{
+  "powers": [
+	"origins:fall_immunity",
+	"origins:sprint_jump",
+	"haven:soft_steps",
+	"origins:nine_lives",
+	"origins:scare_creepers",
+	"origins:cat_vision",
+	"haven:warm_body",
+	"haven:darkness_immunity",
+	"origins:more_exhaustion",
+	"ryft:identified_sounds/kaden",
+	"haven:blood_types/nephal"
+  ],
+  "name": "Kaden",
+  "description": "We have high expectations for you.",
+  "icon": "minecraft:orange_wool"
+}

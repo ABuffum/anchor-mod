@@ -1,0 +1,6 @@
+{
+  "type": "origins:modify_swim_speed",
+  "modifier": { "operation": "multiply_base", "value": -0.2 },
+  "name": "Bad Swimmer",
+  "description": "Sugar mixes a bit too well with water. You swim slower than others."
+}

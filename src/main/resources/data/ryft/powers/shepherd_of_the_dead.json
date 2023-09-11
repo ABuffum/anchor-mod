@@ -1,0 +1,35 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:skeleton",
+    "minecraft:stray",
+    "minecraft:wither_skeleton",
+    "haven:mossy_skeleton",
+    "haven:sunken_skeleton",
+    
+    "minecraft:zombie",
+    "minecraft:husk",
+    "minecraft:skeleton",
+    "minecraft:zombie_villager",
+    "minecraft:zombie",
+    "haven:frozen_zombie",
+    "haven:jungle_zombie",
+    
+    "minecraft:zombified_piglin",
+    "minecraft:zoglin",
+    
+    "minecraft:phantom",
+    "haven:red_phantom",
+  
+    "minecraft:skeleton_horse",
+    "minecraft:zombie_horse",
+    
+    "minecraft:ghast",
+    
+    "betternether:jungle_skeleton",
+    "betternether:naga",
+    "betternether:skull"
+  ],
+  "name": "Shepherd of the Dead",
+  "description": "Lost souls will not trouble you, so long as you do not trouble them."
+}

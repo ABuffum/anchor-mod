@@ -1,0 +1,15 @@
+{
+  "powers": [
+	"haven:always_withered",
+	"haven:withered_enough",
+	"haven:sun_weak",
+	"haven:familiar_ground",
+	"haven:poison_immunity",
+	"haven:piglin_hated",
+	"haven:morbid_familiarity",
+	"haven:blood_types/none"
+  ],
+  "name": "Withered",
+  "description": "Woe, you are decrepit.",
+  "icon": "minecraft:wither_skeleton_skull"
+}

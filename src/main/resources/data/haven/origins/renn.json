@@ -1,0 +1,19 @@
+{
+  "powers": [
+	"haven:no_stomach",
+	"haven:cotton_guard",
+	"haven:doll_regen",
+	"haven:bad_swimmer_doll",
+	"haven:slow_falling_doll",
+	"extraorigins:bite_sized",
+	"origins:climbing",
+	"extraorigins:jockey",
+	"haven:pincushion",
+	"haven:doll_weakness",
+	"haven:mowf",
+	"haven:blood_types/none"
+  ],
+  "name": "Living Doll",
+  "description": "You're a living doll, animated by powerful magic; while you can't use any of that magic yourself, you're still quite the unusual fellow!",
+  "icon": "minecraft:white_wool"
+}

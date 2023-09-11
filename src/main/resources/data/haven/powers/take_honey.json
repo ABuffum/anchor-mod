@@ -1,0 +1,5 @@
+{
+  "type": "haven:take_honey",
+  "name": "Honey Harvester",
+  "description": "Bees will not become angry with you for harvesting honey"
+}

@@ -1,0 +1,19 @@
+{
+  "type": "origins:multiple",
+  "falling": {
+	"type": "apoli:modify_falling",
+	"velocity": 0.01,
+	"take_fall_damage": false,
+	"condition": {
+	  "type": "origins:power_active",
+	  "power": "haven:slow_falling_doll_large_toggle"
+	}
+  },
+  "toggle": {
+	"type": "origins:toggle",
+	"active_by_default": false,
+	"key": { "key": "key.origins.secondary_active" }
+  },
+  "name": "Light as a feather",
+  "description": "Whatever your reason may be, you seem to fall slower than others"
+}

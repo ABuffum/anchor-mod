@@ -1,0 +1,17 @@
+{
+  "type": "origins:modify_damage_taken",
+  "modifier": {
+    "name": "Snowball damage taken like Blazes",
+    "value": 3,
+    "operation": "addition"
+  },
+  "damage_condition": {
+    "type": "origins:or",
+    "conditions": [
+      { "type": "origins:projectile", "projectile": "minecraft:snowball" },
+      { "type": "origins:projectile", "projectile": "haven:slowing_snowball" }
+    ]
+  },
+  "name": "Snowball Woes",
+  "description": "Snowballs hurt!"
+}

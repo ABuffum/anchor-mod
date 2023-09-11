@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"ryft:medium_doll_sized",
+	"haven:no_lungs",
+	"ryft:stiff_joints",
+	"ryft:porcelain_skin",
+	"ryft:identified_sounds/rose",
+	"haven:blood_types/none"
+  ],
+  "name": "Bigger Doll",
+  "description": "The taller one",
+  "icon": "minecraft:black_wool"
+}

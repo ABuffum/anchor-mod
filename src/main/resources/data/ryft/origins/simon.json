@@ -1,0 +1,14 @@
+{
+  "powers": [
+    "ryft:more_unarmed_attack_damage",
+    "ryft:revitalizing_injection",
+    "haven:grounded_circuit",
+    "ryft:weaker_body",
+    "ryft:spider_hated",
+    "ryft:extreme_arachnophobia",
+    "ryft:identified_sounds/simon"
+  ],
+  "name": "Cyborg",
+  "description": "Mechanically superior",
+  "icon": "minecraft:lightning_rod"
+}

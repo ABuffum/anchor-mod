@@ -1,0 +1,9 @@
+{
+  "type": "origins:toggle",
+  "key": {
+	"key": "key.origins.secondary_active",
+	"continuous": false
+  },
+  "name": "Phantom Form",
+  "description": "You can switch between human and phantom form at will."
+}

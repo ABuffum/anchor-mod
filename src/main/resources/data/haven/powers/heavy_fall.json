@@ -1,0 +1,17 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:or",
+	"conditions": [
+	  { "type": "origins:name", "name": "fall" },
+	  { "type": "origins:name", "name": "fall.player" }
+	]
+  },
+  "modifier": {
+	"name": "Weak to fall damage",
+	"operation": "addition",
+	"value": 1
+  },
+  "name": "Heavy Fall",
+  "description": "You hit the ground harder than most."
+}

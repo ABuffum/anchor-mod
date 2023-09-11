@@ -1,0 +1,12 @@
+{
+  "powers": [
+    "ryft:psychopomp_wither_immunity",
+    "ryft:shepherd_of_the_dead",
+    "ryft:morbid_guide",
+    "ryft:identified_sounds/tatiy",
+    "haven:blood_types/none"
+  ],
+  "name": "Psychopomp",
+  "description": "Who better to guide us?",
+  "icon": "minecraft:wither_rose"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+	"type": "origins:name",
+	"name": "starve"
+  },
+  "name": "Cannot Starve",
+  "description": "You cannot starve to death."
+}

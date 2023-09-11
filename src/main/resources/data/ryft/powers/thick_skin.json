@@ -1,0 +1,61 @@
+{
+  "type": "origins:multiple",
+  "helmet_1": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor helmet less than 1", "attribute": "minecraft:generic.armor", "value": 2, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "head",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 1 }
+	}
+  },
+  "chestplate_1": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor chestplate less than 1", "attribute": "minecraft:generic.armor", "value": 2, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "chest",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 1 }
+	}
+  },
+  "chestplate_2": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor chestplate less than 2", "attribute": "minecraft:generic.armor", "value": 1, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "chest",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 2 }
+	}
+  },
+  "chestplate_3": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor chestplate less than 3", "attribute": "minecraft:generic.armor", "value": 1, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "chest",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 3 }
+	}
+  },
+  "leggings_1": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor leggings less than 1", "attribute": "minecraft:generic.armor", "value": 2, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "legs",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 1 }
+	}
+  },
+  "leggings_2": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor leggings less than 2", "attribute": "minecraft:generic.armor", "value": 1, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "legs",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 2 }
+	}
+  },
+  "boots_1": {
+	"type": "origins:conditioned_attribute",
+	"modifier": { "name": "Base Armor boots less than 1", "attribute": "minecraft:generic.armor", "value": 2, "operation": "addition" },
+	"condition": {
+	  "type": "origins:equipped_item", "equipment_slot": "feet",
+	  "item_condition": { "type": "origins:armor_value", "comparison": "<", "compare_to": 1 }
+	}
+  },
+  "name": "Thick Skin",
+  "description": "Your natural armor always provides you moderate protection."
+}

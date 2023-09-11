@@ -1,0 +1,11 @@
+{
+  "type": "origins:model_color",
+  "alpha": 0.5,
+  "render_armor": true,
+  "condition": {
+	"type": "origins:power_active",
+	"power": "extraorigins:phantomize_vex"
+  },
+  "name": "Invisibility",
+  "description": "While phantomized, you are invisible."
+}

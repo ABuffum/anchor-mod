@@ -1,0 +1,8 @@
+{
+  "type": "origins:effect_immunity",
+  "effects": [
+	"minecraft:poison"
+  ],
+  "name": "Poison Immunity",
+  "description": "You cannot be poisoned."
+}

@@ -1,0 +1,22 @@
+{
+  "type": "origins:modify_food",
+  "item_condition": {
+	"type": "origins:ingredient",
+	"ingredient": [
+	  { "item": "minecraft:bread" },
+	  { "item": "minecraft:carrot" },
+	  { "item": "minecraft:golden_carrot" },
+	  { "item": "minecraft:potato" },
+	  { "item": "minecraft:baked_potato" },
+	  { "item": "minecraft:poisonous_potato" },
+	  { "item": "haven:golden_potato" },
+	  { "item": "haven:golden_baked_potato" }
+	]
+  },
+  "entity_action": {
+	"type": "origins:apply_effect",
+	"effect": { "effect": "minecraft:nausea", "duration": 900, "amplifier": 0 }
+  },
+  "name": "Raptor Diet",
+  "description": "Bread, carrots, and potatoes makes your tummy hurt :("
+}

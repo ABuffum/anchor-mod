@@ -1,0 +1,11 @@
+{
+  "powers": [
+    "haven:reduce_fall_damage",
+    "haven:jump_boost",
+    "origins:tailwind",
+    "haven:blood_types/chicken"
+  ],
+  "name": "Flightless Bird",
+  "description": "These small wings aren't just for show! (I lied actually, they are just for show)",
+  "icon": "minecraft:egg"
+}

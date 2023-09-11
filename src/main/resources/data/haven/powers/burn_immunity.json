@@ -1,0 +1,14 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+    "type": "origins:or",
+    "conditions": [
+      { "type": "origins:name", "name": "hotFloor" },
+      { "type": "origins:name", "name": "hotFloor.player" },
+      { "type": "origins:name", "name": "lava" },
+      { "type": "origins:name", "name": "lava.player" }
+    ]
+  },
+  "name": "Burn Immunity",
+  "description": "The heat never bothered you anyway."
+}

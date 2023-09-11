@@ -1,0 +1,6 @@
+{
+  "type": "haven:crack_blocks",
+  "distance": "8",
+  "name": "Crushing Fall",
+  "description": "You leave an impact if you hit the ground too hard without sneaking."
+}

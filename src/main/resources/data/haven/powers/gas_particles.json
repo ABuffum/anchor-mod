@@ -1,0 +1,7 @@
+{
+  "type": "origins:particle",
+  "particle": "minecraft:portal",
+  "frequency": 4,
+  "name": "Particles",
+  "description": "You have a cloud of particles around you."
+}

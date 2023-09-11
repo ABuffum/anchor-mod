@@ -1,0 +1,12 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Tougher health increase",
+	"attribute": "minecraft:generic.max_health",
+	"value": 40.0,
+	"operation": "addition"
+  },
+  "update_health": true,
+  "name": "Tougher Body",
+  "description": "You have three times the health of a typical human."
+}

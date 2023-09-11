@@ -1,0 +1,11 @@
+{
+  "powers": [
+	"extraorigins:bite_sized",
+	"origins:climbing",
+	"extraorigins:jockey",
+	"haven:blood_types/none"
+  ],
+  "name": "Mushroom Spirit",
+  "description": "There's always so muchroom for a mushroom <3",
+  "icon": "minecraft:red_mushroom"
+}

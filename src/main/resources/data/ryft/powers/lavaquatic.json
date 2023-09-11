@@ -1,0 +1,9 @@
+{
+  "type": "haven:fluid_breather",
+  "fluid": "haven:lava_water",
+  "suffocate": false,
+  "dryout": true,
+  "touch": true,
+  "name": "Lavaquatic",
+  "description": "You can breathe in water and lava but will slowly dry out on land."
+}

@@ -1,0 +1,11 @@
+{
+  "powers": [
+	"origins-classes:stealth",
+	"origins-classes:stealth_descriptor"
+  ],
+  "icon": "minecraft:leather_helmet",
+  "order": 12,
+  "impact": 0,
+  "name": "Sneak",
+  "description": "Sneaks are proficient in ambushes and stealth attacks."
+}

@@ -1,0 +1,11 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Base Armor addition",
+	"attribute": "minecraft:generic.armor",
+	"operation": "addition",
+	"value": 5
+  },
+  "name": "Base Armor",
+  "description": "You have natural armor protecting you even more."
+}

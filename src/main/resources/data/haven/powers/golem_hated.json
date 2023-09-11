@@ -1,0 +1,9 @@
+{
+  "type": "haven:mob_hostility",
+  "entity_types": [
+    "minecraft:iron_golem",
+    "minecraft:snow_golem"
+  ],
+  "name": "Golem-Hated",
+  "description": "Golems will attack you on sight."
+}

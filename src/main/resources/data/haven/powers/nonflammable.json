@@ -1,0 +1,5 @@
+{
+  "type": "haven:fire_immune",
+  "name": "Nonflammable",
+  "description": "You cannot be set on fire."
+}

@@ -1,0 +1,18 @@
+{
+  "type": "origins:multiple",
+  "shader": {
+    "type": "origins:shader",
+    "shader": "minecraft:shaders/post/spider.json",
+    "condition": {
+      "type": "origins:power_active",
+      "power": "haven:spider_eyes_toggle"
+    }
+  },
+  "toggle": {
+    "type": "origins:toggle",
+    "active_by_default": false,
+    "key": { "key": "key.origins.secondary_active" }
+  },
+  "name": "Spider Eyes",
+  "description": "Seeing double? More like seeing octuple... I pity you irl"
+}

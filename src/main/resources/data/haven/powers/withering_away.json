@@ -1,0 +1,31 @@
+{
+  "type": "origins:stacking_status_effect",
+  "min_stacks": 0,
+  "max_stacks": 1,
+  "duration_per_stack": 999999,
+  "effects": {
+	"effect": "haven:withering",
+	"is_ambient": true,
+	"show_particles": false,
+	"show_icon": true
+  },
+  "condition": {
+	"type": "origins:and",
+	"conditions": [
+	  {
+		"type": "origins:status_effect",
+		"effect": "haven:withering",
+		"min_amplifier": 0,
+		"inverted": true
+	  },
+	  {
+		"type": "origins:status_effect",
+		"effect": "haven:protected",
+		"min_amplifier": 0,
+		"inverted": true
+	  }
+	]
+  },
+  "name": "Withering Away",
+  "description": "The clock is ticking."
+}

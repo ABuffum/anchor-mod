@@ -1,0 +1,12 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Fragile health reduction",
+	"attribute": "minecraft:generic.max_health",
+	"value": -4.0,
+	"operation": "addition"
+  },
+  "update_health": true,
+  "name": "Diminished Constitution",
+  "description": "You aren't quite as durable as a typical human."
+}

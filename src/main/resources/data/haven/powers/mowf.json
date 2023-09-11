@@ -1,0 +1,11 @@
+{
+	"type": "haven:single_slot_inventory",
+	"title": "Mowf",
+	"drop_on_death": false,
+	"key": {
+		"key": "key.origins.primary_active",
+		"continuous": false
+	},
+	"name": "Mowf",
+	"description": "Ommmmm nom nom nom."
+}

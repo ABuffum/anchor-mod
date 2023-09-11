@@ -1,0 +1,12 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:name",
+	"name": "lava"
+  },
+  "modifier": {
+	"name": "Resistant to lava",
+	"operation": "multiply_total",
+	"value": -0.5
+  }
+}

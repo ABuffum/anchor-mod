@@ -1,0 +1,9 @@
+{
+  "powers": [
+    "haven:fof_sized",
+    "haven:blood_types/sap"
+  ],
+  "name": "Forest Spirit",
+  "description": "50% moss, 50% massive, 100% friend.",
+  "icon": "minecraft:moss_block"
+}

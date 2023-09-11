@@ -1,0 +1,12 @@
+{
+  "powers": [
+	"origins:climbing",
+	"origins:fall_immunity",
+	"haven:little_sheep",
+	"extraorigins:jockey",
+	"haven:blood_types/sheep"
+  ],
+  "name": "Sheep Spirit",
+  "description": "You are now and will always be Our Friend",
+  "icon": "haven:white_sheep_plushie"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Knockback resistance increase",
+	"attribute": "minecraft:generic.knockback_resistance",
+	"value": 0.2,
+	"operation": "addition"
+  },
+  "name": "Stalwart",
+  "description": "Stand firm."
+}

@@ -1,0 +1,42 @@
+{
+  "type": "origins:stacking_status_effect",
+  "min_stacks": 0,
+  "max_stacks": 2,
+  "duration_per_stack": 20,
+  "effects": [
+	{
+	  "effect": "minecraft:regeneration",
+	  "amplifier": 2,
+	  "is_ambient": true,
+	  "show_particles": false,
+	  "show_icon": true
+	}
+  ],
+  "condition": {
+	"type": "origins:or",
+	"conditions": [
+	  {
+		"type": "origins:on_block",
+		"block_condition": { "type": "origins:block", "block": "minecraft:sculk" }
+	  },
+	  {
+		"type": "origins:on_block",
+		"block_condition": { "type": "origins:block", "block": "minecraft:sculk_catalyst" }
+	  },
+	  {
+		"type": "origins:on_block",
+		"block_condition": { "type": "origins:block", "block": "minecraft:sculk_vein" }
+	  },
+	  {
+		"type": "origins:in_block",
+		"block_condition": { "type": "origins:block", "block": "minecraft:sculk_vein" }
+	  },
+	  {
+		"type": "origins:in_block",
+		"block_condition": { "type": "origins:in_tag", "tag": "haven:sculk_turf" }
+	  }
+	]
+  },
+  "name": "Sculk Self",
+  "description": "Your connection to sculk has some benefits."
+}

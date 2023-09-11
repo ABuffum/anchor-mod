@@ -1,0 +1,14 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+    "type": "origins:or",
+    "conditions": [
+      { "type": "origins:name", "name": "inFire" },
+      { "type": "origins:name", "name": "inFire.player" },
+      { "type": "origins:name", "name": "onFire" },
+      { "type": "origins:name", "name": "onFire.player" }
+    ]
+  },
+  "name": "Fire Immunity",
+  "description": "You do not take damage from fire."
+}

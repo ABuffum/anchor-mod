@@ -1,0 +1,10 @@
+{
+  "type": "origins:modify_exhaustion",
+  "modifier": {
+	"name": "Decreased exhaustion from rationed diet power",
+	"operation": "multiply_base",
+	"value": -0.9
+  },
+  "name": "Rationed Diet",
+  "description": "It takes a lot to make you hungry"
+}

@@ -1,0 +1,9 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:phantom",
+    "haven:red_phantom"
+  ],
+  "name": "Midnight Besties",
+  "description": "Phantoms will not attack you."
+}

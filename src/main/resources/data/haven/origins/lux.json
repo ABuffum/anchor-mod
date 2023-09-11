@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"origins:fire_immunity",
+	"haven:fire_fists",
+	"origins:water_vulnerability",
+	"haven:coal_eater",
+	"haven:charcoal_eater",
+	"haven:blood_types/nether_royalty"
+  ],
+  "name": "Nether Prince",
+  "description": "Why aren't people bowing down yet?",
+  "icon": "haven:lux_crown"
+}

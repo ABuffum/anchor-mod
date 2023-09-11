@@ -1,0 +1,11 @@
+{
+	"type": "origins:inventory",
+	"title": "Pockets",
+	"drop_on_death": false,
+	"key": {
+		"key": "key.origins.primary_active",
+		"continuous": false
+	},
+	"name": "Deep Pockets",
+	"description": "You have access to an additional 9 slots of inventory, which keep the items on death."
+}

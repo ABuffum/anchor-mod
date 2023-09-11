@@ -1,0 +1,11 @@
+{
+  "powers": [
+	"origins:fire_immunity",
+	"haven:august_always_dies",
+	"haven:eat_dog_food",
+	"haven:blood_types/ichor"
+  ],
+  "name": "Tiefling",
+  "description": "You will die many times, many ways, but not by fire at least! Also your blood is fucked.",
+  "icon": "minecraft:blaze_powder"
+}

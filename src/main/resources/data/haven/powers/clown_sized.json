@@ -1,0 +1,15 @@
+{
+  "type": "origins:multiple",
+  "modify_size": {
+	"type": "extraorigins:modify_size",
+	"scale_types": "pehkui:base",
+	"scale": 0.85
+  },
+  "modify_hitbox": {
+	"type": "extraorigins:modify_size",
+	"scale_types": "pehkui:hitbox_height",
+	"scale": 1.15
+  },
+  "name": "Clown Sized",
+  "description": "You are short."
+}

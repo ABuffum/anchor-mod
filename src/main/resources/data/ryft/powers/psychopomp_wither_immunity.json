@@ -1,0 +1,25 @@
+{
+  "type": "origins:multiple",
+  "effect": {
+	"type": "origins:effect_immunity",
+	"effects": [
+	  "minecraft:wither"
+	]
+  },
+  "wither": {
+	"type": "origins:invulnerability",
+	"damage_condition": {
+	  "type": "origins:name",
+	  "name": "wither"
+	}
+  },
+  "player": {
+	"type": "origins:invulnerability",
+	"damage_condition": {
+	  "type": "origins:name",
+	  "name": "wither.player"
+	}
+  },
+  "name": "Once-Withered",
+  "description": "Decay can take no greater hold on you than it already has."
+}

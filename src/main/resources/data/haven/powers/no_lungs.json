@@ -1,0 +1,27 @@
+{
+  "type": "origins:multiple",
+  "no_damage": {
+    "type": "origins:invulnerability",
+    "damage_condition": {
+      "type": "origins:or",
+      "conditions": [
+        { "type": "origins:name", "name": "inWall" },
+        { "type": "origins:name", "name": "inWall.player" },
+        { "type": "origins:name", "name": "drown" },
+        { "type": "origins:name", "name": "drown.player" },
+        { "type": "origins:name", "name": "no_water_for_gills" },
+        { "type": "origins:name", "name": "no_water_for_gills.player" },
+        { "type": "origins:name", "name": "suffocate" },
+        { "type": "origins:name", "name": "suffocate.player" }
+      ]
+    }
+  },
+  "air_unnecessary": {
+    "type": "haven:fluid_breather",
+    "fluid": "minecraft:water",
+    "suffocate": false,
+    "dryout": false
+  },
+  "name": "No Lungs",
+  "description": "You do not need to breathe and cannot suffocate or drown."
+}

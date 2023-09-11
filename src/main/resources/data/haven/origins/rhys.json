@@ -1,0 +1,9 @@
+{
+  "powers": [
+	"origins:fire_immunity",
+    "haven:blood_types/lava"
+  ],
+  "name": "Fire Immune",
+  "description": "You look upon those burning flames and scorching rivers of lava and you say ha! Not today.",
+  "icon": "minecraft:blaze_powder"
+}

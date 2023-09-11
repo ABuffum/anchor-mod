@@ -1,0 +1,6 @@
+{
+  "type": "haven:mob_hostility",
+  "entity_types": [ "minecraft:fox" ],
+  "name": "Foxes' Prey",
+  "description": "Foxes will naturally attack you."
+}

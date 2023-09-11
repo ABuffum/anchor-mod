@@ -1,0 +1,27 @@
+{
+  "type": "origins:modify_damage_taken",
+  "damage_condition": {
+	"type": "origins:attacker",
+	"entity_condition": {
+	  "type": "origins:or",
+	  "conditions": [
+		{
+		  "type": "origins:in_tag",
+		  "tag": "haven:spiders"
+		},
+		{
+		  "type": "origins:origin",
+		  "layer": "origins:origin",
+		  "origin": "ryft:kirha"
+		}
+	  ]
+	}
+  },
+  "modifier": {
+	"name": "Weak to spider bites",
+	"operation": "addition",
+	"value": 1.0
+  },
+  "name": "Extreme Arachnophobia",
+  "description": "Spider bites hurt you more than most. It's probably all in your head though... right?"
+}

@@ -1,0 +1,20 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "function haven:sludge_move"
+  },
+  "cooldown": 160,
+  "hud_render": {
+	"should_render": true,
+	"sprite_location": "origins:textures/gui/resource_bar.png",
+	"bar_index": 0,
+	"condition": {
+	  "value": true,
+	  "type": "origins:constant",
+	  "inverted": false
+	}
+  },
+  "name": "Sludge Move",
+  "description": "Oh that awful sludge you've kept bottled up. Let it all out!"
+}

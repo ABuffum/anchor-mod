@@ -1,0 +1,36 @@
+{
+  "condition": {
+	"type": "origins:and",
+	"conditions": [
+	  { "type": "origins:on_block" },
+	  {
+		"type": "origins:status_effect",
+		"effect": "minecraft:slow_falling",
+		"min_amplifier": 0,
+		"max_amplifier": 2147483647,
+		"min_duration": 0,
+		"max_duration": 2147483647,
+		"inverted": true
+	  }
+	]
+  },
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:and",
+	"actions": [
+	  { "type": "origins:exhaust", "amount": 0.15 },
+	  { "type": "origins:add_velocity", "y": 2, "space": "world" },
+	  { "type": "origins:add_velocity", "z": 1, "space": "local_horizontal" },
+	  { "type": "origins:add_velocity", "z": 0.5, "space": "local" }
+	]
+  },
+  "cooldown": 40,
+  "hud_render": {
+	"should_render": true,
+	"sprite_location": "origins:textures/gui/resource_bar.png",
+	"bar_index": 8
+  },
+  "key": "key.origins.primary_active",
+  "name": "Bunny Jump",
+  "description": "You've got the hops!"
+}

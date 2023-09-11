@@ -1,0 +1,14 @@
+{
+  "type": "origins:modify_damage_dealt",
+  "target_condition": {
+	"type": "origins:entity_group",
+	"group": "undead"
+  },
+  "modifier": {
+	"name": "Smiting fists power damage",
+	"operation": "addition",
+	"value": 2.5
+  },
+  "name": "Smiting Fists",
+  "description": "You hit harder when your adversaries are undead."
+}

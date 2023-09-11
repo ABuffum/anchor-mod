@@ -1,0 +1,16 @@
+{
+  "powers": [
+	"haven:no_shoes",
+	"haven:photosynthesis",
+	"haven:burn_forever",
+	"haven:sculk_self",
+	"haven:rooted",
+	"haven:big_tree",
+	"haven:functionally_undead",
+	"origins:natural_armor",
+	"haven:blood_types/sap"
+  ],
+  "name": "Tree",
+  "description": "What the fuck? This tree has sculk in it!",
+  "icon": "minecraft:sculk"
+}

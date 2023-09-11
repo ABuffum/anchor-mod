@@ -1,0 +1,9 @@
+{
+  "powers": [
+    "haven:gas_particles",
+    "haven:blood_types/none"
+  ],
+  "name": "Gaseous Being",
+  "description": "Take care to keep your particles together.",
+  "icon": "minecraft:end_crystal"
+}

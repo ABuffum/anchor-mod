@@ -1,0 +1,36 @@
+{
+  "type": "origins:multiple",
+  "climb_cobwebs": {
+	"type": "origins:climbing",
+	"condition": {
+	  "type": "origins:in_block_anywhere",
+	  "block_condition": {
+		"type": "origins:in_tag",
+		"tag": "origins:cobwebs"
+	  }
+	},
+	"hold_condition": {
+	  "type": "origins:in_block_anywhere",
+	  "block_condition": {
+		"type": "origins:in_tag",
+		"tag": "origins:cobwebs"
+	  }
+	}
+  },
+  "punch_through": {
+	"type": "origins:prevent_block_selection",
+	"block_condition": {
+	  "type": "origins:in_tag",
+	  "tag": "origins:cobwebs"
+	},
+	"condition": {
+	  "type": "origins:sneaking",
+	  "inverted": true
+	}
+  },
+  "move_unrestricted": {
+	"type": "haven:cobweb_movement"
+  },
+  "name": "Untangled",
+  "description": "You can move freely through webs."
+}

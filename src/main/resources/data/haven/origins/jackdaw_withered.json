@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"haven:reduce_fall_damage",
+	"haven:jump_boost",
+	"origins:tailwind",
+	"origins:more_exhaustion",
+	"haven:cannot_sleep",
+	"haven:withering_away",
+	"haven:blood_types/chicken"
+  ],
+  "name": "Withered Chicken",
+  "description": "Fucked around. Found out.",
+  "icon": "minecraft:egg"
+}

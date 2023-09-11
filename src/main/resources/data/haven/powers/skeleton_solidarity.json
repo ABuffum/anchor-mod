@@ -1,0 +1,18 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:skeleton",
+	"minecraft:stray",
+	"minecraft:wither_skeleton",
+	"minecraft:skeleton_horse",
+	
+	"haven:mossy_skeleton",
+	"haven:sunken_skeleton",
+	
+	"betternether:jungle_skeleton",
+	"betternether:skull",
+	"betternether:naga"
+  ],
+  "name": "Skeleton Solidarity",
+  "description": "Other skeletons respect the hustle. They won't bother you if you don't bother them."
+}

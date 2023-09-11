@@ -1,0 +1,19 @@
+{
+  "powers": [
+	"haven:darkvision",
+	"haven:nocturnal_hunter",
+	"haven:diurnal_sufferer",
+	"haven:essence_thief",
+	"haven:dream_eater",
+	"haven:thirst_for_ambition",
+	"haven:villager_hated",
+	"haven:golem_hated",
+	"haven:drink_blood",
+	"haven:midnight_besties",
+	"haven:hidden_elytra",
+	"haven:blood_types/phantom"
+  ],
+  "name": "Phantom",
+  "description": "Aww aren't you a- ouch! Stop biting me!!!",
+  "icon": "minecraft:experience_bottle"
+}

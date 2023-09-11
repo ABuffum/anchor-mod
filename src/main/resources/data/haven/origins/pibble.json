@@ -1,0 +1,15 @@
+{
+  "powers": [
+	"origins:climbing",
+	"origins:fall_immunity",
+	"haven:rock_in_water",
+	"haven:pibble_sized",
+	"haven:warm_body",
+	"haven:rock_eater",
+	"haven:rock_eater_candy",
+	"haven:blood_types/mud"
+  ],
+  "name": "Stone Spirit",
+  "description": "Rock on little dude!",
+  "icon": "minecraft:stone_button"
+}

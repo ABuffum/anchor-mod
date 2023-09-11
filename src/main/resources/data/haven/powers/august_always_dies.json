@@ -1,0 +1,15 @@
+{
+  "type": "origins:action_when_damage_taken",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "tellraw @a \"#augustalwaysdies\""
+  },
+  "condition": {
+	"type": "origins:health",
+	"comparison": "==",
+	"compare_to": 0
+  },
+  "cooldown": 1,
+  "name": "August Always Dies",
+  "description": "Was it really a surprise?"
+}

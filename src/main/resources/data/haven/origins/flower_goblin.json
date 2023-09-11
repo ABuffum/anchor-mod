@@ -1,0 +1,11 @@
+{
+  "powers": [
+    "extraorigins:bite_sized",
+    "origins:climbing",
+    "extraorigins:jockey",
+    "haven:blood_types/honey"
+  ],
+  "name": "Flower Spirit",
+  "description": "There are some who might call you goblin. They would be correct.",
+  "icon": "minecraft:pink_tulip"
+}

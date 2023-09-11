@@ -1,0 +1,5 @@
+{
+  "type": "haven:mob_hostility",
+  "entity_types": [ "haven:hedgehog" ],
+  "hidden": true
+}

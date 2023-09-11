@@ -1,0 +1,34 @@
+{
+  "type": "origins:launch",
+  "speed": 0.5,
+  "condition": {
+	"type": "origins:in_block",
+	"block_condition": {
+	  "type": "origins:and",
+	  "conditions": [
+		{ "type": "origins:movement_blocking", "inverted": true },
+		{
+		  "type": "origins:offset",
+		  "condition": { "type": "origins:movement_blocking", "inverted": true },
+		  "y": 1
+		},
+		{
+		  "type": "origins:offset",
+		  "condition": { "type": "origins:movement_blocking", "inverted": true },
+		  "y": -1
+		}
+	  ]
+	}
+  },
+  "cooldown": 40,
+  "hud_render": {
+	"bar_index": 4,
+	"should_render": true,
+	"sprite_location": "origins:textures/gui/resource_bar.png",
+	"condition": { "value": true, "type": "origins:constant", "inverted": false }
+  },
+  "hidden": false,
+  "key": { "key": "key.origins.secondary_active", "continuous": true },
+  "name": "Double Jump",
+  "description": "An extra jump for people who really wish Minecraft was a platformer instead."
+}

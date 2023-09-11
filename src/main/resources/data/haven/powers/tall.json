@@ -1,0 +1,15 @@
+{
+  "type": "origins:multiple",
+  "modify_size": {
+	"type": "extraorigins:modify_size",
+	"scale_types": "pehkui:base",
+	"scale": 1.25
+  },
+  "modify_hitbox": {
+	"type": "extraorigins:modify_size",
+	"scale_types": "pehkui:hitbox_width",
+	"scale": 0.8
+  },
+  "name": "Tall",
+  "description": "Regular humans are short. You are not"
+}

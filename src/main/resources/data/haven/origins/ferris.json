@@ -1,0 +1,18 @@
+{
+  "powers": [
+	"haven:no_stomach",
+	"haven:bad_swimmer_doll",
+	"haven:slow_falling_doll_large",
+	"haven:pincushion",
+	"haven:cotton_guard",
+	"origins-classes:sneaky",
+	"haven:cotton_spare",
+	"haven:cobweb_unrestricted",
+	"haven:cotton_death",
+	"haven:panic_button",
+	"haven:blood_types/none"
+  ],
+  "name": "Carnie",
+  "description": "You run the show.",
+  "icon": "haven:coffee_cake"
+}

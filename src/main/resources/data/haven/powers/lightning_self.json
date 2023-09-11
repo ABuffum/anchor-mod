@@ -1,0 +1,10 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "execute at @p run summon minecraft:lightning"
+  },
+  "cooldown": 5,
+  "name": "Ability",
+  "description": "YOUR FUCKING ABILITY!!!"
+}

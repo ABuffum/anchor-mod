@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"haven:reduce_fall_damage",
+	"haven:jump_boost",
+	"origins:tailwind",
+	"haven:bunny_jump",
+	"haven:attacked_by_foxes",
+	"haven:negate_double_jump_fall_damage",
+	"haven:blood_types/rabbit"
+  ],
+  "name": "Bunny",
+  "description": "Hop to it!",
+  "icon": "minecraft:rabbit_foot"
+}

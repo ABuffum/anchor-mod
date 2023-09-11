@@ -1,0 +1,11 @@
+{
+  "type": "origins:action_when_damage_taken",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "function haven:confetti_death"
+  },
+  "condition": { "type": "origins:health", "comparison": "==", "compare_to": 0 },
+  "cooldown": 1,
+  "name": "Confetti Death",
+  "description": "When you die, you burst into a joyous cloud of confetti."
+}

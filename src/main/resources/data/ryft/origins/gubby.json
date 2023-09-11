@@ -1,0 +1,32 @@
+{
+  "powers": [
+	"ryft:sun_blind",
+	"ryft:sun_weak",
+	"ryft:deep_pockets",
+	"ryft:warden_lungs",
+	"haven:darkvision",
+	"origins:strong_arms",
+	"origins:strong_arms_break_speed",
+	"haven:tough_body",
+	"ryft:thick_skin",
+	"ryft:warden_sized",
+	"haven:darkness_immunity",
+	"haven:soft_steps",
+	"ryft:sonic_boom",
+	"haven:identified_sounds",
+	"haven:warden_heartbeat",
+	"haven:crushing_fall",
+	"haven:warden_neutral",
+	"haven:knockback_immunity",
+	"haven:hunger_immunity",
+	"haven:fire_immunity",
+	"haven:lava_immunity",
+	"haven:drink_blood",
+	"origins-classes:more_attack_damage",
+	"ryft:identified_sounds/gubby",
+	"haven:blood_types/warden"
+  ],
+  "name": "Warden",
+  "description": "The ultimate denizen of the Deep Dark.",
+  "icon": "minecraft:sculk_catalyst"
+}

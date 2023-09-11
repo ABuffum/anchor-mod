@@ -1,0 +1,9 @@
+{
+  "type": "origins:restrict_armor",
+  "feet": {
+    "type": "origins:empty",
+    "inverted": true
+  },
+  "name": "No shoes",
+  "description": "Keep it natural."
+}

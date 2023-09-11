@@ -1,0 +1,15 @@
+{
+  "type": "haven:sonic_boom",
+  "cooldown": 200,
+  "hud_render": {
+	"sprite_location": "origins:textures/gui/resource_bar.png",
+	"bar_index": 5
+  },
+  "damage": 10.0,
+  "key": {
+	"key": "key.haven.tertiary_active",
+	"continuous": true
+  },
+  "name": "Sonic Boom",
+  "description": "You can be louder!"
+}

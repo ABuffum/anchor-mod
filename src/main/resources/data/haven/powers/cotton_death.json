@@ -1,0 +1,11 @@
+{
+  "type": "origins:action_when_damage_taken",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "cottonfill ~ ~ ~ 4"
+  },
+  "condition": { "type": "origins:health", "comparison": "==", "compare_to": 0 },
+  "cooldown": 1,
+  "name": "Cotton Death",
+  "description": "When you die, you burst into messy web of cotton."
+}

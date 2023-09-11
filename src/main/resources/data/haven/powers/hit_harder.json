@@ -1,0 +1,11 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Hit Harder",
+	"attribute": "minecraft:generic.attack_damage",
+	"value": 1,
+	"operation": "addition"
+  },
+  "name": "Hit Harder",
+  "description": "Sure, you could hurt people with your words. That would be boring though."
+}

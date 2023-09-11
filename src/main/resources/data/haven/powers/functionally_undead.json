@@ -1,0 +1,5 @@
+{
+  "type": "haven:undead_potion_effets",
+  "name": "Functionally Undead",
+  "description": "Healing potions harm you and harming potions heal you."
+}

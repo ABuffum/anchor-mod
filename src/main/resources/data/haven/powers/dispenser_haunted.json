@@ -1,0 +1,14 @@
+{
+  "type": "origins:action_over_time",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "playsound block.dispenser.fail block @p ~ ~ ~"
+  },
+  "interval": 22,
+  "condition": {
+	"type": "origins:power_active",
+	"power": "haven:dispenser_haunted_toggle"
+  },
+  "name": "Haunted",
+  "description": "Tick. Tick. Tick. Tick."
+}

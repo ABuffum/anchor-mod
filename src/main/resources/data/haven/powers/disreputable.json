@@ -1,0 +1,6 @@
+{
+  "type": "haven:villager_price_modifier",
+  "factor": 4,
+  "name": "Disreputable",
+  "description": "Villagers will always offer you their worst prices. You probably deserve this."
+}

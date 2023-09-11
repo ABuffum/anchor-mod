@@ -1,0 +1,11 @@
+{
+  "type": "haven:mob_hostility",
+  "entity_types": [
+    "minecraft:spider",
+    "minecraft:cave_spider",
+    "haven:bone_spider",
+    "haven:jumping_spider"
+  ],
+  "name": "Spider-Hated",
+  "description": "Spiders take particular joy in your torment."
+}

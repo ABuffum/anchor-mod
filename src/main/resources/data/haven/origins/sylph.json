@@ -1,0 +1,12 @@
+{
+  "powers": [
+	"origins:aquatic",
+	"haven:hunger_immunity",
+	"haven:water_breathing",
+	"haven:drink_blood",
+	"haven:blood_types/fish"
+  ],
+  "name": "Mystical bloodline",
+  "description": "You're above the needs of the average person.",
+  "icon": "minecraft:rotten_flesh"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "origins:particle",
+  "particle": "minecraft:item_slime",
+  "frequency": 20,
+  "name": "Drippy",
+  "description": "There's a bit more slime coming out of you than you can manage."
+}

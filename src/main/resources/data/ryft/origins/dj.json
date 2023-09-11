@@ -1,0 +1,16 @@
+{
+  "powers": [
+    "origins:tailwind",
+    "ryft:slow_falling",
+    "haven:darkness_immunity",
+    "haven:flashbanged_immunity",
+    "ryft:sun_regen",
+    "ryft:sunlight_fists",
+    "haven:skin_glow_10",
+    "ryft:identified_sounds/dj",
+    "haven:blood_types/none"
+  ],
+  "name": "Sun Goddess",
+  "description": "Light it up!",
+  "icon": "minecraft:glowstone"
+}

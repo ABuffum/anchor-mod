@@ -1,0 +1,16 @@
+{
+  "powers": [
+	"haven:confetti_death",
+	"haven:summon_secretariat",
+	"haven:clown_pacifist",
+	"haven:bad_swimmer_clown",
+	"haven:candy_filled",
+	"haven:clown_sized",
+	"origins-classes:sneaky",
+	"haven:loot_tables/soleil",
+	"haven:blood_types/confetti"
+  ],
+  "description": "Often associated with jokes and being so very funny.",
+  "icon": "haven:confetti_cake",
+  "name": "Clown"
+}

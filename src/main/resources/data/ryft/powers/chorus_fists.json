@@ -1,0 +1,19 @@
+{
+  "type": "origins:action_on_hit",
+  "bientity_action": {
+	"type": "origins:target_action",
+	"action": {
+	  "type": "origins:execute_command",
+	  "command": "chorus @p 0.2"
+	}
+  },
+  "bientity_condition": {
+	"type": "origins:target_condition",
+	"condition": {
+	  "type": "origins:entity_type",
+	  "entity_type": "minecraft:player"
+	}
+  },
+  "name": "Chaotic Fists",
+  "description": "Sometimes throwing a punch throws someone through spacetime. This is normal."
+}

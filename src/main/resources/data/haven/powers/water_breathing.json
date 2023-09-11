@@ -1,0 +1,8 @@
+{
+  "type": "haven:fluid_breather",
+  "fluid": "minecraft:water",
+  "suffocate": false,
+  "dryout": false,
+  "name": "Water Breathing",
+  "description": "You can breathe in water"
+}

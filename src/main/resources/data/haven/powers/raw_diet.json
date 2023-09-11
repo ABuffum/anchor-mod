@@ -1,0 +1,21 @@
+{
+  "type": "origins:modify_food",
+  "item_condition": {
+	"type": "origins:ingredient",
+	"ingredient": {
+	  "tag": "origins:raw_meat"
+	}
+  },
+  "food_modifier": {
+	"operation": "addition",
+	"value": 4,
+	"name": "Food value gained from eating raw meats."
+  },
+  "saturation_modifier": {
+	"operation": "addition",
+	"value": 4,
+	"name": "Saturation value gained from eating raw meats."
+  },
+  "name": "Raw Diet",
+  "description": "Raw meat is better for you."
+}

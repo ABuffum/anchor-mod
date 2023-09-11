@@ -1,0 +1,30 @@
+{
+	"type": "origins:multiple",
+	"fall": {
+		"type": "origins:invulnerability",
+		"damage_condition": {
+			"type": "origins:name",
+			"name": "fall"
+		}
+	},
+	"armor": {
+		"type": "origins:attribute",
+		"modifier": {
+			"attribute": "minecraft:generic.armor",
+			"value": 2,
+			"operation": "addition"
+		}
+	},
+	"flame": {
+		"type": "origins:modify_damage_taken",
+		"damage_condition": {
+			"type": "origins:fire"
+		},
+		"modifier": {
+			"operation": "multiply_total",
+			"value": 1
+		}
+	},
+	"name": "Cotton Guard",
+	"description": "Your unique body renders you immune to fall damage and slightly increases your armor, but makes you more vulnerable to fire."
+}

@@ -1,0 +1,9 @@
+{
+  "type": "origins:effect_immunity",
+  "effects": [
+	"minecraft:poison",
+	"minecraft:hunger"
+  ],
+  "name": "Mechanical insides",
+  "description": "As a mechanical being you do not feel the effects of hunger or poison."
+}

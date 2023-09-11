@@ -1,0 +1,11 @@
+{
+  "type": "haven:droppable_inventory",
+  "title": "Piñata Fillings",
+  "drop_on_death_filter": {
+	"type": "origins:ingredient",
+	"ingredient": { "tag": "haven:candy" }
+  },
+  "key": { "key": "key.origins.secondary_active", "continuous": false },
+  "name": "Candy Filled",
+  "description": "You have access to an additional 9 slots of inventory, which can be used exclusively for candy."
+}

@@ -1,0 +1,11 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:warden",
+    "minecraft:wither",
+    "minecraft:ender_dragon"
+  ],
+  "inverted": true,
+  "name": "Nonhostile Mobs",
+  "description": "Hostile mobs will not attack you."
+}

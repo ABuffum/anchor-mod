@@ -1,0 +1,18 @@
+{
+  "powers": [
+	"haven:short",
+	"haven:fangs",
+	"haven:vex_elytra",
+	"haven:phantomize_vex",
+	"haven:phantomize_overlay_vex",
+	"haven:phasing_vex",
+	"haven:invisibility_vex",
+	"origins:launch_into_air",
+	"haven:golem_hated",
+	"haven:villager_hated",
+	"haven:blood_types/none"
+  ],
+  "name": "Vex",
+  "description": "A spawn of magic.",
+  "icon": "minecraft:totem_of_undying"
+}

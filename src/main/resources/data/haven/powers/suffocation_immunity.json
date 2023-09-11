@@ -1,0 +1,12 @@
+{
+  "type": "origins:invulnerability",
+  "damage_condition": {
+    "type": "origins:or",
+    "conditions": [
+      { "type": "origins:name", "name": "inWall" },
+      { "type": "origins:name", "name": "inWall.player" }
+    ]
+  },
+  "name": "Suffocation Immunity",
+  "description": "You do not take damage from suffocating inside blocks."
+}

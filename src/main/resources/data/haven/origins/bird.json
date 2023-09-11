@@ -1,0 +1,12 @@
+{
+  "powers": [
+	"haven:slow_falling",
+	"haven:reduce_fall_damage",
+	"haven:jump_boost",
+	"haven:raptor_diet",
+	"haven:blood_types/avian"
+  ],
+  "name": "Bird of Prey",
+  "description": "You are a bird of prey, soar and hunt!",
+  "icon": "minecraft:feather"
+}

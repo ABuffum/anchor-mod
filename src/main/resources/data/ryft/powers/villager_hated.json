@@ -1,0 +1,19 @@
+{
+  "type": "origins:multiple",
+  "trading": {
+	"type": "apoli:prevent_entity_use",
+	"bientity_condition": {
+	  "type": "apoli:target_condition",
+	  "condition": {
+		"type": "apoli:entity_type",
+		"entity_type": "minecraft:villager"
+	  }
+	}
+  },
+  "fleeing": {
+	"type": "haven:villagers_flee",
+	"distance": 8
+  },
+  "name": "Villager-hated",
+  "description": "Villagers don't like you. You cannot trade and they will run away from you."
+}

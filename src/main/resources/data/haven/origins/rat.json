@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"origins:cat_vision",
+	"origins:fall_immunity",
+	"origins:sprint_jump",
+	"origins:scare_creepers",
+	"haven:soft_steps",
+	"haven:blood_types/diseased_cat"
+  ],
+  "name": "Diseased Cat",
+  "description": "Look at my scrunkly, he has every disease!",
+  "icon": "minecraft:redstone"
+}

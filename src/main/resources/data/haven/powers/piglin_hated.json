@@ -1,0 +1,9 @@
+{
+  "type": "haven:mob_hostility",
+  "entity_types": [
+    "minecraft:piglin",
+    "minecraft:piglin_brute"
+  ],
+  "name": "Piglin-Hated",
+  "description": "Piglins do not take kindly to the withered."
+}

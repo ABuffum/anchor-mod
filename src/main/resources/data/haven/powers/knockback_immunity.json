@@ -1,0 +1,11 @@
+{
+  "type": "origins:attribute",
+  "modifier": {
+	"name": "Knockback Immunity",
+	"attribute": "minecraft:generic.knockback_resistance",
+	"value": 1.0,
+	"operation": "addition"
+  },
+  "name": "Knockback Immunity",
+  "description": "Nothing can knock you away."
+}

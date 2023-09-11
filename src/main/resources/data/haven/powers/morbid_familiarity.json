@@ -1,0 +1,9 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:wither_skeleton",
+    "betternether:naga"
+  ],
+  "name": "Morbid Familiarity",
+  "description": "The withered will leave you be as long as you do the same. They know your pain."
+}

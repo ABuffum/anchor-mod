@@ -1,0 +1,13 @@
+{
+  "powers": [
+	"haven:predator",
+	"haven:hunger_immunity",
+	"haven:raw_diet",
+	"origins:natural_armor",
+	"haven:warm_body",
+	"haven:blood_types/bear"
+  ],
+  "name": "Polar bear",
+  "description": "A bear of the ice and snow.",
+  "icon": "minecraft:cod"
+}

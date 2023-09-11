@@ -1,0 +1,15 @@
+{
+  "powers": [
+	"haven:fire_immunity",
+	"haven:hidden_elytra",
+	"origins:launch_into_air",
+	"ryft:gold_ingot_eater",
+	"ryft:gold_nugget_eater",
+	"ryft:clock_eater",
+	"ryft:identified_sounds/zofia",
+	"haven:blood_types/avian"
+  ],
+  "name": "Żar-ptak",
+  "description": "Uh oh, that bird's on fire!",
+  "icon": "minecraft:gold_nugget"
+}

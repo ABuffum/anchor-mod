@@ -1,0 +1,14 @@
+{
+  "powers": [
+	"haven:wither_immunity",
+	"haven:spooky_move",
+	"haven:eat_poppy_seeds",
+	"haven:eat_poppy_petals",
+	"haven:is_skeleton",
+	"haven:skeleton_solidarity",
+	"haven:blood_types/none"
+  ],
+  "name": "Skeleton",
+  "description": "Bones rattle in the distance.",
+  "icon": "minecraft:bone"
+}
