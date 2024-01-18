@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:stripped_charred_log"
+    },
+    "|": {
+      "item": "haven:waxed_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:charred_copper_hanging_sign"
+  }
+}

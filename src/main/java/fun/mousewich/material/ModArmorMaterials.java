@@ -37,6 +37,8 @@ public enum ModArmorMaterials implements ArmorMaterial {
 			() -> Ingredient.ofItems(Items.QUARTZ), 8),
 	RUBY_GOGGLES("ruby_goggles", 25, new int[]{ 3, 5, 6, 3 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F,
 			() -> Ingredient.ofItems(Items.LEATHER, ModBase.RUBY), 0),
+	SAPPHIRE_GOGGLES("sapphire_goggles", 25, new int[]{ 3, 5, 6, 3 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F,
+			() -> Ingredient.ofItems(Items.LEATHER, ModBase.SAPPHIRE), 0),
 	SHULKER("shulker", 30, new int[] { 3, 5, 6, 3 }, 10, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 2.0F, 0.25F,
 			() -> Ingredient.ofItems(Items.SHULKER_SHELL), 0),
 	STUDDED_LEATHER("studded_leather", 5, new int[] { 2, 3, 4, 2 }, 12, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F, 0.0F,
@@ -45,6 +47,8 @@ public enum ModArmorMaterials implements ArmorMaterial {
 			() -> Ingredient.ofItems(Items.LEATHER, Items.AMETHYST_SHARD), 0),
 	TURTLE("turtle", 25, new int[] { 2, 5, 6, 2 }, 9, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0f, 0.25f,
 			() -> Ingredient.ofItems(Items.SCUTE), 0),
+	WILDFIRE("wildfire", 15, new int[]{ 2, 5, 6, 2 }, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f,
+			() -> Ingredient.ofItems(Items.GOLD_INGOT), 7),
 	//Haven
 	LUX_CROWN("lux_crown", 7, new int[]{ 1, 3, 5, 2 }, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0.0f, 0.0f,
 			() -> Ingredient.ofItems(Items.GOLD_INGOT), 7);

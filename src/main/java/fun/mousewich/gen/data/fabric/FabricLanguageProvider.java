@@ -23,7 +23,7 @@ import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.MalformedJsonException;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.gen.data.minecraft.OutputType;
 import fun.mousewich.gen.data.minecraft.PathResolver;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -100,7 +100,7 @@ public abstract class FabricLanguageProvider implements DataProvider {
 			cache.updateSha1(path, string2);
 		}
 		catch (IOException iOException) {
-			ModBase.LOGGER.error("Couldn't save language file {}", path, iOException);
+			ModId.LOGGER.error("Couldn't save language file {}", path, iOException);
 		}
 	}
 

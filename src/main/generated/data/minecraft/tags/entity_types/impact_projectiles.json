@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "haven:throwable_tomato",
-    "haven:pink_slime"
+    "haven:pink_slime_ball",
+    "haven:javelin",
+    "haven:amethyst_trident",
+    "haven:pride_trident",
+    "haven:vectortech_javelin"
   ]
 }

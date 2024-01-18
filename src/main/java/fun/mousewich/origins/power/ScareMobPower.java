@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -29,7 +29,7 @@ public class ScareMobPower extends Power {
 		this.inverted = inverted;
 	}
 	public static PowerFactory<ScareMobPower> createFactory() {
-		return new PowerFactory<ScareMobPower>(ModBase.ID("scare_mob"), new SerializableData()
+		return new PowerFactory<ScareMobPower>(ModId.ID("scare_mob"), new SerializableData()
 				.add("entity_types", SerializableDataType.list(SerializableDataTypes.ENTITY_TYPE), Collections.emptyList())
 				.add("inverted", SerializableDataTypes.BOOLEAN, false),
 				data -> (type, entity) -> new ScareMobPower(type, entity, (List<EntityType<?>>)data.get("entity_types"), data.getBoolean("inverted")))

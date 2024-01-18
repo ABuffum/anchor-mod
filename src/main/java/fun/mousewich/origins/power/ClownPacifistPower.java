@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -11,7 +11,6 @@ public class ClownPacifistPower extends Power {
 	public ClownPacifistPower(PowerType<?> type, LivingEntity entity) { super(type, entity); }
 
 	public static PowerFactory<ClownPacifistPower> createFactory() {
-		return new PowerFactory<ClownPacifistPower>(ModBase.ID("clown_pacifist"), new SerializableData(),
-				data -> ClownPacifistPower::new).allowCondition();
+		return new PowerFactory<ClownPacifistPower>(ModId.ID("clown_pacifist"), new SerializableData(), data -> ClownPacifistPower::new).allowCondition();
 	}
 }

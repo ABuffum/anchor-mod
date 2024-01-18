@@ -1,6 +1,7 @@
 package fun.mousewich.gen.data.loot;
 
 import fun.mousewich.ModConfig;
+import fun.mousewich.ModId;
 import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.haven.HavenMod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -35,17 +36,17 @@ public class BlockLootGenerator extends SimpleFabricLootTableProvider {
 		for (Map.Entry<Block, DropTable> drop : ModDatagen.Cache.Drops.entrySet()) {
 			Block block = drop.getKey();
 			if (block == null) {
-				LOGGER.error(drop.getValue().toString());
+				ModId.LOGGER.error(drop.getValue().toString());
 				throw new IllegalArgumentException();
 			}
 			else if (Registry.BLOCK.getId(block) == Registry.BLOCK.getDefaultId()) {
-				LOGGER.error(block + " " + drop.getValue().toString());
-				LOGGER.error(block.getClass().getName());
+				ModId.LOGGER.error(block + " " + drop.getValue().toString());
+				ModId.LOGGER.error(block.getClass().getName());
 				throw new IllegalArgumentException();
 			}
 			else if (!Registry.BLOCK.stream().anyMatch(b -> b == block)) {
-				LOGGER.error(block + " " + drop.getValue().toString());
-				LOGGER.error(block.getClass().getName());
+				ModId.LOGGER.error(block + " " + drop.getValue().toString());
+				ModId.LOGGER.error(block.getClass().getName());
 				throw new IllegalArgumentException();
 			}
 			ibbc.accept(block.getLootTableId(), drop.getValue().get(block));

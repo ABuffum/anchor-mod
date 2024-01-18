@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.PiranhaEntityModel;
 import fun.mousewich.entity.hostile.piranha.PiranhaEntity;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3f;
 
 @Environment(value= EnvType.CLIENT)
 public class PiranhaEntityRenderer extends MobEntityRenderer<PiranhaEntity, PiranhaEntityModel> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/fish/piranha.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/fish/piranha.png");
 
 	public PiranhaEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new PiranhaEntityModel(context.getPart(ModEntityModelLayers.PIRANHA)), 0.3f);

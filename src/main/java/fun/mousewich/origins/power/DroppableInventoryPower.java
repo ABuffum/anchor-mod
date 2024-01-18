@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
 import io.github.apace100.apoli.power.Power;
@@ -86,7 +86,7 @@ public class DroppableInventoryPower extends Power implements Active, IInventory
 	public void setKey(Key key) { this.key = key; }
 
 	public static PowerFactory<DroppableInventoryPower> createFactory() {
-		return new PowerFactory<DroppableInventoryPower>(ModBase.ID("droppable_inventory"),
+		return new PowerFactory<DroppableInventoryPower>(ModId.ID("droppable_inventory"),
 				new SerializableData()
 						.add("title", SerializableDataTypes.STRING, "container.inventory")
 						.add("drop_on_death_filter", ApoliDataTypes.ITEM_CONDITION, null)

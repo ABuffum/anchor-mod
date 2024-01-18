@@ -1,6 +1,5 @@
 package fun.mousewich.sound;
 
-import fun.mousewich.ModBase;
 import fun.mousewich.mixins.client.gui.SubtitlesHudAccessor;
 import fun.mousewich.mixins.client.sound.SoundSystemAccessor;
 import net.minecraft.SharedConstants;

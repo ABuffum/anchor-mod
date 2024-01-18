@@ -1,6 +1,7 @@
 package fun.mousewich.util;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.block.JukeboxBlockExtension;
 import fun.mousewich.event.ModGameEvent;
 import net.minecraft.block.BlockState;
@@ -84,7 +85,7 @@ public class JukeboxUtil {
 		}
 		if (!MISSING_LENGTHS.contains(musicDisc)) {
 			MISSING_LENGTHS.add(musicDisc);
-			ModBase.LOGGER.warn("Missing sound length for music disc: " + id);
+			ModId.LOGGER.warn("Missing sound length for music disc: " + id);
 		}
 		return 60;
 	}

@@ -1,6 +1,6 @@
 package fun.mousewich.mixins.client;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -18,7 +18,7 @@ public class MinecraftClientMixin {
 	private void CallOutNullBlockItemBlocks(Item instance, ItemGroup group, DefaultedList<ItemStack> stacks) {
 		if (instance instanceof BlockItem blockItem) {
 			if (blockItem.getBlock() == null) {
-				ModBase.LOGGER.error(Registry.ITEM.getId(instance).toString());
+				ModId.LOGGER.error(Registry.ITEM.getId(instance).toString());
 			}
 		}
 		instance.appendStacks(group, stacks);

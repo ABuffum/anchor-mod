@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:sugar_cane_bale"
+    },
+    "|": {
+      "item": "haven:iron_chain"
+    }
+  },
+  "result": {
+    "item": "haven:sugar_cane_iron_hanging_sign"
+  }
+}

@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Power;
@@ -24,7 +24,7 @@ public class IncreaseDurabilityPower extends Power {
 		this.factor = Math.max(0, factor);
 	}
 	public static PowerFactory<IncreaseDurabilityPower> createFactory() {
-		return new PowerFactory<IncreaseDurabilityPower>(ModBase.ID("increase_durability"), new SerializableData()
+		return new PowerFactory<IncreaseDurabilityPower>(ModId.ID("increase_durability"), new SerializableData()
 				.add("item_condition", ApoliDataTypes.ITEM_CONDITION, null)
 				.add("factor", SerializableDataTypes.FLOAT, 0.75F),
 				data -> (type, entity) -> new IncreaseDurabilityPower(type, entity,

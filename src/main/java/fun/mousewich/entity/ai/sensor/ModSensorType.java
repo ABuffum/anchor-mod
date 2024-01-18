@@ -1,6 +1,6 @@
 package fun.mousewich.entity.ai.sensor;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.mixins.entity.ai.brain.sensor.SensorTypeInvoker;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -13,7 +13,7 @@ public class ModSensorType <U extends Sensor<?>> {
 	public final Supplier<U> factory;
 	private SensorType<U> sensorType;
 	public ModSensorType(String id, Supplier<U> factory) {
-		this.identifier = ModBase.ID(id);
+		this.identifier = ModId.ID(id);
 		this.factory = factory;
 	}
 	public SensorType<U> get() {

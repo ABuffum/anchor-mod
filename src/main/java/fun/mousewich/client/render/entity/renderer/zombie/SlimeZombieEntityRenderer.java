@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.zombie;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.SlimeZombieEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.SlimeZombieOverlayFeatureRenderer;
@@ -19,7 +19,7 @@ public class SlimeZombieEntityRenderer<T extends ZombieEntity> extends ZombieBas
 				new SlimeZombieEntityModel<>(context.getPart(ModEntityModelLayers.SLIME_ZOMBIE_OUTER_ARMOR)));
 		this.addFeature(new SlimeZombieOverlayFeatureRenderer<>(this, context.getModelLoader(), ModEntityModelLayers.SLIME_ZOMBIE_OUTER, TEXTURE));
 	}
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/zombie/slime.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/zombie/slime.png");
 	@Override
 	public Identifier getTexture(ZombieEntity zombieEntity) { return TEXTURE; }
 

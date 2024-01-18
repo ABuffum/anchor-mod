@@ -11,6 +11,8 @@ import fun.mousewich.block.fluid.MudFluid;
 import fun.mousewich.util.MixinStore;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.ModifyCameraSubmersionTypePower;
+import io.github.apace100.origins.power.OriginsPowerTypes;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.BackgroundRenderer;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.CameraSubmersionType;
@@ -27,6 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3f;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -43,7 +46,8 @@ public class BackgroundRendererMixin {
 			new StatusEffectFogModifier.DarknessFogModifier(),
 			new StatusEffectFogModifier.FlashbangedFogModifier(),
 			new StatusEffectFogModifier.TintedGogglesFogModifier(),
-			new StatusEffectFogModifier.RubyGogglesFogModifier()
+			new StatusEffectFogModifier.RubyGogglesFogModifier(),
+			new StatusEffectFogModifier.SapphireGogglesFogModifier()
 	);
 
 	@Shadow
@@ -218,6 +222,11 @@ public class BackgroundRendererMixin {
 				green = (float)MathHelper.lerp(r, Math.min(green, 0.03921568627), Math.max(red, 0.03921568627));
 				blue = (float)MathHelper.lerp(r, Math.min(blue, 0.20392156862), Math.max(red, 0.20392156862));
 			}
+			else if (effect == ModStatusEffects.SAPPHIRE_GOGGLES){
+				red = (float)MathHelper.lerp(r, Math.min(red, 0.09411764705), Math.max(red, 0.09411764705));
+				green = (float)MathHelper.lerp(r, Math.min(green, 0.43921568627), Math.max(red, 0.43921568627));
+				blue = (float)MathHelper.lerp(r, Math.min(blue, 0.78039215686), Math.max(red, 0.78039215686));
+			}
 			RenderSystem.clearColor(red, green, blue, 0.0f);
 			ci.cancel();
 		}
@@ -232,6 +241,19 @@ public class BackgroundRendererMixin {
 			RenderSystem.setShaderFogStart(0.25F);
 			RenderSystem.setShaderFogEnd(1.0F);
 			ci.cancel();
+		}
+		else if (cameraSubmersionType == CameraSubmersionType.WATER) {
+			if (entity instanceof LivingEntity living &&
+					(OriginsPowerTypes.WATER_VISION.isActive(living)
+							|| living.hasStatusEffect(ModStatusEffects.SAPPHIRE_GOGGLES)
+							|| living.getEquippedStack(EquipmentSlot.HEAD).isOf(ModBase.SAPPHIRE_GOGGLES))) {
+				float f = 192.0f;
+				Biome biome = living.world.getBiome(living.getBlockPos());
+				if (biome.getCategory() == Biome.Category.SWAMP) f *= 0.85f;
+				RenderSystem.setShaderFogStart(-8.0f);
+				RenderSystem.setShaderFogEnd(Math.min(f, viewDistance) * 0.5f);
+				ci.cancel();
+			}
 		}
 		else if (cameraSubmersionType == CameraSubmersionType.LAVA) {
 			if (entity instanceof LivingEntity living &&

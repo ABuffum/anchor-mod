@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:dogwood_wood",
+    "haven:dogwood_log",
     "haven:stripped_dogwood_log",
-    "haven:stripped_dogwood_wood",
-    "haven:dogwood_log"
+    "haven:dogwood_wood",
+    "haven:stripped_dogwood_wood"
   ]
 }

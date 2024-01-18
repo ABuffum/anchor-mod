@@ -16,8 +16,6 @@ import net.minecraft.tag.Tag;
 
 import java.util.Arrays;
 
-import static fun.mousewich.ModBase.WOODCUTTING_RECIPE_SERIALIZER;
-
 public class Recipes {
 	private static CraftingRecipeJsonFactory make(CraftingRecipeJsonFactory recipe) {
 		return recipe.criterion("automatic", RecipesProvider.conditionsFromItem(Items.STICK));
@@ -66,7 +64,7 @@ public class Recipes {
 	}
 	public static SingleItemRecipeJsonFactory MakeWoodcutting(ItemConvertible output, ItemConvertible ingredient) { return MakeWoodcutting(output, ingredient, 1); }
 	public static SingleItemRecipeJsonFactory MakeWoodcutting(ItemConvertible output, ItemConvertible ingredient, int count) {
-		return new SingleItemRecipeJsonFactory(WOODCUTTING_RECIPE_SERIALIZER, Ingredient.ofItems(ingredient), output, count)
+		return new SingleItemRecipeJsonFactory(ModBase.WOODCUTTING_RECIPE_SERIALIZER, Ingredient.ofItems(ingredient), output, count)
 				.criterion(RecipesProvider.hasItem(ingredient), RecipesProvider.conditionsFromItem(ingredient));
 	}
 
@@ -157,6 +155,9 @@ public class Recipes {
 	}
 	public static CraftingRecipeJsonFactory MakeBookshelf(ItemConvertible output, ItemConvertible ingredient) {
 		return Make3x1(output, ingredient).input('X', ModItemTags.BOOKS).pattern("XXX").pattern("###");
+	}
+	public static CraftingRecipeJsonFactory MakeChiseledBookshelf(ItemConvertible output, Ingredient ingredient) {
+		return Make3x1(output, ingredient).input('X', ItemTags.WOODEN_SLABS).pattern("XXX").pattern("###");
 	}
 	public static CraftingRecipeJsonFactory MakeChiseledBookshelf(ItemConvertible output, ItemConvertible ingredient) {
 		return Make3x1(output, ingredient).input('X', ItemTags.WOODEN_SLABS).pattern("XXX").pattern("###");
@@ -257,9 +258,11 @@ public class Recipes {
 	public static CraftingRecipeJsonFactory MakeSign(ItemConvertible output, Ingredient ingredient) {
 		return Make3x2(output, ingredient).input('|', Items.STICK).pattern(" | ");
 	}
-	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, ItemConvertible ingredient) { return MakeHangingSign(output, Ingredient.ofItems(ingredient)); }
-	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, Ingredient ingredient) {
-		return MakeShaped(output, ingredient).input('|', Items.CHAIN).pattern("| |").pattern("###").pattern("###");
+	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, ItemConvertible ingredient) { return MakeHangingSign(output, ingredient, Items.CHAIN); }
+	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, Ingredient ingredient) { return MakeHangingSign(output, ingredient, Items.CHAIN); }
+	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, ItemConvertible ingredient, ItemConvertible chain) { return MakeHangingSign(output, Ingredient.ofItems(ingredient), chain); }
+	public static CraftingRecipeJsonFactory MakeHangingSign(ItemConvertible output, Ingredient ingredient, ItemConvertible chain) {
+		return MakeShaped(output, ingredient).input('|', chain).pattern("| |").pattern("###").pattern("###");
 	}
 	public static CraftingRecipeJsonFactory MakeLectern(ItemConvertible output, ItemConvertible slabs) {
 		return MakeShaped(output, slabs).input('B', ModItemTags.BOOKSHELVES).pattern("###").pattern(" B ").pattern(" # ");

@@ -12,6 +12,7 @@
     "minecraft:spider",
     "minecraft:strider",
     "minecraft:trader_llama",
-    "minecraft:zombie_horse"
+    "minecraft:zombie_horse",
+    "haven:jolly_llama"
   ]
 }

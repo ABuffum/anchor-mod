@@ -1,14 +1,14 @@
 {
   "replace": false,
   "values": [
-    "haven:burgundy_fleece",
-    "haven:mint_fleece",
+    "haven:mint_wool",
     "haven:beige_wool",
     "haven:lavender_fleece",
-    "haven:mint_wool",
-    "haven:beige_fleece",
     "haven:lavender_wool",
-    "haven:burgundy_wool",
-    "haven:rainbow_wool"
+    "haven:burgundy_fleece",
+    "haven:mint_fleece",
+    "haven:rainbow_wool",
+    "haven:beige_fleece",
+    "haven:burgundy_wool"
   ]
 }

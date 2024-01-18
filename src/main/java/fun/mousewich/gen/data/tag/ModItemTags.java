@@ -1,6 +1,6 @@
 package fun.mousewich.gen.data.tag;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.item.Item;
 import net.minecraft.tag.Tag;
@@ -136,7 +136,7 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> WOOL_CARPETS = createTag("wool_carpets");
 
 	public static final Tag.Identified<Item> CROPTOPIA_NUTS = createTag("croptopia", "nuts");
-	public static final Tag.Identified<Item> FORGE_INGOTS_IRON = createTag("forge", "ingots/iron");
+	public static final Tag.Identified<Item> FORGE_IRON_INGOTS = createTag("forge", "ingots/iron");
 	public static final Tag.Identified<Item> FORGE_VEGETABLES = createTag("forge", "vegetables");
 	public static final Tag.Identified<Item> NOURISH_FRUIT = createTag("nourish", "fruit");
 	public static final Tag.Identified<Item> NOURISH_SWEETS = createTag("nourish", "sweets");
@@ -157,7 +157,7 @@ public class ModItemTags {
 	public static final Tag.Identified<Item> MEDIEVAL_ORIGINS_OGRE_ARMOUR = createTag("medievalorigins", "ogre_armour");
 	public static final Tag.Identified<Item> MEDIEVAL_ORIGINS_SWORDS = createTag("medievalorigins", "swords");
 
-	private static Tag.Identified<Item> createTag(String name) { return TagFactory.ITEM.create(ModBase.ID(name)); }
+	private static Tag.Identified<Item> createTag(String name) { return TagFactory.ITEM.create(ModId.ID(name)); }
 	private static Tag.Identified<Item> createTag(String namespace, String path) { return TagFactory.ITEM.create(new Identifier(namespace, path)); }
 	private static Tag.Identified<Item> createCommonTag(String name) { return TagFactory.ITEM.create(new Identifier("c", name)); }
 	private static Tag.Identified<Item> createMinecraftTag(String name) { return TagFactory.ITEM.create(new Identifier(name)); }

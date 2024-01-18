@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stripped_spruce_log"
+    },
+    "|": {
+      "item": "haven:waxed_oxidized_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:spruce_oxidized_copper_hanging_sign"
+  }
+}

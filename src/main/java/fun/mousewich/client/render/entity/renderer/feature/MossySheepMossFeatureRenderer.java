@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.feature;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.passive.sheep.MossySheepEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -13,7 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
 public class MossySheepMossFeatureRenderer extends FeatureRenderer<MossySheepEntity, SheepEntityModel<MossySheepEntity>> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/sheep/mossy_sheep_fur.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/sheep/mossy_sheep_fur.png");
 	private final SheepWoolEntityModel<MossySheepEntity> model;
 	public MossySheepMossFeatureRenderer(FeatureRendererContext<MossySheepEntity, SheepEntityModel<MossySheepEntity>> featureRendererContext, EntityModelLoader entityModelLoader) {
 		super(featureRendererContext);

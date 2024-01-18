@@ -8,7 +8,10 @@ import fun.mousewich.block.ragdoll.RagdollBlockEntity;
 import fun.mousewich.client.render.block.model.PiglinHeadEntityModel;
 import fun.mousewich.client.render.block.renderer.PiglinHeadEntityRenderer;
 import fun.mousewich.client.render.block.renderer.RagdollBlockEntityRenderer;
+import fun.mousewich.client.render.entity.ModEntityModelLayers;
+import fun.mousewich.client.render.entity.model.JavelinEntityModel;
 import fun.mousewich.entity.ModNbtKeys;
+import fun.mousewich.item.JavelinItem;
 import fun.mousewich.util.banners.ModBannerPatternConversions;
 import fun.mousewich.util.banners.ModBannerPatternRenderContext;
 import net.minecraft.block.Block;
@@ -16,11 +19,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.SkullBlockEntityModel;
 import net.minecraft.client.render.entity.model.EntityModelLoader;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.BlockItem;
@@ -48,6 +53,7 @@ public class BuiltinModelItemRendererMixin {
 
 	private PiglinHeadEntityModel piglinHeadModel = null;
 	private SkullBlockEntityModel ragdollModel = null;
+	private JavelinEntityModel javelinModel = null;
 
 	@Inject(method="render", at=@At(value="INVOKE", target="Lnet/minecraft/client/render/block/entity/BannerBlockEntityRenderer;renderCanvas(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/model/ModelPart;Lnet/minecraft/client/util/SpriteIdentifier;ZLjava/util/List;Z)V"))
 	private void SetLoomPatterns(ItemStack itemStack, ModelTransformation.Mode mode, MatrixStack matrixStack, VertexConsumerProvider provider, int i, int j, CallbackInfo info) {
@@ -89,6 +95,14 @@ public class BuiltinModelItemRendererMixin {
 				RagdollBlockEntityRenderer.renderSkull(180.0f, 0.0f, matrices, vertexConsumers, light, this.ragdollModel, renderLayer);
 				ci.cancel();
 			}
+		}
+		else if (item instanceof JavelinItem javelin) {
+			matrices.push();
+			matrices.scale(1.0f, -1.0f, -1.0f);
+			if (this.javelinModel == null) this.javelinModel = new JavelinEntityModel(this.entityModelLoader.getModelPart(ModEntityModelLayers.JAVELIN));
+			VertexConsumer vertexConsumer2 = ItemRenderer.getDirectItemGlintConsumer(vertexConsumers, RenderLayer.getEntityCutout(javelin.getTexture()), false, stack.hasGlint());
+			this.javelinModel.render(matrices, vertexConsumer2, light, overlay, 1.0f, 1.0f, 1.0f, 1.0f);
+			matrices.pop();
 		}
 	}
 }

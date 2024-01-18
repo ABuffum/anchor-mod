@@ -3,9 +3,9 @@ package fun.mousewich.client.render.entity.model;
 public class ModEntityModelPartNames {
 	/** The key of a root model part, whose value is {@value}. */
 	public static final String ROOT = "root";
-	/** The key of a root model part, whose value is {@value}. */
+	/** The key of a body model part, whose value is {@value}. */
 	public static final String BODY0 = "body0";
-	/** The key of a root model part, whose value is {@value}. */
+	/** The key of a body model part, whose value is {@value}. */
 	public static final String BODY1 = "body1";
 	/**
 	 * The key of the right middle front leg model part, whose value is {@value}.
@@ -87,6 +87,10 @@ public class ModEntityModelPartNames {
 	public static final String RIGHT_SLEEVE_SLIM = "right_sleeve_slim";
 	/** The key of the crest model part, whose value is {@value}. */
 	public static final String CREST = "crest";
+	/** The key of a cape model part, whose value is {@value}. */
+	public static final String CAPE = "cape";
+	/** The key of an antler model part, whose value is {@value}. */
+	public static final String ANTLER = "antler";
 	/** The key of the error model part, whose value is {@value}. */
 	public static final String ERROR = "error";
 }

@@ -1,8 +1,7 @@
 package fun.mousewich.sound;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -311,6 +310,12 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_BONE_SPIDER_STEP = registerSoundEvent("entity.bone_spider.step");
 	public static final SoundEvent ENTITY_BONE_SPIDER_SPIT = registerSoundEvent("entity.bone_spider.spit");
 	//</editor-fold>
+	//<editor-fold desc="Icy Spider">
+	public static final SoundEvent ENTITY_ICY_SPIDER_AMBIENT = registerSoundEvent("entity.icy_spider.ambient");
+	public static final SoundEvent ENTITY_ICY_SPIDER_DEATH = registerSoundEvent("entity.icy_spider.death");
+	public static final SoundEvent ENTITY_ICY_SPIDER_HURT = registerSoundEvent("entity.icy_spider.hurt");
+	public static final SoundEvent ENTITY_ICY_SPIDER_STEP = registerSoundEvent("entity.icy_spider.step");
+	//</editor-fold>
 	//<editor-fold desc="Jumping Spider">
 	public static final SoundEvent ENTITY_JUMPING_SPIDER_AMBIENT = registerSoundEvent("entity.jumping_spider.ambient");
 	public static final SoundEvent ENTITY_JUMPING_SPIDER_DEATH = registerSoundEvent("entity.jumping_spider.death");
@@ -346,6 +351,8 @@ public class ModSoundEvents {
 	public static final SoundEvent ITEM_POUCH_EMPTY_RABBIT = registerSoundEvent("item.pouch.empty_rabbit");
 	public static final SoundEvent ITEM_POUCH_FILL_RABBIT = registerSoundEvent("item.pouch.fill_rabbit");
 	public static final SoundEvent ITEM_POUCH_EMPTY_ENDERMITE = registerSoundEvent("item.pouch.empty_endermite");
+	public static final SoundEvent ITEM_POUCH_EMPTY_PARROT = registerSoundEvent("item.pouch.empty_parrot");
+	public static final SoundEvent ITEM_POUCH_FILL_PARROT = registerSoundEvent("item.pouch.fill_parrot");
 	public static final SoundEvent ITEM_POUCH_FILL_ENDERMITE = registerSoundEvent("item.pouch.fill_endermite");
 	public static final SoundEvent ITEM_POUCH_EMPTY_SILVERFISH = registerSoundEvent("item.pouch.empty_silverfish");
 	public static final SoundEvent ITEM_POUCH_FILL_SILVERFISH = registerSoundEvent("item.pouch.fill_silverfish");
@@ -400,6 +407,111 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_SUNKEN_SKELETON_STEP = registerSoundEvent("entity.sunken_skeleton.step");
 	public static final SoundEvent ENTITY_SKELETON_CONVERTED_TO_SUNKEN_SKELETON = registerSoundEvent("entity.skeleton.converted_to_sunken_skeleton");
 	//</editor-fold>
+	//<editor-fold desc="Evoker">
+	public static final SoundEvent ENTITY_EVOKER_YES = registerSoundEvent("entity.evoker.yes");
+	public static final SoundEvent ENTITY_EVOKER_NO = registerSoundEvent("entity.evoker.no");
+	//</editor-fold>
+	//<editor-fold desc="Iceologer">
+	public static final SoundEvent ENTITY_ICEOLOGER_AMBIENT = registerSoundEvent("entity.iceologer.ambient");
+	public static final SoundEvent ENTITY_ICEOLOGER_ATTACK = registerSoundEvent("entity.iceologer.attack");
+	public static final SoundEvent ENTITY_ICEOLOGER_CAST_SPELL = registerSoundEvent("entity.iceologer.cast_spell");
+	public static final SoundEvent ENTITY_ICEOLOGER_CELEBRATE = registerSoundEvent("entity.iceologer.ambient");
+	public static final SoundEvent ENTITY_ICEOLOGER_DEATH = registerSoundEvent("entity.iceologer.death");
+	public static final SoundEvent ENTITY_ICEOLOGER_HURT = registerSoundEvent("entity.iceologer.hurt");
+	public static final SoundEvent ENTITY_ICEOLOGER_PREPARE_SUMMON = registerSoundEvent("entity.iceologer.prepare_summon");
+	public static final SoundEvent ENTITY_ICEOLOGER_YES = registerSoundEvent("entity.iceologer.yes");
+	public static final SoundEvent ENTITY_ICEOLOGER_NO = registerSoundEvent("entity.iceologer.no");
+	public static final SoundEvent ENTITY_ICEOLOGER_ICE_FALL_SMALL = registerSoundEvent("entity.iceologer.ice_fall_small");
+	public static final SoundEvent ENTITY_ICEOLOGER_ICE_FALL_BIG = registerSoundEvent("entity.iceologer.ice_fall_big");
+	//</editor-fold>
+	//<editor-fold desc="Illusioner">
+	public static final SoundEvent ENTITY_ILLUSIONER_YES = registerSoundEvent("entity.illusioner.yes");
+	public static final SoundEvent ENTITY_ILLUSIONER_NO = registerSoundEvent("entity.illusioner.no");
+	//</editor-fold>
+	//<editor-fold desc="Mage">
+	public static final SoundEvent ENTITY_MAGE_AMBIENT = registerSoundEvent("entity.mage.ambient");
+	public static final SoundEvent ENTITY_MAGE_ATTACK = registerSoundEvent("entity.mage.attack");
+	public static final SoundEvent ENTITY_MAGE_CAST_SPELL = registerSoundEvent("entity.mage.cast_spell");
+	public static final SoundEvent ENTITY_MAGE_CELEBRATE = registerSoundEvent("entity.mage.ambient");
+	public static final SoundEvent ENTITY_MAGE_DEATH = registerSoundEvent("entity.mage.death");
+	public static final SoundEvent ENTITY_MAGE_HURT = registerSoundEvent("entity.mage.hurt");
+	public static final SoundEvent ENTITY_MAGE_PREPARE_SPELL = registerSoundEvent("entity.mage.prepare_spell");
+	public static final SoundEvent ENTITY_MAGE_YES = registerSoundEvent("entity.mage.yes");
+	public static final SoundEvent ENTITY_MAGE_NO = registerSoundEvent("entity.mage.no");
+	//</editor-fold>
+	//<editor-fold desc="Pillager">
+	public static final SoundEvent ENTITY_PILLAGER_YES = registerSoundEvent("entity.pillager.yes");
+	public static final SoundEvent ENTITY_PILLAGER_NO = registerSoundEvent("entity.pillager.no");
+	//</editor-fold>
+	//<editor-fold desc="Vindicator">
+	public static final SoundEvent ENTITY_VINDICATOR_YES = registerSoundEvent("entity.vindicator.yes");
+	public static final SoundEvent ENTITY_VINDICATOR_NO = registerSoundEvent("entity.vindicator.no");
+	//</editor-fold>
+	//<editor-fold desc="Witch">
+	public static final SoundEvent ENTITY_WITCH_YES = registerSoundEvent("entity.witch.yes");
+	public static final SoundEvent ENTITY_WITCH_NO = registerSoundEvent("entity.witch.no");
+	//</editor-fold>
+	//<editor-fold desc="Villager">
+	public static final SoundEvent ENTITY_VILLAGER_WORK_LAPIDARY = registerSoundEvent("entity.villager.work_lapidary");
+	//</editor-fold>
+	//<editor-fold desc="Jolly Llama">
+	public static final SoundEvent ENTITY_JOLLY_LLAMA_BELL = registerSoundEvent("entity.jolly_llama.bell");
+	public static final SoundEvent ENTITY_JOLLY_LLAMA_EAT_FERN = registerSoundEvent("entity.jolly_llama.eat_fern");
+	public static final SoundEvent ENTITY_JOLLY_LLAMA_PRANCE = registerSoundEvent("entity.jolly_llama.prance");
+	//</editor-fold>
+
+	//<editor-fold desc="Nether Iron Ore">
+	public static final SoundEvent BLOCK_NETHER_IRON_ORE_BREAK = registerSoundEvent("block.nether_iron_ore.break");
+	public static final SoundEvent BLOCK_NETHER_IRON_ORE_FALL = registerSoundEvent("block.nether_iron_ore.fall");
+	public static final SoundEvent BLOCK_NETHER_IRON_ORE_HIT = registerSoundEvent("block.nether_iron_ore.hit");
+	public static final SoundEvent BLOCK_NETHER_IRON_ORE_PLACE = registerSoundEvent("block.nether_iron_ore.place");
+	public static final SoundEvent BLOCK_NETHER_IRON_ORE_STEP = registerSoundEvent("block.nether_iron_ore.step");
+	//</editor-fold>
+	//<editor-fold desc="End Iron Ore">
+	public static final SoundEvent BLOCK_END_IRON_ORE_BREAK = registerSoundEvent("block.end_iron_ore.break");
+	public static final SoundEvent BLOCK_END_IRON_ORE_FALL = registerSoundEvent("block.end_iron_ore.fall");
+	public static final SoundEvent BLOCK_END_IRON_ORE_HIT = registerSoundEvent("block.end_iron_ore.hit");
+	public static final SoundEvent BLOCK_END_IRON_ORE_PLACE = registerSoundEvent("block.end_iron_ore.place");
+	public static final SoundEvent BLOCK_END_IRON_ORE_STEP = registerSoundEvent("block.end_iron_ore.step");
+	//</editor-fold>
+	//<editor-fold desc="Nether Copper Ore">
+	public static final SoundEvent BLOCK_NETHER_COPPER_ORE_BREAK = registerSoundEvent("block.nether_copper_ore.break");
+	public static final SoundEvent BLOCK_NETHER_COPPER_ORE_FALL = registerSoundEvent("block.nether_copper_ore.fall");
+	public static final SoundEvent BLOCK_NETHER_COPPER_ORE_HIT = registerSoundEvent("block.nether_copper_ore.hit");
+	public static final SoundEvent BLOCK_NETHER_COPPER_ORE_PLACE = registerSoundEvent("block.nether_copper_ore.place");
+	public static final SoundEvent BLOCK_NETHER_COPPER_ORE_STEP = registerSoundEvent("block.nether_copper_ore.step");
+	//</editor-fold>
+	//<editor-fold desc="End Copper Ore">
+	public static final SoundEvent BLOCK_END_COPPER_ORE_BREAK = registerSoundEvent("block.end_copper_ore.break");
+	public static final SoundEvent BLOCK_END_COPPER_ORE_FALL = registerSoundEvent("block.end_copper_ore.fall");
+	public static final SoundEvent BLOCK_END_COPPER_ORE_HIT = registerSoundEvent("block.end_copper_ore.hit");
+	public static final SoundEvent BLOCK_END_COPPER_ORE_PLACE = registerSoundEvent("block.end_copper_ore.place");
+	public static final SoundEvent BLOCK_END_COPPER_ORE_STEP = registerSoundEvent("block.end_copper_ore.step");
+	//</editor-fold>
+	//<editor-fold desc="End Gold Ore">
+	public static final SoundEvent BLOCK_END_GOLD_ORE_BREAK = registerSoundEvent("block.end_gold_ore.break");
+	public static final SoundEvent BLOCK_END_GOLD_ORE_FALL = registerSoundEvent("block.end_gold_ore.fall");
+	public static final SoundEvent BLOCK_END_GOLD_ORE_HIT = registerSoundEvent("block.end_gold_ore.hit");
+	public static final SoundEvent BLOCK_END_GOLD_ORE_PLACE = registerSoundEvent("block.end_gold_ore.place");
+	public static final SoundEvent BLOCK_END_GOLD_ORE_STEP = registerSoundEvent("block.end_gold_ore.step");
+	//</editor-fold>
+
+	//<editor-fold desc="Copper Grate">
+	public static final SoundEvent BLOCK_COPPER_GRATE_BREAK = registerSoundEvent("block.copper_grate.break");
+	public static final SoundEvent BLOCK_COPPER_GRATE_STEP = registerSoundEvent("block.copper_grate.step");
+	public static final SoundEvent BLOCK_COPPER_GRATE_PLACE = registerSoundEvent("block.copper_grate.place");
+	public static final SoundEvent BLOCK_COPPER_GRATE_HIT = registerSoundEvent("block.copper_grate.hit");
+	public static final SoundEvent BLOCK_COPPER_GRATE_FALL = registerSoundEvent("block.copper_grate.fall");
+	//</editor-fold>
+	//<editor-fold desc="Copper Door">
+	public static final SoundEvent BLOCK_COPPER_DOOR_CLOSE = registerSoundEvent("block.copper_door.close");
+	public static final SoundEvent BLOCK_COPPER_DOOR_OPEN = registerSoundEvent("block.copper_door.open");
+	//</editor-fold>
+	//<editor-fold desc="Copper Trapdoor">
+	public static final SoundEvent BLOCK_COPPER_TRAPDOOR_CLOSE = registerSoundEvent("block.copper_trapdoor.close");
+	public static final SoundEvent BLOCK_COPPER_TRAPDOOR_OPEN = registerSoundEvent("block.copper_trapdoor.open");
+	//</editor-fold>
+
 	public static final SoundEvent ENTITY_STRAY_CONVERTED_TO_SKELETON = registerSoundEvent("entity.stray.converted_to_skeleton");
 
 	//<editor-fold desc="Grape Vines">
@@ -468,7 +580,7 @@ public class ModSoundEvents {
 	//</editor-fold>
 
 	public static SoundEvent registerSoundEvent(String name) {
-		Identifier id = ModBase.ID(name);
+		Identifier id = ModId.ID(name);
 		if (Registry.SOUND_EVENT.containsId(id)) return Registry.SOUND_EVENT.get(id);
 		return Registry.register(Registry.SOUND_EVENT, id, new SoundEvent(id));
 	}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:stripped_dried_bamboo_block"
+    },
+    "|": {
+      "item": "haven:iron_chain"
+    }
+  },
+  "result": {
+    "item": "haven:dried_bamboo_iron_hanging_sign"
+  }
+}

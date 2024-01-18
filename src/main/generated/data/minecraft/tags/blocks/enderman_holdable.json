@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "haven:gilded_fungus",
-    "haven:mycelium_roots",
+    "haven:gilded_roots",
     "haven:blue_mushroom",
-    "haven:gilded_roots"
+    "haven:mycelium_roots"
   ]
 }

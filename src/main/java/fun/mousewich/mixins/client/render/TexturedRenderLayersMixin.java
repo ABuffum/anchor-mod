@@ -1,6 +1,7 @@
 package fun.mousewich.mixins.client.render;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.util.Identifier;
@@ -16,8 +17,8 @@ public class TexturedRenderLayersMixin {
 	private static void RetextureSigns(SignType type, CallbackInfoReturnable<SpriteIdentifier> cir) {
 		if (ModBase.SIGN_TYPES.contains(type) || ModBase.HANGING_SIGN_SUBTYPES.containsKey(type)) {
 			String name = type.getName();
-			Identifier id = ModBase.ID(name.startsWith("minecraft:") ? "minecraft:entity/signs/" + name.substring("minecraft:".length()) : "entity/signs/" + name);
-			cir.setReturnValue(new SpriteIdentifier(ModBase.ID("textures/atlas/signs.png"), id));
+			Identifier id = ModId.ID(name.startsWith("minecraft:") ? "minecraft:entity/signs/" + name.substring("minecraft:".length()) : "entity/signs/" + name);
+			cir.setReturnValue(new SpriteIdentifier(ModId.ID("textures/atlas/signs.png"), id));
 		}
 	}
 }

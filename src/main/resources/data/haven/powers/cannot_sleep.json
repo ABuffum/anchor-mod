@@ -1,6 +1,7 @@
 {
   "type": "origins:prevent_sleep",
   "message": "You can't sleep...",
+  "set_spawn_point": true,
   "name": "Sleepless",
   "description": "You can no longer sleep at night, or any time for that matter. When was the last time you rested?"
 }

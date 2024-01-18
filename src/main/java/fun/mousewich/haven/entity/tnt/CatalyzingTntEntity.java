@@ -12,13 +12,14 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 
 public class CatalyzingTntEntity extends ModTntEntity {
 	public CatalyzingTntEntity(EntityType<? extends Entity> entityType, World world) { super(entityType, world, HavenMod.CATALYZING_TNT.asBlock().getDefaultState()); }
-	public CatalyzingTntEntity(World world, double x, double y, double z, LivingEntity igniter) {
+	public CatalyzingTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter) {
 		this(world, x, y, z, igniter, HavenMod.CATALYZING_TNT.asBlock().getDefaultState());
 	}
-	public CatalyzingTntEntity(World world, double x, double y, double z, LivingEntity igniter, BlockState state) {
+	public CatalyzingTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, BlockState state) {
 		super(HavenMod.CATALYZING_TNT_ENTITY, world, x, y, z, igniter, state);
 	}
 
@@ -30,9 +31,9 @@ public class CatalyzingTntEntity extends ModTntEntity {
 	@Override
 	public boolean shouldDestroyBlocks() { return false; }
 	@Override
-	public float damageMultiplier() { return 0; }
+	public boolean shouldDamage() { return false; }
 	@Override
-	public float knockbackMultiplier() { return 0; }
+	public boolean shouldDoKnockback() { return false; }
 	@Override
 	public boolean shouldMakeSound() { return false; }
 

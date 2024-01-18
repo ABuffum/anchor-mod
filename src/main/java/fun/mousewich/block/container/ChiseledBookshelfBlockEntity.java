@@ -1,6 +1,8 @@
 package fun.mousewich.block.container;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
+import fun.mousewich.entity.HopperTransferable;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,7 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.Objects;
 import java.util.function.Predicate;
 
-public class ChiseledBookshelfBlockEntity extends BlockEntity implements Inventory {
+public class ChiseledBookshelfBlockEntity extends BlockEntity implements Inventory, HopperTransferable {
 	private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(ChiseledBookshelfBlock.MAX_BOOK_COUNT, ItemStack.EMPTY);
 	private int lastInteractedSlot = -1;
 
@@ -25,7 +27,7 @@ public class ChiseledBookshelfBlockEntity extends BlockEntity implements Invento
 
 	private void updateState(int interactedSlot) {
 		if (interactedSlot < 0 || interactedSlot >= ChiseledBookshelfBlock.MAX_BOOK_COUNT) {
-			ModBase.LOGGER.error("Expected slot 0-5, got {}", interactedSlot);
+			ModId.LOGGER.error("Expected slot 0-" + (ChiseledBookshelfBlock.MAX_BOOK_COUNT - 1) + ", got {}", interactedSlot);
 			return;
 		}
 		this.lastInteractedSlot = interactedSlot;
@@ -83,6 +85,21 @@ public class ChiseledBookshelfBlockEntity extends BlockEntity implements Invento
 			this.inventory.set(slot, stack);
 			this.updateState(slot);
 		}
+		else if (stack.isEmpty()) this.removeStack(slot, 1);
+	}
+
+	@Override
+	public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+		Predicate<ItemStack> predicate = (ItemStack itemStack2) -> {
+			if (itemStack2.isEmpty()) return true;
+			return ItemStack.canCombine(stack, itemStack2) && itemStack2.getCount() + stack.getCount() <= Math.min(itemStack2.getMaxCount(), hopperInventory.getMaxCountPerStack());
+		};
+		for (int i = 0; i < hopperInventory.size(); ++i) {
+			ItemStack itemStack = hopperInventory.getStack(i);
+			if (!predicate.test(itemStack)) continue;
+			return true;
+		}
+		return false;
 	}
 
 	@Override

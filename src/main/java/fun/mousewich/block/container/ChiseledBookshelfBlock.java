@@ -1,5 +1,6 @@
 package fun.mousewich.block.container;
 
+import fun.mousewich.block.ModProperties;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import fun.mousewich.sound.ModSoundEvents;
 import net.minecraft.block.*;
@@ -13,9 +14,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.stat.Stats;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.*;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,13 +29,7 @@ import java.util.Optional;
 public class ChiseledBookshelfBlock extends BlockWithEntity {
 	public static final int MAX_BOOK_COUNT = 6;
 	public static final int BOOK_HEIGHT = 3;
-	public static final BooleanProperty SLOT_0_OCCUPIED = BooleanProperty.of("slot_0_occupied");
-	public static final BooleanProperty SLOT_1_OCCUPIED = BooleanProperty.of("slot_1_occupied");
-	public static final BooleanProperty SLOT_2_OCCUPIED = BooleanProperty.of("slot_2_occupied");
-	public static final BooleanProperty SLOT_3_OCCUPIED = BooleanProperty.of("slot_3_occupied");
-	public static final BooleanProperty SLOT_4_OCCUPIED = BooleanProperty.of("slot_4_occupied");
-	public static final BooleanProperty SLOT_5_OCCUPIED = BooleanProperty.of("slot_5_occupied");
-	public static final List<BooleanProperty> SLOT_OCCUPIED_PROPERTIES = List.of(SLOT_0_OCCUPIED, SLOT_1_OCCUPIED, SLOT_2_OCCUPIED, SLOT_3_OCCUPIED, SLOT_4_OCCUPIED, SLOT_5_OCCUPIED);
+	public static final List<BooleanProperty> SLOT_OCCUPIED_PROPERTIES = List.of(ModProperties.SLOT_0_OCCUPIED, ModProperties.SLOT_1_OCCUPIED, ModProperties.SLOT_2_OCCUPIED, ModProperties.SLOT_3_OCCUPIED, ModProperties.SLOT_4_OCCUPIED, ModProperties.SLOT_5_OCCUPIED);
 
 	public ChiseledBookshelfBlock(AbstractBlock.Settings settings) {
 		super(settings);
@@ -119,10 +112,9 @@ public class ChiseledBookshelfBlock extends BlockWithEntity {
 
 	@Override
 	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-		ChiseledBookshelfBlockEntity chiseledBookshelfBlockEntity;
 		if (state.isOf(newState.getBlock())) return;
 		BlockEntity blockEntity = world.getBlockEntity(pos);
-		if (blockEntity instanceof ChiseledBookshelfBlockEntity && !(chiseledBookshelfBlockEntity = (ChiseledBookshelfBlockEntity)blockEntity).isEmpty()) {
+		if (blockEntity instanceof ChiseledBookshelfBlockEntity chiseledBookshelfBlockEntity && !chiseledBookshelfBlockEntity.isEmpty()) {
 			for (int i = 0; i < MAX_BOOK_COUNT; ++i) {
 				ItemStack itemStack = chiseledBookshelfBlockEntity.getStack(i);
 				if (itemStack.isEmpty()) continue;
@@ -139,6 +131,14 @@ public class ChiseledBookshelfBlock extends BlockWithEntity {
 		PlayerEntity player = ctx.getPlayer();
 		Direction horizontalPlayerFacing = player == null ? Direction.NORTH : player.getHorizontalFacing();
 		return this.getDefaultState().with(HorizontalFacingBlock.FACING, horizontalPlayerFacing.getOpposite());
+	}
+	@Override
+	public BlockState rotate(BlockState state, BlockRotation rotation) {
+		return state.with(HorizontalFacingBlock.FACING, rotation.rotate(state.get(HorizontalFacingBlock.FACING)));
+	}
+	@Override
+	public BlockState mirror(BlockState state, BlockMirror mirror) {
+		return state.rotate(mirror.getRotation(state.get(HorizontalFacingBlock.FACING)));
 	}
 	@Override
 	public boolean hasComparatorOutput(BlockState state) { return true; }

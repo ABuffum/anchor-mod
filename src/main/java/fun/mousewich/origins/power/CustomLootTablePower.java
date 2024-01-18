@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -20,7 +20,7 @@ public class CustomLootTablePower extends Power {
 	public Identifier getLootTable() { return lootTable; }
 
 	public static PowerFactory<CustomLootTablePower> createFactory() {
-		return new PowerFactory<CustomLootTablePower>(ModBase.ID("custom_loot_table"), new SerializableData()
+		return new PowerFactory<CustomLootTablePower>(ModId.ID("custom_loot_table"), new SerializableData()
 				.add("loot_table", SerializableDataTypes.IDENTIFIER),
 				data -> (type, player) -> new CustomLootTablePower(type, player, data.getId("loot_table"))
 		).allowCondition();

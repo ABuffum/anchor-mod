@@ -19,7 +19,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.gen.data.fabric.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataCache;
@@ -72,7 +72,7 @@ public class ModelProvider implements DataProvider {
 		else img.register(); // Fallback to the vanilla registration when not a fabric provider
 		List<Block> list = Registry.BLOCK.stream().filter(block -> !map.containsKey(block)).toList();
 		if (!list.isEmpty()) {
-			ModBase.LOGGER.error("Missing blockstate definitions for: " + list);
+			ModId.LOGGER.error("Missing blockstate definitions for: " + list);
 		}
 		HashSet<Item> missingItemSet = Sets.newHashSet();
 		Registry.BLOCK.forEach(block -> {
@@ -86,7 +86,7 @@ public class ModelProvider implements DataProvider {
 				}*/
 			}
 		});
-		ModBase.LOGGER.error("Missing item model definitions for: " + missingItemSet.stream().map(item -> {
+		ModId.LOGGER.error("Missing item model definitions for: " + missingItemSet.stream().map(item -> {
 			Identifier identifier = Registry.ITEM.getId(item);
 			if (identifier == Registry.ITEM.getDefaultId()) return item.toString();
 			return identifier.toString();
@@ -102,7 +102,7 @@ public class ModelProvider implements DataProvider {
 				DataProvider.writeToPath(GSON, cache, supplier.get(), path2);
 			}
 			catch (Exception exception) {
-				ModBase.LOGGER.error("Couldn't save {}", path2, exception);
+				ModId.LOGGER.error("Couldn't save {}", path2, exception);
 			}
 		});
 	}

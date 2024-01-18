@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "haven:sapphire_block"
+  },
+  "result": "haven:sapphire_brick_slab",
+  "count": 2
+}

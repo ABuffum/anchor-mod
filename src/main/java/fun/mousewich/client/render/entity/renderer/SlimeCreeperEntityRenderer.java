@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.SlimeCreeperEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.SlimeCreeperChargeFeatureRenderer;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(value= EnvType.CLIENT)
 public class SlimeCreeperEntityRenderer extends MobEntityRenderer<SlimeCreeperEntity, SlimeCreeperEntityModel<SlimeCreeperEntity>> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/creeper/slime.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/creeper/slime.png");
 
 	public SlimeCreeperEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new SlimeCreeperEntityModel<>(context.getPart(ModEntityModelLayers.SLIME_CREEPER)), 0.5f);

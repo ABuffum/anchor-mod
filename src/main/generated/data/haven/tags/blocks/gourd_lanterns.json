@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "haven:ender_melon_lantern",
-    "haven:white_jack_o_lantern",
-    "haven:white_ender_jack_o_lantern",
-    "haven:soul_jack_o_lantern",
-    "haven:ender_jack_o_lantern",
-    "haven:white_soul_jack_o_lantern",
-    "haven:rotten_jack_o_lantern",
     "haven:rotten_soul_jack_o_lantern",
-    "haven:rotten_ender_jack_o_lantern",
+    "haven:soul_jack_o_lantern",
+    "haven:white_jack_o_lantern",
+    "haven:ender_jack_o_lantern",
+    "haven:white_ender_jack_o_lantern",
     "haven:melon_lantern",
     "haven:soul_melon_lantern",
+    "haven:ender_melon_lantern",
+    "haven:rotten_ender_jack_o_lantern",
+    "haven:rotten_jack_o_lantern",
+    "haven:white_soul_jack_o_lantern",
     "minecraft:jack_o_lantern"
   ]
 }

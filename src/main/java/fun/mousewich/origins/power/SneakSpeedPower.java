@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -19,7 +19,7 @@ public class SneakSpeedPower extends Power {
 	}
 
 	public static PowerFactory<SneakSpeedPower> createFactory() {
-		return new PowerFactory<SneakSpeedPower>(ModBase.ID("sneak_speed"), new SerializableData()
+		return new PowerFactory<SneakSpeedPower>(ModId.ID("sneak_speed"), new SerializableData()
 				.add("multiplier", SerializableDataTypes.FLOAT, 0.3F),
 				data -> (type, player) -> new SneakSpeedPower(type, player, data.getFloat("multiplier"))
 		).allowCondition();

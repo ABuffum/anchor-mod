@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stripped_warped_stem"
+    },
+    "|": {
+      "item": "haven:waxed_oxidized_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:warped_oxidized_copper_hanging_sign"
+  }
+}

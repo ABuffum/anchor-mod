@@ -1,6 +1,7 @@
 package fun.mousewich.entity.passive.sheep;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
@@ -32,7 +33,7 @@ public class MossySheepEntity extends SheepEntity implements Shearable {
 	@Override
 	public Identifier getLootTableId() {
 		if (this.isSheared()) return EntityType.SHEEP.getLootTableId();
-		else return ModBase.ID("entities/sheep/mossy");
+		else return ModId.ID("entities/sheep/mossy");
 	}
 	@Override
 	public DyeColor getColor() { return DyeColor.GREEN; }

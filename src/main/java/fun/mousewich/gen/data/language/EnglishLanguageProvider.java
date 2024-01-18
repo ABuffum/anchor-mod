@@ -1,10 +1,11 @@
 package fun.mousewich.gen.data.language;
 
-import fun.mousewich.ModBase;
 import fun.mousewich.ModConfig;
 import fun.mousewich.ModGameRules;
+import fun.mousewich.ModId;
 import fun.mousewich.gen.data.fabric.FabricLanguageProvider;
 import fun.mousewich.registry.ModBannerPatterns;
+import fun.mousewich.util.dye.ModDyeColor;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.util.DyeColor;
 
@@ -17,13 +18,14 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 
 	@Override
 	public void generateTranslations(TranslationBuilder builder) {
-		builder.add("category." + NAMESPACE, "Wich Pack");
+		builder.add("category." + ModId.NAMESPACE, "Wich Pack");
 		//Item Groups
 		builder.add(ITEM_GROUP, "Wich Pack");
-		builder.add("itemGroup." + NAMESPACE + ".flowers", EN_US.Flowers("Wich Pack"));
-		builder.add("itemGroup." + NAMESPACE + ".decorative_blocks", "Wich Pack Decoration-Only Blocks");
-		builder.add("itemGroup." + NAMESPACE + ".plushies", "Wich Pack Plushies");
+		builder.add("itemGroup." + ModId.NAMESPACE + ".flowers", EN_US.Flowers("Wich Pack"));
+		builder.add("itemGroup." + ModId.NAMESPACE + ".decorative_blocks", "Wich Pack Decoration-Only Blocks");
+		builder.add("itemGroup." + ModId.NAMESPACE + ".plushies", "Wich Pack Plushies");
 		//Game Rules
+		builder.add(ModGameRules.DO_RED_PHANTOM_SPAWNING, EN_US.Phantoms(EN_US.Red(EN_US.Spawn())));
 		builder.add(ModGameRules.DO_VINES_SPREAD, EN_US.Vines() + " spread", "Controls whether or not the " + EN_US.Vines() + " block spreads randomly to adjacent blocks. Does not affect other type of vine blocks such as Weeping Vines, Twisting Vines, etc.");
 		builder.add(ModGameRules.DO_WARDEN_BLINDNESS, "Apply " + EN_US.Blindness() + " effect around " + EN_US.Wardens(), "Controls whether or not " + EN_US.Wardens() + " apply the " + EN_US.Blindness() + " effect to nearby players. This is a temporary fix while this mod's developer figures out how to stop shader packs from disabling the " + EN_US.Darkness() + " Effect.");
 		builder.add(ModGameRules.DO_WARDEN_DARKNESS, "Apply " + EN_US.Darkness() + " effect around " + EN_US.Wardens(), "Controls whether or not " + EN_US.Wardens() + " apply the " + EN_US.Darkness() + " effect to nearby players.");
@@ -31,9 +33,10 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		//Containers
 		builder.add("container.woodcutter", EN_US.Woodcutter());
 		builder.add("container.trimming", EN_US.Trimming());
-		builder.add("container.upgrade.missing_template_tooltip", "Put a " + EN_US.Template(EN_US.Smithing()) + " here");
+		builder.add("container.upgrade.missing_template_tooltip", EN_US.here(EN_US.Template(EN_US.Smithing(EN_US.a(EN_US.Put())))));
 		//Stats
-		builder.add("stat.wich.interact_with_trimming_table", EN_US.Table(EN_US.Trimming(EN_US.with("Interactions"))));
+		builder.add("stat." + ModId.NAMESPACE + ".interact_with_trimming_table", EN_US.Table(EN_US.Trimming(EN_US.with(EN_US.Interactions()))));
+		builder.add("stat." + ModId.NAMESPACE + ".interact_with_faceting_table", EN_US.Table(EN_US.Faceting(EN_US.with(EN_US.Interactions()))));
 		//<editor-fold desc="Advancements">
 		builder.addAdvancement("advancements.husbandry.tadpole_in_a_bucket", "Bukkit Bukkit", "Catch a Tadpole in a Bucket");
 		builder.addAdvancement("advancements.husbandry.froglights", "With Our Powers Combined!", "Have all Froglights in your inventory");
@@ -50,11 +53,15 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("item.minecraft.music_disc_relic.desc", "Aaron Cherof - Relic");
 		//</editor-fold>
 		//<editor-fold desc="Custom Banner Patterns">
+		builder.add("item." + ModId.NAMESPACE + ".club_banner_pattern.desc", EN_US.Club());
+		builder.add("item." + ModId.NAMESPACE + ".diamond_banner_pattern.desc", EN_US.Diamond());
+		builder.add("item." + ModId.NAMESPACE + ".heart_banner_pattern.desc", EN_US.Heart());
+		builder.add("item." + ModId.NAMESPACE + ".spade_banner_pattern.desc", EN_US.Spade());
 		for (DyeColor color : DyeColor.values()) {
-			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.CLUB.getName() + "." + color.getName(), EN_US.Club(EN_US.Color(color)));
-			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.DIAMOND.getName() + "." + color.getName(), EN_US.Diamond(EN_US.Color(color)));
-			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.HEART.getName() + "." + color.getName(), EN_US.Heart(EN_US.Color(color)));
-			builder.add("block." + NAMESPACE + ".banner." + ModBannerPatterns.SPADE.getName() + "." + color.getName(), EN_US.Spade(EN_US.Color(color)));
+			builder.add("block." + ModId.NAMESPACE + ".banner." + ModBannerPatterns.CLUB.getName() + "." + color.getName(), EN_US.Club(EN_US.Color(color)));
+			builder.add("block." + ModId.NAMESPACE + ".banner." + ModBannerPatterns.DIAMOND.getName() + "." + color.getName(), EN_US.Diamond(EN_US.Color(color)));
+			builder.add("block." + ModId.NAMESPACE + ".banner." + ModBannerPatterns.HEART.getName() + "." + color.getName(), EN_US.Heart(EN_US.Color(color)));
+			builder.add("block." + ModId.NAMESPACE + ".banner." + ModBannerPatterns.SPADE.getName() + "." + color.getName(), EN_US.Spade(EN_US.Color(color)));
 		}
 		//</editor-fold>
 		//<editor-fold desc="Goat Horn">
@@ -95,10 +102,16 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("trim_pattern.minecraft.ward", EN_US.Trim(EN_US.Armor(EN_US.Ward())));
 		builder.add("trim_pattern.minecraft.wild", EN_US.Trim(EN_US.Armor(EN_US.Wild())));
 		//</editor-fold>
+		//Mod Dye Colors
+		for (ModDyeColor color : ModDyeColor.ALL_VALUES) {
+			builder.add("item." + ModId.NAMESPACE + ".firework_star." + color.getName(), EN_US.Color(color));
+		}
 		//Wind Horn
 		builder.add("subtitles.item.wind_horn.play", EN_US.plays(EN_US.Horn(EN_US.Wind())));
 		//Keybinds
-		builder.add("key.haven.tertiary_active", "Active Origins Power (Tertiary)");
+		builder.add("key." + ModId.NAMESPACE + ".tertiary_active", "Active Origins Power (3rd)");
+		builder.add("key." + ModId.NAMESPACE + ".quaternary_active", "Active Origins Power (4th)");
+		builder.add("key." + ModId.NAMESPACE + ".quinary_active", "Active Origins Power (5th)");
 		//Biomes
 		builder.add(DEEP_DARK, EN_US.Dark(EN_US.Deep()));
 		builder.add(MANGROVE_SWAMP, EN_US.Swamp(EN_US.Mangrove()));
@@ -166,6 +179,8 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("death.attack.quills.player", "%1$s was quilled whilst trying to escape %2$s");
 		builder.add("death.attack.suffocate", "%1$s suffocated");
 		builder.add("death.attack.suffocate.player", "%1$s couldn't breathe whilst fighting %2$s");
+		builder.add("death.attack.ice_chunk", "%1$s was crushed by falling ice");;
+		builder.add("death.attack.ice_chunk.player", "%1$s chose the avalanche over fighting %2$s");
 		builder.add("death.attack.withering", "%1$s withered away");
 		builder.add("death.attack.withering.player", "%1$s withered away whilst fighting %2$s");
 		//</editor-fold>
@@ -340,7 +355,60 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("subtitles.item.brush.brushing.sand.complete", EN_US.completed(EN_US.Sand(EN_US.Brushing())));
 		builder.add("subtitles.item.brush.brushing.gravel.complete", EN_US.completed(EN_US.Gravel(EN_US.Brushing())));
 		//</editor-fold>
+		//<editor-fold desc="Evoker">
+		builder.add("subtitles.entity.evoker.yes", EN_US.agrees(EN_US.Evoker()));
+		builder.add("subtitles.entity.evoker.no", EN_US.disagrees(EN_US.Evoker()));
+		//</editor-fold>
+		//<editor-fold desc="Iceologer">
+		builder.add("subtitles.entity.iceologer.ambient", EN_US.murmurs(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.attack", EN_US.attacks(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.cast_spell", EN_US.spell(EN_US.casts(EN_US.Iceologer())));
+		builder.add("subtitles.entity.iceologer.celebrate", EN_US.cheers(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.death", EN_US.dies(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.hurt", EN_US.hurts(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.prepare_summon", EN_US.summoning(EN_US.prepares(EN_US.Iceologer())));
+		builder.add("subtitles.entity.iceologer.yes", EN_US.agrees(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.no", EN_US.disagrees(EN_US.Iceologer()));
+		builder.add("subtitles.entity.iceologer.ice_fall_small", EN_US.fell(EN_US.Ice()));
+		builder.add("subtitles.entity.iceologer.ice_fall_big", EN_US.hard(EN_US.fell(EN_US.Ice())));
+		//</editor-fold>
+		//<editor-fold desc="Illusioner">
+		builder.add("subtitles.entity.illusioner.yes", EN_US.agrees(EN_US.Illusioner()));
+		builder.add("subtitles.entity.illusioner.no", EN_US.disagrees(EN_US.Illusioner()));
+		//</editor-fold>
+		//<editor-fold desc="Mage">
+		builder.add("subtitles.entity.mage.ambient", EN_US.murmurs(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.attack", EN_US.attacks(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.cast_spell", EN_US.spell(EN_US.casts(EN_US.Mage())));
+		builder.add("subtitles.entity.mage.celebrate", EN_US.cheers(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.death", EN_US.dies(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.hurt", EN_US.hurts(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.prepare_spell", EN_US.spell(EN_US.prepares(EN_US.Mage())));
+		builder.add("subtitles.entity.mage.yes", EN_US.agrees(EN_US.Mage()));
+		builder.add("subtitles.entity.mage.no", EN_US.disagrees(EN_US.Mage()));
+		//</editor-fold>
+		//<editor-fold desc="Pillager">
+		builder.add("subtitles.entity.pillager.yes", EN_US.agrees(EN_US.Pillager()));
+		builder.add("subtitles.entity.pillager.no", EN_US.disagrees(EN_US.Pillager()));
+		//</editor-fold>
+		//<editor-fold desc="Vindicator">
+		builder.add("subtitles.entity.vindicator.yes", EN_US.agrees(EN_US.Vindicator()));
+		builder.add("subtitles.entity.vindicator.no", EN_US.disagrees(EN_US.Vindicator()));
+		//</editor-fold>
+		//<editor-fold desc="Witch">
+		builder.add("subtitles.entity.witch.yes", EN_US.agrees(EN_US.Witch()));
+		builder.add("subtitles.entity.witch.no", EN_US.disagrees(EN_US.Witch()));
+		//</editor-fold>
+		//<editor-fold desc="Villager">
+		builder.add("entity.minecraft.villager.lapidary", EN_US.Lapidary());
+		builder.add("subtitles.entity.villager.work_lapidary", EN_US.works(EN_US.Lapidary()));
+		//</editor-fold>
 		builder.add("subtitles.block.amethyst_block.resonate", EN_US.resonates(EN_US.Amethyst()));
+		//<editor-fold desc="Jolly LLama">
+		builder.add("subtitles.entity.jolly_llama.bell", EN_US.jingles(EN_US.Llama(EN_US.Jolly())));
+		builder.add("subtitles.entity.jolly_llama.eat_fern", EN_US.Fern(EN_US.eats(EN_US.Llama(EN_US.Jolly()))));
+		builder.add("subtitles.entity.jolly_llama.prance", EN_US.prances(EN_US.Llama(EN_US.Jolly())));
+		//</editor-fold>
 
 		//Nethershroom
 		builder.add("subtitles.block.nethershroom.explode", EN_US.explodes(EN_US.Nethershroom()));
@@ -352,13 +420,15 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("subtitles.item.pouch.empty", EN_US.empties(EN_US.Pouch()));
 		builder.add("subtitles.item.pouch.fill", EN_US.fills(EN_US.Pouch()));
 
-		builder.add("item.wich.chicken_pouch.greg", EN_US.Greg(EN_US.of(EN_US.Greg())));
+		builder.add("item." + ModId.NAMESPACE + ".chicken_pouch.greg", EN_US.Greg(EN_US.of(EN_US.Pouch())));
 		builder.add("subtitles.item.pouch.empty_chicken", EN_US.released(EN_US.Chicken()));
 		builder.add("subtitles.item.pouch.fill_chicken", EN_US.bagged(EN_US.Chicken()));
 		builder.add("subtitles.item.pouch.empty_chicken.greg", EN_US.deployed(EN_US.Greg()));
 		builder.add("subtitles.item.pouch.fill_chicken.greg", EN_US.collected(EN_US.Greg()));
 		builder.add("subtitles.item.pouch.empty_rabbit", EN_US.released(EN_US.Rabbit()));
 		builder.add("subtitles.item.pouch.fill_rabbit", EN_US.bagged(EN_US.Rabbit()));
+		builder.add("subtitles.item.pouch.empty_parrot", EN_US.released(EN_US.Parrot()));
+		builder.add("subtitles.item.pouch.fill_parrot", EN_US.bagged(EN_US.Parrot()));
 		builder.add("subtitles.item.pouch.empty_endermite", EN_US.released(EN_US.Endermite()));
 		builder.add("subtitles.item.pouch.fill_endermite", EN_US.bagged(EN_US.Endermite()));
 		builder.add("subtitles.item.pouch.empty_silverfish", EN_US.released(EN_US.Silverfish()));
@@ -398,6 +468,10 @@ public class EnglishLanguageProvider extends FabricLanguageProvider {
 		builder.add("subtitles.entity.piranha.flop", EN_US.flops(EN_US.Piranha()));
 		builder.add("subtitles.entity.piranha.hurt", EN_US.hurts(EN_US.Piranha()));
 		//</editor-fold>
+		//Copper Trapdoor
+		builder.add("subtitles.block.copper_door.toggle", EN_US.creaks(EN_US.Door()));
+		builder.add("subtitles.block.copper_trapdoor.open", EN_US.opens(EN_US.Trapdoor()));
+		builder.add("subtitles.block.copper_trapdoor.close", EN_US.closes(EN_US.Trapdoor()));
 		//Mod Blocks
 		builder.add("subtitles.block.echo_block.chime", EN_US.chimes(EN_US.Crystal(EN_US.Echo())));
 		builder.add("subtitles.block.echo_block.resonate", EN_US.resonates(EN_US.Crystal(EN_US.Echo())));

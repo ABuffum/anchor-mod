@@ -1,6 +1,7 @@
 package fun.mousewich.client.render.entity.model;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.block.sign.HangingSignBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +29,7 @@ public class HangingSignModel extends Model {
 	public static EntityModelLayer createSignLayer(SignType type) {
 		if (ModBase.SIGN_TYPES.contains(type) || ModBase.HANGING_SIGN_SUBTYPES.containsKey(type)) {
 			String name = type.getName();
-			Identifier id = ModBase.ID(name.startsWith("minecraft:") ? "minecraft:hanging_sign/" + name.substring("minecraft:".length()) : "hanging_sign/" + name);
+			Identifier id = ModId.ID(name.startsWith("minecraft:") ? "minecraft:hanging_sign/" + name.substring("minecraft:".length()) : "hanging_sign/" + name);
 			return new EntityModelLayer(id, "main");
 		}
 		return new EntityModelLayer(new Identifier("hanging_sign/" + type.getName()), "main");

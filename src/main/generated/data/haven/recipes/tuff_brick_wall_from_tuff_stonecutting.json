@@ -3,6 +3,6 @@
   "ingredient": {
     "item": "minecraft:tuff"
   },
-  "result": "haven:tuff_brick_wall",
+  "result": "minecraft:tuff_brick_wall",
   "count": 1
 }

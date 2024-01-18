@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.gui.Generic1x1ContainerScreenHandler;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
@@ -76,7 +76,7 @@ public class SingleSlotInventoryPower extends Power implements Active, IInventor
 	@Override public void setKey(Key key) { this.key = key; }
 
 	public static PowerFactory<SingleSlotInventoryPower> createFactory() {
-		return new PowerFactory<SingleSlotInventoryPower>(ModBase.ID("single_slot_inventory"),
+		return new PowerFactory<SingleSlotInventoryPower>(ModId.ID("single_slot_inventory"),
 				new SerializableData()
 						.add("title", SerializableDataTypes.STRING, "container.inventory")
 						.add("drop_on_death", SerializableDataTypes.BOOLEAN, false)

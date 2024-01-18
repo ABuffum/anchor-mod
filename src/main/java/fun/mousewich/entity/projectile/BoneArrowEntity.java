@@ -1,6 +1,7 @@
 package fun.mousewich.entity.projectile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +12,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
 
 public class BoneArrowEntity extends ModArrowEntity {
-	public static final Identifier TEXTURE = ModBase.ID("textures/entity/projectiles/bone_arrow.png");
+	public static final Identifier TEXTURE = ModId.ID("textures/entity/projectiles/bone_arrow.png");
 	public BoneArrowEntity(EntityType<? extends ModArrowEntity> entityType, World world) {
 		super(entityType, world);
 		this.setDamage(this.getDamage() * 1.25);

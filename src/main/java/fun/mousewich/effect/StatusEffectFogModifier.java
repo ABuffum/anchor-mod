@@ -134,4 +134,10 @@ public interface StatusEffectFogModifier {
 		@Override protected StatusEffect getEffect() { return ModStatusEffects.RUBY_GOGGLES; }
 		@Override protected Item getGoggles() { return ModBase.RUBY_GOGGLES; }
 	}
+
+	@Environment(EnvType.CLIENT)
+	class SapphireGogglesFogModifier extends GogglesFogModifier {
+		@Override protected StatusEffect getEffect() { return ModStatusEffects.SAPPHIRE_GOGGLES; }
+		@Override protected Item getGoggles() { return ModBase.SAPPHIRE_GOGGLES; }
+	}
 }

@@ -1,0 +1,9 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+    "minecraft:guardian",
+    "minecraft:elder_guardian"
+  ],
+  "name": "Guardian Gang",
+  "description": "You are among allies with guardians."
+}

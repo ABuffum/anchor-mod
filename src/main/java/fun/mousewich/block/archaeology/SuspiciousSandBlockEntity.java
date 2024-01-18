@@ -1,6 +1,7 @@
 package fun.mousewich.block.archaeology;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.block.dust.BrushableBlockEntity;
 import fun.mousewich.entity.ModNbtKeys;
 import net.minecraft.advancement.criterion.Criteria;
@@ -38,7 +39,7 @@ public class SuspiciousSandBlockEntity extends BrushableBlockEntity {
 			case 0 -> ItemStack.EMPTY;
 			case 1 -> objectArrayList.get(0);
 			default -> {
-				ModBase.LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectArrayList.size());
+				ModId.LOGGER.warn("Expected max 1 loot from loot table " + this.lootTable + " got " + objectArrayList.size());
 				yield objectArrayList.get(0);
 			}
 		};

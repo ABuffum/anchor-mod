@@ -1,6 +1,6 @@
 package fun.mousewich.gen.data.tag;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
@@ -67,7 +67,9 @@ public class ModBlockTags {
 	public static final Tag.Identified<Block> POWDER_KEGS = createTag("powder_kegs");
 	public static final Tag.Identified<Block> PUMPKINS = createTag("pumpkins");
 	public static final Tag.Identified<Block> ROWS = createTag("rows");
+	public static final Tag.Identified<Block> QUARTZ_ORES = createTag("quartz_ores");
 	public static final Tag.Identified<Block> RUBY_ORES = createTag("ruby_ores");
+	public static final Tag.Identified<Block> SAPPHIRE_ORES = createTag("sapphire_ores");
 	public static final Tag.Identified<Block> SCULK_TURFS = createTag("sculk_turfs");
 	public static final Tag.Identified<Block> SCULK_VEIN_CAN_PLACE_ON = createTag("sculk_vein_can_place_on");
 	public static final Tag.Identified<Block> SIZZLE_RAIN_BLOCKS = createTag("sizzle_rain_blocks");
@@ -79,7 +81,7 @@ public class ModBlockTags {
 
 	public static final Tag.Identified<Block> ORIGINS_UNPHASEABLE = createTag("origins", "unphasable");
 	
-	private static Tag.Identified<Block> createTag(String name) { return TagFactory.BLOCK.create(ModBase.ID(name)); }
+	private static Tag.Identified<Block> createTag(String name) { return TagFactory.BLOCK.create(ModId.ID(name)); }
 	private static Tag.Identified<Block> createTag(String namespace, String path) { return TagFactory.BLOCK.create(new Identifier(namespace, path)); }
 	private static Tag.Identified<Block> createCommonTag(String name) { return TagFactory.BLOCK.create(new Identifier("c", name)); }
 	private static Tag.Identified<Block> createMinecraftTag(String name) { return TagFactory.BLOCK.create(new Identifier(name)); }

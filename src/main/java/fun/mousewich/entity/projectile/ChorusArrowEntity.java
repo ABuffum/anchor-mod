@@ -1,6 +1,7 @@
 package fun.mousewich.entity.projectile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.command.ChorusCommand;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class ChorusArrowEntity extends ModArrowEntity {
-	public static final Identifier TEXTURE = ModBase.ID("textures/entity/projectiles/chorus_arrow.png");
+	public static final Identifier TEXTURE = ModId.ID("textures/entity/projectiles/chorus_arrow.png");
 	public ChorusArrowEntity(EntityType<? extends ModArrowEntity> entityType, World world) { super(entityType, world); }
 	public ChorusArrowEntity(World world, LivingEntity owner) { super(ModBase.CHORUS_ARROW.getEntityType(), world, owner); }
 	public ChorusArrowEntity(World world, double x, double y, double z) { super(ModBase.CHORUS_ARROW.getEntityType(), world, x, y, z); }

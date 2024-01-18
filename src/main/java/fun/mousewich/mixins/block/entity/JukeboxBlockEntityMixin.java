@@ -1,10 +1,13 @@
 package fun.mousewich.mixins.block.entity;
 
 import fun.mousewich.block.JukeboxBlockExtension;
+import fun.mousewich.entity.HopperTransferable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.JukeboxBlockEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Clearable;
 import net.minecraft.util.math.BlockPos;
@@ -15,15 +18,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(JukeboxBlockEntity.class)
-public abstract class JukeboxBlockEntityMixin extends BlockEntity implements Clearable, JukeboxBlockExtension {
+public abstract class JukeboxBlockEntityMixin extends BlockEntity implements Clearable, JukeboxBlockExtension, HopperTransferable {
 	private int ticksThisSecond;
 	private long tickCount;
 	private long recordStartTick;
 	private boolean playing;
 
-	public JukeboxBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
-	}
+	public JukeboxBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
 
 	@Inject(method="readNbt", at=@At("TAIL"))
 	public void ReadNbt(NbtCompound nbt, CallbackInfo ci) {
@@ -58,4 +59,13 @@ public abstract class JukeboxBlockEntityMixin extends BlockEntity implements Cle
 	public long getTickCount() { return this.tickCount; }
 	@Override
 	public void setTickCount(long value) { this.tickCount = value; }
+	@Override
+	public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+		for (int i = 0; i < hopperInventory.size(); ++i) {
+			ItemStack itemStack = hopperInventory.getStack(i);
+			if (!itemStack.isEmpty()) continue;
+			return true;
+		}
+		return false;
+	}
 }

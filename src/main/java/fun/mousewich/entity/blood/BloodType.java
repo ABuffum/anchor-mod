@@ -1,7 +1,7 @@
 package fun.mousewich.entity.blood;
 
 import fun.mousewich.ModBase;
-import fun.mousewich.gen.data.tag.ModBlockTags;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.PowerTypeReference;
 import net.minecraft.block.Block;
@@ -32,7 +32,7 @@ public class BloodType {
 
 	public static final Map<Identifier, BloodType> BLOOD_TYPES = new HashMap<>();
 
-	public static BloodType Register(String name) { return Register(ModBase.NAMESPACE, name); }
+	public static BloodType Register(String name) { return Register(ModId.NAMESPACE, name); }
 	public static BloodType Register(String namespace, String name) { return new BloodType(namespace, name); }
 
 	public static final BloodType NONE = Register("none");
@@ -102,4 +102,10 @@ public class BloodType {
 	}
 
 	public static final Map<BloodType, Item> BLOOD_TYPE_TO_SYRINGE = new HashMap<>();
+	public static final Map<Item, BloodType> SYRINGE_TO_BLOOD_TYPE = new HashMap<>();
+
+	public static void RegisterBloodType(BloodType type, Item item) {
+		BLOOD_TYPE_TO_SYRINGE.put(type, item);
+		SYRINGE_TO_BLOOD_TYPE.put(item, type);
+	}
 }

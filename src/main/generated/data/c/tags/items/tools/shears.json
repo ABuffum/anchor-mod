@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "haven:waxed_exposed_copper_shears",
     "haven:golden_shears",
-    "haven:netherite_shears",
-    "haven:dark_iron_shears",
-    "haven:waxed_weathered_copper_shears",
-    "haven:exposed_copper_shears",
     "haven:oxidized_copper_shears",
-    "haven:copper_shears",
+    "haven:waxed_weathered_copper_shears",
     "haven:waxed_copper_shears",
     "haven:weathered_copper_shears",
+    "haven:dark_iron_shears",
+    "haven:netherite_shears",
+    "haven:copper_shears",
+    "haven:waxed_exposed_copper_shears",
+    "haven:exposed_copper_shears",
     "haven:waxed_oxidized_copper_shears",
     "minecraft:shears",
     {

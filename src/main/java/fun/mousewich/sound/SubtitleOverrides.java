@@ -195,11 +195,16 @@ public class SubtitleOverrides {
 		Register(ModBlockSoundGroups.CHERRY_SAPLING, "cherry_sapling", EN_US.Sapling(EN_US.Cherry()));
 		Register(ModBlockSoundGroups.CHERRY_WOOD, "cherry_wood", EN_US.Wood(EN_US.Cherry()));
 		Register(ModBlockSoundGroups.CHERRY_WOOD_HANGING_SIGN, "cherry_wood_hanging_sign", EN_US.Sign(EN_US.Hanging(EN_US.Wood(EN_US.Cherry()))));
+		Register(ModBlockSoundGroups.COPPER_GRATE, "copper_grate", EN_US.Grate(EN_US.Copper()));
+		Register(ModSoundEvents.BLOCK_COPPER_TRAPDOOR_CLOSE, "block.close.copper_trapdoor", EN_US.closes(EN_US.Trapdoor(EN_US.Copper())));
+		Register(ModSoundEvents.BLOCK_COPPER_TRAPDOOR_OPEN, "block.open.copper_trapdoor", EN_US.opens(EN_US.Trapdoor(EN_US.Copper())));
 		Register(ModBlockSoundGroups.ECHO_BLOCK, "echo", EN_US.Echo());
 		Register(ModBlockSoundGroups.ECHO_CLUSTER, "echo_cluster", EN_US.Cluster(EN_US.Echo()));
 		Register(ModBlockSoundGroups.FROGLIGHT, "froglight", EN_US.Froglight());
 		Register(ModBlockSoundGroups.FROGSPAWN, "frogspawn", EN_US.Frogspawn());
 		Register(ModBlockSoundGroups.GRAPE_VINES, "grape_vines", EN_US.Vines(EN_US.Grape()));
+		Register(ModSoundEvents.BLOCK_GLASS_TRAPDOOR_CLOSE, "block.close.glass_trapdoor", EN_US.closes(EN_US.Trapdoor(EN_US.Glass())));
+		Register(ModSoundEvents.BLOCK_GLASS_TRAPDOOR_OPEN, "block.open.glass_trapdoor", EN_US.opens(EN_US.Trapdoor(EN_US.Glass())));
 		Register(ModBlockSoundGroups.HANGING_SIGN, "hanging_sign", EN_US.Sign(EN_US.Hanging()));
 		Register(ModSoundEvents.BLOCK_LARGE_ECHO_BUD_BREAK, "block.break.large_echo_bud", EN_US.Subtitle_Block_Break(EN_US.Bud(EN_US.Echo(EN_US.Large()))));
 		Register(ModSoundEvents.BLOCK_LARGE_ECHO_BUD_PLACE, "block.place.large_echo_bud", EN_US.Subtitle_Block_Place(EN_US.Bud(EN_US.Echo(EN_US.Large()))));
@@ -209,6 +214,8 @@ public class SubtitleOverrides {
 		Register(ModBlockSoundGroups.MUD, "mud", EN_US.Mud());
 		Register(ModBlockSoundGroups.MUD_BRICKS, "mud_bricks", EN_US.Bricks(EN_US.Mud()));
 		Register(ModBlockSoundGroups.MUDDY_MANGROVE_ROOTS, "muddy_mangrove_roots", EN_US.Roots(EN_US.Mangrove(EN_US.Muddy())));
+		Register(ModBlockSoundGroups.NETHER_IRON_ORE, "nether_iron_ore", EN_US.Ore(EN_US.Iron(EN_US.Nether())));
+		Register(ModBlockSoundGroups.NETHER_COPPER_ORE, "nether_copper_ore", EN_US.Ore(EN_US.Copper(EN_US.Nether())));
 		Register(ModBlockSoundGroups.NETHER_WOOD, "nether_wood", EN_US.Wood(EN_US.Nether()));
 		Register(ModBlockSoundGroups.PACKED_MUD, "packed_mud", EN_US.Mud(EN_US.Packed()));
 		Register(ModBlockSoundGroups.PINK_PETALS, "pink_petals", EN_US.Petals(EN_US.Pink()));

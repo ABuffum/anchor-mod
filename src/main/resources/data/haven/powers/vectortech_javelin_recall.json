@@ -1,0 +1,11 @@
+{
+  "type": "origins:active_self",
+  "entity_action": {
+	"type": "origins:execute_command",
+	"command": "function haven:reclaim_vectortech_javelin"
+  },
+  "key": { "key": "key.haven.quaternary_active" },
+  "cooldown": 1,
+  "name": "Information Highway",
+  "description": "The javelin is yours. Call it back to you."
+}

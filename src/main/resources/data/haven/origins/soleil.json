@@ -7,6 +7,8 @@
 	"haven:candy_filled",
 	"haven:clown_sized",
 	"origins-classes:sneaky",
+	"haven:vectortech_javelin_recall",
+	"haven:vectortech_javelin_teleport",
 	"haven:loot_tables/soleil",
 	"haven:blood_types/confetti"
   ],

@@ -1,13 +1,18 @@
 package fun.mousewich.entity.projectile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.entity.FreezeConversionEntity;
+import fun.mousewich.entity.hostile.zombie.FrozenZombieEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.RangedAttackMob;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.BlazeEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -59,5 +64,21 @@ public class SlowingSnowballEntity extends ThrownItemEntity {
 			this.world.sendEntityStatus(this, (byte)3);
 			this.discard();
 		}
+	}
+
+	public static boolean targetSlowed(LivingEntity target) {
+		return target != null && (target.hasStatusEffect(StatusEffects.SLOWNESS) || FreezeConversionEntity.InPowderSnow(target));
+	}
+
+	public static class SlowingProjectileAttackGoal extends ProjectileAttackGoal {
+		protected final MobEntity mob;
+		public SlowingProjectileAttackGoal(RangedAttackMob mob, double mobSpeed, int intervalTicks, float maxShootRange) {
+			super(mob, mobSpeed, intervalTicks, maxShootRange);
+			this.mob = (MobEntity)mob;
+		}
+		@Override
+		public boolean canStart() { return super.canStart() && !SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
+		@Override
+		public boolean shouldContinue() { return super.shouldContinue() && !SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
 	}
 }

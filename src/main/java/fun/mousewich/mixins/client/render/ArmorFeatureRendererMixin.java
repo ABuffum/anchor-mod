@@ -1,8 +1,8 @@
 package fun.mousewich.mixins.client.render;
 
 import com.google.common.collect.Maps;
+import fun.mousewich.ModId;
 import fun.mousewich.material.ModArmorMaterials;
-import fun.mousewich.ModBase;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
@@ -24,7 +24,7 @@ public class ArmorFeatureRendererMixin {
 		if (material instanceof ModArmorMaterials) {
 			String var10000 = item.getMaterial().getName();
 			String string = "textures/models/armor/" + var10000 + "_layer_" + (legs ? 2 : 1) + (overlay == null ? "" : "_" + overlay) + ".png";
-			cir.setReturnValue(MOD_ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ModBase::ID));
+			cir.setReturnValue(MOD_ARMOR_TEXTURE_CACHE.computeIfAbsent(string, ModId::ID));
 		}
 	}
 }

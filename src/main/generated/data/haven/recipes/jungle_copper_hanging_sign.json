@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stripped_jungle_log"
+    },
+    "|": {
+      "item": "haven:waxed_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:jungle_copper_hanging_sign"
+  }
+}

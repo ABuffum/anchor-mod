@@ -2,7 +2,7 @@
   "conditions": [
 	{
 	  "condition": "forge:loot_table_id",
-	  "loot_table_id": "wich:entities/piranha"
+	  "loot_table_id": "haven:entities/piranha"
 	}
   ],
   "item": "croptopia:roe",

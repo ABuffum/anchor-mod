@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -20,7 +20,7 @@ public class SoulSpeedPower extends Power {
 	}
 
 	public static PowerFactory<SoulSpeedPower> createFactory() {
-		return new PowerFactory<SoulSpeedPower>(ModBase.ID("soul_speed"), new SerializableData()
+		return new PowerFactory<SoulSpeedPower>(ModId.ID("soul_speed"), new SerializableData()
 				.add("level", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new SoulSpeedPower(type, player, data.getInt("level"))
 		).allowCondition();

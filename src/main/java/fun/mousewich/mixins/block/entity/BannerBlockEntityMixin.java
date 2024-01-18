@@ -28,9 +28,7 @@ import java.util.Iterator;
 public abstract class BannerBlockEntityMixin extends BlockEntity implements Nameable, ModBannerPatternContainer.MixinHelper {
 	@Unique private NbtList modBannerPatternsNbt = new NbtList();
 
-	public BannerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
-	}
+	public BannerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) { super(type, pos, state); }
 
 	@Override
 	public NbtList getModBannerPatternsNbt() { return modBannerPatternsNbt; }

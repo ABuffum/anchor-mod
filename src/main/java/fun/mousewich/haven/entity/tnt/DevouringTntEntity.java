@@ -8,13 +8,14 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 
 public class DevouringTntEntity extends ModTntEntity {
 	public DevouringTntEntity(EntityType<? extends Entity> entityType, World world) { super(entityType, world, HavenMod.DEVOURING_TNT.asBlock().getDefaultState()); }
-	public DevouringTntEntity(World world, double x, double y, double z, LivingEntity igniter) {
+	public DevouringTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter) {
 		this(world, x, y, z, igniter, HavenMod.DEVOURING_TNT.asBlock().getDefaultState());
 	}
-	public DevouringTntEntity(World world, double x, double y, double z, LivingEntity igniter, BlockState state) {
+	public DevouringTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, BlockState state) {
 		super(HavenMod.DEVOURING_TNT_ENTITY, world, x, y, z, igniter, state);
 	}
 
@@ -24,9 +25,7 @@ public class DevouringTntEntity extends ModTntEntity {
 		propagateExplosion(5);
 	}
 	@Override
-	public boolean shouldDestroyBlocks() { return true; }
-	@Override
-	public float damageMultiplier() { return 0; }
+	public boolean shouldDamage() { return false; }
 	@Override
 	public float knockbackMultiplier() { return -1; }
 }

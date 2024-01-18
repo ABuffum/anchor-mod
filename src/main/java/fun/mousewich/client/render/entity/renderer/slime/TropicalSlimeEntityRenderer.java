@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.slime;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.TropicalSlimeEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.TropicalSlimeOverlayFeatureRenderer;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class TropicalSlimeEntityRenderer extends MobEntityRenderer<TropicalSlimeEntity, TropicalSlimeEntityModel> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/slime/tropical.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/slime/tropical.png");
 
 	public TropicalSlimeEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new TropicalSlimeEntityModel(context.getPart(ModEntityModelLayers.TROPICAL_SLIME)), 0.25f);

@@ -1,31 +1,42 @@
 package fun.mousewich.registry;
 
+import fun.mousewich.block.basic.ModDoorBlock;
+import fun.mousewich.block.basic.ModGlassBlock;
 import fun.mousewich.block.basic.ModPillarBlock;
 import fun.mousewich.block.basic.ModWeightedPressurePlateBlock;
 import fun.mousewich.block.fluid.BloodCauldronBlock;
 import fun.mousewich.block.fluid.MilkCauldronBlock;
 import fun.mousewich.block.fluid.MudCauldronBlock;
+import fun.mousewich.block.oxidizable.OxidizableDoorBlock;
+import fun.mousewich.block.oxidizable.OxidizableGlassBlock;
 import fun.mousewich.block.oxidizable.OxidizablePillarBlock;
 import fun.mousewich.block.oxidizable.OxidizableWeightedPressurePlateBlock;
 import fun.mousewich.container.BlockContainer;
 import fun.mousewich.container.BucketContainer;
 import fun.mousewich.container.TorchContainer;
 import fun.mousewich.dispenser.BucketDispenserBehavior;
+import fun.mousewich.gen.data.loot.DropTable;
+import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.material.ModArmorMaterials;
 import fun.mousewich.material.ModToolMaterials;
 import fun.mousewich.particle.ModParticleTypes;
+import fun.mousewich.sound.ModBlockSoundGroups;
+import fun.mousewich.sound.ModSoundEvents;
 import fun.mousewich.util.BucketUtil;
 import fun.mousewich.util.OxidationScale;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.List;
 
+import static fun.mousewich.ModFactory.OxidizableDoorSettings;
 import static net.minecraft.block.Oxidizable.OxidizationLevel;
 
 import static fun.mousewich.ModBase.EN_US;
@@ -36,7 +47,10 @@ public class ModCopperRegistry {
 
 	//<editor-fold desc="Copper">
 	public static final Item COPPER_NUGGET = MakeGeneratedItem();
+	public static final Item RAW_COPPER_NUGGET = MakeGeneratedItem();
 	public static final Item COPPER_ROD = MakeHandheldItem();
+	public static final BlockContainer NETHER_COPPER_ORE = BuildBlock(new OreBlock(Block.Settings.of(Material.STONE, MapColor.DARK_RED).requiresTool().strength(3f, 3f).sounds(ModBlockSoundGroups.NETHER_COPPER_ORE), UniformIntProvider.create(0, 1)), DropTable.NetherOre(RAW_COPPER_NUGGET)).cubeAllModel().blockTag(BlockTags.COPPER_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer END_COPPER_ORE = BuildBlock(new OreBlock(Block.Settings.of(Material.STONE, MapColor.DARK_RED).requiresTool().strength(3f, 3f).sounds(ModBlockSoundGroups.END_COPPER_ORE), UniformIntProvider.create(0, 1)), DropTable.EndOre(RAW_COPPER_NUGGET)).cubeAllModel().blockTag(BlockTags.COPPER_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final TorchContainer COPPER_TORCH = MakeOxidizableTorch(OxidizationLevel.UNAFFECTED, BlockSoundGroup.COPPER, ModParticleTypes.COPPER_FLAME).torchModel();
 	public static final TorchContainer EXPOSED_COPPER_TORCH = MakeOxidizableTorch(OxidizationLevel.EXPOSED, BlockSoundGroup.COPPER, ModParticleTypes.COPPER_FLAME).torchModel();
 	public static final TorchContainer WEATHERED_COPPER_TORCH = MakeOxidizableTorch(OxidizationLevel.WEATHERED, BlockSoundGroup.COPPER, ModParticleTypes.COPPER_FLAME).torchModel();
@@ -172,14 +186,41 @@ public class ModCopperRegistry {
 	public static final BlockContainer WAXED_WEATHERED_COPPER_WALL = MakeWaxedWall(Blocks.WAXED_WEATHERED_COPPER).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer WAXED_OXIDIZED_COPPER_WALL = MakeWaxedWall(Blocks.WAXED_OXIDIZED_COPPER).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 
-	public static final BlockContainer COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.UNAFFECTED, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer EXPOSED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.EXPOSED, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer WEATHERED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.WEATHERED, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer OXIDIZED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.OXIDIZED, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer WAXED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.UNAFFECTED), BlockSoundGroup.COPPER, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer WAXED_EXPOSED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.EXPOSED), BlockSoundGroup.COPPER, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer WAXED_WEATHERED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.WEATHERED), BlockSoundGroup.COPPER, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer WAXED_OXIDIZED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.OXIDIZED), BlockSoundGroup.COPPER, 3.0f).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer COPPER_GRATE = BuildBlock(new OxidizableGlassBlock(OxidizationLevel.UNAFFECTED, CopperGrateSettings(OxidizationLevel.UNAFFECTED)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer EXPOSED_COPPER_GRATE = BuildBlock(new OxidizableGlassBlock(OxidizationLevel.EXPOSED, CopperGrateSettings(OxidizationLevel.UNAFFECTED)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WEATHERED_COPPER_GRATE = BuildBlock(new OxidizableGlassBlock(OxidizationLevel.WEATHERED, CopperGrateSettings(OxidizationLevel.UNAFFECTED)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer OXIDIZED_COPPER_GRATE = BuildBlock(new OxidizableGlassBlock(OxidizationLevel.OXIDIZED, CopperGrateSettings(OxidizationLevel.UNAFFECTED)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_COPPER_GRATE = BuildBlock(new ModGlassBlock(COPPER_GRATE), ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_EXPOSED_COPPER_GRATE = BuildBlock(new ModGlassBlock(EXPOSED_COPPER_GRATE), ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_WEATHERED_COPPER_GRATE = BuildBlock(new ModGlassBlock(WEATHERED_COPPER_GRATE), ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_OXIDIZED_COPPER_GRATE = BuildBlock(new ModGlassBlock(OXIDIZED_COPPER_GRATE), ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+
+	public static final BlockContainer CHISELED_COPPER = BuildBlock(new OxidizableBlock(OxidizationLevel.UNAFFECTED, AbstractBlock.Settings.copy(Blocks.COPPER_BLOCK)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer EXPOSED_CHISELED_COPPER = BuildBlock(new OxidizableBlock(OxidizationLevel.EXPOSED, AbstractBlock.Settings.copy(Blocks.EXPOSED_COPPER)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WEATHERED_CHISELED_COPPER = BuildBlock(new OxidizableBlock(OxidizationLevel.WEATHERED, AbstractBlock.Settings.copy(Blocks.WEATHERED_COPPER)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer OXIDIZED_CHISELED_COPPER = BuildBlock(new OxidizableBlock(OxidizationLevel.OXIDIZED, AbstractBlock.Settings.copy(Blocks.OXIDIZED_COPPER)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_CHISELED_COPPER = MakeBlock(CHISELED_COPPER, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_EXPOSED_CHISELED_COPPER = MakeBlock(EXPOSED_CHISELED_COPPER, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_WEATHERED_CHISELED_COPPER = MakeBlock(WEATHERED_CHISELED_COPPER, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_OXIDIZED_CHISELED_COPPER = MakeBlock(OXIDIZED_CHISELED_COPPER, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+
+	public static final BlockContainer COPPER_DOOR = BuildMetalDoor(new OxidizableDoorBlock(OxidizationLevel.UNAFFECTED, OxidizableDoorSettings(OxidizationLevel.UNAFFECTED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer EXPOSED_COPPER_DOOR = BuildMetalDoor(new OxidizableDoorBlock(OxidizationLevel.EXPOSED, OxidizableDoorSettings(OxidizationLevel.EXPOSED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WEATHERED_COPPER_DOOR = BuildMetalDoor(new OxidizableDoorBlock(OxidizationLevel.WEATHERED, OxidizableDoorSettings(OxidizationLevel.WEATHERED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer OXIDIZED_COPPER_DOOR = BuildMetalDoor(new OxidizableDoorBlock(OxidizationLevel.OXIDIZED, OxidizableDoorSettings(OxidizationLevel.OXIDIZED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_COPPER_DOOR = BuildCopiedMetalDoor(new ModDoorBlock(OxidizableDoorSettings(OxidizationLevel.UNAFFECTED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_EXPOSED_COPPER_DOOR = BuildCopiedMetalDoor(new ModDoorBlock(OxidizableDoorSettings(OxidizationLevel.EXPOSED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_WEATHERED_COPPER_DOOR = BuildCopiedMetalDoor(new ModDoorBlock(OxidizableDoorSettings(OxidizationLevel.WEATHERED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_OXIDIZED_COPPER_DOOR = BuildCopiedMetalDoor(new ModDoorBlock(OxidizableDoorSettings(OxidizationLevel.OXIDIZED), ModSoundEvents.BLOCK_COPPER_DOOR_OPEN, ModSoundEvents.BLOCK_COPPER_DOOR_CLOSE), ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+
+	public static final BlockContainer COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.UNAFFECTED, 3.0f, ItemSettings(ItemGroup.REDSTONE)).trapdoorModel(false).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer EXPOSED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.EXPOSED, 3.0f, ItemSettings(ItemGroup.REDSTONE)).trapdoorModel(false).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WEATHERED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.WEATHERED, 3.0f, ItemSettings(ItemGroup.REDSTONE)).trapdoorModel(false).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer OXIDIZED_COPPER_TRAPDOOR = MakeOxidizableTrapdoor(OxidizationLevel.OXIDIZED, 3.0f, ItemSettings(ItemGroup.REDSTONE)).trapdoorModel(false).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.UNAFFECTED), BlockSoundGroup.COPPER, 3.0f, ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_EXPOSED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.EXPOSED), BlockSoundGroup.COPPER, 3.0f, ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_WEATHERED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.WEATHERED), BlockSoundGroup.COPPER, 3.0f, ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer WAXED_OXIDIZED_COPPER_TRAPDOOR = MakeWaxedTrapdoor(OxidationScale.getMapColor(OxidizationLevel.OXIDIZED), BlockSoundGroup.COPPER, 3.0f, ItemSettings(ItemGroup.REDSTONE)).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 
 	public static final BlockContainer COPPER_BRICKS = BuildBlock(new OxidizableBlock(OxidizationLevel.UNAFFECTED, Block.Settings.copy(Blocks.COPPER_BLOCK))).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer EXPOSED_COPPER_BRICKS = BuildBlock(new OxidizableBlock(OxidizationLevel.UNAFFECTED, Block.Settings.copy(Blocks.EXPOSED_COPPER))).cubeAllModel().blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -350,7 +391,10 @@ public class ModCopperRegistry {
 
 	public static void RegisterCopper() {
 		Register("copper_nugget", COPPER_NUGGET, List.of(EN_US.Nugget(EN_US.Copper())));
+		Register("raw_copper_nugget", RAW_COPPER_NUGGET, List.of(EN_US.Nugget(EN_US.Copper(EN_US.Raw()))));
 		Register("copper_rod", COPPER_ROD, List.of(EN_US.Rod(EN_US.Copper())));
+		Register("nether_copper_ore", NETHER_COPPER_ORE, List.of(EN_US.Ore(EN_US.Copper(EN_US.Nether()))));
+		Register("end_copper_ore", END_COPPER_ORE, List.of(EN_US.Ore(EN_US.Copper(EN_US.End()))));
 		Register("copper_torch", "copper_wall_torch", COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper())));
 		Register("exposed_copper_torch", "exposed_copper_wall_torch", EXPOSED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Exposed()))));
 		Register("weathered_copper_torch", "weathered_copper_wall_torch", WEATHERED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Weathered()))));
@@ -358,8 +402,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_TORCH, EXPOSED_COPPER_TORCH, WEATHERED_COPPER_TORCH, OXIDIZED_COPPER_TORCH);
 		Register("waxed_copper_torch", "waxed_copper_wall_torch", WAXED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_torch", "waxed_exposed_copper_wall_torch", WAXED_EXPOSED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_torch", "waxed_weathered_copper_wall_torch", WAXED_WEATHERED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_torch", "waxed_oxidized_copper_wall_torch", WAXED_OXIDIZED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_torch", "waxed_weathered_copper_wall_torch", WAXED_WEATHERED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_torch", "waxed_oxidized_copper_wall_torch", WAXED_OXIDIZED_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_TORCH, WAXED_COPPER_TORCH);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_TORCH, WAXED_EXPOSED_COPPER_TORCH);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_TORCH, WAXED_WEATHERED_COPPER_TORCH);
@@ -371,8 +415,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SOUL_TORCH, EXPOSED_COPPER_SOUL_TORCH, WEATHERED_COPPER_SOUL_TORCH, OXIDIZED_COPPER_SOUL_TORCH);
 		Register("waxed_copper_soul_torch", "waxed_copper_soul_wall_torch", WAXED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_soul_torch", "waxed_exposed_copper_soul_wall_torch", WAXED_EXPOSED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_soul_torch", "waxed_weathered_copper_soul_wall_torch", WAXED_WEATHERED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_soul_torch", "waxed_oxidized_copper_soul_wall_torch", WAXED_OXIDIZED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_soul_torch", "waxed_weathered_copper_soul_wall_torch", WAXED_WEATHERED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_soul_torch", "waxed_oxidized_copper_soul_wall_torch", WAXED_OXIDIZED_COPPER_SOUL_TORCH, List.of(EN_US._Torch(EN_US.Soul(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_SOUL_TORCH, WAXED_COPPER_SOUL_TORCH);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SOUL_TORCH, WAXED_EXPOSED_COPPER_SOUL_TORCH);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SOUL_TORCH, WAXED_WEATHERED_COPPER_SOUL_TORCH);
@@ -384,8 +428,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_ENDER_TORCH, EXPOSED_COPPER_ENDER_TORCH, WEATHERED_COPPER_ENDER_TORCH, OXIDIZED_COPPER_ENDER_TORCH);
 		Register("waxed_copper_ender_torch", "waxed_copper_ender_wall_torch", WAXED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_ender_torch", "waxed_exposed_copper_ender_wall_torch", WAXED_EXPOSED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_ender_torch", "waxed_weathered_copper_ender_wall_torch", WAXED_WEATHERED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_ender_torch", "waxed_oxidized_copper_ender_wall_torch", WAXED_OXIDIZED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_ender_torch", "waxed_weathered_copper_ender_wall_torch", WAXED_WEATHERED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_ender_torch", "waxed_oxidized_copper_ender_wall_torch", WAXED_OXIDIZED_COPPER_ENDER_TORCH, List.of(EN_US._Torch(EN_US.Ender(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_ENDER_TORCH, WAXED_COPPER_ENDER_TORCH);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_ENDER_TORCH, WAXED_EXPOSED_COPPER_ENDER_TORCH);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_ENDER_TORCH, WAXED_WEATHERED_COPPER_ENDER_TORCH);
@@ -397,8 +441,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(UNDERWATER_COPPER_TORCH, EXPOSED_UNDERWATER_COPPER_TORCH, WEATHERED_UNDERWATER_COPPER_TORCH, OXIDIZED_UNDERWATER_COPPER_TORCH);
 		Register("waxed_underwater_copper_torch", "waxed_underwater_copper_wall_torch", WAXED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed(EN_US.Underwater())))));
 		Register("waxed_exposed_underwater_copper_torch", "waxed_exposed_underwater_copper_wall_torch", WAXED_EXPOSED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Exposed(EN_US.Waxed(EN_US.Underwater()))))));
-		Register("waxed_weathered_underwater_copper_torch", "waxed_weathered_underwater_copper_wall_torch", WAXED_WEATHERED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed(EN_US.Weathered(EN_US.Underwater()))))));
-		Register("waxed_oxidized_underwater_copper_torch", "waxed_oxidized_underwater_copper_wall_torch", WAXED_OXIDIZED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized(EN_US.Underwater()))))));
+		Register("waxed_weathered_underwater_copper_torch", "waxed_weathered_underwater_copper_wall_torch", WAXED_WEATHERED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Weathered(EN_US.Waxed(EN_US.Underwater()))))));
+		Register("waxed_oxidized_underwater_copper_torch", "waxed_oxidized_underwater_copper_wall_torch", WAXED_OXIDIZED_UNDERWATER_COPPER_TORCH, List.of(EN_US._Torch(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed(EN_US.Underwater()))))));
 		OxidationScale.RegisterWaxed(UNDERWATER_COPPER_TORCH, WAXED_UNDERWATER_COPPER_TORCH);
 		OxidationScale.RegisterWaxed(EXPOSED_UNDERWATER_COPPER_TORCH, WAXED_EXPOSED_UNDERWATER_COPPER_TORCH);
 		OxidationScale.RegisterWaxed(WEATHERED_UNDERWATER_COPPER_TORCH, WAXED_WEATHERED_UNDERWATER_COPPER_TORCH);
@@ -410,8 +454,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_LANTERN, EXPOSED_COPPER_LANTERN, WEATHERED_COPPER_LANTERN, OXIDIZED_COPPER_LANTERN);
 		Register("waxed_copper_lantern", WAXED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_lantern", WAXED_EXPOSED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_lantern", WAXED_WEATHERED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_lantern", WAXED_OXIDIZED_COPPER_LANTERN, List.of(EN_US.Lantern(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_LANTERN, WAXED_COPPER_LANTERN);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_LANTERN, WAXED_EXPOSED_COPPER_LANTERN);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_LANTERN, WAXED_WEATHERED_COPPER_LANTERN);
@@ -423,8 +467,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SOUL_LANTERN, EXPOSED_COPPER_SOUL_LANTERN, WEATHERED_COPPER_SOUL_LANTERN, OXIDIZED_COPPER_SOUL_LANTERN);
 		Register("waxed_copper_soul_lantern", WAXED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_soul_lantern", WAXED_EXPOSED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_soul_lantern", WAXED_WEATHERED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_soul_lantern", WAXED_OXIDIZED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_soul_lantern", WAXED_WEATHERED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_soul_lantern", WAXED_OXIDIZED_COPPER_SOUL_LANTERN, List.of(EN_US.Lantern(EN_US.Soul(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_SOUL_LANTERN, WAXED_COPPER_SOUL_LANTERN);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SOUL_LANTERN, WAXED_EXPOSED_COPPER_SOUL_LANTERN);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SOUL_LANTERN, WAXED_WEATHERED_COPPER_SOUL_LANTERN);
@@ -436,8 +480,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_ENDER_LANTERN, EXPOSED_COPPER_ENDER_LANTERN, WEATHERED_COPPER_ENDER_LANTERN, OXIDIZED_COPPER_ENDER_LANTERN);
 		Register("waxed_copper_ender_lantern", WAXED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_ender_lantern", WAXED_EXPOSED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_ender_lantern", WAXED_WEATHERED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_ender_lantern", WAXED_OXIDIZED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_ender_lantern", WAXED_WEATHERED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_ender_lantern", WAXED_OXIDIZED_COPPER_ENDER_LANTERN, List.of(EN_US.Lantern(EN_US.Ender(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_ENDER_LANTERN, WAXED_COPPER_ENDER_LANTERN);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_ENDER_LANTERN, WAXED_EXPOSED_COPPER_ENDER_LANTERN);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_ENDER_LANTERN, WAXED_WEATHERED_COPPER_ENDER_LANTERN);
@@ -449,8 +493,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BUTTON, EXPOSED_COPPER_BUTTON, WEATHERED_COPPER_BUTTON, OXIDIZED_COPPER_BUTTON);
 		Register("waxed_copper_button", WAXED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_button", WAXED_EXPOSED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_button", WAXED_WEATHERED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_button", WAXED_OXIDIZED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_button", WAXED_WEATHERED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_button", WAXED_OXIDIZED_COPPER_BUTTON, List.of(EN_US.Button(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_BUTTON, WAXED_COPPER_BUTTON);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BUTTON, WAXED_EXPOSED_COPPER_BUTTON);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BUTTON, WAXED_WEATHERED_COPPER_BUTTON);
@@ -462,8 +506,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_CHAIN, EXPOSED_COPPER_CHAIN, WEATHERED_COPPER_CHAIN, OXIDIZED_COPPER_CHAIN);
 		Register("waxed_copper_chain", WAXED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_chain", WAXED_EXPOSED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_chain", WAXED_WEATHERED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_chain", WAXED_OXIDIZED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_chain", WAXED_WEATHERED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_chain", WAXED_OXIDIZED_COPPER_CHAIN, List.of(EN_US.Chain(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_CHAIN, WAXED_COPPER_CHAIN);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_CHAIN, WAXED_EXPOSED_COPPER_CHAIN);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_CHAIN, WAXED_WEATHERED_COPPER_CHAIN);
@@ -488,8 +532,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BARS, EXPOSED_COPPER_BARS, WEATHERED_COPPER_BARS, OXIDIZED_COPPER_BARS);
 		Register("waxed_copper_bars", WAXED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_bars", WAXED_EXPOSED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_bars", WAXED_WEATHERED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_bars", WAXED_OXIDIZED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_bars", WAXED_WEATHERED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_bars", WAXED_OXIDIZED_COPPER_BARS, List.of(EN_US.Bars(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_BARS, WAXED_COPPER_BARS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BARS, WAXED_EXPOSED_COPPER_BARS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BARS, WAXED_WEATHERED_COPPER_BARS);
@@ -514,8 +558,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_STAIRS, EXPOSED_COPPER_STAIRS, WEATHERED_COPPER_STAIRS, OXIDIZED_COPPER_STAIRS);
 		Register("waxed_copper_stairs", WAXED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_stairs", WAXED_EXPOSED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_stairs", WAXED_WEATHERED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_stairs", WAXED_OXIDIZED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_stairs", WAXED_WEATHERED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_stairs", WAXED_OXIDIZED_COPPER_STAIRS, List.of(EN_US.Stairs(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_STAIRS, WAXED_COPPER_STAIRS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_STAIRS, WAXED_EXPOSED_COPPER_STAIRS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_STAIRS, WAXED_WEATHERED_COPPER_STAIRS);
@@ -527,8 +571,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SLAB, EXPOSED_COPPER_SLAB, WEATHERED_COPPER_SLAB, OXIDIZED_COPPER_SLAB);
 		Register("waxed_copper_slab", WAXED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_slab", WAXED_EXPOSED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_slab", WAXED_WEATHERED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_slab", WAXED_OXIDIZED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_slab", WAXED_WEATHERED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_slab", WAXED_OXIDIZED_COPPER_SLAB, List.of(EN_US.Slab(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_SLAB, WAXED_COPPER_SLAB);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SLAB, WAXED_EXPOSED_COPPER_SLAB);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SLAB, WAXED_WEATHERED_COPPER_SLAB);
@@ -540,22 +584,64 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_WALL, EXPOSED_COPPER_WALL, WEATHERED_COPPER_WALL, OXIDIZED_COPPER_WALL);
 		Register("waxed_copper_wall", WAXED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_wall", WAXED_EXPOSED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_wall", WAXED_WEATHERED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_wall", WAXED_OXIDIZED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_wall", WAXED_WEATHERED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_wall", WAXED_OXIDIZED_COPPER_WALL, List.of(EN_US.Wall(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_WALL, WAXED_COPPER_WALL);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_WALL, WAXED_EXPOSED_COPPER_WALL);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_WALL, WAXED_WEATHERED_COPPER_WALL);
 		OxidationScale.RegisterWaxed(OXIDIZED_COPPER_WALL, WAXED_OXIDIZED_COPPER_WALL);
 
-		Register("copper_trapdoor", COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper())));
-		Register("exposed_copper_trapdoor", EXPOSED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Exposed()))));
-		Register("weathered_copper_trapdoor", WEATHERED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Weathered()))));
-		Register("oxidized_copper_trapdoor", OXIDIZED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Oxidized()))));
+		Register("minecraft:copper_grate", COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper())));
+		Register("minecraft:exposed_copper_grate", EXPOSED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Exposed()))));
+		Register("minecraft:weathered_copper_grate", WEATHERED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Weathered()))));
+		Register("minecraft:oxidized_copper_grate", OXIDIZED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Oxidized()))));
+		OxidationScale.Register(COPPER_GRATE, EXPOSED_COPPER_GRATE, WEATHERED_COPPER_GRATE, OXIDIZED_COPPER_GRATE);
+		Register("minecraft:waxed_copper_grate", WAXED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Waxed()))));
+		Register("minecraft:waxed_exposed_copper_grate", WAXED_EXPOSED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
+		Register("minecraft:waxed_weathered_copper_grate", WAXED_WEATHERED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("minecraft:waxed_oxidized_copper_grate", WAXED_OXIDIZED_COPPER_GRATE, List.of(EN_US.Grate(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
+		OxidationScale.RegisterWaxed(COPPER_GRATE, WAXED_COPPER_GRATE);
+		OxidationScale.RegisterWaxed(EXPOSED_COPPER_GRATE, WAXED_EXPOSED_COPPER_GRATE);
+		OxidationScale.RegisterWaxed(WEATHERED_COPPER_GRATE, WAXED_WEATHERED_COPPER_GRATE);
+		OxidationScale.RegisterWaxed(OXIDIZED_COPPER_GRATE, WAXED_OXIDIZED_COPPER_GRATE);
+
+		Register("minecraft:chiseled_copper", CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled())));
+		Register("minecraft:exposed_chiseled_copper", EXPOSED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Exposed()))));
+		Register("minecraft:weathered_chiseled_copper", WEATHERED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Weathered()))));
+		Register("minecraft:oxidized_chiseled_copper", OXIDIZED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Oxidized()))));
+		OxidationScale.Register(CHISELED_COPPER, EXPOSED_CHISELED_COPPER, WEATHERED_CHISELED_COPPER, OXIDIZED_CHISELED_COPPER);
+		Register("minecraft:waxed_chiseled_copper", WAXED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Waxed()))));
+		Register("minecraft:waxed_exposed_chiseled_copper", WAXED_EXPOSED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Exposed(EN_US.Waxed())))));
+		Register("minecraft:waxed_weathered_chiseled_copper", WAXED_WEATHERED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Weathered(EN_US.Waxed())))));
+		Register("minecraft:waxed_oxidized_chiseled_copper", WAXED_OXIDIZED_CHISELED_COPPER, List.of(EN_US.Copper(EN_US.Chiseled(EN_US.Oxidized(EN_US.Waxed())))));
+		OxidationScale.RegisterWaxed(CHISELED_COPPER, WAXED_CHISELED_COPPER);
+		OxidationScale.RegisterWaxed(EXPOSED_CHISELED_COPPER, WAXED_EXPOSED_CHISELED_COPPER);
+		OxidationScale.RegisterWaxed(WEATHERED_CHISELED_COPPER, WAXED_WEATHERED_CHISELED_COPPER);
+		OxidationScale.RegisterWaxed(OXIDIZED_CHISELED_COPPER, WAXED_OXIDIZED_CHISELED_COPPER);
+
+		Register("minecraft:copper_door", COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper())));
+		Register("minecraft:exposed_copper_door", EXPOSED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Exposed()))));
+		Register("minecraft:weathered_copper_door", WEATHERED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Weathered()))));
+		Register("minecraft:oxidized_copper_door", OXIDIZED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Oxidized()))));
+		OxidationScale.Register(COPPER_DOOR, EXPOSED_COPPER_DOOR, WEATHERED_COPPER_DOOR, OXIDIZED_COPPER_DOOR);
+		Register("minecraft:waxed_copper_door", WAXED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Waxed()))));
+		Register("minecraft:waxed_exposed_copper_door", WAXED_EXPOSED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
+		Register("minecraft:waxed_weathered_copper_door", WAXED_WEATHERED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("minecraft:waxed_oxidized_copper_door", WAXED_OXIDIZED_COPPER_DOOR, List.of(EN_US.Door(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
+		OxidationScale.RegisterWaxed(COPPER_DOOR, WAXED_COPPER_DOOR);
+		OxidationScale.RegisterWaxed(EXPOSED_COPPER_DOOR, WAXED_EXPOSED_COPPER_DOOR);
+		OxidationScale.RegisterWaxed(WEATHERED_COPPER_DOOR, WAXED_WEATHERED_COPPER_DOOR);
+		OxidationScale.RegisterWaxed(OXIDIZED_COPPER_DOOR, WAXED_OXIDIZED_COPPER_DOOR);
+
+		Register("minecraft:copper_trapdoor", COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper())));
+		Register("minecraft:exposed_copper_trapdoor", EXPOSED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Exposed()))));
+		Register("minecraft:weathered_copper_trapdoor", WEATHERED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Weathered()))));
+		Register("minecraft:oxidized_copper_trapdoor", OXIDIZED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Oxidized()))));
 		OxidationScale.Register(COPPER_TRAPDOOR, EXPOSED_COPPER_TRAPDOOR, WEATHERED_COPPER_TRAPDOOR, OXIDIZED_COPPER_TRAPDOOR);
-		Register("waxed_copper_trapdoor", WAXED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Waxed()))));
-		Register("waxed_exposed_copper_trapdoor", WAXED_EXPOSED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_trapdoor", WAXED_WEATHERED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_trapdoor", WAXED_OXIDIZED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("minecraft:waxed_copper_trapdoor", WAXED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Waxed()))));
+		Register("minecraft:waxed_exposed_copper_trapdoor", WAXED_EXPOSED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
+		Register("minecraft:waxed_weathered_copper_trapdoor", WAXED_WEATHERED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("minecraft:waxed_oxidized_copper_trapdoor", WAXED_OXIDIZED_COPPER_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_TRAPDOOR, WAXED_COPPER_TRAPDOOR);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_TRAPDOOR, WAXED_EXPOSED_COPPER_TRAPDOOR);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_TRAPDOOR, WAXED_WEATHERED_COPPER_TRAPDOOR);
@@ -568,8 +654,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BRICKS, EXPOSED_COPPER_BRICKS, WEATHERED_COPPER_BRICKS, OXIDIZED_COPPER_BRICKS);
 		Register("waxed_copper_bricks", WAXED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_bricks", WAXED_EXPOSED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_bricks", WAXED_WEATHERED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_bricks", WAXED_OXIDIZED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_bricks", WAXED_WEATHERED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_bricks", WAXED_OXIDIZED_COPPER_BRICKS, List.of(EN_US.Bricks(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_BRICKS, WAXED_COPPER_BRICKS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BRICKS, WAXED_EXPOSED_COPPER_BRICKS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BRICKS, WAXED_WEATHERED_COPPER_BRICKS);
@@ -594,8 +680,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BRICK_SLAB, EXPOSED_COPPER_BRICK_SLAB, WEATHERED_COPPER_BRICK_SLAB, OXIDIZED_COPPER_BRICK_SLAB);
 		Register("waxed_copper_brick_slab", WAXED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_brick_slab", WAXED_EXPOSED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_brick_slab", WAXED_WEATHERED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_brick_slab", WAXED_OXIDIZED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_brick_slab", WAXED_WEATHERED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_brick_slab", WAXED_OXIDIZED_COPPER_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_BRICK_SLAB, WAXED_COPPER_BRICK_SLAB);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BRICK_SLAB, WAXED_EXPOSED_COPPER_BRICK_SLAB);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BRICK_SLAB, WAXED_WEATHERED_COPPER_BRICK_SLAB);
@@ -607,8 +693,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BRICK_WALL, EXPOSED_COPPER_BRICK_WALL, WEATHERED_COPPER_BRICK_WALL, OXIDIZED_COPPER_BRICK_WALL);
 		Register("waxed_copper_brick_wall", WAXED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Waxed())))));
 		Register("waxed_exposed_copper_brick_wall", WAXED_EXPOSED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Exposed(EN_US.Waxed()))))));
-		Register("waxed_weathered_copper_brick_wall", WAXED_WEATHERED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Waxed(EN_US.Weathered()))))));
-		Register("waxed_oxidized_copper_brick_wall", WAXED_OXIDIZED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized()))))));
+		Register("waxed_weathered_copper_brick_wall", WAXED_WEATHERED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Weathered(EN_US.Waxed()))))));
+		Register("waxed_oxidized_copper_brick_wall", WAXED_OXIDIZED_COPPER_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed()))))));
 		OxidationScale.RegisterWaxed(COPPER_BRICK_WALL, WAXED_COPPER_BRICK_WALL);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BRICK_WALL, WAXED_EXPOSED_COPPER_BRICK_WALL);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BRICK_WALL, WAXED_WEATHERED_COPPER_BRICK_WALL);
@@ -635,8 +721,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SHOVEL, EXPOSED_COPPER_SHOVEL, WEATHERED_COPPER_SHOVEL, OXIDIZED_COPPER_SHOVEL);
 		Register("waxed_copper_shovel", WAXED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_shovel", WAXED_EXPOSED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_shovel", WAXED_WEATHERED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_shovel", WAXED_OXIDIZED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_shovel", WAXED_WEATHERED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_shovel", WAXED_OXIDIZED_COPPER_SHOVEL, List.of(EN_US.Shovel(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_SHOVEL, WAXED_COPPER_SHOVEL);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SHOVEL, WAXED_EXPOSED_COPPER_SHOVEL);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SHOVEL, WAXED_WEATHERED_COPPER_SHOVEL);
@@ -648,8 +734,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_PICKAXE, EXPOSED_COPPER_PICKAXE, WEATHERED_COPPER_PICKAXE, OXIDIZED_COPPER_PICKAXE);
 		Register("waxed_copper_pickaxe", WAXED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_pickaxe", WAXED_EXPOSED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_pickaxe", WAXED_WEATHERED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_pickaxe", WAXED_OXIDIZED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_pickaxe", WAXED_WEATHERED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_pickaxe", WAXED_OXIDIZED_COPPER_PICKAXE, List.of(EN_US.Pickaxe(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_PICKAXE, WAXED_COPPER_PICKAXE);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_PICKAXE, WAXED_EXPOSED_COPPER_PICKAXE);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_PICKAXE, WAXED_WEATHERED_COPPER_PICKAXE);
@@ -661,8 +747,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_AXE, EXPOSED_COPPER_AXE, WEATHERED_COPPER_AXE, OXIDIZED_COPPER_AXE);
 		Register("waxed_copper_axe", WAXED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_axe", WAXED_EXPOSED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_axe", WAXED_WEATHERED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_axe", WAXED_OXIDIZED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_axe", WAXED_WEATHERED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_axe", WAXED_OXIDIZED_COPPER_AXE, List.of(EN_US.Axe(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_AXE, WAXED_COPPER_AXE);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_AXE, WAXED_EXPOSED_COPPER_AXE);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_AXE, WAXED_WEATHERED_COPPER_AXE);
@@ -674,8 +760,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_HOE, EXPOSED_COPPER_HOE, WEATHERED_COPPER_HOE, OXIDIZED_COPPER_HOE);
 		Register("waxed_copper_hoe", WAXED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_hoe", WAXED_EXPOSED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_hoe", WAXED_WEATHERED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_hoe", WAXED_OXIDIZED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_hoe", WAXED_WEATHERED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_hoe", WAXED_OXIDIZED_COPPER_HOE, List.of(EN_US.Hoe(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_HOE, WAXED_COPPER_HOE);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_HOE, WAXED_EXPOSED_COPPER_HOE);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_HOE, WAXED_WEATHERED_COPPER_HOE);
@@ -687,8 +773,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SWORD, EXPOSED_COPPER_SWORD, WEATHERED_COPPER_SWORD, OXIDIZED_COPPER_SWORD);
 		Register("waxed_copper_sword", WAXED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_sword", WAXED_EXPOSED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_sword", WAXED_WEATHERED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_sword", WAXED_OXIDIZED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_sword", WAXED_WEATHERED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_sword", WAXED_OXIDIZED_COPPER_SWORD, List.of(EN_US.Sword(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_SWORD, WAXED_COPPER_SWORD);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SWORD, WAXED_EXPOSED_COPPER_SWORD);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SWORD, WAXED_WEATHERED_COPPER_SWORD);
@@ -700,8 +786,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_KNIFE, EXPOSED_COPPER_KNIFE, WEATHERED_COPPER_KNIFE, OXIDIZED_COPPER_KNIFE);
 		Register("waxed_copper_knife", WAXED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_knife", WAXED_EXPOSED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_knife", WAXED_WEATHERED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_knife", WAXED_OXIDIZED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_knife", WAXED_WEATHERED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_knife", WAXED_OXIDIZED_COPPER_KNIFE, List.of(EN_US.Knife(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_KNIFE, WAXED_COPPER_KNIFE);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_KNIFE, WAXED_EXPOSED_COPPER_KNIFE);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_KNIFE, WAXED_WEATHERED_COPPER_KNIFE);
@@ -713,8 +799,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_HAMMER, EXPOSED_COPPER_HAMMER, WEATHERED_COPPER_HAMMER, OXIDIZED_COPPER_HAMMER);
 		Register("waxed_copper_hammer", WAXED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_hammer", WAXED_EXPOSED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_hammer", WAXED_WEATHERED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_hammer", WAXED_OXIDIZED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_hammer", WAXED_WEATHERED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_hammer", WAXED_OXIDIZED_COPPER_HAMMER, List.of(EN_US.Hammer(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_HAMMER, WAXED_COPPER_HAMMER);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_HAMMER, WAXED_EXPOSED_COPPER_HAMMER);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_HAMMER, WAXED_WEATHERED_COPPER_HAMMER);
@@ -726,8 +812,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_SHEARS, EXPOSED_COPPER_SHEARS, WEATHERED_COPPER_SHEARS, OXIDIZED_COPPER_SHEARS);
 		Register("waxed_copper_shears", WAXED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_shears", WAXED_EXPOSED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_shears", WAXED_WEATHERED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_shears", WAXED_OXIDIZED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_shears", WAXED_WEATHERED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_shears", WAXED_OXIDIZED_COPPER_SHEARS, List.of(EN_US.Shears(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_SHEARS, WAXED_COPPER_SHEARS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_SHEARS, WAXED_EXPOSED_COPPER_SHEARS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_SHEARS, WAXED_WEATHERED_COPPER_SHEARS);
@@ -739,8 +825,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_HELMET, EXPOSED_COPPER_HELMET, WEATHERED_COPPER_HELMET, OXIDIZED_COPPER_HELMET);
 		Register("waxed_copper_helmet", WAXED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_helmet", WAXED_EXPOSED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_helmet", WAXED_WEATHERED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_helmet", WAXED_OXIDIZED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_helmet", WAXED_WEATHERED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_helmet", WAXED_OXIDIZED_COPPER_HELMET, List.of(EN_US.Helmet(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_HELMET, WAXED_COPPER_HELMET);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_HELMET, WAXED_EXPOSED_COPPER_HELMET);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_HELMET, WAXED_WEATHERED_COPPER_HELMET);
@@ -752,8 +838,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_CHESTPLATE, EXPOSED_COPPER_CHESTPLATE, WEATHERED_COPPER_CHESTPLATE, OXIDIZED_COPPER_CHESTPLATE);
 		Register("waxed_copper_chestplate", WAXED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_chestplate", WAXED_EXPOSED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_chestplate", WAXED_WEATHERED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_chestplate", WAXED_OXIDIZED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_chestplate", WAXED_WEATHERED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_chestplate", WAXED_OXIDIZED_COPPER_CHESTPLATE, List.of(EN_US.Chestplate(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_CHESTPLATE, WAXED_COPPER_CHESTPLATE);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_CHESTPLATE, WAXED_EXPOSED_COPPER_CHESTPLATE);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_CHESTPLATE, WAXED_WEATHERED_COPPER_CHESTPLATE);
@@ -765,8 +851,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_LEGGINGS, EXPOSED_COPPER_LEGGINGS, WEATHERED_COPPER_LEGGINGS, OXIDIZED_COPPER_LEGGINGS);
 		Register("waxed_copper_leggings", WAXED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_leggings", WAXED_EXPOSED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_leggings", WAXED_WEATHERED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_leggings", WAXED_OXIDIZED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_leggings", WAXED_WEATHERED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_leggings", WAXED_OXIDIZED_COPPER_LEGGINGS, List.of(EN_US.Leggings(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_LEGGINGS, WAXED_COPPER_LEGGINGS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_LEGGINGS, WAXED_EXPOSED_COPPER_LEGGINGS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_LEGGINGS, WAXED_WEATHERED_COPPER_LEGGINGS);
@@ -778,8 +864,8 @@ public class ModCopperRegistry {
 		OxidationScale.Register(COPPER_BOOTS, EXPOSED_COPPER_BOOTS, WEATHERED_COPPER_BOOTS, OXIDIZED_COPPER_BOOTS);
 		Register("waxed_copper_boots", WAXED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Waxed()))));
 		Register("waxed_exposed_copper_boots", WAXED_EXPOSED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Exposed(EN_US.Waxed())))));
-		Register("waxed_weathered_copper_boots", WAXED_WEATHERED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Waxed(EN_US.Weathered())))));
-		Register("waxed_oxidized_copper_boots", WAXED_OXIDIZED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Waxed(EN_US.Oxidized())))));
+		Register("waxed_weathered_copper_boots", WAXED_WEATHERED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Weathered(EN_US.Waxed())))));
+		Register("waxed_oxidized_copper_boots", WAXED_OXIDIZED_COPPER_BOOTS, List.of(EN_US.Boots(EN_US.Copper(EN_US.Oxidized(EN_US.Waxed())))));
 		OxidationScale.RegisterWaxed(COPPER_BOOTS, WAXED_COPPER_BOOTS);
 		OxidationScale.RegisterWaxed(EXPOSED_COPPER_BOOTS, WAXED_EXPOSED_COPPER_BOOTS);
 		OxidationScale.RegisterWaxed(WEATHERED_COPPER_BOOTS, WAXED_WEATHERED_COPPER_BOOTS);

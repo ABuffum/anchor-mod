@@ -1,0 +1,8 @@
+{
+  "type": "haven:swap_with_last_vectortech_javelin",
+  "cooldown": 30,
+  "hud_render": { "should_render": false },
+  "key": { "key": "key.origins.primary_active", "continuous": true },
+  "name": "Vectortech Displacement",
+  "description": "Move with purpose"
+}

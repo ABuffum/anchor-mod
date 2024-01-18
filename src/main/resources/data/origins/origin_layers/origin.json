@@ -31,7 +31,7 @@
 	  "haven:lili",
 	  "haven:lux",
 	  "haven:mushi",
-	  "haven:navn", "haven:navn_vex",
+	  "haven:navn",
 	  "haven:our_friend",
 	  "haven:oz",
 	  "haven:pibble",
@@ -46,7 +46,7 @@
 	  "haven:tree",
 	  "haven:wechsel", "haven:wechsel_rotting",
 	  "haven:whimsy",
-	  "haven:vex"
+	  "haven:yalla"
 	],
 	"allow_random": true,
 	"exclude_random": [

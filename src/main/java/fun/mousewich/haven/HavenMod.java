@@ -3,36 +3,39 @@ package fun.mousewich.haven;
 import com.nhoryzon.mc.farmersdelight.registry.BlocksRegistry;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModFactory;
+import fun.mousewich.ModId;
 import fun.mousewich.block.decoration.*;
 import fun.mousewich.block.plushie.BatPlushieBlock;
 import fun.mousewich.block.tnt.*;
 import fun.mousewich.container.FlowerContainer;
 import fun.mousewich.container.FlowerPartContainer;
 import fun.mousewich.damage.ModDamageSource;
+import fun.mousewich.effect.ModStatusEffect;
 import fun.mousewich.effect.ModStatusEffects;
+import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.projectile.BottledLightningEntity;
+import fun.mousewich.entity.projectile.JavelinEntity;
 import fun.mousewich.haven.block.*;
 import fun.mousewich.haven.block.tnt.*;
-import fun.mousewich.haven.effect.DeteriorationEffect;
-import fun.mousewich.haven.effect.BoneRotEffect;
-import fun.mousewich.effect.ModStatusEffect;
-import fun.mousewich.haven.effect.IchoredEffect;
-import fun.mousewich.haven.effect.WitheringEffect;
-import fun.mousewich.entity.blood.BloodType;
+import fun.mousewich.haven.effect.*;
 import fun.mousewich.haven.entity.AngelBatEntity;
 import fun.mousewich.haven.block.anchor.*;
 import fun.mousewich.container.BlockContainer;
+import fun.mousewich.haven.entity.VectortechJavelinEntity;
 import fun.mousewich.haven.entity.tnt.*;
-import fun.mousewich.haven.item.AmberEyeItem;
-import fun.mousewich.haven.item.AnchorCoreItem;
-import fun.mousewich.haven.item.BrokenAnchorCoreItem;
+import fun.mousewich.haven.item.*;
+import fun.mousewich.haven.origins.power.SwapWithLastVectortechJavelinPower;
+import fun.mousewich.item.ConditionalLoreItem;
+import fun.mousewich.item.JavelinItem;
 import fun.mousewich.item.consumable.BottledDrinkItem;
 import fun.mousewich.item.syringe.BloodSyringeItem;
 import fun.mousewich.item.syringe.SyringeItem;
 import fun.mousewich.item.tool.ModSwordItem;
 import fun.mousewich.material.ModArmorMaterials;
+import fun.mousewich.origins.power.PowersUtil;
 import fun.mousewich.sound.ModSoundEvents;
 import fun.mousewich.util.ColorUtil;
+import io.github.apace100.origins.origin.Origin;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -42,11 +45,9 @@ import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.*;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.effect.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.particle.DefaultParticleType;
@@ -54,9 +55,13 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +81,7 @@ public class HavenMod {
 	public static final String LUX_s = "Lux's";
 	public static final String SOLEIL = "Soleil";
 	public static final String SOLEIL_s = "Soleil's";
+	public static final String VECTORTECH = "Vectortech";
 
 	//<editor-fold desc="Sound Events">
 	public static final SoundEvent CHUNKEATER_TNT_PRIMED = ModSoundEvents.registerSoundEvent("entity.chunkeater_tnt.primed");
@@ -142,7 +148,7 @@ public class HavenMod {
 	}));
 	//</editor-fold>
 	//<editor-fold desc="Anathema">
-	public static final StatusEffect BONE_ROT_EFFECT = new BoneRotEffect().milkImmune();
+	public static final StatusEffect BONE_ROT_EFFECT = new BoneRotEffect();
 	public static final StatusEffect DETERIORATION_EFFECT = new DeteriorationEffect().milkImmune();
 	public static final StatusEffect MARKED_EFFECT = new ModStatusEffect(StatusEffectType.NEUTRAL,0xFF00FF).milkImmune();
 	//</editor-fold>
@@ -176,6 +182,25 @@ public class HavenMod {
 			entity.addStatusEffect(new StatusEffectInstance(HavenMod.ICHORED_EFFECT, 200, 1));
 		}
 	}));
+	//</editor-fold>
+	//<editor-fold desc="Bird">
+	public static final JavelinItem PRIDE_TRIDENT = GeneratedItem(new PrideTridentItem(8.0, -2.9f, ModId.ID("textures/entity/projectiles/pride_trident.png"), ItemSettings().maxDamage(250)));
+	private static class PrideTridentItem extends JavelinItem {
+		public PrideTridentItem(double attackDamage, float attackSpeed, Identifier texture, Settings settings) {
+			super(attackDamage, attackSpeed, texture, settings);
+			this.FACTORY = PrideTridentEntity::new;
+		}
+	}
+	public static final EntityType<JavelinEntity> PRIDE_TRIDENT_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, PrideTridentEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
+	private static class PrideTridentEntity extends JavelinEntity {
+		public PrideTridentEntity(EntityType<? extends JavelinEntity> entityType, World world) {
+			super(entityType, world);
+			this.item = HavenMod.PRIDE_TRIDENT;
+		}
+		public PrideTridentEntity(World world, LivingEntity owner, ItemStack stack) {
+			super(HavenMod.PRIDE_TRIDENT_ENTITY, world, owner, stack, HavenMod.PRIDE_TRIDENT);
+		}
+	}
 	//</editor-fold>
 	//<editor-fold desc="Carnation">
 	public static final Map<DyeColor, FlowerContainer> CARNATIONS = ColorUtil.Map(color -> MakeFlower(StatusEffects.WEAKNESS, 5).pottedModel());
@@ -241,6 +266,10 @@ public class HavenMod {
 			BottledLightningEntity.SummonLightning(user.world, user.getPos(), user instanceof ServerPlayerEntity server ? server : null);
 		}
 	}, BOTTLED_LIGHTNING_ITEM);
+	//</editor-fold>
+	//<editor-fold desc="Ferris">
+	public static final JavelinItem VECTORTECH_JAVELIN = GeneratedItem(new VectortechJavelinItem(10.0, -2.8f, ModId.ID("textures/entity/projectiles/vectortech_javelin.png"), ItemSettings().maxDamage(250)));
+	public static final EntityType<JavelinEntity> VECTORTECH_JAVELIN_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, VectortechJavelinEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
 	//</editor-fold>
 	//<editor-fold desc="Gawain">
 	//Red for Protection
@@ -323,15 +352,22 @@ public class HavenMod {
 	//<editor-fold desc="STARS">
 	public static final Item TINKER_TOY = MakeGeneratedItem();
 	public static final Item AMETHYST_CANDY = MakeGeneratedItem(); //not edible usually (it's rocks)
+	public static final BlockContainer BROKEN_STARS = BuildBlock(new BrokenStarsBlock(Block.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
 	//</editor-fold>
 	//<editor-fold desc="The Captain">
 	public static final ToolItem SBEHESOHE = HandheldItem(new ModSwordItem(ToolMaterials.DIAMOND, 3, -2.4F, ItemSettings().fireproof()));
 	public static final ToolItem SBEHESOHE_FULL = new ModSwordItem(ToolMaterials.DIAMOND, 4, -2.8F, ItemSettings().fireproof());
 	//</editor-fold>
 
+	//<editor-fold desc="Origin Powers">
+	public static void RegisterOriginPowers() {
+		Register(SwapWithLastVectortechJavelinPower::createFactory);
+	}
+	//</editor-fold>
+
 	//<editor-fold desc="Decoration Only Blocks">
 	private static ItemStack getDecorativeVineItemStack() { return new ItemStack(DECORATIVE_VINE.asItem()); }
-	public static final ItemGroup DECORATION_GROUP = FabricItemGroupBuilder.build(ModBase.ID("decorative_blocks"), HavenMod::getDecorativeVineItemStack);
+	public static final ItemGroup DECORATION_GROUP = FabricItemGroupBuilder.build(ModId.ID("decorative_blocks"), HavenMod::getDecorativeVineItemStack);
 	private static BlockContainer MakeDecorativeBlock(Function<Block.Settings, Block> blockProvider, Block copyOf) {
 		return new BlockContainer(blockProvider.apply(Block.Settings.copy(copyOf)), ItemSettings().group(DECORATION_GROUP).rarity(Rarity.EPIC));
 	}
@@ -397,7 +433,7 @@ public class HavenMod {
 		Register("amber_eye", AMBER_EYE, List.of(EN_US.Eye(AMBER_s)));
 		Register("amber_eye_end_portal_frame", AMBER_EYE_END_PORTAL_FRAME, List.of(EN_US.Frame(EN_US.Portal(EN_US.End(EN_US.Eye(AMBER))))));
 		Register("bee_enderman_blood_syringe", BEE_ENDERMAN_BLOOD_SYRINGE, List.of(EN_US.Syringe(EN_US.Syringe(EN_US.Blood(EN_US.Hybrid(EN_US.Enderman(EN_US.Bee())))))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BEE_ENDERMAN_BLOOD_TYPE, BEE_ENDERMAN_BLOOD_SYRINGE);
+		BloodType.RegisterBloodType(BEE_ENDERMAN_BLOOD_TYPE, BEE_ENDERMAN_BLOOD_SYRINGE);
 		//</editor-fold>
 		//<editor-fold desc="Anathema">
 		Register("bone_rot", BONE_ROT_EFFECT, List.of(EN_US.Rot(EN_US.Bone())));
@@ -420,7 +456,11 @@ public class HavenMod {
 		Register("ichored", ICHORED_EFFECT, List.of(EN_US.Ichored()));
 		Register("ichor_bottle", ICHOR_BOTTLE, List.of(EN_US.Bottle(EN_US.Ichor())));
 		Register("ichor_syringe", ICHOR_SYRINGE, List.of(EN_US.Syringe(EN_US.Ichor())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(ICHOR_BLOOD_TYPE, ICHOR_SYRINGE);
+		BloodType.RegisterBloodType(ICHOR_BLOOD_TYPE, ICHOR_SYRINGE);
+		//</editor-fold>
+		//<editor-fold desc="Bird">
+		Register("pride_trident", PRIDE_TRIDENT, List.of(EN_US.Pride()));
+		Register("pride_trident", PRIDE_TRIDENT_ENTITY, List.of(EN_US.Pride()));
 		//</editor-fold>
 		//<editor-fold desc="Carnation">
 		for (DyeColor color : DyeColor.values()) {
@@ -442,7 +482,7 @@ public class HavenMod {
 		//<editor-fold desc="Digger Krozhul">
 		Register("sludge_bottle", SLUDGE_BOTTLE, List.of(EN_US.Bottle(EN_US.Sludge())));
 		Register("sludge_syringe", SLUDGE_SYRINGE, List.of(EN_US.Syringe(EN_US.Sludge())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(SLUDGE_BLOOD_TYPE, SLUDGE_SYRINGE);
+		BloodType.RegisterBloodType(SLUDGE_BLOOD_TYPE, SLUDGE_SYRINGE);
 		Register("violent_tnt", VIOLENT_TNT, List.of(EN_US.TNT(EN_US.Violent())));
 		Register("violent_tnt", VIOLENT_TNT_ENTITY, List.of(EN_US.TNT(EN_US.Violent())));
 		DispenserBlock.registerBehavior(VIOLENT_TNT.asBlock(), ModTntBlock.DispenserBehavior(ViolentTntEntity::new));
@@ -464,6 +504,10 @@ public class HavenMod {
 		//<editor-fold desc="Electron the Blue Mage">
 		Register("drinkable_bottled_lightning", DRINKABLE_BOTTLED_LIGHTNING, List.of(EN_US.Lightning(EN_US.Bottled(EN_US.Drinkable()))));
 		//</editor-fold>
+		//<editor-fold desc="Ferris">
+		Register("vectortech_javelin", VECTORTECH_JAVELIN, List.of(EN_US.Javelin(VECTORTECH)));
+		Register("vectortech_javelin", VECTORTECH_JAVELIN_ENTITY, List.of(EN_US.Javelin(VECTORTECH)));
+		//</editor-fold>
 		//<editor-fold desc="Gawain">
 		Register("protected", PROTECTED_EFFECT, List.of(EN_US.Protected()));
 		Register("red_curse_breaker_potion", RED_CURSE_BREAKER_POTION, List.of(EN_US.Protection(EN_US._for(EN_US.Red()))));
@@ -481,7 +525,7 @@ public class HavenMod {
 		//<editor-fold desc="Lux">
 		Register("lux_crown", LUX_CROWN, List.of(EN_US.Crown(LUX_s)));
 		Register("nether_royalty_blood_syringe", NETHER_ROYALTY_BLOOD_SYRINGE, List.of(EN_US.Syringe(EN_US.Blood(EN_US.Royalty(EN_US.Nether())))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(NETHER_ROYALTY_BLOOD_TYPE, NETHER_ROYALTY_BLOOD_SYRINGE);
+		BloodType.RegisterBloodType(NETHER_ROYALTY_BLOOD_TYPE, NETHER_ROYALTY_BLOOD_SYRINGE);
 		//</editor-fold>
 		//<editor-fold desc="Miasma">
 		Register("catalyzing_tnt", CATALYZING_TNT, List.of(EN_US.TNT(EN_US.Catalyzing())));
@@ -493,7 +537,7 @@ public class HavenMod {
 		Register("soft_tnt", SOFT_TNT_ENTITY, List.of(EN_US.TNT(EN_US.Soft())));
 		DispenserBlock.registerBehavior(SOFT_TNT.asBlock(), ModTntBlock.DispenserBehavior(SoftTntEntity::new));
 		//Confetti Syringe
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(HavenMod.CONFETTI_BLOOD_TYPE, CONFETTI_SYRINGE);
+		BloodType.RegisterBloodType(HavenMod.CONFETTI_BLOOD_TYPE, CONFETTI_SYRINGE);
 		//Misc
 		Register("soleil_mask", SOLEIL_MASK, List.of(EN_US.Mask(SOLEIL_s)));
 		Register("soleil_pumpkin_mask", SOLEIL_PUMPKIN_MASK, List.of(EN_US.Mask(EN_US.Pumpkin(SOLEIL_s))));
@@ -521,6 +565,7 @@ public class HavenMod {
 		//<editor-fold desc="STARS">
 		Register("tinker_toy", TINKER_TOY, List.of(EN_US.Toy(EN_US.Tinker())));
 		Register("amethyst_candy", AMETHYST_CANDY, List.of(EN_US.Candy(EN_US.Amethyst())));
+		Register("broken_stars", BROKEN_STARS, List.of("The remnants of STARS"));
 		//</editor-fold>
 		//<editor-fold desc="The Captain">
 		Register("sbehesohe", SBEHESOHE, List.of("Sbehésóhe"));

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven:end_copper_ore",
+    "haven:nether_copper_ore"
+  ]
+}

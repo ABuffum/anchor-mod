@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:hay_block"
+    },
+    "|": {
+      "item": "haven:netherite_chain"
+    }
+  },
+  "result": {
+    "item": "haven:hay_netherite_hanging_sign"
+  }
+}

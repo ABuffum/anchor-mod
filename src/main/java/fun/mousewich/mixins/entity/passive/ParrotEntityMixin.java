@@ -1,6 +1,8 @@
 package fun.mousewich.mixins.entity.passive;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.entity.ModNbtKeys;
+import fun.mousewich.entity.Pouchable;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
 import fun.mousewich.entity.variants.ParrotVariant;
@@ -9,13 +11,20 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.passive.TameableShoulderEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,21 +32,62 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 @Mixin(ParrotEntity.class)
-public abstract class ParrotEntityMixin extends TameableShoulderEntity implements Flutterer, EntityWithBloodType {
+public abstract class ParrotEntityMixin extends TameableShoulderEntity implements Flutterer, Pouchable, EntityWithBloodType {
 	@Shadow @Final static Map<EntityType<?>, SoundEvent> MOB_SOUNDS;
 	@Shadow public abstract void setVariant(int variant);
 	@Shadow private static SoundEvent getSound(EntityType<?> imitate) { return null; }
 
 	@Shadow @Final private static TrackedData<Integer> VARIANT;
 
+	@Shadow public abstract int getVariant();
+
 	protected ParrotEntityMixin(EntityType<? extends TameableShoulderEntity> entityType, World world) { super(entityType, world); }
+
+	@SuppressWarnings("WrongEntityDataParameterClass")
+	private static final TrackedData<Boolean> FROM_POUCH = DataTracker.registerData(ParrotEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	@Inject(method="initDataTracker", at=@At("TAIL"))
+	protected void addPouchToDataTracker(CallbackInfo ci) { this.dataTracker.startTracking(FROM_POUCH, false); }
+	@Inject(method="interactMob", at=@At("HEAD"), cancellable=true)
+	public void TryPouchingMob(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+		Optional<ActionResult> result = Pouchable.tryPouch(player, hand, this);
+		result.ifPresent(cir::setReturnValue);
+	}
+	@Override
+	public ItemStack getPouchItem() { return new ItemStack(ModBase.PARROT_POUCH); }
+	@Override
+	public boolean isFromPouch() { return this.dataTracker.get(FROM_POUCH); }
+	@Override
+	public void setFromPouch(boolean fromPouch) { this.dataTracker.set(FROM_POUCH, fromPouch); }
+	@Override
+	public void copyDataToStack(ItemStack stack) {
+		Pouchable.copyDataToStack(this, stack);
+		NbtCompound nbt = stack.getOrCreateNbt();
+		nbt.putInt(ModNbtKeys.VARIANT, this.getVariant());
+	}
+	@Override
+	public void copyDataFromNbt(NbtCompound nbt) {
+		Pouchable.copyDataFromNbt(this, nbt);
+		this.setVariant(nbt.getInt(ModNbtKeys.VARIANT));
+	}
+	@Override
+	public SoundEvent getPouchedSound() { return ModSoundEvents.ITEM_POUCH_FILL_PARROT; }
+	@Override
+	public boolean cannotDespawn() { return super.cannotDespawn() || this.isFromPouch(); }
+	@Override
+	public boolean canImmediatelyDespawn(double distanceSquared) { return !this.isFromPouch() && !this.hasCustomName(); }
+	@Inject(method="writeCustomDataToNbt", at=@At("TAIL"))
+	public void WriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) { nbt.putBoolean(ModNbtKeys.FROM_POUCH, this.isFromPouch()); }
+	@Inject(method="readCustomDataFromNbt", at=@At("TAIL"))
+	public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) { this.setFromPouch(nbt.getBoolean(ModNbtKeys.FROM_POUCH)); }
 
 	private static final Predicate<MobEntity> CAN_IMITATE_NEW = new Predicate<>(){
 		@Override

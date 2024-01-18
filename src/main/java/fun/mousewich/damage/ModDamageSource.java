@@ -21,6 +21,7 @@ public class ModDamageSource extends DamageSource {
 	public static final DamageSource DRANK_SUGAR_WATER = Drank("sugar_water");
 	public static final DamageSource DRANK_WATER = Drank("water");
 	public static final DamageSource SUFFOCATION = new ModDamageSource("suffocate").setUnblockable().setBypassesArmor();
+	public static final DamageSource ICE_CHUNK = new ModDamageSource("ice_chunk").setFallingBlock();
 	public static final DamageSource ICHOR = new ModDamageSource("ichor").setUnblockable().setBypassesArmor();
 	public static final DamageSource WITHERING = new ModDamageSource("withering").setUnblockable().setBypassesArmor();
 	public static final DamageSource DIE_INSTANTLY = new ModDamageSource("die_instantly").setUnblockable().setBypassesArmor();

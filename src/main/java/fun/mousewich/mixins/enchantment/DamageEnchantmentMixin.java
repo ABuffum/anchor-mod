@@ -1,9 +1,11 @@
 package fun.mousewich.mixins.enchantment;
 
+import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import fun.mousewich.enchantment.ShieldBreakingEnchantment;
 import fun.mousewich.item.tool.HammerItem;
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,6 +23,8 @@ public class DamageEnchantmentMixin {
 	}
 	@Inject(method="isAcceptableItem", at=@At("HEAD"), cancellable=true)
 	public void HammerIsAcceptable(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-		if (this.typeIndex > 0 && stack.getItem() instanceof HammerItem) cir.setReturnValue(true);
+		Item item = stack.getItem();
+		if (this.typeIndex > 0 && item instanceof HammerItem) cir.setReturnValue(true);
+		if (item instanceof KnifeItem) cir.setReturnValue(true);
 	}
 }

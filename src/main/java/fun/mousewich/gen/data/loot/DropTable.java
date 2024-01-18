@@ -45,7 +45,17 @@ public interface DropTable {
 
 	static DropTable Drops(ItemConvertible item) { return (block) -> BlockLootTableGenerator.drops(item); }
 	static DropTable CandleCake(Block candle) { return (block) -> BlockLootTableGenerator.candleCakeDrops(candle); }
+	static DropTable EndOre(Item ore) {
+		return (block) -> BlockLootTableGenerator.dropsWithSilkTouch(block, BlockLootTableGenerator.applyExplosionDecay(block,
+				ItemEntry.builder(ore).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0f, 6.0f)))
+						.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE))));
+	}
 	static DropTable Mushroom(ItemConvertible mushroom) { return (block) -> BlockLootTableGenerator.mushroomBlockDrops(block, mushroom); }
+	static DropTable NetherOre(Item ore) {
+		return (block) -> BlockLootTableGenerator.dropsWithSilkTouch(block, BlockLootTableGenerator.applyExplosionDecay(block,
+				ItemEntry.builder(ore).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2.0f, 6.0f)))
+						.apply(ApplyBonusLootFunction.oreDrops(Enchantments.FORTUNE))));
+	}
 	static DropTable Ore(Item ore) { return (block) -> BlockLootTableGenerator.oreDrops(block, ore); }
 	static DropTable Potted(ItemConvertible plant) { return (block) -> BlockLootTableGenerator.pottedPlantDrops(plant); }
 	static DropTable Stem(ItemConvertible item) { return (block) -> BlockLootTableGenerator.attachedCropStemDrops(block, item.asItem()); }

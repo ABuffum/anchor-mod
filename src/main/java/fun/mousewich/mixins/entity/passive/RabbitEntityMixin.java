@@ -1,6 +1,7 @@
 package fun.mousewich.mixins.entity.passive;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.Pouchable;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
@@ -55,14 +56,14 @@ public abstract class RabbitEntityMixin extends AnimalEntity implements Pouchabl
 	public void copyDataToStack(ItemStack stack) {
 		Pouchable.copyDataToStack(this, stack);
 		NbtCompound nbt = stack.getOrCreateNbt();
-		nbt.putInt("RabbitType", this.getRabbitType());
-		nbt.putInt("MoreCarrotTicks", this.moreCarrotTicks);
+		nbt.putInt(ModNbtKeys.RABBIT_TYPE, this.getRabbitType());
+		nbt.putInt(ModNbtKeys.MORE_CARROT_TICKS, this.moreCarrotTicks);
 	}
 	@Override
 	public void copyDataFromNbt(NbtCompound nbt) {
 		Pouchable.copyDataFromNbt(this, nbt);
-		this.setRabbitType(nbt.getInt("RabbitType"));
-		this.moreCarrotTicks = nbt.getInt("MoreCarrotTicks");
+		this.setRabbitType(nbt.getInt(ModNbtKeys.RABBIT_TYPE));
+		this.moreCarrotTicks = nbt.getInt(ModNbtKeys.MORE_CARROT_TICKS);
 	}
 	@Override
 	public SoundEvent getPouchedSound() { return ModSoundEvents.ITEM_POUCH_FILL_RABBIT; }
@@ -71,9 +72,9 @@ public abstract class RabbitEntityMixin extends AnimalEntity implements Pouchabl
 	@Override
 	public boolean canImmediatelyDespawn(double distanceSquared) { return !this.isFromPouch() && !this.hasCustomName(); }
 	@Inject(method="writeCustomDataToNbt", at=@At("TAIL"))
-	public void WriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) { nbt.putBoolean("FromPouch", this.isFromPouch()); }
+	public void WriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) { nbt.putBoolean(ModNbtKeys.FROM_POUCH, this.isFromPouch()); }
 	@Inject(method="readCustomDataFromNbt", at=@At("TAIL"))
-	public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) { this.setFromPouch(nbt.getBoolean("FromPouch")); }
+	public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) { this.setFromPouch(nbt.getBoolean(ModNbtKeys.FROM_POUCH)); }
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.RABBIT_BLOOD_TYPE; }
 }

@@ -1,6 +1,7 @@
 package fun.mousewich.gen.data.tag;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.gen.data.ModDatagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 public class BiomeTagGenerator extends FabricTagProvider.DynamicRegistryTagProvider<Biome> {
 	public BiomeTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.BIOME_KEY, "worldgen/biomes", ModBase.NAMESPACE + ":biome_tag_generator");
+		super(dataGenerator, Registry.BIOME_KEY, "worldgen/biomes", ModId.NAMESPACE + ":biome_tag_generator");
 	}
 
 	@Override

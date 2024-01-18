@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -11,6 +11,6 @@ public class CannotFreezePower extends Power {
 	public CannotFreezePower(PowerType<?> type, LivingEntity entity) { super(type, entity); }
 
 	public static PowerFactory<?> createFactory() {
-		return new PowerFactory<>(ModBase.ID("cannot_freeze"), new SerializableData(), data -> CannotFreezePower::new).allowCondition();
+		return new PowerFactory<>(ModId.ID("cannot_freeze"), new SerializableData(), data -> CannotFreezePower::new).allowCondition();
 	}
 }

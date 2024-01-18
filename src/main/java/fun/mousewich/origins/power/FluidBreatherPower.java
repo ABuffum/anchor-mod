@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.mixin.EntityAccessor;
 import io.github.apace100.apoli.power.Power;
@@ -31,7 +31,7 @@ public class FluidBreatherPower extends Power {
 		this.touch = touch;
 	}
 	public static PowerFactory<FluidBreatherPower> createFactory() {
-		return new PowerFactory<FluidBreatherPower>(ModBase.ID("fluid_breather"), new SerializableData()
+		return new PowerFactory<FluidBreatherPower>(ModId.ID("fluid_breather"), new SerializableData()
 				.add("fluid", SerializableDataType.tag(Registry.FLUID_KEY))
 				.add("suffocate", SerializableDataTypes.BOOLEAN, false)
 				.add("dryout", SerializableDataTypes.BOOLEAN, false)

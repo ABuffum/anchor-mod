@@ -1,7 +1,7 @@
 package fun.mousewich.util.banners;
 
-import fun.mousewich.ModBase;
 import fun.mousewich.ModFactory;
+import fun.mousewich.ModId;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 
@@ -30,7 +30,7 @@ public class ModBannerPattern {
 
 	public Identifier getSpriteId(boolean banner) {
 		String string = banner ? "banner" : "shield";
-		return ModBase.ID("entity/" + string + "/" + this.getName());
+		return ModId.ID("entity/" + string + "/" + this.getName());
 	}
 
 	public static ModBannerPattern byName(String name) {

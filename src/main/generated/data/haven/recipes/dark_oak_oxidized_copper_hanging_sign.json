@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stripped_dark_oak_log"
+    },
+    "|": {
+      "item": "haven:waxed_oxidized_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:dark_oak_oxidized_copper_hanging_sign"
+  }
+}

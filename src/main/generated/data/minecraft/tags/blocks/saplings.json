@@ -2,9 +2,9 @@
   "replace": false,
   "values": [
     "minecraft:mangrove_propagule",
-    "haven:cassia_sapling",
     "minecraft:cherry_sapling",
-    "haven:grape_sapling",
-    "haven:dogwood_sapling"
+    "haven:cassia_sapling",
+    "haven:dogwood_sapling",
+    "haven:grape_sapling"
   ]
 }

@@ -6,6 +6,7 @@ import com.nhoryzon.mc.farmersdelight.registry.BlocksRegistry;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModConfig;
 import fun.mousewich.block.BookshelfBlock;
+import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.haven.HavenMod;
 import net.minecraft.block.*;
 import net.minecraft.state.State;
@@ -69,6 +70,9 @@ public abstract class AbstractBlockStateMixin extends State<Block, BlockState> {
 			else if (block == Blocks.WHEAT) {
 				if (HavenMod.DECORATIVE_WHEAT.contains(getBlock())) cir.setReturnValue(true);
 			}
+		}
+		if (block == Blocks.BOOKSHELF) {
+			if (ModBlockTags.BOOKSHELVES.contains(block)) cir.setReturnValue(true);
 		}
 	}
 }

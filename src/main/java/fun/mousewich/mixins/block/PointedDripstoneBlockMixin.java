@@ -1,11 +1,14 @@
 package fun.mousewich.mixins.block;
 
+import fun.mousewich.entity.projectile.JavelinEntity;
 import fun.mousewich.util.PointedDripstoneUtil;
 import fun.mousewich.ModBase;
 import net.minecraft.block.*;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEvents;
@@ -105,5 +108,14 @@ public class PointedDripstoneBlockMixin extends Block implements LandingBlock, W
 	private static void CreateParticle(World world, BlockPos pos, BlockState state, Fluid fluid, CallbackInfo ci) {
 		PointedDripstoneUtil.createParticle(world, pos, state, fluid);
 		ci.cancel();
+	}
+
+	@Inject(method="onProjectileHit", at=@At("HEAD"), cancellable = true)
+	public void OnJavelinHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile, CallbackInfo ci) {
+		BlockPos blockPos = hit.getBlockPos();
+		if (!world.isClient && projectile.canModifyAt(world, blockPos) && projectile instanceof JavelinEntity && projectile.getVelocity().length() > 0.6) {
+			world.breakBlock(blockPos, true);
+			ci.cancel();
+		}
 	}
 }

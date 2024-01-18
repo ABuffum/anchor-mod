@@ -1,6 +1,7 @@
 package fun.mousewich.mixins.entity.hostile;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.Pouchable;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
@@ -70,12 +71,12 @@ public abstract class SilverfishEntityMixin extends HostileEntity implements Ent
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("FromPouch", this.isFromPouch());
+		nbt.putBoolean(ModNbtKeys.FROM_POUCH, this.isFromPouch());
 	}
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		this.setFromPouch(nbt.getBoolean("FromPouch"));
+		this.setFromPouch(nbt.getBoolean(ModNbtKeys.FROM_POUCH));
 	}
 	@Override public BloodType GetDefaultBloodType() { return ModBase.SILVERFISH_BLOOD_TYPE; }
 }

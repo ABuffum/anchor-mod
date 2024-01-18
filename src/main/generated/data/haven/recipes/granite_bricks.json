@@ -6,10 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:granite"
+      "item": "minecraft:polished_granite"
     }
   },
   "result": {
-    "item": "haven:granite_bricks"
+    "item": "haven:granite_bricks",
+    "count": 4
   }
 }

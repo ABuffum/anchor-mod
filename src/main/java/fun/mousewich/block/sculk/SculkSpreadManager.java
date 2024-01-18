@@ -5,7 +5,7 @@ import com.google.common.collect.Sets;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.event.ModWorldEvents;
 import fun.mousewich.gen.data.tag.ModBlockTags;
@@ -70,7 +70,7 @@ public class SculkSpreadManager {
 			List<Cursor> list = Cursor.CODEC
 					.listOf()
 					.parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getList(ModNbtKeys.CURSORS, 10)))
-					.resultOrPartial(ModBase.LOGGER::error)
+					.resultOrPartial(ModId.LOGGER::error)
 					.orElseGet(ArrayList::new);
 			int i = Math.min(list.size(), 32);
 			for (int j = 0; j < i; ++j) this.addCursor(list.get(j));
@@ -80,7 +80,7 @@ public class SculkSpreadManager {
 		Cursor.CODEC
 				.listOf()
 				.encodeStart(NbtOps.INSTANCE, this.cursors)
-				.resultOrPartial(ModBase.LOGGER::error)
+				.resultOrPartial(ModId.LOGGER::error)
 				.ifPresent(cursorsNbt -> nbt.put(ModNbtKeys.CURSORS, cursorsNbt));
 	}
 	public void spread(BlockPos pos, int charge) {

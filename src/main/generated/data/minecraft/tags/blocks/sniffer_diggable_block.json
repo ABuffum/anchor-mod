@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "minecraft:mud",
     "minecraft:muddy_mangrove_roots",
+    "minecraft:mud",
     "minecraft:dirt",
     "minecraft:grass_block",
     "minecraft:podzol",

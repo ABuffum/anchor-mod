@@ -2,6 +2,13 @@
   "replace": false,
   "values": [
     "haven:ruby_ore",
+    "haven:end_iron_ore",
+    "haven:end_copper_ore",
+    "haven:end_gold_ore",
+    "haven:quartz_ore",
+    "haven:sapphire_ore",
+    "haven:nether_iron_ore",
+    "haven:nether_copper_ore",
     "#minecraft:overworld_natural_logs",
     "minecraft:stone",
     "minecraft:packed_ice",

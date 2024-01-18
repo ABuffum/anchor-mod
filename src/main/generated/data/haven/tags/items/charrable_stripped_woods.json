@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:stripped_cassia_wood",
     "minecraft:stripped_cherry_wood",
     "minecraft:stripped_mangrove_wood",
+    "haven:stripped_cassia_wood",
     "minecraft:stripped_acacia_wood",
     "minecraft:stripped_birch_wood",
     "minecraft:stripped_dark_oak_wood",

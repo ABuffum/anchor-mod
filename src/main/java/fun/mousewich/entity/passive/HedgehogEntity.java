@@ -2,6 +2,7 @@ package fun.mousewich.entity.passive;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.damage.ModEntityDamageSource;
+import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.Pouchable;
 import fun.mousewich.entity.ai.goal.ModMeleeAttackGoal;
 import fun.mousewich.entity.ai.goal.MoveToHuntGoal;
@@ -148,12 +149,12 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		nbt.putBoolean("FromPouch", this.isFromPouch());
+		nbt.putBoolean(ModNbtKeys.FROM_POUCH, this.isFromPouch());
 	}
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		this.setFromPouch(nbt.getBoolean("FromPouch"));
+		this.setFromPouch(nbt.getBoolean(ModNbtKeys.FROM_POUCH));
 	}
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.HEDGEHOG_BLOOD_TYPE; }

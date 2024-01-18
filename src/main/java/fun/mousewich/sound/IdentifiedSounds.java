@@ -470,6 +470,7 @@ public class IdentifiedSounds {
 		Register("deepslate_lapis_ore", List.of(EN_US.Ore(EN_US.Lapis(EN_US.Deepslate()))), Blocks.DEEPSLATE_LAPIS_ORE);
 		Register("deepslate_redstone_ore", List.of(EN_US.Ore(EN_US.Redstone(EN_US.Deepslate()))), Blocks.DEEPSLATE_REDSTONE_ORE);
 		Register("deepslate_ruby_ore", List.of(EN_US.Ore(EN_US.Ruby(EN_US.Deepslate()))), DEEPSLATE_RUBY_ORE.asBlock());
+		Register("deepslate_sapphire_ore", List.of(EN_US.Ore(EN_US.Sapphire(EN_US.Deepslate()))), DEEPSLATE_SAPPHIRE_ORE.asBlock());
 		Register("diamond", List.of(EN_US.Diamond()), Blocks.DIAMOND_BLOCK,
 				/* Mod */ DIAMOND_STAIRS.asBlock(), DIAMOND_SLAB.asBlock(), DIAMOND_WALL.asBlock(),
 				DIAMOND_BRICKS.asBlock(), DIAMOND_BRICK_STAIRS.asBlock(), DIAMOND_BRICK_SLAB.asBlock(), DIAMOND_BRICK_WALL.asBlock());
@@ -510,6 +511,9 @@ public class IdentifiedSounds {
 				Blocks.END_STONE_BRICK_STAIRS, Blocks.END_STONE_BRICK_SLAB, Blocks.END_STONE_BRICK_WALL,
 				/* Mod */ END_STONE_SLAB.asBlock(), END_STONE_PILLAR.asBlock(),
 				END_STONE_TILES.asBlock(), END_STONE_TILE_STAIRS.asBlock(), END_STONE_TILE_SLAB.asBlock(), END_STONE_TILE_WALL.asBlock());
+		Register("end_stone_iron_ore", List.of(EN_US.Ore(EN_US.Iron(EN_US.Stone(EN_US.End())))), /* Mod */ END_IRON_ORE.asBlock());
+		Register("end_stone_copper_ore", List.of(EN_US.Ore(EN_US.Copper(EN_US.Stone(EN_US.End())))), /* Mod */ END_COPPER_ORE.asBlock());
+		Register("end_stone_gold_ore", List.of(EN_US.Ore(EN_US.Gold(EN_US.Stone(EN_US.End())))), /* Mod */ END_GOLD_ORE.asBlock());
 		Register("ender_chest", List.of(EN_US.Chest(EN_US.Ender())), Blocks.ENDER_CHEST);
 		Register("farmland", List.of(EN_US.Farmland()), Blocks.FARMLAND);
 		Register("fire", List.of(EN_US.Fire()), Blocks.FIRE, Blocks.SOUL_FIRE);
@@ -669,6 +673,8 @@ public class IdentifiedSounds {
 		Register("netherite_lantern", List.of(EN_US.Lantern(EN_US.Netherite())), /* Mod */ NETHERITE_LANTERN.asBlock(), NETHERITE_SOUL_LANTERN.asBlock(), NETHERITE_ENDER_LANTERN.asBlock());
 		Register("netherite_door", List.of(EN_US.Door(EN_US.Netherite())), /* Mod */ NETHERITE_DOOR.asBlock());
 		Register("netherite_trapdoor", List.of(EN_US.Trapdoor(EN_US.Netherite())), /* Mod */ NETHERITE_TRAPDOOR.asBlock());
+		Register("netherrack_iron_ore", List.of(EN_US.Ore(EN_US.Iron(EN_US.Netherrack()))), /* Mod */ NETHER_IRON_ORE.asBlock());
+		Register("netherrack_copper_ore", List.of(EN_US.Ore(EN_US.Copper(EN_US.Netherrack()))), /* Mod */ NETHER_COPPER_ORE.asBlock());
 		Register("netherrack_gold_ore", List.of(EN_US.Ore(EN_US.Gold(EN_US.Netherrack()))), Blocks.NETHER_GOLD_ORE);
 		Register("netherrack_quartz_ore", List.of(EN_US.Ore(EN_US.Quartz(EN_US.Netherrack()))), Blocks.NETHER_QUARTZ_ORE);
 		Register("note_block", List.of(EN_US.Block(EN_US.Note())), Blocks.NOTE_BLOCK);
@@ -776,6 +782,8 @@ public class IdentifiedSounds {
 		Register("sapling", List.of(EN_US.Sapling()), Blocks.ACACIA_SAPLING, Blocks.BIRCH_SAPLING, Blocks.DARK_OAK_SAPLING,
 				Blocks.JUNGLE_SAPLING, Blocks.OAK_SAPLING, Blocks.SPRUCE_SAPLING, /* Mod */ CHERRY_SAPLING.asBlock(),
 				CASSIA_SAPLING.asBlock(), DOGWOOD_SAPLING.asBlock(), GRAPE_SAPLING.asBlock());
+		Register("sapphire", List.of(EN_US.Sapphire()), /* Mod */ SAPPHIRE_BLOCK.asBlock(), SAPPHIRE_STAIRS.asBlock(), SAPPHIRE_SLAB.asBlock(), SAPPHIRE_WALL.asBlock(),
+				SAPPHIRE_BRICKS.asBlock(), SAPPHIRE_BRICK_STAIRS.asBlock(), SAPPHIRE_BRICK_SLAB.asBlock(), SAPPHIRE_BRICK_WALL.asBlock());
 		Register(BlockSounds.StepOnly(ModSoundEvents.BLOCK_SCULK_STEP), /* Mod */ ANDESITE_SCULK_TURF.asBlock(), BASALT_SCULK_TURF.asBlock(),
 				BLACKSTONE_SCULK_TURF.asBlock(), CALCITE_SCULK_TURF.asBlock(), DEEPSLATE_SCULK_TURF.asBlock(), DIORITE_SCULK_TURF.asBlock(),
 				DRIPSTONE_SCULK_TURF.asBlock(), END_SHALE_SCULK_TURF.asBlock(), END_STONE_SCULK_TURF.asBlock(), END_ROCK_SCULK_TURF.asBlock(),
@@ -817,6 +825,7 @@ public class IdentifiedSounds {
 		Register("stone_lapis_ore", List.of(EN_US.Ore(EN_US.Lapis(EN_US.Stone()))), Blocks.LAPIS_ORE);
 		Register("stone_redstone_ore", List.of(EN_US.Ore(EN_US.Redstone(EN_US.Stone()))), Blocks.REDSTONE_ORE);
 		Register("stone_ruby_ore", List.of(EN_US.Ore(EN_US.Ruby(EN_US.Stone()))), RUBY_ORE.asBlock());
+		Register("stone_sapphire_ore", List.of(EN_US.Ore(EN_US.Sapphire(EN_US.Stone()))), SAPPHIRE_ORE.asBlock());
 		Register("sugar", List.of(EN_US.Sugar()), /* Mod */ SUGAR_BLOCK.asBlock());
 		Register("sugar_cane", List.of(EN_US.Cane(EN_US.Sugar())), Blocks.SUGAR_CANE);
 		Register("sugar_cane_block", List.of(EN_US.Cane(EN_US.Sugar())), /* Mod */ SUGAR_CANE_BLOCK.asBlock(), SUGAR_CANE_BLOCK_SLAB.asBlock(), SUGAR_CANE_ROW.asBlock());

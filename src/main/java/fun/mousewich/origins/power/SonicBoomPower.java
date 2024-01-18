@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.hostile.warden.SonicBoomTask;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
@@ -23,7 +23,7 @@ public class SonicBoomPower extends CooldownPower implements Active {
 	}
 
 	public static PowerFactory<SonicBoomPower> createFactory() {
-		return new PowerFactory<SonicBoomPower>(ModBase.ID("sonic_boom"),
+		return new PowerFactory<SonicBoomPower>(ModId.ID("sonic_boom"),
 			new SerializableData()
 					.add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Key())
 					.add("cooldown", SerializableDataTypes.INT, 1)

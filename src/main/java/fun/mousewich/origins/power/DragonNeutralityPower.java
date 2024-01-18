@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -19,7 +19,7 @@ public class DragonNeutralityPower extends Power {
 		this.damage = damage;
 	}
 	public static PowerFactory<DragonNeutralityPower> createFactory() {
-		return new PowerFactory<DragonNeutralityPower>(ModBase.ID("dragon_neutrality"), new SerializableData()
+		return new PowerFactory<DragonNeutralityPower>(ModId.ID("dragon_neutrality"), new SerializableData()
 				.add("launch", SerializableDataTypes.BOOLEAN, true)
 				.add("damage", SerializableDataTypes.BOOLEAN, true),
 				data -> (type, entity) -> new DragonNeutralityPower(type, entity, data.getBoolean("launch"), data.getBoolean("damage"))).allowCondition();

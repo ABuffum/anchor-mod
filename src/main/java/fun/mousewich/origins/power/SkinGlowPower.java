@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class SkinGlowPower extends Power {
 	}
 
 	public static PowerFactory<SkinGlowPower> createFactory() {
-		return new PowerFactory<SkinGlowPower>(ModBase.ID("skin_glow"), new SerializableData()
+		return new PowerFactory<SkinGlowPower>(ModId.ID("skin_glow"), new SerializableData()
 				.add("light_level", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new SkinGlowPower(type, player, data.getInt("light_level"))
 		).allowCondition();

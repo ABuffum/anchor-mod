@@ -2,6 +2,7 @@ package fun.mousewich.gen.data.model;
 
 import fun.mousewich.ModBase;
 import fun.mousewich.ModConfig;
+import fun.mousewich.ModId;
 import fun.mousewich.block.BlockConvertible;
 import fun.mousewich.block.ModProperties;
 import fun.mousewich.block.container.ChiseledBookshelfBlock;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 import static fun.mousewich.ModBase.*;
+import static fun.mousewich.ModBase.FACETING_TABLE;
 import static fun.mousewich.registry.ModBambooRegistry.*;
 import static fun.mousewich.registry.ModCopperRegistry.*;
 
@@ -70,9 +72,9 @@ public class ModelGenerator extends FabricModelProvider {
 	public static void singletonModel(BlockStateModelGenerator bsmg, IBlockItemContainer container, TexturedModel.Factory factory) {
 		parentedItem(bsmg, (b) -> bsmg.registerSingleton(b, factory), container);
 	}
-	private static final Identifier TEMPLATE_SKULL = new Identifier("minecraft:item/template_skull");
-	private static final Identifier TEMPLATE_SPAWN_EGG = new Identifier("minecraft:item/template_spawn_egg");
-	private static final Identifier TEMPLATE_SUMMONING_ARROW = ModBase.ID("item/template_summoning_arrow");
+	private static final Identifier TEMPLATE_SKULL = ModId.ID("minecraft:item/template_skull");
+	private static final Identifier TEMPLATE_SPAWN_EGG = ModId.ID("minecraft:item/template_spawn_egg");
+	private static final Identifier TEMPLATE_SUMMONING_ARROW = ModId.ID("item/template_summoning_arrow");
 	public static void parentedItem(BlockStateModelGenerator bsmg, IBlockItemContainer container) { parentedItem(bsmg, container.asItem(), container.asBlock()); }
 	public static void parentedItem(BlockStateModelGenerator bsmg, Item item, Block block) { bsmg.registerParentedItemModel(item, getBlockModelId(block)); }
 	public static void parentedItem(BlockStateModelGenerator bsmg, Item item, Identifier parent) { bsmg.registerParentedItemModel(item, parent); }
@@ -360,6 +362,15 @@ public class ModelGenerator extends FabricModelProvider {
 		Identifier identifier4 = Models.DOOR_TOP_RH.upload(block, textureMap, bsmg.modelCollector);
 		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createDoorBlockState(block, identifier, identifier2, identifier3, identifier4));
 		generatedItemModel(bsmg, container.asItem());
+	}
+	public static void copiedDoorModel(BlockStateModelGenerator bsmg, IBlockItemContainer container, IBlockItemContainer copy) {
+		Block copyBlock = copy.asBlock();
+		Identifier identifier = Texture.getSubId(copyBlock, "_bottom");
+		Identifier identifier2 = Texture.getSubId(copyBlock, "_bottom_hinge");
+		Identifier identifier3 = Texture.getSubId(copyBlock, "_top");
+		Identifier identifier4 = Texture.getSubId(copyBlock, "_top_hinge");
+		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createDoorBlockState(container.asBlock(), identifier, identifier2, identifier3, identifier4));
+		parentedItem(bsmg, container.asItem(), getItemModelId(copy.asItem()));
 	}
 	public static void trapdoorModel(BlockStateModelGenerator bsmg, IBlockItemContainer container, boolean orientable) {
 		Block block = container.asBlock();
@@ -703,9 +714,9 @@ public class ModelGenerator extends FabricModelProvider {
 		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(block, BlockStateVariant.create().put(VariantSettings.MODEL, identifier)).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
 		parentedItem(bsmg, container.asItem(), block);
 	}
-	private static final Identifier CAMPFIRE_FIRE = ID("minecraft:block/campfire_fire");
-	private static final Identifier SOUL_CAMPFIRE_FIRE = ID("minecraft:block/soul_campfire_fire");
-	private static final Identifier ENDER_CAMPFIRE_FIRE = ID("block/ender_campfire_fire");
+	private static final Identifier CAMPFIRE_FIRE = ModId.ID("minecraft:block/campfire_fire");
+	private static final Identifier SOUL_CAMPFIRE_FIRE = ModId.ID("minecraft:block/soul_campfire_fire");
+	private static final Identifier ENDER_CAMPFIRE_FIRE = ModId.ID("block/ender_campfire_fire");
 	private static void campfireModelCommon(BlockStateModelGenerator bsmg, IBlockItemContainer container, Identifier log, Identifier off, int fire) {
 		Block block = container.asBlock();
 		Texture textureMap = new Texture()
@@ -1070,7 +1081,7 @@ public class ModelGenerator extends FabricModelProvider {
 		bedModel(bsmg, bed, Texture.getId(particle));
 	}
 	public static void bedModel(BlockStateModelGenerator bsmg, BedContainer bed, Identifier particle) {
-		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(bed.asBlock(), ID("minecraft:block/bed")));
+		bsmg.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(bed.asBlock(), ModId.ID("minecraft:block/bed")));
 		Models.TEMPLATE_BED.upload(getItemModelId(bed.asItem()), new Texture().put(TextureKey.PARTICLE, particle), bsmg.modelCollector);
 	}
 	public static void mudBricksModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
@@ -1149,7 +1160,7 @@ public class ModelGenerator extends FabricModelProvider {
 		parentedItem(bsmg, container.asItem(), identifier);
 	}
 
-	record ChiseledBookshelfModelCacheKey(Block block, Model template, String modelSuffix) { }
+	record ChiseledBookshelfModelCacheKey(Model template, String modelSuffix) { }
 	private static final Map<ChiseledBookshelfModelCacheKey, Identifier> CHISELED_BOOKSHELF_MODEL_CACHE = new HashMap<>();
 	private static void chiseledBookshelfModel(BlockStateModelGenerator bsmg, IBlockItemContainer container) {
 		Block block = container.asBlock();
@@ -1159,7 +1170,8 @@ public class ModelGenerator extends FabricModelProvider {
 			When.PropertyCondition propertyCondition = When.create().set(Properties.HORIZONTAL_FACING, direction);
 			multipartBlockStateSupplier.with(propertyCondition, BlockStateVariant.create()
 					.put(VariantSettings.MODEL, identifier)
-					.put(VariantSettings.Y, rotation).put(VariantSettings.UVLOCK, true));
+					.put(VariantSettings.Y, rotation)
+					.put(VariantSettings.UVLOCK, true));
 			supplyChiseledBookshelfModels(bsmg, block, multipartBlockStateSupplier, propertyCondition, rotation);
 		});
 		bsmg.blockStateCollector.accept(multipartBlockStateSupplier);
@@ -1171,12 +1183,12 @@ public class ModelGenerator extends FabricModelProvider {
 		CHISELED_BOOKSHELF_MODEL_CACHE.clear();
 	}
 	private static void supplyChiseledBookshelfModels(BlockStateModelGenerator bsmg, Block block, MultipartBlockStateSupplier blockStateSupplier, When.PropertyCondition facingCondition, VariantSettings.Rotation rotation) {
-		Map.of(ChiseledBookshelfBlock.SLOT_0_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_LEFT,
-				ChiseledBookshelfBlock.SLOT_1_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_MID,
-				ChiseledBookshelfBlock.SLOT_2_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_RIGHT,
-				ChiseledBookshelfBlock.SLOT_3_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_LEFT,
-				ChiseledBookshelfBlock.SLOT_4_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_MID,
-				ChiseledBookshelfBlock.SLOT_5_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_RIGHT).forEach((property, model) -> {
+		Map.of(ModProperties.SLOT_0_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_LEFT,
+				ModProperties.SLOT_1_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_MID,
+				ModProperties.SLOT_2_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_TOP_RIGHT,
+				ModProperties.SLOT_3_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_LEFT,
+				ModProperties.SLOT_4_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_MID,
+				ModProperties.SLOT_5_OCCUPIED, ModModels.TEMPLATE_CHISELED_BOOKSHELF_SLOT_BOTTOM_RIGHT).forEach((property, model) -> {
 			supplyChiseledBookshelfModel(bsmg, block, blockStateSupplier, facingCondition, rotation, property, model, true);
 			supplyChiseledBookshelfModel(bsmg, block, blockStateSupplier, facingCondition, rotation, property, model, false);
 		});
@@ -1184,7 +1196,7 @@ public class ModelGenerator extends FabricModelProvider {
 	private static void supplyChiseledBookshelfModel(BlockStateModelGenerator bsmg, Block block, MultipartBlockStateSupplier blockStateSupplier, When.PropertyCondition facingCondition, VariantSettings.Rotation rotation, BooleanProperty property, Model model, boolean occupied) {
 		String string = occupied ? "_occupied" : "_empty";
 		Texture textureMap = new Texture().put(TextureKey.TEXTURE, Texture.getSubId(block, string));
-		ChiseledBookshelfModelCacheKey chiseledBookshelfModelCacheKey = new ChiseledBookshelfModelCacheKey(block, model, string);
+		ChiseledBookshelfModelCacheKey chiseledBookshelfModelCacheKey = new ChiseledBookshelfModelCacheKey(model, string);
 		Identifier identifier = CHISELED_BOOKSHELF_MODEL_CACHE.computeIfAbsent(chiseledBookshelfModelCacheKey, key -> model.upload(block, string, textureMap, bsmg.modelCollector));
 		blockStateSupplier.with(When.allOf(facingCondition, When.create().set(property, occupied)), BlockStateVariant.create().put(VariantSettings.MODEL, identifier).put(VariantSettings.Y, rotation));
 	}
@@ -1314,7 +1326,7 @@ public class ModelGenerator extends FabricModelProvider {
 		for (Item item : ModDatagen.Cache.Models.GENERATED) {
 			Identifier itemId = Registry.ITEM.getId(item);
 			if (itemId == Registry.ITEM.getDefaultId()) {
-				LOGGER.error(item.getClass().getName());
+				ModId.LOGGER.error(item.getClass().getName());
 			}
 			generatedItemModel(bsmg, item);
 		}
@@ -1507,6 +1519,8 @@ public class ModelGenerator extends FabricModelProvider {
 		glassTrapdoorModel(bsmg, TINTED_GLASS_TRAPDOOR, Blocks.TINTED_GLASS, TINTED_GLASS_PANE);
 		glassSlabModel(bsmg, RUBY_GLASS_SLAB, RUBY_GLASS);
 		glassTrapdoorModel(bsmg, RUBY_GLASS_TRAPDOOR, RUBY_GLASS, RUBY_GLASS_PANE);
+		glassSlabModel(bsmg, SAPPHIRE_GLASS_SLAB, SAPPHIRE_GLASS);
+		glassTrapdoorModel(bsmg, SAPPHIRE_GLASS_TRAPDOOR, SAPPHIRE_GLASS, SAPPHIRE_GLASS_PANE);
 		glassSlabModel(bsmg, GLASS_SLAB, Blocks.GLASS);
 		glassTrapdoorModel(bsmg, GLASS_TRAPDOOR, Blocks.GLASS, Blocks.GLASS_PANE);
 		for(DyeColor color : DyeColor.values()){
@@ -1611,6 +1625,21 @@ public class ModelGenerator extends FabricModelProvider {
 		copiedWallModel(bsmg, WAXED_WEATHERED_COPPER_WALL, WEATHERED_COPPER_WALL);
 		copiedWallModel(bsmg, WAXED_OXIDIZED_COPPER_WALL, OXIDIZED_COPPER_WALL);
 
+		copiedSimpleBlockstate(bsmg, WAXED_COPPER_GRATE, COPPER_GRATE);
+		copiedSimpleBlockstate(bsmg, WAXED_EXPOSED_COPPER_GRATE, EXPOSED_COPPER_GRATE);
+		copiedSimpleBlockstate(bsmg, WAXED_WEATHERED_COPPER_GRATE, WEATHERED_COPPER_GRATE);
+		copiedSimpleBlockstate(bsmg, WAXED_OXIDIZED_COPPER_GRATE, OXIDIZED_COPPER_GRATE);
+
+		copiedSimpleBlockstate(bsmg, WAXED_CHISELED_COPPER, CHISELED_COPPER);
+		copiedSimpleBlockstate(bsmg, WAXED_EXPOSED_CHISELED_COPPER, EXPOSED_CHISELED_COPPER);
+		copiedSimpleBlockstate(bsmg, WAXED_WEATHERED_CHISELED_COPPER, WEATHERED_CHISELED_COPPER);
+		copiedSimpleBlockstate(bsmg, WAXED_OXIDIZED_CHISELED_COPPER, OXIDIZED_CHISELED_COPPER);
+
+		copiedDoorModel(bsmg, WAXED_COPPER_DOOR, COPPER_DOOR);
+		copiedDoorModel(bsmg, WAXED_EXPOSED_COPPER_DOOR, EXPOSED_COPPER_DOOR);
+		copiedDoorModel(bsmg, WAXED_WEATHERED_COPPER_DOOR, WEATHERED_COPPER_DOOR);
+		copiedDoorModel(bsmg, WAXED_OXIDIZED_COPPER_DOOR, OXIDIZED_COPPER_DOOR);
+
 		copiedTrapdoorModel(bsmg, WAXED_COPPER_TRAPDOOR, COPPER_TRAPDOOR, false);
 		copiedTrapdoorModel(bsmg, WAXED_EXPOSED_COPPER_TRAPDOOR, EXPOSED_COPPER_TRAPDOOR, false);
 		copiedTrapdoorModel(bsmg, WAXED_WEATHERED_COPPER_TRAPDOOR, WEATHERED_COPPER_TRAPDOOR, false);
@@ -1698,29 +1727,29 @@ public class ModelGenerator extends FabricModelProvider {
 										.set(Properties.WEST_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP),
 								When.create().set(Properties.WEST_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP)
 										.set(Properties.NORTH_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP)),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_dot")))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_dot")))
 				.with(When.create().set(Properties.NORTH_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_side0")))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_side0")))
 				.with(When.create().set(Properties.SOUTH_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_side_alt0")))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_side_alt0")))
 				.with(When.create().set(Properties.EAST_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP),
 						BlockStateVariant.create()
-								.put(VariantSettings.MODEL, ID("block/gunpowder_fuse_side_alt1"))
+								.put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_side_alt1"))
 								.put(VariantSettings.Y, VariantSettings.Rotation.R270))
 				.with(When.create().set(Properties.WEST_WIRE_CONNECTION, WireConnection.SIDE, WireConnection.UP),
 						BlockStateVariant.create()
-								.put(VariantSettings.MODEL, ID("block/gunpowder_fuse_side1"))
+								.put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_side1"))
 								.put(VariantSettings.Y, VariantSettings.Rotation.R270))
 				.with(When.create().set(Properties.NORTH_WIRE_CONNECTION, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_up")))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_up")))
 				.with(When.create().set(Properties.EAST_WIRE_CONNECTION, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_up"))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_up"))
 								.put(VariantSettings.Y, VariantSettings.Rotation.R90))
 				.with(When.create().set(Properties.SOUTH_WIRE_CONNECTION, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_up"))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_up"))
 								.put(VariantSettings.Y, VariantSettings.Rotation.R180))
 				.with(When.create().set(Properties.WEST_WIRE_CONNECTION, WireConnection.UP),
-						BlockStateVariant.create().put(VariantSettings.MODEL, ID("block/gunpowder_fuse_up"))
+						BlockStateVariant.create().put(VariantSettings.MODEL, ModId.ID("block/gunpowder_fuse_up"))
 								.put(VariantSettings.Y, VariantSettings.Rotation.R270)));
 		//</editor-fold>
 		//Suspicious Sand
@@ -1751,8 +1780,10 @@ public class ModelGenerator extends FabricModelProvider {
 		horizontalPillarModel(bsmg, SUGAR_CANE_BLOCK);
 		topSideSlabModel(bsmg, SUGAR_CANE_BLOCK_SLAB, SUGAR_CANE_BLOCK);
 		parentedItem(bsmg, SUGAR_CANE_ROW.asItem(), Texture.getSubId(SUGAR_CANE_ROW.asBlock(), "_inventory"));
-		generatedItemModel(bsmg, KILL_POTION, ID("item/pink_potion"));
-		generatedItemModel(bsmg, DISTILLED_WATER_BOTTLE, ID("item/water_bottle"));
+		singletonModel(bsmg, CHISELED_TUFF, TexturedModel.END_FOR_TOP_CUBE_COLUMN);
+		singletonModel(bsmg, CHISELED_TUFF_BRICKS, TexturedModel.END_FOR_TOP_CUBE_COLUMN);
+		generatedItemModel(bsmg, KILL_POTION, ModId.ID("item/pink_potion"));
+		generatedItemModel(bsmg, DISTILLED_WATER_BOTTLE, ModId.ID("item/water_bottle"));
 		glazedTerracottaModel(bsmg, GLAZED_TERRACOTTA);
 		glazedTerracottaSlabModel(bsmg, GLAZED_TERRACOTTA_SLAB, GLAZED_TERRACOTTA);
 		for (DyeColor color : DyeColor.values()) glazedTerracottaSlabModel(bsmg, GLAZED_TERRACOTTA_SLABS.get(color), ColorUtil.GetGlazedTerracottaBlock(color));
@@ -1770,7 +1801,7 @@ public class ModelGenerator extends FabricModelProvider {
 		rainbowBlockModel(bsmg, RAINBOW_WOOL);
 		rainbowSlabModel(bsmg, RAINBOW_WOOL_SLAB, RAINBOW_WOOL.asBlock());
 		rainbowCarpetModel(bsmg, RAINBOW_CARPET, RAINBOW_WOOL.asBlock());
-		bedModel(bsmg, RAINBOW_BED, ID("block/rainbow_wool_particle"));
+		bedModel(bsmg, RAINBOW_BED, ModId.ID("block/rainbow_wool_particle"));
 		//</editor-fold>
 		//<editor-fold desc="Fleece">
 		for (DyeColor color : DyeColor.values()) {
@@ -1909,21 +1940,25 @@ public class ModelGenerator extends FabricModelProvider {
 		//<editor-fold desc="Tall Flowers">
 		tallFlowerModel(bsmg, AMARANTH);
 		tallFlowerModel(bsmg, BLUE_ROSE_BUSH);
-		tallFlowerModel(bsmg, TALL_ALLIUM, Blocks.ALLIUM, ID("block/allium_stalk"));
-		tallFlowerModel(bsmg, TALL_PINK_ALLIUM, PINK_ALLIUM.asBlock(), ID("block/allium_stalk"));
+		tallFlowerModel(bsmg, TALL_ALLIUM, Blocks.ALLIUM, ModId.ID("block/allium_stalk"));
+		tallFlowerModel(bsmg, TALL_PINK_ALLIUM, PINK_ALLIUM.asBlock(), ModId.ID("block/allium_stalk"));
 		tallFlowerModel(bsmg, TALL_VANILLA);
 		//</editor-fold>
 		//<editor-fold desc="Flower Parts">
-		flowerPartModels(bsmg, ID("item/daisy_seeds"), ID("block/daisy_seeds"), PINK_DAISY_PARTS, OXEYE_DAISY_PARTS);
-		flowerPartModels(bsmg, ID("item/rose_seeds"), ID("block/rose_seeds"), ROSE_PARTS, BLUE_ROSE_PARTS, WITHER_ROSE_PARTS);
-		flowerPartModels(bsmg, ID("item/allium_seeds"), ID("block/allium_seeds"), PINK_ALLIUM_PARTS, ALLIUM_PARTS);
-		flowerPartModels(bsmg, ID("item/orchid_seeds"), ID("block/orchid_seeds"), INDIGO_ORCHID_PARTS, MAGENTA_ORCHID_PARTS,
+		flowerPartModels(bsmg, ModId.ID("item/daisy_seeds"), ModId.ID("block/daisy_seeds"), PINK_DAISY_PARTS, OXEYE_DAISY_PARTS);
+		flowerPartModels(bsmg, ModId.ID("item/rose_seeds"), ModId.ID("block/rose_seeds"), ROSE_PARTS, BLUE_ROSE_PARTS, WITHER_ROSE_PARTS);
+		flowerPartModels(bsmg, ModId.ID("item/allium_seeds"), ModId.ID("block/allium_seeds"), PINK_ALLIUM_PARTS, ALLIUM_PARTS);
+		flowerPartModels(bsmg, ModId.ID("item/orchid_seeds"), ModId.ID("block/orchid_seeds"), INDIGO_ORCHID_PARTS, MAGENTA_ORCHID_PARTS,
 				ORANGE_ORCHID_PARTS, PURPLE_ORCHID_PARTS, RED_ORCHID_PARTS, WHITE_ORCHID_PARTS, YELLOW_ORCHID_PARTS, BLUE_ORCHID_PARTS);
-		flowerPartModels(bsmg, ID("item/tulip_seeds"), ID("block/tulip_seeds"), MAGENTA_TULIP_PARTS, ORANGE_TULIP_PARTS,
+		flowerPartModels(bsmg, ModId.ID("item/tulip_seeds"), ModId.ID("block/tulip_seeds"), MAGENTA_TULIP_PARTS, ORANGE_TULIP_PARTS,
 				PINK_TULIP_PARTS, RED_TULIP_PARTS, WHITE_TULIP_PARTS);
-		flowerPartModels(bsmg, ID("item/peony_seeds"), ID("block/peony_seeds"), PAEONIA_PARTS, PEONY_PARTS);
-		flowerPartModels(bsmg, ID("item/lily_seeds"), ID("block/lily_seeds"), LILY_OF_THE_VALLEY_PARTS);
+		flowerPartModels(bsmg, ModId.ID("item/peony_seeds"), ModId.ID("block/peony_seeds"), PAEONIA_PARTS, PEONY_PARTS);
+		flowerPartModels(bsmg, ModId.ID("item/lily_seeds"), ModId.ID("block/lily_seeds"), LILY_OF_THE_VALLEY_PARTS);
 		//</editor-fold>
+
+		bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(FACETING_TABLE.asBlock(), BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(FACETING_TABLE.asBlock()))).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+		parentedItem(bsmg, FACETING_TABLE);
+
 		//Statues
 		explicitStatueModel(bsmg, CREEPER_ANATOMY_STATUE);
 		//Skulls
@@ -1946,11 +1981,11 @@ public class ModelGenerator extends FabricModelProvider {
 			explicitModelCommon(bsmg, HavenMod.SUBSTITUTE_ANCHOR_BLOCK);
 			generatedItemModels(bsmg, HavenMod.ANCHOR, HavenMod.BROKEN_ANCHOR);
 			for (Item item : HavenMod.ANCHOR_CORES.values()) {
-				Identifier id = ID("entity/anchor/" + Registry.ITEM.getId(item).getPath());
+				Identifier id = ModId.ID("entity/anchor/" + Registry.ITEM.getId(item).getPath());
 				Models.CUBE_ALL.upload(getItemModelId(item), Texture.all(id), bsmg.modelCollector);
 			}
 			//</editor-fold>
-			flowerPartModels(bsmg, ID("item/carnation_seeds"), ID("block/carnation_seeds"), HavenMod.CARNATION_PARTS.values().toArray(FlowerPartContainer[]::new));
+			flowerPartModels(bsmg, ModId.ID("item/carnation_seeds"), ModId.ID("block/carnation_seeds"), HavenMod.CARNATION_PARTS.values().toArray(FlowerPartContainer[]::new));
 			//TNT
 			topBottomSidesModel(bsmg, HavenMod.SHARP_TNT);
 			topBottomSidesModel(bsmg, HavenMod.CHUNKEATER_TNT);
@@ -1976,6 +2011,8 @@ public class ModelGenerator extends FabricModelProvider {
 			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_SOUL_MELON_LANTERN, Blocks.MELON);
 			carvedPumpkinModel(bsmg, HavenMod.SOLEIL_ENDER_MELON_LANTERN, Blocks.MELON);
 			//</editor-fold>
+			bsmg.blockStateCollector.accept(VariantsBlockStateSupplier.create(HavenMod.BROKEN_STARS.asBlock(), BlockStateVariant.create().put(VariantSettings.MODEL, ModelIds.getBlockModelId(HavenMod.BROKEN_STARS.asBlock()))).coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates()));
+			parentedItem(bsmg, HavenMod.BROKEN_STARS);
 		}
 	}
 

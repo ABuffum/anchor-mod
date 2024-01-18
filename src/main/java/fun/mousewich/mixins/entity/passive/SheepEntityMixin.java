@@ -32,7 +32,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -43,16 +45,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SheepEntity.class)
 public abstract class SheepEntityMixin extends AnimalEntity implements Shearable, ModDyedSheep, EntityWithBloodType {
 	@SuppressWarnings("WrongEntityDataParameterClass")
-	private static final TrackedData<Byte> MOD_COLOR = DataTracker.registerData(SheepEntity.class, TrackedDataHandlerRegistry.BYTE);
-
-	@Shadow public abstract DyeColor getColor();
-	@Shadow public abstract void setColor(DyeColor color);
-	@Shadow public abstract boolean isSheared();
+	private static final TrackedData<Boolean> SHEARED = DataTracker.registerData(SheepEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+	@Shadow @Final private static TrackedData<Byte> COLOR;
 
 	protected SheepEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) { super(entityType, world); }
 
 	@Inject(method="initDataTracker", at=@At("RETURN"))
-	protected void InitDataTracker(CallbackInfo ci) { this.dataTracker.startTracking(MOD_COLOR, (byte)0); }
+	protected void InitDataTracker(CallbackInfo ci) { this.dataTracker.startTracking(SHEARED, false); }
 
 	@Inject(method="getLootTableId", at=@At("HEAD"), cancellable=true)
 	public void GetLootTableIdForModDyes(CallbackInfoReturnable<Identifier> cir) {
@@ -64,17 +63,25 @@ public abstract class SheepEntityMixin extends AnimalEntity implements Shearable
 		else if (color == ModDyeColor.MINT) cir.setReturnValue(ModLootTables.MINT_SHEEP_ENTITY);
 	}
 
+	/**
+	 * @author mousewich
+	 * @reason moving the data tracker for whether the sheep is sheared to a value distinct from color
+	 */
+	@Overwrite
+	public boolean isSheared() { return this.getDataTracker().get(SHEARED); }
+	/**
+	 * @author mousewich
+	 * @reason moving the data tracker for whether the sheep is sheared to a value distinct from color
+	 */
+	@Overwrite
+	public void setSheared(boolean sheared) { this.dataTracker.set(SHEARED, sheared); }
+
 	@Override
-	public ModDyeColor GetModColor() { return ModDyeColor.byId(this.dataTracker.get(MOD_COLOR)); }
+	public ModDyeColor GetModColor() { return ModDyeColor.byId(this.dataTracker.get(COLOR)); }
 	@Inject(method="setColor", at=@At("RETURN"))
-	private void SetColor(DyeColor color, CallbackInfo ci) {
-		this.dataTracker.set(MOD_COLOR, (byte)color.getId());
-	}
+	private void SetColor(DyeColor color, CallbackInfo ci) { this.dataTracker.set(COLOR, (byte)color.getId()); }
 	@Override
-	public void SetModColor(ModDyeColor color) {
-		setColor(DyeColor.byId(color.getId()));
-		this.dataTracker.set(MOD_COLOR, (byte)color.getId());
-	}
+	public void SetModColor(ModDyeColor color) { this.dataTracker.set(COLOR, (byte)color.getId()); }
 	@Override
 	public ModDyeColor GetChildModColor(AnimalEntity firstParent, AnimalEntity secondParent) {
 		ModDyeColor dyeColor = ((ModDyedSheep)firstParent).GetModColor();
@@ -103,14 +110,14 @@ public abstract class SheepEntityMixin extends AnimalEntity implements Shearable
 		return craftingInventory;
 	}
 
-
-	@Inject(method="writeCustomDataToNbt", at=@At("RETURN"))
-	public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-		nbt.putByte(ModNbtKeys.MOD_COLOR, (byte)this.GetModColor().getId());
+	@Redirect(method="writeCustomDataToNbt", at=@At(value="INVOKE", target="Lnet/minecraft/nbt/NbtCompound;putByte(Ljava/lang/String;B)V"))
+	private void OverrideColorWrite(NbtCompound instance, String key, byte value) {
+		if (key.equals(ModNbtKeys.COLOR)) instance.putByte(key, (byte)this.GetModColor().getId());
+		else instance.putByte(key, value);
 	}
 	@Inject(method="readCustomDataFromNbt", at=@At("RETURN"))
-	public void ReadCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-		this.SetModColor(ModDyeColor.byId(nbt.getByte(ModNbtKeys.MOD_COLOR)));
+	public void OverrideColorRead(NbtCompound nbt, CallbackInfo ci) {
+		this.SetModColor(ModDyeColor.byId(nbt.getByte(ModNbtKeys.COLOR)));
 	}
 
 	@Redirect(method="sheared", at=@At(value="INVOKE", target="Lnet/minecraft/entity/passive/SheepEntity;dropItem(Lnet/minecraft/item/ItemConvertible;I)Lnet/minecraft/entity/ItemEntity;"))

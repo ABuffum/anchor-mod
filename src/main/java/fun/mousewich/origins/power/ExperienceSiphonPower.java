@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class ExperienceSiphonPower extends Power {
 	}
 
 	public static PowerFactory<ExperienceSiphonPower> createFactory() {
-		return new PowerFactory<ExperienceSiphonPower>(ModBase.ID("experience_siphon"), new SerializableData()
+		return new PowerFactory<ExperienceSiphonPower>(ModId.ID("experience_siphon"), new SerializableData()
 				.add("modifier", SerializableDataTypes.FLOAT, 1F),
 				data -> (type, player) -> new ExperienceSiphonPower(type, player, data.getFloat("modifier"))
 		).allowCondition();

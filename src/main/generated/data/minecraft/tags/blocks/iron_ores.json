@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "haven:end_iron_ore",
+    "haven:nether_iron_ore"
+  ]
+}

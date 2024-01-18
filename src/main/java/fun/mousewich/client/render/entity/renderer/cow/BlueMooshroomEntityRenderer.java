@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.cow;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.renderer.feature.cow.BlueMooshroomMushroomFeatureRenderer;
 import fun.mousewich.entity.passive.cow.BlueMooshroomEntity;
 import net.fabricmc.api.EnvType;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class BlueMooshroomEntityRenderer extends MobEntityRenderer<BlueMooshroomEntity, CowEntityModel<BlueMooshroomEntity>> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/cow/blue_mooshroom.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/cow/blue_mooshroom.png");
 
 	public BlueMooshroomEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new CowEntityModel<>(context.getPart(EntityModelLayers.MOOSHROOM)), 0.7F);

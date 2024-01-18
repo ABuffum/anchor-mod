@@ -1,7 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
-import fun.mousewich.ModClient;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.RaftEntityModel;
 import fun.mousewich.entity.vehicle.ModBoatEntity;
@@ -67,7 +66,7 @@ public class ModBoatEntityRenderer extends EntityRenderer<ModBoatEntity> {
 
 	private Identifier getIdentifier(ModBoatType type) {
 		if (type.getName().contains("minecraft:")) return new Identifier("textures/entity/boat/" + type.getName().substring("minecraft:".length()) + ".png");
-		return ModBase.ID("textures/entity/boat/" + type.getName() + ".png");
+		return ModId.ID("textures/entity/boat/" + type.getName() + ".png");
 	}
 
 	public Identifier getTexture(ModBoatEntity boatEntity) { return getIdentifier(boatEntity.getModBoatType()); }

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:stripped_dogwood_log"
+    },
+    "|": {
+      "item": "haven:waxed_exposed_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:dogwood_exposed_copper_hanging_sign"
+  }
+}

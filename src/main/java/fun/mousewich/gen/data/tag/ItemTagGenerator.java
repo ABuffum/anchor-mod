@@ -2,6 +2,7 @@ package fun.mousewich.gen.data.tag;
 
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import fun.mousewich.ModConfig;
+import fun.mousewich.ModId;
 import fun.mousewich.container.ArrowContainer;
 import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.ryft.RyftMod;
@@ -27,7 +28,7 @@ import static fun.mousewich.registry.ModCopperRegistry.*;
 
 public class ItemTagGenerator extends FabricTagProvider<Item> {
 	public ItemTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.ITEM, "items", NAMESPACE + ":item_tag_generator");
+		super(dataGenerator, Registry.ITEM, "items", ModId.NAMESPACE + ":item_tag_generator");
 	}
 
 	private static Identifier betterend(String path) { return new Identifier("betterend", path); }
@@ -137,7 +138,20 @@ public class ItemTagGenerator extends FabricTagProvider<Item> {
 		getOrCreateTagBuilder(ModItemTags.BEEHIVES).add(Items.BEEHIVE);
 		getOrCreateTagBuilder(ModItemTags.BOOKS)
 				.add(Items.BOOK, RED_BOOK, ORANGE_BOOK, YELLOW_BOOK, GREEN_BOOK, BLUE_BOOK, GRAY_BOOK);
-		getOrCreateTagBuilder(ModItemTags.BOOKSHELVES).add(Items.BOOKSHELF);
+		getOrCreateTagBuilder(ModItemTags.BOOKSHELVES).add(Items.BOOKSHELF)
+				//Better Nether
+				.addOptional(betternether("anchor_tree_bookshelf")).addOptional(betternether("crimson_bookshelf"))
+				.addOptional(betternether("mushroom_fir_bookshelf")).addOptional(betternether("nether_mushroom_bookshelf"))
+				.addOptional(betternether("nether_reed_bookshelf")).addOptional(betternether("nether_sakura_bookshelf"))
+				.addOptional(betternether("rubeus_bookshelf")).addOptional(betternether("stalagnate_bookshelf"))
+				.addOptional(betternether("warped_bookshelf")).addOptional(betternether("wart_bookshelf"))
+				.addOptional(betternether("willow_bookshelf"))
+				//Better End
+				.addOptional(betterend("dragon_tree_bookshelf")).addOptional(betterend("end_lotus_bookshelf"))
+				.addOptional(betterend("helix_tree_bookshelf")).addOptional(betterend("jellyshroom_bookshelf"))
+				.addOptional(betterend("lacugrove_bookshelf")).addOptional(betterend("lucernia_bookshelf"))
+				.addOptional(betterend("mossy_glowshroom_bookshelf")).addOptional(betterend("pythadendron_bookshelf"))
+				.addOptional(betterend("tenanea_bookshelf")).addOptional(betterend("umbrella_tree_bookshelf"));
 		getOrCreateTagBuilder(ModItemTags.BOOTS)
 				.add(Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS, Items.NETHERITE_BOOTS)
 				.addOptional(betternether("cincinnasite_boots")).addOptional(betternether("nether_ruby_boots"))
@@ -406,7 +420,7 @@ public class ItemTagGenerator extends FabricTagProvider<Item> {
 				.add(CASSIA_HAMMER, DOGWOOD_HAMMER);
 
 		getOrCreateTagBuilder(ModItemTags.CROPTOPIA_NUTS);
-		getOrCreateTagBuilder(ModItemTags.FORGE_INGOTS_IRON).add(Items.IRON_INGOT).add(DARK_IRON_INGOT)
+		getOrCreateTagBuilder(ModItemTags.FORGE_IRON_INGOTS).add(Items.IRON_INGOT).add(DARK_IRON_INGOT)
 				.addOptional(graveyard("dark_iron_ingot"));
 		getOrCreateTagBuilder(ModItemTags.FORGE_VEGETABLES);
 		getOrCreateTagBuilder(ModItemTags.NOURISH_FRUIT);

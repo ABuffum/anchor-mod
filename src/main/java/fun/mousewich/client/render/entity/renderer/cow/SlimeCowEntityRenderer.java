@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.cow;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.SlimeCowEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.cow.SlimeCowOverlayFeatureRenderer;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class SlimeCowEntityRenderer extends MobEntityRenderer<SlimeCowEntity, SlimeCowEntityModel> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/cow/slime.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/cow/slime.png");
 
 	public SlimeCowEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new SlimeCowEntityModel(context.getPart(ModEntityModelLayers.SLIME_COW)), 0.7f);

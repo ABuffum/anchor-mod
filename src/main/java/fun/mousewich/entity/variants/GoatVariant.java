@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -20,7 +20,7 @@ public enum GoatVariant {
 	public final Identifier texture;
 	GoatVariant(String name, String texture) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
+		this.texture = ModId.ID(texture);
 	}
 	public static GoatVariant get(GoatEntity entity) {
 		GoatVariant[] variants = values();

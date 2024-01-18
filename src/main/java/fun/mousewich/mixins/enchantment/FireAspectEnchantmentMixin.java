@@ -1,5 +1,6 @@
 package fun.mousewich.mixins.enchantment;
 
+import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import fun.mousewich.item.tool.HammerItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -16,7 +17,7 @@ public abstract class FireAspectEnchantmentMixin extends Enchantment {
 	@Override
 	public boolean isAcceptableItem(ItemStack stack) {
 		Item item = stack.getItem();
-		if (item instanceof AxeItem || item instanceof HammerItem) return true;
+		if (item instanceof AxeItem || item instanceof HammerItem || item instanceof KnifeItem) return true;
 		return super.isAcceptableItem(stack);
 	}
 }

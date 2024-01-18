@@ -1,22 +1,22 @@
 {
   "replace": false,
   "values": [
+    "haven:light_blue_fleece",
+    "haven:blue_fleece",
+    "haven:yellow_fleece",
     "haven:light_gray_fleece",
-    "haven:orange_fleece",
-    "haven:red_fleece",
-    "haven:green_fleece",
-    "haven:lime_fleece",
-    "haven:black_fleece",
     "haven:magenta_fleece",
     "haven:purple_fleece",
-    "haven:gray_fleece",
-    "haven:light_blue_fleece",
-    "haven:yellow_fleece",
+    "haven:red_fleece",
+    "haven:orange_fleece",
     "haven:pink_fleece",
-    "haven:white_fleece",
-    "haven:blue_fleece",
-    "haven:brown_fleece",
     "haven:rainbow_fleece",
-    "haven:cyan_fleece"
+    "haven:black_fleece",
+    "haven:cyan_fleece",
+    "haven:brown_fleece",
+    "haven:green_fleece",
+    "haven:gray_fleece",
+    "haven:white_fleece",
+    "haven:lime_fleece"
   ]
 }

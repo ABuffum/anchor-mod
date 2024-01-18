@@ -1,5 +1,6 @@
 package fun.mousewich.gen.data.tag;
 
+import fun.mousewich.ModId;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.fluid.Fluid;
@@ -10,7 +11,7 @@ import static fun.mousewich.ModBase.*;
 
 public class FluidTagGenerator extends FabricTagProvider<Fluid> {
 	public FluidTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.FLUID, "fluids", NAMESPACE + ":fluid_tag_generator");
+		super(dataGenerator, Registry.FLUID, "fluids", ModId.NAMESPACE + ":fluid_tag_generator");
 	}
 
 	@Override

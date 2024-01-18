@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class ExperienceHealingPower extends Power {
 	}
 
 	public static PowerFactory<ExperienceHealingPower> createFactory() {
-		return new PowerFactory<ExperienceHealingPower>(ModBase.ID("experience_healing"), new SerializableData()
+		return new PowerFactory<ExperienceHealingPower>(ModId.ID("experience_healing"), new SerializableData()
 				.add("threshold", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new ExperienceHealingPower(type, player, data.getInt("threshold"))
 		).allowCondition();

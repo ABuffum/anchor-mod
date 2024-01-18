@@ -1,11 +1,9 @@
 package fun.mousewich.gen.data.tag;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.fabricmc.fabric.api.tag.TagFactory;
 import net.minecraft.tag.Tag;
-import net.minecraft.tag.Tag.Identified;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
 public class ModBiomeTags {
@@ -26,7 +24,7 @@ public class ModBiomeTags {
 	public static final Tag.Identified<Biome> WARM_OCEANS = createTag("warm_oceans");
 	public static final Tag.Identified<Biome> WATER_ON_MAP_OUTLINES = createMinecraftTag("water_on_map_outlines");
 
-	private static Tag.Identified<Biome> createTag(String name) { return TagFactory.BIOME.create(ModBase.ID(name)); }
+	private static Tag.Identified<Biome> createTag(String name) { return TagFactory.BIOME.create(ModId.ID(name)); }
 	private static Tag.Identified<Biome> createCommonTag(String name) { return TagFactory.BIOME.create(new Identifier("c", name)); }
 	private static Tag.Identified<Biome> createMinecraftTag(String name) { return TagFactory.BIOME.create(new Identifier(name)); }
 }

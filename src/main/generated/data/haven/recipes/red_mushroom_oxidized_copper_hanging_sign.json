@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:red_mushroom_block"
+    },
+    "|": {
+      "item": "haven:waxed_oxidized_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:red_mushroom_oxidized_copper_hanging_sign"
+  }
+}

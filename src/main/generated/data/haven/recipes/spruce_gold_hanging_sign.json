@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stripped_spruce_log"
+    },
+    "|": {
+      "item": "haven:gold_chain"
+    }
+  },
+  "result": {
+    "item": "haven:spruce_gold_hanging_sign"
+  }
+}

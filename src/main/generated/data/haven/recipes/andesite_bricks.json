@@ -6,10 +6,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:andesite"
+      "item": "minecraft:polished_andesite"
     }
   },
   "result": {
-    "item": "haven:andesite_bricks"
+    "item": "haven:andesite_bricks",
+    "count": 4
   }
 }

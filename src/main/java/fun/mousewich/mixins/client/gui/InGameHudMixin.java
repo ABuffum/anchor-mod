@@ -1,7 +1,7 @@
 package fun.mousewich.mixins.client.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.passive.camel.CamelEntity;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import net.minecraft.client.MinecraftClient;
@@ -31,7 +31,7 @@ import java.util.function.Function;
 public abstract class InGameHudMixin {
 	private static final Map<Function<ItemStack, Boolean>, Pair<Identifier, Float>> OVERLAYS = new HashMap<>(Map.ofEntries(
 			Overlay(ModItemTags.CARVED_PUMPKINS, new Identifier("textures/misc/pumpkinblur.png"), 1.0F),
-			Overlay(ModItemTags.CARVED_MELONS, ModBase.ID("textures/misc/melonblur.png"), 1.0F)
+			Overlay(ModItemTags.CARVED_MELONS, ModId.ID("textures/misc/melonblur.png"), 1.0F)
 	));
 	@Shadow
 	private void renderOverlay(Identifier texture, float opacity) { }

@@ -1,6 +1,7 @@
 package fun.mousewich.gen.data.tag;
 
 import fun.mousewich.ModConfig;
+import fun.mousewich.ModId;
 import fun.mousewich.container.BlockContainer;
 import fun.mousewich.gen.data.ModDatagen;
 import fun.mousewich.haven.HavenMod;
@@ -23,7 +24,7 @@ import static fun.mousewich.registry.ModBambooRegistry.*;
 
 public class BlockTagGenerator extends FabricTagProvider<Block> {
 	public BlockTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.BLOCK, "blocks", NAMESPACE + ":block_tag_generator");
+		super(dataGenerator, Registry.BLOCK, "blocks", ModId.NAMESPACE + ":block_tag_generator");
 	}
 
 	@Override

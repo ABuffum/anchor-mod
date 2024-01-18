@@ -1,6 +1,7 @@
 package fun.mousewich.entity.variants;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.passive.cow.MooblossomEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -31,7 +32,7 @@ public enum MooblossomVariant {
 	MooblossomVariant(String name, String texture, Block block, Item item) { this(name, texture, block, item, block); }
 	MooblossomVariant(String name, String texture, Block block, Item item, Block backBlock) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
+		this.texture = ModId.ID(texture);
 		this.block = block;
 		this.item = item;
 		this.backBlock = backBlock;

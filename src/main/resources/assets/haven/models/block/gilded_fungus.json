@@ -1,5 +1,6 @@
 {
-	"credit": "Made with Blockbench",
+	"credit": "Made with Blockbench by mousewich",
+	"parent": "block/block",
 	"textures": {
 		"0": "haven:block/gilded_fungus",
 		"1": "haven:block/gilded_fungus_bottom",

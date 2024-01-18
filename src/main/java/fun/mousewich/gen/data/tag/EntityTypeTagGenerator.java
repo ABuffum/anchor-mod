@@ -1,7 +1,10 @@
 package fun.mousewich.gen.data.tag;
 
+import fun.mousewich.ModConfig;
+import fun.mousewich.ModId;
 import fun.mousewich.container.ArrowContainer;
 import fun.mousewich.gen.data.ModDatagen;
+import fun.mousewich.haven.HavenMod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.entity.EntityType;
@@ -14,10 +17,11 @@ import java.util.Map;
 import java.util.Set;
 
 import static fun.mousewich.ModBase.*;
+import static fun.mousewich.ModBase.MAGE_ENTITY;
 
 public class EntityTypeTagGenerator extends FabricTagProvider<EntityType<?>> {
 	public EntityTypeTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.ENTITY_TYPE, "entity_types", NAMESPACE + ":entity_type_tag_generator");
+		super(dataGenerator, Registry.ENTITY_TYPE, "entity_types", ModId.NAMESPACE + ":entity_type_tag_generator");
 	}
 	private static Identifier betterend(String path) { return new Identifier("betterend", path); }
 	private static Identifier betternether(String path) { return new Identifier("betternether", path); }
@@ -35,7 +39,8 @@ public class EntityTypeTagGenerator extends FabricTagProvider<EntityType<?>> {
 		getOrCreateTagBuilder(EntityTypeTags.AXOLOTL_HUNT_TARGETS).add(TADPOLE_ENTITY);
 		getOrCreateTagBuilder(ModEntityTypeTags.DISMOUNTS_UNDERWATER).add(CAMEL_ENTITY)
 				.add(EntityType.CHICKEN, EntityType.DONKEY, EntityType.HORSE, EntityType.LLAMA, EntityType.MULE, EntityType.PIG)
-				.add(EntityType.RAVAGER, EntityType.SPIDER, EntityType.STRIDER, EntityType.TRADER_LLAMA, EntityType.ZOMBIE_HORSE);
+				.add(EntityType.RAVAGER, EntityType.SPIDER, EntityType.STRIDER, EntityType.TRADER_LLAMA, EntityType.ZOMBIE_HORSE)
+				.add(JOLLY_LLAMA_ENTITY);
 		getOrCreateTagBuilder(ModEntityTypeTags.FALL_DAMAGE_IMMUNE).add(EntityType.IRON_GOLEM, EntityType.SNOW_GOLEM)
 				.add(EntityType.SHULKER, EntityType.BAT, EntityType.BEE, EntityType.BLAZE, EntityType.CAT)
 				.add(EntityType.CHICKEN, EntityType.GHAST, EntityType.PHANTOM, RED_PHANTOM_ENTITY, EntityType.MAGMA_CUBE)
@@ -45,17 +50,26 @@ public class EntityTypeTagGenerator extends FabricTagProvider<EntityType<?>> {
 		getOrCreateTagBuilder(ModEntityTypeTags.FROG_FOOD)
 				.add(EntityType.SLIME, EntityType.MAGMA_CUBE, TROPICAL_SLIME_ENTITY, PINK_SLIME_ENTITY)
 				.addOptional(betterend("end_slime"));
-		getOrCreateTagBuilder(EntityTypeTags.IMPACT_PROJECTILES).add(THROWABLE_TOMATO_ENTITY, PINK_SLIME_ENTITY);
+		getOrCreateTagBuilder(EntityTypeTags.IMPACT_PROJECTILES)
+				.add(THROWABLE_TOMATO_ENTITY, PINK_SLIME_BALL_ENTITY)
+				.add(JAVELIN_ENTITY, AMETHYST_TRIDENT_ENTITY);
+		getOrCreateTagBuilder(EntityTypeTags.RAIDERS).add(ICEOLOGER_ENTITY, MAGE_ENTITY);
 		getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
 				.add(MOSSY_SKELETON_ENTITY, SUNKEN_SKELETON_ENTITY)
 				.addOptional(betternether("jungle_skeleton"))
 				.addOptional(betternether("skull"))
 				.addOptional(betternether("naga"))
 				.addOptional(graveyard("revenant"));
-		getOrCreateTagBuilder(ModEntityTypeTags.SPIDERS).add(EntityType.SPIDER, EntityType.CAVE_SPIDER, BONE_SPIDER_ENTITY, JUMPING_SPIDER_ENTITY);
+		getOrCreateTagBuilder(ModEntityTypeTags.SPIDERS).add(EntityType.SPIDER, EntityType.CAVE_SPIDER)
+				.add(BONE_SPIDER_ENTITY, ICY_SPIDER_ENTITY, JUMPING_SPIDER_ENTITY, SLIME_SPIDER_ENTITY);
 		getOrCreateTagBuilder(ModEntityTypeTags.ZOMBIES)
 				.add(EntityType.ZOMBIE, EntityType.ZOMBIE_VILLAGER, EntityType.HUSK, EntityType.DROWNED, EntityType.GIANT)
 				.add(JUNGLE_ZOMBIE_ENTITY, FROZEN_ZOMBIE_ENTITY)
 				.addOptional(graveyard("ghoul"));
+		if (ModConfig.REGISTER_HAVEN_MOD) {
+			getOrCreateTagBuilder(EntityTypeTags.IMPACT_PROJECTILES)
+					.add(HavenMod.PRIDE_TRIDENT_ENTITY)
+					.add(HavenMod.VECTORTECH_JAVELIN_ENTITY);
+		}
 	}
 }

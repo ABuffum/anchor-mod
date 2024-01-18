@@ -12,7 +12,7 @@ public class ItemUtil {
 		ItemStack newStack = new ItemStack(remainder);
 		if (user instanceof PlayerEntity player) {
 			if (stack.isFood()) user.eatFood(user.world, stack);
-			else if (player.getAbilities().creativeMode) stack.decrement(1);
+			else if (!player.getAbilities().creativeMode) stack.decrement(1);
 			if (stack.isEmpty()) return newStack;
 			else if (player.getInventory().getEmptySlot() > 0) player.getInventory().insertStack(newStack);
 			else player.dropItem(newStack, false);

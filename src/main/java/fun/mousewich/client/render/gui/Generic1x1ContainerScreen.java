@@ -1,7 +1,7 @@
 package fun.mousewich.client.render.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(value= EnvType.CLIENT)
 public class Generic1x1ContainerScreen extends HandledScreen<Generic1x1ContainerScreenHandler> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/gui/container/single_slot.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/gui/container/single_slot.png");
 
 	public Generic1x1ContainerScreen(Generic1x1ContainerScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);

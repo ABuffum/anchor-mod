@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -16,7 +16,7 @@ public class VillagersFleePower extends Power {
 	}
 
 	public static PowerFactory<VillagersFleePower> createFactory() {
-		return new PowerFactory<VillagersFleePower>(ModBase.ID("villagers_flee"), new SerializableData()
+		return new PowerFactory<VillagersFleePower>(ModId.ID("villagers_flee"), new SerializableData()
 				.add("distance", SerializableDataTypes.FLOAT, 8f),
 				data -> (type, player) -> new VillagersFleePower(type, player, data.getFloat("distance"))
 		).allowCondition();

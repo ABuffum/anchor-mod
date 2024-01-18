@@ -1,6 +1,6 @@
 package fun.mousewich.event;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.event.GameEvent;
 
@@ -41,7 +41,7 @@ public class ModGameEvent {
 	public static final GameEvent RESONATE_15 = RegisterGameEvent("resonate_15");
 	public static GameEvent RegisterGameEvent(String id) { return RegisterGameEvent(id, 16); }
 	public static GameEvent RegisterGameEvent(String id, int range) {
-		return Registry.register(Registry.GAME_EVENT, ModBase.ID(id), new GameEvent(id, range));
+		return Registry.register(Registry.GAME_EVENT, ModId.ID(id), new GameEvent(id, range));
 	}
 	public static void RegisterAll() {
 		GameEvent[] events = new GameEvent[] {

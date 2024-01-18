@@ -3,6 +3,7 @@ package fun.mousewich.entity.hostile.warden;
 import com.mojang.serialization.Dynamic;
 import fun.mousewich.ModBase;
 import fun.mousewich.ModGameRules;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.animation.AnimationState;
 import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.entity.ModDataHandlers;
@@ -352,19 +353,19 @@ public class WardenEntity extends HostileEntity implements ModVibrationListener.
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		WardenAngerManager.createCodec(this::isValidTarget).encodeStart(NbtOps.INSTANCE, this.angerManager).resultOrPartial(ModBase.LOGGER::error).ifPresent(angerNbt -> nbt.put(ModNbtKeys.ANGER, angerNbt));
-		ModVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.gameEventHandler.getListener()).resultOrPartial(ModBase.LOGGER::error).ifPresent(nbtElement -> nbt.put(ModNbtKeys.LISTENER, nbtElement));
+		WardenAngerManager.createCodec(this::isValidTarget).encodeStart(NbtOps.INSTANCE, this.angerManager).resultOrPartial(ModId.LOGGER::error).ifPresent(angerNbt -> nbt.put(ModNbtKeys.ANGER, angerNbt));
+		ModVibrationListener.createCodec(this).encodeStart(NbtOps.INSTANCE, this.gameEventHandler.getListener()).resultOrPartial(ModId.LOGGER::error).ifPresent(nbtElement -> nbt.put(ModNbtKeys.LISTENER, nbtElement));
 	}
 
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
 		if (nbt.contains(ModNbtKeys.ANGER)) {
-			WardenAngerManager.createCodec(this::isValidTarget).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.get(ModNbtKeys.ANGER))).resultOrPartial(ModBase.LOGGER::error).ifPresent(angerManager -> this.angerManager = angerManager);
+			WardenAngerManager.createCodec(this::isValidTarget).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.get(ModNbtKeys.ANGER))).resultOrPartial(ModId.LOGGER::error).ifPresent(angerManager -> this.angerManager = angerManager);
 			this.updateAnger();
 		}
 		if (nbt.contains(ModNbtKeys.LISTENER, NbtElement.COMPOUND_TYPE)) {
-			ModVibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound(ModNbtKeys.LISTENER))).resultOrPartial(ModBase.LOGGER::error).ifPresent(vibrationListener -> this.gameEventHandler.setListener(vibrationListener, this.world));
+			ModVibrationListener.createCodec(this).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound(ModNbtKeys.LISTENER))).resultOrPartial(ModId.LOGGER::error).ifPresent(vibrationListener -> this.gameEventHandler.setListener(vibrationListener, this.world));
 		}
 	}
 

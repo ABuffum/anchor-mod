@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "haven:sapphire_brick_stairs_from_sapphire_bricks_stonecutting"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_sapphire_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:sapphire_bricks"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "haven:sapphire_brick_stairs_from_sapphire_bricks_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_sapphire_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

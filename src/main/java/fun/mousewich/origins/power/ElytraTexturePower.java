@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -20,7 +20,7 @@ public class ElytraTexturePower extends Power {
 	public Identifier getTextureLocation() { return textureLocation; }
 
 	public static PowerFactory<ElytraTexturePower> createFactory() {
-		return new PowerFactory<ElytraTexturePower>(ModBase.ID("elytra_texture"), new SerializableData()
+		return new PowerFactory<ElytraTexturePower>(ModId.ID("elytra_texture"), new SerializableData()
 				.add("texture_location", SerializableDataTypes.IDENTIFIER),
 				data -> (type, player) -> new ElytraTexturePower(type, player, data.getId("texture_location"))
 		).allowCondition();

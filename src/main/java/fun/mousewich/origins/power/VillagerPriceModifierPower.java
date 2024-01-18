@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class VillagerPriceModifierPower extends Power {
 	}
 
 	public static PowerFactory<VillagerPriceModifierPower> createFactory() {
-		return new PowerFactory<VillagerPriceModifierPower>(ModBase.ID("villager_price_modifier"), new SerializableData()
+		return new PowerFactory<VillagerPriceModifierPower>(ModId.ID("villager_price_modifier"), new SerializableData()
 				.add("factor", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new VillagerPriceModifierPower(type, player, data.getInt("factor"))
 		).allowCondition();

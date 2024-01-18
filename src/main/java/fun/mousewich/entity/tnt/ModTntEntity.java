@@ -62,7 +62,9 @@ public abstract class ModTntEntity extends Entity {
 	}
 
 	protected abstract void explode();
-	public abstract boolean shouldDestroyBlocks();
+	public boolean shouldDestroyBlocks() { return true; }
+	public boolean shouldDamage() { return true; }
+	public boolean shouldDoKnockback() { return true; }
 	public float damageMultiplier() { return 1; }
 	public float knockbackMultiplier() { return 1; }
 	public boolean shouldMakeSound() { return true; }

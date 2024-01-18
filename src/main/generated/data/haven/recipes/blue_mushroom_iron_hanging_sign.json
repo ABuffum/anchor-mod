@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:blue_mushroom_block"
+    },
+    "|": {
+      "item": "haven:iron_chain"
+    }
+  },
+  "result": {
+    "item": "haven:blue_mushroom_iron_hanging_sign"
+  }
+}

@@ -1,7 +1,8 @@
 package fun.mousewich.mixins.client.render.entity.feature;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.ModDataHandlers;
+import fun.mousewich.entity.passive.JollyLlamaEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -26,27 +27,32 @@ public abstract class LlamaDecorFeatureRendererMixin extends FeatureRenderer<Lla
 
 	public LlamaDecorFeatureRendererMixin(FeatureRendererContext<LlamaEntity, LlamaEntityModel<LlamaEntity>> context) { super(context); }
 
-	private static final Identifier RAINBOW_DECOR = ModBase.ID("textures/entity/llama/decor/rainbow.png");
-	private static final Identifier MOSS_DECOR = ModBase.ID("textures/entity/llama/decor/moss.png");
-	private static final Identifier GLOW_LICHEN_DECOR = ModBase.ID("textures/entity/llama/decor/glow_lichen.png");
-	private static final Identifier BEIGE_DECOR = ModBase.ID("textures/entity/llama/decor/beige.png");
-	private static final Identifier BURGUNDY_DECOR = ModBase.ID("textures/entity/llama/decor/burgundy.png");
-	private static final Identifier MINT_DECOR = ModBase.ID("textures/entity/llama/decor/mint.png");
-	private static final Identifier LAVENDER_DECOR = ModBase.ID("textures/entity/llama/decor/lavender.png");
+	private static final Identifier JOLLY_LLAMA_DECOR = ModId.ID("textures/entity/llama/decor/jolly_llama.png");
+
+	private static final Identifier RAINBOW_DECOR = ModId.ID("textures/entity/llama/decor/rainbow.png");
+	private static final Identifier MOSS_DECOR = ModId.ID("textures/entity/llama/decor/moss.png");
+	private static final Identifier GLOW_LICHEN_DECOR = ModId.ID("textures/entity/llama/decor/glow_lichen.png");
+	private static final Identifier BEIGE_DECOR = ModId.ID("textures/entity/llama/decor/beige.png");
+	private static final Identifier BURGUNDY_DECOR = ModId.ID("textures/entity/llama/decor/burgundy.png");
+	private static final Identifier MINT_DECOR = ModId.ID("textures/entity/llama/decor/mint.png");
+	private static final Identifier LAVENDER_DECOR = ModId.ID("textures/entity/llama/decor/lavender.png");
 
 	@Inject(method="render(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;ILnet/minecraft/entity/passive/LlamaEntity;FFFFFF)V", at=@At("HEAD"), cancellable=true)
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, LlamaEntity llamaEntity, float f, float g, float h, float j, float k, float l, CallbackInfo ci) {
-		if (llamaEntity.getCarpetColor() != null || llamaEntity.isTrader()) return;
+		Identifier identifier = null;
+		if (llamaEntity instanceof JollyLlamaEntity) identifier = JOLLY_LLAMA_DECOR;
+		else if (llamaEntity.getCarpetColor() != null || llamaEntity.isTrader()) return;
 		int modDyeColor = llamaEntity.getDataTracker().get(ModDataHandlers.MOD_CARPET_COLOR);
-		Identifier identifier;
-		if (modDyeColor == 0) identifier = RAINBOW_DECOR;
-		else if (modDyeColor == 1) identifier = MOSS_DECOR;
-		else if (modDyeColor == 2) identifier = GLOW_LICHEN_DECOR;
-		else if (modDyeColor == 3) identifier = BEIGE_DECOR;
-		else if (modDyeColor == 4) identifier = BURGUNDY_DECOR;
-		else if (modDyeColor == 5) identifier = MINT_DECOR;
-		else if (modDyeColor == 6) identifier = LAVENDER_DECOR;
-		else return;
+		if (identifier == null) {
+			if (modDyeColor == 0) identifier = RAINBOW_DECOR;
+			else if (modDyeColor == 1) identifier = MOSS_DECOR;
+			else if (modDyeColor == 2) identifier = GLOW_LICHEN_DECOR;
+			else if (modDyeColor == 3) identifier = BEIGE_DECOR;
+			else if (modDyeColor == 4) identifier = BURGUNDY_DECOR;
+			else if (modDyeColor == 5) identifier = MINT_DECOR;
+			else if (modDyeColor == 6) identifier = LAVENDER_DECOR;
+			else return;
+		}
 		this.getContextModel().copyStateTo(this.model);
 		this.model.setAngles(llamaEntity, f, g, j, k, l);
 		VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(RenderLayer.getEntityCutoutNoCull(identifier));

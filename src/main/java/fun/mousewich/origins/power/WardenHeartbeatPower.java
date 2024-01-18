@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.sound.ModSoundEvents;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class WardenHeartbeatPower extends Power {
 
 	public static final SoundEvent WARDEN_HEARTBEAT = ModSoundEvents.registerSoundEvent("identified_sound.heartbeat.warden");
 	public static PowerFactory<?> createFactory() {
-		return new PowerFactory<>(ModBase.ID("warden_heartbeat"), new SerializableData(), data -> WardenHeartbeatPower::new).allowCondition();
+		return new PowerFactory<>(ModId.ID("warden_heartbeat"), new SerializableData(), data -> WardenHeartbeatPower::new).allowCondition();
 	}
 
 	private int getHeartRate() {

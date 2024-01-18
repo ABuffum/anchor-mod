@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "haven:block/broken_stars",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "haven:block/broken_stars"
+    },
+    "facing=south": {
+      "model": "haven:block/broken_stars",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "haven:block/broken_stars",
+      "y": 270
+    }
+  }
+}

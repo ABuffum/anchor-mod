@@ -6,6 +6,7 @@
 	"haven:hostile_mobs_neutral",
 	"ryft:rationed_diet",
 	"haven:hunger_immunity",
+	"haven:illager_trading",
 	"ryft:identified_sounds/arsene"
   ],
   "name": "Arsene",

@@ -24,7 +24,6 @@ public class CowFlowerFeatureRenderer<T extends FlowerCowEntity> extends Feature
 	}
 
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T entity, float f, float g, float h, float j, float k, float l) {
-		//TODO: Render flower on the baby's head
 		if (!entity.isBaby()) {
 			MinecraftClient minecraftClient = MinecraftClient.getInstance();
 			boolean bl = minecraftClient.hasOutline(entity) && entity.isInvisible();

@@ -3,7 +3,7 @@ package fun.mousewich.trim;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import net.minecraft.item.ArmorMaterial;
@@ -64,11 +64,11 @@ public class ArmorTrim {
 	}
 	public Identifier getLeggingsModelId(ArmorMaterial armorMaterial) {
 		String name = this.getMaterialAssetNameFor(armorMaterial);
-		return ModBase.ID("trims/models/armor/" + getArmorMaterialName(armorMaterial) + "_leggings_" + name);
+		return ModId.ID("trims/models/armor/" + getArmorMaterialName(armorMaterial) + "_leggings_" + name);
 	}
 	public Identifier getGenericModelId(ArmorMaterial armorMaterial) {
 		String name = this.getMaterialAssetNameFor(armorMaterial);
-		return ModBase.ID("trims/models/armor/" + getArmorMaterialName(armorMaterial) + "_" + name);
+		return ModId.ID("trims/models/armor/" + getArmorMaterialName(armorMaterial) + "_" + name);
 	}
 
 	public static boolean apply(ItemStack stack, ArmorTrim trim) {
@@ -82,7 +82,7 @@ public class ArmorTrim {
 	public static Optional<ArmorTrim> getTrim(ItemStack stack) {
 		if (stack.isIn(ModItemTags.TRIMMABLE_ARMOR) && stack.getNbt() != null && stack.getNbt().contains(ModNbtKeys.TRIM)) {
 			NbtCompound nbtCompound = stack.getSubNbt(ModNbtKeys.TRIM);
-			ArmorTrim armorTrim = CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, nbtCompound)).resultOrPartial(ModBase.LOGGER::error).orElse(null);
+			ArmorTrim armorTrim = CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, nbtCompound)).resultOrPartial(ModId.LOGGER::error).orElse(null);
 			return Optional.ofNullable(armorTrim);
 		}
 		return Optional.empty();

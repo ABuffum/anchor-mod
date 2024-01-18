@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.renderer.feature.RedPhantomEyesFeatureRenderer;
 import fun.mousewich.entity.hostile.RedPhantomEntity;
 import net.fabricmc.api.EnvType;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.Vec3f;
 
 @Environment(value= EnvType.CLIENT)
 public class RedPhantomEntityRenderer extends MobEntityRenderer<RedPhantomEntity, PhantomEntityModel<RedPhantomEntity>> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/phantom/red.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/phantom/red.png");
 
 	public RedPhantomEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new PhantomEntityModel<>(context.getPart(EntityModelLayers.PHANTOM)), 0.75f);

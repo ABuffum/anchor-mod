@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.command.ChorusCommand;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
@@ -18,7 +18,7 @@ public class ChorusTeleportPower extends CooldownPower implements Active {
 	}
 
 	public static PowerFactory<ChorusTeleportPower> createFactory() {
-		return new PowerFactory<ChorusTeleportPower>(ModBase.ID("chorus_teleport"),
+		return new PowerFactory<ChorusTeleportPower>(ModId.ID("chorus_teleport"),
 			new SerializableData()
 					.add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Key())
 					.add("cooldown", SerializableDataTypes.INT, 1)

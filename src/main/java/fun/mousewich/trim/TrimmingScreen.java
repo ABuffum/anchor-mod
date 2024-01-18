@@ -1,7 +1,7 @@
 package fun.mousewich.trim;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.mixins.entity.decoration.ArmorStandEntityAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @Environment(value= EnvType.CLIENT)
 public class TrimmingScreen extends ModForgingScreen<TrimmingScreenHandler> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/gui/container/trimming.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/gui/container/trimming.png");
 	private static final Text MISSING_TEMPLATE_TOOLTIP = new TranslatableText("container.upgrade.missing_template_tooltip");
 	private static final Text ERROR_TOOLTIP = new TranslatableText("container.upgrade.error_tooltip");
 	private static final List<Identifier> EMPTY_SLOT_TEXTURES = List.of(

@@ -1,0 +1,15 @@
+{
+  "type": "haven:enable_trade",
+  "entity_types": [
+	"minecraft:evoker",
+    "minecraft:illusioner",
+    "minecraft:pillager",
+    "minecraft:vindicator",
+    "minecraft:witch",
+  
+    "haven:iceologer",
+    "haven:mage"
+  ],
+  "name": "Black Market Trader",
+  "description": "Pillagers are open to trading with you."
+}

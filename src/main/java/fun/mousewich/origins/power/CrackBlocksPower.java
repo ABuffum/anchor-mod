@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.hostile.warden.WardenEntity;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
@@ -21,7 +21,7 @@ public class CrackBlocksPower extends Power {
 	}
 
 	public static PowerFactory<CrackBlocksPower> createFactory() {
-		return new PowerFactory<CrackBlocksPower>(ModBase.ID("crack_blocks"), new SerializableData()
+		return new PowerFactory<CrackBlocksPower>(ModId.ID("crack_blocks"), new SerializableData()
 				.add("distance", SerializableDataTypes.INT, 1),
 				data -> (type, player) -> new CrackBlocksPower(type, player, data.getInt("distance"))
 		).allowCondition();

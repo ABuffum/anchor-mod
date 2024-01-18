@@ -1,7 +1,7 @@
 package fun.mousewich.haven.block.anchor;
 
+import fun.mousewich.ModId;
 import fun.mousewich.haven.HavenMod;
-import fun.mousewich.ModBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.Identifier;
@@ -12,10 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AnchorBlockEntity extends BlockEntity {
-	public static final Identifier ERROR_TEXTURE = ModBase.ID("textures/entity/anchor/inactive_anchor.png");
+	public static final Identifier ERROR_TEXTURE = ModId.ID("textures/entity/anchor/inactive_anchor.png");
 	public static HashMap<Integer, Identifier> TEXTURE_IDS = new HashMap<>(Map.of(0, ERROR_TEXTURE));
 	public static void testTexture(int owner) {
-		if (!TEXTURE_IDS.containsKey(owner)) TEXTURE_IDS.put(owner, ModBase.ID("textures/entity/anchor/" + HavenMod.ANCHOR_MAP.get(owner) + "_anchor.png"));
+		if (!TEXTURE_IDS.containsKey(owner)) TEXTURE_IDS.put(owner, ModId.ID("textures/entity/anchor/" + HavenMod.ANCHOR_MAP.get(owner) + "_anchor.png"));
 	}
 
 	private int owner = 0;

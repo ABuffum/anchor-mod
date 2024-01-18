@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -11,13 +11,14 @@ public enum LlamaVariant {
 	BROWN("brown", "minecraft:textures/entity/llama/brown.png"),
 	GRAY("gray", "minecraft:textures/entity/llama/gray.png"),
 	//Mod Variants
-	MOCHA("mocha", "textures/entity/llama/mocha.png");
+	MOCHA("mocha", "textures/entity/llama/mocha.png"),
+	COCOA("cocoa", "textures/entity/llama/cocoa.png");
 
 	public final String name;
 	public final Identifier texture;
 	LlamaVariant(String name, String texture) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
+		this.texture = ModId.ID(texture);
 	}
 	public static LlamaVariant get(LlamaEntity entity) {
 		LlamaVariant[] variants = values();

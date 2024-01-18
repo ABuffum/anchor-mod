@@ -4,7 +4,9 @@
 	"minecraft:spider",
     "minecraft:cave_spider",
     "haven:bone_spider",
-    "haven:jumping_spider"
+    "haven:icy_spider",
+    "haven:jumping_spider",
+    "haven:slime_spider"
   ],
   "name": "Spider Solidarity",
   "description": "Spiders will not attack you unless provoked."

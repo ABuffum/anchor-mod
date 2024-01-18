@@ -10,6 +10,7 @@
     }
   },
   "result": {
-    "item": "haven:ruby_glass_pane"
+    "item": "haven:ruby_glass_pane",
+    "count": 16
   }
 }

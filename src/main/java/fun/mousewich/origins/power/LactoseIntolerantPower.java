@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -20,7 +20,7 @@ public class LactoseIntolerantPower extends Power {
 	}
 
 	public static PowerFactory<LactoseIntolerantPower> createFactory() {
-		return new PowerFactory<LactoseIntolerantPower>(ModBase.ID("lactose_intolerant"), new SerializableData()
+		return new PowerFactory<LactoseIntolerantPower>(ModId.ID("lactose_intolerant"), new SerializableData()
 				.add("hunger_duration", SerializableDataTypes.INT, 400)
 				.add("hunger_amplifier", SerializableDataTypes.INT, 0)
 				.add("damage", SerializableDataTypes.INT, 0),

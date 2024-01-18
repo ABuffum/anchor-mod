@@ -1,0 +1,9 @@
+{
+  "powers": [
+    "ryft:always_weak",
+    "ryft:identified_sounds/penny"
+  ],
+  "name": "Penny",
+  "description": "Something something rubberhose pun...",
+  "icon": "minecraft:ink_sac"
+}

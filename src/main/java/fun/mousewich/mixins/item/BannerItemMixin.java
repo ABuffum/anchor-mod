@@ -1,6 +1,6 @@
 package fun.mousewich.mixins.item;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.util.banners.ModBannerPattern;
 import net.minecraft.block.Block;
@@ -23,7 +23,7 @@ import java.util.List;
 
 @Mixin(BannerItem.class)
 public abstract class BannerItemMixin extends WallStandingBlockItem {
-	private static final String PREFIX = "block." + ModBase.NAMESPACE + ".banner.";
+	private static final String PREFIX = "block." + ModId.NAMESPACE + ".banner.";
 	@Unique private static NbtList modBannerPatterns;
 	@Unique private static int nextModBannerPatternIndex;
 

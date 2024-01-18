@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.renderer.feature.MelonGolemMelonFeature;
 import fun.mousewich.entity.neutral.golem.MelonGolemEntity;
 import net.fabricmc.api.EnvType;
@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class MelonGolemEntityRenderer extends MobEntityRenderer<MelonGolemEntity, SnowGolemEntityModel<MelonGolemEntity>> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/melon_golem.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/melon_golem.png");
 
 	public MelonGolemEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new SnowGolemEntityModel<>(context.getPart(EntityModelLayers.SNOW_GOLEM)), 0.5F);

@@ -1,8 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:ruby_glass_pane",
     "haven:tinted_glass_pane",
+    "haven:ruby_glass_pane",
+    "haven:sapphire_glass_pane",
     "minecraft:glass_pane",
     "minecraft:black_stained_glass_pane",
     "minecraft:blue_stained_glass_pane",

@@ -26,7 +26,7 @@ public abstract class EndermanEntityMixin extends HostileEntity implements Anger
 	void IsPlayerStaring(PlayerEntity player, CallbackInfoReturnable<Boolean> cir) {
 		ItemStack itemStack = player.getInventory().armor.get(3);
 		if (itemStack.isIn(ModItemTags.CARVED_PUMPKINS)) cir.setReturnValue(false);
-		if (itemStack.isOf(ModBase.TINTED_GOGGLES)) {
+		if (itemStack.isOf(ModBase.TINTED_GOGGLES) || itemStack.isOf(ModBase.RUBY_GOGGLES) || itemStack.isOf(ModBase.SAPPHIRE_GOGGLES) || ModBase.STARE_AT_ENDERMEN_POWER.isActive(player)) {
 			if (!MobHostilityPower.shouldBeHostile(player, EntityType.ENDERMAN)) {
 				cir.setReturnValue(false);
 			}

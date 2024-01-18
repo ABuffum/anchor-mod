@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -16,7 +16,7 @@ public class RecycleArrowsPower extends Power {
 		this.chance = chance;
 	}
 	public static PowerFactory<RecycleArrowsPower> createFactory() {
-		return new PowerFactory<RecycleArrowsPower>(ModBase.ID("recycle_arrows"), new SerializableData()
+		return new PowerFactory<RecycleArrowsPower>(ModId.ID("recycle_arrows"), new SerializableData()
 				.add("chance", SerializableDataTypes.FLOAT),
 				data -> (type, entity) -> new RecycleArrowsPower(type, entity, data.getFloat("chance"))).allowCondition();
 	}

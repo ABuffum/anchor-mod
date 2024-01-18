@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.data.ApoliDataTypes;
 import io.github.apace100.apoli.power.Active;
 import io.github.apace100.apoli.power.CooldownPower;
@@ -24,7 +24,7 @@ public class SummonLightningPower extends CooldownPower implements Active {
 	}
 
 	public static PowerFactory<SummonLightningPower> createFactory() {
-		return new PowerFactory<SummonLightningPower>(ModBase.ID("summon_lightning"),
+		return new PowerFactory<SummonLightningPower>(ModId.ID("summon_lightning"),
 			new SerializableData()
 					.add("key", ApoliDataTypes.BACKWARDS_COMPATIBLE_KEY, new Key())
 					.add("cooldown", SerializableDataTypes.INT, 1)

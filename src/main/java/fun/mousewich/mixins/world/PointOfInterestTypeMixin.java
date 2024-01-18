@@ -1,7 +1,9 @@
 package fun.mousewich.mixins.world;
 
 import com.google.common.collect.ImmutableSet;
+import fun.mousewich.block.basic.ModBarrelBlock;
 import fun.mousewich.block.basic.ModBeehiveBlock;
+import fun.mousewich.block.basic.ModLecternBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -18,9 +20,13 @@ import java.util.Set;
 public class PointOfInterestTypeMixin {
 	@Inject(method="getAllStatesOf", at=@At("HEAD"), cancellable=true)
 	private static void AddBeehiveBlockStates(Block block, CallbackInfoReturnable<Set<BlockState>> cir) {
-		if (block == Blocks.BEEHIVE) {
+		Set<Block> blocks = null;
+		if (block == Blocks.BEEHIVE) blocks = ModBeehiveBlock.BEEHIVES;
+		else if (block == Blocks.LECTERN) blocks = ModLecternBlock.LECTERNS;
+		else if (block == Blocks.BARREL) blocks = ModBarrelBlock.BARRELS;
+		if (blocks != null) {
 			Set<BlockState> set = new HashSet<>(block.getStateManager().getStates());
-			for (Block beehive : ModBeehiveBlock.BEEHIVES) set.addAll(beehive.getStateManager().getStates());
+			for (Block b : blocks) set.addAll(b.getStateManager().getStates());
 			cir.setReturnValue(ImmutableSet.copyOf(set));
 		}
 	}

@@ -1,5 +1,7 @@
 package fun.mousewich.haven;
 
+import fun.mousewich.ModClient;
+import fun.mousewich.client.render.entity.renderer.JavelinEntityRenderer;
 import fun.mousewich.client.render.entity.renderer.ModTntEntityRenderer;
 import fun.mousewich.container.FlowerPartContainer;
 import fun.mousewich.container.PottedBlockContainer;
@@ -7,6 +9,7 @@ import fun.mousewich.haven.client.render.block.renderer.AnchorBlockEntityRendere
 import fun.mousewich.haven.client.render.block.renderer.BrokenAnchorBlockEntityRenderer;
 import fun.mousewich.haven.client.render.block.renderer.SubstituteAnchorBlockEntityRenderer;
 import fun.mousewich.haven.particle.VectorParticle;
+import fun.mousewich.mixins.client.render.item.ModelPredicateProviderRegistryInvoker;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -15,8 +18,10 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.BatEntityRenderer;
+import net.minecraft.util.Identifier;
 
 import static fun.mousewich.ModClient.setLayer;
 import static fun.mousewich.haven.HavenMod.*;
@@ -27,6 +32,7 @@ public class HavenModClient {
 		setLayer(layer, ANGEL_BAT_PLUSHIE);
 		for (PottedBlockContainer container : CARNATIONS.values()) setLayer(layer, container);
 		for (FlowerPartContainer container : CARNATION_PARTS.values()) setLayer(layer, container);
+		setLayer(layer, BROKEN_STARS);
 		//DECORATION-ONLY BLOCKS
 		setLayer(layer, DECORATIVE_VINE, DECORATIVE_SUGAR_CANE, DECORATIVE_CACTUS,
 				DECORATIVE_ACACIA_SAPLING, DECORATIVE_BIRCH_SAPLING,
@@ -54,6 +60,9 @@ public class HavenModClient {
 		BlockEntityRendererRegistry.register(SUBSTITUTE_ANCHOR_BLOCK_ENTITY, SubstituteAnchorBlockEntityRenderer::new);
 		//Angel Bat
 		EntityRendererRegistry.register(ANGEL_BAT_ENTITY, BatEntityRenderer::new);
+		//Bird
+		EntityRendererRegistry.register(PRIDE_TRIDENT_ENTITY, JavelinEntityRenderer::new);
+		ModelPredicateProviderRegistryInvoker.Register(PRIDE_TRIDENT, new Identifier("throwing"), ModClient.MODEL_PREDICATE_PROVIDER);
 		//Deepest Sleep
 		PARTICLES.register(VECTOR_ARROW_PARTICLE, VectorParticle.ArrowFactory::new);
 		EntityRendererRegistry.register(CHUNKEATER_TNT_ENTITY, fun.mousewich.client.render.entity.renderer.ModTntEntityRenderer::new);
@@ -67,6 +76,9 @@ public class HavenModClient {
 		EntityRendererRegistry.register(VIOLENT_TNT_ENTITY, fun.mousewich.client.render.entity.renderer.ModTntEntityRenderer::new);
 		//Soleil
 		EntityRendererRegistry.register(SOFT_TNT_ENTITY, ModTntEntityRenderer::new);
+		//Ferris
+		EntityRendererRegistry.register(VECTORTECH_JAVELIN_ENTITY, JavelinEntityRenderer::new);
+		ModelPredicateProviderRegistryInvoker.Register(VECTORTECH_JAVELIN, new Identifier("throwing"), ModClient.MODEL_PREDICATE_PROVIDER);
 	}
 
 	public static void RegisterBlockColors(BlockColors blockColors) {

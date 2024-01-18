@@ -10,6 +10,7 @@
     }
   },
   "result": {
-    "item": "haven:tinted_glass_pane"
+    "item": "haven:tinted_glass_pane",
+    "count": 16
   }
 }

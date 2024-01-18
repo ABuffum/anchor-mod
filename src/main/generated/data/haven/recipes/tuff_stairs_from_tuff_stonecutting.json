@@ -3,6 +3,6 @@
   "ingredient": {
     "item": "minecraft:tuff"
   },
-  "result": "haven:tuff_stairs",
+  "result": "minecraft:tuff_stairs",
   "count": 1
 }

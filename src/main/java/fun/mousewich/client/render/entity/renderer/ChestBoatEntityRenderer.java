@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.ChestBoatEntityModel;
 import fun.mousewich.client.render.entity.model.ChestRaftEntityModel;
@@ -75,6 +75,6 @@ public class ChestBoatEntityRenderer extends EntityRenderer<ChestBoatEntity> {
 	}
 	private Identifier getIdentifier(ModBoatType type) {
 		if (type.getName().startsWith("minecraft:")) return new Identifier("textures/entity/chest_boat/" + type.getName().substring("minecraft:".length()) + ".png");
-		return ModBase.ID("textures/entity/chest_boat/" + type.getName() + ".png");
+		return ModId.ID("textures/entity/chest_boat/" + type.getName() + ".png");
 	}
 }

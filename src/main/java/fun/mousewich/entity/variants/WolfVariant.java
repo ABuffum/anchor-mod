@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -24,9 +24,9 @@ public enum WolfVariant {
 	public final Identifier tameTexture;
 	WolfVariant(String name, String texture, String angryTexture, String tameTexture) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
-		this.angryTexture = ModBase.ID(angryTexture);
-		this.tameTexture = ModBase.ID(tameTexture);
+		this.texture = ModId.ID(texture);
+		this.angryTexture = ModId.ID(angryTexture);
+		this.tameTexture = ModId.ID(tameTexture);
 	}
 	public static WolfVariant get(WolfEntity entity) {
 		WolfVariant[] variants = values();

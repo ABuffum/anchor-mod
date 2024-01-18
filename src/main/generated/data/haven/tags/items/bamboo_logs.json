@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:stripped_bamboo_log",
+    "haven:bamboo_log",
     "minecraft:bamboo_block",
     "minecraft:stripped_bamboo_block",
-    "haven:bamboo_log"
+    "haven:stripped_bamboo_log"
   ]
 }

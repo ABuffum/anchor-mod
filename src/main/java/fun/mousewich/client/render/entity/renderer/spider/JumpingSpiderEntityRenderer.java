@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.spider;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.entity.hostile.spider.JumpingSpiderEntity;
 import net.fabricmc.api.EnvType;
@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(value= EnvType.CLIENT)
 public class JumpingSpiderEntityRenderer extends SpiderEntityRenderer<JumpingSpiderEntity> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/spider/jumping_spider.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/spider/jumping_spider.png");
 	private static final float SCALE = 0.7f;
 	public JumpingSpiderEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, ModEntityModelLayers.JUMPING_SPIDER);

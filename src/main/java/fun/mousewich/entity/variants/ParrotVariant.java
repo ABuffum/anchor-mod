@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -18,7 +18,7 @@ public enum ParrotVariant {
 	public final Identifier texture;
 	ParrotVariant(String name, String texture) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
+		this.texture = ModId.ID(texture);
 	}
 	public static ParrotVariant get(ParrotEntity entity) {
 		ParrotVariant[] variants = values();

@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.hostile.skeleton.SunkenSkeletonEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
@@ -18,7 +18,7 @@ public enum SunkenSkeletonVariant {
 	public final ItemConvertible coral_fan;
 	SunkenSkeletonVariant(String name, String texture, ItemConvertible coral, ItemConvertible coral_fan) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
+		this.texture = ModId.ID(texture);
 		this.coral = coral;
 		this.coral_fan = coral_fan;
 	}

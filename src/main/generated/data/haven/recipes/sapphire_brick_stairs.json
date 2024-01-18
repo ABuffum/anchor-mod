@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:sapphire_bricks"
+    }
+  },
+  "result": {
+    "item": "haven:sapphire_brick_stairs",
+    "count": 4
+  }
+}

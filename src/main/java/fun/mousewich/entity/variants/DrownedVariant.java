@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -22,8 +22,8 @@ public enum DrownedVariant {
 	public final Identifier outer;
 	DrownedVariant(String name, String texture, String outer) {
 		this.name = name;
-		this.texture = ModBase.ID(texture);
-		this.outer = ModBase.ID(outer);
+		this.texture = ModId.ID(texture);
+		this.outer = ModId.ID(outer);
 	}
 	public static DrownedVariant get(DrownedEntity entity) {
 		DrownedVariant[] variants = values();

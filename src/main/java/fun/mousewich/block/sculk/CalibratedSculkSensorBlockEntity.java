@@ -2,6 +2,7 @@ package fun.mousewich.block.sculk;
 
 import com.mojang.serialization.Dynamic;
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.event.ModVibrationListener;
 import fun.mousewich.util.SculkUtil;
@@ -35,7 +36,7 @@ public class CalibratedSculkSensorBlockEntity extends BlockEntity implements Ext
 		super.readNbt(nbt);
 		this.lastVibrationFrequency = nbt.getInt(ModNbtKeys.LAST_VIBRATION_FREQUENCY);
 		if (nbt.contains(ModNbtKeys.LISTENER, NbtElement.COMPOUND_TYPE)) {
-			ModVibrationListener.createCodec(this.listenerCallback).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound(ModNbtKeys.LISTENER))).resultOrPartial(ModBase.LOGGER::error).ifPresent(listener -> {
+			ModVibrationListener.createCodec(this.listenerCallback).parse(new Dynamic<>(NbtOps.INSTANCE, nbt.getCompound(ModNbtKeys.LISTENER))).resultOrPartial(ModId.LOGGER::error).ifPresent(listener -> {
 				this.listener = listener;
 			});
 		}
@@ -45,7 +46,7 @@ public class CalibratedSculkSensorBlockEntity extends BlockEntity implements Ext
 	public NbtCompound writeNbt(NbtCompound nbt) {
 		super.writeNbt(nbt);
 		nbt.putInt(ModNbtKeys.LAST_VIBRATION_FREQUENCY, this.lastVibrationFrequency);
-		ModVibrationListener.createCodec(this.listenerCallback).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(ModBase.LOGGER::error).ifPresent(listenerNbt -> nbt.put(ModNbtKeys.LISTENER, listenerNbt));
+		ModVibrationListener.createCodec(this.listenerCallback).encodeStart(NbtOps.INSTANCE, this.listener).resultOrPartial(ModId.LOGGER::error).ifPresent(listenerNbt -> nbt.put(ModNbtKeys.LISTENER, listenerNbt));
 		return nbt;
 	}
 

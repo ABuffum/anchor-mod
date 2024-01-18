@@ -152,11 +152,17 @@ public class RagdollBlockEntityRenderer implements BlockEntityRenderer<RagdollBl
 
 
 		//Reset Angles
+		this.head.setPivot(0, 0, 0);
 		this.head.setAngles(0, 0, 0);
+		this.body.setPivot(0, 0, 0);
 		this.body.setAngles(0, 0, 0);
+		this.rightArm.setPivot(-5, 2, 0);
 		this.rightArm.setAngles(0, 0, 0);
+		this.leftArm.setPivot(5, 2, 0);
 		this.leftArm.setAngles(0, 0, 0);
+		this.rightLeg.setPivot(-2, 12, 0);
 		this.rightLeg.setAngles(0, 0, 0);
+		this.leftLeg.setPivot(2, 12, 0);
 		this.leftLeg.setAngles(0, 0, 0);
 		if (pose == RagdollPose.WALKING) {
 			float sin = entity.isPowered() ? (float)Math.sin(tick) : 1;
@@ -165,9 +171,48 @@ public class RagdollBlockEntityRenderer implements BlockEntityRenderer<RagdollBl
 			this.rightLeg.setAngles(-sin * 30 * DEGREE, 0, 0);
 			this.leftLeg.setAngles(sin * 30 * DEGREE, 0, 0);
 		}
+		else if (pose == RagdollPose.A_POSE) {
+			this.rightArm.setAngles(0, 0, 45 * DEGREE);
+			this.leftArm.setAngles(0, 0, -45 * DEGREE);
+			this.rightLeg.setAngles(0, 0, 10 * DEGREE);
+			this.leftLeg.setAngles(0, 0, -10 * DEGREE);
+		}
 		else if (pose == RagdollPose.T_POSE) {
+			this.rightArm.setPivot(-6, 0, 0);
 			this.rightArm.setAngles(0, 0, 90 * DEGREE);
+			this.leftArm.setPivot(6, 0, 0);
 			this.leftArm.setAngles(0, 0, -90 * DEGREE);
+		}
+		else if (pose == RagdollPose.STAR) {
+			this.rightArm.setPivot(-6, 2, 0);
+			this.rightArm.setAngles(0, 0, 135 * DEGREE);
+			this.leftArm.setPivot(6, 2, 0);
+			this.leftArm.setAngles(0, 0, -135 * DEGREE);
+			this.rightLeg.setAngles(0, 0, 45 * DEGREE);
+			this.leftLeg.setAngles(0, 0, -45 * DEGREE);
+		}
+		else if (pose == RagdollPose.DEAD1) {
+			this.rightArm.setPivot(-6, 0, 0);
+			this.rightArm.setAngles(0, 0, 170 * DEGREE);
+			this.leftArm.setPivot(6, 0, 0);
+			this.leftArm.setAngles(0, 0, -100 * DEGREE);
+			this.rightLeg.setAngles(0, 0, -5 * DEGREE);
+			this.leftLeg.setAngles(0, 0, -80 * DEGREE);
+		}
+		else if (pose == RagdollPose.DEAD2) {
+			this.rightArm.setPivot(-6, 0, 0);
+			this.rightArm.setAngles(0, 0, 180 * DEGREE);
+			this.leftArm.setPivot(6, 0, 0);
+			this.leftArm.setAngles(0, 0, -180 * DEGREE);
+			this.rightLeg.setAngles(0, 0, 10 * DEGREE);
+			this.leftLeg.setAngles(0, 0, -10 * DEGREE);
+		}
+		else if (pose == RagdollPose.DEAD3) {
+			this.head.setAngles(0, -90 * DEGREE, 0);
+			this.rightArm.setAngles(0, 0, 30 * DEGREE);
+			this.leftArm.setAngles(0, 0, -90 * DEGREE);
+			this.rightLeg.setAngles(0, 0, 10 * DEGREE);
+			this.leftLeg.setAngles(0, 0, -10 * DEGREE);
 		}
 		if (entity.renderHead()) {
 			this.head.render(matrices, vertexConsumer, light, overlay);

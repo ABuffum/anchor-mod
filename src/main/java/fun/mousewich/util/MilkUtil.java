@@ -4,6 +4,7 @@ import fun.mousewich.ModConfig;
 import fun.mousewich.damage.ModDamageSource;
 import fun.mousewich.effect.ModStatusEffect;
 import fun.mousewich.haven.HavenMod;
+import fun.mousewich.haven.effect.BoneRotEffect;
 import fun.mousewich.haven.effect.WitheringEffect;
 import fun.mousewich.mixins.entity.LivingEntityAccessor;
 import fun.mousewich.origins.power.LactoseIntolerantPower;
@@ -38,7 +39,7 @@ public class MilkUtil {
 				lea.OnStatusEffectRemoved(effect);
 				iterator.remove();
 			}
-			else if (ModConfig.REGISTER_HAVEN_MOD && type == HavenMod.WITHERING_EFFECT) WitheringEffect.reduce(world, entity);
+			else if (ModConfig.REGISTER_HAVEN_MOD && type == HavenMod.BONE_ROT_EFFECT) BoneRotEffect.reduce(world, entity);
 		}
 	}
 	public static void CheckLactosIntolerance(World world, LivingEntity entity) {

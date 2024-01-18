@@ -1,5 +1,6 @@
 package fun.mousewich.gen.data.tag;
 
+import fun.mousewich.ModId;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.gen.data.ModDatagen;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -12,11 +13,9 @@ import net.minecraft.world.event.GameEvent;
 import java.util.Map;
 import java.util.Set;
 
-import static fun.mousewich.ModBase.NAMESPACE;
-
 public class GameEventTagGenerator extends FabricTagProvider<GameEvent> {
 	public GameEventTagGenerator(FabricDataGenerator dataGenerator) {
-		super(dataGenerator, Registry.GAME_EVENT, "game_events", NAMESPACE + ":game_event_tag_generator");
+		super(dataGenerator, Registry.GAME_EVENT, "game_events", ModId.NAMESPACE + ":game_event_tag_generator");
 	}
 	@Override
 	protected void generateTags() {

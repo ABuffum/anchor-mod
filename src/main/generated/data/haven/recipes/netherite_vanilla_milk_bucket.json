@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "haven:copper_bucket"
+      "item": "haven:netherite_bucket"
     },
     {
       "item": "haven:vanilla_milk_bottle"

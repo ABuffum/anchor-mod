@@ -1,0 +1,19 @@
+{
+  "type": "extraorigins:mob_neutrality",
+  "entity_types": [
+	"minecraft:evoker",
+    "minecraft:illusioner",
+    "minecraft:pillager",
+    "minecraft:vindicator",
+    
+    "minecraft:witch",
+  
+    "haven:iceologer",
+    "haven:mage",
+  
+    "minecraft:ravager",
+    "minecraft:vex"
+  ],
+  "name": "Illager Aligned",
+  "description": "You are an ally to illagers, for better and for worse."
+}

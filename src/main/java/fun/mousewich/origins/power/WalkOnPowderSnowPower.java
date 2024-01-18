@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -15,7 +15,7 @@ public class WalkOnPowderSnowPower extends Power {
 		this.inverted = inverted;
 	}
 	public static PowerFactory<WalkOnPowderSnowPower> createFactory() {
-		return new PowerFactory<WalkOnPowderSnowPower>(ModBase.ID("walk_on_powder_snow"), new SerializableData()
+		return new PowerFactory<WalkOnPowderSnowPower>(ModId.ID("walk_on_powder_snow"), new SerializableData()
 				.add("inverted", SerializableDataTypes.BOOLEAN, false),
 				data -> (type, entity) -> new WalkOnPowderSnowPower(type, entity, data.getBoolean("inverted")))
 				.allowCondition();

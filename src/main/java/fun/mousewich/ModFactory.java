@@ -19,10 +19,10 @@ import fun.mousewich.gen.data.loot.DropTable;
 import fun.mousewich.gen.data.tag.ModBlockTags;
 import fun.mousewich.gen.data.tag.ModItemTags;
 import fun.mousewich.item.HangingSignItem;
-import fun.mousewich.item.armor.ModArmorItem;
-import fun.mousewich.item.armor.ModHorseArmorItem;
 import fun.mousewich.item.armor.OxidizableArmoritem;
 import fun.mousewich.item.basic.ChestBoatItem;
+import fun.mousewich.item.armor.ModArmorItem;
+import fun.mousewich.item.armor.ModHorseArmorItem;
 import fun.mousewich.item.basic.ModBannerPatternItem;
 import fun.mousewich.item.consumable.BottledDrinkItemImpl;
 import fun.mousewich.item.consumable.BottledMilkItem;
@@ -34,6 +34,7 @@ import fun.mousewich.material.ModToolMaterials;
 import fun.mousewich.mixins.SignTypeAccessor;
 import fun.mousewich.particle.ModParticleTypes;
 import fun.mousewich.sound.ModBlockSoundGroups;
+import fun.mousewich.sound.ModSoundEvents;
 import fun.mousewich.util.dye.ModDyeColor;
 import fun.mousewich.util.OxidationScale;
 import fun.mousewich.util.banners.ModBannerPattern;
@@ -42,10 +43,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.dispenser.BoatDispenserBehavior;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -71,8 +69,6 @@ import net.minecraft.world.World;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
-
-import static fun.mousewich.ModBase.ID;
 
 public class ModFactory {
 	//Helpful BlockState Delegates
@@ -167,7 +163,7 @@ public class ModFactory {
 
 	private static ModArmorItem MakeHelmetCommon(ArmorMaterial material) { return MakeHelmetCommon(new ModArmorItem(material, EquipmentSlot.HEAD)); }
 	private static ModArmorItem MakeHelmetCommon(ModArmorItem item) { ModDatagen.Cache.Tags.Register(ModItemTags.HELMETS, item); return item.dispensible(); }
-	
+
 	public static ModArmorItem MakeHelmet(ArmorMaterial material) { return GeneratedItem(MakeHelmetCommon(material)); }
 	public static ModArmorItem MakeOxidizableHelmet(Oxidizable.OxidizationLevel level, ArmorMaterial material) { return GeneratedItem(MakeHelmetCommon(new OxidizableArmoritem(level, material, EquipmentSlot.HEAD))); }
 	public static ModArmorItem MakeWaxedHelmet(ArmorMaterial material, Item parent) { return ParentedItem(MakeHelmetCommon(material), parent); }
@@ -237,7 +233,7 @@ public class ModFactory {
 	public static Item MakeStew(Item.Settings settings) { return GeneratedItem(new MushroomStewItem(settings)); }
 
 	public static EntityModelLayer MakeModelLayer(String path) { return MakeModelLayer(path, "main"); }
-	public static EntityModelLayer MakeModelLayer(String path, String name) { return new EntityModelLayer(ID(path), name); }
+	public static EntityModelLayer MakeModelLayer(String path, String name) { return new EntityModelLayer(ModId.ID(path), name); }
 
 	public static EntityType<ModArrowEntity> MakeArrowEntity(EntityType.EntityFactory<ModArrowEntity> factory) {
 		return FabricEntityTypeBuilder.create(SpawnGroup.MISC, factory).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
@@ -413,7 +409,7 @@ public class ModFactory {
 	}
 	public static BlockContainer MakeCampfire(MapColor color) { return MakeCampfire(color, BlockSoundGroup.WOOD); }
 	public static BlockContainer MakeCampfire(MapColor color, BlockSoundGroup sounds) {
-		BlockContainer container = MakeCampfireCommon(15, 1, color, sounds, true).drops(DropTable.CAMPFIRE);
+		BlockContainer container = MakeCampfireCommon(15, 1, color, sounds, true).drops(DropTable.CAMPFIRE).itemTag(ModItemTags.CAMPFIRES);
 		ModDatagen.Cache.Models.CAMPFIRE.add(container);
 		return container;
 	}
@@ -421,7 +417,7 @@ public class ModFactory {
 	public static BlockContainer MakeSoulCampfire(Block base) { return MakeSoulCampfire(base, BlockSoundGroup.WOOD); }
 	public static BlockContainer MakeSoulCampfire(BlockConvertible base, BlockSoundGroup sounds) { return MakeSoulCampfire(base.asBlock(), sounds); }
 	public static BlockContainer MakeSoulCampfire(Block base, BlockSoundGroup sounds) {
-		BlockContainer container = MakeCampfireCommon(10, 2, base.getDefaultMapColor(), sounds, false).drops(DropTable.SOUL_CAMPFIRE).itemTag(ModItemTags.CAMPFIRES);
+		BlockContainer container = MakeCampfireCommon(10, 2, base.getDefaultMapColor(), sounds, false).drops(DropTable.SOUL_CAMPFIRE);
 		ModDatagen.Cache.Models.CAMPFIRE_SOUL.add(new Pair<>(container, base));
 		return container.blockTag(BlockTags.PIGLIN_REPELLENTS).itemTag(ItemTags.PIGLIN_REPELLENTS).itemTag(ModItemTags.SOUL_CAMPFIRES);
 	}
@@ -478,6 +474,12 @@ public class ModFactory {
 	private static BlockContainer BuildHeavyChain(BlockContainer container) {
 		ModDatagen.Cache.Models.HEAVY_CHAIN.add(container);
 		return container.dropSelf().blockTag(BlockTags.PICKAXE_MINEABLE);
+	}
+
+	public static Block.Settings CopperGrateSettings(Oxidizable.OxidizationLevel level) {
+		return AbstractBlock.Settings.of(Material.METAL, OxidationScale.getMapColor(level)).strength(3.0f, 6.0f)
+				.sounds(ModBlockSoundGroups.COPPER_GRATE).nonOpaque().requiresTool()
+				.allowsSpawning(ModFactory::never).solidBlock(ModFactory::never).suffocates(ModFactory::never).blockVision(ModFactory::never);
 	}
 
 	public static Block.Settings BedSettings(MapColor color, BlockSoundGroup sounds, ToIntFunction<BlockState> luminance) {
@@ -616,6 +618,13 @@ public class ModFactory {
 	public static BlockContainer BuildMetalDoor(ModDoorBlock door) { return BuildMetalDoor(door, ItemSettings()); }
 	public static BlockContainer BuildMetalDoor(ModDoorBlock door, Item.Settings settings) {
 		return BuildDoorCommon(new BlockContainer(door, settings)).blockTag(BlockTags.DOORS).itemTag(ItemTags.DOORS);
+	}
+	public static BlockContainer BuildCopiedMetalDoor(ModDoorBlock door) { return BuildCopiedMetalDoor(door, ItemSettings()); }
+	public static BlockContainer BuildCopiedMetalDoor(ModDoorBlock door, Item.Settings settings) {
+		return new BlockContainer(door, settings).blockTag(BlockTags.DOORS).itemTag(ItemTags.DOORS).drops(DropTable.DOOR);
+	}
+	public static Block.Settings OxidizableDoorSettings(Oxidizable.OxidizationLevel level) {
+		return Block.Settings.of(Material.STONE, OxidationScale.getMapColor(level)).requiresTool().strength(5.0f).sounds(BlockSoundGroup.METAL).nonOpaque();
 	}
 
 	public static Block.Settings WoodDoorSettings(MapColor color, BlockSoundGroup soundGroup) { return Block.Settings.of(Material.WOOD, color).strength(3.0F).sounds(soundGroup).nonOpaque(); }
@@ -766,9 +775,7 @@ public class ModFactory {
 		BlockContainer container = new BlockContainer(slab, settings).drops(dropTable);
 		return container.blockTag(BlockTags.SLABS).itemTag(ItemTags.SLABS);
 	}
-	private static BlockContainer WoodenSlabHelper(BlockContainer container) {
-		return container.blockTag(BlockTags.WOODEN_SLABS).itemTag(ItemTags.WOODEN_SLABS);
-	}
+	private static BlockContainer WoodenSlabHelper(BlockContainer container) { return container.blockTag(BlockTags.WOODEN_SLABS).itemTag(ItemTags.WOODEN_SLABS); }
 	public static BlockContainer MakeWoodSlab(BlockConvertible base) { return WoodenSlabHelper(MakeSlab(base)); }
 	public static BlockContainer MakeWoodSlab(BlockConvertible base, Item.Settings settings) { return WoodenSlabHelper(MakeSlab(base, settings)); }
 	public static BlockContainer MakeWoodSlab(Block base) { return WoodenSlabHelper(MakeSlab(base)); }
@@ -874,6 +881,9 @@ public class ModFactory {
 	public static Block.Settings MetalTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup) { return Block.Settings.of(Material.METAL).requiresTool().mapColor(color).sounds(soundGroup).nonOpaque().allowsSpawning(ModFactory::never); }
 	public static Block.Settings MetalTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup, float strength) { return MetalTrapdoorSettings(color, soundGroup).strength(strength); }
 	public static Block.Settings MetalTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup, float strength, float resistance) { return MetalTrapdoorSettings(color, soundGroup).strength(strength, resistance); }
+	public static Block.Settings CopperTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup, float strength) {
+		return Block.Settings.of(Material.STONE, color).requiresTool().sounds(soundGroup).nonOpaque().allowsSpawning(ModFactory::never).strength(strength);
+	}
 
 	public static BlockContainer MakeThinMetalTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength) {
 		return BuildThinMetalTrapdoor(new ThinTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE));
@@ -904,11 +914,13 @@ public class ModFactory {
 		return container;
 	}
 
-	public static BlockContainer MakeOxidizableTrapdoor(Oxidizable.OxidizationLevel level, float strength) {
-		return BuildThinMetalTrapdoor(new OxidizableTrapdoorBlock(level, MetalTrapdoorSettings(OxidationScale.getMapColor(level), BlockSoundGroup.COPPER, strength)));
+	public static BlockContainer MakeOxidizableTrapdoor(Oxidizable.OxidizationLevel level, float strength) { return MakeOxidizableTrapdoor(level, strength, ItemSettings()); }
+	public static BlockContainer MakeOxidizableTrapdoor(Oxidizable.OxidizationLevel level, float strength, Item.Settings settings) {
+		return BuildMetalTrapdoor(new OxidizableTrapdoorBlock(level, CopperTrapdoorSettings(OxidationScale.getMapColor(level), BlockSoundGroup.COPPER, strength)), settings);
 	}
-	public static BlockContainer MakeWaxedTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength) {
-		return BuildMetalTrapdoor(BuildBlock(new ThinTrapdoorBlock(MetalTrapdoorSettings(color, soundGroup, strength), SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE)));
+	public static BlockContainer MakeWaxedTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength) { return MakeWaxedTrapdoor(color, soundGroup, strength, ItemSettings()); }
+	public static BlockContainer MakeWaxedTrapdoor(MapColor color, BlockSoundGroup soundGroup, float strength, Item.Settings settings) {
+		return BuildMetalTrapdoor(BuildBlock(new ModTrapdoorBlock(CopperTrapdoorSettings(color, soundGroup, strength), ModSoundEvents.BLOCK_COPPER_TRAPDOOR_OPEN, ModSoundEvents.BLOCK_COPPER_TRAPDOOR_CLOSE), settings));
 	}
 
 	public static Block.Settings WoodTrapdoorSettings(MapColor color, BlockSoundGroup soundGroup) { return Block.Settings.of(Material.WOOD, color).strength(3.0F).sounds(soundGroup).nonOpaque().allowsSpawning(ModFactory::noSpawning); }
@@ -943,7 +955,7 @@ public class ModFactory {
 	public static BlockContainer MakeBarrel(MapColor color) { return MakeBarrel(color, BlockSoundGroup.WOOD); }
 	public static BlockContainer MakeBarrel(MapColor color, BlockSoundGroup soundGroup) {
 		BlockContainer container = new BlockContainer(new ModBarrelBlock(BarrelSettings(color, soundGroup)))
-				.drops(DropTable.NAMEABLE_CONTAINER).blockTag(BlockTags.AXE_MINEABLE).blockTag(ModBlockTags.BARRELS);
+				.drops(DropTable.NAMEABLE_CONTAINER).blockTag(BlockTags.AXE_MINEABLE).blockTag(ModBlockTags.BARRELS).blockTag(BlockTags.GUARDED_BY_PIGLINS);
 		ModDatagen.Cache.Models.BARREL.add(container);
 		return container;
 	}
@@ -971,7 +983,7 @@ public class ModFactory {
 		ModDatagen.Cache.Models.LECTERN.add(new Pair<>(container, base));
 		return container.blockTag(ModBlockTags.LECTERNS);
 	}
-	
+
 	public static Block MakeMooblossomFlower(BlockConvertible flower) { return MakeMooblossomFlower(flower.asBlock()); }
 	public static Block MakeMooblossomFlower(Block flower) { return MakeMooblossomFlower((FlowerBlock)flower); }
 	public static Block MakeMooblossomFlower(FlowerBlock flower) {

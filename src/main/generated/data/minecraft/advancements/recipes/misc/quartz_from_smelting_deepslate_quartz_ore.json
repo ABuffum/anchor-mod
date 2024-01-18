@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:quartz_from_smelting_deepslate_quartz_ore"
+    ],
+    "libcd:custom": []
+  },
+  "criteria": {
+    "has_deepslate_quartz_ore": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "haven:deepslate_quartz_ore"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:quartz_from_smelting_deepslate_quartz_ore"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_deepslate_quartz_ore",
+      "has_the_recipe"
+    ]
+  ]
+}

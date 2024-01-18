@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "B B",
+    "BCB"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:ingots/iron"
+    },
+    "B": {
+      "item": "minecraft:bricks"
+    },
+    "C": {
+      "tag": "haven:campfires"
+    }
+  },
+  "result": {
+    "item": "farmersdelight:stove"
+  }
+}

@@ -3,16 +3,19 @@ package fun.mousewich.haven.entity.tnt;
 import fun.mousewich.entity.tnt.ModTntEntity;
 import fun.mousewich.haven.HavenMod;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
+import org.jetbrains.annotations.Nullable;
 
 public class SharpTntEntity extends ModTntEntity {
 	public SharpTntEntity(EntityType<? extends Entity> entityType, World world) { super(entityType, world, HavenMod.SHARP_TNT.asBlock().getDefaultState()); }
-	public SharpTntEntity(World world, double x, double y, double z, LivingEntity igniter) {
+	public SharpTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter) {
 		this(world, x, y, z, igniter, HavenMod.SHARP_TNT.asBlock().getDefaultState());
 	}
-	public SharpTntEntity(World world, double x, double y, double z, LivingEntity igniter, BlockState state) {
+	public SharpTntEntity(World world, double x, double y, double z, @Nullable LivingEntity igniter, BlockState state) {
 		super(HavenMod.SHARP_TNT_ENTITY, world, x, y, z, igniter, state);
 	}
 
@@ -24,7 +27,7 @@ public class SharpTntEntity extends ModTntEntity {
 	@Override
 	public boolean shouldDestroyBlocks() { return false; }
 	@Override
-	public float damageMultiplier() { return 3; }
+	public boolean shouldDoKnockback() { return false; }
 	@Override
-	public float knockbackMultiplier() { return 0; }
+	public float damageMultiplier() { return 3; }
 }

@@ -1,6 +1,6 @@
 package fun.mousewich.entity.variants;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import net.minecraft.util.Identifier;
 
 public enum FrogVariant {
@@ -12,6 +12,6 @@ public enum FrogVariant {
     public final Identifier texture;
     FrogVariant(String name, String texture) {
         this.name = name;
-        this.texture = ModBase.ID(texture);
+        this.texture = ModId.ID(texture);
     }
 }

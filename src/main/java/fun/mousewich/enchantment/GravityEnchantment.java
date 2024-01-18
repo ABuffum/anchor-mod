@@ -57,15 +57,19 @@ public class GravityEnchantment extends Enchantment {
 				new Box(new BlockPos(pos)).expand(distance),
 				entity -> !exclude.contains(entity)
 						//Don't move shulkers (or shulker-armored entities)
-						&& !wearingShulkerArmor(entity) && !(entity instanceof ShulkerEntity));
+						&& !wearingShulkerArmor(entity) && !(entity instanceof ShulkerEntity)
+						//Don't move entities in spectator mode
+						&& !entity.isSpectator()
+						//Don't move players in creative mode
+						&& !(entity instanceof PlayerEntity player && player.isCreative()));
 		for (LivingEntity entity : entities) {
-			if (entity instanceof PlayerEntity player && player.getAbilities().creativeMode) continue;
 			Vec3d delta = new Vec3d(pos.x - entity.getX(), pos.y - entity.getY(), pos.z - entity.getZ());
 			Vec3d normal = delta.normalize();
 			double X = MathHelper.clamp(normal.x * force, -8, 8);
 			double Y = MathHelper.clamp(normal.y * force, -3, -3);
 			double Z = MathHelper.clamp(normal.z * force, -8, 8);
 			entity.addVelocity(X, Y, Z);
+			entity.velocityModified = true;
 		}
 	}
 }

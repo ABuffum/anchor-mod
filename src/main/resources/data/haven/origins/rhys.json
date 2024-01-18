@@ -1,6 +1,7 @@
 {
   "powers": [
 	"origins:fire_immunity",
+    "origins:water_vulnerability",
     "haven:blood_types/lava"
   ],
   "name": "Fire Immune",

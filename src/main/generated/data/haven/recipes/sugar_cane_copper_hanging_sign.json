@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "| |",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "haven:sugar_cane_bale"
+    },
+    "|": {
+      "item": "haven:waxed_copper_chain"
+    }
+  },
+  "result": {
+    "item": "haven:sugar_cane_copper_hanging_sign"
+  }
+}

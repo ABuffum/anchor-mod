@@ -1,6 +1,7 @@
 package fun.mousewich.origins.power;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -14,8 +15,7 @@ import net.minecraft.world.World;
 public class ZombifiedPiglinAllyPower extends Power {
 	public ZombifiedPiglinAllyPower(PowerType<?> type, LivingEntity entity) { super(type, entity); }
 	public static PowerFactory<ZombifiedPiglinAllyPower> createFactory() {
-		return new PowerFactory<ZombifiedPiglinAllyPower>(ModBase.ID("zombified_piglin_ally"), new SerializableData(),
-				data -> ZombifiedPiglinAllyPower::new).allowCondition();
+		return new PowerFactory<ZombifiedPiglinAllyPower>(ModId.ID("zombified_piglin_ally"), new SerializableData(), data -> ZombifiedPiglinAllyPower::new).allowCondition();
 	}
 
 	public static void AngerNearbyPiglins(LivingEntity powerHolder, LivingEntity target, float radius) {

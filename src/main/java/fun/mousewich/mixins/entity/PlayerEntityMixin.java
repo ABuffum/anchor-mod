@@ -1,21 +1,23 @@
 package fun.mousewich.mixins.entity;
 
 import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.block.sculk.SculkShriekerWarningManager;
 import fun.mousewich.damage.ModDamageSource;
 import fun.mousewich.effect.ModStatusEffects;
 import fun.mousewich.enchantment.ModEnchantments;
 import fun.mousewich.entity.LastDeathPositionStoring;
+import fun.mousewich.entity.LastJavelinStoring;
 import fun.mousewich.entity.ModNbtKeys;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.blood.EntityWithBloodType;
 import fun.mousewich.entity.hostile.warden.WardenEntity;
+import fun.mousewich.entity.projectile.JavelinEntity;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.item.tool.HammerItem;
 import fun.mousewich.origins.power.*;
 import fun.mousewich.sound.IdentifiedSounds;
 import io.github.apace100.apoli.component.PowerHolderComponent;
-import io.github.apace100.apoli.mixin.EntityAccessor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
@@ -25,7 +27,6 @@ import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -34,7 +35,6 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.dynamic.GlobalPos;
@@ -50,7 +50,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(PlayerEntity.class)
-public abstract class PlayerEntityMixin extends LivingEntity implements LastDeathPositionStoring, EntityWithBloodType {
+public abstract class PlayerEntityMixin extends LivingEntity implements LastDeathPositionStoring, EntityWithBloodType, LastJavelinStoring {
 	@Shadow public abstract void disableShield(boolean sprinting);
 	@Shadow public abstract ItemCooldownManager getItemCooldownManager();
 
@@ -162,10 +162,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 	@Inject(method="updateTurtleHelmet", at = @At("HEAD"))
 	private void UpdateGoggles(CallbackInfo ci) {
 		ItemStack itemStack = this.getEquippedStack(EquipmentSlot.HEAD);
-		boolean first;
-		if ((first = itemStack.isOf(ModBase.TINTED_GOGGLES)) || itemStack.isOf(ModBase.RUBY_GOGGLES)) {
+		boolean first, second = false;
+		if ((first = itemStack.isOf(ModBase.TINTED_GOGGLES)) || (second = itemStack.isOf(ModBase.RUBY_GOGGLES)) || itemStack.isOf(ModBase.SAPPHIRE_GOGGLES)) {
 			if (!this.hasStatusEffect(ModStatusEffects.DARKNESS) && !this.hasStatusEffect(StatusEffects.BLINDNESS)) {
-				StatusEffect effect = first ? ModStatusEffects.TINTED_GOGGLES : ModStatusEffects.RUBY_GOGGLES;
+				StatusEffect effect = first ? ModStatusEffects.TINTED_GOGGLES : second ? ModStatusEffects.RUBY_GOGGLES : ModStatusEffects.SAPPHIRE_GOGGLES;
 				this.addStatusEffect(new StatusEffectInstance(effect, 20, 0, false, false, true));
 			}
 			if (!this.world.isClient && this.hasStatusEffect(ModStatusEffects.FLASHBANGED)) this.removeStatusEffect(ModStatusEffects.FLASHBANGED);
@@ -173,6 +173,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 		else if (!this.world.isClient) {
 			if (this.hasStatusEffect(ModStatusEffects.TINTED_GOGGLES)) this.removeStatusEffect(ModStatusEffects.TINTED_GOGGLES);
 			if (this.hasStatusEffect(ModStatusEffects.RUBY_GOGGLES)) this.removeStatusEffect(ModStatusEffects.RUBY_GOGGLES);
+			if (this.hasStatusEffect(ModStatusEffects.SAPPHIRE_GOGGLES)) this.removeStatusEffect(ModStatusEffects.SAPPHIRE_GOGGLES);
 		}
 	}
 
@@ -206,12 +207,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 	@Inject(method="writeCustomDataToNbt", at=@At("TAIL"))
 	private void WriteCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
 		this.getLastDeathPos().flatMap(globalPos -> GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, globalPos)
-				.resultOrPartial(ModBase.LOGGER::error)).ifPresent(nbtElement -> nbt.put(ModNbtKeys.LAST_DEATH_LOCATION, nbtElement));
+				.resultOrPartial(ModId.LOGGER::error)).ifPresent(nbtElement -> nbt.put(ModNbtKeys.LAST_DEATH_LOCATION, nbtElement));
 	}
 	@Inject(method="readCustomDataFromNbt", at=@At("TAIL"))
 	private void ReadCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
 		if (nbt.contains(ModNbtKeys.LAST_DEATH_LOCATION, NbtElement.COMPOUND_TYPE)) {
-			this.setLastDeathPos(GlobalPos.CODEC.parse(NbtOps.INSTANCE, nbt.get("LastDeathLocation")).resultOrPartial(ModBase.LOGGER::error));
+			this.setLastDeathPos(GlobalPos.CODEC.parse(NbtOps.INSTANCE, nbt.get("LastDeathLocation")).resultOrPartial(ModId.LOGGER::error));
 		}
 	}
 
@@ -228,4 +229,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements LastDeat
 		}
 		else this.healingExperience = 0;
 	}
+
+	private JavelinEntity javelin;
+	@Override
+	public JavelinEntity getLastJavelin() { return this.javelin; }
+	@Override
+	public void setLastJavelin(JavelinEntity entity) { this.javelin = entity; }
 }

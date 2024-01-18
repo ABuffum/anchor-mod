@@ -1,6 +1,6 @@
 package fun.mousewich.client.render.entity.renderer.chicken;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import fun.mousewich.client.render.entity.ModEntityModelLayers;
 import fun.mousewich.client.render.entity.model.SlimeChickenEntityModel;
 import fun.mousewich.client.render.entity.renderer.feature.SlimeChickenOverlayFeatureRenderer;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class SlimeChickenEntityRenderer extends MobEntityRenderer<SlimeChickenEntity, SlimeChickenEntityModel> {
-	private static final Identifier TEXTURE = ModBase.ID("textures/entity/chicken/slime.png");
+	private static final Identifier TEXTURE = ModId.ID("textures/entity/chicken/slime.png");
 
 	public SlimeChickenEntityRenderer(EntityRendererFactory.Context context) {
 		super(context, new SlimeChickenEntityModel(context.getPart(ModEntityModelLayers.SLIME_CHICKEN)), 0.3F);

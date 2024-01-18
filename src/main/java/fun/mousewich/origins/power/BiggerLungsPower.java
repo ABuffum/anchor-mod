@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
@@ -18,7 +18,7 @@ public class BiggerLungsPower extends Power {
 	}
 
 	public static PowerFactory<BiggerLungsPower> createFactory() {
-		return new PowerFactory<BiggerLungsPower>(ModBase.ID("bigger_lungs"), new SerializableData()
+		return new PowerFactory<BiggerLungsPower>(ModId.ID("bigger_lungs"), new SerializableData()
 				.add("respiration", SerializableDataTypes.INT),
 				data -> (type, player) -> new BiggerLungsPower(type, player, data.getInt("respiration"))
 		).allowCondition();

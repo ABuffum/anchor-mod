@@ -1,6 +1,6 @@
 package fun.mousewich.origins.power;
 
-import fun.mousewich.ModBase;
+import fun.mousewich.ModId;
 import io.github.apace100.apoli.power.Power;
 import io.github.apace100.apoli.power.PowerType;
 import io.github.apace100.apoli.power.factory.PowerFactory;
@@ -10,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 public class FireImmunePower extends Power {
 	public FireImmunePower(PowerType<?> type, LivingEntity entity) { super(type, entity); }
 	public static PowerFactory<FireImmunePower> createFactory() {
-		return new PowerFactory<FireImmunePower>(ModBase.ID("fire_immune"), new SerializableData(),
-				data -> FireImmunePower::new).allowCondition();
+		return new PowerFactory<FireImmunePower>(ModId.ID("fire_immune"), new SerializableData(), data -> FireImmunePower::new).allowCondition();
 	}
 }

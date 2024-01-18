@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "minecraft:mangrove_log",
-    "haven:cassia_log",
     "minecraft:cherry_log",
+    "haven:cassia_log",
     "minecraft:acacia_log",
     "minecraft:birch_log",
     "minecraft:dark_oak_log",

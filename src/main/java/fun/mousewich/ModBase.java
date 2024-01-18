@@ -1,5 +1,6 @@
 package fun.mousewich;
 
+import com.google.common.collect.ImmutableSet;
 import com.nhoryzon.mc.farmersdelight.registry.EffectsRegistry;
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import fun.mousewich.advancement.ModCriteria;
@@ -44,6 +45,7 @@ import fun.mousewich.dispenser.ModCarvedPumpkinBlockDispenserBehavior;
 import fun.mousewich.dispenser.WearableDispenserBehavior;
 import fun.mousewich.effect.*;
 import fun.mousewich.enchantment.*;
+import fun.mousewich.entity.IceChunkEntity;
 import fun.mousewich.entity.ModActivities;
 import fun.mousewich.entity.ModDataHandlers;
 import fun.mousewich.entity.PurpleEyeOfEnderEntity;
@@ -54,6 +56,8 @@ import fun.mousewich.entity.ai.sensor.ModSensorType;
 import fun.mousewich.entity.ai.sensor.WardenAttackablesSensor;
 import fun.mousewich.entity.blood.BloodType;
 import fun.mousewich.entity.cloud.ConfettiCloudEntity;
+import fun.mousewich.entity.hostile.illager.IceologerEntity;
+import fun.mousewich.entity.hostile.illager.MageEntity;
 import fun.mousewich.entity.hostile.RedPhantomEntity;
 import fun.mousewich.entity.hostile.SlimeCreeperEntity;
 import fun.mousewich.entity.hostile.piranha.PiranhaEntity;
@@ -78,6 +82,7 @@ import fun.mousewich.entity.projectile.*;
 import fun.mousewich.entity.tnt.*;
 import fun.mousewich.entity.variants.SnowGolemVariant;
 import fun.mousewich.entity.vehicle.ChestBoatEntity;
+import fun.mousewich.entity.vehicle.DispenserMinecartEntity;
 import fun.mousewich.entity.vehicle.ModChestBoatEntity;
 import fun.mousewich.event.ModGameEvent;
 import fun.mousewich.event.ModPositionSourceTypes;
@@ -112,10 +117,7 @@ import fun.mousewich.item.horn.goat.GoatHornSalveItem;
 import fun.mousewich.item.pouch.ChickenPouchItem;
 import fun.mousewich.item.pouch.EntityPouchItem;
 import fun.mousewich.item.pouch.PouchItem;
-import fun.mousewich.item.projectile.BottledConfettiItem;
-import fun.mousewich.item.projectile.BottledLightningItem;
-import fun.mousewich.item.projectile.PinkSlimeBallItem;
-import fun.mousewich.item.projectile.ThrowableTomatoItem;
+import fun.mousewich.item.projectile.*;
 import fun.mousewich.item.syringe.*;
 import fun.mousewich.item.tool.GravityHammerItem;
 import fun.mousewich.item.tool.ThunderingHammerItem;
@@ -150,6 +152,7 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 
+import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
@@ -159,7 +162,9 @@ import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.fabricmc.fabric.api.transfer.v1.fluid.base.FullItemFluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.mixin.object.builder.PointOfInterestTypeAccessor;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.fabricmc.fabric.mixin.object.builder.VillagerProfessionAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.*;
 import net.minecraft.block.cauldron.CauldronBehavior;
@@ -177,6 +182,7 @@ import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.FishEntity;
+import net.minecraft.entity.passive.LlamaEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
@@ -189,6 +195,7 @@ import net.minecraft.potion.Potions;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.command.RaidCommand;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.*;
@@ -205,6 +212,8 @@ import net.minecraft.util.math.intprovider.*;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -223,8 +232,7 @@ import net.minecraft.world.gen.placer.SimpleBlockPlacer;
 import net.minecraft.world.gen.stateprovider.*;
 import net.minecraft.world.gen.treedecorator.BeehiveTreeDecorator;
 import net.minecraft.world.gen.trunk.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.minecraft.world.poi.PointOfInterestType;
 
 import java.util.*;
 
@@ -234,16 +242,10 @@ import static fun.mousewich.registry.ModRegistry.*;
 
 public class ModBase implements ModInitializer {
 	public static final ModLanguageCache.en_us EN_US = new ModLanguageCache.en_us();
-	public static final ModLanguageCache[] LANGUAGE_CACHES = new ModLanguageCache[] {
-			EN_US
-	};
-
-	public static final Logger LOGGER = LoggerFactory.getLogger("Wich Pack");
-	public static final String NAMESPACE = "haven";
-	public static Identifier ID(String path) { return path.contains(":") ? new Identifier(path) : new Identifier(NAMESPACE, path); }
+	public static final ModLanguageCache[] LANGUAGE_CACHES = new ModLanguageCache[] { EN_US };
 
 	private static ItemStack GetItemGroupIcon() { return new ItemStack(HavenMod.ANCHOR); }
-	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(ID("wichpack"), ModBase::GetItemGroupIcon);
+	public static final ItemGroup ITEM_GROUP = FabricItemGroupBuilder.build(ModId.ID("wichpack"), ModBase::GetItemGroupIcon);
 
 	//<editor-fold desc="Acacia">
 	public static final Item ACACIA_CHEST_BOAT = MakeChestBoat(BoatEntity.Type.ACACIA, BoatSettings(ItemGroup.TRANSPORTATION));
@@ -949,10 +951,10 @@ public class ModBase implements ModInitializer {
 			.flammable(60, 20).fuel(67).dispenser(new HorseArmorDispenserBehavior()::dispenseSilently)
 			.blockTag(BlockTags.CARPETS).itemTag(ItemTags.CARPETS).blockTag(ModBlockTags.FLEECE_CARPETS).itemTag(ModItemTags.FLEECE_CARPETS);
 	//Glass
-	public static final BlockContainer BEIGE_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.PALE_YELLOW))).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BEIGE_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.PALE_YELLOW))).requireSilkTouch().paneModel(BEIGE_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BEIGE_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(BEIGE_STAINED_GLASS)).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BEIGE_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(BEIGE_STAINED_GLASS, BEIGE_STAINED_GLASS_SLAB)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
+	public static final BlockContainer BEIGE_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.PALE_YELLOW), ModDyeColor.BEIGE)).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BEIGE_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.PALE_YELLOW), ModDyeColor.BEIGE)).requireSilkTouch().paneModel(BEIGE_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BEIGE_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(BEIGE_STAINED_GLASS, ModDyeColor.BEIGE)).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BEIGE_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(BEIGE_STAINED_GLASS, BEIGE_STAINED_GLASS_SLAB, ModDyeColor.BEIGE)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	//</editor-fold>
 	//<editor-fold desc="Burgundy">
 	public static final Item BURGUNDY_DYE = GeneratedItem(new ModDyeItem(ModDyeColor.BURGUNDY, ItemSettings()));
@@ -985,10 +987,10 @@ public class ModBase implements ModInitializer {
 			.flammable(60, 20).fuel(67).dispenser(new HorseArmorDispenserBehavior()::dispenseSilently)
 			.blockTag(BlockTags.CARPETS).itemTag(ItemTags.CARPETS).blockTag(ModBlockTags.FLEECE_CARPETS).itemTag(ModItemTags.FLEECE_CARPETS);
 	//Glass
-	public static final BlockContainer BURGUNDY_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.DARK_RED))).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BURGUNDY_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.DARK_RED))).requireSilkTouch().paneModel(BURGUNDY_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BURGUNDY_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(BURGUNDY_STAINED_GLASS)).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer BURGUNDY_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(BURGUNDY_STAINED_GLASS, BURGUNDY_STAINED_GLASS_SLAB)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
+	public static final BlockContainer BURGUNDY_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.DARK_RED), ModDyeColor.BURGUNDY)).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BURGUNDY_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.DARK_RED), ModDyeColor.BURGUNDY)).requireSilkTouch().paneModel(BURGUNDY_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BURGUNDY_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(BURGUNDY_STAINED_GLASS, ModDyeColor.BURGUNDY)).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer BURGUNDY_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(BURGUNDY_STAINED_GLASS, BURGUNDY_STAINED_GLASS_SLAB, ModDyeColor.BURGUNDY)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	//</editor-fold>
 	//<editor-fold desc="Lavender">
 	public static final Item LAVENDER_DYE = GeneratedItem(new ModDyeItem(ModDyeColor.LAVENDER, ItemSettings()));
@@ -1021,10 +1023,10 @@ public class ModBase implements ModInitializer {
 			.flammable(60, 20).fuel(67).dispenser(new HorseArmorDispenserBehavior()::dispenseSilently)
 			.blockTag(BlockTags.CARPETS).itemTag(ItemTags.CARPETS).blockTag(ModBlockTags.FLEECE_CARPETS).itemTag(ModItemTags.FLEECE_CARPETS);
 	//Glass
-	public static final BlockContainer LAVENDER_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.PALE_PURPLE))).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer LAVENDER_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.PALE_PURPLE))).requireSilkTouch().paneModel(LAVENDER_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer LAVENDER_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(LAVENDER_STAINED_GLASS)).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer LAVENDER_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(LAVENDER_STAINED_GLASS, LAVENDER_STAINED_GLASS_SLAB)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
+	public static final BlockContainer LAVENDER_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.PALE_PURPLE), ModDyeColor.LAVENDER)).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer LAVENDER_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.PALE_PURPLE), ModDyeColor.LAVENDER)).requireSilkTouch().paneModel(LAVENDER_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer LAVENDER_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(LAVENDER_STAINED_GLASS, ModDyeColor.LAVENDER)).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer LAVENDER_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(LAVENDER_STAINED_GLASS, LAVENDER_STAINED_GLASS_SLAB, ModDyeColor.LAVENDER)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	//</editor-fold>
 	//<editor-fold desc="Mint">
 	public static final Item MINT_DYE = GeneratedItem(new ModDyeItem(ModDyeColor.MINT, ItemSettings()));
@@ -1057,10 +1059,10 @@ public class ModBase implements ModInitializer {
 			.flammable(60, 20).fuel(67).dispenser(new HorseArmorDispenserBehavior()::dispenseSilently)
 			.blockTag(BlockTags.CARPETS).itemTag(ItemTags.CARPETS).blockTag(ModBlockTags.FLEECE_CARPETS).itemTag(ModItemTags.FLEECE_CARPETS);
 	//Glass
-	public static final BlockContainer MINT_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.LICHEN_GREEN))).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer MINT_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.LICHEN_GREEN))).requireSilkTouch().paneModel(MINT_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer MINT_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(MINT_STAINED_GLASS)).blockTag(BlockTags.IMPERMEABLE);
-	public static final BlockContainer MINT_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(MINT_STAINED_GLASS, MINT_STAINED_GLASS_SLAB)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
+	public static final BlockContainer MINT_STAINED_GLASS = new BlockContainer(new ModStainedGlassBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS).mapColor(MapColor.LICHEN_GREEN), ModDyeColor.MINT)).requireSilkTouch().cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer MINT_STAINED_GLASS_PANE = new BlockContainer(new ModStainedGlassPaneBlock(Block.Settings.copy(Blocks.WHITE_STAINED_GLASS_PANE).mapColor(MapColor.LICHEN_GREEN), ModDyeColor.MINT)).requireSilkTouch().paneModel(MINT_STAINED_GLASS).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer MINT_STAINED_GLASS_SLAB = BuildSlab(new ModStainedGlassSlabBlock(MINT_STAINED_GLASS, ModDyeColor.MINT)).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer MINT_STAINED_GLASS_TRAPDOOR = BuildBlock(new ModStainedGlassTrapdoorBlock(MINT_STAINED_GLASS, MINT_STAINED_GLASS_SLAB, ModDyeColor.MINT)).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	//</editor-fold>
 	//</editor-fold>
 	//<editor-fold desc="Echo">
@@ -1166,6 +1168,7 @@ public class ModBase implements ModInitializer {
 	public static final Item RED_FEATHER = MakeGeneratedItem();
 	public static final Item LIGHT_FEATHER = MakeGeneratedItem(); //TODO:https://minecraft.fandom.com/wiki/Minecraft_Dungeons:Light_Feather
 	//</editor-fold>
+	public static final Item FIRING_CHARGE = ParentedItem(new FiringChargeItem(ItemSettings()), Items.FIRE_CHARGE);
 	//TODO: Port Minecraft Dungeons: Shadow Step to Kaden
 	//<editor-fold desc="Fleece">
 	public static final Map<DyeColor, BlockContainer> FLEECE = ColorUtil.Map(color -> MakeBlock(ColorUtil.GetWoolBlock(color)).flammable(30, 60).fuel(100).blockTag(ModBlockTags.FLEECE).itemTag(ModItemTags.FLEECE));
@@ -1189,7 +1192,7 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer FLINT_BRICK_WALL = BuildWall(new FlintWallBlock(FLINT_BRICKS), DropTable.FLINT).wallModel(FLINT_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	private static Item getHydrangeaItem() { return HYDRANGEA.asItem(); }
-	public static final ItemGroup FLOWER_GROUP = FabricItemGroupBuilder.build(ID("flowers"), () -> new ItemStack(ModBase::getHydrangeaItem));
+	public static final ItemGroup FLOWER_GROUP = FabricItemGroupBuilder.build(ModId.ID("flowers"), () -> new ItemStack(ModBase::getHydrangeaItem));
 	//<editor-fold desc="Flowers">
 	//<editor-fold desc="Minecraft Earth">
 	public static final FlowerContainer BUTTERCUP = MakeFlower(StatusEffects.BLINDNESS, 11).pottedModel();
@@ -1393,7 +1396,7 @@ public class ModBase implements ModInitializer {
 	public static final Item TADPOLE_BUCKET = GeneratedItem(new EntityBucketItem(TADPOLE_ENTITY, Fluids.WATER, ModSoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, ItemSettings(ItemGroup.MISC).maxCount(1)));
 	public static final Item TADPOLE_SPAWN_EGG = MakeSpawnEgg(TADPOLE_ENTITY, 7164733, 1444352, ItemSettings(ItemGroup.MISC));
 	//</editor-fold>
-	public static final ScreenHandlerType<Generic1x1ContainerScreenHandler> GENERIC_1X1_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID("generic_1x1"), Generic1x1ContainerScreenHandler::new);
+	public static final ScreenHandlerType<Generic1x1ContainerScreenHandler> GENERIC_1X1_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ModId.ID("generic_1x1"), Generic1x1ContainerScreenHandler::new);
 	//<editor-fold desc="Gilded Blackstone">
 	public static final BlockContainer GILDED_BLACKSTONE_STAIRS = MakeStairs(Blocks.GILDED_BLACKSTONE).stairsModel(Blocks.GILDED_BLACKSTONE).blockTag(BlockTags.GUARDED_BY_PIGLINS).itemTag(ItemTags.PIGLIN_LOVED).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer GILDED_BLACKSTONE_SLAB = MakeSlab(Blocks.GILDED_BLACKSTONE).slabModel(Blocks.GILDED_BLACKSTONE).blockTag(BlockTags.GUARDED_BY_PIGLINS).itemTag(ItemTags.PIGLIN_LOVED).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -1477,6 +1480,10 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer RUBY_GLASS_PANE = BuildBlock(new TintedGlassPaneBlock(Block.Settings.of(Material.GLASS).mapColor(MapColor.RED).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque())).paneModel(RUBY_GLASS).itemTag(ModItemTags.GLASS_PANES);
 	public static final BlockContainer RUBY_GLASS_SLAB = BuildSlab(new TintedGlassSlabBlock(RUBY_GLASS.asBlock())).blockTag(BlockTags.IMPERMEABLE);
 	public static final BlockContainer RUBY_GLASS_TRAPDOOR = BuildBlock(new TintedGlassTrapdoorBlock(RUBY_GLASS.asBlock(), RUBY_GLASS_SLAB.asBlock())).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
+	public static final BlockContainer SAPPHIRE_GLASS = BuildBlock(new TintedGlassBlock(Block.Settings.copy(Blocks.TINTED_GLASS).mapColor(MapColor.BLUE))).cubeAllModel().blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer SAPPHIRE_GLASS_PANE = BuildBlock(new TintedGlassPaneBlock(Block.Settings.of(Material.GLASS).mapColor(MapColor.BLUE).strength(0.3F).sounds(BlockSoundGroup.GLASS).nonOpaque())).paneModel(SAPPHIRE_GLASS).itemTag(ModItemTags.GLASS_PANES);
+	public static final BlockContainer SAPPHIRE_GLASS_SLAB = BuildSlab(new TintedGlassSlabBlock(SAPPHIRE_GLASS.asBlock())).blockTag(BlockTags.IMPERMEABLE);
+	public static final BlockContainer SAPPHIRE_GLASS_TRAPDOOR = BuildBlock(new TintedGlassTrapdoorBlock(SAPPHIRE_GLASS.asBlock(), SAPPHIRE_GLASS_SLAB.asBlock())).blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	public static final BlockContainer GLASS_SLAB = BuildSlab(new GlassSlabBlock(Blocks.GLASS), DropTable.SILK_TOUCH_SLAB).blockTag(BlockTags.IMPERMEABLE);
 	public static final BlockContainer GLASS_TRAPDOOR = new BlockContainer(new GlassTrapdoorBlock(Blocks.GLASS, GLASS_SLAB.asBlock())).requireSilkTouch().blockTag(BlockTags.TRAPDOORS).itemTag(ItemTags.TRAPDOORS);
 	public static final Map<DyeColor, BlockContainer> STAINED_GLASS_SLABS = ColorUtil.Map(color -> BuildSlab(new StainedGlassSlabBlock(color, ColorUtil.GetStainedGlassBlock(color)), DropTable.SILK_TOUCH_SLAB).blockTag(BlockTags.IMPERMEABLE));
@@ -1499,9 +1506,11 @@ public class ModBase implements ModInitializer {
 	//<editor-fold desc="Goggles">
 	public static final Item TINTED_GOGGLES = MakeHelmet(ModArmorMaterials.TINTED_GOGGLES);
 	public static final Item RUBY_GOGGLES = MakeHelmet(ModArmorMaterials.RUBY_GOGGLES);
+	public static final Item SAPPHIRE_GOGGLES = MakeHelmet(ModArmorMaterials.SAPPHIRE_GOGGLES);
 	//</editor-fold>
 	//<editor-fold desc="Gold">
 	public static final Item GOLD_ROD = MakeHandheldItem();
+	public static final BlockContainer END_GOLD_ORE = BuildBlock(new OreBlock(Block.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(3f, 3f).sounds(ModBlockSoundGroups.END_GOLD_ORE), UniformIntProvider.create(0, 1)), DropTable.EndOre(Items.GOLD_NUGGET)).cubeAllModel().blockTag(BlockTags.GOLD_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final TorchContainer GOLD_TORCH = MakeTorch(14, BlockSoundGroup.METAL, ModParticleTypes.GOLD_FLAME).torchModel();
 	public static final TorchContainer GOLD_SOUL_TORCH = MakeSoulTorch(BlockSoundGroup.METAL).torchModel(GOLD_TORCH);
 	public static final TorchContainer GOLD_ENDER_TORCH = MakeEnderTorch(BlockSoundGroup.METAL).torchModel(GOLD_TORCH);
@@ -1649,12 +1658,19 @@ public class ModBase implements ModInitializer {
 	public static final Item HEDGEHOG_SPAWN_EGG = MakeSpawnEgg(HEDGEHOG_ENTITY, 11440263, 7558239);
 	//</editor-fold>
 	public static final Item HORN = MakeGeneratedItem(); //Minecraft Earth
+	//<editor-fold desc="Icy Spider">
+	public static final EntityType<IcySpiderEntity> ICY_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, IcySpiderEntity::new).dimensions(EntityDimensions.fixed(1.4f, 0.9f)).trackRangeChunks(8).build();
+	public static final Item ICY_SPIDER_SPAWN_EGG = MakeSpawnEgg(ICY_SPIDER_ENTITY, 0x045480, 0x3CFEFB);
+	//</editor-fold>
 	//<editor-fold desc="Igneous Rocks">
 	public static final BlockContainer COOLED_MAGMA_BLOCK = BuildBlock(new CooledMagmaBlock(Blocks.MAGMA_BLOCK)).cubeAllModel().blockTag(ModBlockTags.INFLICTS_FIRE_DAMAGE).blockTag(ModBlockTags.SIZZLE_RAIN_BLOCKS).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer PUMICE = BuildBlock(new PumiceBlock(Block.Settings.of(Material.STONE, MapColor.BROWN).requiresTool().strength(1.5f, 6.0f))).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	//<editor-fold desc="Iron">
+	public static final Item RAW_IRON_NUGGET = MakeGeneratedItem();
 	public static final Item IRON_ROD = MakeHandheldItem();
+	public static final BlockContainer NETHER_IRON_ORE = BuildBlock(new OreBlock(Block.Settings.of(Material.STONE, MapColor.DARK_RED).requiresTool().strength(3f, 3f).sounds(ModBlockSoundGroups.NETHER_IRON_ORE), UniformIntProvider.create(0, 1)), DropTable.NetherOre(RAW_IRON_NUGGET)).cubeAllModel().blockTag(BlockTags.IRON_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer END_IRON_ORE = BuildBlock(new OreBlock(Block.Settings.of(Material.STONE, MapColor.PALE_YELLOW).requiresTool().strength(3f, 3f).sounds(ModBlockSoundGroups.END_IRON_ORE), UniformIntProvider.create(0, 1)), DropTable.EndOre(RAW_IRON_NUGGET)).cubeAllModel().blockTag(BlockTags.IRON_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final TorchContainer IRON_TORCH = MakeTorch(14, BlockSoundGroup.METAL, ModParticleTypes.IRON_FLAME).torchModel();
 	public static final TorchContainer IRON_SOUL_TORCH = MakeSoulTorch(BlockSoundGroup.METAL).torchModel(IRON_TORCH);
 	public static final TorchContainer IRON_ENDER_TORCH = MakeEnderTorch(BlockSoundGroup.METAL).torchModel(IRON_TORCH);
@@ -1981,6 +1997,10 @@ public class ModBase implements ModInitializer {
 	public static final Item VANILLA_MILK_BOTTLE = MakeDairyDrink(GlassBottledItemSettings());
 	//Cheese
 	public static final BlockContainer CHEESE_BLOCK = MakeBlock(Block.Settings.of(Material.SOLID_ORGANIC, MapColor.YELLOW).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)).cubeAllModel().blockTag(BlockTags.SHOVEL_MINEABLE);
+	//</editor-fold>
+	//<editor-fold desc="Minecarts">
+	public static final EntityType<DispenserMinecartEntity> DISPENSER_MINECART_ENTITY = FabricEntityTypeBuilder.<DispenserMinecartEntity>create(SpawnGroup.MISC, DispenserMinecartEntity::new).dimensions(EntityDimensions.fixed(0.98f, 0.7f)).trackRangeChunks(8).build();
+	public static final Item DISPENSER_MINECART_ITEM = GeneratedItem(new DispenserMinecartItem(ItemSettings().maxCount(1)));
 	//</editor-fold>
 	//<editor-fold desc="Moss">
 	public static final BlockContainer MOSS_SLAB = BuildSlab(new MossSlabBlock(Blocks.MOSS_BLOCK)).compostable(0.325f).slabModel(Blocks.MOSS_BLOCK).blockTag(BlockTags.HOE_MINEABLE);
@@ -2391,7 +2411,7 @@ public class ModBase implements ModInitializer {
 	 * Remaining models come from the Plushie Mod
 	 */
 	private static Item getFancyChickenPlushieItem() { return FANCY_CHICKEN_PLUSHIE.asItem(); }
-	public static final ItemGroup PLUSHIE_GROUP = FabricItemGroupBuilder.build(ModBase.ID("plushies"), () -> new ItemStack(ModBase::getFancyChickenPlushieItem));
+	public static final ItemGroup PLUSHIE_GROUP = FabricItemGroupBuilder.build(ModId.ID("plushies"), () -> new ItemStack(ModBase::getFancyChickenPlushieItem));
 	//<editor-fold desc="Allays & Vexes">
 	public static final BlockContainer ALLAY_PLUSHIE = MakePlushie(AllayPlushieBlock::new);
 	public static final BlockContainer VEX_PLUSHIE = MakePlushie(AllayPlushieBlock::new);
@@ -2494,6 +2514,7 @@ public class ModBase implements ModInitializer {
 	//<editor-fold desc="Llama">
 	public static final BlockContainer BROWN_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer BROWN_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer BROWN_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer RAINBOW_CARPETED_BROWN_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOSS_CARPETED_BROWN_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GLOW_LICHEN_CARPETED_BROWN_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
@@ -2504,6 +2525,7 @@ public class ModBase implements ModInitializer {
 	public static final Map<DyeColor, BlockContainer> CARPETED_BROWN_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
 	public static final BlockContainer CREAMY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer CREAMY_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer CREAMY_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer RAINBOW_CARPETED_CREAMY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOSS_CARPETED_CREAMY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GLOW_LICHEN_CARPETED_CREAMY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
@@ -2514,6 +2536,7 @@ public class ModBase implements ModInitializer {
 	public static final Map<DyeColor, BlockContainer> CARPETED_CREAMY_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
 	public static final BlockContainer GRAY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GRAY_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer GRAY_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer RAINBOW_CARPETED_GRAY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOSS_CARPETED_GRAY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GLOW_LICHEN_CARPETED_GRAY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
@@ -2524,6 +2547,7 @@ public class ModBase implements ModInitializer {
 	public static final Map<DyeColor, BlockContainer> CARPETED_GRAY_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
 	public static final BlockContainer WHITE_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer WHITE_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer WHITE_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer RAINBOW_CARPETED_WHITE_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOSS_CARPETED_WHITE_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GLOW_LICHEN_CARPETED_WHITE_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
@@ -2534,6 +2558,7 @@ public class ModBase implements ModInitializer {
 	public static final Map<DyeColor, BlockContainer> CARPETED_WHITE_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
 	public static final BlockContainer MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOCHA_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer MOCHA_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer RAINBOW_CARPETED_MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MOSS_CARPETED_MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer GLOW_LICHEN_CARPETED_MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
@@ -2542,6 +2567,17 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer LAVENDER_CARPETED_MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final BlockContainer MINT_CARPETED_MOCHA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
 	public static final Map<DyeColor, BlockContainer> CARPETED_MOCHA_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
+	public static final BlockContainer COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer COCOA_TRADER_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer COCOA_JOLLY_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer RAINBOW_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer MOSS_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer GLOW_LICHEN_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer BEIGE_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer BURGUNDY_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer LAVENDER_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final BlockContainer MINT_CARPETED_COCOA_LLAMA_PLUSHIE = MakePlushie(LlamaPlushieBlock::new);
+	public static final Map<DyeColor, BlockContainer> CARPETED_COCOA_LLAMA_PLUSHIES = ColorUtil.Map(color -> MakePlushie(LlamaPlushieBlock::new));
 	//</editor-fold>
 	//<editor-fold desc="Panda">
 	public static final BlockContainer PANDA_PLUSHIE = MakePlushie(PandaPlushieBlock::new);
@@ -2697,6 +2733,8 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer PURPUR_TILE_WALL = MakeWall(PURPUR_TILES).wallModel(PURPUR_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	//<editor-fold desc="Quartz">
+	public static final BlockContainer QUARTZ_ORE = BuildBlock(new OreBlock(Block.Settings.copy(Blocks.EMERALD_ORE), UniformIntProvider.create(2, 5)), DropTable.Ore(Items.QUARTZ)).cubeAllModel().blockTag(ModBlockTags.QUARTZ_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer DEEPSLATE_QUARTZ_ORE = BuildBlock(new OreBlock(Block.Settings.copy(Blocks.DEEPSLATE_EMERALD_ORE), UniformIntProvider.create(2, 5)), DropTable.Ore(Items.QUARTZ)).cubeAllModel().blockTag(ModBlockTags.QUARTZ_ORES).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer QUARTZ_CRYSTAL_BLOCK = MakeBlock(Blocks.QUARTZ_BLOCK).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer QUARTZ_CRYSTAL_STAIRS = MakeStairs(QUARTZ_CRYSTAL_BLOCK).stairsModel(QUARTZ_CRYSTAL_BLOCK).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer QUARTZ_CRYSTAL_SLAB = MakeSlab(QUARTZ_CRYSTAL_BLOCK).slabModel(QUARTZ_CRYSTAL_BLOCK).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -2755,6 +2793,19 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer RUBY_BRICK_STAIRS = MakeStairs(RUBY_BRICKS).stairsModel(RUBY_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer RUBY_BRICK_SLAB = MakeSlab(RUBY_BRICKS).slabModel(RUBY_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer RUBY_BRICK_WALL = MakeWall(RUBY_BRICKS).wallModel(RUBY_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	//</editor-fold>
+	//<editor-fold desc="Sapphire">
+	public static final Item SAPPHIRE = MakeGeneratedItem();
+	public static final BlockContainer SAPPHIRE_ORE = BuildBlock(new OreBlock(Block.Settings.copy(Blocks.EMERALD_ORE), UniformIntProvider.create(3, 7)), DropTable.Ore(SAPPHIRE)).cubeAllModel().blockTag(ModBlockTags.SAPPHIRE_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer DEEPSLATE_SAPPHIRE_ORE = BuildBlock(new OreBlock(Block.Settings.copy(Blocks.DEEPSLATE_EMERALD_ORE), UniformIntProvider.create(3, 7)), DropTable.Ore(SAPPHIRE)).cubeAllModel().blockTag(ModBlockTags.SAPPHIRE_ORES).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_BLOCK = MakeBlock(Block.Settings.copy(Blocks.EMERALD_BLOCK).mapColor(MapColor.BLUE)).cubeAllModel().blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_STAIRS = MakeStairs(SAPPHIRE_BLOCK).stairsModel(SAPPHIRE_BLOCK).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_SLAB = MakeSlab(SAPPHIRE_BLOCK).slabModel(SAPPHIRE_BLOCK).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_WALL = MakeWall(SAPPHIRE_BLOCK).wallModel(SAPPHIRE_BLOCK).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_BRICKS = MakeBlock(SAPPHIRE_BLOCK).cubeAllModel().blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_BRICK_STAIRS = MakeStairs(SAPPHIRE_BRICKS).stairsModel(SAPPHIRE_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_BRICK_SLAB = MakeSlab(SAPPHIRE_BRICKS).slabModel(SAPPHIRE_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer SAPPHIRE_BRICK_WALL = MakeWall(SAPPHIRE_BRICKS).wallModel(SAPPHIRE_BRICKS).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	//<editor-fold desc="Sandstone">
 	public static final BlockContainer SMOOTH_SANDSTONE_WALL = BuildBlock(new ModWallBlock(Blocks.SMOOTH_SANDSTONE)).blockTag(BlockTags.WALLS).itemTag(ItemTags.WALLS).blockTag(BlockTags.PICKAXE_MINEABLE); //TODO: Explicit wall model
@@ -2846,10 +2897,10 @@ public class ModBase implements ModInitializer {
 	public static final Item PINK_SLIME_BOTTLE = GeneratedItem(new BottledSlimeItem(GlassBottledItemSettings()));
 	public static final BlockContainer BLUE_SLIME_BLOCK = BuildBlock(new SlimeBlock(Block.Settings.copy(Blocks.SLIME_BLOCK).mapColor(MapColor.WATER_BLUE))).blockTag(ModBlockTags.SLIME_BLOCKS);
 	public static final BlockContainer PINK_SLIME_BLOCK = BuildBlock(new SlimeBlock(Block.Settings.copy(Blocks.SLIME_BLOCK).mapColor(MapColor.MAGENTA))).blockTag(ModBlockTags.SLIME_BLOCKS);
-	public static final EntityType<TropicalSlimeEntity> TROPICAL_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TropicalSlimeEntity::new).dimensions(EntityDimensions.fixed(2.04f, 2.04f)).trackRangeChunks(10).build();
+	public static final EntityType<TropicalSlimeEntity> TROPICAL_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TropicalSlimeEntity::new).dimensions(EntityDimensions.changing(2.04f, 2.04f)).trackRangeChunks(10).build();
 	public static final Item TROPICAL_SLIME_SPAWN_EGG = MakeSpawnEgg(TROPICAL_SLIME_ENTITY, 0x8FD3FF, 0x345C7A);
 	public static final EntityType<PinkSlimeBallEntity> PINK_SLIME_BALL_ENTITY = FabricEntityTypeBuilder.<PinkSlimeBallEntity>create(SpawnGroup.MISC, PinkSlimeBallEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<PinkSlimeEntity> PINK_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PinkSlimeEntity::new).dimensions(EntityDimensions.fixed(2.04f, 2.04f)).trackRangeChunks(10).build();
+	public static final EntityType<PinkSlimeEntity> PINK_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PinkSlimeEntity::new).dimensions(EntityDimensions.changing(2.04f, 2.04f)).trackRangeChunks(10).build();
 	public static final Item PINK_SLIME_SPAWN_EGG = MakeSpawnEgg(PINK_SLIME_ENTITY, 0xE0A3EE, 0xB85ECE);
 	//Other Mobs
 	public static final Item SLIME_FEATHER = MakeGeneratedItem();
@@ -2858,6 +2909,9 @@ public class ModBase implements ModInitializer {
 
 	public static final EntityType<SlimeCowEntity> SLIME_COW_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SlimeCowEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.4f)).trackRangeChunks(10).build();
 	public static final Item SLIME_COW_SPAWN_EGG = MakeSpawnEgg(SLIME_COW_ENTITY, 5349438, 0x3F3024);
+
+	public static final EntityType<SlimeHorseEntity> SLIME_HORSE_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SlimeHorseEntity::new).dimensions(EntityDimensions.fixed(1.3964844f, 1.6f)).trackRangeChunks(10).build();
+	public static final Item SLIME_HORSE_SPAWN_EGG = MakeSpawnEgg(SLIME_HORSE_ENTITY, 5349438, 0xCFC700);
 
 	public static final EntityType<SlimeSpiderEntity> SLIME_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SlimeSpiderEntity::new).dimensions(EntityDimensions.fixed(1.4f, 0.9f)).trackRangeChunks(8).build();
 	public static final Item SLIME_SPIDER_SPAWN_EGG = MakeSpawnEgg(SLIME_SPIDER_ENTITY, 5349438, 11013646);
@@ -3025,25 +3079,29 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer TORCHFLOWER_CROP = new BlockContainer(TORCHFLOWER_CROP_BLOCK, new AliasedBlockItem(TORCHFLOWER_CROP_BLOCK, ItemSettings(ItemGroup.DECORATIONS))).compostable(0.3f).generatedItemModel().blockTag(BlockTags.CROPS).itemTag(ModItemTags.VILLAGER_PLANTABLE_SEEDS).itemTag(ModItemTags.SEEDS).itemTag(ModItemTags.SNIFFER_FOOD);
 	public static final FlowerContainer TORCHFLOWER = MakeFlower(StatusEffects.NIGHT_VISION, 5, ItemSettings(ItemGroup.DECORATIONS));
 	//</editor-fold>
+	//TODO: Trial Chambers
+	public static final Item TRIAL_KEY = MakeGeneratedItem(ItemSettings(ItemGroup.MISC));
 	//TODO: Armor Trims (1.20)
 	//<editor-fold desc="Trimming Table (Mod solution to 1.20 smithing overhaul)">
 	public static final RecipeType<TrimmingRecipe> TRIMMING_RECIPE_TYPE = RegisterRecipeType("trimming");
 	public static final RecipeSerializer<TrimmingRecipe> TRIMMING_RECIPE_SERIALIZER = new TrimmingRecipe.Serializer();
 	public static final BlockContainer TRIMMING_TABLE = BuildBlock(new TrimmingTableBlock(Blocks.SMITHING_TABLE), new Item.Settings()).blockTag(BlockTags.AXE_MINEABLE); //TODO: Hide from creative menu until it works
-	public static final ScreenHandlerType<TrimmingScreenHandler> TRIMMING_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID("trimming"), TrimmingScreenHandler::new);
+	public static final ScreenHandlerType<TrimmingScreenHandler> TRIMMING_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ModId.ID("trimming"), TrimmingScreenHandler::new);
 	//</editor-fold>
 	//<editor-fold desc="Tuff">
-	public static final BlockContainer TUFF_STAIRS = MakeStairs(Blocks.TUFF).stairsModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_SLAB = MakeSlab(Blocks.TUFF).slabModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_WALL = MakeWall(Blocks.TUFF).wallModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer SMOOTH_TUFF = MakeBlock(Blocks.TUFF).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer SMOOTH_TUFF_STAIRS = MakeStairs(SMOOTH_TUFF).stairsModel(SMOOTH_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer SMOOTH_TUFF_SLAB = MakeSlab(SMOOTH_TUFF).slabModel(SMOOTH_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer SMOOTH_TUFF_WALL = MakeWall(SMOOTH_TUFF).wallModel(SMOOTH_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_BRICKS = MakeBlock(Blocks.TUFF).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_BRICK_STAIRS = MakeStairs(TUFF_BRICKS).stairsModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_BRICK_SLAB = MakeSlab(TUFF_BRICKS).slabModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TUFF_BRICK_WALL = MakeWall(TUFF_BRICKS).wallModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_STAIRS = MakeStairs(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).stairsModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_SLAB = MakeSlab(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).slabModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_WALL = MakeWall(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).wallModel(Blocks.TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer POLISHED_TUFF = MakeBlock(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer POLISHED_TUFF_STAIRS = MakeStairs(POLISHED_TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).stairsModel(POLISHED_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer POLISHED_TUFF_SLAB = MakeSlab(POLISHED_TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).slabModel(POLISHED_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer POLISHED_TUFF_WALL = MakeWall(POLISHED_TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).wallModel(POLISHED_TUFF).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_BRICKS = MakeBlock(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_BRICK_STAIRS = MakeStairs(TUFF_BRICKS, ItemSettings(ItemGroup.BUILDING_BLOCKS)).stairsModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_BRICK_SLAB = MakeSlab(TUFF_BRICKS, ItemSettings(ItemGroup.BUILDING_BLOCKS)).slabModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TUFF_BRICK_WALL = MakeWall(TUFF_BRICKS, ItemSettings(ItemGroup.BUILDING_BLOCKS)).wallModel(TUFF_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer CHISELED_TUFF = MakeBlock(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer CHISELED_TUFF_BRICKS = MakeBlock(Blocks.TUFF, ItemSettings(ItemGroup.BUILDING_BLOCKS)).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer TUFF_TILES = MakeBlock(TUFF_BRICKS).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer TUFF_TILE_STAIRS = MakeStairs(TUFF_TILES).stairsModel(TUFF_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer TUFF_TILE_SLAB = MakeSlab(TUFF_TILES).slabModel(TUFF_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -3103,6 +3161,11 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer WARPED_ENDER_CAMPFIRE = MakeEnderCampfire(WARPED_CAMPFIRE, BlockSoundGroup.NETHER_STEM).blockTag(BlockTags.AXE_MINEABLE);
 	//</editor-fold>
 	public static final BlockContainer WAX_BLOCK = BuildBlock(new WaxBlock(Blocks.HONEYCOMB_BLOCK)).cubeAllModel();
+	//<editor-fold desc="Wildfire">
+	//TODO: Wildfire Mob https://minecraft.wiki/w/Minecraft_Dungeons:Wildfire
+	//TODO: Wildfire Statue
+	public static final Item WILDFIRE_CROWN = ModFactory.MakeHelmet(ModArmorMaterials.WILDFIRE);
+	//</editor-fold>
 	public static final Item WIND_HORN = new WindHornItem(ItemSettings().maxCount(1));
 	//<editor-fold desc="Wood">
 	private static final BucketContainer WOOD_BUCKET_PROVIDER = new BucketContainer(false, false);
@@ -3120,7 +3183,7 @@ public class ModBase implements ModInitializer {
 	//<editor-fold desc="Woodcutting">
 	public static final RecipeType<WoodcuttingRecipe> WOODCUTTING_RECIPE_TYPE = RegisterRecipeType("woodcutting");
 	public static final RecipeSerializer<WoodcuttingRecipe> WOODCUTTING_RECIPE_SERIALIZER = new WoodcuttingRecipeSerializer<>(WoodcuttingRecipe::new);
-	public static final ScreenHandlerType<WoodcutterScreenHandler> WOODCUTTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ID("woodcutter"), WoodcutterScreenHandler::new);
+	public static final ScreenHandlerType<WoodcutterScreenHandler> WOODCUTTER_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ModId.ID("woodcutter"), WoodcutterScreenHandler::new);
 	//</editor-fold>
 	//<editor-fold desc="Wool">
 	public static final Map<DyeColor, BlockContainer> WOOL_SLABS = ColorUtil.Map(color -> { Block block = ColorUtil.GetWoolBlock(color); return MakeSlab(block).flammable(40, 40).fuel(50).slabModel(block).blockTag(ModBlockTags.WOOL_SLABS).itemTag(ModItemTags.WOOL_SLABS); });
@@ -3151,6 +3214,71 @@ public class ModBase implements ModInitializer {
 	public static final Item JUNGLE_ZOMBIE_SPAWN_EGG = MakeSpawnEgg(JUNGLE_ZOMBIE_ENTITY, 0x67BC97, 0x5A8646);
 	public static final EntityType<SlimeZombieEntity> SLIME_ZOMBIE_ENTITY = FabricEntityTypeBuilder.<SlimeZombieEntity>create(SpawnGroup.MONSTER, SlimeZombieEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
 	public static final Item SLIME_ZOMBIE_SPAWN_EGG = MakeSpawnEgg(SLIME_ZOMBIE_ENTITY, 5349438, 0x5A8646);
+	//</editor-fold>
+
+	//<editor-fold desc="Jolly LLamas">
+	public static final EntityType<JollyLlamaEntity> JOLLY_LLAMA_ENTITY = FabricEntityTypeBuilder.<JollyLlamaEntity>create(SpawnGroup.CREATURE, JollyLlamaEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.87f)).trackRangeChunks(10).build();
+	public static final Item JOLLY_LLAMA_SPAWN_EGG = MakeSpawnEgg(JOLLY_LLAMA_ENTITY, 12623485, 0xFF0000);
+	//</editor-fold>
+
+	//<editor-fold desc="Villagers and Illagers">
+	public static final BlockContainer FACETING_TABLE = new BlockContainer(new FacetingTableBlock(Block.Settings.copy(Blocks.STONECUTTER))).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final PointOfInterestType FACETING_TABLE_POI = PointOfInterestTypeAccessor.callCreate("faceting_table_poi", ImmutableSet.copyOf(FACETING_TABLE.asBlock().getStateManager().getStates()), 1, 1);
+	public static final VillagerProfession LAPIDARY = VillagerProfessionAccessor.create("lapidary", FACETING_TABLE_POI, ImmutableSet.of(), ImmutableSet.of(), ModSoundEvents.ENTITY_VILLAGER_WORK_LAPIDARY);
+
+	public static final EntityType<IceologerEntity> ICEOLOGER_ENTITY = FabricEntityTypeBuilder.<IceologerEntity>create(SpawnGroup.MONSTER, IceologerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
+	public static final Item ICEOLOGER_SPAWN_EGG = MakeSpawnEgg(ICEOLOGER_ENTITY, 0x959B9B, 0x01374B);
+	public static final EntityType<IceChunkEntity> ICE_CHUNK_ENTITY = FabricEntityTypeBuilder.<IceChunkEntity>create(SpawnGroup.MISC, IceChunkEntity::new).dimensions(EntityDimensions.fixed(2f, 1.5f)).trackRangeChunks(8).build();
+
+	public static final EntityType<MageEntity> MAGE_ENTITY = FabricEntityTypeBuilder.<MageEntity>create(SpawnGroup.MONSTER, MageEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
+	public static final Item MAGE_SPAWN_EGG = MakeSpawnEgg(MAGE_ENTITY, 0x959B9B, 0x5A1949);
+
+	public static void RegisterVillagers() {
+		//Iceologer
+		Register("iceologer", ICEOLOGER_ENTITY, List.of(EN_US.Iceologer()));
+		FabricDefaultAttributeRegistry.register(ICEOLOGER_ENTITY, IceologerEntity.createSpellcasterAttributes());
+		SpawnRestrictionAccessor.callRegister(ICEOLOGER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canMobSpawn);
+		Register("ice_chunk", ICE_CHUNK_ENTITY, List.of(EN_US.Chunk(EN_US.Ice())));
+		//Mage
+		Register("mage", MAGE_ENTITY, List.of(EN_US.Iceologer()));
+		FabricDefaultAttributeRegistry.register(MAGE_ENTITY, MageEntity.createSpellcasterAttributes());
+		SpawnRestrictionAccessor.callRegister(MAGE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canMobSpawn);
+		//Lapidary Villager
+		Register("faceting_table", FACETING_TABLE, List.of(EN_US.Table(EN_US.Faceting())));
+		PointOfInterestTypeAccessor.callSetup(Register(FACETING_TABLE_POI.getId(), FACETING_TABLE_POI));
+		Register(LAPIDARY.getId(), LAPIDARY);
+		TradeOfferHelper.registerVillagerOffers(LAPIDARY, 1, //Novice
+				factories -> {
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(RUBY, 2), new ItemStack(Items.EMERALD), 12, 1, 0.1f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(RUBY), 12, 1, 0.1f));
+				});
+		TradeOfferHelper.registerVillagerOffers(LAPIDARY, 2, //Apprentice
+				factories -> {
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(SAPPHIRE), new ItemStack(Items.EMERALD), 12, 10, 0.05f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.PRISMARINE_SHARD, 6), new ItemStack(Items.EMERALD), 12, 10, 0.05f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.PRISMARINE_CRYSTALS, 6), new ItemStack(Items.EMERALD), 12, 10, 0.05f));
+				});
+		TradeOfferHelper.registerVillagerOffers(LAPIDARY, 3, //Journeyman
+				factories -> {
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(SAPPHIRE), 12, 10, 0.1f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD), new ItemStack(Items.PRISMARINE_SHARD, 3), 12, 10, 0.05f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD), new ItemStack(Items.PRISMARINE_CRYSTALS, 3), 12, 10, 0.05f));
+				});
+		TradeOfferHelper.registerVillagerOffers(LAPIDARY, 4, //Expert
+				factories -> {
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 4), new ItemStack(ECHO_SHARD), 16, 20, 0.05f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(ECHO_CLUSTER), 16, 20, 0.1f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 2), new ItemStack(Items.AMETHYST_CLUSTER), 16, 20, 0.1f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.AMETHYST_SHARD, 12), new ItemStack(Items.EMERALD), 12, 30, 0.05f));
+				});
+		TradeOfferHelper.registerVillagerOffers(LAPIDARY, 5, //Master
+				factories -> {
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 9), new ItemStack(Items.DIAMOND), 12, 30, 0.2f));
+					factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD), new ItemStack(Items.AMETHYST_BLOCK), 12, 30, 0.05f));
+					//TODO: Enable end crystal trading at some point
+					//factories.add((entity, random) -> new TradeOffer(new ItemStack(Items.EMERALD, 32), new ItemStack(Items.END_CRYSTAL), 1, 60, 0.1f));
+				});
+	}
 	//</editor-fold>
 
 	//<editor-fold desc="Cakes">
@@ -3520,9 +3648,9 @@ public class ModBase implements ModInitializer {
 	public static final BloodType PINK_SLIME_BLOOD_TYPE = BloodType.Register("pink_slime");
 	//</editor-fold>
 	//<editor-fold desc="Special Blood Types">
-	public static final BloodType AVIAN_BLOOD_TYPE = BloodType.Register(NAMESPACE, "avian");
-	public static final BloodType NEPHAL_BLOOD_TYPE = BloodType.Register(NAMESPACE, "nephal");
-	public static final BloodType VAMPIRE_BLOOD_TYPE = BloodType.Register(NAMESPACE, "vampire");
+	public static final BloodType AVIAN_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "avian");
+	public static final BloodType NEPHAL_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "nephal");
+	public static final BloodType VAMPIRE_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "vampire");
 	//</editor-fold>
 	//<editor-fold desc="Syringes">
 	public static final Item SYRINGE = HandheldItem(new EmptySyringeItem(ItemSettings().maxCount(16)));
@@ -3614,12 +3742,36 @@ public class ModBase implements ModInitializer {
 	}), BLOOD_SYRINGE);
 	//</editor-fold>
 
+	//<editor-fold desc="Javelins & Custom Tridents">
+	public static final JavelinItem JAVELIN = GeneratedItem(new JavelinItem(4.0, -2.9f, ModId.ID("textures/entity/projectiles/javelin.png"), ItemSettings().maxDamage(250)));
+	public static final EntityType<JavelinEntity> JAVELIN_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, JavelinEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
+
+	public static final JavelinItem AMETHYST_TRIDENT = GeneratedItem(new AmethystTridentItem(8.0, -2.9f, ModId.ID("textures/entity/projectiles/amethyst_trident.png"), ItemSettings().maxDamage(250)));
+	private static class AmethystTridentItem extends JavelinItem {
+		public AmethystTridentItem(double attackDamage, float attackSpeed, Identifier texture, Settings settings) {
+			super(attackDamage, attackSpeed, texture, settings);
+			this.FACTORY = AmethystTridentEntity::new;
+		}
+	}
+	public static final EntityType<JavelinEntity> AMETHYST_TRIDENT_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, AmethystTridentEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
+	private static class AmethystTridentEntity extends JavelinEntity {
+		public AmethystTridentEntity(EntityType<? extends JavelinEntity> entityType, World world) {
+			super(entityType, world);
+			this.item = AMETHYST_TRIDENT;
+		}
+		public AmethystTridentEntity(World world, LivingEntity owner, ItemStack stack) {
+			super(AMETHYST_TRIDENT_ENTITY, world, owner, stack, AMETHYST_TRIDENT);
+		}
+	}
+	//</editor-fold>
+
 	//<editor-fold desc="Mod Buckets">
 	public static final Item PIRANHA_BUCKET = GeneratedItem(new EntityBucketItem(PIRANHA_ENTITY, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, ItemSettings().maxCount(1)));
 	//</editor-fold>
 	//<editor-fold desc="Pouches">
 	public static final Item CHICKEN_POUCH = GeneratedItem(new ChickenPouchItem(EntityType.CHICKEN, ItemSettings().maxCount(1)).dispensible());
 	public static final Item RABBIT_POUCH = GeneratedItem(new EntityPouchItem(EntityType.RABBIT, ModSoundEvents.ITEM_POUCH_EMPTY_RABBIT, ItemSettings().maxCount(1)).dispensible());
+	public static final Item PARROT_POUCH = GeneratedItem(new EntityPouchItem(EntityType.PARROT, ModSoundEvents.ITEM_POUCH_EMPTY_PARROT, ItemSettings().maxCount(1)).dispensible());
 	public static final Item ENDERMITE_POUCH = GeneratedItem(new EntityPouchItem(EntityType.ENDERMITE, ModSoundEvents.ITEM_POUCH_EMPTY_ENDERMITE, ItemSettings().maxCount(1)).dispensible());
 	public static final Item SILVERFISH_POUCH = GeneratedItem(new EntityPouchItem(EntityType.SILVERFISH, ModSoundEvents.ITEM_POUCH_EMPTY_SILVERFISH, ItemSettings().maxCount(1)).dispensible());
 	//</editor-fold>
@@ -3707,6 +3859,7 @@ public class ModBase implements ModInitializer {
 	//<editor-fold desc="Mod Mob Summoning Arrows">
 	public static final ArrowContainer MELON_GOLEM_SUMMONING_ARROW = ArrowContainer.Summoning(MELON_GOLEM_ENTITY, 0xF0FDFD, 0x7B7F16);
 	public static final ArrowContainer BONE_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(BONE_SPIDER_ENTITY, 0x270F19, 0x632FB7);
+	public static final ArrowContainer ICY_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(ICY_SPIDER_ENTITY, 0x045480, 0x3CFEFB);
 	public static final ArrowContainer SLIME_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_SPIDER_ENTITY, 5349438, 11013646);
 	public static final ArrowContainer HEDGEHOG_SUMMONING_ARROW = ArrowContainer.Summoning(HEDGEHOG_ENTITY, 11440263, 7558239);
 	public static final ArrowContainer RACCOON_SUMMONING_ARROW = ArrowContainer.Summoning(RACCOON_ENTITY, 0x646464, 0x0B0B0B);
@@ -3719,6 +3872,7 @@ public class ModBase implements ModInitializer {
 	public static final ArrowContainer FANCY_CHICKEN_SUMMONING_ARROW = ArrowContainer.Summoning(FANCY_CHICKEN_ENTITY, 0xB788CB, 0xF7B035);
 	public static final ArrowContainer SLIME_CHICKEN_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_CHICKEN_ENTITY, 5349438, 0xFF0000);
 	public static final ArrowContainer SLIME_COW_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_COW_ENTITY, 5349438, 0x3F3024);
+	public static final ArrowContainer SLIME_HORSE_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_HORSE_ENTITY, 5349438, 0xCFC700);
 	public static final ArrowContainer BLUE_MOOSHROOM_SUMMONING_ARROW = ArrowContainer.Summoning(BLUE_MOOSHROOM_ENTITY, 0x0D6794, 0x929292);
 	public static final ArrowContainer NETHER_MOOSHROOM_SUMMONING_ARROW = ArrowContainer.Summoning(NETHER_MOOSHROOM_ENTITY, 0x871116, 0xFF6500);
 	public static final ArrowContainer MOOBLOOM_SUMMONING_ARROW = ArrowContainer.Summoning(MOOBLOOM_ENTITY, 0xFDD500, 0xFDF7BA);
@@ -3733,6 +3887,9 @@ public class ModBase implements ModInitializer {
 	public static final ArrowContainer FROZEN_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(FROZEN_ZOMBIE_ENTITY, 0x78BEDE, 0x5A8684);
 	public static final ArrowContainer JUNGLE_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(JUNGLE_ZOMBIE_ENTITY, 0x67BC97, 0x5A8646);
 	public static final ArrowContainer SLIME_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_ZOMBIE_ENTITY, 5349438, 0x5A8646);
+	public static final ArrowContainer ICEOLOGER_SUMMONING_ARROW = ArrowContainer.Summoning(ICEOLOGER_ENTITY, 5349438, 0x5A8646);
+	public static final ArrowContainer MAGE_SUMMONING_ARROW = ArrowContainer.Summoning(MAGE_ENTITY, 5349438, 0x5A1949);
+	public static final ArrowContainer JOLLY_LLAMA_SUMMONING_ARROW = ArrowContainer.Summoning(JOLLY_LLAMA_ENTITY, 12623485, 0xFF0000);
 	//</editor-fold>
 
 	//Worldgen
@@ -3742,6 +3899,14 @@ public class ModBase implements ModInitializer {
 			OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, RUBY_ORE.asBlock().getDefaultState()),
 			OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_RUBY_ORE.asBlock().getDefaultState())),
 			7)
+	));
+	//</editor-fold>
+	//<editor-fold desc="Sapphire Ore">
+	public static ModConfiguredFeature<?, ?> OVERWORLD_SAPPHIRE_ORE_CONFIGURED = new ModConfiguredFeature<>("ore_ruby_configured", new ConfiguredFeature<>(
+			Feature.ORE, new OreFeatureConfig(List.of(
+			OreFeatureConfig.createTarget(OreFeatureConfig.Rules.STONE_ORE_REPLACEABLES, SAPPHIRE_ORE.asBlock().getDefaultState()),
+			OreFeatureConfig.createTarget(OreFeatureConfig.Rules.DEEPSLATE_ORE_REPLACEABLES, DEEPSLATE_SAPPHIRE_ORE.asBlock().getDefaultState())),
+			5)
 	));
 	//</editor-fold>
 	//<editor-fold desc="Mangrove Swamp">
@@ -3841,9 +4006,9 @@ public class ModBase implements ModInitializer {
 	public static final ModConfiguredFeature<DefaultFeatureConfig, ?> SCULK_VEIN_CONFIGURED = new ModConfiguredFeature<>("minecraft:sculk_vein", new ConfiguredFeature<>(SCULK_VEIN_FEATURE, FeatureConfig.DEFAULT));
 	//</editor-fold>
 	//<editor-fold desc="Biomes">
-	public static final RegistryKey<Biome> MANGROVE_SWAMP = RegistryKey.of(Registry.BIOME_KEY, ID("minecraft:mangrove_swamp"));
-	public static final RegistryKey<Biome> DEEP_DARK = RegistryKey.of(Registry.BIOME_KEY, ID("minecraft:deep_dark"));
-	public static final RegistryKey<Biome> CHERRY_GROVE = RegistryKey.of(Registry.BIOME_KEY, ID("minecraft:cherry_grove"));
+	public static final RegistryKey<Biome> MANGROVE_SWAMP = RegistryKey.of(Registry.BIOME_KEY, ModId.ID("minecraft:mangrove_swamp"));
+	public static final RegistryKey<Biome> DEEP_DARK = RegistryKey.of(Registry.BIOME_KEY, ModId.ID("minecraft:deep_dark"));
+	public static final RegistryKey<Biome> CHERRY_GROVE = RegistryKey.of(Registry.BIOME_KEY, ModId.ID("minecraft:cherry_grove"));
 	public static final Set<RegistryKey<Biome>> CAVE_BIOMES = Set.of(BiomeKeys.LUSH_CAVES, BiomeKeys.DRIPSTONE_CAVES, DEEP_DARK);
 	//</editor-fold>
 
@@ -3853,13 +4018,14 @@ public class ModBase implements ModInitializer {
 	public static final Item RAGDOLL_WAND = GeneratedItem(new RagdollWandItem(ItemSettings()));
 
 	//<editor-fold desc="Origins Powers">
-	public static final PowerType<?> EASY_FREEZE_POWER = new PowerTypeReference<>(ID("easy_freeze"));
-	public static final PowerType<?> IDENTIFIED_SOUNDS_POWER = new PowerTypeReference<>(ID("identified_sounds"));
-	public static final PowerType<?> IS_SKELETON_POWER = new PowerTypeReference<>(ID("is_skeleton"));
-	public static final PowerType<?> IS_PIGLIN_POWER = new PowerTypeReference<>(ID("is_piglin"));
-	public static final PowerType<?> IS_ZOMBIFIED_PIGLIN = new PowerTypeReference<>(ID("is_zombified_piglin"));
-	public static final PowerType<?> SEE_IN_LAVA_POWER = new PowerTypeReference<>(ID("see_in_lava"));
-	public static final PowerType<?> WARDEN_NEUTRAL_POWER = new PowerTypeReference<>(ID("warden_neutral"));
+	public static final PowerType<?> EASY_FREEZE_POWER = new PowerTypeReference<>(ModId.ID("easy_freeze"));
+	public static final PowerType<?> IDENTIFIED_SOUNDS_POWER = new PowerTypeReference<>(ModId.ID("identified_sounds"));
+	public static final PowerType<?> IS_SKELETON_POWER = new PowerTypeReference<>(ModId.ID("is_skeleton"));
+	public static final PowerType<?> IS_PIGLIN_POWER = new PowerTypeReference<>(ModId.ID("is_piglin"));
+	public static final PowerType<?> IS_ZOMBIFIED_PIGLIN = new PowerTypeReference<>(ModId.ID("is_zombified_piglin"));
+	public static final PowerType<?> SEE_IN_LAVA_POWER = new PowerTypeReference<>(ModId.ID("see_in_lava"));
+	public static final PowerType<?> STARE_AT_ENDERMEN_POWER = new PowerTypeReference<>(ModId.ID("stare_at_endermen"));
+	public static final PowerType<?> WARDEN_NEUTRAL_POWER = new PowerTypeReference<>(ModId.ID("warden_neutral"));
 	private static void RegisterOriginsPowers() {
 		Register(BiggerLungsPower::createFactory);
 		Register(BurnForeverPower::createFactory);
@@ -3874,6 +4040,7 @@ public class ModBase implements ModInitializer {
 		Register(DrinkBloodPower::createFactory);
 		Register(DroppableInventoryPower::createFactory);
 		Register(ElytraTexturePower::createFactory);
+		Register(EnableTradePower::createFactory);
 		Register(ExperienceHealingPower::createFactory);
 		Register(ExperienceSiphonPower::createFactory);
 		Register(FireImmunePower::createFactory);
@@ -3883,6 +4050,7 @@ public class ModBase implements ModInitializer {
 		Register(LactoseIntolerantPower::createFactory);
 		Register(LightningRodPower::createFactory);
 		Register(MobHostilityPower::createFactory);
+		Register(PhantomNeutralityPower::createFactory);
 		Register(PreventShiveringPower::createFactory);
 		Register(PulsingSkinGlowPower::createFactory);
 		Register(RecycleArrowsPower::createFactory);
@@ -3902,6 +4070,7 @@ public class ModBase implements ModInitializer {
 		Register(WalkOnPowderSnowPower::createFactory);
 		Register(WardenHeartbeatPower::createFactory);
 		Register(ZombifiedPiglinAllyPower::createFactory);
+		if (ModConfig.REGISTER_HAVEN_MOD) HavenMod.RegisterOriginPowers();
 	}
 	//</editor-fold>
 	private static void RegisterCommands() {
@@ -3915,6 +4084,8 @@ public class ModBase implements ModInitializer {
 		COMMAND.register(NearDeathCommand::register);
 		COMMAND.register(SphereReplaceCommand::register);
 		COMMAND.register(WardenSpawnTrackerCommand::register);
+		//Vanilla Minecraft
+		COMMAND.register((dispatcher, dedicated) -> RaidCommand.register(dispatcher));
 	}
 
 	private static boolean registered = false;
@@ -3927,6 +4098,11 @@ public class ModBase implements ModInitializer {
 		Register("mod_boat", MOD_BOAT_ENTITY, List.of(EN_US.Boat("Mod")));
 		Register("minecraft:chest_boat", CHEST_BOAT_ENTITY, List.of(EN_US.ChestBoat()));
 		Register("mod_chest_boat", MOD_CHEST_BOAT_ENTITY, List.of(EN_US.ChestBoat("Mod")));
+		//</editor-fold>
+		//<editor-fold desc="Minecarts">
+		Register("dispenser_minecart", DISPENSER_MINECART_ENTITY, List.of(EN_US.Dispenser(EN_US.with(EN_US.Minecart()))));
+		Register("dispenser_minecart", DISPENSER_MINECART_ITEM, List.of(EN_US.Dispenser(EN_US.with(EN_US.Minecart()))));
+		DispenserMinecartEntity.OverrideDispenserBehaviors();
 		//</editor-fold>
 		Register("woodcutting", WOODCUTTING_RECIPE_SERIALIZER);
 		//<editor-fold desc="Acacia">
@@ -3953,7 +4129,7 @@ public class ModBase implements ModInitializer {
 		Register("acacia_wood_slab", ACACIA_WOOD_SLAB, List.of(EN_US.Slab(EN_US.Wood(EN_US.Acacia()))));
 		Register("stripped_acacia_wood_slab", STRIPPED_ACACIA_WOOD_SLAB, List.of(EN_US.Slab(EN_US.Wood(EN_US.Acacia(EN_US.Stripped())))));
 		StrippedBlockUtil.Register(ACACIA_WOOD_SLAB, STRIPPED_ACACIA_WOOD_SLAB);
-		Register("light_green_acacia_leaves", LIGHT_GREEN_ACACIA_LEAVES, List.of(EN_US.Leaves(EN_US.Acacia(EN_US.LightGreen()))));
+		Register("light_green_acacia_leaves", LIGHT_GREEN_ACACIA_LEAVES, List.of(EN_US.Leaves(EN_US.Acacia(EN_US.Green(EN_US.Light())))));
 		Register("red_acacia_leaves", RED_ACACIA_LEAVES, List.of(EN_US.Leaves(EN_US.Acacia(EN_US.Red()))));
 		Register("yellow_acacia_leaves", YELLOW_ACACIA_LEAVES, List.of(EN_US.Leaves(EN_US.Acacia(EN_US.Yellow()))));
 		Register("minecraft:acacia_chest_boat", ACACIA_CHEST_BOAT, List.of(EN_US.ChestBoat(EN_US.Acacia())));
@@ -3990,7 +4166,7 @@ public class ModBase implements ModInitializer {
 		Register("birch_wood_slab", BIRCH_WOOD_SLAB, List.of(EN_US.Slab(EN_US.Wood(EN_US.Birch()))));
 		Register("stripped_birch_wood_slab", STRIPPED_BIRCH_WOOD_SLAB, List.of(EN_US.Slab(EN_US.Wood(EN_US.Birch(EN_US.Stripped())))));
 		StrippedBlockUtil.Register(BIRCH_WOOD_SLAB, STRIPPED_BIRCH_WOOD_SLAB);
-		Register("light_green_birch_leaves", LIGHT_GREEN_BIRCH_LEAVES, List.of(EN_US.Leaves(EN_US.Birch(EN_US.LightGreen()))));
+		Register("light_green_birch_leaves", LIGHT_GREEN_BIRCH_LEAVES, List.of(EN_US.Leaves(EN_US.Birch(EN_US.Green(EN_US.Light())))));
 		Register("red_birch_leaves", RED_BIRCH_LEAVES, List.of(EN_US.Leaves(EN_US.Birch(EN_US.Red()))));
 		Register("yellow_birch_leaves", YELLOW_BIRCH_LEAVES, List.of(EN_US.Leaves(EN_US.Birch(EN_US.Yellow()))));
 		Register("white_birch_leaves", WHITE_BIRCH_LEAVES, List.of(EN_US.Leaves(EN_US.Birch(EN_US.White()))));
@@ -4092,7 +4268,7 @@ public class ModBase implements ModInitializer {
 		Register("stripped_oak_wood_slab", STRIPPED_OAK_WOOD_SLAB, List.of(EN_US.Slab(EN_US.Wood(EN_US.Oak(EN_US.Stripped())))));
 		StrippedBlockUtil.Register(OAK_WOOD_SLAB, STRIPPED_OAK_WOOD_SLAB);
 		Register("blue_green_oak_leaves", BLUE_GREEN_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.Green(EN_US.Blue())))));
-		Register("light_green_oak_leaves", LIGHT_GREEN_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.LightGreen()))));
+		Register("light_green_oak_leaves", LIGHT_GREEN_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.Green(EN_US.Light())))));
 		Register("red_oak_leaves", RED_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.Red()))));
 		Register("white_oak_leaves", WHITE_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.White()))));
 		Register("yellow_oak_leaves", YELLOW_OAK_LEAVES, List.of(EN_US.Leaves(EN_US.Oak(EN_US.Yellow()))));
@@ -4361,17 +4537,19 @@ public class ModBase implements ModInitializer {
 		Register("dripstone_tile_wall", DRIPSTONE_TILE_WALL, List.of(EN_US.Wall(EN_US.Tile(EN_US.Dripstone()))));
 		//</editor-fold>
 		//<editor-fold desc="Tuff">
-		Register("tuff_stairs", TUFF_STAIRS, List.of(EN_US.Stairs(EN_US.Tuff())));
-		Register("tuff_slab", TUFF_SLAB, List.of(EN_US.Slab(EN_US.Tuff())));
-		Register("tuff_wall", TUFF_WALL, List.of(EN_US.Wall(EN_US.Tuff())));
-		Register("smooth_tuff", SMOOTH_TUFF, List.of(EN_US.Tuff(EN_US.Smooth())));
-		Register("smooth_tuff_stairs", SMOOTH_TUFF_STAIRS, List.of(EN_US.Stairs(EN_US.Tuff(EN_US.Smooth()))));
-		Register("smooth_tuff_slab", SMOOTH_TUFF_SLAB, List.of(EN_US.Slab(EN_US.Tuff(EN_US.Smooth()))));
-		Register("smooth_tuff_wall", SMOOTH_TUFF_WALL, List.of(EN_US.Wall(EN_US.Tuff(EN_US.Smooth()))));
-		Register("tuff_bricks", TUFF_BRICKS, List.of(EN_US.Bricks(EN_US.Tuff())));
-		Register("tuff_brick_stairs", TUFF_BRICK_STAIRS, List.of(EN_US.Stairs(EN_US.Brick(EN_US.Tuff()))));
-		Register("tuff_brick_slab", TUFF_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Tuff()))));
-		Register("tuff_brick_wall", TUFF_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Tuff()))));
+		Register("minecraft:tuff_stairs", TUFF_STAIRS, List.of(EN_US.Stairs(EN_US.Tuff())));
+		Register("minecraft:tuff_slab", TUFF_SLAB, List.of(EN_US.Slab(EN_US.Tuff())));
+		Register("minecraft:tuff_wall", TUFF_WALL, List.of(EN_US.Wall(EN_US.Tuff())));
+		Register("minecraft:polished_tuff", POLISHED_TUFF, List.of(EN_US.Tuff(EN_US.Polished())));
+		Register("minecraft:polished_tuff_stairs", POLISHED_TUFF_STAIRS, List.of(EN_US.Stairs(EN_US.Tuff(EN_US.Polished()))));
+		Register("minecraft:polished_tuff_slab", POLISHED_TUFF_SLAB, List.of(EN_US.Slab(EN_US.Tuff(EN_US.Polished()))));
+		Register("minecraft:polished_tuff_wall", POLISHED_TUFF_WALL, List.of(EN_US.Wall(EN_US.Tuff(EN_US.Polished()))));
+		Register("minecraft:tuff_bricks", TUFF_BRICKS, List.of(EN_US.Bricks(EN_US.Tuff())));
+		Register("minecraft:tuff_brick_stairs", TUFF_BRICK_STAIRS, List.of(EN_US.Stairs(EN_US.Brick(EN_US.Tuff()))));
+		Register("minecraft:tuff_brick_slab", TUFF_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Tuff()))));
+		Register("minecraft:tuff_brick_wall", TUFF_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Tuff()))));
+		Register("minecraft:chiseled_tuff", CHISELED_TUFF, List.of(EN_US.Tuff(EN_US.Chiseled())));
+		Register("minecraft:chiseled_tuff_bricks", CHISELED_TUFF_BRICKS, List.of(EN_US.Bricks(EN_US.Tuff(EN_US.Chiseled()))));
 		Register("tuff_tiles", TUFF_TILES, List.of(EN_US.Tiles(EN_US.Tuff())));
 		Register("tuff_tile_stairs", TUFF_TILE_STAIRS, List.of(EN_US.Stairs(EN_US.Tile(EN_US.Tuff()))));
 		Register("tuff_tile_slab", TUFF_TILE_SLAB, List.of(EN_US.Slab(EN_US.Tile(EN_US.Tuff()))));
@@ -4557,6 +4735,13 @@ public class ModBase implements ModInitializer {
 		Register("ruby_glass_slab", RUBY_GLASS_SLAB, List.of(EN_US.GlassSlab(EN_US.Ruby())));
 		Register("ruby_glass_trapdoor", RUBY_GLASS_TRAPDOOR, List.of(EN_US.GlassTrapdoor(EN_US.Ruby())));
 		//</editor-fold>
+		//<editor-fold desc="Sapphire Glass">
+		Register("sapphire_goggles", SAPPHIRE_GOGGLES, List.of(EN_US.Goggles(EN_US.Sapphire())));
+		Register("sapphire_glass", SAPPHIRE_GLASS, List.of(EN_US.Glass(EN_US.Sapphire())));
+		Register("sapphire_glass_pane", SAPPHIRE_GLASS_PANE, List.of(EN_US.Pane(EN_US.Glass(EN_US.Sapphire()))));
+		Register("sapphire_glass_slab", SAPPHIRE_GLASS_SLAB, List.of(EN_US.Slab(EN_US.Glass(EN_US.Sapphire()))));
+		Register("sapphire_glass_trapdoor", SAPPHIRE_GLASS_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Glass(EN_US.Sapphire()))));
+		//</editor-fold>
 		//<editor-fold desc="Glass">
 		Register("glass_slab", GLASS_SLAB, List.of(EN_US.Slab(EN_US.Glass())));
 		Register("glass_trapdoor", GLASS_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Glass())));
@@ -4612,6 +4797,19 @@ public class ModBase implements ModInitializer {
 		Register("ruby_brick_wall", RUBY_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Ruby()))));
 		Register("ruby", RUBY, List.of(EN_US.Ruby()));
 		//</editor-fold>
+		//<editor-fold desc="Sapphire">
+		Register("sapphire_ore", SAPPHIRE_ORE, List.of(EN_US.Ore(EN_US.Sapphire())));
+		Register("deepslate_sapphire_ore", DEEPSLATE_SAPPHIRE_ORE, List.of(EN_US.Ore(EN_US.Sapphire(EN_US.Deepslate()))));
+		Register("sapphire_block", SAPPHIRE_BLOCK, List.of(EN_US.Block(EN_US.Sapphire())));
+		Register("sapphire_stairs", SAPPHIRE_STAIRS, List.of(EN_US.Stairs(EN_US.Sapphire())));
+		Register("sapphire_slab", SAPPHIRE_SLAB, List.of(EN_US.Slab(EN_US.Sapphire())));
+		Register("sapphire_wall", SAPPHIRE_WALL, List.of(EN_US.Wall(EN_US.Sapphire())));
+		Register("sapphire_bricks", SAPPHIRE_BRICKS, List.of(EN_US.Bricks(EN_US.Sapphire())));
+		Register("sapphire_brick_stairs", SAPPHIRE_BRICK_STAIRS, List.of(EN_US.Stairs(EN_US.Brick(EN_US.Sapphire()))));
+		Register("sapphire_brick_slab", SAPPHIRE_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Sapphire()))));
+		Register("sapphire_brick_wall", SAPPHIRE_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Sapphire()))));
+		Register("sapphire", SAPPHIRE, List.of(EN_US.Sapphire()));
+		//</editor-fold>
 		//<editor-fold desc="Diamond">
 		Register("diamond_stairs", DIAMOND_STAIRS, List.of(EN_US.Stairs(EN_US.Diamond())));
 		Register("diamond_slab", DIAMOND_SLAB, List.of(EN_US.Slab(EN_US.Diamond())));
@@ -4623,6 +4821,8 @@ public class ModBase implements ModInitializer {
 		Register("diamond_hammer", DIAMOND_HAMMER, List.of(EN_US.Hammer(EN_US.Diamond())));
 		//</editor-fold>
 		//<editor-fold desc="Quartz">
+		Register("quartz_ore", QUARTZ_ORE, List.of(EN_US.Ore(EN_US.Quartz())));
+		Register("deepslate_quartz_ore", DEEPSLATE_QUARTZ_ORE, List.of(EN_US.Ore(EN_US.Quartz(EN_US.Deepslate()))));
 		Register("quartz_crystal_block", QUARTZ_CRYSTAL_BLOCK, List.of(EN_US.Block(EN_US.Crystal(EN_US.Quartz()))));
 		Register("quartz_crystal_stairs", QUARTZ_CRYSTAL_STAIRS, List.of(EN_US.Stairs(EN_US.Crystal(EN_US.Quartz()))));
 		Register("quartz_crystal_slab", QUARTZ_CRYSTAL_SLAB, List.of(EN_US.Slab(EN_US.Crystal(EN_US.Quartz()))));
@@ -4734,8 +4934,15 @@ public class ModBase implements ModInitializer {
 		Register("bone_shard", BONE_SHARD, List.of(EN_US.Shard(EN_US.Bone())));
 		Register("bone_shard_projectile", BONE_SHARD_PROJECTILE_ENTITY, List.of(EN_US.Shard(EN_US.Bone())));
 		//</editor-fold>
+		//<editor-fold desc="Icy Spider">
+		Register("icy_spider", ICY_SPIDER_ENTITY, List.of(EN_US.Spider(EN_US.Icy())));
+		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.ICE_SPIKES, BiomeKeys.SNOWY_TUNDRA, BiomeKeys.SNOWY_MOUNTAINS),
+				SpawnGroup.MONSTER, ICY_SPIDER_ENTITY, 20, 2, 5);
+		FabricDefaultAttributeRegistry.register(ICY_SPIDER_ENTITY, IcySpiderEntity.createIcySpiderAttributes());
+		SpawnRestrictionAccessor.callRegister(ICY_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
+		//</editor-fold>
 		//<editor-fold desc="Slime Spider">
-		Register("slime_spider", SLIME_SPIDER_ENTITY, List.of(EN_US.Spider(EN_US.Slime())));
+		Register("slime_spider", SLIME_SPIDER_ENTITY, List.of(EN_US.Slider()));
 		FabricDefaultAttributeRegistry.register(SLIME_SPIDER_ENTITY, SlimeSpiderEntity.createSlimeSpiderAttributes());
 		SpawnRestrictionAccessor.callRegister(SLIME_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
 		//</editor-fold>
@@ -4985,7 +5192,7 @@ public class ModBase implements ModInitializer {
 		Register("gunpowder_fuse", GUNPOWDER_FUSE, List.of(EN_US.Fuse(EN_US.Gunpowder())));
 		Register("powder_keg", POWDER_KEG_ENTITY, List.of(EN_US.Keg(EN_US.Powder())));
 		Register("hedge_block", HEDGE_BLOCK, List.of(EN_US.Block(EN_US.Hedge())));
-		Register("light_blue_target", LIGHT_BLUE_TARGET, List.of(EN_US.Target(EN_US.LightBlue())));
+		Register("light_blue_target", LIGHT_BLUE_TARGET, List.of(EN_US.Target(EN_US.Blue(EN_US.Light()))));
 		Register("mycelium_roots", MYCELIUM_ROOTS, List.of(EN_US._Potted(EN_US.Roots(EN_US.Mycelium()))));
 		Register("seed_block", SEED_BLOCK, List.of(EN_US.Block(EN_US.Seed())));
 		Register("sugar_block", SUGAR_BLOCK, List.of(EN_US.Block(EN_US.Sugar())));
@@ -4994,6 +5201,9 @@ public class ModBase implements ModInitializer {
 		Register("wax_block", WAX_BLOCK, List.of(EN_US.Block(EN_US.Wax())));
 		Register("wind_horn", WIND_HORN, List.of(EN_US.Horn(EN_US.Wind())));
 		Register("grappling_rod", GRAPPLING_ROD, List.of(EN_US.Rod(EN_US.Grappling())));
+		//</editor-fold>
+		//<editor-fold desc="Wildfire">
+		Register("wildfire_crown", WILDFIRE_CROWN, List.of(EN_US.Crown(EN_US.Wildfire())));
 		//</editor-fold>
 		//<editor-fold desc="Sugar Cane">
 		Register("sugar_cane_block", SUGAR_CANE_BLOCK, List.of(EN_US.Block(EN_US.Cane(EN_US.Sugar()))));
@@ -5188,6 +5398,10 @@ public class ModBase implements ModInitializer {
 		Register("slime_cow", SLIME_COW_ENTITY, List.of(EN_US.Cow(EN_US.Slime())));
 		FabricDefaultAttributeRegistry.register(SLIME_COW_ENTITY, SlimeCowEntity.createCowAttributes());
 		SpawnRestrictionAccessor.callRegister(SLIME_COW_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+
+		Register("slime_horse", SLIME_HORSE_ENTITY, List.of(EN_US.Slorse()));
+		FabricDefaultAttributeRegistry.register(SLIME_HORSE_ENTITY, SlimeHorseEntity.createSlimeHorseAttributes());
+		SpawnRestrictionAccessor.callRegister(SLIME_HORSE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		//Lanterns
 		Register("magma_cube_lantern", MAGMA_CUBE_LANTERN, List.of(EN_US.Lantern(EN_US.Cube(EN_US.Magma()))));
 		Register("slime_lantern", SLIME_LANTERN, List.of(EN_US.Lantern(EN_US.Slime())));
@@ -5248,6 +5462,11 @@ public class ModBase implements ModInitializer {
 		Register("rainbow_sheep", RAINBOW_SHEEP_ENTITY, List.of(EN_US.Sheep(EN_US.Rainbow())));
 		FabricDefaultAttributeRegistry.register(RAINBOW_SHEEP_ENTITY, RainbowSheepEntity.createSheepAttributes());
 		SpawnRestrictionAccessor.callRegister(RAINBOW_SHEEP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
+		//</editor-fold>
+		//<editor-fold desc="Jolly Llama">
+		Register("jolly_llama", JOLLY_LLAMA_ENTITY, List.of(EN_US.Llama(EN_US.Jolly())));
+		FabricDefaultAttributeRegistry.register(JOLLY_LLAMA_ENTITY, LlamaEntity.createLlamaAttributes());
+		SpawnRestrictionAccessor.callRegister(JOLLY_LLAMA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		//</editor-fold>
 		//<editor-fold desc="Chicken Variants">
 		Register("fancy_chicken", FANCY_CHICKEN_ENTITY, List.of(EN_US.Chicken(EN_US.Fancy())));
@@ -5333,10 +5552,10 @@ public class ModBase implements ModInitializer {
 		Register("charred_stairs", CHARRED_STAIRS, List.of(EN_US.Stairs(EN_US.Charred())));
 		Register("charred_slab", CHARRED_SLAB, List.of(EN_US.Slab(EN_US.Charred())));
 		Register("charred_fence", CHARRED_FENCE, List.of(EN_US.Fence(EN_US.Charred())));
-		Register("charred_fence_gate", CHARRED_FENCE_GATE, List.of(EN_US.FenceGate(EN_US.Charred())));
+		Register("charred_fence_gate", CHARRED_FENCE_GATE, List.of(EN_US.Gate(EN_US.Fence(EN_US.Charred()))));
 		Register("charred_door", CHARRED_DOOR, List.of(EN_US.Door(EN_US.Charred())));
 		Register("charred_trapdoor", CHARRED_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Charred())));
-		Register("charred_pressure_plate", CHARRED_PRESSURE_PLATE, List.of(EN_US.PressurePlate(EN_US.Charred())));
+		Register("charred_pressure_plate", CHARRED_PRESSURE_PLATE, List.of(EN_US.Plate(EN_US.Pressure(EN_US.Charred()))));
 		Register("charred_button", CHARRED_BUTTON, List.of(EN_US.Button(EN_US.Charred())));
 		Register("charred", CHARRED_SIGN, List.of(EN_US._Sign(EN_US.Charred())));
 		Register("charred_iron_hanging_sign", "charred_iron_wall_hanging_sign", CHARRED_IRON_HANGING_SIGN, List.of(EN_US._HangingSign(EN_US.Charred(), EN_US.Chain(EN_US.Iron(EN_US.with())))));
@@ -5417,8 +5636,8 @@ public class ModBase implements ModInitializer {
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(MUD_BUCKET, MudCauldronBlock.FillFromBucket(Items.BUCKET));
 		FluidStorage.combinedItemApiProvider(MUD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_MUD_FLUID), FluidConstants.BOTTLE));
 		Register("mud_cauldron", MUD_CAULDRON, List.of(EN_US.Cauldron(EN_US.Mud())));
-		Registry.register(Registry.FLUID, ID("still_mud"), STILL_MUD_FLUID);
-		Registry.register(Registry.FLUID, ID("flowing_mud"), FLOWING_MUD_FLUID);
+		Registry.register(Registry.FLUID, ModId.ID("still_mud"), STILL_MUD_FLUID);
+		Registry.register(Registry.FLUID, ModId.ID("flowing_mud"), FLOWING_MUD_FLUID);
 		Register("mud_fluid_block", MUD_FLUID_BLOCK, List.of(EN_US.Block(EN_US.Fluid(EN_US.Mud()))));
 		//</editor-fold>
 		RegisterBlood();
@@ -5434,10 +5653,10 @@ public class ModBase implements ModInitializer {
 		Register("minecraft:mangrove_stairs", MANGROVE_STAIRS, List.of(EN_US.Stairs(EN_US.Mangrove())));
 		Register("minecraft:mangrove_slab", MANGROVE_SLAB, List.of(EN_US.Slab(EN_US.Mangrove())));
 		Register("minecraft:mangrove_fence", MANGROVE_FENCE, List.of(EN_US.Fence(EN_US.Mangrove())));
-		Register("minecraft:mangrove_fence_gate", MANGROVE_FENCE_GATE, List.of(EN_US.FenceGate(EN_US.Mangrove())));
+		Register("minecraft:mangrove_fence_gate", MANGROVE_FENCE_GATE, List.of(EN_US.Gate(EN_US.Fence(EN_US.Mangrove()))));
 		Register("minecraft:mangrove_door", MANGROVE_DOOR, List.of(EN_US.Door(EN_US.Mangrove())));
 		Register("minecraft:mangrove_trapdoor", MANGROVE_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Mangrove())));
-		Register("minecraft:mangrove_pressure_plate", MANGROVE_PRESSURE_PLATE, List.of(EN_US.PressurePlate(EN_US.Mangrove())));
+		Register("minecraft:mangrove_pressure_plate", MANGROVE_PRESSURE_PLATE, List.of(EN_US.Plate(EN_US.Pressure(EN_US.Mangrove()))));
 		Register("minecraft:mangrove_button", MANGROVE_BUTTON, List.of(EN_US.Button(EN_US.Mangrove())));
 		Register("minecraft:mangrove_roots", MANGROVE_ROOTS, List.of(EN_US.Roots(EN_US.Mangrove())));
 		Register("minecraft:muddy_mangrove_roots", MUDDY_MANGROVE_ROOTS, List.of(EN_US.Muddy(EN_US.Roots(EN_US.Mangrove()))));
@@ -5488,10 +5707,10 @@ public class ModBase implements ModInitializer {
 		Register("minecraft:cherry_stairs", CHERRY_STAIRS, List.of(EN_US.Stairs(EN_US.Cherry())));
 		Register("minecraft:cherry_slab", CHERRY_SLAB, List.of(EN_US.Slab(EN_US.Cherry())));
 		Register("minecraft:cherry_fence", CHERRY_FENCE, List.of(EN_US.Fence(EN_US.Cherry())));
-		Register("minecraft:cherry_fence_gate", CHERRY_FENCE_GATE, List.of(EN_US.FenceGate(EN_US.Cherry())));
+		Register("minecraft:cherry_fence_gate", CHERRY_FENCE_GATE, List.of(EN_US.Gate(EN_US.Fence(EN_US.Cherry()))));
 		Register("minecraft:cherry_door", CHERRY_DOOR, List.of(EN_US.Door(EN_US.Cherry())));
 		Register("minecraft:cherry_trapdoor", CHERRY_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Cherry())));
-		Register("minecraft:cherry_pressure_plate", CHERRY_PRESSURE_PLATE, List.of(EN_US.PressurePlate(EN_US.Cherry())));
+		Register("minecraft:cherry_pressure_plate", CHERRY_PRESSURE_PLATE, List.of(EN_US.Plate(EN_US.Pressure(EN_US.Cherry()))));
 		Register("minecraft:cherry_button", CHERRY_BUTTON, List.of(EN_US.Button(EN_US.Cherry())));
 		Register("minecraft:cherry", CHERRY_SIGN, List.of(EN_US._Sign(EN_US.Cherry())));
 		Register("cherry_iron_hanging_sign", "cherry_iron_wall_hanging_sign", CHERRY_IRON_HANGING_SIGN, List.of(EN_US._HangingSign(EN_US.Cherry(), EN_US.Chain(EN_US.Iron(EN_US.with())))));
@@ -5541,10 +5760,10 @@ public class ModBase implements ModInitializer {
 		Register("cassia_stairs", CASSIA_STAIRS, List.of(EN_US.Stairs(EN_US.Cassia())));
 		Register("cassia_slab", CASSIA_SLAB, List.of(EN_US.Slab(EN_US.Cassia())));
 		Register("cassia_fence", CASSIA_FENCE, List.of(EN_US.Fence(EN_US.Cassia())));
-		Register("cassia_fence_gate", CASSIA_FENCE_GATE, List.of(EN_US.FenceGate(EN_US.Cassia())));
+		Register("cassia_fence_gate", CASSIA_FENCE_GATE, List.of(EN_US.Gate(EN_US.Fence(EN_US.Cassia()))));
 		Register("cassia_door", CASSIA_DOOR, List.of(EN_US.Door(EN_US.Cassia())));
 		Register("cassia_trapdoor", CASSIA_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Cassia())));
-		Register("cassia_pressure_plate", CASSIA_PRESSURE_PLATE, List.of(EN_US.PressurePlate(EN_US.Cassia())));
+		Register("cassia_pressure_plate", CASSIA_PRESSURE_PLATE, List.of(EN_US.Plate(EN_US.Pressure(EN_US.Cassia()))));
 		Register("cassia_button", CASSIA_BUTTON, List.of(EN_US.Button(EN_US.Cassia())));
 		Register("cassia", CASSIA_SIGN, List.of(EN_US._Sign(EN_US.Cassia())));
 		Register("cassia_iron_hanging_sign", "cassia_iron_wall_hanging_sign", CASSIA_IRON_HANGING_SIGN, List.of(EN_US._HangingSign(EN_US.Cassia(), EN_US.Chain(EN_US.Iron(EN_US.with())))));
@@ -5594,10 +5813,10 @@ public class ModBase implements ModInitializer {
 		Register("dogwood_stairs", DOGWOOD_STAIRS, List.of(EN_US.Stairs(EN_US.Dogwood())));
 		Register("dogwood_slab", DOGWOOD_SLAB, List.of(EN_US.Slab(EN_US.Dogwood())));
 		Register("dogwood_fence", DOGWOOD_FENCE, List.of(EN_US.Fence(EN_US.Dogwood())));
-		Register("dogwood_fence_gate", DOGWOOD_FENCE_GATE, List.of(EN_US.FenceGate(EN_US.Dogwood())));
+		Register("dogwood_fence_gate", DOGWOOD_FENCE_GATE, List.of(EN_US.Gate(EN_US.Fence(EN_US.Dogwood()))));
 		Register("dogwood_door", DOGWOOD_DOOR, List.of(EN_US.Door(EN_US.Dogwood())));
 		Register("dogwood_trapdoor", DOGWOOD_TRAPDOOR, List.of(EN_US.Trapdoor(EN_US.Dogwood())));
-		Register("dogwood_pressure_plate", DOGWOOD_PRESSURE_PLATE, List.of(EN_US.PressurePlate(EN_US.Dogwood())));
+		Register("dogwood_pressure_plate", DOGWOOD_PRESSURE_PLATE, List.of(EN_US.Plate(EN_US.Pressure(EN_US.Dogwood()))));
 		Register("dogwood_button", DOGWOOD_BUTTON, List.of(EN_US.Button(EN_US.Dogwood())));
 		Register("dogwood", DOGWOOD_SIGN, List.of(EN_US._Sign(EN_US.Dogwood())));
 		Register("dogwood_iron_hanging_sign", "dogwood_iron_wall_hanging_sign", DOGWOOD_IRON_HANGING_SIGN, List.of(EN_US._HangingSign(EN_US.Dogwood(), EN_US.Chain(EN_US.Iron(EN_US.with())))));
@@ -5638,6 +5857,10 @@ public class ModBase implements ModInitializer {
 		Register("tiki_ender_torch", TIKI_ENDER_TORCH, List.of(EN_US.Torch(EN_US.Ender(EN_US.Tiki()))));
 		Register("tiki_torch_post", TIKI_TORCH_POST, List.of(EN_US.Post(EN_US.Torch(EN_US.Tiki()))));
 		ModBambooRegistry.RegisterBamboo();
+		Register("javelin", JAVELIN, List.of(EN_US.Javelin()));
+		Register("javelin", JAVELIN_ENTITY, List.of(EN_US.Javelin()));
+		Register("amethyst_trident", AMETHYST_TRIDENT, List.of(EN_US.Trident(EN_US.Amethyst())));
+		Register("amethyst_trident", AMETHYST_TRIDENT_ENTITY, List.of(EN_US.Trident(EN_US.Amethyst())));
 		//Mobs
 		ModActivities.Initialize();
 		ModDataHandlers.Initialize();
@@ -5804,6 +6027,8 @@ public class ModBase implements ModInitializer {
 		SpawnRestrictionAccessor.callRegister(RED_PANDA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		//</editor-fold>
 		RegisterFlowers();
+		Register("firing_charge", FIRING_CHARGE, List.of(EN_US.Charge(EN_US.Firing())));
+		Register("minecraft:trial_key", TRIAL_KEY, List.of(EN_US.Key(EN_US.Trial())));
 		Register("minecraft:netherite_upgrade_smithing_template", NETHERITE_UPGRADE_SMITHING_TEMPLATE, List.of(EN_US.Template(EN_US.Smithing(EN_US.Upgrade(EN_US.Netherite())))));
 		Register("trimming", TRIMMING_RECIPE_SERIALIZER);
 		Register("trimming_table", TRIMMING_TABLE, List.of(EN_US.Table(EN_US.Trimming())));
@@ -5837,6 +6062,7 @@ public class ModBase implements ModInitializer {
 		ModLootTables.Initialize();
 		ModParticleTypes.RegisterParticles();
 		RegisterWorldGen();
+		RegisterVillagers();
 		//Wands / Utility Items
 		Register("worldedit_wand", WORLDEDIT_WAND, List.of("World Edit Wand"));
 		Register("worldedit_nav", WORLDEDIT_NAV, List.of("World Edit Nav Tool"));
@@ -5991,7 +6217,10 @@ public class ModBase implements ModInitializer {
 		//</editor-fold>
 	}
 	private static void RegisterIron() {
+		Register("raw_iron_nugget", RAW_IRON_NUGGET, List.of(EN_US.Nugget(EN_US.Iron(EN_US.Raw()))));
 		Register("iron_rod", IRON_ROD, List.of(EN_US.Rod(EN_US.Iron())));
+		Register("nether_iron_ore", NETHER_IRON_ORE, List.of(EN_US.Ore(EN_US.Iron(EN_US.Nether()))));
+		Register("end_iron_ore", END_IRON_ORE, List.of(EN_US.Ore(EN_US.Iron(EN_US.End()))));
 		Register("iron_torch", "iron_wall_torch", IRON_TORCH, List.of(EN_US._Torch(EN_US.Iron())));
 		Register("iron_soul_torch", "iron_soul_wall_torch", IRON_SOUL_TORCH, List.of(EN_US.SoulTorch(EN_US.Iron())));
 		Register("iron_ender_torch", "iron_ender_wall_torch", IRON_ENDER_TORCH, List.of(EN_US.EnderTorch(EN_US.Iron())));
@@ -6018,6 +6247,7 @@ public class ModBase implements ModInitializer {
 	}
 	private static void RegisterGold() {
 		Register("gold_rod", GOLD_ROD, List.of(EN_US.Rod(EN_US.Gold())));
+		Register("end_gold_ore", END_GOLD_ORE, List.of(EN_US.Ore(EN_US.Gold(EN_US.End()))));
 		Register("gold_torch", "gold_wall_torch", GOLD_TORCH, List.of(EN_US._Torch(EN_US.Gold())));
 		Register("gold_soul_torch", "gold_soul_wall_torch", GOLD_SOUL_TORCH, List.of(EN_US.SoulTorch(EN_US.Gold())));
 		Register("gold_ender_torch", "gold_ender_wall_torch", GOLD_ENDER_TORCH, List.of(EN_US.EnderTorch(EN_US.Gold())));
@@ -6081,8 +6311,8 @@ public class ModBase implements ModInitializer {
 		CauldronFluidContent.registerCauldron(BLOOD_CAULDRON, STILL_BLOOD_FLUID, FluidConstants.BOTTLE, LeveledCauldronBlock.LEVEL);
 		CauldronBehavior.EMPTY_CAULDRON_BEHAVIOR.put(BLOOD_BOTTLE, BloodCauldronBlock.FILL_FROM_BOTTLE);
 		FluidStorage.combinedItemApiProvider(BLOOD_BOTTLE).register(context -> new FullItemFluidStorage(context, bottle -> ItemVariant.of(Items.GLASS_BOTTLE), FluidVariant.of(STILL_BLOOD_FLUID), FluidConstants.BOTTLE));
-		Registry.register(Registry.FLUID, ID("still_blood"), STILL_BLOOD_FLUID);
-		Registry.register(Registry.FLUID, ID("flowing_blood"), FLOWING_BLOOD_FLUID);
+		Registry.register(Registry.FLUID, ModId.ID("still_blood"), STILL_BLOOD_FLUID);
+		Registry.register(Registry.FLUID, ModId.ID("flowing_blood"), FLOWING_BLOOD_FLUID);
 		Register("blood_fluid_block", BLOOD_FLUID_BLOCK, List.of(EN_US.Block(EN_US.Fluid(EN_US.Blood()))));
 		//Solid
 		Register("blood_block", BLOOD_BLOCK, List.of(EN_US.Block(EN_US.Blood())));
@@ -6107,27 +6337,27 @@ public class ModBase implements ModInitializer {
 		Register("dragon_breath_syringe", DRAGON_BREATH_SYRINGE, List.of(EN_US.Syringe(EN_US.Breath(EN_US.Dragon()))));
 		Register("experience_syringe", EXPERIENCE_SYRINGE, List.of(EN_US.Syringe(EN_US.Experience())));
 		Register("honey_syringe", HONEY_SYRINGE, List.of(EN_US.Syringe(EN_US.Honey())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BloodType.HONEY, HONEY_SYRINGE);
+		BloodType.RegisterBloodType(BloodType.HONEY, HONEY_SYRINGE);
 		Register("lava_syringe", LAVA_SYRINGE, List.of(EN_US.Syringe(EN_US.Lava())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BloodType.LAVA, LAVA_SYRINGE);
+		BloodType.RegisterBloodType(BloodType.LAVA, LAVA_SYRINGE);
 		Register("magma_cream_syringe", MAGMA_CREAM_SYRINGE, List.of(EN_US.Syringe(EN_US.Cream(EN_US.Magma()))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(MAGMA_CREAM_BLOOD_TYPE, MAGMA_CREAM_SYRINGE);
+		BloodType.RegisterBloodType(MAGMA_CREAM_BLOOD_TYPE, MAGMA_CREAM_SYRINGE);
 		Register("mud_syringe", MUD_SYRINGE, List.of(EN_US.Syringe(EN_US.Mud())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BloodType.MUD, MUD_SYRINGE);
+		BloodType.RegisterBloodType(BloodType.MUD, MUD_SYRINGE);
 		Register("sap_syringe", SAP_SYRINGE, List.of(EN_US.Syringe(EN_US.Sap())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BloodType.SAP, SAP_SYRINGE);
+		BloodType.RegisterBloodType(BloodType.SAP, SAP_SYRINGE);
 		Register("slime_syringe", SLIME_SYRINGE, List.of(EN_US.Syringe(EN_US.Slime())));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(SLIME_BLOOD_TYPE, SLIME_SYRINGE);
+		BloodType.RegisterBloodType(SLIME_BLOOD_TYPE, SLIME_SYRINGE);
 		Register("blue_slime_syringe", BLUE_SLIME_SYRINGE, List.of(EN_US.Syringe(EN_US.Slime(EN_US.Blue()))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(BLUE_SLIME_BLOOD_TYPE, BLUE_SLIME_SYRINGE);
+		BloodType.RegisterBloodType(BLUE_SLIME_BLOOD_TYPE, BLUE_SLIME_SYRINGE);
 		Register("pink_slime_syringe", PINK_SLIME_SYRINGE, List.of(EN_US.Syringe(EN_US.Slime(EN_US.Pink()))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(PINK_SLIME_BLOOD_TYPE, PINK_SLIME_SYRINGE);
+		BloodType.RegisterBloodType(PINK_SLIME_BLOOD_TYPE, PINK_SLIME_SYRINGE);
 		Register("water_syringe", WATER_SYRINGE, List.of(EN_US.Syringe(EN_US.Water())));
 		//Special Blood Types
 		Register("nephal_blood_syringe", NEPHAL_BLOOD_SYRINGE, List.of(EN_US.Syringe(EN_US.Blood(EN_US.Nephal()))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(NEPHAL_BLOOD_TYPE, NEPHAL_BLOOD_SYRINGE);
+		BloodType.RegisterBloodType(NEPHAL_BLOOD_TYPE, NEPHAL_BLOOD_SYRINGE);
 		Register("vampire_blood_syringe", VAMPIRE_BLOOD_SYRINGE, List.of(EN_US.Syringe(EN_US.Blood(EN_US.Vampire()))));
-		BloodType.BLOOD_TYPE_TO_SYRINGE.put(VAMPIRE_BLOOD_TYPE, VAMPIRE_BLOOD_SYRINGE);
+		BloodType.RegisterBloodType(VAMPIRE_BLOOD_TYPE, VAMPIRE_BLOOD_SYRINGE);
 		//</editor-fold>
 	}
 	private static void RegisterFlowers() {
@@ -6322,7 +6552,7 @@ public class ModBase implements ModInitializer {
 		Register("golden_potato", GOLDEN_POTATO, List.of(EN_US.Potato(EN_US.Golden())));
 		Register("golden_baked_potato", GOLDEN_BAKED_POTATO, List.of(EN_US.BakedPotato(EN_US.Golden())));
 		Register("golden_beetroot", GOLDEN_BEETROOT, List.of(EN_US.Beetroot(EN_US.Golden())));
-		Register("golden_chorus_fruit", GOLDEN_CHORUS_FRUIT, List.of(EN_US.ChorusFruit(EN_US.Golden())));
+		Register("golden_chorus_fruit", GOLDEN_CHORUS_FRUIT, List.of(EN_US.Fruit(EN_US.Chorus(EN_US.Golden()))));
 		Register("golden_tomato", GOLDEN_TOMATO, List.of(EN_US.Tomato(EN_US.Golden())));
 		Register("golden_onion", GOLDEN_ONION, List.of(EN_US.Onion(EN_US.Golden())));
 		Register("golden_egg", GOLDEN_EGG, List.of(EN_US.Egg(EN_US.Golden())));
@@ -6504,6 +6734,9 @@ public class ModBase implements ModInitializer {
 		//Ruby Ore
 		OVERWORLD_RUBY_ORE_CONFIGURED.Initialize();
 		//BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, OVERWORLD_RUBY_ORE_CONFIGURED.getIdentifier()));
+		//Sapphire Ore
+		OVERWORLD_SAPPHIRE_ORE_CONFIGURED.Initialize();
+		//BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.UNDERGROUND_ORES, RegistryKey.of(Registry.CONFIGURED_FEATURE_KEY, OVERWORLD_SAPPHIRE_ORE_CONFIGURED.getIdentifier()));
 		//Mangrove
 		Register("mangrove_tree", MANGROVE_TREE_FEATURE);
 		MANGROVE_CONFIGURED.Initialize();
@@ -6524,7 +6757,7 @@ public class ModBase implements ModInitializer {
 		GRAPE_TREE.Initialize();
 		GRAPE_TREE_BEES.Initialize();
 		//Gilded Fungus
-		BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, ID("gilded_forest_vegetation"), GILDED_FOREST_VEGETATION_CONFIGURED);
+		BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_FEATURE, ModId.ID("gilded_forest_vegetation"), GILDED_FOREST_VEGETATION_CONFIGURED);
 		GILDED_FUNGI.Initialize();
 		GILDED_FUNGI_PLANTED.Initialize();
 		//Sculk
@@ -6856,6 +7089,7 @@ public class ModBase implements ModInitializer {
 		//<editor-fold desc="Llama">
 		Register("brown_llama_plushie", BROWN_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Brown()))));
 		Register("brown_trader_llama_plushie", BROWN_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.Brown())))));
+		Register("brown_jolly_llama_plushie", BROWN_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.Brown())))));
 		Register("rainbow_carpeted_brown_llama_plushie", RAINBOW_CARPETED_BROWN_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Brown(EN_US.Carpeted(EN_US.Rainbow()))))));
 		Register("moss_carpeted_brown_llama_plushie", MOSS_CARPETED_BROWN_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Brown(EN_US.Carpeted(EN_US.Moss()))))));
 		Register("glow_lichen_carpeted_brown_llama_plushie", GLOW_LICHEN_CARPETED_BROWN_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Brown(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
@@ -6868,6 +7102,7 @@ public class ModBase implements ModInitializer {
 		}
 		Register("creamy_llama_plushie", CREAMY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Creamy()))));
 		Register("creamy_trader_llama_plushie", CREAMY_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.Creamy())))));
+		Register("creamy_jolly_llama_plushie", CREAMY_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.Creamy())))));
 		Register("rainbow_carpeted_creamy_llama_plushie", RAINBOW_CARPETED_CREAMY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Creamy(EN_US.Carpeted(EN_US.Rainbow()))))));
 		Register("moss_carpeted_creamy_llama_plushie", MOSS_CARPETED_CREAMY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Creamy(EN_US.Carpeted(EN_US.Moss()))))));
 		Register("glow_lichen_carpeted_creamy_llama_plushie", GLOW_LICHEN_CARPETED_CREAMY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Creamy(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
@@ -6880,6 +7115,7 @@ public class ModBase implements ModInitializer {
 		}
 		Register("gray_llama_plushie", GRAY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Gray()))));
 		Register("gray_trader_llama_plushie", GRAY_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.Gray())))));
+		Register("gray_jolly_llama_plushie", GRAY_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.Gray())))));
 		Register("rainbow_carpeted_gray_llama_plushie", RAINBOW_CARPETED_GRAY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Gray(EN_US.Carpeted(EN_US.Rainbow()))))));
 		Register("moss_carpeted_gray_llama_plushie", MOSS_CARPETED_GRAY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Gray(EN_US.Carpeted(EN_US.Moss()))))));
 		Register("glow_lichen_carpeted_gray_llama_plushie", GLOW_LICHEN_CARPETED_GRAY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Gray(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
@@ -6892,6 +7128,7 @@ public class ModBase implements ModInitializer {
 		}
 		Register("white_llama_plushie", WHITE_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.White()))));
 		Register("white_trader_llama_plushie", WHITE_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.White())))));
+		Register("white_jolly_llama_plushie", WHITE_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.White())))));
 		Register("rainbow_carpeted_white_llama_plushie", RAINBOW_CARPETED_WHITE_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.White(EN_US.Carpeted(EN_US.Rainbow()))))));
 		Register("moss_carpeted_white_llama_plushie", MOSS_CARPETED_WHITE_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.White(EN_US.Carpeted(EN_US.Moss()))))));
 		Register("glow_lichen_carpeted_white_llama_plushie", GLOW_LICHEN_CARPETED_WHITE_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.White(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
@@ -6904,6 +7141,7 @@ public class ModBase implements ModInitializer {
 		}
 		Register("mocha_llama_plushie", MOCHA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha()))));
 		Register("mocha_trader_llama_plushie", MOCHA_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.Mocha())))));
+		Register("mocha_jolly_llama_plushie", MOCHA_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.Mocha())))));
 		Register("rainbow_carpeted_mocha_llama_plushie", RAINBOW_CARPETED_MOCHA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha(EN_US.Carpeted(EN_US.Rainbow()))))));
 		Register("moss_carpeted_mocha_llama_plushie", MOSS_CARPETED_MOCHA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha(EN_US.Carpeted(EN_US.Moss()))))));
 		Register("glow_lichen_carpeted_mocha_llama_plushie", GLOW_LICHEN_CARPETED_MOCHA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
@@ -6913,6 +7151,19 @@ public class ModBase implements ModInitializer {
 		Register("mint_carpeted_mocha_llama_plushie", MINT_CARPETED_MOCHA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha(EN_US.Carpeted(EN_US.Mint()))))));
 		for (DyeColor color : DyeColor.values()) {
 			Register(color.getName() + "_carpeted_mocha_llama_plushie", CARPETED_MOCHA_LLAMA_PLUSHIES.get(color), List.of(EN_US.Plushie(EN_US.Llama(EN_US.Mocha(EN_US.Carpeted(EN_US.Color(color)))))));
+		}
+		Register("cocoa_llama_plushie", COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa()))));
+		Register("cocoa_trader_llama_plushie", COCOA_TRADER_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Trader(EN_US.Cocoa())))));
+		Register("cocoa_jolly_llama_plushie", COCOA_JOLLY_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Jolly(EN_US.Cocoa())))));
+		Register("rainbow_carpeted_cocoa_llama_plushie", RAINBOW_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Rainbow()))))));
+		Register("moss_carpeted_cocoa_llama_plushie", MOSS_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Moss()))))));
+		Register("glow_lichen_carpeted_cocoa_llama_plushie", GLOW_LICHEN_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Lichen(EN_US.Glow())))))));
+		Register("beige_carpeted_cocoa_llama_plushie", BEIGE_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Beige()))))));
+		Register("burgundy_carpeted_cocoa_llama_plushie", BURGUNDY_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Burgundy()))))));
+		Register("lavender_carpeted_cocoa_llama_plushie", LAVENDER_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Lavender()))))));
+		Register("mint_carpeted_cocoa_llama_plushie", MINT_CARPETED_COCOA_LLAMA_PLUSHIE, List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Mint()))))));
+		for (DyeColor color : DyeColor.values()) {
+			Register(color.getName() + "_carpeted_cocoa_llama_plushie", CARPETED_COCOA_LLAMA_PLUSHIES.get(color), List.of(EN_US.Plushie(EN_US.Llama(EN_US.Cocoa(EN_US.Carpeted(EN_US.Color(color)))))));
 		}
 		//</editor-fold>
 		//<editor-fold desc="Panda">
@@ -7072,7 +7323,7 @@ public class ModBase implements ModInitializer {
 		Register("sandy_sandy_prismarine", SANDY_SANDY_PRISMARINE, List.of(EN_US.Prismarine(EN_US.Sandy(EN_US.Sandy()))));
 		Register("sandy_sandy_prismarine_slab", SANDY_SANDY_PRISMARINE_SLAB, List.of(EN_US.Slab(EN_US.Prismarine(EN_US.Sandy(EN_US.Sandy())))));
 		Register("sandy_prismarine_bricks", SANDY_PRISMARINE_BRICKS, List.of(EN_US.Bricks(EN_US.Prismarine(EN_US.Sandy()))));
-		Register("sandy_prismarine_brick_slab", SANDY_PRISMARINE_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Bricks(EN_US.Prismarine(EN_US.Sandy())))));
+		Register("sandy_prismarine_brick_slab", SANDY_PRISMARINE_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Prismarine(EN_US.Sandy())))));
 		Register("sandy_chiseled_prismarine_bricks", SANDY_CHISELED_PRISMARINE_BRICKS, List.of(EN_US.Bricks(EN_US.Prismarine(EN_US.Chiseled(EN_US.Sandy())))));
 		Register("sandy_dark_prismarine", SANDY_DARK_PRISMARINE, List.of(EN_US.Prismarine(EN_US.Dark(EN_US.Sandy()))));
 		Register("sandy_dark_prismarine_slab", SANDY_DARK_PRISMARINE_SLAB, List.of(EN_US.Slab(EN_US.Prismarine(EN_US.Dark(EN_US.Sandy())))));
@@ -7083,7 +7334,7 @@ public class ModBase implements ModInitializer {
 		Register("sandy_purpur_block", SANDY_PURPUR_BLOCK, List.of(EN_US.Block(EN_US.Purpur(EN_US.Sandy()))));
 		Register("sandy_purpur_block_slab", SANDY_PURPUR_SLAB, List.of(EN_US.Slab(EN_US.Block(EN_US.Purpur(EN_US.Sandy())))));
 		Register("sandy_purpur_bricks", SANDY_PURPUR_BRICKS, List.of(EN_US.Bricks(EN_US.Purpur(EN_US.Sandy()))));
-		Register("sandy_purpur_brick_slab", SANDY_PURPUR_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Bricks(EN_US.Purpur(EN_US.Sandy())))));
+		Register("sandy_purpur_brick_slab", SANDY_PURPUR_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Purpur(EN_US.Sandy())))));
 		Register("sandy_smooth_purpur", SANDY_SMOOTH_PURPUR, List.of(EN_US.Purpur(EN_US.Smooth(EN_US.Sandy()))));
 		Register("sandy_smooth_purpur_slab", SANDY_SMOOTH_PURPUR_SLAB, List.of(EN_US.Slab(EN_US.Purpur(EN_US.Smooth(EN_US.Sandy())))));
 		Register("sandy_chiseled_purpur", SANDY_CHISELED_PURPUR, List.of(EN_US.Purpur(EN_US.Chiseled(EN_US.Sandy()))));
@@ -7166,7 +7417,7 @@ public class ModBase implements ModInitializer {
 		Register("red_sandy_sandy_prismarine", RED_SANDY_SANDY_PRISMARINE, List.of(EN_US.Prismarine(EN_US.Sandy(EN_US.Sandy(EN_US.Red())))));
 		Register("red_sandy_sandy_prismarine_slab", RED_SANDY_SANDY_PRISMARINE_SLAB, List.of(EN_US.Slab(EN_US.Prismarine(EN_US.Sandy(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_prismarine_bricks", RED_SANDY_PRISMARINE_BRICKS, List.of(EN_US.Bricks(EN_US.Prismarine(EN_US.Sandy(EN_US.Red())))));
-		Register("red_sandy_prismarine_brick_slab", RED_SANDY_PRISMARINE_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Bricks(EN_US.Prismarine(EN_US.Sandy(EN_US.Red()))))));
+		Register("red_sandy_prismarine_brick_slab", RED_SANDY_PRISMARINE_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Prismarine(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_chiseled_prismarine_bricks", RED_SANDY_CHISELED_PRISMARINE_BRICKS, List.of(EN_US.Bricks(EN_US.Prismarine(EN_US.Chiseled(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_dark_prismarine", RED_SANDY_DARK_PRISMARINE, List.of(EN_US.Prismarine(EN_US.Dark(EN_US.Sandy(EN_US.Red())))));
 		Register("red_sandy_dark_prismarine_slab", RED_SANDY_DARK_PRISMARINE_SLAB, List.of(EN_US.Slab(EN_US.Prismarine(EN_US.Dark(EN_US.Sandy(EN_US.Red()))))));
@@ -7177,7 +7428,7 @@ public class ModBase implements ModInitializer {
 		Register("red_sandy_purpur_block", RED_SANDY_PURPUR_BLOCK, List.of(EN_US.Block(EN_US.Purpur(EN_US.Sandy(EN_US.Red())))));
 		Register("red_sandy_purpur_block_slab", RED_SANDY_PURPUR_SLAB, List.of(EN_US.Slab(EN_US.Block(EN_US.Purpur(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_purpur_bricks", RED_SANDY_PURPUR_BRICKS, List.of(EN_US.Bricks(EN_US.Purpur(EN_US.Sandy(EN_US.Red())))));
-		Register("red_sandy_purpur_brick_slab", RED_SANDY_PURPUR_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Bricks(EN_US.Purpur(EN_US.Sandy(EN_US.Red()))))));
+		Register("red_sandy_purpur_brick_slab", RED_SANDY_PURPUR_BRICK_SLAB, List.of(EN_US.Slab(EN_US.Brick(EN_US.Purpur(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_smooth_purpur", RED_SANDY_SMOOTH_PURPUR, List.of(EN_US.Purpur(EN_US.Smooth(EN_US.Sandy(EN_US.Red())))));
 		Register("red_sandy_smooth_purpur_slab", RED_SANDY_SMOOTH_PURPUR_SLAB, List.of(EN_US.Slab(EN_US.Purpur(EN_US.Smooth(EN_US.Sandy(EN_US.Red()))))));
 		Register("red_sandy_chiseled_purpur", RED_SANDY_CHISELED_PURPUR, List.of(EN_US.Purpur(EN_US.Chiseled(EN_US.Sandy(EN_US.Red())))));
@@ -7211,6 +7462,7 @@ public class ModBase implements ModInitializer {
 		Register("pouch", POUCH, List.of(EN_US.Pouch()));
 		Register("chicken_pouch", CHICKEN_POUCH, List.of(EN_US.Chicken(EN_US.of(EN_US.Pouch()))));
 		Register("rabbit_pouch", RABBIT_POUCH, List.of(EN_US.Rabbit(EN_US.of(EN_US.Pouch()))));
+		Register("parrot_pouch", PARROT_POUCH, List.of(EN_US.Parrot(EN_US.of(EN_US.Pouch()))));
 		Register("endermite_pouch", ENDERMITE_POUCH, List.of(EN_US.Endermite(EN_US.of(EN_US.Pouch()))));
 		Register("silverfish_pouch", SILVERFISH_POUCH, List.of(EN_US.Silverfish(EN_US.of(EN_US.Pouch()))));
 		Register("hedgehog_pouch", HEDGEHOG_POUCH, List.of(EN_US.Hedgehog(EN_US.of(EN_US.Pouch()))));
@@ -7309,7 +7561,8 @@ public class ModBase implements ModInitializer {
 		//<editor-fold desc="Mod Mob Summoning Arrows">
 		Register("melon_golem_summoning_arrow", MELON_GOLEM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Golem(EN_US.Melon())))));
 		Register("bone_spider_summoning_arrow", BONE_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Bone())))));
-		Register("slime_spider_summoning_arrow", SLIME_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Slime())))));
+		Register("icy_spider_summoning_arrow", ICY_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Icy())))));
+		Register("slime_spider_summoning_arrow", SLIME_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slider()))));
 		Register("hedgehog_summoning_arrow", HEDGEHOG_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Hedgehog()))));
 		Register("raccoon_summoning_arrow", RACCOON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Raccoon()))));
 		Register("red_panda_summoning_arrow", RED_PANDA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Panda(EN_US.Red())))));
@@ -7332,9 +7585,13 @@ public class ModBase implements ModInitializer {
 		Register("pink_slime_summoning_arrow", PINK_SLIME_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slime(EN_US.Pink())))));
 		Register("slime_chicken_summoning_arrow", SLIME_CHICKEN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slicken()))));
 		Register("slime_cow_summoning_arrow", SLIME_COW_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cow(EN_US.Slime())))));
+		Register("slime_horse_summoning_arrow", SLIME_HORSE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slorse()))));
 		Register("frozen_zombie_summoning_arrow", FROZEN_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Frozen())))));
 		Register("jungle_zombie_summoning_arrow", JUNGLE_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Jungle())))));
 		Register("slime_zombie_summoning_arrow", SLIME_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Slime())))));
+		Register("iceologer_summoning_arrow", ICEOLOGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Iceologer()))));
+		Register("mage_summoning_arrow", MAGE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mage()))));
+		Register("jolly_llama_summoning_arrow", JOLLY_LLAMA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Llama(EN_US.Jolly())))));
 		//</editor-fold>
 	}
 	private static void RegisterSpawnEggs() {
@@ -7347,6 +7604,8 @@ public class ModBase implements ModInitializer {
 		//</editor-fold>
 		//<editor-fold desc="Mod Mob Spawn Eggs">
 		Register("bone_spider_spawn_egg", BONE_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Spider(EN_US.Bone())))));
+		Register("icy_spider_spawn_egg", ICY_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Spider(EN_US.Icy())))));
+		Register("slime_spider_spawn_egg", SLIME_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slider()))));
 		Register("hedgehog_spawn_egg", HEDGEHOG_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Hedgehog()))));
 		Register("raccoon_spawn_egg", RACCOON_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Raccoon()))));
 		Register("red_panda_spawn_egg", RED_PANDA_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Panda(EN_US.Red())))));
@@ -7369,9 +7628,13 @@ public class ModBase implements ModInitializer {
 		Register("pink_slime_spawn_egg", PINK_SLIME_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slime(EN_US.Pink())))));
 		Register("slime_chicken_spawn_egg", SLIME_CHICKEN_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slicken()))));
 		Register("slime_cow_spawn_egg", SLIME_COW_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Cow(EN_US.Slime())))));
+		Register("slime_horse_spawn_egg", SLIME_HORSE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slorse()))));
 		Register("frozen_zombie_spawn_egg", FROZEN_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Frozen())))));
 		Register("jungle_zombie_spawn_egg", JUNGLE_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Jungle())))));
 		Register("slime_zombie_spawn_egg", SLIME_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Slime())))));
+		Register("iceologer_spawn_egg", ICEOLOGER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Iceologer()))));
+		Register("mage_spawn_egg", MAGE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Mage()))));
+		Register("jolly_llama_spawn_egg", JOLLY_LLAMA_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Llama(EN_US.Jolly())))));
 		//</editor-fold>
 		//Add dispenser behavior (will override existing spawn egg behaviors but those really shouldn't be different anyway????
 		ItemDispenserBehavior itemDispenserBehavior = new ItemDispenserBehavior() {
@@ -7587,7 +7850,7 @@ public class ModBase implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Wich Pack Initializing");
+		ModId.LOGGER.info("Wich Pack Initializing");
 		RegisterAll();
 	}
 

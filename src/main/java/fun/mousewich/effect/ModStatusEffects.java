@@ -29,6 +29,7 @@ public class ModStatusEffects {
 	public static final StatusEffect STICKY = new StickyEffect();
 	//Goggles
 	public static final StatusEffect RUBY_GOGGLES = new GogglesEffect(0xA00A34).milkImmune();
+	public static final StatusEffect SAPPHIRE_GOGGLES = new GogglesEffect(0x1870C7).milkImmune();
 	public static final StatusEffect TINTED_GOGGLES = new GogglesEffect(0x6F4FAB).milkImmune();
 
 	public static void RegisterEffects() {
@@ -44,6 +45,7 @@ public class ModStatusEffects {
 		//Goggles
 		Register("tinted_goggles", TINTED_GOGGLES, List.of(EN_US.Goggles(EN_US.Tinted())));
 		Register("ruby_goggles", RUBY_GOGGLES, List.of(EN_US.Goggles(EN_US.Ruby())));
+		Register("sapphire_goggles", SAPPHIRE_GOGGLES, List.of(EN_US.Goggles(EN_US.Sapphire())));
 		//Minecraft
 		Register("minecraft:darkness", DARKNESS, List.of(EN_US.Darkness())); //1.19
 		Register("dense_brew", DENSE_BREW, List.of(EN_US.Brew(EN_US.Dense()))); //Dungeons

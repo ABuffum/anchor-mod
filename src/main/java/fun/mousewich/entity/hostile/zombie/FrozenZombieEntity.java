@@ -56,16 +56,12 @@ public class FrozenZombieEntity extends ZombieEntity implements RangedAttackMob,
 		}
 	}
 
-	private static boolean targetSlowed(LivingEntity target) {
-		return target != null && (target.hasStatusEffect(StatusEffects.SLOWNESS) || FreezeConversionEntity.InPowderSnow(target));
-	}
-
 	public static class FrozenZombieAttackGoal extends ZombieAttackGoal {
 		public FrozenZombieAttackGoal(ZombieEntity zombie, double speed, boolean pauseWhenMobIdle) { super(zombie, speed, pauseWhenMobIdle); }
 		@Override
-		public boolean canStart() { return super.canStart() && targetSlowed(this.mob.getTarget()); }
+		public boolean canStart() { return super.canStart() && SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
 		@Override
-		public boolean shouldContinue() { return super.shouldContinue() && targetSlowed(this.mob.getTarget()); }
+		public boolean shouldContinue() { return super.shouldContinue() && SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
 	}
 	public static class FrozenZombieProjectileAttackGoal extends ProjectileAttackGoal {
 		private final MobEntity mob;
@@ -74,9 +70,9 @@ public class FrozenZombieEntity extends ZombieEntity implements RangedAttackMob,
 			this.mob = mob;
 		}
 		@Override
-		public boolean canStart() { return super.canStart() && !targetSlowed(this.mob.getTarget()); }
+		public boolean canStart() { return super.canStart() && !SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
 		@Override
-		public boolean shouldContinue() { return super.shouldContinue() && !targetSlowed(this.mob.getTarget()); }
+		public boolean shouldContinue() { return super.shouldContinue() && !SlowingSnowballEntity.targetSlowed(this.mob.getTarget()); }
 	}
 
 	public static boolean canSpawn(EntityType<FrozenZombieEntity> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
