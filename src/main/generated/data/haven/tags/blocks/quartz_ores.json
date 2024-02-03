@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:deepslate_quartz_ore",
-    "haven:quartz_ore"
+    "haven:quartz_ore",
+    "haven:deepslate_quartz_ore"
   ]
 }

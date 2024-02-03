@@ -1,21 +1,21 @@
 {
   "replace": false,
   "values": [
+    "haven:mushroom_stem_stairs",
     "minecraft:bamboo_stairs",
+    "minecraft:cherry_stairs",
+    "haven:hay_stairs",
+    "minecraft:bamboo_mosaic_stairs",
+    "haven:dogwood_stairs",
+    "haven:blue_mushroom_stairs",
     "haven:brown_mushroom_stairs",
     "haven:dried_bamboo_mosaic_stairs",
+    "haven:red_mushroom_stairs",
+    "haven:charred_stairs",
+    "minecraft:mangrove_stairs",
+    "haven:dried_bamboo_stairs",
     "haven:sugar_cane_stairs",
     "haven:cassia_stairs",
-    "haven:red_mushroom_stairs",
-    "haven:hay_stairs",
-    "haven:mushroom_stem_stairs",
-    "minecraft:mangrove_stairs",
-    "minecraft:cherry_stairs",
-    "haven:charred_stairs",
-    "haven:dogwood_stairs",
-    "haven:gilded_stairs",
-    "haven:dried_bamboo_stairs",
-    "minecraft:bamboo_mosaic_stairs",
-    "haven:blue_mushroom_stairs"
+    "haven:gilded_stairs"
   ]
 }

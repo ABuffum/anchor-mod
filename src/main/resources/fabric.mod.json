@@ -6,31 +6,31 @@
   "name": "Haven Pack",
   "description": "Mod Suite for the Haven SMP. Uses assets from the Squirting Syringe Mod [https://github.com/ImExoOdeex/squirtingsyringe]",
   "authors": [
-    "mousewich", "knife_moth", "swordcats", "madkiska", "plushieknight"
+    "dovewich", "knife_moth", "swordcats", "madkiska", "plushieknight"
   ],
   "contact": {
-    "homepage": "mousewich.fun",
+    "homepage": "wich.fun",
     "sources": ""
   },
 
   "icon": "assets/anchors-icon.png",
   
-  "accessWidener" : "havenmod.accesswidener",
+  "accessWidener" : "wich.accesswidener",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-	  "fun.mousewich.ModBase"
+	  "fun.wich.ModBase"
     ],
     "client" : [
-	  "fun.mousewich.ModClient"
+	  "fun.wich.ModClient"
     ],
     "fabric-datagen": [
-      "fun.mousewich.gen.data.ModDatagen"
+      "fun.wich.gen.data.ModDatagen"
     ]
   },
   "mixins": [
-    "fun.mousewich.mixins.json"
+    "fun.wich.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.11.3",

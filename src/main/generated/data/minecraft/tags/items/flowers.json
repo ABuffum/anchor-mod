@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "minecraft:mangrove_propagule",
-    "minecraft:cherry_leaves",
     "minecraft:pink_petals",
-    "haven:white_dogwood_leaves",
-    "haven:pink_dogwood_leaves",
     "haven:flowering_cassia_leaves",
-    "haven:pale_dogwood_leaves"
+    "minecraft:cherry_leaves",
+    "haven:pink_dogwood_leaves",
+    "haven:pale_dogwood_leaves",
+    "haven:white_dogwood_leaves",
+    "minecraft:mangrove_propagule"
   ]
 }

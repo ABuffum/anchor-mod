@@ -4,7 +4,7 @@ plugins {
 }
 
 loom {
-	accessWidenerPath = file("src/main/resources/havenmod.accesswidener")
+	accessWidenerPath = file("src/main/resources/wich.accesswidener")
 }
 
 sourceCompatibility = JavaVersion.VERSION_16

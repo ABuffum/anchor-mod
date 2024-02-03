@@ -1,19 +1,19 @@
 {
   "replace": false,
   "values": [
-    "haven:sugar_cane_wall_sign",
-    "haven:red_mushroom_wall_sign",
+    "haven:brown_mushroom_wall_sign",
+    "minecraft:bamboo_wall_sign",
+    "haven:dogwood_wall_sign",
     "minecraft:mangrove_wall_sign",
     "haven:cassia_wall_sign",
     "haven:blue_mushroom_wall_sign",
+    "haven:sugar_cane_wall_sign",
     "haven:charred_wall_sign",
-    "haven:brown_mushroom_wall_sign",
-    "haven:mushroom_stem_wall_sign",
-    "haven:gilded_wall_sign",
     "haven:hay_wall_sign",
-    "haven:dogwood_wall_sign",
     "haven:dried_bamboo_wall_sign",
-    "minecraft:bamboo_wall_sign",
-    "minecraft:cherry_wall_sign"
+    "haven:red_mushroom_wall_sign",
+    "minecraft:cherry_wall_sign",
+    "haven:gilded_wall_sign",
+    "haven:mushroom_stem_wall_sign"
   ]
 }

@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:stripped_charred_log",
     "haven:charred_log",
-    "haven:stripped_charred_wood",
-    "haven:charred_wood"
+    "haven:stripped_charred_log",
+    "haven:charred_wood",
+    "haven:stripped_charred_wood"
   ]
 }

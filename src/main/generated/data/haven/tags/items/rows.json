@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:bone_row",
     "haven:bamboo_row",
     "haven:dried_bamboo_row",
+    "haven:bone_row",
     "haven:sugar_cane_row"
   ]
 }

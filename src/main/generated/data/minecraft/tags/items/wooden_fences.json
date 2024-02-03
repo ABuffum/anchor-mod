@@ -1,19 +1,19 @@
 {
   "replace": false,
   "values": [
-    "minecraft:cherry_fence",
-    "haven:charred_fence",
+    "haven:blue_mushroom_fence",
     "haven:brown_mushroom_fence",
-    "haven:hay_fence",
-    "minecraft:mangrove_fence",
+    "haven:gilded_fence",
     "haven:sugar_cane_fence",
     "minecraft:bamboo_fence",
+    "minecraft:cherry_fence",
+    "haven:red_mushroom_fence",
+    "haven:hay_fence",
+    "haven:charred_fence",
     "haven:cassia_fence",
-    "haven:blue_mushroom_fence",
     "haven:dogwood_fence",
     "haven:mushroom_stem_fence",
-    "haven:red_mushroom_fence",
-    "haven:dried_bamboo_fence",
-    "haven:gilded_fence"
+    "minecraft:mangrove_fence",
+    "haven:dried_bamboo_fence"
   ]
 }

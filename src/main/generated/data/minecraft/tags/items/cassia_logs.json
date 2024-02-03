@@ -2,8 +2,8 @@
   "replace": false,
   "values": [
     "haven:stripped_cassia_log",
+    "haven:cassia_wood",
     "haven:stripped_cassia_wood",
-    "haven:cassia_log",
-    "haven:cassia_wood"
+    "haven:cassia_log"
   ]
 }

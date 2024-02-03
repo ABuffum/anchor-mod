@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "haven:shale",
     "haven:end_shale_rock",
+    "haven:shale",
     "haven:end_shale",
     "haven:end_rock",
     "haven:end_rock_shale",
