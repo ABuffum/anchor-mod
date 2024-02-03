@@ -258,6 +258,7 @@
 	"world.structure.DesertVillageDataMixin"
   ],
   "client": [
+	"client.AbstractClientPlayerEntityMixin",
 	"client.BlockColorsMixin",
 	"client.ClientPlayerEntityMixin",
 	"client.ClientPlayerInteractionManagerMixin",
