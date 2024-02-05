@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "haven:end_shale_rock",
+    "haven:end_rock_shale",
     "haven:shale",
     "haven:end_shale",
+    "haven:end_shale_rock",
     "haven:end_rock",
-    "haven:end_rock_shale",
     "#minecraft:base_stone_overworld",
     "#minecraft:dirt",
     "#minecraft:terracotta",

@@ -1,19 +1,19 @@
 {
   "replace": false,
   "values": [
-    "haven:brown_mushroom_planks",
-    "haven:gilded_planks",
-    "minecraft:mangrove_planks",
-    "minecraft:cherry_planks",
-    "haven:dogwood_planks",
-    "haven:hay_planks",
-    "haven:red_mushroom_planks",
-    "haven:dried_bamboo_planks",
     "haven:charred_planks",
-    "minecraft:bamboo_planks",
+    "haven:cassia_planks",
     "haven:mushroom_stem_planks",
+    "haven:gilded_planks",
+    "haven:brown_mushroom_planks",
+    "minecraft:mangrove_planks",
     "haven:sugar_cane_planks",
+    "haven:dried_bamboo_planks",
+    "haven:hay_planks",
     "haven:blue_mushroom_planks",
-    "haven:cassia_planks"
+    "minecraft:cherry_planks",
+    "haven:red_mushroom_planks",
+    "haven:dogwood_planks",
+    "minecraft:bamboo_planks"
   ]
 }

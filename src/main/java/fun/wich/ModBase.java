@@ -469,6 +469,37 @@ public class ModBase implements ModInitializer {
 	public static final Item BOTTLED_LIGHTNING_ITEM = GeneratedItem(new BottledLightningItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE)));
 	public static final EntityType<BottledLightningEntity> BOTTLED_LIGHTNING_ENTITY = FabricEntityTypeBuilder.<BottledLightningEntity>create(SpawnGroup.MISC, BottledLightningEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
 	//</editor-fold>
+	//<editor-fold desc="Brews">
+	/*//TODO: Apply burning effect https://minecraft.wiki/w/Minecraft_Dungeons:Burning
+	public static final Item BURNING_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
+		@Override
+		public void OnDrink(ItemStack stack, LivingEntity user) {
+
+		}
+	});*/
+	public static final Item DENSE_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) { @Override public void OnDrink(ItemStack stack, LivingEntity user) { user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.DENSE_BREW, 3000)); } });
+	/*//TODO: reduce damage by 1/2 for 15 seconds
+	public static final Item OAKWOOD_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
+		@Override
+		public void OnDrink(ItemStack stack, LivingEntity user) {
+
+		}
+	});*/
+	/*//TODO: Apply shadow form https://minecraft.wiki/w/Minecraft_Dungeons:Shadow_Brew
+	public static final Item SHADOW_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
+		@Override
+		public void OnDrink(ItemStack stack, LivingEntity user) {
+
+		}
+	});*/
+	//TODO: reduce damage by 1/6
+	public static final Item SWEET_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
+		@Override
+		public void OnDrink(ItemStack stack, LivingEntity user) {
+			user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.FREEZING_RESISTANCE, 2400, 0));
+		}
+	});
+	//</editor-fold>
 	public static final Item BROOM = new BroomItem(0.25D, ItemSettings());
 	//<editor-fold desc="Brush and Suspicious Sediment">
 	public static final Item BRUSH = HandheldItem(new BrushItem(ItemSettings(ItemGroup.TOOLS).maxDamage(64)));
@@ -820,7 +851,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer MOSSY_DEEPSLATE_BRICK_SLAB = MakeSlab(MOSSY_DEEPSLATE_BRICKS).slabModel(MOSSY_DEEPSLATE_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer MOSSY_DEEPSLATE_BRICK_WALL = MakeWall(MOSSY_DEEPSLATE_BRICKS).wallModel(MOSSY_DEEPSLATE_BRICKS).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
-	public static final Item DENSE_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) { @Override public void OnDrink(ItemStack stack, LivingEntity user) { user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.DENSE_BREW, 3000)); } });
 	//<editor-fold desc="Diamond">
 	public static final BlockContainer DIAMOND_STAIRS = MakeStairs(Blocks.DIAMOND_BLOCK).stairsModel(Blocks.DIAMOND_BLOCK).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer DIAMOND_SLAB = MakeSlab(Blocks.DIAMOND_BLOCK).slabModel(Blocks.DIAMOND_BLOCK).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -3047,13 +3077,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer SUGAR_CANE_ENDER_CAMPFIRE = MakeEnderCampfire(SUGAR_CANE_CAMPFIRE).blockTag(BlockTags.AXE_MINEABLE);
 	//</editor-fold>
 	public static final BlockContainer SWEET_BERRY_LEAVES = new BlockContainer(new BerryLeavesBlock(Items.SWEET_BERRIES, Blocks.SPRUCE_LEAVES));
-	//TODO: reduce damage by 1/6
-	public static final Item SWEET_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
-		@Override
-		public void OnDrink(ItemStack stack, LivingEntity user) {
-			user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.FREEZING_RESISTANCE, 2400, 0));
-		}
-	});
 	//<editor-fold desc="Terracotta">
 	public static final BlockContainer TERRACOTTA_STAIRS = MakeStairs(Blocks.TERRACOTTA).stairsModel(Blocks.TERRACOTTA).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer TERRACOTTA_SLAB = MakeSlab(Blocks.TERRACOTTA).slabModel(Blocks.TERRACOTTA).blockTag(BlockTags.PICKAXE_MINEABLE);

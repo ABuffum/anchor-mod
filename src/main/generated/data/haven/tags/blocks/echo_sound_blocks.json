@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "haven:echo_stairs",
     "haven:echo_bricks",
-    "haven:echo_wall",
-    "haven:echo_crystal_block",
-    "haven:echo_crystal_wall",
-    "haven:echo_crystal_slab",
-    "haven:echo_brick_stairs",
-    "haven:echo_brick_wall",
-    "haven:echo_crystal_stairs",
+    "haven:echo_stairs",
     "haven:budding_echo",
-    "haven:echo_brick_slab",
+    "haven:echo_block",
     "haven:echo_slab",
-    "haven:echo_block"
+    "haven:echo_brick_stairs",
+    "haven:echo_crystal_wall",
+    "haven:echo_wall",
+    "haven:echo_brick_wall",
+    "haven:echo_crystal_block",
+    "haven:echo_brick_slab",
+    "haven:echo_crystal_stairs",
+    "haven:echo_crystal_slab"
   ]
 }

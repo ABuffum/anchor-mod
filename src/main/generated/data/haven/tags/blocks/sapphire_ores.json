@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "haven:deepslate_sapphire_ore",
-    "haven:sapphire_ore"
+    "haven:sapphire_ore",
+    "haven:deepslate_sapphire_ore"
   ]
 }

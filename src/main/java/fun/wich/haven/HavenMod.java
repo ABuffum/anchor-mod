@@ -29,8 +29,10 @@ import fun.wich.item.JavelinItem;
 import fun.wich.item.consumable.BottledDrinkItem;
 import fun.wich.item.syringe.BloodSyringeItem;
 import fun.wich.item.syringe.SyringeItem;
+import fun.wich.item.tool.ClaymoreItem;
 import fun.wich.item.tool.ModSwordItem;
 import fun.wich.material.ModArmorMaterials;
+import fun.wich.material.ModToolMaterials;
 import fun.wich.sound.ModSoundEvents;
 import fun.wich.util.ColorUtil;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -349,8 +351,8 @@ public class HavenMod {
 	public static final BlockContainer BROKEN_STARS = BuildBlock(new BrokenStarsBlock(Block.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
 	//</editor-fold>
 	//<editor-fold desc="The Captain">
-	public static final ToolItem SBEHESOHE = HandheldItem(new ModSwordItem(ToolMaterials.DIAMOND, 3, -2.4F, ItemSettings().fireproof()));
-	public static final ToolItem SBEHESOHE_FULL = new ModSwordItem(ToolMaterials.DIAMOND, 4, -2.8F, ItemSettings().fireproof());
+	public static final ToolItem SBEHESOHE = HandheldItem(new ModSwordItem(ModToolMaterials.OBSIDIAN, 3, -2.4F, ItemSettings().fireproof()));
+	public static final ToolItem SBEHESOHE_FULL = new ClaymoreItem(ModToolMaterials.OBSIDIAN, 4, -2.8F, ItemSettings().fireproof());
 	//</editor-fold>
 
 	//<editor-fold desc="Origin Powers">

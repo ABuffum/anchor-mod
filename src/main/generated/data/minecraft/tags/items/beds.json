@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "haven:rainbow_bed",
-    "haven:moss_bed",
-    "haven:glow_lichen_bed"
+    "haven:glow_lichen_bed",
+    "haven:moss_bed"
   ]
 }

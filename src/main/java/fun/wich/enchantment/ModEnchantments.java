@@ -1,5 +1,6 @@
 package fun.wich.enchantment;
 
+import com.nhoryzon.mc.farmersdelight.item.KnifeItem;
 import fun.wich.item.tool.HammerItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
@@ -21,6 +22,7 @@ public class ModEnchantments {
 	public static final Enchantment GRAVITY = new GravityEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND);
 	public static final Enchantment LEECHING = new LeechingEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND);
 	public static final Enchantment RECYLING = new RecyclingEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND);
+	public static final Enchantment RICOCHET = new RicochetEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.MAINHAND);
 	public static final Enchantment RUSH = new RushEnchantment(Enchantment.Rarity.RARE, EquipmentSlot.FEET);
 	public static final Enchantment SERRATED = new SerratedEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND);
 	public static final Enchantment THUNDERING = new ThunderingEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND);
@@ -40,6 +42,7 @@ public class ModEnchantments {
 		Register("gravity", GRAVITY, List.of(EN_US.Gravity()));
 		Register("leeching", LEECHING, List.of(EN_US.Leeching()));
 		Register("recyling", RECYLING, List.of(EN_US.Recycling()));
+		Register("ricochet", RICOCHET, List.of(EN_US.Ricochet()));
 		Register("rush", RUSH, List.of(EN_US.Rush()));
 		Register("serrated", SERRATED, List.of(EN_US.Serrated()));
 		Register("thundering", THUNDERING, List.of(EN_US.Thundering()));

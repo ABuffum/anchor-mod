@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "haven:dogwood_log_slab",
-    "haven:cassia_log_slab",
-    "haven:jungle_log_slab",
-    "haven:oak_log_slab",
+    "haven:bamboo_log_slab",
     "haven:birch_log_slab",
+    "haven:dark_oak_log_slab",
+    "haven:jungle_log_slab",
+    "haven:cherry_log_slab",
     "haven:mangrove_log_slab",
     "haven:spruce_log_slab",
+    "haven:cassia_log_slab",
+    "haven:dried_bamboo_log_slab",
     "haven:acacia_log_slab",
-    "haven:cherry_log_slab",
-    "haven:dark_oak_log_slab",
-    "haven:bamboo_log_slab",
-    "haven:dried_bamboo_log_slab"
+    "haven:dogwood_log_slab",
+    "haven:oak_log_slab"
   ]
 }

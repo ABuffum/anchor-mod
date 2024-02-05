@@ -835,6 +835,7 @@ public abstract class ModLanguageCache {
 		public String Respawn() { return "Respawn"; } public String Respawn(String word) { return _add(word, Respawn()); }
 		public String Rhythmic() { return "Rhythmic"; } public String Rhythmic(String word) { return _add(word, Rhythmic()); }
 		public String Rib() { return "Rib"; } public String Rib(String word) { return _add(word, Rib()); }
+		public String Ricochet() { return "Ricochet"; } public String Ricochet(String word) { return _add(word, Ricochet()); }
 		public String Roast() { return "Roast"; } public String Roast(String word) { return _add(word, Roast()); }
 		public String Rock() { return "Rock"; } public String Rock(String word) { return _add(word, Rock()); }
 		public String Rocky() { return "Rocky"; } public String Rocky(String word) { return _add(word, Rocky()); }

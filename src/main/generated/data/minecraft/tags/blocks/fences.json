@@ -2,10 +2,10 @@
   "replace": false,
   "values": [
     "haven:dried_blood_fence",
-    "haven:blue_nether_brick_fence",
     "haven:red_nether_brick_fence",
-    "haven:black_nether_brick_fence",
+    "haven:blood_fence",
     "haven:yellow_nether_brick_fence",
-    "haven:blood_fence"
+    "haven:blue_nether_brick_fence",
+    "haven:black_nether_brick_fence"
   ]
 }

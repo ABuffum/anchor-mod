@@ -17,8 +17,7 @@ public class LeechingEnchantment extends Enchantment {
 	public int getMaxLevel() { return 3; }
 	@Override
 	public boolean isAcceptableItem(ItemStack stack) {
-		if (stack.getItem() instanceof KnifeItem) return true;
-		return super.isAcceptableItem(stack);
+		return stack.getItem() instanceof KnifeItem || super.isAcceptableItem(stack);
 	}
 	@Override
 	public void onTargetDamaged(LivingEntity user, Entity target, int level) {

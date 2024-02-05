@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:burnt_pumpkin",
-    "haven:white_pumpkin",
     "haven:rotten_pumpkin",
+    "haven:white_pumpkin",
+    "haven:burnt_pumpkin",
     "minecraft:pumpkin"
   ]
 }

@@ -1,17 +1,17 @@
 {
   "replace": false,
   "values": [
-    "haven:stripped_acacia_wood_slab",
-    "haven:stripped_oak_wood_slab",
-    "haven:stripped_dogwood_wood_slab",
-    "haven:stripped_spruce_wood_slab",
-    "haven:stripped_dried_bamboo_wood_slab",
-    "haven:stripped_cherry_wood_slab",
-    "haven:stripped_bamboo_wood_slab",
     "haven:stripped_cassia_wood_slab",
-    "haven:stripped_birch_wood_slab",
-    "haven:stripped_jungle_wood_slab",
     "haven:stripped_mangrove_wood_slab",
-    "haven:stripped_dark_oak_wood_slab"
+    "haven:stripped_acacia_wood_slab",
+    "haven:stripped_jungle_wood_slab",
+    "haven:stripped_dried_bamboo_wood_slab",
+    "haven:stripped_birch_wood_slab",
+    "haven:stripped_dogwood_wood_slab",
+    "haven:stripped_oak_wood_slab",
+    "haven:stripped_dark_oak_wood_slab",
+    "haven:stripped_spruce_wood_slab",
+    "haven:stripped_bamboo_wood_slab",
+    "haven:stripped_cherry_wood_slab"
   ]
 }

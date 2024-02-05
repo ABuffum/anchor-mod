@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:stripped_gilded_hyphae",
+    "haven:gilded_hyphae",
     "haven:gilded_stem",
-    "haven:stripped_gilded_stem",
-    "haven:gilded_hyphae"
+    "haven:stripped_gilded_hyphae",
+    "haven:stripped_gilded_stem"
   ]
 }

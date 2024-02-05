@@ -26,7 +26,7 @@ public enum ModToolMaterials implements ToolMaterial, FactoryToolMaterial {
 			7, -3.2F, -1, -2, 1, -2.8F, 1.5F, -3, 3, -2.4F, 8, -3),
 	OBSIDIAN(MiningLevels.DIAMOND, 1561, 8, 3, 10, () -> Ingredient.ofItems(Items.OBSIDIAN),
 			5, -3, -3, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F, 6, -3),
-	QUARTZ(1, 450, 4, 1.5F, 12, () -> Ingredient.ofItems(Items.QUARTZ),
+	QUARTZ(MiningLevels.STONE, 450, 4, 1.5F, 12, () -> Ingredient.ofItems(Items.QUARTZ),
 			5, -3, -1, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F, 6, -3);
 
 	private final int miningLevel;

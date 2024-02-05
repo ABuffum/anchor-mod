@@ -20,8 +20,7 @@ public class ThunderingEnchantment extends Enchantment {
 	public int getMaxLevel() { return 3; }
 	@Override
 	public boolean isAcceptableItem(ItemStack stack) {
-		Item item = stack.getItem();
-		return item instanceof AxeItem || super.isAcceptableItem(stack);
+		return stack.getItem() instanceof AxeItem || super.isAcceptableItem(stack);
 	}
 	@Override
 	public void onTargetDamaged(LivingEntity user, Entity target, int level) {

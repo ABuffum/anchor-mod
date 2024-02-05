@@ -1,9 +1,9 @@
 {
   "replace": false,
   "values": [
-    "haven:dried_bamboo_button",
     "minecraft:cherry_button",
-    "minecraft:bamboo_button",
-    "haven:gilded_button"
+    "haven:dried_bamboo_button",
+    "haven:gilded_button",
+    "minecraft:bamboo_button"
   ]
 }

@@ -3,6 +3,7 @@ package fun.wich.util;
 import fun.wich.enchantment.ModEnchantments;
 import fun.wich.enchantment.WeakeningEnchantment;
 import fun.wich.entity.projectile.GravityEnchantmentCarrier;
+import fun.wich.entity.projectile.RicochetEnchantmentCarrier;
 import fun.wich.entity.projectile.WaterDragControllable;
 import fun.wich.entity.projectile.WeakeningEnchantmentCarrier;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -28,6 +29,10 @@ public class ModProjectileUtil {
 		if (projectile instanceof GravityEnchantmentCarrier gravityCarrier) {
 			int level = EnchantmentHelper.getLevel(ModEnchantments.GRAVITY, stackInHand);
 			if (level > 0) gravityCarrier.setGravityLevel(level);
+		}
+		if (projectile instanceof RicochetEnchantmentCarrier ricochetCarrier) {
+			int level = EnchantmentHelper.getLevel(ModEnchantments.RICOCHET, stackInHand);
+			if (level > 0) ricochetCarrier.setRicochetLevel(level);
 		}
 	}
 }

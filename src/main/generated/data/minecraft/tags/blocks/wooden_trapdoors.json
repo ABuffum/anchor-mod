@@ -2,18 +2,18 @@
   "replace": false,
   "values": [
     "minecraft:cherry_trapdoor",
-    "haven:cassia_trapdoor",
-    "minecraft:mangrove_trapdoor",
+    "haven:dried_bamboo_trapdoor",
+    "haven:red_mushroom_trapdoor",
     "haven:charred_trapdoor",
-    "haven:blue_mushroom_trapdoor",
-    "haven:brown_mushroom_trapdoor",
+    "haven:hay_trapdoor",
     "haven:sugar_cane_trapdoor",
-    "haven:dogwood_trapdoor",
-    "minecraft:bamboo_trapdoor",
+    "haven:brown_mushroom_trapdoor",
+    "haven:cassia_trapdoor",
     "haven:gilded_trapdoor",
     "haven:mushroom_stem_trapdoor",
-    "haven:hay_trapdoor",
-    "haven:red_mushroom_trapdoor",
-    "haven:dried_bamboo_trapdoor"
+    "minecraft:mangrove_trapdoor",
+    "minecraft:bamboo_trapdoor",
+    "haven:dogwood_trapdoor",
+    "haven:blue_mushroom_trapdoor"
   ]
 }
