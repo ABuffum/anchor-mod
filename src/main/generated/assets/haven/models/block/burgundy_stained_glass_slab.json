@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/burgundy_stained_glass",
-    "top": "haven:block/burgundy_stained_glass",
-    "side": "haven:block/burgundy_stained_glass_slab_side"
-  }
-}

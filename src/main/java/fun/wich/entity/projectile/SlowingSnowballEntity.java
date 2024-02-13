@@ -1,7 +1,7 @@
 package fun.wich.entity.projectile;
 
-import fun.wich.ModBase;
 import fun.wich.entity.FreezeConversionEntity;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -25,8 +25,8 @@ import net.minecraft.world.World;
 
 public class SlowingSnowballEntity extends ThrownItemEntity {
 	public SlowingSnowballEntity(EntityType<? extends SlowingSnowballEntity> entityType, World world) { super(entityType, world); }
-	public SlowingSnowballEntity(World world, LivingEntity owner) { super(ModBase.SLOWING_SNOWBALL_ENTITY, owner, world); }
-	public SlowingSnowballEntity(World world, double x, double y, double z) { super(ModBase.SLOWING_SNOWBALL_ENTITY, x, y, z, world); }
+	public SlowingSnowballEntity(World world, LivingEntity owner) { super(ModEntityType.SLOWING_SNOWBALL_ENTITY, owner, world); }
+	public SlowingSnowballEntity(World world, double x, double y, double z) { super(ModEntityType.SLOWING_SNOWBALL_ENTITY, x, y, z, world); }
 	@Override
 	protected Item getDefaultItem() { return Items.SNOWBALL; }
 	private ParticleEffect getParticleParameters() {

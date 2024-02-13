@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:polished_shale"
-  },
-  "result": "haven:polished_shale_slab",
-  "count": 2
-}

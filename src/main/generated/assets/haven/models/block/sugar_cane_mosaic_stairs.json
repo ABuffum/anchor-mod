@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/sugar_cane_mosaic",
-    "top": "haven:block/sugar_cane_mosaic",
-    "side": "haven:block/sugar_cane_mosaic"
-  }
-}

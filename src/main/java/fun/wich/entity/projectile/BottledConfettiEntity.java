@@ -1,6 +1,7 @@
 package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.cloud.ConfettiCloudEntity;
 import fun.wich.util.ColorUtil;
 import net.fabricmc.api.EnvType;
@@ -24,8 +25,8 @@ import net.minecraft.world.World;
 
 public class BottledConfettiEntity extends ThrownItemEntity {
 	public BottledConfettiEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
-	public BottledConfettiEntity(World world, LivingEntity owner) { super(ModBase.BOTTLED_CONFETTI_ENTITY, owner, world); }
-	public BottledConfettiEntity(World world, double x, double y, double z) { super(ModBase.BOTTLED_CONFETTI_ENTITY, x, y, z, world); }
+	public BottledConfettiEntity(World world, LivingEntity owner) { super(ModEntityType.BOTTLED_CONFETTI_ENTITY, owner, world); }
+	public BottledConfettiEntity(World world, double x, double y, double z) { super(ModEntityType.BOTTLED_CONFETTI_ENTITY, x, y, z, world); }
 
 	@Override
 	protected Item getDefaultItem() { return ModBase.BOTTLED_CONFETTI_ITEM; }

@@ -2,6 +2,7 @@ package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
 import fun.wich.entity.LastJavelinStoring;
+import fun.wich.entity.ModEntityType;
 import fun.wich.item.JavelinItem;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -39,7 +40,7 @@ public class JavelinEntity extends PersistentProjectileEntity {
 	public JavelinEntity(EntityType<? extends JavelinEntity> entityType, World world) { super(entityType, world); }
 
 	public JavelinEntity(World world, LivingEntity owner, ItemStack stack, JavelinItem item) {
-		this(ModBase.JAVELIN_ENTITY, world, owner, stack, item);
+		this(ModEntityType.JAVELIN_ENTITY, world, owner, stack, item);
 	}
 	protected JavelinEntity(EntityType<? extends JavelinEntity> entityType, World world, LivingEntity owner, ItemStack stack, JavelinItem item) {
 		super(entityType, owner, world);

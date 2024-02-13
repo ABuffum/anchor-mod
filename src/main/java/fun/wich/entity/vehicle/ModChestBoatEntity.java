@@ -1,6 +1,6 @@
 package fun.wich.entity.vehicle;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.registry.ModBambooRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,7 +18,7 @@ public class ModChestBoatEntity extends ChestBoatEntity {
 	private static final TrackedData<Integer> BOAT_TYPE = DataTracker.registerData(ModChestBoatEntity.class, TrackedDataHandlerRegistry.INTEGER);
 	public ModChestBoatEntity(EntityType<? extends BoatEntity> type, World world) { super(type, world); }
 	public ModChestBoatEntity(World worldIn, double x, double y, double z) {
-		this(ModBase.MOD_CHEST_BOAT_ENTITY, worldIn);
+		this(ModEntityType.MOD_CHEST_BOAT_ENTITY, worldIn);
 		this.setPosition(x, y, z);
 		this.prevX = x;
 		this.prevY = y;

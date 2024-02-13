@@ -28,8 +28,8 @@ public class RyftMod {
 	public static final String VICTORIAS = "Victoria's";
 
 	//<editor-fold desc="Blood Types">
-	public static final BloodType DRACONIC_BLOOD_TYPE = BloodType.Register(NAMESPACE, "draconic");
-	public static final BloodType FIREBIRD_BLOOD_TYPE = BloodType.Register(NAMESPACE, "firebird");
+	public static final BloodType DRACONIC_BLOOD_TYPE = BloodType.Register(NAMESPACE, "draconic", List.of(EN_US.Blood(EN_US.Draconic())));
+	public static final BloodType FIREBIRD_BLOOD_TYPE = BloodType.Register(NAMESPACE, "firebird", List.of(EN_US.Blood(EN_US.Firebird())));
 	//</editor-fold>
 
 	//<editor-fold desc="Auryon">

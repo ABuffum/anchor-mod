@@ -1,6 +1,7 @@
 package fun.wich.entity.passive.cow;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.sound.ModSoundEvents;
@@ -29,7 +30,7 @@ public class SlimeCowEntity extends CowEntity implements EntityWithBloodType {
 	public SlimeCowEntity(EntityType<? extends CowEntity> entityType, World world) { super(entityType, world); }
 
 	public SlimeCowEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return ModBase.SLIME_COW_ENTITY.create(serverWorld);
+		return ModEntityType.SLIME_COW_ENTITY.create(serverWorld);
 	}
 
 	@Override

@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_campfire",
-  "textures": {
-    "log": "haven:block/charred_campfire_log",
-    "lit_log": "haven:block/charred_soul_campfire_log_lit",
-    "fire": "minecraft:block/soul_campfire_fire"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "haven:deepslate_sapphire_ore"
-  },
-  "result": "haven:sapphire",
-  "experience": 1.0,
-  "cookingtime": 200
-}

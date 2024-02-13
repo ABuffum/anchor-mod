@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/cut_prismarine_bricks",
-    "top": "haven:block/cut_prismarine_bricks",
-    "side": "haven:block/cut_prismarine_bricks"
-  }
-}

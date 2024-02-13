@@ -1,6 +1,6 @@
 package fun.wich.gen.world;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
@@ -73,9 +73,9 @@ public class ModBiomeCreator {
 		SpawnSettings.Builder builder = new SpawnSettings.Builder();
 		DefaultBiomeFeatures.addBatsAndMonsters(builder);
 		builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 1, 1, 1));
-		builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModBase.FROG_ENTITY, 10, 2, 5));
+		builder.spawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntityType.FROG_ENTITY, 10, 2, 5));
 		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(EntityType.TROPICAL_FISH, 25, 8, 8));
-		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(ModBase.PIRANHA_ENTITY, 5, 1, 5));
+		builder.spawn(SpawnGroup.WATER_AMBIENT, new SpawnSettings.SpawnEntry(ModEntityType.PIRANHA_ENTITY, 5, 1, 5));
 		GenerationSettings.Builder builder2 = new GenerationSettings.Builder().surfaceBuilder(ConfiguredSurfaceBuilders.SWAMP);
 		DefaultBiomeFeatures.addFossils(builder2);
 		addBasicFeatures(builder2);

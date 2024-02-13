@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:andesite_tiles"
-  },
-  "result": "haven:andesite_tile_stairs",
-  "count": 1
-}

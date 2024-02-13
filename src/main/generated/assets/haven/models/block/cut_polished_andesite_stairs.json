@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/cut_polished_andesite",
-    "top": "haven:block/cut_polished_andesite",
-    "side": "haven:block/cut_polished_andesite"
-  }
-}

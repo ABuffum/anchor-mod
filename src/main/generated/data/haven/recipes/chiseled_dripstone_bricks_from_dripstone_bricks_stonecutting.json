@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:dripstone_bricks"
-  },
-  "result": "haven:chiseled_dripstone_bricks",
-  "count": 1
-}

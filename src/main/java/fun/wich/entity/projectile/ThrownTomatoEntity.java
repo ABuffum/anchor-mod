@@ -2,6 +2,7 @@ package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
 import fun.wich.effect.ModStatusEffects;
+import fun.wich.entity.ModEntityType;
 import fun.wich.origins.power.ClownPacifistPower;
 import fun.wich.origins.power.PowersUtil;
 import fun.wich.particle.ModParticleTypes;
@@ -26,8 +27,8 @@ import net.minecraft.world.World;
 
 public class ThrownTomatoEntity extends ThrownItemEntity {
 	public ThrownTomatoEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
-	public ThrownTomatoEntity(World world, LivingEntity owner) { super(ModBase.THROWABLE_TOMATO_ENTITY, owner, world); }
-	public ThrownTomatoEntity(World world, double x, double y, double z) { super(ModBase.THROWABLE_TOMATO_ENTITY, x, y, z, world); }
+	public ThrownTomatoEntity(World world, LivingEntity owner) { super(ModEntityType.THROWABLE_TOMATO_ENTITY, owner, world); }
+	public ThrownTomatoEntity(World world, double x, double y, double z) { super(ModEntityType.THROWABLE_TOMATO_ENTITY, x, y, z, world); }
 
 	@Override
 	protected Item getDefaultItem() { return ModBase.THROWABLE_TOMATO_ITEM; }

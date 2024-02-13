@@ -39,6 +39,8 @@ import static fun.wich.ModBase.*;
 import static fun.wich.registry.ModBambooRegistry.*;
 import static fun.wich.registry.ModCopperRegistry.*;
 
+import static fun.wich.entity.ModEntityType.*;
+
 import fun.wich.trim.TrimmingScreen;
 import fun.wich.util.banners.ModBannerPattern;
 import io.github.apace100.apoli.ApoliClient;
@@ -437,7 +439,8 @@ public class ModClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ICEOLOGER_ENTITY, IceologerEntityRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.ICE_CHUNK, IceChunkEntityModel::getTexturedModelData);
 		EntityRendererRegistry.register(ICE_CHUNK_ENTITY, IceChunkEntityRenderer::new);
-
+		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.MOUNTAINEER, MountaineerEntityModel::getTexturedModelData);
+		EntityRendererRegistry.register(MOUNTAINEER_ENTITY, MountaineerEntityRenderer::new);
 		EntityRendererRegistry.register(MAGE_ENTITY, MageEntityRenderer::new);
 		//Tropical Slime
 		EntityModelLayerRegistry.registerModelLayer(ModEntityModelLayers.TROPICAL_SLIME, TropicalSlimeEntityModel::getInnerTexturedModelData);

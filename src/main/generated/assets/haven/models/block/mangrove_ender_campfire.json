@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_campfire",
-  "textures": {
-    "log": "haven:block/mangrove_campfire_log",
-    "lit_log": "haven:block/mangrove_ender_campfire_log_lit",
-    "fire": "haven:block/ender_campfire_fire"
-  }
-}

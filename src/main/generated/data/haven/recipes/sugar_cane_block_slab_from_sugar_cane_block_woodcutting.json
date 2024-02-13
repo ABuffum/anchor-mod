@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "haven:sugar_cane_block"
-  },
-  "result": "haven:sugar_cane_block_slab",
-  "count": 2
-}

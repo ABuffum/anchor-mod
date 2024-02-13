@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/gilded_stem",
-    "top": "haven:block/gilded_stem",
-    "side": "haven:block/gilded_stem"
-  }
-}

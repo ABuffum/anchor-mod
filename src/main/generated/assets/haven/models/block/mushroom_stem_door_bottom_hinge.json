@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_bottom_rh",
-  "textures": {
-    "top": "haven:block/mushroom_stem_door_top",
-    "bottom": "haven:block/mushroom_stem_door_bottom"
-  }
-}

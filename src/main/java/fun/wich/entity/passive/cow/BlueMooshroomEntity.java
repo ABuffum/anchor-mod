@@ -1,6 +1,7 @@
 package fun.wich.entity.passive.cow;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import net.minecraft.block.Blocks;
@@ -87,7 +88,7 @@ public class BlueMooshroomEntity extends CowEntity implements Shearable, EntityW
 	}
 	public boolean isShearable() { return this.isAlive() && !this.isBaby(); }
 	public BlueMooshroomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return ModBase.BLUE_MOOSHROOM_ENTITY.create(serverWorld);
+		return ModEntityType.BLUE_MOOSHROOM_ENTITY.create(serverWorld);
 	}
 	@Override
 	public boolean canBreedWith(AnimalEntity other) {

@@ -1,6 +1,6 @@
 package fun.wich.block.gourd;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.neutral.golem.MelonGolemEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
@@ -41,7 +41,7 @@ public class CarvedMelonBlock extends CarvedGourdBlock {
 				world.setBlockState(cachedBlockPosition.getBlockPos(), Blocks.AIR.getDefaultState(), Block.NOTIFY_LISTENERS);
 				world.syncWorldEvent(WorldEvents.BLOCK_BROKEN, cachedBlockPosition.getBlockPos(), Block.getRawIdFromState(cachedBlockPosition.getBlockState()));
 			}
-			MelonGolemEntity golem = ModBase.MELON_GOLEM_ENTITY.create(world);
+			MelonGolemEntity golem = ModEntityType.MELON_GOLEM_ENTITY.create(world);
 			if (golem != null) {
 				BlockPos blockPos = result.translate(0, 2, 0).getBlockPos();
 				golem.refreshPositionAndAngles((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.05D, (double)blockPos.getZ() + 0.5D, 0.0F, 0.0F);

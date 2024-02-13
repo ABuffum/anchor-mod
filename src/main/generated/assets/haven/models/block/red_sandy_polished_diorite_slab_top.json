@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/red_sandy_polished_diorite",
-    "top": "haven:block/red_sandy_polished_diorite",
-    "side": "haven:block/red_sandy_polished_diorite"
-  }
-}

@@ -2,6 +2,7 @@ package fun.wich.mixins.entity.hostile;
 
 import fun.wich.ModBase;
 import fun.wich.entity.FreezeConversionEntity;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import net.minecraft.entity.EntityType;
@@ -68,7 +69,7 @@ public abstract class ZombieEntityMixin extends HostileEntity implements FreezeC
 	}
 
 	protected void convertInSnow() {
-		convertTo(ModBase.FROZEN_ZOMBIE_ENTITY);
+		convertTo(ModEntityType.FROZEN_ZOMBIE_ENTITY);
 		if (!this.isSilent()) {
 			//this.world.syncWorldEvent(null, WorldEvents.ZOMBIE_CONVERTS_TO_DROWNED, this.getBlockPos(), 0);
 			this.world.playSound(null, this.getBlockPos(), SoundEvents.ENTITY_ZOMBIE_CONVERTED_TO_DROWNED, SoundCategory.HOSTILE, 2.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f);

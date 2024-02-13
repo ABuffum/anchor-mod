@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:beige_terracotta"
-  },
-  "result": "haven:beige_terracotta_wall",
-  "count": 1
-}

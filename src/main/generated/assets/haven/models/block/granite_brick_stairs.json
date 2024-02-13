@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/granite_bricks",
-    "top": "haven:block/granite_bricks",
-    "side": "haven:block/granite_bricks"
-  }
-}

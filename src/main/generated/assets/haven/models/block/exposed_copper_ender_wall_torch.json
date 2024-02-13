@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_torch_wall",
-  "textures": {
-    "torch": "haven:block/exposed_copper_ender_torch"
-  }
-}

@@ -357,12 +357,19 @@ public class ModSoundEvents {
 	public static final SoundEvent ITEM_POUCH_EMPTY_SILVERFISH = registerSoundEvent("item.pouch.empty_silverfish");
 	public static final SoundEvent ITEM_POUCH_FILL_SILVERFISH = registerSoundEvent("item.pouch.fill_silverfish");
 	//</editor-fold>
+	//<editor-fold desc="Red Panda">
+	public static final SoundEvent ENTITY_RED_PANDA_AMBIENT = registerSoundEvent("entity.red_panda.ambient");
+	public static final SoundEvent ENTITY_RED_PANDA_DEATH = registerSoundEvent("entity.red_panda.death");
+	public static final SoundEvent ENTITY_RED_PANDA_HURT = registerSoundEvent("entity.red_panda.hurt");
+	public static final SoundEvent ENTITY_RED_PANDA_STEP = registerSoundEvent("entity.red_panda.step");
+	//</editor-fold>
 	//<editor-fold desc="Hedgehog">
 	public static final SoundEvent ENTITY_HEDGEHOG_AMBIENT = registerSoundEvent("entity.hedgehog.ambient");
 	public static final SoundEvent ENTITY_HEDGEHOG_DEATH = registerSoundEvent("entity.hedgehog.death");
 	public static final SoundEvent ENTITY_HEDGEHOG_HURT = registerSoundEvent("entity.hedgehog.hurt");
 	public static final SoundEvent ENTITY_HEDGEHOG_SNIFF = registerSoundEvent("entity.hedgehog.sniff");
 	public static final SoundEvent ENTITY_HEDGEHOG_STEP = registerSoundEvent("entity.hedgehog.step");
+	public static final SoundEvent ENTITY_HEDGEHOG_ROLL = registerSoundEvent("entity.hedgehog.roll");
 	public static final SoundEvent ITEM_POUCH_EMPTY_HEDGEHOG = registerSoundEvent("item.pouch.empty_hedgehog");
 	public static final SoundEvent ITEM_POUCH_FILL_HEDGEHOG = registerSoundEvent("item.pouch.fill_hedgehog");
 	//</editor-fold>
@@ -415,7 +422,7 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_ICEOLOGER_AMBIENT = registerSoundEvent("entity.iceologer.ambient");
 	public static final SoundEvent ENTITY_ICEOLOGER_ATTACK = registerSoundEvent("entity.iceologer.attack");
 	public static final SoundEvent ENTITY_ICEOLOGER_CAST_SPELL = registerSoundEvent("entity.iceologer.cast_spell");
-	public static final SoundEvent ENTITY_ICEOLOGER_CELEBRATE = registerSoundEvent("entity.iceologer.ambient");
+	public static final SoundEvent ENTITY_ICEOLOGER_CELEBRATE = registerSoundEvent("entity.iceologer.celebrate");
 	public static final SoundEvent ENTITY_ICEOLOGER_DEATH = registerSoundEvent("entity.iceologer.death");
 	public static final SoundEvent ENTITY_ICEOLOGER_HURT = registerSoundEvent("entity.iceologer.hurt");
 	public static final SoundEvent ENTITY_ICEOLOGER_PREPARE_SUMMON = registerSoundEvent("entity.iceologer.prepare_summon");
@@ -432,12 +439,21 @@ public class ModSoundEvents {
 	public static final SoundEvent ENTITY_MAGE_AMBIENT = registerSoundEvent("entity.mage.ambient");
 	public static final SoundEvent ENTITY_MAGE_ATTACK = registerSoundEvent("entity.mage.attack");
 	public static final SoundEvent ENTITY_MAGE_CAST_SPELL = registerSoundEvent("entity.mage.cast_spell");
-	public static final SoundEvent ENTITY_MAGE_CELEBRATE = registerSoundEvent("entity.mage.ambient");
+	public static final SoundEvent ENTITY_MAGE_CELEBRATE = registerSoundEvent("entity.mage.celebrate");
 	public static final SoundEvent ENTITY_MAGE_DEATH = registerSoundEvent("entity.mage.death");
 	public static final SoundEvent ENTITY_MAGE_HURT = registerSoundEvent("entity.mage.hurt");
 	public static final SoundEvent ENTITY_MAGE_PREPARE_SPELL = registerSoundEvent("entity.mage.prepare_spell");
 	public static final SoundEvent ENTITY_MAGE_YES = registerSoundEvent("entity.mage.yes");
 	public static final SoundEvent ENTITY_MAGE_NO = registerSoundEvent("entity.mage.no");
+	//</editor-fold>
+	//<editor-fold desc="Mountaineer">
+	public static final SoundEvent ENTITY_MOUNTAINEER_AMBIENT = registerSoundEvent("entity.mountaineer.ambient");
+	public static final SoundEvent ENTITY_MOUNTAINEER_ATTACK = registerSoundEvent("entity.mountaineer.attack");
+	public static final SoundEvent ENTITY_MOUNTAINEER_CELEBRATE = registerSoundEvent("entity.mountaineer.celebrate");
+	public static final SoundEvent ENTITY_MOUNTAINEER_DEATH = registerSoundEvent("entity.mountaineer.death");
+	public static final SoundEvent ENTITY_MOUNTAINEER_HURT = registerSoundEvent("entity.mountaineer.hurt");
+	public static final SoundEvent ENTITY_MOUNTAINEER_YES = registerSoundEvent("entity.mountaineer.yes");
+	public static final SoundEvent ENTITY_MOUNTAINEER_NO = registerSoundEvent("entity.mountaineer.no");
 	//</editor-fold>
 	//<editor-fold desc="Pillager">
 	public static final SoundEvent ENTITY_PILLAGER_YES = registerSoundEvent("entity.pillager.yes");

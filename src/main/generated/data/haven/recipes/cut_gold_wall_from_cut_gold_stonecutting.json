@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:cut_gold"
-  },
-  "result": "haven:cut_gold_wall",
-  "count": 1
-}

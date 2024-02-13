@@ -1,6 +1,6 @@
 package fun.wich.mixins.entity.ai.brain.sensor;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.origins.power.VillagersFleePower;
 import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.entity.EntityType;
@@ -17,13 +17,19 @@ public class VillagerHostilesSensorMixin {
 	protected void Matches(LivingEntity entity, LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
 		double distance = entity.squaredDistanceTo(target);
 		EntityType<?> type = target.getType();
-		if (type == ModBase.ICEOLOGER_ENTITY) {
+		if (type == ModEntityType.ICEOLOGER_ENTITY) {
 			if (distance <= 144) {
 				cir.setReturnValue(true);
 				return;
 			}
 		}
-		else if (type == ModBase.MAGE_ENTITY) {
+		else if (type == ModEntityType.MOUNTAINEER_ENTITY) {
+			if (distance <= 100) {
+				cir.setReturnValue(true);
+				return;
+			}
+		}
+		else if (type == ModEntityType.MAGE_ENTITY) {
 			if (distance <= 144) {
 				cir.setReturnValue(true);
 				return;

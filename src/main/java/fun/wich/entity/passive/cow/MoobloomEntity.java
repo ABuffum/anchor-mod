@@ -1,6 +1,7 @@
 package fun.wich.entity.passive.cow;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.PassiveEntity;
@@ -14,6 +15,6 @@ public class MoobloomEntity extends FlowerCowEntity {
 	@Override public Item getFlowerItem() { return ModBase.BUTTERCUP.asItem(); }
 
 	public FlowerCowEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return ModBase.MOOBLOOM_ENTITY.create(serverWorld);
+		return ModEntityType.MOOBLOOM_ENTITY.create(serverWorld);
 	}
 }

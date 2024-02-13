@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "haven:stripped_cassia_wood"
-  },
-  "result": "haven:stripped_cassia_wood_slab",
-  "count": 2
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:cobbled_end_shale"
-  },
-  "result": "haven:cobbled_end_shale_stairs",
-  "count": 1
-}

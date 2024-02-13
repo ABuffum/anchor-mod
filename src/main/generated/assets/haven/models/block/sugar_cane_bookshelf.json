@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "haven:block/sugar_cane_planks",
-    "side": "haven:block/sugar_cane_bookshelf"
-  }
-}

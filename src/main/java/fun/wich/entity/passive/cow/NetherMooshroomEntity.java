@@ -2,6 +2,7 @@ package fun.wich.entity.passive.cow;
 
 import com.nhoryzon.mc.farmersdelight.registry.ItemsRegistry;
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.variants.NetherMooshroomVariant;
@@ -108,7 +109,7 @@ public class NetherMooshroomEntity extends CowEntity implements Shearable, Entit
 	}
 
 	public NetherMooshroomEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		NetherMooshroomEntity child = ModBase.NETHER_MOOSHROOM_ENTITY.create(serverWorld);
+		NetherMooshroomEntity child = ModEntityType.NETHER_MOOSHROOM_ENTITY.create(serverWorld);
 		child.setVariant(this.random.nextBoolean() ? this.getVariant() : ((NetherMooshroomEntity)passiveEntity).getVariant());
 		return child;
 	}

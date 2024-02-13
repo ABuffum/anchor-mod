@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:flint_block"
-  },
-  "result": "haven:flint_bricks",
-  "count": 1
-}

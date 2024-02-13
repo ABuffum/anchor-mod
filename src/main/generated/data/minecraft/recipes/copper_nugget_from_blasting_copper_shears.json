@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "haven:copper_shears"
-  },
-  "result": "haven:copper_nugget",
-  "experience": 0.1,
-  "cookingtime": 100
-}

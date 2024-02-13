@@ -1,11 +1,13 @@
 package fun.wich.mixins.entity.passive;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.Pouchable;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.variants.ParrotVariant;
+import fun.wich.registry.ModEntityRegistry;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -62,7 +64,7 @@ public abstract class ParrotEntityMixin extends TameableShoulderEntity implement
 		result.ifPresent(cir::setReturnValue);
 	}
 	@Override
-	public ItemStack getPouchItem() { return new ItemStack(ModBase.PARROT_POUCH); }
+	public ItemStack getPouchItem() { return new ItemStack(ModEntityRegistry.PARROT_POUCH); }
 	@Override
 	public boolean isFromPouch() { return this.dataTracker.get(FROM_POUCH); }
 	@Override
@@ -94,14 +96,14 @@ public abstract class ParrotEntityMixin extends TameableShoulderEntity implement
 		public boolean test(MobEntity mobEntity) {
 			if (mobEntity == null) return false;
 			EntityType<?> type = mobEntity.getType();
-			if (type == ModBase.WARDEN_ENTITY) {
-				if (!MOB_SOUNDS.containsKey(ModBase.WARDEN_ENTITY)) {
-					MOB_SOUNDS.put(ModBase.WARDEN_ENTITY, ModSoundEvents.ENTITY_PARROT_IMITATE_WARDEN);
+			if (type == ModEntityType.WARDEN_ENTITY) {
+				if (!MOB_SOUNDS.containsKey(ModEntityType.WARDEN_ENTITY)) {
+					MOB_SOUNDS.put(ModEntityType.WARDEN_ENTITY, ModSoundEvents.ENTITY_PARROT_IMITATE_WARDEN);
 				}
 			}
-			if (type == ModBase.RED_PHANTOM_ENTITY) {
-				if (!MOB_SOUNDS.containsKey(ModBase.RED_PHANTOM_ENTITY)) {
-					MOB_SOUNDS.put(ModBase.RED_PHANTOM_ENTITY, SoundEvents.ENTITY_PARROT_IMITATE_PHANTOM);
+			if (type == ModEntityType.RED_PHANTOM_ENTITY) {
+				if (!MOB_SOUNDS.containsKey(ModEntityType.RED_PHANTOM_ENTITY)) {
+					MOB_SOUNDS.put(ModEntityType.RED_PHANTOM_ENTITY, SoundEvents.ENTITY_PARROT_IMITATE_PHANTOM);
 				}
 			}
 			return MOB_SOUNDS.containsKey(type);

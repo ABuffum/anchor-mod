@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/beige_stained_glass",
-    "top": "haven:block/beige_stained_glass",
-    "side": "haven:block/beige_stained_glass_slab_side"
-  }
-}

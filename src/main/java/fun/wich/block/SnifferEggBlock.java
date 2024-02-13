@@ -1,6 +1,7 @@
 package fun.wich.block;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.passive.sniffer.SnifferEntity;
 import fun.wich.event.ModWorldEvents;
 import fun.wich.gen.data.tag.ModBlockTags;
@@ -50,7 +51,7 @@ public class SnifferEggBlock extends Block {
 		}
 		world.playSound(null, pos, ModSoundEvents.ENTITY_SNIFFER_EGG_HATCH, SoundCategory.BLOCKS, 0.7f, 0.9f + random.nextFloat() * 0.2f);
 		world.breakBlock(pos, false);
-		SnifferEntity snifferEntity = ModBase.SNIFFER_ENTITY.create(world);
+		SnifferEntity snifferEntity = ModEntityType.SNIFFER_ENTITY.create(world);
 		if (snifferEntity != null) {
 			Vec3d vec3d = Vec3d.ofCenter(pos);
 			snifferEntity.setBaby(true);

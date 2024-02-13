@@ -6,8 +6,10 @@ import fun.wich.ModBase;
 import fun.wich.client.render.entity.animation.AnimationState;
 import fun.wich.entity.ModDataHandlers;
 import fun.wich.entity.ModEntityPose;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.AxolotlSwimNavigation;
 import fun.wich.entity.ai.ModMemoryModules;
+import fun.wich.entity.ai.sensor.ModSensorTypes;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.hostile.slime.TropicalSlimeEntity;
@@ -78,7 +80,7 @@ public class FrogEntity extends AnimalEntity implements EntityWithBloodType {
 		this.stepHeight = 1.0f;
 	}
 	protected Brain.Profile<FrogEntity> createBrainProfile() {
-		ImmutableList<SensorType<? extends Sensor<? super FrogEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, ModBase.FROG_ATTACKABLES_SENSOR.get(), ModBase.FROG_TEMPTATIONS_SENSOR.get(), ModBase.IS_IN_WATER_SENSOR.get());
+		ImmutableList<SensorType<? extends Sensor<? super FrogEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, ModSensorTypes.FROG_ATTACKABLES_SENSOR.get(), ModSensorTypes.FROG_TEMPTATIONS_SENSOR.get(), ModSensorTypes.IS_IN_WATER_SENSOR.get());
 		return Brain.createProfile(MEMORY_MODULES, SENSORS);
 	}
 	@Override
@@ -187,7 +189,7 @@ public class FrogEntity extends AnimalEntity implements EntityWithBloodType {
 	}
 	@Override
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-		FrogEntity frogEntity = ModBase.FROG_ENTITY.create(world);
+		FrogEntity frogEntity = ModEntityType.FROG_ENTITY.create(world);
 		if (frogEntity != null) FrogBrain.coolDownLongJump(frogEntity, world.getRandom());
 		return frogEntity;
 	}

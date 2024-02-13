@@ -25,6 +25,7 @@ public class ModEntityModelLayers {
 	public static final EntityModelLayer LAYERED_ZOMBIE_INNER_ARMOR = MakeModelLayer("layered_zombie", "inner_armor");
 	public static final EntityModelLayer LAYERED_ZOMBIE_OUTER_ARMOR = MakeModelLayer("layered_zombie", "outer_armor");
 	public static final EntityModelLayer LAYERED_ZOMBIE_OUTER = MakeModelLayer("layered_zombie", "outer");
+	public static final EntityModelLayer MOUNTAINEER = MakeModelLayer("mountaineer");
 	public static final EntityModelLayer PIGLIN_HEAD = MakeModelLayer("piglin_head");
 	public static final EntityModelLayer PIRANHA = MakeModelLayer("piranha");
 	public static final EntityModelLayer RAFT = MakeModelLayer("raft");

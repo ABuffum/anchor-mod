@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "haven:block/chiseled_prismarine",
-    "top": "haven:block/chiseled_prismarine",
-    "side": "haven:block/chiseled_prismarine"
-  }
-}

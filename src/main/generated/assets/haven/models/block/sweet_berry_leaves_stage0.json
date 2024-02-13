@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/leaves",
-  "textures": {
-    "all": "haven:block/sweet_berry_leaves_stage0"
-  }
-}

@@ -1,5 +1,6 @@
 package fun.wich.entity.hostile.skeleton;
 
+import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.WaterConversionEntity;
 import fun.wich.entity.projectile.WaterDragControllable;
 import fun.wich.entity.variants.SunkenSkeletonVariant;
@@ -50,12 +51,12 @@ public class SunkenSkeletonEntity extends SkeletonEntity implements WaterConvers
 	@Override
 	public void writeCustomDataToNbt(NbtCompound nbt) {
 		super.writeCustomDataToNbt(nbt);
-		nbt.putInt("Variant", this.getVariant());
+		nbt.putInt(ModNbtKeys.VARIANT, this.getVariant());
 	}
 	@Override
 	public void readCustomDataFromNbt(NbtCompound nbt) {
 		super.readCustomDataFromNbt(nbt);
-		if (nbt.contains("Variant")) this.setVariant(nbt.getInt("Variant"));
+		if (nbt.contains(ModNbtKeys.VARIANT)) this.setVariant(nbt.getInt(ModNbtKeys.VARIANT));
 	}
 
 	@Override

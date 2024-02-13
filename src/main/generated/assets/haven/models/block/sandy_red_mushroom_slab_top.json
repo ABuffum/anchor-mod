@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/sandy_red_mushroom_planks",
-    "top": "haven:block/sandy_red_mushroom_planks",
-    "side": "haven:block/sandy_red_mushroom_planks"
-  }
-}

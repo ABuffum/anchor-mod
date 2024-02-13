@@ -2,6 +2,7 @@ package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
 import fun.wich.effect.ModStatusEffects;
+import fun.wich.entity.ModEntityType;
 import fun.wich.particle.ModParticleTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -22,8 +23,8 @@ import net.minecraft.world.World;
 
 public class PinkSlimeBallEntity extends ThrownItemEntity {
 	public PinkSlimeBallEntity(EntityType<? extends PinkSlimeBallEntity> entityType, World world) { super(entityType, world); }
-	public PinkSlimeBallEntity(World world, LivingEntity owner) { super(ModBase.PINK_SLIME_BALL_ENTITY, owner, world); }
-	public PinkSlimeBallEntity(World world, double x, double y, double z) { super(ModBase.PINK_SLIME_BALL_ENTITY, x, y, z, world); }
+	public PinkSlimeBallEntity(World world, LivingEntity owner) { super(ModEntityType.PINK_SLIME_BALL_ENTITY, owner, world); }
+	public PinkSlimeBallEntity(World world, double x, double y, double z) { super(ModEntityType.PINK_SLIME_BALL_ENTITY, x, y, z, world); }
 	@Override
 	protected Item getDefaultItem() { return ModBase.PINK_SLIME_BALL; }
 	private ParticleEffect getParticleParameters() {

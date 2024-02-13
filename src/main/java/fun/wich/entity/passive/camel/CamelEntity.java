@@ -6,6 +6,7 @@ import fun.wich.ModBase;
 import fun.wich.client.render.entity.animation.AnimationState;
 import fun.wich.entity.ModDataHandlers;
 import fun.wich.entity.ModEntityPose;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.ModMemoryModules;
 import fun.wich.entity.ai.ModMobNavigation;
 import fun.wich.entity.blood.BloodType;
@@ -57,7 +58,7 @@ public class CamelEntity extends HorseBaseEntity implements JumpingMount, Saddle
 	public final AnimationState standingTransitionAnimationState = new AnimationState();
 	public final AnimationState idlingAnimationState = new AnimationState();
 	public final AnimationState dashingAnimationState = new AnimationState();
-	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.changing(ModBase.CAMEL_ENTITY.getWidth(), ModBase.CAMEL_ENTITY.getHeight() - 1.43f);
+	private static final EntityDimensions SITTING_DIMENSIONS = EntityDimensions.changing(ModEntityType.CAMEL_ENTITY.getWidth(), ModEntityType.CAMEL_ENTITY.getHeight() - 1.43f);
 	private int dashCooldown = 0;
 	private int idleAnimationCooldown = 0;
 
@@ -135,7 +136,7 @@ public class CamelEntity extends HorseBaseEntity implements JumpingMount, Saddle
 	public EntityDimensions getDimensions(ModEntityPose pose) {
 		if (pose == ModEntityPose.SITTING) return SITTING_DIMENSIONS.scaled(this.getScaleFactor());
 		if (pose == ModEntityPose.SLEEPING) return SLEEPING_DIMENSIONS;
-		return ModBase.CAMEL_ENTITY.getDimensions().scaled(this.getScaleFactor());
+		return ModEntityType.CAMEL_ENTITY.getDimensions().scaled(this.getScaleFactor());
 	}
 	@Override
 	protected float getActiveEyeHeight(EntityPose pose, EntityDimensions dimensions) { return dimensions.height - 0.1f; }
@@ -323,7 +324,7 @@ public class CamelEntity extends HorseBaseEntity implements JumpingMount, Saddle
 		return camelEntity.canBreed();
 	}
 	@Override
-	public CamelEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModBase.CAMEL_ENTITY.create(serverWorld); }
+	public CamelEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModEntityType.CAMEL_ENTITY.create(serverWorld); }
 	@Override
 	protected SoundEvent getEatSound() { return ModSoundEvents.ENTITY_CAMEL_EAT; }
 	@Override

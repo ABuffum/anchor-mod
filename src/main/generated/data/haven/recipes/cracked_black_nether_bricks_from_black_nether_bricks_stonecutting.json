@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:black_nether_bricks"
-  },
-  "result": "haven:cracked_black_nether_bricks",
-  "count": 1
-}

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:beige_concrete"
-  },
-  "result": "haven:beige_concrete_wall",
-  "count": 1
-}

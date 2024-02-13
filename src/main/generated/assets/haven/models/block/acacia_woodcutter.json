@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/_template_woodcutter",
-  "textures": {
-    "planks": "minecraft:block/acacia_planks"
-  }
-}

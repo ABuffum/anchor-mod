@@ -2,6 +2,7 @@ package fun.wich.entity.vehicle;
 
 import fun.wich.ModBase;
 import fun.wich.block.DispenserMinecartPointer;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.mixins.block.DispenserBlockInvoker;
 import net.minecraft.block.*;
@@ -41,7 +42,7 @@ public class DispenserMinecartEntity extends StorageMinecartEntity {
 		super(entityType, world);
 	}
 	public DispenserMinecartEntity(World world, double x, double y, double z) {
-		super(ModBase.DISPENSER_MINECART_ENTITY, x, y, z, world);
+		super(ModEntityType.DISPENSER_MINECART_ENTITY, x, y, z, world);
 	}
 	@Override
 	public void dropItems(DamageSource damageSource) {

@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/_template_heavy_chain",
-  "textures": {
-    "all": "haven:block/exposed_heavy_copper_chain"
-  }
-}

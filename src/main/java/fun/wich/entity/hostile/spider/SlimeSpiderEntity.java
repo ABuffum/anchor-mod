@@ -2,6 +2,7 @@ package fun.wich.entity.hostile.spider;
 
 import fun.wich.ModBase;
 import fun.wich.effect.ModStatusEffects;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.hostile.skeleton.SlimySkeletonEntity;
@@ -36,7 +37,7 @@ public class SlimeSpiderEntity extends SpiderEntity implements EntityWithBloodTy
 		StatusEffect statusEffect;
 		entityData = super.initialize(world, difficulty, spawnReason, entityData, entityNbt);
 		if (world.getRandom().nextInt(100) == 0) {
-			SlimySkeletonEntity skeletonEntity = ModBase.SLIMY_SKELETON_ENTITY.create(this.world);
+			SlimySkeletonEntity skeletonEntity = ModEntityType.SLIMY_SKELETON_ENTITY.create(this.world);
 			skeletonEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0f);
 			skeletonEntity.initialize(world, difficulty, spawnReason, null, null);
 			skeletonEntity.startRiding(this);

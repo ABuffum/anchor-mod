@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/plushie/llama",
-  "textures": {
-    "all": "haven:block/green_carpeted_mocha_llama_plushie",
-    "particle": "haven:block/green_carpeted_mocha_llama_plushie"
-  }
-}

@@ -1,7 +1,7 @@
 package fun.wich.entity.hostile.illager;
 
-import fun.wich.ModBase;
 import fun.wich.enchantment.GravityEnchantment;
+import fun.wich.entity.ModEntityType;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RangedAttackMob;
@@ -30,7 +30,7 @@ public class MageEntity extends CapedSpellcastingIllagerEntity implements Ranged
 		this.experiencePoints = 10;
 	}
 	public MageEntity(World world) {
-		super(ModBase.MAGE_ENTITY, world);
+		super(ModEntityType.MAGE_ENTITY, world);
 		this.experiencePoints = 10;
 	}
 

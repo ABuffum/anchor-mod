@@ -34,7 +34,7 @@ public class PurpleEyeOfEnderEntity extends Entity implements FlyingItemEntity {
 	}
 
 	public PurpleEyeOfEnderEntity(World world, double x, double y, double z) {
-		this(ModBase.PURPLE_EYE_OF_ENDER_ENTITY, world);
+		this(ModEntityType.PURPLE_EYE_OF_ENDER_ENTITY, world);
 		this.setPosition(x, y, z);
 	}
 

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/dried_bamboo_mosaic",
-    "top": "haven:block/dried_bamboo_mosaic",
-    "side": "haven:block/dried_bamboo_mosaic"
-  }
-}

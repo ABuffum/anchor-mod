@@ -1,6 +1,7 @@
 package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -13,8 +14,8 @@ import net.minecraft.world.World;
 
 public class BoneShardEntity extends ThrownItemEntity {
 	public BoneShardEntity(EntityType<? extends BoneShardEntity> entityType, World world) { super(entityType, world); }
-	public BoneShardEntity(World world, double x, double y, double z) { super(ModBase.BONE_SHARD_PROJECTILE_ENTITY, x, y, z, world); }
-	public BoneShardEntity(World world, LivingEntity owner) { super(ModBase.BONE_SHARD_PROJECTILE_ENTITY, owner, world); }
+	public BoneShardEntity(World world, double x, double y, double z) { super(ModEntityType.BONE_SHARD_PROJECTILE_ENTITY, x, y, z, world); }
+	public BoneShardEntity(World world, LivingEntity owner) { super(ModEntityType.BONE_SHARD_PROJECTILE_ENTITY, owner, world); }
 
 	@Override
 	protected Item getDefaultItem() { return ModBase.BONE_SHARD; }

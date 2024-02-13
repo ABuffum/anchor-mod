@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:diamond_bricks"
-  },
-  "result": "haven:diamond_brick_stairs",
-  "count": 1
-}

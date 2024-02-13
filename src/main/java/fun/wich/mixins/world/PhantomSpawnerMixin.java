@@ -1,7 +1,7 @@
 package fun.wich.mixins.world;
 
-import fun.wich.ModBase;
 import fun.wich.ModGameRules;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.EntityData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -45,7 +45,7 @@ public abstract class PhantomSpawnerMixin implements Spawner {
 		}
 		else if (world.isDay()) {
 			if (!world.getGameRules().getBoolean(ModGameRules.DO_RED_PHANTOM_SPAWNING)) return;
-			type = ModBase.RED_PHANTOM_ENTITY;
+			type = ModEntityType.RED_PHANTOM_ENTITY;
 			days = world.getGameRules().getInt(ModGameRules.RED_PHANTOM_START_DAYS);
 		}
 		else return;

@@ -45,22 +45,17 @@ import fun.wich.dispenser.ModCarvedPumpkinBlockDispenserBehavior;
 import fun.wich.dispenser.WearableDispenserBehavior;
 import fun.wich.effect.*;
 import fun.wich.enchantment.*;
-import fun.wich.entity.IceChunkEntity;
-import fun.wich.entity.ModActivities;
-import fun.wich.entity.ModDataHandlers;
-import fun.wich.entity.PurpleEyeOfEnderEntity;
+import fun.wich.entity.*;
 import fun.wich.entity.ai.ModMemoryModules;
-import fun.wich.entity.ai.sensor.FrogAttackablesSensor;
-import fun.wich.entity.ai.sensor.IsInWaterSensor;
-import fun.wich.entity.ai.sensor.ModSensorType;
-import fun.wich.entity.ai.sensor.WardenAttackablesSensor;
+import fun.wich.entity.ai.sensor.*;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.cloud.ConfettiCloudEntity;
 import fun.wich.entity.hostile.illager.IceologerEntity;
 import fun.wich.entity.hostile.illager.MageEntity;
 import fun.wich.entity.hostile.RedPhantomEntity;
 import fun.wich.entity.hostile.SlimeCreeperEntity;
-import fun.wich.entity.hostile.piranha.PiranhaEntity;
+import fun.wich.entity.hostile.illager.MountaineerEntity;
+import fun.wich.entity.hostile.PiranhaEntity;
 import fun.wich.entity.hostile.skeleton.*;
 import fun.wich.entity.hostile.slime.*;
 import fun.wich.entity.hostile.spider.*;
@@ -120,6 +115,7 @@ import fun.wich.item.pouch.PouchItem;
 import fun.wich.item.projectile.*;
 import fun.wich.item.syringe.*;
 import fun.wich.item.tool.GravityHammerItem;
+import fun.wich.item.tool.StoneaxeItem;
 import fun.wich.item.tool.ThunderingHammerItem;
 import fun.wich.item.tool.echo.*;
 import fun.wich.material.ModArmorMaterials;
@@ -425,11 +421,6 @@ public class ModBase implements ModInitializer {
 	});
 	public static final BucketItem BLOOD_BUCKET = GeneratedItem(new ModBucketItem(STILL_BLOOD_FLUID, ItemSettings().recipeRemainder(Items.BUCKET).maxCount(1), BucketProvider.DEFAULT_PROVIDER));
 	//</editor-fold>
-	//<editor-fold desc="Boats">
-	public static final EntityType<ModBoatEntity> MOD_BOAT_ENTITY = FabricEntityTypeBuilder.<ModBoatEntity>create(SpawnGroup.MISC, ModBoatEntity::new).dimensions(EntityDimensions.fixed(1.375F, 0.5625F)).trackRangeChunks(10).build();
-	public static final EntityType<ChestBoatEntity> CHEST_BOAT_ENTITY = FabricEntityTypeBuilder.<ChestBoatEntity>create(SpawnGroup.MISC, ChestBoatEntity::new).dimensions(EntityDimensions.fixed(1.375f, 0.5625f)).trackRangeChunks(10).build();
-	public static final EntityType<ModChestBoatEntity> MOD_CHEST_BOAT_ENTITY = FabricEntityTypeBuilder.<ModChestBoatEntity>create(SpawnGroup.MISC, ModChestBoatEntity::new).dimensions(EntityDimensions.fixed(1.375f, 0.5625f)).trackRangeChunks(10).build();
-	//</editor-fold>
 	//<editor-fold desc="Bone">
 	public static final TorchContainer BONE_TORCH = MakeTorch(BlockSoundGroup.BONE);
 	public static final TorchContainer BONE_SOUL_TORCH = MakeSoulTorch(BlockSoundGroup.BONE);
@@ -441,12 +432,7 @@ public class ModBase implements ModInitializer {
 	public static final Item BONE_KNIFE = MakeKnife(ModToolMaterials.BONE);
 	public static final Item BONE_HAMMER = MakeHammer(ModToolMaterials.BONE);
 	//</editor-fold>
-	//<editor-fold desc="Bone Spider">
-	public static final EntityType<BoneSpiderEntity> BONE_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BoneSpiderEntity::new).dimensions(EntityDimensions.fixed(1.4f, 0.9f)).trackRangeChunks(8).build();
-	public static final Item BONE_SPIDER_SPAWN_EGG = MakeSpawnEgg(BONE_SPIDER_ENTITY, 0x270F19, 0x632FB7);
 	public static final Item BONE_SHARD = MakeGeneratedItem();
-	public static final EntityType<BoneShardEntity> BONE_SHARD_PROJECTILE_ENTITY = FabricEntityTypeBuilder.<BoneShardEntity>create(SpawnGroup.MISC, BoneShardEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
-	//</editor-fold>
 	//<editor-fold desc="Books">
 	public static final Item UNREADABLE_BOOK = ParentedItem(new Item(ItemSettings()), Items.WRITTEN_BOOK);
 	public static final Item RED_BOOK = MakeGeneratedItem();
@@ -457,18 +443,8 @@ public class ModBase implements ModInitializer {
 	public static final Item PURPLE_BOOK = MakeGeneratedItem();
 	public static final Item GRAY_BOOK = MakeGeneratedItem();
 	//</editor-fold>
-	//<editor-fold desc="Bottled Confetti & Dragon's Breath">
 	public static final Item BOTTLED_CONFETTI_ITEM = GeneratedItem(new BottledConfettiItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE)));
-	public static final EntityType<BottledConfettiEntity> BOTTLED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<BottledConfettiEntity>create(SpawnGroup.MISC, BottledConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<DroppedConfettiEntity> DROPPED_CONFETTI_ENTITY = FabricEntityTypeBuilder.<DroppedConfettiEntity>create(SpawnGroup.MISC, DroppedConfettiEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<ConfettiCloudEntity> CONFETTI_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
-	public static final EntityType<DroppedDragonBreathEntity> DROPPED_DRAGON_BREATH_ENTITY = FabricEntityTypeBuilder.<DroppedDragonBreathEntity>create(SpawnGroup.MISC, DroppedDragonBreathEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<ConfettiCloudEntity> DRAGON_BREATH_CLOUD_ENTITY = FabricEntityTypeBuilder.<ConfettiCloudEntity>create(SpawnGroup.MISC, ConfettiCloudEntity::new).build();
-	//</editor-fold>
-	//<editor-fold desc="Bottled Lightning">
 	public static final Item BOTTLED_LIGHTNING_ITEM = GeneratedItem(new BottledLightningItem(ItemSettings().recipeRemainder(Items.GLASS_BOTTLE)));
-	public static final EntityType<BottledLightningEntity> BOTTLED_LIGHTNING_ENTITY = FabricEntityTypeBuilder.<BottledLightningEntity>create(SpawnGroup.MISC, BottledLightningEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	//</editor-fold>
 	//<editor-fold desc="Brews">
 	/*//TODO: Apply burning effect https://minecraft.wiki/w/Minecraft_Dungeons:Burning
 	public static final Item BURNING_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
@@ -477,14 +453,8 @@ public class ModBase implements ModInitializer {
 
 		}
 	});*/
-	public static final Item DENSE_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) { @Override public void OnDrink(ItemStack stack, LivingEntity user) { user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.DENSE_BREW, 3000)); } });
-	/*//TODO: reduce damage by 1/2 for 15 seconds
-	public static final Item OAKWOOD_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
-		@Override
-		public void OnDrink(ItemStack stack, LivingEntity user) {
-
-		}
-	});*/
+	public static final Item DENSE_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) { @Override public void OnDrink(ItemStack stack, LivingEntity user) { user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.DENSE, 1200)); } });
+	public static final Item OAKWOOD_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) { @Override public void OnDrink(ItemStack stack, LivingEntity user) { user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.OAKWOOD_ARMOR, 1200)); } });
 	/*//TODO: Apply shadow form https://minecraft.wiki/w/Minecraft_Dungeons:Shadow_Brew
 	public static final Item SHADOW_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
 		@Override
@@ -492,11 +462,12 @@ public class ModBase implements ModInitializer {
 
 		}
 	});*/
-	//TODO: reduce damage by 1/6
 	public static final Item SWEET_BREW = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
 		@Override
 		public void OnDrink(ItemStack stack, LivingEntity user) {
 			user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.FREEZING_RESISTANCE, 2400, 0));
+			if (user.hasStatusEffect(ModStatusEffects.FROZEN)) user.removeStatusEffect(ModStatusEffects.FROZEN);
+			user.addStatusEffect(new StatusEffectInstance(ModStatusEffects.SWEET_BREW, 2400, 0, false, false));
 		}
 	});
 	//</editor-fold>
@@ -523,11 +494,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer CALCITE_TILE_STAIRS = MakeStairs(CALCITE_TILES).stairsModel(CALCITE_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer CALCITE_TILE_SLAB = MakeSlab(CALCITE_TILES).slabModel(CALCITE_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer CALCITE_TILE_WALL = MakeWall(CALCITE_TILES).wallModel(CALCITE_TILES).blockTag(BlockTags.PICKAXE_MINEABLE);
-	//</editor-fold>
-	//<editor-fold desc="Camel">
-	public static final ModSensorType<TemptationsSensor> CAMEL_TEMPTATIONS_SENSOR = new ModSensorType<>("camel_temptations", () -> new TemptationsSensor(CamelBrain.getBreedingIngredient()));
-	public static final EntityType<CamelEntity> CAMEL_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, CamelEntity::new).dimensions(EntityDimensions.fixed(1.7f, 2.375f)).trackRangeChunks(10).build();
-	public static final Item CAMEL_SPAWN_EGG = MakeSpawnEgg(CAMEL_ENTITY, 16565097, 13341495, ItemSettings(ItemGroup.MISC));
 	//</editor-fold>
 	//<editor-fold desc="Cassia">
 	public static final BlockContainer CASSIA_LOG = MakeLog(MapColor.BROWN).flammable(5, 5).fuel(300).blockTag(ModBlockTags.CASSIA_LOGS).itemTag(ModItemTags.CASSIA_LOGS).blockTag(ModBlockTags.OVERWORLD_NATURAL_LOGS).itemTag(ModItemTags.CHARRABLE_LOGS).blockTag(BlockTags.AXE_MINEABLE);
@@ -713,19 +679,6 @@ public class ModBase implements ModInitializer {
 	public static final Map<DyeColor, BlockContainer> CONCRETE_STAIRS = ColorUtil.Map(color -> { Block block = ColorUtil.GetConcreteBlock(color); return MakeStairs(block).stairsModel(block).blockTag(BlockTags.PICKAXE_MINEABLE); });
 	public static final Map<DyeColor, BlockContainer> CONCRETE_SLABS = ColorUtil.Map(color -> { Block block = ColorUtil.GetConcreteBlock(color); return MakeSlab(block).slabModel(block).blockTag(BlockTags.PICKAXE_MINEABLE); });
 	public static final Map<DyeColor, BlockContainer> CONCRETE_WALLS = ColorUtil.Map(color -> { Block block = ColorUtil.GetConcreteBlock(color); return MakeWall(block).wallModel(block).blockTag(BlockTags.PICKAXE_MINEABLE); });
-	//</editor-fold>
-	//<editor-fold desc="Cow Variants">
-	public static final EntityType<BlueMooshroomEntity> BLUE_MOOSHROOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, BlueMooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10).build();
-	public static final Item BLUE_MOOSHROOM_SPAWN_EGG = MakeSpawnEgg(BLUE_MOOSHROOM_ENTITY, 0x0D6794, 0x929292);
-	public static final EntityType<NetherMooshroomEntity> NETHER_MOOSHROOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, NetherMooshroomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10).build();
-	public static final Item NETHER_MOOSHROOM_SPAWN_EGG = MakeSpawnEgg(NETHER_MOOSHROOM_ENTITY, 0x871116, 0xFF6500);
-	//Mooblooms
-	public static final EntityType<MoobloomEntity> MOOBLOOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoobloomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10).build();
-	public static final Item MOOBLOOM_SPAWN_EGG = MakeSpawnEgg(MOOBLOOM_ENTITY, 0xFDD500, 0xFDF7BA);
-	public static final EntityType<MoolipEntity> MOOLIP_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MoolipEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10).build();
-	public static final Item MOOLIP_SPAWN_EGG = MakeSpawnEgg(MOOLIP_ENTITY, 0xFFA9C2, 0xFFE4E4);
-	public static final EntityType<MooblossomEntity> MOOBLOSSOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MooblossomEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).trackRangeChunks(10).build();
-	public static final Item MOOBLOSSOM_SPAWN_EGG = MakeSpawnEgg(MOOBLOSSOM_ENTITY, 0xDF317C, 0x994369);
 	//</editor-fold>
 	//<editor-fold desc="Crimson">
 	public static final WallBlockContainer CRIMSON_HANGING_SIGN = MakeHangingSign(SignType.CRIMSON, Blocks.STRIPPED_CRIMSON_STEM, SignItemSettings(ItemGroup.DECORATIONS)).blockTag(BlockTags.NON_FLAMMABLE_WOOD).itemTag(ItemTags.NON_FLAMMABLE_WOOD).blockTag(BlockTags.AXE_MINEABLE);
@@ -1177,7 +1130,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer END_SHALE_ROCK = BuildBlock(new ModFacingBlock(END_SHALE), DropTable.SilkTouchOrElse(COBBLED_END_SHALE.asItem())).blockTag(ModBlockTags.SCULK_REPLACEABLE).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	public static final Item PURPLE_ENDER_EYE = GeneratedItem(new PurpleEnderEyeItem(ItemSettings()));
-	public static final EntityType<PurpleEyeOfEnderEntity> PURPLE_EYE_OF_ENDER_ENTITY = FabricEntityTypeBuilder.<PurpleEyeOfEnderEntity>create(SpawnGroup.MISC, PurpleEyeOfEnderEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeChunks(4).trackedUpdateRate(4).build();
 	public static final Block PURPLE_EYE_END_PORTAL_FRAME = new PurpleEyeEndPortalFrameBlock(Block.Settings.of(Material.STONE, MapColor.PURPLE).sounds(BlockSoundGroup.GLASS).luminance(LUMINANCE_1).strength(-1.0F, 3600000.0F));
 	//<editor-fold desc="Ender Fire">
 	public static final BlockContainer ENDER_CANDLE = MakeCandle(MapColor.PALE_YELLOW, 2.75);
@@ -1187,10 +1139,6 @@ public class ModBase implements ModInitializer {
 	public static final TorchContainer ENDER_TORCH = MakeTorch(12, BlockSoundGroup.WOOD, ModParticleTypes.ENDER_FIRE_FLAME);
 	public static final BlockContainer ENDER_LANTERN = MakeLantern(13);
 	public static final BlockContainer ENDER_CAMPFIRE = MakeEnderCampfire(Blocks.CAMPFIRE);
-	//</editor-fold>
-	//<editor-fold desc="Fancy Chicken">
-	public static final EntityType<FancyChickenEntity> FANCY_CHICKEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, FancyChickenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeChunks(10).build();
-	public static final Item FANCY_CHICKEN_SPAWN_EGG = MakeSpawnEgg(FANCY_CHICKEN_ENTITY, 0xB788CB, 0xF7B035);
 	//</editor-fold>
 	//<editor-fold desc="Feathers">
 	public static final Item FANCY_FEATHER = MakeGeneratedItem(); //Minecraft Earth
@@ -1415,16 +1363,8 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer VERDANT_FROGLIGHT = MakeFroglight(MapColor.LICHEN_GREEN, ItemSettings(ItemGroup.DECORATIONS));
 	public static final BlockContainer PEARLESCENT_FROGLIGHT = MakeFroglight(MapColor.PINK, ItemSettings(ItemGroup.DECORATIONS));
 
-	public static final ModSensorType<TemptationsSensor> FROG_TEMPTATIONS_SENSOR = new ModSensorType<>("frog_temptations", () -> new TemptationsSensor(FrogBrain.getTemptItems()));
-	public static final ModSensorType<FrogAttackablesSensor> FROG_ATTACKABLES_SENSOR = new ModSensorType<>("frog_attackables", FrogAttackablesSensor::new);
-	public static final ModSensorType<IsInWaterSensor> IS_IN_WATER_SENSOR = new ModSensorType<>("is_in_water", IsInWaterSensor::new);
-	public static final EntityType<FrogEntity> FROG_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, FrogEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(10).build();
-	public static final Item FROG_SPAWN_EGG = MakeSpawnEgg(FROG_ENTITY, 13661252, 0xFFC77C, ItemSettings(ItemGroup.MISC));
 	private static final Block FROGSPAWN_BLOCK = new FrogspawnBlock(Block.Settings.of(FROGSPAWN_MATERIAL).breakInstantly().nonOpaque().noCollision().sounds(ModBlockSoundGroups.FROGSPAWN));
 	public static final BlockContainer FROGSPAWN = new BlockContainer(FROGSPAWN_BLOCK, new LilyPadItem(FROGSPAWN_BLOCK, ItemSettings(ItemGroup.MISC))).drops(DropTable.NOTHING);
-	public static final EntityType<TadpoleEntity> TADPOLE_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, TadpoleEntity::new).dimensions(EntityDimensions.fixed(TadpoleEntity.WIDTH, TadpoleEntity.HEIGHT)).trackRangeChunks(10).build();
-	public static final Item TADPOLE_BUCKET = GeneratedItem(new EntityBucketItem(TADPOLE_ENTITY, Fluids.WATER, ModSoundEvents.ITEM_BUCKET_EMPTY_TADPOLE, ItemSettings(ItemGroup.MISC).maxCount(1)));
-	public static final Item TADPOLE_SPAWN_EGG = MakeSpawnEgg(TADPOLE_ENTITY, 7164733, 1444352, ItemSettings(ItemGroup.MISC));
 	//</editor-fold>
 	public static final ScreenHandlerType<Generic1x1ContainerScreenHandler> GENERIC_1X1_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(ModId.ID("generic_1x1"), Generic1x1ContainerScreenHandler::new);
 	//<editor-fold desc="Gilded Blackstone">
@@ -1683,15 +1623,7 @@ public class ModBase implements ModInitializer {
 	public static final TorchContainer UNDERWATER_HAY_TORCH = MakeUnderwaterTorch(BlockSoundGroup.WOOD).torchModel(HAY_TORCH);
 	//</editor-fold>
 	public static final BlockContainer HEDGE_BLOCK = MakeBlock(Block.Settings.of(Material.LEAVES).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque()).flammable(5, 20).compostable(0.75f).dropSelf().blockTag(ModBlockTags.BROOM_SWEEPS).blockTag(BlockTags.HOE_MINEABLE);
-	//<editor-fold desc="Hedgehog">
-	public static final EntityType<HedgehogEntity> HEDGEHOG_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, HedgehogEntity::new).dimensions(EntityDimensions.fixed(0.5F, 0.45F)).trackRangeChunks(8).build();
-	public static final Item HEDGEHOG_SPAWN_EGG = MakeSpawnEgg(HEDGEHOG_ENTITY, 11440263, 7558239);
-	//</editor-fold>
 	public static final Item HORN = MakeGeneratedItem(); //Minecraft Earth
-	//<editor-fold desc="Icy Spider">
-	public static final EntityType<IcySpiderEntity> ICY_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, IcySpiderEntity::new).dimensions(EntityDimensions.fixed(1.4f, 0.9f)).trackRangeChunks(8).build();
-	public static final Item ICY_SPIDER_SPAWN_EGG = MakeSpawnEgg(ICY_SPIDER_ENTITY, 0x045480, 0x3CFEFB);
-	//</editor-fold>
 	//<editor-fold desc="Igneous Rocks">
 	public static final BlockContainer COOLED_MAGMA_BLOCK = BuildBlock(new CooledMagmaBlock(Blocks.MAGMA_BLOCK)).cubeAllModel().blockTag(ModBlockTags.INFLICTS_FIRE_DAMAGE).blockTag(ModBlockTags.SIZZLE_RAIN_BLOCKS).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer PUMICE = BuildBlock(new PumiceBlock(Block.Settings.of(Material.STONE, MapColor.BROWN).requiresTool().strength(1.5f, 6.0f))).cubeAllModel().blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -1807,10 +1739,6 @@ public class ModBase implements ModInitializer {
 	public static final Item STRAWBERRY_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item SWEET_BERRY_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item TOMATO_SMOOTHIE = MakeDrink(5, 0.5F);
-	//</editor-fold>
-	//<editor-fold desc="Jumping Spider">
-	public static final EntityType<JumpingSpiderEntity> JUMPING_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, JumpingSpiderEntity::new).dimensions(EntityDimensions.fixed(0.7f, 0.5f)).trackRangeChunks(8).build();
-	public static final Item JUMPING_SPIDER_SPAWN_EGG = MakeSpawnEgg(JUMPING_SPIDER_ENTITY, 0x281206, 0x3C0202);
 	//</editor-fold>
 	//<editor-fold desc="Jungle">
 	public static final Item JUNGLE_CHEST_BOAT = MakeChestBoat(BoatEntity.Type.JUNGLE, BoatSettings(ItemGroup.TRANSPORTATION));
@@ -1997,8 +1925,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer MANGROVE_ENDER_CAMPFIRE = MakeEnderCampfire(MANGROVE_CAMPFIRE).blockTag(BlockTags.AXE_MINEABLE);
 	//</editor-fold>
 	//<editor-fold desc="Melon">
-	public static final EntityType<MelonSeedProjectileEntity> MELON_SEED_PROJECTILE_ENTITY = FabricEntityTypeBuilder.<MelonSeedProjectileEntity>create(SpawnGroup.MISC, MelonSeedProjectileEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<MelonGolemEntity> MELON_GOLEM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MISC, MelonGolemEntity::new).dimensions(EntityType.SNOW_GOLEM.getDimensions()).trackRangeChunks(8).build();
 	public static final BlockContainer CARVED_MELON = BuildBlock(new CarvedMelonBlock(GourdSettings(MapColor.LIME))).compostable(0.65f).blockTag(ModBlockTags.CARVED_MELONS).itemTag(ModItemTags.CARVED_MELONS).blockTag(BlockTags.AXE_MINEABLE);
 	public static final BlockContainer MELON_LANTERN = BuildBlock(new CarvedMelonBlock(GourdSettings(MapColor.LIME).luminance(LUMINANCE_15))).blockTag(ModBlockTags.GOURD_LANTERNS).blockTag(BlockTags.AXE_MINEABLE);
 	public static final BlockContainer SOUL_MELON_LANTERN = MakeGourdLantern(MapColor.LIME, LUMINANCE_10).blockTag(ModBlockTags.GOURD_LANTERNS).blockTag(BlockTags.AXE_MINEABLE);
@@ -2028,15 +1954,10 @@ public class ModBase implements ModInitializer {
 	//Cheese
 	public static final BlockContainer CHEESE_BLOCK = MakeBlock(Block.Settings.of(Material.SOLID_ORGANIC, MapColor.YELLOW).strength(1.0F).sounds(BlockSoundGroup.WART_BLOCK)).cubeAllModel().blockTag(BlockTags.SHOVEL_MINEABLE);
 	//</editor-fold>
-	//<editor-fold desc="Minecarts">
-	public static final EntityType<DispenserMinecartEntity> DISPENSER_MINECART_ENTITY = FabricEntityTypeBuilder.<DispenserMinecartEntity>create(SpawnGroup.MISC, DispenserMinecartEntity::new).dimensions(EntityDimensions.fixed(0.98f, 0.7f)).trackRangeChunks(8).build();
 	public static final Item DISPENSER_MINECART_ITEM = GeneratedItem(new DispenserMinecartItem(ItemSettings().maxCount(1)));
-	//</editor-fold>
 	//<editor-fold desc="Moss">
 	public static final BlockContainer MOSS_SLAB = BuildSlab(new MossSlabBlock(Blocks.MOSS_BLOCK)).compostable(0.325f).slabModel(Blocks.MOSS_BLOCK).blockTag(BlockTags.HOE_MINEABLE);
 	public static final BedContainer MOSS_BED = MakeBed("moss", MapColor.GREEN, BlockSoundGroup.MOSS_BLOCK);
-	public static final EntityType<MossySheepEntity> MOSSY_SHEEP_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, MossySheepEntity::new).dimensions(EntityType.SHEEP.getDimensions()).trackRangeChunks(10).build();
-	public static final Item MOSSY_SHEEP_SPAWN_EGG = GeneratedItem(new SpawnEggItem(MOSSY_SHEEP_ENTITY, 0xFFFFFF, 0xFFFFFF, ItemSettings()));
 	//</editor-fold>
 	//<editor-fold desc="Mud">
 	public static final BlockContainer MUD = BuildBlock(new MudBlock(Block.Settings.copy(Blocks.DIRT).mapColor(MapColor.TERRACOTTA_CYAN).allowsSpawning(ModFactory::always).solidBlock(ModFactory::always).blockVision(ModFactory::always).suffocates(ModFactory::always).sounds(ModBlockSoundGroups.MUD)), ItemSettings(ItemGroup.BUILDING_BLOCKS)).cubeAllModel().blockTag(BlockTags.DIRT).blockTag(ModBlockTags.FROGS_SPAWNABLE_ON).blockTag(ModBlockTags.MANGROVE_LOGS_CAN_GROW_THROUGH).blockTag(ModBlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH).blockTag(ModBlockTags.SNIFFER_DIGGABLE_BLOCK).blockTag(BlockTags.SHOVEL_MINEABLE);
@@ -2402,10 +2323,6 @@ public class ModBase implements ModInitializer {
 	public static final Item OBSIDIAN_BOOTS = MakeBoots(ModArmorMaterials.OBSIDIAN);
 	public static final Item OBSIDIAN_HORSE_ARMOR = MakeHorseArmor(ModArmorMaterials.OBSIDIAN);
 	//</editor-fold>
-	//<editor-fold desc="Phantoms">
-	public static final EntityType<RedPhantomEntity> RED_PHANTOM_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, RedPhantomEntity::new).dimensions(EntityDimensions.fixed(0.9f, 0.5f)).trackRangeChunks(8).build();
-	public static final Item RED_PHANTOM_SPAWN_EGG = MakeSpawnEgg(RED_PHANTOM_ENTITY, 0x881214, 0x00E5F9);
-	//</editor-fold>
 	//<editor-fold desc="Piglin Head">
 	private static final Block PIGLIN_HEAD_BLOCK = new PiglinHeadBlock(Block.Settings.of(Material.DECORATION).strength(1.0f), false);
 	private static final Block PIGLIN_WALL_HEAD = new WallPiglinHeadBlock(Block.Settings.of(Material.DECORATION).strength(1.0f), false);
@@ -2419,8 +2336,6 @@ public class ModBase implements ModInitializer {
 	//</editor-fold>
 	public static final BlockContainer PINK_PETALS = new BlockContainer(new FlowerbedBlock(Block.Settings.of(Material.REPLACEABLE_PLANT, MapColor.PINK).strength(0.1f).noCollision().sounds(ModBlockSoundGroups.PINK_PETALS)), ItemSettings(ItemGroup.DECORATIONS)).compostable(0.3f).blockTag(BlockTags.FLOWERS).itemTag(ItemTags.FLOWERS).blockTag(BlockTags.INSIDE_STEP_SOUND_BLOCKS).blockTag(BlockTags.HOE_MINEABLE);
 	//<editor-fold desc="Piranha">
-	public static final EntityType<PiranhaEntity> PIRANHA_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.WATER_AMBIENT, PiranhaEntity::new).dimensions(EntityDimensions.fixed(0.7F, 0.7F)).trackRangeChunks(4).build();
-	public static final Item PIRANHA_SPAWN_EGG = MakeSpawnEgg(PIRANHA_ENTITY, 4877153, 11762012);
 	public static final Item PIRANHA = MakeFood(2, 0.1f);
 	public static final Item COOKED_PIRANHA = MakeFood(6, 0.7f);
 	//</editor-fold>
@@ -2715,7 +2630,6 @@ public class ModBase implements ModInitializer {
 	public static final Item SNORT_POTTERY_SHERD = MakeGeneratedItem(ItemSettings(ItemGroup.MATERIALS));
 	//</editor-fold>
 	public static final Item POUCH = GeneratedItem(new PouchItem(ItemSettings().maxCount(16)));
-	public static final EntityType<PowderKegEntity> POWDER_KEG_ENTITY = FabricEntityTypeBuilder.<PowderKegEntity>create(SpawnGroup.MISC, PowderKegEntity::new).dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeChunks(10).trackedUpdateRate(10).build();
 	//<editor-fold desc="Prismarine">
 	public static final Item PRISMARINE_ROD = MakeHandheldItem();
 	public static final TorchContainer PRISMARINE_TORCH = MakeTorch(15, BlockSoundGroup.STONE, ModParticleTypes.PRISMARINE_FLAME).torchModel();
@@ -2789,11 +2703,7 @@ public class ModBase implements ModInitializer {
 	public static final Item QUARTZ_BOOTS = MakeBoots(ModArmorMaterials.QUARTZ);
 	public static final Item QUARTZ_HORSE_ARMOR = MakeHorseArmor(ModArmorMaterials.QUARTZ);
 	//</editor-fold>
-	//TODO: Steal from containers
-	//<editor-fold desc="Raccoon">
-	public static final EntityType<RaccoonEntity> RACCOON_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RaccoonEntity::new).dimensions(EntityDimensions.fixed(1F, 1F)).trackRangeChunks(8).build();
-	public static final Item RACCOON_SPAWN_EGG = MakeSpawnEgg(RACCOON_ENTITY, 0x646464, 0x0B0B0B);
-	//</editor-fold>
+	//TODO: Raccoons steal from containers
 	//<editor-fold desc="Ragdoll">
 	private static final Block RAGDOLL_BLOCK = new RagdollBlock(Block.Settings.copy(Blocks.PLAYER_HEAD).noCollision());
 	private static final Item RAGDOLL_ITEM = new RagdollItem(RAGDOLL_BLOCK, ItemSettings());
@@ -2806,11 +2716,7 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer RAW_IRON_SLAB = MakeSlab(Blocks.RAW_IRON_BLOCK).slabModel(Blocks.RAW_IRON_BLOCK).blockTag(BlockTags.NEEDS_STONE_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	public static final Item RECOVERY_COMPASS = new Item(ItemSettings(ItemGroup.TOOLS)); //Minecraft 1.19
-	//TODO: Stand on hind legs for defensive animation
-	//<editor-fold desc="Red Panda">
-	public static final EntityType<RedPandaEntity> RED_PANDA_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RedPandaEntity::new).dimensions(EntityDimensions.fixed(1F, 1F)).trackRangeChunks(8).build();
-	public static final Item RED_PANDA_SPAWN_EGG = MakeSpawnEgg(RED_PANDA_ENTITY, 0xC35330, 0x0B0B0B);
-	//</editor-fold>
+	//TODO: Red Pandas stand on hind legs for defensive animation
 	//<editor-fold desc="Ruby">
 	public static final Item RUBY = MakeGeneratedItem();
 	public static final BlockContainer RUBY_ORE = BuildBlock(new OreBlock(Block.Settings.copy(Blocks.EMERALD_ORE), UniformIntProvider.create(3, 7)), DropTable.Ore(RUBY)).cubeAllModel().blockTag(ModBlockTags.RUBY_ORES).blockTag(ModBlockTags.SNAPS_GOAT_HORN).blockTag(BlockTags.NEEDS_IRON_TOOL).blockTag(BlockTags.PICKAXE_MINEABLE);
@@ -2927,38 +2833,17 @@ public class ModBase implements ModInitializer {
 	public static final Item PINK_SLIME_BOTTLE = GeneratedItem(new BottledSlimeItem(GlassBottledItemSettings()));
 	public static final BlockContainer BLUE_SLIME_BLOCK = BuildBlock(new SlimeBlock(Block.Settings.copy(Blocks.SLIME_BLOCK).mapColor(MapColor.WATER_BLUE))).blockTag(ModBlockTags.SLIME_BLOCKS);
 	public static final BlockContainer PINK_SLIME_BLOCK = BuildBlock(new SlimeBlock(Block.Settings.copy(Blocks.SLIME_BLOCK).mapColor(MapColor.MAGENTA))).blockTag(ModBlockTags.SLIME_BLOCKS);
-	public static final EntityType<TropicalSlimeEntity> TROPICAL_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, TropicalSlimeEntity::new).dimensions(EntityDimensions.changing(2.04f, 2.04f)).trackRangeChunks(10).build();
-	public static final Item TROPICAL_SLIME_SPAWN_EGG = MakeSpawnEgg(TROPICAL_SLIME_ENTITY, 0x8FD3FF, 0x345C7A);
-	public static final EntityType<PinkSlimeBallEntity> PINK_SLIME_BALL_ENTITY = FabricEntityTypeBuilder.<PinkSlimeBallEntity>create(SpawnGroup.MISC, PinkSlimeBallEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<PinkSlimeEntity> PINK_SLIME_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, PinkSlimeEntity::new).dimensions(EntityDimensions.changing(2.04f, 2.04f)).trackRangeChunks(10).build();
-	public static final Item PINK_SLIME_SPAWN_EGG = MakeSpawnEgg(PINK_SLIME_ENTITY, 0xE0A3EE, 0xB85ECE);
-	//Other Mobs
 	public static final Item SLIME_FEATHER = MakeGeneratedItem();
-	public static final EntityType<SlimeChickenEntity> SLIME_CHICKEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SlimeChickenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.7F)).trackRangeChunks(10).build();
-	public static final Item SLIME_CHICKEN_SPAWN_EGG = MakeSpawnEgg(SLIME_CHICKEN_ENTITY, 5349438, 0xFF0000);
-
-	public static final EntityType<SlimeCowEntity> SLIME_COW_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SlimeCowEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.4f)).trackRangeChunks(10).build();
-	public static final Item SLIME_COW_SPAWN_EGG = MakeSpawnEgg(SLIME_COW_ENTITY, 5349438, 0x3F3024);
-
-	public static final EntityType<SlimeHorseEntity> SLIME_HORSE_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SlimeHorseEntity::new).dimensions(EntityDimensions.fixed(1.3964844f, 1.6f)).trackRangeChunks(10).build();
-	public static final Item SLIME_HORSE_SPAWN_EGG = MakeSpawnEgg(SLIME_HORSE_ENTITY, 5349438, 0xCFC700);
-
-	public static final EntityType<SlimeSpiderEntity> SLIME_SPIDER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SlimeSpiderEntity::new).dimensions(EntityDimensions.fixed(1.4f, 0.9f)).trackRangeChunks(8).build();
-	public static final Item SLIME_SPIDER_SPAWN_EGG = MakeSpawnEgg(SLIME_SPIDER_ENTITY, 5349438, 11013646);
 	//Lanterns
 	public static final BlockContainer MAGMA_CUBE_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_15), EntityType.MAGMA_CUBE), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final BlockContainer SLIME_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_13), EntityType.SLIME), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer TROPICAL_SLIME_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_13), TROPICAL_SLIME_ENTITY), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
-	public static final BlockContainer PINK_SLIME_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_13), PINK_SLIME_ENTITY), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer TROPICAL_SLIME_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_13), ModEntityType.TROPICAL_SLIME_ENTITY), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
+	public static final BlockContainer PINK_SLIME_LANTERN = BuildBlock(new SlimeLanternBlock(SlimeLanternSettings(LUMINANCE_13), ModEntityType.PINK_SLIME_ENTITY), DropTable.Drops(EMPTY_LANTERN)).blockTag(BlockTags.PICKAXE_MINEABLE);
 	//</editor-fold>
 	//<editor-fold desc="Smithing Templates (1.20)">
 	public static final Item NETHERITE_UPGRADE_SMITHING_TEMPLATE = GeneratedItem(SmithingTemplateItem.createNetheriteUpgrade());
 	//</editor-fold>
-	//<editor-fold desc="Sniffer">
-	public static final EntityType<SnifferEntity> SNIFFER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, SnifferEntity::new).dimensions(EntityDimensions.fixed(1.9f, 1.75f)).trackRangeChunks(10).build();
-	public static final Item SNIFFER_SPAWN_EGG = MakeSpawnEgg(SNIFFER_ENTITY, 9840944, 5085536, ItemSettings(ItemGroup.MISC));
 	public static final BlockContainer SNIFFER_EGG = BuildBlock(new SnifferEggBlock(Block.Settings.of(new Material.Builder(MapColor.DARK_GREEN).allowsMovement().build(), MapColor.RED).strength(0.5f).sounds(BlockSoundGroup.METAL).nonOpaque()), ItemSettings(ItemGroup.MISC)).generatedItemModel();
-	//</editor-fold>
 	//<editor-fold desc="Soul & Netherrack Fire">
 	public static final BlockContainer SOUL_CANDLE = MakeCandle(MapColor.BROWN, 2.5);
 	public static final Block SOUL_CANDLE_CAKE = new ModCandleCakeBlock(2, () -> Blocks.CAKE, () -> Items.CAKE) {
@@ -3089,10 +2974,7 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer GLAZED_TERRACOTTA_SLAB = BuildSlab(new HorizontalFacingSlabBlock(GLAZED_TERRACOTTA)).blockTag(BlockTags.PICKAXE_MINEABLE);
 	public static final Map<DyeColor, BlockContainer> GLAZED_TERRACOTTA_SLABS = ColorUtil.Map(color -> BuildSlab(new HorizontalFacingSlabBlock(ColorUtil.GetGlazedTerracottaBlock(color))).blockTag(BlockTags.PICKAXE_MINEABLE));
 	//</editor-fold>
-	//<editor-fold desc="Throwable Tomatoes">
 	public static final Item THROWABLE_TOMATO_ITEM = GeneratedItem(new ThrowableTomatoItem(ItemSettings().maxCount(16)));
-	public static final EntityType<ThrownTomatoEntity> THROWABLE_TOMATO_ENTITY = FabricEntityTypeBuilder.<ThrownTomatoEntity>create(SpawnGroup.MISC, ThrownTomatoEntity::new).dimensions(EntityDimensions.fixed(0.25F, 0.25F)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	//</editor-fold>
 	public static final BlockContainer TIKI_TORCH = BuildBlock(new ThickTorchBlock(Block.Settings.of(Material.DECORATION).breakInstantly().nonOpaque().luminance(createLightLevelFromLitBlockState(15)).sounds(BlockSoundGroup.WOOD), ParticleTypes.FLAME)).blockTag(BlockTags.AXE_MINEABLE);
 	public static final BlockContainer TIKI_SOUL_TORCH = BuildBlock(new ThickTorchBlock(Block.Settings.of(Material.DECORATION).breakInstantly().nonOpaque().luminance(createLightLevelFromLitBlockState(10)).sounds(BlockSoundGroup.WOOD), ParticleTypes.SOUL_FIRE_FLAME)).blockTag(BlockTags.AXE_MINEABLE).blockTag(BlockTags.PIGLIN_REPELLENTS).itemTag(ItemTags.PIGLIN_REPELLENTS);
 	public static final BlockContainer TIKI_ENDER_TORCH = BuildBlock(new ThickTorchBlock(Block.Settings.of(Material.DECORATION).breakInstantly().nonOpaque().luminance(createLightLevelFromLitBlockState(12)).sounds(BlockSoundGroup.WOOD), ModParticleTypes.ENDER_FIRE_FLAME)).blockTag(BlockTags.AXE_MINEABLE);
@@ -3140,11 +3022,6 @@ public class ModBase implements ModInitializer {
 	public static final UnlitTorchContainer UNLIT_SOUL_TORCH = new UnlitTorchContainer(new UnlitTorchBlock((TorchBlock)Blocks.SOUL_TORCH), new UnlitWallTorchBlock((WallTorchBlock)Blocks.SOUL_WALL_TORCH)).drops(Items.SOUL_TORCH);
 	public static final Block UNLIT_LANTERN = MakeUnlitLantern(Blocks.LANTERN, Items.LANTERN).dropsLantern();
 	public static final Block UNLIT_SOUL_LANTERN = MakeUnlitLantern(Blocks.SOUL_LANTERN, Items.SOUL_LANTERN).dropsSoulLantern();
-	//</editor-fold>
-	//<editor-fold desc="Warden">
-	public static final ModSensorType<WardenAttackablesSensor> WARDEN_ENTITY_SENSOR = new ModSensorType<>("minecraft:warden_entity_sensor", WardenAttackablesSensor::new);
-	public static final EntityType<WardenEntity> WARDEN_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, WardenEntity::new).dimensions(EntityDimensions.fixed(0.9f, 2.9f)).trackRangeChunks(16).fireImmune().build();
-	public static final Item WARDEN_SPAWN_EGG = MakeSpawnEgg(WARDEN_ENTITY, 1001033, 3790560, ItemSettings(ItemGroup.MISC));
 	//</editor-fold>
 	//<editor-fold desc="Warped">
 	public static final WallBlockContainer WARPED_HANGING_SIGN = MakeHangingSign(SignType.WARPED, Blocks.STRIPPED_WARPED_STEM, SignItemSettings(ItemGroup.DECORATIONS)).blockTag(BlockTags.NON_FLAMMABLE_WOOD).itemTag(ItemTags.NON_FLAMMABLE_WOOD).blockTag(BlockTags.AXE_MINEABLE);
@@ -3214,34 +3091,6 @@ public class ModBase implements ModInitializer {
 	public static final BlockContainer RAINBOW_WOOL_SLAB = BuildSlab(new HorizontalFacingSlabBlock(RAINBOW_WOOL)).flammable(40, 40).fuel(50).blockTag(ModBlockTags.WOOL_SLABS).itemTag(ModItemTags.WOOL_SLABS);
 	public static final BlockContainer RAINBOW_CARPET = BuildBlock(new HorziontalFacingCarpetBlock(RAINBOW_WOOL)).flammable(60, 20).fuel(67).blockTag(BlockTags.CARPETS).itemTag(ItemTags.CARPETS).blockTag(ModBlockTags.WOOL_CARPETS).itemTag(ModItemTags.WOOL_CARPETS);
 	public static final BedContainer RAINBOW_BED = MakeBed("rainbow");
-	public static final EntityType<RainbowSheepEntity> RAINBOW_SHEEP_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RainbowSheepEntity::new).dimensions(EntityType.SHEEP.getDimensions()).trackRangeChunks(10).build();
-	public static final Item RAINBOW_SHEEP_SPAWN_EGG = GeneratedItem(new SpawnEggItem(RAINBOW_SHEEP_ENTITY, 0xFFFFFF, 0xFFFFFF, ItemSettings()));
-	//</editor-fold>
-	//<editor-fold desc="Creepers">
-	public static final EntityType<SlimeCreeperEntity> SLIME_CREEPER_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SlimeCreeperEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.7f)).trackRangeChunks(8).build();
-	public static final Item SLIME_CREEPER_SPAWN_EGG = MakeSpawnEgg(SLIME_CREEPER_ENTITY, 5349438, 0);
-	//</editor-fold>
-	//<editor-fold desc="Skeletons">
-	public static final EntityType<MossySkeletonEntity> MOSSY_SKELETON_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, MossySkeletonEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.6f)).trackRangeChunks(10).build();
-	public static final Item MOSSY_SKELETON_SPAWN_EGG = MakeSpawnEgg(MOSSY_SKELETON_ENTITY, 0xD6D7C6, 0x526121);
-	public static final EntityType<SlimySkeletonEntity> SLIMY_SKELETON_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SlimySkeletonEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.6f)).trackRangeChunks(10).build();
-	public static final Item SLIMY_SKELETON_SPAWN_EGG = MakeSpawnEgg(SLIMY_SKELETON_ENTITY, 5349438, 0x494949);
-	public static final EntityType<SunkenSkeletonEntity> SUNKEN_SKELETON_ENTITY = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SunkenSkeletonEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.6f)).trackRangeChunks(10).build();
-	public static final Item SUNKEN_SKELETON_SPAWN_EGG = MakeSpawnEgg(SUNKEN_SKELETON_ENTITY, 0xD6D0C9, 0x98439E);
-	//</editor-fold>
-	//<editor-fold desc="Zombies">
-	public static final EntityType<SlowingSnowballEntity> SLOWING_SNOWBALL_ENTITY = FabricEntityTypeBuilder.<SlowingSnowballEntity>create(SpawnGroup.MISC, SlowingSnowballEntity::new).dimensions(EntityDimensions.fixed(0.25f, 0.25f)).trackRangeChunks(4).trackedUpdateRate(10).build();
-	public static final EntityType<FrozenZombieEntity> FROZEN_ZOMBIE_ENTITY = FabricEntityTypeBuilder.<FrozenZombieEntity>create(SpawnGroup.MONSTER, FrozenZombieEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
-	public static final Item FROZEN_ZOMBIE_SPAWN_EGG = MakeSpawnEgg(FROZEN_ZOMBIE_ENTITY, 0x78BEDE, 0x5A8684);
-	public static final EntityType<JungleZombieEntity> JUNGLE_ZOMBIE_ENTITY = FabricEntityTypeBuilder.<JungleZombieEntity>create(SpawnGroup.MONSTER, JungleZombieEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
-	public static final Item JUNGLE_ZOMBIE_SPAWN_EGG = MakeSpawnEgg(JUNGLE_ZOMBIE_ENTITY, 0x67BC97, 0x5A8646);
-	public static final EntityType<SlimeZombieEntity> SLIME_ZOMBIE_ENTITY = FabricEntityTypeBuilder.<SlimeZombieEntity>create(SpawnGroup.MONSTER, SlimeZombieEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
-	public static final Item SLIME_ZOMBIE_SPAWN_EGG = MakeSpawnEgg(SLIME_ZOMBIE_ENTITY, 5349438, 0x5A8646);
-	//</editor-fold>
-
-	//<editor-fold desc="Jolly LLamas">
-	public static final EntityType<JollyLlamaEntity> JOLLY_LLAMA_ENTITY = FabricEntityTypeBuilder.<JollyLlamaEntity>create(SpawnGroup.CREATURE, JollyLlamaEntity::new).dimensions(EntityDimensions.fixed(0.9f, 1.87f)).trackRangeChunks(10).build();
-	public static final Item JOLLY_LLAMA_SPAWN_EGG = MakeSpawnEgg(JOLLY_LLAMA_ENTITY, 12623485, 0xFF0000);
 	//</editor-fold>
 
 	//<editor-fold desc="Villagers and Illagers">
@@ -3249,23 +3098,19 @@ public class ModBase implements ModInitializer {
 	public static final PointOfInterestType FACETING_TABLE_POI = PointOfInterestTypeAccessor.callCreate("faceting_table_poi", ImmutableSet.copyOf(FACETING_TABLE.asBlock().getStateManager().getStates()), 1, 1);
 	public static final VillagerProfession LAPIDARY = VillagerProfessionAccessor.create("lapidary", FACETING_TABLE_POI, ImmutableSet.of(), ImmutableSet.of(), ModSoundEvents.ENTITY_VILLAGER_WORK_LAPIDARY);
 
-	public static final EntityType<IceologerEntity> ICEOLOGER_ENTITY = FabricEntityTypeBuilder.<IceologerEntity>create(SpawnGroup.MONSTER, IceologerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
-	public static final Item ICEOLOGER_SPAWN_EGG = MakeSpawnEgg(ICEOLOGER_ENTITY, 0x959B9B, 0x01374B);
-	public static final EntityType<IceChunkEntity> ICE_CHUNK_ENTITY = FabricEntityTypeBuilder.<IceChunkEntity>create(SpawnGroup.MISC, IceChunkEntity::new).dimensions(EntityDimensions.fixed(2f, 1.5f)).trackRangeChunks(8).build();
+	public static final Item LADLE = MakeHandheldItem();
 
-	public static final EntityType<MageEntity> MAGE_ENTITY = FabricEntityTypeBuilder.<MageEntity>create(SpawnGroup.MONSTER, MageEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).trackRangeChunks(8).build();
-	public static final Item MAGE_SPAWN_EGG = MakeSpawnEgg(MAGE_ENTITY, 0x959B9B, 0x5A1949);
+	public static final Item MOUNTAINEER_AXE = HandheldItem(new StoneaxeItem(ToolMaterials.IRON, 3.5f, -2.95f));
+	public static final Item GOLD_MOUNTAINEER_AXE = HandheldItem(new StoneaxeItem(ModToolMaterials.STRONG_GOLD));
+	public static final Item DIAMOND_MOUNTAINEER_AXE = HandheldItem(new StoneaxeItem(ToolMaterials.DIAMOND, 3f, -2.9f));
 
 	public static void RegisterVillagers() {
-		//Iceologer
-		Register("iceologer", ICEOLOGER_ENTITY, List.of(EN_US.Iceologer()));
-		FabricDefaultAttributeRegistry.register(ICEOLOGER_ENTITY, IceologerEntity.createSpellcasterAttributes());
-		SpawnRestrictionAccessor.callRegister(ICEOLOGER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canMobSpawn);
-		Register("ice_chunk", ICE_CHUNK_ENTITY, List.of(EN_US.Chunk(EN_US.Ice())));
-		//Mage
-		Register("mage", MAGE_ENTITY, List.of(EN_US.Iceologer()));
-		FabricDefaultAttributeRegistry.register(MAGE_ENTITY, MageEntity.createSpellcasterAttributes());
-		SpawnRestrictionAccessor.callRegister(MAGE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canMobSpawn);
+		//Chef Vindicator
+		Register("ladle", LADLE, List.of(EN_US.Ladle()));
+		//Mountaineer
+		Register("mountaineer_axe", MOUNTAINEER_AXE, List.of(EN_US.Axe(EN_US.Mountaineer())));
+		Register("gold_mountaineer_axe", GOLD_MOUNTAINEER_AXE, List.of(EN_US.Axe(EN_US.Mountaineer(EN_US.Gold()))));
+		Register("diamond_mountaineer_axe", DIAMOND_MOUNTAINEER_AXE, List.of(EN_US.Axe(EN_US.Mountaineer(EN_US.Diamond()))));
 		//Lapidary Villager
 		Register("faceting_table", FACETING_TABLE, List.of(EN_US.Table(EN_US.Faceting())));
 		PointOfInterestTypeAccessor.callSetup(Register(FACETING_TABLE_POI.getId(), FACETING_TABLE_POI));
@@ -3607,73 +3452,73 @@ public class ModBase implements ModInitializer {
 	//</editor-fold>
 
 	//<editor-fold desc="Blood Types">
-	public static final BloodType AXOLOTL_BLOOD_TYPE = BloodType.Register("axolotl");
-	public static final BloodType BAT_BLOOD_TYPE = BloodType.Register("bat");
-	public static final BloodType BEE_BLOOD_TYPE = BloodType.Register("bee");
-	public static final BloodType CAT_BLOOD_TYPE = BloodType.Register("cat");
-	public static final BloodType CAMEL_BLOOD_TYPE = BloodType.Register("camel");
-	public static final BloodType CAVE_SPIDER_BLOOD_TYPE = BloodType.Register("cave_spider");
-	public static final BloodType CHICKEN_BLOOD_TYPE = BloodType.Register("chicken");
-	public static final BloodType COW_BLOOD_TYPE = BloodType.Register("cow");
-	public static final BloodType CREEPER_BLOOD_TYPE = BloodType.Register("creeper");
-	public static final BloodType DOLPHIN_BLOOD_TYPE = BloodType.Register("dolphin");
-	public static final BloodType DONKEY_BLOOD_TYPE = BloodType.Register("donkey");
-	public static final BloodType ENDER_DRAGON_BLOOD_TYPE = BloodType.Register("ender_dragon");
-	public static final BloodType ENDERMAN_BLOOD_TYPE = BloodType.Register("enderman");
-	public static final BloodType ENDERMITE_BLOOD_TYPE = BloodType.Register("endermite");
-	public static final BloodType FISH_BLOOD_TYPE = BloodType.Register("fish");
-	public static final BloodType FOX_BLOOD_TYPE = BloodType.Register("fox");
-	public static final BloodType FROG_BLOOD_TYPE = BloodType.Register("frog");
-	public static final BloodType GLOW_SQUID_BLOOD_TYPE = BloodType.Register("glow_squid");
-	public static final BloodType GOAT_BLOOD_TYPE = BloodType.Register("goat");
-	public static final BloodType GUARDIAN_BLOOD_TYPE = BloodType.Register("guardian");
-	public static final BloodType HOGLIN_BLOOD_TYPE = BloodType.Register("hoglin");
-	public static final BloodType HORSE_BLOOD_TYPE = BloodType.Register("horse");
-	public static final BloodType LLAMA_BLOOD_TYPE = BloodType.Register("llama");
-	public static final BloodType MAGMA_CREAM_BLOOD_TYPE = BloodType.Register("magma_cream");
-	public static final BloodType MOOSHROOM_BLOOD_TYPE = BloodType.Register("mooshroom");
-	public static final BloodType MULE_BLOOD_TYPE = BloodType.Register("mule");
-	public static final BloodType OCELOT_BLOOD_TYPE = BloodType.Register("ocelot");
-	public static final BloodType PANDA_BLOOD_TYPE = BloodType.Register("panda");
-	public static final BloodType PARROT_BLOOD_TYPE = BloodType.Register("parrot");
-	public static final BloodType PHANTOM_BLOOD_TYPE = BloodType.Register("phantom");
-	public static final BloodType PIG_BLOOD_TYPE = BloodType.Register("pig");
-	public static final BloodType PIGLIN_BLOOD_TYPE = BloodType.Register("piglin");
-	public static final BloodType POLAR_BEAR_BLOOD_TYPE = BloodType.Register("polar_bear");
-	public static final BloodType PUFFERFISH_BLOOD_TYPE = BloodType.Register("pufferfish");
-	public static final BloodType RABBIT_BLOOD_TYPE = BloodType.Register("rabbit");
-	public static final BloodType RAVAGER_BLOOD_TYPE = BloodType.Register("ravager");
-	public static final BloodType SHEEP_BLOOD_TYPE = BloodType.Register("sheep");
-	public static final BloodType SHULKER_BLOOD_TYPE = BloodType.Register("shulker");
-	public static final BloodType SILVERFISH_BLOOD_TYPE = BloodType.Register("silverfish");
-	public static final BloodType SLIME_BLOOD_TYPE = BloodType.Register("slime");
-	public static final BloodType SNIFFER_BLOOD_TYPE = BloodType.Register("sniffer");
-	public static final BloodType SPIDER_BLOOD_TYPE = BloodType.Register("spider");
-	public static final BloodType SQUID_BLOOD_TYPE = BloodType.Register("squid");
-	public static final BloodType STRIDER_BLOOD_TYPE = BloodType.Register("strider");
-	public static final BloodType TURTLE_BLOOD_TYPE = BloodType.Register("turtle");
-	public static final BloodType VILLAGER_BLOOD_TYPE = BloodType.Register("villager");
-	public static final BloodType WARDEN_BLOOD_TYPE = BloodType.Register("warden");
-	public static final BloodType WOLF_BLOOD_TYPE = BloodType.Register("wolf");
-	public static final BloodType ZOGLIN_BLOOD_TYPE = BloodType.Register("zoglin");
-	public static final BloodType ZOMBIE_BLOOD_TYPE = BloodType.Register("zombie");
-	public static final BloodType ZOMBIE_HORSE_BLOOD_TYPE = BloodType.Register("zombie_horse");
-	public static final BloodType ZOMBIE_VILLAGER_BLOOD_TYPE = BloodType.Register("zombie_villager");
-	public static final BloodType ZOMBIFIED_PIGLIN_BLOOD_TYPE = BloodType.Register("zombified_piglin");
+	public static final BloodType AXOLOTL_BLOOD_TYPE = BloodType.Register("axolotl", List.of(EN_US.Blood(EN_US.Axolotl())));
+	public static final BloodType BAT_BLOOD_TYPE = BloodType.Register("bat", List.of(EN_US.Blood(EN_US.Bat())));
+	public static final BloodType BEAR_BLOOD_TYPE = BloodType.Register("bear", List.of(EN_US.Blood(EN_US.Bear())));
+	public static final BloodType BEE_BLOOD_TYPE = BloodType.Register("bee", List.of(EN_US.Blood(EN_US.Bee())));
+	public static final BloodType CAT_BLOOD_TYPE = BloodType.Register("cat", List.of(EN_US.Blood(EN_US.Cat())));
+	public static final BloodType CAMEL_BLOOD_TYPE = BloodType.Register("camel", List.of(EN_US.Blood(EN_US.Camel())));
+	public static final BloodType CAVE_SPIDER_BLOOD_TYPE = BloodType.Register("cave_spider", List.of(EN_US.Blood(EN_US.Spider(EN_US.Cave()))));
+	public static final BloodType CHICKEN_BLOOD_TYPE = BloodType.Register("chicken", List.of(EN_US.Blood(EN_US.Chicken())));
+	public static final BloodType COW_BLOOD_TYPE = BloodType.Register("cow", List.of(EN_US.Blood(EN_US.Cow())));
+	public static final BloodType CREEPER_BLOOD_TYPE = BloodType.Register("creeper", List.of(EN_US.Blood(EN_US.Creeper())));
+	public static final BloodType DOLPHIN_BLOOD_TYPE = BloodType.Register("dolphin", List.of(EN_US.Blood(EN_US.Dolphin())));
+	public static final BloodType DONKEY_BLOOD_TYPE = BloodType.Register("donkey", List.of(EN_US.Blood(EN_US.Donkey())));
+	public static final BloodType ENDER_DRAGON_BLOOD_TYPE = BloodType.Register("ender_dragon", List.of(EN_US.Blood(EN_US.Dragon(EN_US.Ender()))));
+	public static final BloodType ENDERMAN_BLOOD_TYPE = BloodType.Register("enderman", List.of(EN_US.Blood(EN_US.Enderman())));
+	public static final BloodType ENDERMITE_BLOOD_TYPE = BloodType.Register("endermite", List.of(EN_US.Blood(EN_US.Endermite())));
+	public static final BloodType FISH_BLOOD_TYPE = BloodType.Register("fish", List.of(EN_US.Blood(EN_US.Fish())));
+	public static final BloodType FOX_BLOOD_TYPE = BloodType.Register("fox", List.of(EN_US.Blood(EN_US.Fox())));
+	public static final BloodType FROG_BLOOD_TYPE = BloodType.Register("frog", List.of(EN_US.Blood(EN_US.Frog())));
+	public static final BloodType GLOW_SQUID_BLOOD_TYPE = BloodType.Register("glow_squid", List.of(EN_US.Blood(EN_US.Squid(EN_US.Glow()))));
+	public static final BloodType GOAT_BLOOD_TYPE = BloodType.Register("goat", List.of(EN_US.Blood(EN_US.Goat())));
+	public static final BloodType GUARDIAN_BLOOD_TYPE = BloodType.Register("guardian", List.of(EN_US.Blood(EN_US.Guardian())));
+	public static final BloodType HOGLIN_BLOOD_TYPE = BloodType.Register("hoglin", List.of(EN_US.Blood(EN_US.Hoglin())));
+	public static final BloodType HORSE_BLOOD_TYPE = BloodType.Register("horse", List.of(EN_US.Blood(EN_US.Horse())));
+	public static final BloodType LLAMA_BLOOD_TYPE = BloodType.Register("llama", List.of(EN_US.Blood(EN_US.Llama())));
+	public static final BloodType MAGMA_CREAM_BLOOD_TYPE = BloodType.Register("magma_cream", List.of(EN_US.Cream(EN_US.Magma())));
+	public static final BloodType MOOSHROOM_BLOOD_TYPE = BloodType.Register("mooshroom", List.of(EN_US.Blood(EN_US.Mooshroom())));
+	public static final BloodType MULE_BLOOD_TYPE = BloodType.Register("mule", List.of(EN_US.Blood(EN_US.Mule())));
+	public static final BloodType OCELOT_BLOOD_TYPE = BloodType.Register("ocelot", List.of(EN_US.Blood(EN_US.Ocelot())));
+	public static final BloodType PANDA_BLOOD_TYPE = BloodType.Register("panda", List.of(EN_US.Blood(EN_US.Panda())));
+	public static final BloodType PARROT_BLOOD_TYPE = BloodType.Register("parrot", List.of(EN_US.Blood(EN_US.Parrot())));
+	public static final BloodType PHANTOM_BLOOD_TYPE = BloodType.Register("phantom", List.of(EN_US.Blood(EN_US.Phantom())));
+	public static final BloodType PIG_BLOOD_TYPE = BloodType.Register("pig", List.of(EN_US.Blood(EN_US.Pig())));
+	public static final BloodType PIGLIN_BLOOD_TYPE = BloodType.Register("piglin", List.of(EN_US.Blood(EN_US.Piglin())));
+	public static final BloodType PUFFERFISH_BLOOD_TYPE = BloodType.Register("pufferfish", List.of(EN_US.Blood(EN_US.Pufferfish())));
+	public static final BloodType RABBIT_BLOOD_TYPE = BloodType.Register("rabbit", List.of(EN_US.Blood(EN_US.Rabbit())));
+	public static final BloodType RAVAGER_BLOOD_TYPE = BloodType.Register("ravager", List.of(EN_US.Blood(EN_US.Ravager())));
+	public static final BloodType SHEEP_BLOOD_TYPE = BloodType.Register("sheep", List.of(EN_US.Blood(EN_US.Sheep())));
+	public static final BloodType SHULKER_BLOOD_TYPE = BloodType.Register("shulker", List.of(EN_US.Blood(EN_US.Shulker())));
+	public static final BloodType SILVERFISH_BLOOD_TYPE = BloodType.Register("silverfish", List.of(EN_US.Blood(EN_US.Silverfish())));
+	public static final BloodType SLIME_BLOOD_TYPE = BloodType.Register("slime", List.of(EN_US.Slime()));
+	public static final BloodType SNIFFER_BLOOD_TYPE = BloodType.Register("sniffer", List.of(EN_US.Blood(EN_US.Sniffer())));
+	public static final BloodType SPIDER_BLOOD_TYPE = BloodType.Register("spider", List.of(EN_US.Blood(EN_US.Spider())));
+	public static final BloodType SQUID_BLOOD_TYPE = BloodType.Register("squid", List.of(EN_US.Blood(EN_US.Squid())));
+	public static final BloodType STRIDER_BLOOD_TYPE = BloodType.Register("strider", List.of(EN_US.Blood(EN_US.Strider())));
+	public static final BloodType TURTLE_BLOOD_TYPE = BloodType.Register("turtle", List.of(EN_US.Blood(EN_US.Turtle())));
+	public static final BloodType VILLAGER_BLOOD_TYPE = BloodType.Register("villager", List.of(EN_US.Blood(EN_US.Villager())));
+	public static final BloodType WARDEN_BLOOD_TYPE = BloodType.Register("warden", List.of(EN_US.Blood(EN_US.Warden())));
+	public static final BloodType WOLF_BLOOD_TYPE = BloodType.Register("wolf", List.of(EN_US.Blood(EN_US.Wolf())));
+	public static final BloodType ZOGLIN_BLOOD_TYPE = BloodType.Register("zoglin", List.of(EN_US.Blood(EN_US.Zoglin())));
+	public static final BloodType ZOMBIE_BLOOD_TYPE = BloodType.Register("zombie", List.of(EN_US.Blood(EN_US.Zombie())));
+	public static final BloodType ZOMBIE_HORSE_BLOOD_TYPE = BloodType.Register("zombie_horse", List.of(EN_US.Blood(EN_US.Horse(EN_US.Zombie()))));
+	public static final BloodType ZOMBIE_VILLAGER_BLOOD_TYPE = BloodType.Register("zombie_villager", List.of(EN_US.Blood(EN_US.Villager(EN_US.Zombie()))));
+	public static final BloodType ZOMBIFIED_PIGLIN_BLOOD_TYPE = BloodType.Register("zombified_piglin", List.of(EN_US.Blood(EN_US.Piglin(EN_US.Zombified()))));
 	//</editor-fold>
 	//<editor-fold desc="Mod Mob Blood Types">
-	public static final BloodType HEDGEHOG_BLOOD_TYPE = BloodType.Register("hedgehog");
-	public static final BloodType RACCOON_BLOOD_TYPE = BloodType.Register("raccoon");
-	public static final BloodType RED_PANDA_BLOOD_TYPE = BloodType.Register("red_panda");
-	public static final BloodType FLOWER_COW_BLOOD_TYPE = BloodType.Register("flower_cow");
-	public static final BloodType PIRANHA_BLOOD_TYPE = BloodType.Register("piranha");
-	public static final BloodType BLUE_SLIME_BLOOD_TYPE = BloodType.Register("blue_slime");
-	public static final BloodType PINK_SLIME_BLOOD_TYPE = BloodType.Register("pink_slime");
+	public static final BloodType HEDGEHOG_BLOOD_TYPE = BloodType.Register("hedgehog", List.of(EN_US.Blood(EN_US.Hedgehog())));
+	public static final BloodType RACCOON_BLOOD_TYPE = BloodType.Register("raccoon", List.of(EN_US.Blood(EN_US.Raccoon())));
+	public static final BloodType RED_PANDA_BLOOD_TYPE = BloodType.Register("red_panda", List.of(EN_US.Blood(EN_US.Panda(EN_US.Red()))));
+	public static final BloodType FLOWER_COW_BLOOD_TYPE = BloodType.Register("flower_cow", List.of(EN_US.Blood(EN_US.Cow(EN_US.Flower()))));
+	public static final BloodType PIRANHA_BLOOD_TYPE = BloodType.Register("piranha", List.of(EN_US.Blood(EN_US.Piranha())));
+	public static final BloodType BLUE_SLIME_BLOOD_TYPE = BloodType.Register("blue_slime", List.of(EN_US.Slime(EN_US.Blue())));
+	public static final BloodType PINK_SLIME_BLOOD_TYPE = BloodType.Register("pink_slime", List.of(EN_US.Slime(EN_US.Pink())));
 	//</editor-fold>
 	//<editor-fold desc="Special Blood Types">
-	public static final BloodType AVIAN_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "avian");
-	public static final BloodType NEPHAL_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "nephal");
-	public static final BloodType VAMPIRE_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "vampire");
+	public static final BloodType AVIAN_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "avian", List.of(EN_US.Blood(EN_US.Avian())));
+	public static final BloodType NEPHAL_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "nephal", List.of(EN_US.Blood(EN_US.Nephal())));
+	public static final BloodType VAMPIRE_BLOOD_TYPE = BloodType.Register(ModId.NAMESPACE, "vampire", List.of(EN_US.Blood(EN_US.Vampire())));
 	//</editor-fold>
 	//<editor-fold desc="Syringes">
 	public static final Item SYRINGE = HandheldItem(new EmptySyringeItem(ItemSettings().maxCount(16)));
@@ -3767,7 +3612,6 @@ public class ModBase implements ModInitializer {
 
 	//<editor-fold desc="Javelins & Custom Tridents">
 	public static final JavelinItem JAVELIN = GeneratedItem(new JavelinItem(4.0, -2.9f, ModId.ID("textures/entity/projectiles/javelin.png"), ItemSettings().maxDamage(250)));
-	public static final EntityType<JavelinEntity> JAVELIN_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, JavelinEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
 
 	public static final JavelinItem AMETHYST_TRIDENT = GeneratedItem(new AmethystTridentItem(8.0, -2.9f, ModId.ID("textures/entity/projectiles/amethyst_trident.png"), ItemSettings().maxDamage(250)));
 	private static class AmethystTridentItem extends JavelinItem {
@@ -3776,143 +3620,6 @@ public class ModBase implements ModInitializer {
 			this.FACTORY = AmethystTridentEntity::new;
 		}
 	}
-	public static final EntityType<JavelinEntity> AMETHYST_TRIDENT_ENTITY = FabricEntityTypeBuilder.<JavelinEntity>create(SpawnGroup.MISC, AmethystTridentEntity::new).dimensions(EntityDimensions.fixed(0.5f, 0.5f)).trackRangeChunks(4).trackedUpdateRate(20).build();
-	private static class AmethystTridentEntity extends JavelinEntity {
-		public AmethystTridentEntity(EntityType<? extends JavelinEntity> entityType, World world) {
-			super(entityType, world);
-			this.item = AMETHYST_TRIDENT;
-		}
-		public AmethystTridentEntity(World world, LivingEntity owner, ItemStack stack) {
-			super(AMETHYST_TRIDENT_ENTITY, world, owner, stack, AMETHYST_TRIDENT);
-		}
-	}
-	//</editor-fold>
-
-	//<editor-fold desc="Mod Buckets">
-	public static final Item PIRANHA_BUCKET = GeneratedItem(new EntityBucketItem(PIRANHA_ENTITY, Fluids.WATER, SoundEvents.ITEM_BUCKET_EMPTY_FISH, ItemSettings().maxCount(1)));
-	//</editor-fold>
-	//<editor-fold desc="Pouches">
-	public static final Item CHICKEN_POUCH = GeneratedItem(new ChickenPouchItem(EntityType.CHICKEN, ItemSettings().maxCount(1)).dispensible());
-	public static final Item RABBIT_POUCH = GeneratedItem(new EntityPouchItem(EntityType.RABBIT, ModSoundEvents.ITEM_POUCH_EMPTY_RABBIT, ItemSettings().maxCount(1)).dispensible());
-	public static final Item PARROT_POUCH = GeneratedItem(new EntityPouchItem(EntityType.PARROT, ModSoundEvents.ITEM_POUCH_EMPTY_PARROT, ItemSettings().maxCount(1)).dispensible());
-	public static final Item ENDERMITE_POUCH = GeneratedItem(new EntityPouchItem(EntityType.ENDERMITE, ModSoundEvents.ITEM_POUCH_EMPTY_ENDERMITE, ItemSettings().maxCount(1)).dispensible());
-	public static final Item SILVERFISH_POUCH = GeneratedItem(new EntityPouchItem(EntityType.SILVERFISH, ModSoundEvents.ITEM_POUCH_EMPTY_SILVERFISH, ItemSettings().maxCount(1)).dispensible());
-	//</editor-fold>
-	//<editor-fold desc="Mod Pouches">
-	public static final Item HEDGEHOG_POUCH = GeneratedItem(new EntityPouchItem(HEDGEHOG_ENTITY, ModSoundEvents.ITEM_POUCH_EMPTY_HEDGEHOG, ItemSettings().maxCount(1)).dispensible());
-	//</editor-fold>
-	//<editor-fold desc="Summoning Arrows">
-	public static final ArrowContainer AXOLOTL_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.AXOLOTL, 16499171, 10890612);
-	public static final ArrowContainer BAT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.BAT, 4996656, 986895);
-	public static final ArrowContainer BEE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.BEE, 15582019, 4400155);
-	public static final ArrowContainer BLAZE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.BLAZE, 16167425, 16775294);
-	public static final ArrowContainer CAT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.CAT, 15714446, 9794134);
-	public static final ArrowContainer CAMEL_SUMMONING_ARROW = ArrowContainer.Summoning(CAMEL_ENTITY, 16565097, 13341495);
-	public static final ArrowContainer CAVE_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.CAVE_SPIDER, 803406, 11013646);
-	public static final ArrowContainer CHICKEN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.CHICKEN, 0xA1A1A1, 0xFF0000);
-	public static final ArrowContainer COD_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.COD, 12691306, 15058059);
-	public static final ArrowContainer COW_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.COW, 4470310, 0xA1A1A1);
-	public static final ArrowContainer CREEPER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.CREEPER, 894731, 0);
-	public static final ArrowContainer DOLPHIN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.DOLPHIN, 2243405, 0xF9F9F9);
-	public static final ArrowContainer DONKEY_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.DONKEY, 5457209, 8811878);
-	public static final ArrowContainer DROWNED_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.DROWNED, 9433559, 7969893);
-	public static final ArrowContainer ELDER_GUARDIAN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ELDER_GUARDIAN, 13552826, 7632531);
-	public static final ArrowContainer ENDERMAN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ENDERMAN, 0x161616, 0);
-	public static final ArrowContainer ENDERMITE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ENDERMITE, 0x161616, 0x6E6E6E);
-	public static final ArrowContainer EVOKER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.EVOKER, 0x959B9B, 1973274);
-	public static final ArrowContainer FOX_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.FOX, 14005919, 13396256);
-	public static final ArrowContainer FROG_SUMMONING_ARROW = ArrowContainer.Summoning(FROG_ENTITY, 13661252, 0xFFC77C);
-	public static final ArrowContainer GHAST_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.GHAST, 0xF9F9F9, 0xBCBCBC);
-	public static final ArrowContainer GIANT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.GIANT, 44975, 7969893);
-	public static final ArrowContainer GLOW_SQUID_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.GLOW_SQUID, 611926, 8778172);
-	public static final ArrowContainer GOAT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.GOAT, 10851452, 5589310);
-	public static final ArrowContainer GUARDIAN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.GUARDIAN, 5931634, 15826224);
-	public static final ArrowContainer HOGLIN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.HOGLIN, 13004373, 6251620);
-	public static final ArrowContainer HORSE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.HORSE, 12623485, 0xEEE500);
-	public static final ArrowContainer HUSK_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.HUSK, 7958625, 15125652);
-	public static final ArrowContainer IRON_GOLEM_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.IRON_GOLEM, 0xB1B0B0, 0xE3901D);
-	public static final ArrowContainer LLAMA_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.LLAMA, 12623485, 10051392);
-	public static final ArrowContainer MAGMA_CUBE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.MAGMA_CUBE, 0x340000, 0xFCFC00);
-	public static final ArrowContainer MOOSHROOM_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.MOOSHROOM, 10489616, 0xB7B7B7);
-	public static final ArrowContainer MULE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.MULE, 1769984, 5321501);
-	public static final ArrowContainer OCELOT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.OCELOT, 15720061, 5653556);
-	public static final ArrowContainer PANDA_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PANDA, 0xE7E7E7, 0x1B1B22);
-	public static final ArrowContainer PARROT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PARROT, 894731, 0xFF0000);
-	public static final ArrowContainer PHANTOM_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PHANTOM, 4411786, 0x88FF00);
-	public static final ArrowContainer PIG_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PIG, 15771042, 14377823);
-	public static final ArrowContainer PIGLIN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PIGLIN, 10051392, 16380836);
-	public static final ArrowContainer PIGLIN_BRUTE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PIGLIN_BRUTE, 5843472, 16380836);
-	public static final ArrowContainer PILLAGER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PILLAGER, 5451574, 0x959B9B);
-	public static final ArrowContainer POLAR_BEAR_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.POLAR_BEAR, 0xF2F2F2, 0x959590);
-	public static final ArrowContainer PUFFERFISH_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.PUFFERFISH, 16167425, 3654642);
-	public static final ArrowContainer RABBIT_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.RABBIT, 10051392, 7555121);
-	public static final ArrowContainer RAVAGER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.RAVAGER, 7697520, 5984329);
-	public static final ArrowContainer SALMON_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SALMON, 10489616, 951412);
-	public static final ArrowContainer SHEEP_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SHEEP, 0xE7E7E7, 0xFFB5B5);
-	public static final ArrowContainer SHULKER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SHULKER, 9725844, 5060690);
-	public static final ArrowContainer SILVERFISH_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SILVERFISH, 0x6E6E6E, 0x303030);
-	public static final ArrowContainer SKELETON_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SKELETON, 0xC1C1C1, 0x494949);
-	public static final ArrowContainer SKELETON_HORSE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SKELETON_HORSE, 6842447, 15066584);
-	public static final ArrowContainer SLIME_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SLIME, 5349438, 8306542);
-	public static final ArrowContainer SNIFFER_SUMMONING_ARROW = ArrowContainer.Summoning(SNIFFER_ENTITY, 9840944, 5085536);
-	public static final ArrowContainer SNOW_GOLEM_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SNOW_GOLEM, 0xF0FDFD, 0xE3901D);
-	public static final ArrowContainer SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SPIDER, 3419431, 11013646);
-	public static final ArrowContainer SQUID_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.SQUID, 2243405, 7375001);
-	public static final ArrowContainer STRAY_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.STRAY, 0x617677, 0xDDEAEA);
-	public static final ArrowContainer STRIDER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.STRIDER, 10236982, 0x4D494D);
-	public static final ArrowContainer TADPOLE_SUMMONING_ARROW = ArrowContainer.Summoning(TADPOLE_ENTITY, 7164733, 1444352);
-	public static final ArrowContainer TRADER_LLAMA_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.TRADER_LLAMA, 15377456, 4547222);
-	public static final ArrowContainer TROPICAL_FISH_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.TROPICAL_FISH, 15690005, 0xFFF9EF);
-	public static final ArrowContainer TURTLE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.TURTLE, 0xE7E7E7, 44975);
-	public static final ArrowContainer VEX_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.VEX, 8032420, 15265265);
-	public static final ArrowContainer VILLAGER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.VILLAGER, 5651507, 12422002);
-	public static final ArrowContainer VINDICATOR_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.VINDICATOR, 0x959B9B, 2580065);
-	public static final ArrowContainer WANDERING_TRADER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.WANDERING_TRADER, 4547222, 15377456);
-	public static final ArrowContainer WARDEN_SUMMONING_ARROW = ArrowContainer.Summoning(WARDEN_ENTITY, 1001033, 3790560);
-	public static final ArrowContainer WITCH_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.WITCH, 0x340000, 5349438);
-	public static final ArrowContainer WITHER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.WITHER, 0x141414, 0x474D4D);
-	public static final ArrowContainer WITHER_SKELETON_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.WITHER_SKELETON, 0x141414, 0x474D4D);
-	public static final ArrowContainer WOLF_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.WOLF, 0xD7D3D3, 13545366);
-	public static final ArrowContainer ZOGLIN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ZOGLIN, 13004373, 0xE6E6E6);
-	public static final ArrowContainer ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ZOMBIE, 44975, 7969893);
-	public static final ArrowContainer ZOMBIE_HORSE_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ZOMBIE_HORSE, 3232308, 9945732);
-	public static final ArrowContainer ZOMBIE_VILLAGER_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ZOMBIE_VILLAGER, 5651507, 7969893);
-	public static final ArrowContainer ZOMBIFIED_PIGLIN_SUMMONING_ARROW = ArrowContainer.Summoning(EntityType.ZOMBIFIED_PIGLIN, 15373203, 5009705);
-	//</editor-fold>
-	//<editor-fold desc="Mod Mob Summoning Arrows">
-	public static final ArrowContainer MELON_GOLEM_SUMMONING_ARROW = ArrowContainer.Summoning(MELON_GOLEM_ENTITY, 0xF0FDFD, 0x7B7F16);
-	public static final ArrowContainer BONE_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(BONE_SPIDER_ENTITY, 0x270F19, 0x632FB7);
-	public static final ArrowContainer ICY_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(ICY_SPIDER_ENTITY, 0x045480, 0x3CFEFB);
-	public static final ArrowContainer SLIME_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_SPIDER_ENTITY, 5349438, 11013646);
-	public static final ArrowContainer HEDGEHOG_SUMMONING_ARROW = ArrowContainer.Summoning(HEDGEHOG_ENTITY, 11440263, 7558239);
-	public static final ArrowContainer RACCOON_SUMMONING_ARROW = ArrowContainer.Summoning(RACCOON_ENTITY, 0x646464, 0x0B0B0B);
-	public static final ArrowContainer RED_PANDA_SUMMONING_ARROW = ArrowContainer.Summoning(RED_PANDA_ENTITY, 0xC35330, 0x0B0B0B);
-	public static final ArrowContainer JUMPING_SPIDER_SUMMONING_ARROW = ArrowContainer.Summoning(JUMPING_SPIDER_ENTITY, 0x281206, 0x3C0202);
-	public static final ArrowContainer RED_PHANTOM_SUMMONING_ARROW = ArrowContainer.Summoning(RED_PHANTOM_ENTITY, 0x881214, 0x00E5F9);
-	public static final ArrowContainer PIRANHA_SUMMONING_ARROW = ArrowContainer.Summoning(PIRANHA_ENTITY, 4877153, 11762012);
-	public static final ArrowContainer TROPICAL_SLIME_SUMMONING_ARROW = ArrowContainer.Summoning(TROPICAL_SLIME_ENTITY, 0x8FD3FF, 0x345C7A);
-	public static final ArrowContainer PINK_SLIME_SUMMONING_ARROW = ArrowContainer.Summoning(PINK_SLIME_ENTITY, 0xE0A3EE, 0xB85ECE);
-	public static final ArrowContainer FANCY_CHICKEN_SUMMONING_ARROW = ArrowContainer.Summoning(FANCY_CHICKEN_ENTITY, 0xB788CB, 0xF7B035);
-	public static final ArrowContainer SLIME_CHICKEN_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_CHICKEN_ENTITY, 5349438, 0xFF0000);
-	public static final ArrowContainer SLIME_COW_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_COW_ENTITY, 5349438, 0x3F3024);
-	public static final ArrowContainer SLIME_HORSE_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_HORSE_ENTITY, 5349438, 0xCFC700);
-	public static final ArrowContainer BLUE_MOOSHROOM_SUMMONING_ARROW = ArrowContainer.Summoning(BLUE_MOOSHROOM_ENTITY, 0x0D6794, 0x929292);
-	public static final ArrowContainer NETHER_MOOSHROOM_SUMMONING_ARROW = ArrowContainer.Summoning(NETHER_MOOSHROOM_ENTITY, 0x871116, 0xFF6500);
-	public static final ArrowContainer MOOBLOOM_SUMMONING_ARROW = ArrowContainer.Summoning(MOOBLOOM_ENTITY, 0xFDD500, 0xFDF7BA);
-	public static final ArrowContainer MOOLIP_SUMMONING_ARROW = ArrowContainer.Summoning(MOOLIP_ENTITY, 0xFFA9C2, 0xFFE4E4);
-	public static final ArrowContainer MOOBLOSSOM_SUMMONING_ARROW = ArrowContainer.Summoning(MOOBLOSSOM_ENTITY, 0xDF317C, 0x994369);
-	public static final ArrowContainer MOSSY_SHEEP_SUMMONING_ARROW = ArrowContainer.Summoning(MOSSY_SHEEP_ENTITY, 0xFFFFFF, 0x6C8031);
-	public static final ArrowContainer RAINBOW_SHEEP_SUMMONING_ARROW = ArrowContainer.Summoning(RAINBOW_SHEEP_ENTITY, 0xFFFFFF, 0xFFFFFF).generatedItemModel();
-	public static final ArrowContainer SLIME_CREEPER_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_CREEPER_ENTITY, 5349438, 0);
-	public static final ArrowContainer MOSSY_SKELETON_SUMMONING_ARROW = ArrowContainer.Summoning(MOSSY_SKELETON_ENTITY, 0xD6D7C6, 0x526121);
-	public static final ArrowContainer SLIMY_SKELETON_SUMMONING_ARROW = ArrowContainer.Summoning(SLIMY_SKELETON_ENTITY, 5349438, 0x494949);
-	public static final ArrowContainer SUNKEN_SKELETON_SUMMONING_ARROW = ArrowContainer.Summoning(SUNKEN_SKELETON_ENTITY, 0xD6D0C9, 0x98439E);
-	public static final ArrowContainer FROZEN_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(FROZEN_ZOMBIE_ENTITY, 0x78BEDE, 0x5A8684);
-	public static final ArrowContainer JUNGLE_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(JUNGLE_ZOMBIE_ENTITY, 0x67BC97, 0x5A8646);
-	public static final ArrowContainer SLIME_ZOMBIE_SUMMONING_ARROW = ArrowContainer.Summoning(SLIME_ZOMBIE_ENTITY, 5349438, 0x5A8646);
-	public static final ArrowContainer ICEOLOGER_SUMMONING_ARROW = ArrowContainer.Summoning(ICEOLOGER_ENTITY, 5349438, 0x5A8646);
-	public static final ArrowContainer MAGE_SUMMONING_ARROW = ArrowContainer.Summoning(MAGE_ENTITY, 5349438, 0x5A1949);
-	public static final ArrowContainer JOLLY_LLAMA_SUMMONING_ARROW = ArrowContainer.Summoning(JOLLY_LLAMA_ENTITY, 12623485, 0xFF0000);
 	//</editor-fold>
 
 	//Worldgen
@@ -4118,16 +3825,7 @@ public class ModBase implements ModInitializer {
 		registered = true;
 		OxidationScale.Initialize();
 		CrackedBlocks.Initialize();
-		//<editor-fold desc="Boats">
-		Register("mod_boat", MOD_BOAT_ENTITY, List.of(EN_US.Boat("Mod")));
-		Register("minecraft:chest_boat", CHEST_BOAT_ENTITY, List.of(EN_US.ChestBoat()));
-		Register("mod_chest_boat", MOD_CHEST_BOAT_ENTITY, List.of(EN_US.ChestBoat("Mod")));
-		//</editor-fold>
-		//<editor-fold desc="Minecarts">
-		Register("dispenser_minecart", DISPENSER_MINECART_ENTITY, List.of(EN_US.Dispenser(EN_US.with(EN_US.Minecart()))));
 		Register("dispenser_minecart", DISPENSER_MINECART_ITEM, List.of(EN_US.Dispenser(EN_US.with(EN_US.Minecart()))));
-		DispenserMinecartEntity.OverrideDispenserBehaviors();
-		//</editor-fold>
 		Register("woodcutting", WOODCUTTING_RECIPE_SERIALIZER);
 		//<editor-fold desc="Acacia">
 		Register("minecraft:acacia_hanging_sign", "minecraft:acacia_wall_hanging_sign", ACACIA_HANGING_SIGN, List.of(EN_US._HangingSign(EN_US.Acacia())));
@@ -4661,7 +4359,6 @@ public class ModBase implements ModInitializer {
 		//</editor-fold>
 		//<editor-fold desc="Purple Eye of Ender">
 		Register("purple_ender_eye", PURPLE_ENDER_EYE, List.of(EN_US.Eye(EN_US.Ender(EN_US.Purple()))));
-		Register("purple_eye_of_ender", PURPLE_EYE_OF_ENDER_ENTITY, List.of(EN_US.Ender(EN_US.of(EN_US.Eye(EN_US.Purple())))));
 		Register("purple_eye_end_portal_frame", PURPLE_EYE_END_PORTAL_FRAME, List.of(EN_US.Frame(EN_US.Portal(EN_US.End(EN_US.Eye(EN_US.Purple()))))));
 		//</editor-fold>
 		//<editor-fold desc="Obsidian">
@@ -4949,69 +4646,7 @@ public class ModBase implements ModInitializer {
 		Register("bone_knife", BONE_KNIFE, List.of(EN_US.Knife(EN_US.Bone())));
 		Register("bone_hammer", BONE_HAMMER, List.of(EN_US.Hammer(EN_US.Bone())));
 		//</editor-fold>
-		//<editor-fold desc="Bone Spider">
-		Register("bone_spider", BONE_SPIDER_ENTITY, List.of(EN_US.Spider(EN_US.Bone())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),
-				SpawnGroup.MONSTER, BONE_SPIDER_ENTITY, 60, 2, 5);
-		FabricDefaultAttributeRegistry.register(BONE_SPIDER_ENTITY, BoneSpiderEntity.createBoneSpiderAttributes());
-		SpawnRestrictionAccessor.callRegister(BONE_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
 		Register("bone_shard", BONE_SHARD, List.of(EN_US.Shard(EN_US.Bone())));
-		Register("bone_shard_projectile", BONE_SHARD_PROJECTILE_ENTITY, List.of(EN_US.Shard(EN_US.Bone())));
-		//</editor-fold>
-		//<editor-fold desc="Icy Spider">
-		Register("icy_spider", ICY_SPIDER_ENTITY, List.of(EN_US.Spider(EN_US.Icy())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.ICE_SPIKES, BiomeKeys.SNOWY_TUNDRA, BiomeKeys.SNOWY_MOUNTAINS),
-				SpawnGroup.MONSTER, ICY_SPIDER_ENTITY, 20, 2, 5);
-		FabricDefaultAttributeRegistry.register(ICY_SPIDER_ENTITY, IcySpiderEntity.createIcySpiderAttributes());
-		SpawnRestrictionAccessor.callRegister(ICY_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		//</editor-fold>
-		//<editor-fold desc="Slime Spider">
-		Register("slime_spider", SLIME_SPIDER_ENTITY, List.of(EN_US.Slider()));
-		FabricDefaultAttributeRegistry.register(SLIME_SPIDER_ENTITY, SlimeSpiderEntity.createSlimeSpiderAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		//</editor-fold>
-		//<editor-fold desc="Creepers">
-		Register("slime_creeper", SLIME_CREEPER_ENTITY, List.of(EN_US.Creeper(EN_US.Slime())));
-		FabricDefaultAttributeRegistry.register(SLIME_CREEPER_ENTITY, SlimeCreeperEntity.createCreeperAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_CREEPER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		//</editor-fold>
-		//<editor-fold desc="Phantoms">
-		Register("red_phantom", RED_PHANTOM_ENTITY, List.of(EN_US.Phantom(EN_US.Red())));
-		FabricDefaultAttributeRegistry.register(RED_PHANTOM_ENTITY, HostileEntity.createHostileAttributes());
-		SpawnRestrictionAccessor.callRegister(RED_PHANTOM_ENTITY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Skeletons">
-		Register("mossy_skeleton", MOSSY_SKELETON_ENTITY, List.of(EN_US.Skeleton(EN_US.Mossy())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE),
-				SpawnGroup.MONSTER, MOSSY_SKELETON_ENTITY, 40, 4, 4);
-		FabricDefaultAttributeRegistry.register(MOSSY_SKELETON_ENTITY, MossySkeletonEntity.createAbstractSkeletonAttributes());
-		SpawnRestrictionAccessor.callRegister(MOSSY_SKELETON_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		Register("slimy_skeleton", SLIMY_SKELETON_ENTITY, List.of(EN_US.Skeleton(EN_US.Slimy())));
-		FabricDefaultAttributeRegistry.register(SLIMY_SKELETON_ENTITY, MossySkeletonEntity.createAbstractSkeletonAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIMY_SKELETON_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		Register("sunken_skeleton", SUNKEN_SKELETON_ENTITY, List.of(EN_US.Skeleton(EN_US.Sunken())));
-		BiomeModifications.addSpawn(BiomeSelectors.tag(ModBiomeTags.WARM_OCEANS),
-				SpawnGroup.MONSTER, SUNKEN_SKELETON_ENTITY, 10, 2, 4);
-		FabricDefaultAttributeRegistry.register(SUNKEN_SKELETON_ENTITY, SunkenSkeletonEntity.createAbstractSkeletonAttributes());
-		SpawnRestrictionAccessor.callRegister(SUNKEN_SKELETON_ENTITY, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SunkenSkeletonEntity::canSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Zombies">
-		Register("slowing_snowball", SLOWING_SNOWBALL_ENTITY, List.of(EN_US.Snowball(EN_US.Slowing())));
-		Register("frozen_zombie", FROZEN_ZOMBIE_ENTITY, List.of(EN_US.Zombie(EN_US.Frozen())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.ICE_SPIKES, BiomeKeys.SNOWY_TUNDRA,
-						BiomeKeys.SNOWY_TAIGA, BiomeKeys.SNOWY_TAIGA_MOUNTAINS, BiomeKeys.SNOWY_TAIGA_HILLS, BiomeKeys.SNOWY_MOUNTAINS, BiomeKeys.SNOWY_BEACH),
-				SpawnGroup.MONSTER, FROZEN_ZOMBIE_ENTITY, 40, 4, 4);
-		FabricDefaultAttributeRegistry.register(FROZEN_ZOMBIE_ENTITY, FrozenZombieEntity.createZombieAttributes());
-		SpawnRestrictionAccessor.callRegister(FROZEN_ZOMBIE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FrozenZombieEntity::canSpawn);
-		Register("jungle_zombie", JUNGLE_ZOMBIE_ENTITY, List.of(EN_US.Zombie(EN_US.Jungle())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE),
-				SpawnGroup.MONSTER, JUNGLE_ZOMBIE_ENTITY, 30, 4, 4);
-		FabricDefaultAttributeRegistry.register(JUNGLE_ZOMBIE_ENTITY, JungleZombieEntity.createZombieAttributes());
-		SpawnRestrictionAccessor.callRegister(JUNGLE_ZOMBIE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ZombieEntity::canMobSpawn);
-		Register("slime_zombie", SLIME_ZOMBIE_ENTITY, List.of(EN_US.Zombie(EN_US.Slime())));
-		FabricDefaultAttributeRegistry.register(SLIME_ZOMBIE_ENTITY, SlimeZombieEntity.createZombieAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_ZOMBIE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ZombieEntity::canMobSpawn);
-		//</editor-fold>
 		//<editor-fold desc="Blackstone">
 		Register("smooth_chiseled_polished_blackstone", SMOOTH_CHISELED_POLISHED_BLACKSTONE, List.of(EN_US.Blackstone(EN_US.Polished(EN_US.Chiseled(EN_US.Smooth())))));
 		Register("polished_blackstone_tiles", POLISHED_BLACKSTONE_TILES, List.of(EN_US.Tiles(EN_US.Blackstone(EN_US.Polished()))));
@@ -5049,9 +4684,6 @@ public class ModBase implements ModInitializer {
 		//<editor-fold desc="Golems and Gourds">
 		Register("soul_jack_o_lantern", SOUL_JACK_O_LANTERN, List.of(EN_US.JackOLantern(EN_US.Soul())));
 		Register("ender_jack_o_lantern", ENDER_JACK_O_LANTERN, List.of(EN_US.JackOLantern(EN_US.Ender())));
-		Register("melon_seeds_projectile", MELON_SEED_PROJECTILE_ENTITY, List.of(EN_US.Seeds(EN_US.Melon())));
-		Register("melon_golem", MELON_GOLEM_ENTITY, List.of(EN_US.Golem(EN_US.Melon())));
-		FabricDefaultAttributeRegistry.register(MELON_GOLEM_ENTITY, MelonGolemEntity.createMelonGolemAttributes());
 		Register("carved_melon", CARVED_MELON, List.of(EN_US.Melon(EN_US.Carved())));
 		DispenserBlock.registerBehavior(CARVED_MELON.asBlock(), new FallibleItemDispenserBehavior() {
 			protected ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
@@ -5214,7 +4846,6 @@ public class ModBase implements ModInitializer {
 		Register("flint_brick_wall", FLINT_BRICK_WALL, List.of(EN_US.Wall(EN_US.Brick(EN_US.Flint()))));
 		Register("gunpowder_block", GUNPOWDER_BLOCK, List.of(EN_US.Block(EN_US.Gunpowder())));
 		Register("gunpowder_fuse", GUNPOWDER_FUSE, List.of(EN_US.Fuse(EN_US.Gunpowder())));
-		Register("powder_keg", POWDER_KEG_ENTITY, List.of(EN_US.Keg(EN_US.Powder())));
 		Register("hedge_block", HEDGE_BLOCK, List.of(EN_US.Block(EN_US.Hedge())));
 		Register("light_blue_target", LIGHT_BLUE_TARGET, List.of(EN_US.Target(EN_US.Blue(EN_US.Light()))));
 		Register("mycelium_roots", MYCELIUM_ROOTS, List.of(EN_US._Potted(EN_US.Roots(EN_US.Mycelium()))));
@@ -5315,22 +4946,9 @@ public class ModBase implements ModInitializer {
 		Register("underwater_hay_torch", "underwater_hay_wall_torch", UNDERWATER_HAY_TORCH, List.of(EN_US.Underwater_Torch(EN_US.Hay())));
 		//</editor-fold>
 		RegisterFood();
-		//<editor-fold desc="Bottled Confetti & Dragon's Breath">
 		Register("bottled_confetti", BOTTLED_CONFETTI_ITEM, List.of(EN_US.Confetti(EN_US.Bottled())));
-		Register("bottled_confetti", BOTTLED_CONFETTI_ENTITY, List.of(EN_US.Confetti(EN_US.Bottled())));
-		Register("dropped_confetti", DROPPED_CONFETTI_ENTITY, List.of(EN_US.Confetti(EN_US.Dropped())));
-		Register("confetti_cloud", CONFETTI_CLOUD_ENTITY, List.of(EN_US.Cloud(EN_US.Confetti())));
-		Register("dropped_dragon_breath", DROPPED_DRAGON_BREATH_ENTITY, List.of(EN_US.Breath(EN_US.Dragon(EN_US.Dropped()))));
-		Register("dragon_breath_cloud", DRAGON_BREATH_CLOUD_ENTITY, List.of(EN_US.Cloud(EN_US.Breath(EN_US.Dragon()))));
-		//</editor-fold>
-		//<editor-fold desc="Bottled Lightning">
 		Register("bottled_lightning", BOTTLED_LIGHTNING_ITEM, List.of(EN_US.Lightning(EN_US.Bottled())));
-		Register("bottled_lightning", BOTTLED_LIGHTNING_ENTITY, List.of(EN_US.Lightning(EN_US.Bottled())));
-		//</editor-fold>
-		//<editor-fold desc="Throwable Tomato">
 		Register("throwable_tomato", THROWABLE_TOMATO_ITEM, List.of(EN_US.Tomato(EN_US.Throwable())));
-		Register("throwable_tomato", THROWABLE_TOMATO_ENTITY, List.of(EN_US.Tomato(EN_US.Throwable())));
-		//</editor-fold>
 		//<editor-fold desc="Poison">
 		Register("poison_vial", POISON_VIAL, List.of(EN_US.Vial(EN_US.Poison())));
 		JuicerBlock.JUICE_MAP.put(() -> Items.POISONOUS_POTATO, POISON_VIAL);
@@ -5372,6 +4990,7 @@ public class ModBase implements ModInitializer {
 		Register("lapis_slab", LAPIS_SLAB, List.of(EN_US.Slab(EN_US.Lapis())));
 		Register("kill_potion", KILL_POTION, List.of(EN_US.Instantly(EN_US.Die(EN_US.of(EN_US.Potion())))));
 		Register("dense_brew", DENSE_BREW, List.of(EN_US.Brew(EN_US.Dense())));
+		Register("oakwood_brew", OAKWOOD_BREW, List.of(EN_US.Brew(EN_US.Oakwood())));
 		Register("sweet_brew", SWEET_BREW, List.of(EN_US.Brew(EN_US.Sweet())));
 		Register("distilled_water_bottle", DISTILLED_WATER_BOTTLE, List.of(EN_US.Bottle(EN_US.Water(EN_US.Distilled()))));
 		JuicerBlock.JUICE_MAP.put(() -> Items.ICE, DISTILLED_WATER_BOTTLE);
@@ -5404,28 +5023,7 @@ public class ModBase implements ModInitializer {
 		JuicerBlock.JUICE_MAP.put(PINK_SLIME_BLOCK::asItem, PINK_SLIME_BOTTLE);
 		Register("blue_slime_block", BLUE_SLIME_BLOCK, List.of(EN_US.Block(EN_US.Slime(EN_US.Blue()))));
 		Register("pink_slime_block", PINK_SLIME_BLOCK, List.of(EN_US.Block(EN_US.Slime(EN_US.Pink()))));
-		Register("tropical_slime", TROPICAL_SLIME_ENTITY, List.of(EN_US.Slime(EN_US.Tropical())));
-		FabricDefaultAttributeRegistry.register(TROPICAL_SLIME_ENTITY, HostileEntity.createHostileAttributes());
-		BiomeModifications.addSpawn(BiomeSelectors.tag(ModBiomeTags.WARM_OCEANS).and(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE)),
-				SpawnGroup.MONSTER, TROPICAL_SLIME_ENTITY, 1, 1, 1);
-		SpawnRestrictionAccessor.callRegister(TROPICAL_SLIME_ENTITY, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TropicalSlimeEntity::canMobSpawn);
-		Register("pink_slime_ball", PINK_SLIME_BALL_ENTITY, List.of(EN_US.Ball(EN_US.Slime(EN_US.Pink()))));
-		Register("pink_slime", PINK_SLIME_ENTITY, List.of(EN_US.Slime(EN_US.Pink())));
-		FabricDefaultAttributeRegistry.register(PINK_SLIME_ENTITY, HostileEntity.createHostileAttributes());
-		SpawnRestrictionAccessor.callRegister(PINK_SLIME_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SlimeEntity::canMobSpawn);
-		//Other Mobs
 		Register("slime_feather", SLIME_FEATHER, List.of(EN_US.Feather(EN_US.Slime())));
-		Register("slime_chicken", SLIME_CHICKEN_ENTITY, List.of(EN_US.Slicken()));
-		FabricDefaultAttributeRegistry.register(SLIME_CHICKEN_ENTITY, SlimeChickenEntity.createChickenAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_CHICKEN_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-
-		Register("slime_cow", SLIME_COW_ENTITY, List.of(EN_US.Cow(EN_US.Slime())));
-		FabricDefaultAttributeRegistry.register(SLIME_COW_ENTITY, SlimeCowEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_COW_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-
-		Register("slime_horse", SLIME_HORSE_ENTITY, List.of(EN_US.Slorse()));
-		FabricDefaultAttributeRegistry.register(SLIME_HORSE_ENTITY, SlimeHorseEntity.createSlimeHorseAttributes());
-		SpawnRestrictionAccessor.callRegister(SLIME_HORSE_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		//Lanterns
 		Register("magma_cube_lantern", MAGMA_CUBE_LANTERN, List.of(EN_US.Lantern(EN_US.Cube(EN_US.Magma()))));
 		Register("slime_lantern", SLIME_LANTERN, List.of(EN_US.Lantern(EN_US.Slime())));
@@ -5483,39 +5081,8 @@ public class ModBase implements ModInitializer {
 		Register("rainbow_wool_slab", RAINBOW_WOOL_SLAB, List.of(EN_US.Slab(EN_US.Wool(EN_US.Rainbow()))));
 		Register("rainbow_carpet", RAINBOW_CARPET, List.of(EN_US.Carpet(EN_US.Rainbow())));
 		Register("rainbow_bed", RAINBOW_BED, List.of(EN_US.Bed(EN_US.Rainbow())));
-		Register("rainbow_sheep", RAINBOW_SHEEP_ENTITY, List.of(EN_US.Sheep(EN_US.Rainbow())));
-		FabricDefaultAttributeRegistry.register(RAINBOW_SHEEP_ENTITY, RainbowSheepEntity.createSheepAttributes());
-		SpawnRestrictionAccessor.callRegister(RAINBOW_SHEEP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
 		//</editor-fold>
-		//<editor-fold desc="Jolly Llama">
-		Register("jolly_llama", JOLLY_LLAMA_ENTITY, List.of(EN_US.Llama(EN_US.Jolly())));
-		FabricDefaultAttributeRegistry.register(JOLLY_LLAMA_ENTITY, LlamaEntity.createLlamaAttributes());
-		SpawnRestrictionAccessor.callRegister(JOLLY_LLAMA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Chicken Variants">
-		Register("fancy_chicken", FANCY_CHICKEN_ENTITY, List.of(EN_US.Chicken(EN_US.Fancy())));
-		FabricDefaultAttributeRegistry.register(FANCY_CHICKEN_ENTITY, FancyChickenEntity.createChickenAttributes());
-		SpawnRestrictionAccessor.callRegister(FANCY_CHICKEN_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Cow Variants">
-		Register("blue_mooshroom", BLUE_MOOSHROOM_ENTITY, List.of(EN_US.Mooshroom(EN_US.Blue())));
-		FabricDefaultAttributeRegistry.register(BLUE_MOOSHROOM_ENTITY, BlueMooshroomEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(BLUE_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, BlueMooshroomEntity::canSpawn);
-		//Nether Mooshroom
-		Register("nether_mooshroom", NETHER_MOOSHROOM_ENTITY, List.of(EN_US.Mooshroom(EN_US.Nether())));
-		FabricDefaultAttributeRegistry.register(NETHER_MOOSHROOM_ENTITY, NetherMooshroomEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(NETHER_MOOSHROOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, NetherMooshroomEntity::canSpawn);
-		//Flower Cows
-		Register("moobloom", MOOBLOOM_ENTITY, List.of(EN_US.Moobloom()));
-		FabricDefaultAttributeRegistry.register(MOOBLOOM_ENTITY, MoobloomEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(MOOBLOOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FlowerCowEntity::canSpawn);
-		Register("moolip", MOOLIP_ENTITY, List.of(EN_US.Moolip()));
-		FabricDefaultAttributeRegistry.register(MOOLIP_ENTITY, MoolipEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(MOOLIP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FlowerCowEntity::canSpawn);
-		Register("mooblossom", MOOBLOSSOM_ENTITY, List.of(EN_US.Mooblossom()));
-		FabricDefaultAttributeRegistry.register(MOOBLOSSOM_ENTITY, MooblossomEntity.createCowAttributes());
-		SpawnRestrictionAccessor.callRegister(MOOBLOSSOM_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FlowerCowEntity::canSpawn);
-		//Mooblossom Flowers
+		//<editor-fold desc="Mooblossom Flowers">
 		Register("mooblossom_magenta_tulip", MOOBLOSSOM_MAGENTA_TULIP, List.of(EN_US.Tulip(EN_US.Magenta(EN_US.Mooblossom()))));
 		Register("mooblossom_red_tulip", MOOBLOSSOM_RED_TULIP, List.of(EN_US.Tulip(EN_US.Red(EN_US.Mooblossom()))));
 		Register("mooblossom_orange_tulip", MOOBLOSSOM_ORANGE_TULIP, List.of(EN_US.Tulip(EN_US.Orange(EN_US.Mooblossom()))));
@@ -5525,11 +5092,6 @@ public class ModBase implements ModInitializer {
 		//<editor-fold desc="Moss">
 		Register("moss_slab", MOSS_SLAB, List.of(EN_US.Slab(EN_US.Moss())));
 		Register("moss_bed", MOSS_BED, List.of(EN_US.Bed(EN_US.Moss())));
-		Register("mossy_sheep", MOSSY_SHEEP_ENTITY, List.of(EN_US.Sheep(EN_US.Mossy())));
-		FabricDefaultAttributeRegistry.register(MOSSY_SHEEP_ENTITY, MossySheepEntity.createSheepAttributes());
-		SpawnRestrictionAccessor.callRegister(MOSSY_SHEEP_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE),
-				SpawnGroup.CREATURE, MOSSY_SHEEP_ENTITY, 2, 2, 4);
 		//</editor-fold>
 		//<editor-fold desc="Glow Lichen">
 		Register("glow_lichen_block", GLOW_LICHEN_BLOCK, List.of(EN_US.Block(EN_US.Lichen(EN_US.Glow()))));
@@ -5882,9 +5444,7 @@ public class ModBase implements ModInitializer {
 		Register("tiki_torch_post", TIKI_TORCH_POST, List.of(EN_US.Post(EN_US.Torch(EN_US.Tiki()))));
 		ModBambooRegistry.RegisterBamboo();
 		Register("javelin", JAVELIN, List.of(EN_US.Javelin()));
-		Register("javelin", JAVELIN_ENTITY, List.of(EN_US.Javelin()));
 		Register("amethyst_trident", AMETHYST_TRIDENT, List.of(EN_US.Trident(EN_US.Amethyst())));
-		Register("amethyst_trident", AMETHYST_TRIDENT_ENTITY, List.of(EN_US.Trident(EN_US.Amethyst())));
 		//Mobs
 		ModActivities.Initialize();
 		ModDataHandlers.Initialize();
@@ -5892,17 +5452,7 @@ public class ModBase implements ModInitializer {
 		Register("minecraft:ochre_froglight", OCHRE_FROGLIGHT, List.of(EN_US.Froglight(EN_US.Ochre())));
 		Register("minecraft:verdant_froglight", VERDANT_FROGLIGHT, List.of(EN_US.Froglight(EN_US.Verdant())));
 		Register("minecraft:pearlescent_froglight", PEARLESCENT_FROGLIGHT, List.of(EN_US.Froglight(EN_US.Pearlescent())));
-		FROG_TEMPTATIONS_SENSOR.Initialize();
-		FROG_ATTACKABLES_SENSOR.Initialize();
-		IS_IN_WATER_SENSOR.Initialize();
-		Register("minecraft:frog", FROG_ENTITY, List.of(EN_US.Frog()));
-		FabricDefaultAttributeRegistry.register(FROG_ENTITY, FrogEntity.createFrogAttributes());
-		SpawnRestrictionAccessor.callRegister(FROG_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FrogEntity::canSpawn);
 		Register("minecraft:frogspawn", FROGSPAWN, List.of(EN_US.Frogspawn()));
-		Register("minecraft:tadpole", TADPOLE_ENTITY, List.of(EN_US.Tadpole()));
-		FabricDefaultAttributeRegistry.register(TADPOLE_ENTITY, TadpoleEntity.createTadpoleAttributes());
-		SpawnRestrictionAccessor.callRegister(TADPOLE_ENTITY, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, TadpoleEntity::canSpawn);
-		Register("minecraft:tadpole_bucket", TADPOLE_BUCKET, List.of(EN_US.Tadpole(EN_US.BucketOf())));
 		//</editor-fold>
 		//<editor-fold desc="Sculk">
 		Register("minecraft:sculk", SCULK, List.of(EN_US.Sculk()));
@@ -5910,12 +5460,6 @@ public class ModBase implements ModInitializer {
 		Register("minecraft:calibrated_sculk_sensor", CALIBRATED_SCULK_SENSOR, CALIBRATED_SCULK_SENSOR_ENTITY, List.of(EN_US.SculkSensor(EN_US.Calibrated())));
 		Register("minecraft:sculk_catalyst", SCULK_CATALYST, SCULK_CATALYST_ENTITY, List.of(EN_US.SculkCatalyst()));
 		Register("minecraft:sculk_shrieker", SCULK_SHRIEKER, SCULK_SHRIEKER_ENTITY, List.of(EN_US.SculkShrieker()));
-		//</editor-fold>
-		//<editor-fold desc="Wardens">
-		WARDEN_ENTITY_SENSOR.Initialize();
-		Register("minecraft:warden", WARDEN_ENTITY, List.of(EN_US.Warden()));
-		FabricDefaultAttributeRegistry.register(WARDEN_ENTITY, WardenEntity.addAttributes());
-		SpawnRestrictionAccessor.callRegister(WARDEN_ENTITY, SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, WardenEntity::canMobSpawn);
 		//</editor-fold>
 		Register("minecraft:recovery_compass", RECOVERY_COMPASS, List.of(EN_US.Compass(EN_US.Recovery())));
 		//<editor-fold desc="Echo">
@@ -5989,17 +5533,8 @@ public class ModBase implements ModInitializer {
 		Register("stone_sculk_turf", STONE_SCULK_TURF, List.of(EN_US.Turf(EN_US.Sculk(EN_US.Stone()))));
 		Register("tuff_sculk_turf", TUFF_SCULK_TURF, List.of(EN_US.Turf(EN_US.Sculk(EN_US.Tuff()))));
 		//</editor-fold>
-		//<editor-fold desc="Camel">
-		CAMEL_TEMPTATIONS_SENSOR.Initialize();
-		Register("minecraft:camel", CAMEL_ENTITY, List.of(EN_US.Camel()));
-		FabricDefaultAttributeRegistry.register(CAMEL_ENTITY, CamelEntity.createCamelAttributes());
-		//</editor-fold>
 		Register("broom", BROOM, List.of(EN_US.Broom()));
-		//<editor-fold desc="Sniffer">
-		Register("minecraft:sniffer", SNIFFER_ENTITY, List.of(EN_US.Sniffer()));
-		FabricDefaultAttributeRegistry.register(SNIFFER_ENTITY, SnifferEntity.createSnifferAttributes());
 		Register("minecraft:sniffer_egg", SNIFFER_EGG, List.of(EN_US.Egg(EN_US.Sniffer())));
-		//</editor-fold>
 		RegisterBrushableBlocks();
 		Register("minecraft:chiseled_bookshelf", CHISELED_BOOKSHELF_ENTITY);
 		//<editor-fold desc="Pottery Shards">
@@ -6024,32 +5559,6 @@ public class ModBase implements ModInitializer {
 		Register("minecraft:skull_pottery_sherd", SKULL_POTTERY_SHERD, List.of(EN_US.Sherd(EN_US.Pottery(EN_US.Skull()))));
 		Register("minecraft:snort_pottery_sherd", SNORT_POTTERY_SHERD, List.of(EN_US.Sherd(EN_US.Pottery(EN_US.Snort()))));
 		//</editor-fold>
-		//<editor-fold desc="Jumping Spider">
-		Register("jumping_spider", JUMPING_SPIDER_ENTITY, List.of(EN_US.Spider(EN_US.Jumping())));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.DESERT,
-						BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE,
-						BiomeKeys.BADLANDS, BiomeKeys.ERODED_BADLANDS, BiomeKeys.BADLANDS_PLATEAU, BiomeKeys.WOODED_BADLANDS_PLATEAU, BiomeKeys.MODIFIED_BADLANDS_PLATEAU, BiomeKeys.MODIFIED_WOODED_BADLANDS_PLATEAU),
-				SpawnGroup.MONSTER, JUMPING_SPIDER_ENTITY, 40, 1, 2);
-		FabricDefaultAttributeRegistry.register(JUMPING_SPIDER_ENTITY, JumpingSpiderEntity.createJumpingSpiderAttributes());
-		SpawnRestrictionAccessor.callRegister(JUMPING_SPIDER_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark);
-		//</editor-fold>
-		//<editor-fold desc="Hedgehog">
-		Register("hedgehog", HEDGEHOG_ENTITY, List.of(EN_US.Hedgehog()));
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.GIANT_TREE_TAIGA, BiomeKeys.GIANT_TREE_TAIGA_HILLS, BiomeKeys.GIANT_SPRUCE_TAIGA, BiomeKeys.GIANT_SPRUCE_TAIGA_HILLS, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE),
-				SpawnGroup.MONSTER, HEDGEHOG_ENTITY, 18, 1, 4);
-		FabricDefaultAttributeRegistry.register(HEDGEHOG_ENTITY, HedgehogEntity.createHedgehogAttributes());
-		SpawnRestrictionAccessor.callRegister(HEDGEHOG_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Racoon">
-		Register("raccoon", RACCOON_ENTITY, List.of(EN_US.Raccoon()));
-		FabricDefaultAttributeRegistry.register(RACCOON_ENTITY, RaccoonEntity.createRaccoonAttributes());
-		SpawnRestrictionAccessor.callRegister(RACCOON_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		//</editor-fold>
-		//<editor-fold desc="Red Panda">
-		Register("red_panda", RED_PANDA_ENTITY, List.of(EN_US.Panda(EN_US.Red())));
-		FabricDefaultAttributeRegistry.register(RED_PANDA_ENTITY, RedPandaEntity.createRedPandaAttributes());
-		SpawnRestrictionAccessor.callRegister(RED_PANDA_ENTITY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::isValidNaturalSpawn);
-		//</editor-fold>
 		RegisterFlowers();
 		Register("firing_charge", FIRING_CHARGE, List.of(EN_US.Charge(EN_US.Firing())));
 		Register("minecraft:trial_key", TRIAL_KEY, List.of(EN_US.Key(EN_US.Trial())));
@@ -6058,19 +5567,13 @@ public class ModBase implements ModInitializer {
 		Register("trimming_table", TRIMMING_TABLE, List.of(EN_US.Table(EN_US.Trimming())));
 		for (ArmorTrimPattern pattern : ArmorTrimPattern.values()) Register(pattern.getItemPath(), pattern.asItem(), pattern.getTranslations());
 		//<editor-fold desc="Piranhas">
-		Register("piranha", PIRANHA_ENTITY, List.of(EN_US.Piranha()));
-		FabricDefaultAttributeRegistry.register(PIRANHA_ENTITY, PiranhaEntity.createPiranhaAttributes());
-		BiomeModifications.addSpawn(BiomeSelectors.includeByKey(BiomeKeys.RIVER, BiomeKeys.JUNGLE, BiomeKeys.BAMBOO_JUNGLE, BiomeKeys.JUNGLE_EDGE, BiomeKeys.JUNGLE_HILLS, BiomeKeys.BAMBOO_JUNGLE_HILLS, BiomeKeys.MODIFIED_JUNGLE, BiomeKeys.MODIFIED_JUNGLE_EDGE, MANGROVE_SWAMP),
-				SpawnGroup.WATER_AMBIENT, PIRANHA_ENTITY, 8, 1, 5);
-		SpawnRestrictionAccessor.callRegister(PIRANHA_ENTITY, SpawnRestriction.Location.IN_WATER, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FishEntity::canSpawn);
 		Register("piranha", PIRANHA, List.of(EN_US.Piranha()));
 		Register("cooked_piranha", COOKED_PIRANHA, List.of(EN_US.Piranha(EN_US.Cooked())));
 		//</editor-fold>
-		RegisterMobStorage();
+		ModSensorTypes.RegisterAll();
+		ModEntityRegistry.RegisterAll();
 		RegisterInfestedBlocks();
 		RegisterMobSkullsAndRagdolls();
-		RegisterSummoningArrows();
-		RegisterSpawnEggs();
 		ModBannerPatterns.RegisterBannerPatterns();
 		ModPaintingMotives.RegisterPaintings();
 		ModStatusEffects.RegisterEffects();
@@ -7478,20 +6981,6 @@ public class ModBase implements ModInitializer {
 		Register("infested_chiseled_granite_bricks", INFESTED_CHISELED_GRANITE_BRICKS, List.of(EN_US.Bricks(EN_US.Granite(EN_US.Chiseled(EN_US.Infested())))));
 		Register("infested_tuff", INFESTED_TUFF, List.of(EN_US.Tuff(EN_US.Infested())));
 	}
-	private static void RegisterMobStorage() {
-		//<editor-fold desc="Buckets">
-		Register("piranha_bucket", PIRANHA_BUCKET, List.of(EN_US.Piranha(EN_US.BucketOf())));
-		//</editor-fold>
-		//<editor-fold desc="Pouches">
-		Register("pouch", POUCH, List.of(EN_US.Pouch()));
-		Register("chicken_pouch", CHICKEN_POUCH, List.of(EN_US.Chicken(EN_US.of(EN_US.Pouch()))));
-		Register("rabbit_pouch", RABBIT_POUCH, List.of(EN_US.Rabbit(EN_US.of(EN_US.Pouch()))));
-		Register("parrot_pouch", PARROT_POUCH, List.of(EN_US.Parrot(EN_US.of(EN_US.Pouch()))));
-		Register("endermite_pouch", ENDERMITE_POUCH, List.of(EN_US.Endermite(EN_US.of(EN_US.Pouch()))));
-		Register("silverfish_pouch", SILVERFISH_POUCH, List.of(EN_US.Silverfish(EN_US.of(EN_US.Pouch()))));
-		Register("hedgehog_pouch", HEDGEHOG_POUCH, List.of(EN_US.Hedgehog(EN_US.of(EN_US.Pouch()))));
-		//</editor-fold>
-	}
 	private static void RegisterMobSkullsAndRagdolls() {
 		//<editor-fold desc="Piglin & Zombie Piglin">
 		Register("minecraft:piglin_head", PIGLIN_HEAD_BLOCK_ENTITY);
@@ -7502,185 +6991,6 @@ public class ModBase implements ModInitializer {
 		//</editor-fold>
 		Register("ragdoll", RAGDOLL_BLOCK_ENTITY);
 		Register("ragdoll", RAGDOLL, List.of(EN_US.Ragdoll()));
-	}
-	private static void RegisterSummoningArrows() {
-		//<editor-fold desc="Summoning Arrows">
-		Register("axolotl_summoning_arrow", AXOLOTL_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Axolotl()))));
-		Register("bat_summoning_arrow", BAT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Bat()))));
-		Register("bee_summoning_arrow", BEE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Bee()))));
-		Register("blaze_summoning_arrow", BLAZE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Blaze()))));
-		Register("camel_summoning_arrow", CAMEL_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Camel()))));
-		Register("cat_summoning_arrow", CAT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cat()))));
-		Register("cave_spider_summoning_arrow", CAVE_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Cave())))));
-		Register("chicken_summoning_arrow", CHICKEN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Chicken()))));
-		Register("cod_summoning_arrow", COD_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cod()))));
-		Register("cow_summoning_arrow", COW_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cow()))));
-		Register("creeper_summoning_arrow", CREEPER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Creeper()))));
-		Register("dolphin_summoning_arrow", DOLPHIN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Dolphin()))));
-		Register("donkey_summoning_arrow", DONKEY_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Donkey()))));
-		Register("drowned_summoning_arrow", DROWNED_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Drowned()))));
-		Register("elder_guardian_summoning_arrow", ELDER_GUARDIAN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Guardian(EN_US.Elder())))));
-		Register("enderman_summoning_arrow", ENDERMAN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Enderman()))));
-		Register("endermite_summoning_arrow", ENDERMITE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Endermite()))));
-		Register("evoker_summoning_arrow", EVOKER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Evoker()))));
-		Register("fox_summoning_arrow", FOX_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Fox()))));
-		Register("frog_summoning_arrow", FROG_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Frog()))));
-		Register("ghast_summoning_arrow", GHAST_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Ghast()))));
-		Register("giant_summoning_arrow", GIANT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Giant()))));
-		Register("glow_squid_summoning_arrow", GLOW_SQUID_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Squid(EN_US.Glow())))));
-		Register("goat_summoning_arrow", GOAT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Goat()))));
-		Register("guardian_summoning_arrow", GUARDIAN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Guardian()))));
-		Register("hoglin_summoning_arrow", HOGLIN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Hoglin()))));
-		Register("horse_summoning_arrow", HORSE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Horse()))));
-		Register("husk_summoning_arrow", HUSK_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Husk()))));
-		Register("iron_golem_summoning_arrow", IRON_GOLEM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Golem(EN_US.Iron())))));
-		Register("llama_summoning_arrow", LLAMA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Llama()))));
-		Register("magma_cube_summoning_arrow", MAGMA_CUBE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cube(EN_US.Magma())))));
-		Register("mooshroom_summoning_arrow", MOOSHROOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mooshroom()))));
-		Register("mule_summoning_arrow", MULE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mule()))));
-		Register("ocelot_summoning_arrow", OCELOT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Ocelot()))));
-		Register("panda_summoning_arrow", PANDA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Panda()))));
-		Register("parrot_summoning_arrow", PARROT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Parrot()))));
-		Register("phantom_summoning_arrow", PHANTOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Phantom()))));
-		Register("pig_summoning_arrow", PIG_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Pig()))));
-		Register("piglin_summoning_arrow", PIGLIN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Piglin()))));
-		Register("piglin_brute_summoning_arrow", PIGLIN_BRUTE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Brute(EN_US.Piglin())))));
-		Register("pillager_summoning_arrow", PILLAGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Pillager()))));
-		Register("polar_bear_summoning_arrow", POLAR_BEAR_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Bear(EN_US.Polar())))));
-		Register("pufferfish_summoning_arrow", PUFFERFISH_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Pufferfish()))));
-		Register("rabbit_summoning_arrow", RABBIT_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Rabbit()))));
-		Register("ravager_summoning_arrow", RAVAGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Ravager()))));
-		Register("salmon_summoning_arrow", SALMON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Salmon()))));
-		Register("sheep_summoning_arrow", SHEEP_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Sheep()))));
-		Register("shulker_summoning_arrow", SHULKER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Shulker()))));
-		Register("silverfish_summoning_arrow", SILVERFISH_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Silverfish()))));
-		Register("skeleton_summoning_arrow", SKELETON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Skeleton()))));
-		Register("skeleton_horse_summoning_arrow", SKELETON_HORSE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Horse(EN_US.Skeleton())))));
-		Register("slime_summoning_arrow", SLIME_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slime()))));
-		Register("sniffer_summoning_arrow", SNIFFER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Sniffer()))));
-		Register("snow_golem_summoning_arrow", SNOW_GOLEM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Golem(EN_US.Snow())))));
-		Register("spider_summoning_arrow", SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider()))));
-		Register("squid_summoning_arrow", SQUID_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Squid()))));
-		Register("stray_summoning_arrow", STRAY_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Stray()))));
-		Register("strider_summoning_arrow", STRIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Strider()))));
-		Register("tadpole_summoning_arrow", TADPOLE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Tadpole()))));
-		Register("trader_llama_summoning_arrow", TRADER_LLAMA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Llama(EN_US.Trader())))));
-		Register("tropical_fish_summoning_arrow", TROPICAL_FISH_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Fish(EN_US.Tropical())))));
-		Register("turtle_summoning_arrow", TURTLE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Turtle()))));
-		Register("vex_summoning_arrow", VEX_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Vex()))));
-		Register("villager_summoning_arrow", VILLAGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Villager()))));
-		Register("vindicator_summoning_arrow", VINDICATOR_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Vindicator()))));
-		Register("wandering_trader_summoning_arrow", WANDERING_TRADER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Trader(EN_US.Wandering())))));
-		Register("warden_summoning_arrow", WARDEN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Warden()))));
-		Register("witch_summoning_arrow", WITCH_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Witch()))));
-		Register("wither_summoning_arrow", WITHER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Wither()))));
-		Register("wither_skeleton_summoning_arrow", WITHER_SKELETON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Skeleton(EN_US.Wither())))));
-		Register("wolf_summoning_arrow", WOLF_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Wolf()))));
-		Register("zoglin_summoning_arrow", ZOGLIN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zoglin()))));
-		Register("zombie_summoning_arrow", ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie()))));
-		Register("zombie_horse_summoning_arrow", ZOMBIE_HORSE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Horse(EN_US.Zombie())))));
-		Register("zombie_villager_summoning_arrow", ZOMBIE_VILLAGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Villager(EN_US.Zombie())))));
-		Register("zombie_piglin_summoning_arrow", ZOMBIFIED_PIGLIN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Piglin(EN_US.Zombified())))));
-		//</editor-fold>
-		//<editor-fold desc="Mod Mob Summoning Arrows">
-		Register("melon_golem_summoning_arrow", MELON_GOLEM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Golem(EN_US.Melon())))));
-		Register("bone_spider_summoning_arrow", BONE_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Bone())))));
-		Register("icy_spider_summoning_arrow", ICY_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Icy())))));
-		Register("slime_spider_summoning_arrow", SLIME_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slider()))));
-		Register("hedgehog_summoning_arrow", HEDGEHOG_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Hedgehog()))));
-		Register("raccoon_summoning_arrow", RACCOON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Raccoon()))));
-		Register("red_panda_summoning_arrow", RED_PANDA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Panda(EN_US.Red())))));
-		Register("jumping_spider_summoning_arrow", JUMPING_SPIDER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Spider(EN_US.Jumping())))));
-		Register("red_phantom_summoning_arrow", RED_PHANTOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Phantom(EN_US.Red())))));
-		Register("piranha_summoning_arrow", PIRANHA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Piranha()))));
-		Register("fancy_chicken_summoning_arrow", FANCY_CHICKEN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Chicken(EN_US.Fancy())))));
-		Register("blue_mooshroom_summoning_arrow", BLUE_MOOSHROOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mooshroom(EN_US.Blue())))));
-		Register("nether_mooshroom_summoning_arrow", NETHER_MOOSHROOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mooshroom(EN_US.Nether())))));
-		Register("moobloom_summoning_arrow", MOOBLOOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Moobloom()))));
-		Register("moolip_summoning_arrow", MOOLIP_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Moolip()))));
-		Register("mooblossom_summoning_arrow", MOOBLOSSOM_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mooblossom()))));
-		Register("mossy_sheep_summoning_arrow", MOSSY_SHEEP_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Sheep(EN_US.Mossy())))));
-		Register("rainbow_sheep_summoning_arrow", RAINBOW_SHEEP_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Sheep(EN_US.Rainbow())))));
-		Register("slime_creeper_summoning_arrow", SLIME_CREEPER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Creeper(EN_US.Slime())))));
-		Register("mossy_skeleton_summoning_arrow", MOSSY_SKELETON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Skeleton(EN_US.Mossy())))));
-		Register("slimy_skeleton_summoning_arrow", SLIMY_SKELETON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Skeleton(EN_US.Slimy())))));
-		Register("sunken_skeleton_summoning_arrow", SUNKEN_SKELETON_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Skeleton(EN_US.Sunken())))));
-		Register("tropical_slime_summoning_arrow", TROPICAL_SLIME_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slime(EN_US.Tropical())))));
-		Register("pink_slime_summoning_arrow", PINK_SLIME_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slime(EN_US.Pink())))));
-		Register("slime_chicken_summoning_arrow", SLIME_CHICKEN_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slicken()))));
-		Register("slime_cow_summoning_arrow", SLIME_COW_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Cow(EN_US.Slime())))));
-		Register("slime_horse_summoning_arrow", SLIME_HORSE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Slorse()))));
-		Register("frozen_zombie_summoning_arrow", FROZEN_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Frozen())))));
-		Register("jungle_zombie_summoning_arrow", JUNGLE_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Jungle())))));
-		Register("slime_zombie_summoning_arrow", SLIME_ZOMBIE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Zombie(EN_US.Slime())))));
-		Register("iceologer_summoning_arrow", ICEOLOGER_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Iceologer()))));
-		Register("mage_summoning_arrow", MAGE_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Mage()))));
-		Register("jolly_llama_summoning_arrow", JOLLY_LLAMA_SUMMONING_ARROW, List.of(EN_US.Arrow(EN_US.Summoning(EN_US.Llama(EN_US.Jolly())))));
-		//</editor-fold>
-	}
-	private static void RegisterSpawnEggs() {
-		//<editor-fold desc="Spawn Eggs">
-		Register("minecraft:frog_spawn_egg", FROG_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Frog()))));
-		Register("minecraft:tadpole_spawn_egg", TADPOLE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Tadpole()))));
-		Register("minecraft:warden_spawn_egg", WARDEN_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Warden()))));
-		Register("minecraft:camel_spawn_egg", CAMEL_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Camel()))));
-		Register("minecraft:sniffer_spawn_egg", SNIFFER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Sniffer()))));
-		//</editor-fold>
-		//<editor-fold desc="Mod Mob Spawn Eggs">
-		Register("bone_spider_spawn_egg", BONE_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Spider(EN_US.Bone())))));
-		Register("icy_spider_spawn_egg", ICY_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Spider(EN_US.Icy())))));
-		Register("slime_spider_spawn_egg", SLIME_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slider()))));
-		Register("hedgehog_spawn_egg", HEDGEHOG_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Hedgehog()))));
-		Register("raccoon_spawn_egg", RACCOON_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Raccoon()))));
-		Register("red_panda_spawn_egg", RED_PANDA_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Panda(EN_US.Red())))));
-		Register("jumping_spider_spawn_egg", JUMPING_SPIDER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Spider(EN_US.Jumping())))));
-		Register("red_phantom_spawn_egg", RED_PHANTOM_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Phantom(EN_US.Red())))));
-		Register("piranha_spawn_egg", PIRANHA_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Piranha()))));
-		Register("fancy_chicken_spawn_egg", FANCY_CHICKEN_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Chicken(EN_US.Fancy())))));
-		Register("blue_mooshroom_spawn_egg", BLUE_MOOSHROOM_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Mooshroom(EN_US.Blue())))));
-		Register("nether_mooshroom_spawn_egg", NETHER_MOOSHROOM_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Mooshroom(EN_US.Nether())))));
-		Register("moobloom_spawn_egg", MOOBLOOM_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Moobloom()))));
-		Register("moolip_spawn_egg", MOOLIP_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Moolip()))));
-		Register("mooblossom_spawn_egg", MOOBLOSSOM_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Mooblossom()))));
-		Register("mossy_sheep_spawn_egg", MOSSY_SHEEP_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Sheep(EN_US.Mossy())))));
-		Register("rainbow_sheep_spawn_egg", RAINBOW_SHEEP_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Sheep(EN_US.Rainbow())))));
-		Register("slime_creeper_spawn_egg", SLIME_CREEPER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Creeper(EN_US.Slime())))));
-		Register("mossy_skeleton_spawn_egg", MOSSY_SKELETON_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Skeleton(EN_US.Mossy())))));
-		Register("slimy_skeleton_spawn_egg", SLIMY_SKELETON_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Skeleton(EN_US.Slimy())))));
-		Register("sunken_skeleton_spawn_egg", SUNKEN_SKELETON_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Skeleton(EN_US.Sunken())))));
-		Register("tropical_slime_spawn_egg", TROPICAL_SLIME_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slime(EN_US.Tropical())))));
-		Register("pink_slime_spawn_egg", PINK_SLIME_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slime(EN_US.Pink())))));
-		Register("slime_chicken_spawn_egg", SLIME_CHICKEN_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slicken()))));
-		Register("slime_cow_spawn_egg", SLIME_COW_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Cow(EN_US.Slime())))));
-		Register("slime_horse_spawn_egg", SLIME_HORSE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Slorse()))));
-		Register("frozen_zombie_spawn_egg", FROZEN_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Frozen())))));
-		Register("jungle_zombie_spawn_egg", JUNGLE_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Jungle())))));
-		Register("slime_zombie_spawn_egg", SLIME_ZOMBIE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Zombie(EN_US.Slime())))));
-		Register("iceologer_spawn_egg", ICEOLOGER_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Iceologer()))));
-		Register("mage_spawn_egg", MAGE_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Mage()))));
-		Register("jolly_llama_spawn_egg", JOLLY_LLAMA_SPAWN_EGG, List.of(EN_US.Egg(EN_US.Spawn(EN_US.Llama(EN_US.Jolly())))));
-		//</editor-fold>
-		//Add dispenser behavior (will override existing spawn egg behaviors but those really shouldn't be different anyway????
-		ItemDispenserBehavior itemDispenserBehavior = new ItemDispenserBehavior() {
-			@Override
-			public ItemStack dispenseSilently(BlockPointer pointer, ItemStack stack) {
-				Direction direction = pointer.getBlockState().get(DispenserBlock.FACING);
-				EntityType<?> entityType = ((SpawnEggItem)stack.getItem()).getEntityType(stack.getNbt());
-				try {
-					entityType.spawnFromItemStack(pointer.getWorld(), stack, null, pointer.getPos().offset(direction), SpawnReason.DISPENSER, direction != Direction.UP, false);
-				}
-				catch (Exception exception) {
-					//LOGGER.error("Error while dispensing spawn egg from dispenser at {}", pointer.getPos(), exception);
-					return ItemStack.EMPTY;
-				}
-				stack.decrement(1);
-				pointer.getWorld().emitGameEvent(GameEvent.ENTITY_PLACE, pointer.getPos());
-				return stack;
-			}
-		};
-		for (SpawnEggItem spawnEggItem : SpawnEggItem.getAll()) {
-			DispenserBlock.registerBehavior(spawnEggItem, itemDispenserBehavior);
-		}
 	}
 
 	//Sculk

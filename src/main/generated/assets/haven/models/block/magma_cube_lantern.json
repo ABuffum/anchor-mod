@@ -1,6 +1,0 @@
-{
-  "parent": "haven:block/_template_magma_cube_lantern",
-  "textures": {
-    "texture": "haven:block/magma_cube_lantern"
-  }
-}

@@ -1,6 +1,6 @@
 package fun.wich.mixins.entity.hostile;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.WaterConversionEntity;
 import fun.wich.entity.hostile.skeleton.SunkenSkeletonEntity;
 import fun.wich.entity.variants.SunkenSkeletonVariant;
@@ -77,7 +77,7 @@ public abstract class AbstractSkeletonEntityMixin extends HostileEntity implemen
 	}
 
 	public void convertInWater() {
-		SunkenSkeletonEntity entity = convertTo(ModBase.SUNKEN_SKELETON_ENTITY, true);
+		SunkenSkeletonEntity entity = convertTo(ModEntityType.SUNKEN_SKELETON_ENTITY, true);
 		if (entity != null) entity.setVariant(random.nextInt(SunkenSkeletonVariant.values().length));
 		if (!this.isSilent()) {
 			this.world.playSound(null, this.getBlockPos(), ModSoundEvents.ENTITY_SKELETON_CONVERTED_TO_SUNKEN_SKELETON, SoundCategory.HOSTILE, 2.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f);

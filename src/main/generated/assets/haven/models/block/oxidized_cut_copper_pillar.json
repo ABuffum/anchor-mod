@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "minecraft:block/oxidized_cut_copper",
-    "side": "haven:block/oxidized_cut_copper_pillar"
-  }
-}

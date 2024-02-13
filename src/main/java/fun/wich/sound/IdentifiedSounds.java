@@ -4,7 +4,7 @@ import com.nhoryzon.mc.farmersdelight.registry.BlocksRegistry;
 import fun.wich.ModBase;
 import fun.wich.container.BlockContainer;
 import fun.wich.container.CakeContainer;
-import fun.wich.entity.hostile.piranha.PiranhaEntity;
+import fun.wich.entity.hostile.PiranhaEntity;
 import fun.wich.entity.vehicle.ModBoatEntity;
 import fun.wich.gen.data.tag.ModBlockTags;
 import fun.wich.mixins.entity.vehicle.BoatEntityAccessor;

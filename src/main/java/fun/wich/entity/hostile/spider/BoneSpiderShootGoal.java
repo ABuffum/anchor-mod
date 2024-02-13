@@ -31,9 +31,7 @@ public class BoneSpiderShootGoal extends Goal {
 	@Override
 	public boolean canStart() {
 		LivingEntity livingEntity = this.mob.getTarget();
-		if (livingEntity == null || !livingEntity.isAlive()) {
-			return false;
-		}
+		if (livingEntity == null || !livingEntity.isAlive()) return false;
 		this.target = livingEntity;
 		return true;
 	}

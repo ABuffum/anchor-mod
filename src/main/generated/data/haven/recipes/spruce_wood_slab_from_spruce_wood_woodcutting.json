@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "minecraft:spruce_wood"
-  },
-  "result": "haven:spruce_wood_slab",
-  "count": 2
-}

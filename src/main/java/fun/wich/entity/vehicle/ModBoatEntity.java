@@ -1,6 +1,6 @@
 package fun.wich.entity.vehicle;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.mixins.entity.vehicle.BoatEntityAccessor;
 import fun.wich.registry.ModBambooRegistry;
 import net.minecraft.block.BlockState;
@@ -28,7 +28,7 @@ public class ModBoatEntity extends BoatEntity {
 		super(type, world);
 	}
 	public ModBoatEntity(World worldIn, double x, double y, double z) {
-		this(ModBase.MOD_BOAT_ENTITY, worldIn);
+		this(ModEntityType.MOD_BOAT_ENTITY, worldIn);
 		this.setPosition(x, y, z);
 		this.prevX = x;
 		this.prevY = y;

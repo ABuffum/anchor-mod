@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_candle",
-  "textures": {
-    "all": "haven:block/soul_candle_lit",
-    "particle": "haven:block/soul_candle_lit"
-  }
-}

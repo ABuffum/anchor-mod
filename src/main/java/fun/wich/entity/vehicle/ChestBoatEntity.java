@@ -1,6 +1,7 @@
 package fun.wich.entity.vehicle;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.RideableInventory;
 import fun.wich.mixins.entity.vehicle.BoatEntityAccessor;
 import net.minecraft.entity.Entity;
@@ -37,7 +38,7 @@ public class ChestBoatEntity extends BoatEntity implements RideableInventory, Ve
 	public ChestBoatEntity(EntityType<? extends BoatEntity> entityType, World world) { super(entityType, world); }
 
 	public ChestBoatEntity(World world, double d, double e, double f) {
-		this(ModBase.CHEST_BOAT_ENTITY, world);
+		this(ModEntityType.CHEST_BOAT_ENTITY, world);
 		this.setPosition(d, e, f);
 		this.prevX = d;
 		this.prevY = e;

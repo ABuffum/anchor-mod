@@ -1,6 +1,6 @@
 package fun.wich.entity.passive.cow;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.variants.MooblossomVariant;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -31,7 +31,7 @@ public class MooblossomEntity extends FlowerCowEntity {
 	@Override public Block getRenderedFlowerBlock() { return MooblossomVariant.get(this).backBlock; }
 	@Override public Item getFlowerItem() { return MooblossomVariant.get(this).item; }
 	public FlowerCowEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		MooblossomEntity entity = ModBase.MOOBLOSSOM_ENTITY.create(serverWorld);
+		MooblossomEntity entity = ModEntityType.MOOBLOSSOM_ENTITY.create(serverWorld);
 		MooblossomVariant.setVariant(entity, (this.random.nextBoolean() ? MooblossomVariant.get(this) : MooblossomVariant.get((MooblossomEntity)passiveEntity)).ordinal());
 		return entity;
 	}

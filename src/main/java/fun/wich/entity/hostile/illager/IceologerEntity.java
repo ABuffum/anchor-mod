@@ -1,7 +1,7 @@
 package fun.wich.entity.hostile.illager;
 
-import fun.wich.ModBase;
 import fun.wich.entity.IceChunkEntity;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.projectile.SlowingSnowballEntity;
 import fun.wich.origins.power.EnableTradePower;
 import fun.wich.sound.ModSoundEvents;
@@ -26,7 +26,7 @@ public class IceologerEntity extends CapedSpellcastingIllagerEntity implements R
 		this.experiencePoints = 10;
 	}
 	public IceologerEntity(World world) {
-		super(ModBase.ICEOLOGER_ENTITY, world);
+		super(ModEntityType.ICEOLOGER_ENTITY, world);
 		this.experiencePoints = 10;
 	}
 

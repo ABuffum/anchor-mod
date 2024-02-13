@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "haven:block/dogwood_planks",
-    "side": "haven:block/dogwood_bookshelf"
-  }
-}

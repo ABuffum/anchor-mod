@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/_template_glass_trapdoor_open",
-  "textures": {
-    "top": "haven:block/sapphire_glass",
-    "side": "haven:block/sapphire_glass_pane_top"
-  }
-}

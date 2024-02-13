@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_bars_post",
-  "textures": {
-    "particle": "haven:block/gold_bars",
-    "bars": "haven:block/gold_bars",
-    "edge": "haven:block/gold_bars"
-  }
-}

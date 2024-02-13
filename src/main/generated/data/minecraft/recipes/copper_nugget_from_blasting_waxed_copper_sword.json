@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "haven:waxed_copper_sword"
-  },
-  "result": "haven:copper_nugget",
-  "experience": 0.1,
-  "cookingtime": 100
-}

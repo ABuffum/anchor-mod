@@ -1,7 +1,7 @@
 package fun.wich.entity.hostile.zombie;
 
-import fun.wich.ModBase;
 import fun.wich.entity.FreezeConversionEntity;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.projectile.SlowingSnowballEntity;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -33,7 +33,7 @@ public class FrozenZombieEntity extends ZombieEntity implements RangedAttackMob,
 	public FrozenZombieEntity(EntityType<? extends FrozenZombieEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	public FrozenZombieEntity(World world) { super(ModBase.FROZEN_ZOMBIE_ENTITY, world); }
+	public FrozenZombieEntity(World world) { super(ModEntityType.FROZEN_ZOMBIE_ENTITY, world); }
 
 	@Override
 	protected void initCustomGoals() {

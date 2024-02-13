@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_bars_side",
-  "textures": {
-    "particle": "haven:block/oxidized_copper_bars",
-    "bars": "haven:block/oxidized_copper_bars",
-    "edge": "haven:block/oxidized_copper_bars"
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "haven:lavender_terracotta_slab"
-  },
-  "result": "haven:lavender_glazed_terracotta_slab",
-  "experience": 0.1,
-  "cookingtime": 200
-}

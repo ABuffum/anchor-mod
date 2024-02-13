@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "haven:bamboo_wood"
-  },
-  "result": "haven:bamboo_wood_slab",
-  "count": 2
-}

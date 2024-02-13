@@ -1,6 +1,6 @@
 package fun.wich.entity.passive.chicken;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.ChickenEntity;
@@ -24,6 +24,6 @@ public class FancyChickenEntity extends ChickenEntity {
 	}
 
 	public FancyChickenEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return ModBase.FANCY_CHICKEN_ENTITY.create(serverWorld);
+		return ModEntityType.FANCY_CHICKEN_ENTITY.create(serverWorld);
 	}
 }

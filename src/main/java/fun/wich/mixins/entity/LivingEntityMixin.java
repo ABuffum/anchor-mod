@@ -68,6 +68,8 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 	@Shadow public abstract boolean damage(DamageSource source, float amount);
 	@Shadow protected abstract void damageShield(float amount);
 
+	@Shadow public abstract boolean removeStatusEffect(StatusEffect type);
+
 	public LivingEntityMixin(EntityType<?> type, World world) { super(type, world); }
 
 	@Inject(method="canFreeze", at = @At("HEAD"), cancellable = true)
@@ -141,6 +143,10 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 					|| this.world.getBlockState(new BlockPos(x, y, z - w)).isIn(ModBlockTags.COLD_BLOCKS)) {
 				this.setInPowderSnow(true);
 			}
+		}
+		if (hasStatusEffect(ModStatusEffects.FROZEN)) {
+			if (hasStatusEffect(ModStatusEffects.FREEZING_RESISTANCE)) removeStatusEffect(ModStatusEffects.FROZEN);
+			else this.setInPowderSnow(true);
 		}
 	}
 	private static boolean HasSnow(World world, BlockPos pos) {
@@ -247,15 +253,25 @@ public abstract class LivingEntityMixin extends Entity implements EntityWithAtta
 	}
 
 	@ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true)
-	private float IncreaseDamageFromCommittedAttacker(float originalValue, DamageSource source, float amount) {
+	private float AdjustDamageForEnchantmentsAndEffects(float originalValue, DamageSource source, float amount) {
 		float newValue = originalValue;
 		LivingEntity user = null;
 		if (source.getAttacker() instanceof LivingEntity temp) user = temp;
 		else if (source.getSource() instanceof LivingEntity temp) user = temp;
 		if (user != null) {
+			//Committed Enchantment
 			float boost = CommittedEnchantment.getBoost(user, this);
 			if (boost > 0) newValue *= (1 + boost);
+			//Dense Effect
+			if (hasStatusEffect(ModStatusEffects.DENSE)) newValue *= 0.75f;
 		}
+		if (!source.bypassesArmor()) {
+			if (!source.isFire()) {
+				//Oakwood Armor Effect
+				if (hasStatusEffect(ModStatusEffects.OAKWOOD_ARMOR)) newValue *= 0.66f;
+			}
+		}
+		if (hasStatusEffect(ModStatusEffects.SWEET_BREW)) newValue *= 0.83f;
 		return newValue;
 	}
 

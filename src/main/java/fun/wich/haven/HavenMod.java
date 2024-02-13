@@ -114,17 +114,23 @@ public class HavenMod {
 	));
 	//</editor-fold>
 	//<editor-fold desc="Blood Types">
-	public static final BloodType ANEMIC_BLOOD_TYPE = BloodType.Register(NAMESPACE, "anemic");
-	public static final BloodType BEE_ENDERMAN_BLOOD_TYPE = BloodType.Register(NAMESPACE, "bee_enderman");
-	public static final BloodType CONFETTI_BLOOD_TYPE = BloodType.Register(NAMESPACE, "confetti");
-	public static final BloodType DISEASED_CAT_BLOOD_TYPE = BloodType.Register(NAMESPACE, "diseased_cat");
-	public static final BloodType ICHOR_BLOOD_TYPE = BloodType.Register(NAMESPACE, "ichor");
-	public static final BloodType NEPHAL_BLOOD_TYPE = BloodType.Register(NAMESPACE, "nephal");
-	public static final BloodType NETHER_ROYALTY_BLOOD_TYPE = BloodType.Register(NAMESPACE, "nether_royalty");
-	public static final BloodType SLUDGE_BLOOD_TYPE = BloodType.Register(NAMESPACE, "sludge");
+	public static final BloodType ANEMIC_BLOOD_TYPE = BloodType.Register(NAMESPACE, "anemic", List.of(EN_US.Blood(EN_US.Anemic())));
+	public static final BloodType BEE_ENDERMAN_BLOOD_TYPE = BloodType.Register(NAMESPACE, "bee_enderman", List.of(EN_US.Blood(EN_US.Enderman(EN_US.Bee()))));
+	public static final BloodType CONFETTI_BLOOD_TYPE = BloodType.Register(NAMESPACE, "confetti", List.of(EN_US.Confetti()));
+	public static final BloodType DISEASED_CAT_BLOOD_TYPE = BloodType.Register(NAMESPACE, "diseased_cat", List.of(EN_US.Blood(EN_US.Cat(EN_US.Diseased()))));
+	public static final BloodType ICHOR_BLOOD_TYPE = BloodType.Register(NAMESPACE, "ichor", List.of(EN_US.Ichor()));
+	public static final BloodType NETHER_ROYALTY_BLOOD_TYPE = BloodType.Register(NAMESPACE, "nether_royalty", List.of(EN_US.Blood(EN_US.Royalty(EN_US.Nether()))));
+	public static final BloodType SLUDGE_BLOOD_TYPE = BloodType.Register(NAMESPACE, "sludge", List.of(EN_US.Sludge()));
 	//</editor-fold>
 
 	//<editor-fold desc="Alcatraz">
+	public static final Item SHARP_MARTINI = GeneratedItem(new BottledDrinkItem(GlassBottledItemSettings()) {
+		@Override
+		public void OnDrink(ItemStack stack, LivingEntity user) {
+			user.damage(ModDamageSource.DIE_INSTANTLY, 9999);
+			if (user.getHealth() > 0) user.kill(); //They're supposed to be dead after the damage, even if they're in creative, kill that fucker
+		}
+	});
 	public static final BlockContainer SHARP_TNT = new BlockContainer(new SharpTntBlock(ModFactory.TntSettings(MapColor.BLACK)));
 	public static final EntityType<SharpTntEntity> SHARP_TNT_ENTITY = FabricEntityTypeBuilder.<SharpTntEntity>create(SpawnGroup.MISC, SharpTntEntity::new)
 			.dimensions(EntityDimensions.fixed(0.98F, 0.98F)).fireImmune().trackRangeChunks(10).trackedUpdateRate(10).build();
@@ -421,6 +427,7 @@ public class HavenMod {
 		//</editor-fold>
 
 		//<editor-fold desc="Alcatraz">
+		Register("sharp_martini", SHARP_MARTINI, List.of(EN_US.Martini(EN_US.Sharp())));
 		Register("sharp_tnt", SHARP_TNT, List.of(EN_US.TNT(EN_US.Sharp())));
 		Register("sharp_tnt", SHARP_TNT_ENTITY, List.of(EN_US.TNT(EN_US.Sharp())));
 		DispenserBlock.registerBehavior(SHARP_TNT.asBlock(), ModTntBlock.DispenserBehavior(SharpTntEntity::new));

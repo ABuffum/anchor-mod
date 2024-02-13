@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "minecraft:block/sculk",
-    "bottom": "minecraft:block/andesite",
-    "side": "haven:block/andesite_sculk_turf_side"
-  }
-}

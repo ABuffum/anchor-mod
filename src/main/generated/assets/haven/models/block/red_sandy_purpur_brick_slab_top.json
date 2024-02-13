@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/red_sandy_purpur_bricks",
-    "top": "haven:block/red_sandy_purpur_bricks",
-    "side": "haven:block/red_sandy_purpur_bricks"
-  }
-}

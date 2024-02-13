@@ -1,6 +1,7 @@
 package fun.wich.mixins.entity.passive;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
@@ -129,7 +130,7 @@ public abstract class SheepEntityMixin extends AnimalEntity implements Shearable
 	public boolean canBreedWith(AnimalEntity other) {
 		if (other == this) return false;
 		EntityType<?> type = other.getType();
-		if (!(type == ModBase.MOSSY_SHEEP_ENTITY || type == ModBase.RAINBOW_SHEEP_ENTITY || type == getType())) return false;
+		if (!(type == ModEntityType.MOSSY_SHEEP_ENTITY || type == ModEntityType.RAINBOW_SHEEP_ENTITY || type == getType())) return false;
 		else return this.isInLove() && other.isInLove();
 	}
 

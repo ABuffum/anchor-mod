@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_bars_side",
-  "textures": {
-    "particle": "haven:block/netherite_bars",
-    "bars": "haven:block/netherite_bars",
-    "edge": "haven:block/netherite_bars"
-  }
-}

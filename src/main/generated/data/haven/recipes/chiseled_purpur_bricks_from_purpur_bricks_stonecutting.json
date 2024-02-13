@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:purpur_bricks"
-  },
-  "result": "haven:chiseled_purpur_bricks",
-  "count": 1
-}

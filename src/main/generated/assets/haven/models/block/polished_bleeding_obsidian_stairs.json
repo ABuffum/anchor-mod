@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/polished_bleeding_obsidian",
-    "top": "haven:block/polished_bleeding_obsidian",
-    "side": "haven:block/polished_bleeding_obsidian"
-  }
-}

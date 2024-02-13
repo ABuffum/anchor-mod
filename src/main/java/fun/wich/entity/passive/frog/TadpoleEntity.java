@@ -4,10 +4,13 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Dynamic;
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.ModMemoryModules;
 import fun.wich.entity.ai.YawAdjustingLookControl;
+import fun.wich.entity.ai.sensor.ModSensorTypes;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
+import fun.wich.registry.ModEntityRegistry;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.entity.Bucketable;
 import net.minecraft.entity.EntityType;
@@ -50,7 +53,7 @@ public class TadpoleEntity extends FishEntity implements EntityWithBloodType {
 	@Override
 	protected EntityNavigation createNavigation(World world) { return new SwimNavigation(this, world); }
 	protected Brain.Profile<TadpoleEntity> createBrainProfile() {
-		ImmutableList<SensorType<? extends Sensor<? super TadpoleEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, ModBase.FROG_TEMPTATIONS_SENSOR.get());
+		ImmutableList<SensorType<? extends Sensor<? super TadpoleEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.NEAREST_PLAYERS, SensorType.HURT_BY, ModSensorTypes.FROG_TEMPTATIONS_SENSOR.get());
 		return Brain.createProfile(MEMORY_MODULES, SENSORS);
 	}
 	@Override
@@ -124,14 +127,10 @@ public class TadpoleEntity extends FishEntity implements EntityWithBloodType {
 		if (nbt.contains("Age")) this.setTadpoleAge(nbt.getInt("Age"));
 	}
 	@Override
-	public ItemStack getBucketItem() {
-		return new ItemStack(ModBase.TADPOLE_BUCKET);
-	}
+	public ItemStack getBucketItem() { return new ItemStack(ModEntityRegistry.TADPOLE_BUCKET); }
 	@Override
 	public SoundEvent getBucketedSound() { return ModSoundEvents.ITEM_BUCKET_FILL_TADPOLE; }
-	private boolean isSlimeBall(ItemStack stack) {
-		return FrogEntity.SLIME_BALL.test(stack);
-	}
+	private boolean isSlimeBall(ItemStack stack) { return FrogEntity.SLIME_BALL.test(stack); }
 	private void eatSlimeBall(PlayerEntity player, ItemStack stack) {
 		this.decrementItem(player, stack);
 		this.increaseAge((int)(this.getTicksUntilGrowth() / 200f));
@@ -149,7 +148,7 @@ public class TadpoleEntity extends FishEntity implements EntityWithBloodType {
 	private void growUp() {
 		World world = this.world;
 		if (world instanceof ServerWorld serverWorld) {
-			FrogEntity frogEntity = ModBase.FROG_ENTITY.create(this.world);
+			FrogEntity frogEntity = ModEntityType.FROG_ENTITY.create(this.world);
 			frogEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), this.getPitch());
 			frogEntity.initialize(serverWorld, this.world.getLocalDifficulty(frogEntity.getBlockPos()), SpawnReason.CONVERSION, null, null);
 			frogEntity.setAiDisabled(this.isAiDisabled());

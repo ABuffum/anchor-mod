@@ -1,8 +1,0 @@
-{
-  "parent": "haven:block/_template_bars_post_ends",
-  "textures": {
-    "particle": "minecraft:block/iron_bars",
-    "bars": "minecraft:block/iron_bars",
-    "edge": "minecraft:block/iron_bars"
-  }
-}

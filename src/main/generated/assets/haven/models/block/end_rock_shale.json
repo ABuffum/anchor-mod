@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "haven:block/end_rock_top",
-    "bottom": "haven:block/end_shale_top",
-    "side": "haven:block/end_rock_shale_side"
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/mossy_deepslate_bricks",
-    "top": "haven:block/mossy_deepslate_bricks",
-    "side": "haven:block/mossy_deepslate_bricks"
-  }
-}

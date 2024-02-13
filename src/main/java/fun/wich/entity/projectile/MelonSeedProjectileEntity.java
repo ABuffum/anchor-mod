@@ -1,6 +1,6 @@
 package fun.wich.entity.projectile;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -19,8 +19,8 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 
 public class MelonSeedProjectileEntity extends ThrownItemEntity {
-	public MelonSeedProjectileEntity(World world, LivingEntity owner) { super(ModBase.MELON_SEED_PROJECTILE_ENTITY, owner, world); }
-	public MelonSeedProjectileEntity(World world, double x, double y, double z) { super(ModBase.MELON_SEED_PROJECTILE_ENTITY, x, y, z, world); }
+	public MelonSeedProjectileEntity(World world, LivingEntity owner) { super(ModEntityType.MELON_SEED_PROJECTILE_ENTITY, owner, world); }
+	public MelonSeedProjectileEntity(World world, double x, double y, double z) { super(ModEntityType.MELON_SEED_PROJECTILE_ENTITY, x, y, z, world); }
 	public MelonSeedProjectileEntity(EntityType<MelonSeedProjectileEntity> entityType, World world) { super(entityType, world); }
 	@Override
 	protected Item getDefaultItem() { return Items.MELON_SEEDS; }

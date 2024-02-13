@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/charred_log",
-    "top": "haven:block/charred_log",
-    "side": "haven:block/charred_log"
-  }
-}

@@ -75,6 +75,7 @@ public class ModBlockTags {
 	public static final Tag.Identified<Block> SIZZLE_RAIN_BLOCKS = createTag("sizzle_rain_blocks");
 	public static final Tag.Identified<Block> SLIME_BLOCKS = createTag("slime_blocks");
 	public static final Tag.Identified<Block> STICKY = createTag("sticky");
+	public static final Tag.Identified<Block> STONEAXE_MINEABLE = createTag("mineable/stoneaxe");
 	public static final Tag.Identified<Block> VIBRATION_RESONATORS_ECHO = createTag("vibration_resonators_echo");
 	public static final Tag.Identified<Block> WOODEN_BEEHIVES = createTag("wooden_beehives");
 	public static final Tag.Identified<Block> WOOL_SLABS = createTag("wool_slabs");

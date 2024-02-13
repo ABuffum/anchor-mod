@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "haven:block/andesite_tiles",
-    "top": "haven:block/andesite_tiles",
-    "side": "haven:block/andesite_tiles"
-  }
-}

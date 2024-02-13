@@ -4,8 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.ModMemoryModules;
+import fun.wich.entity.ai.sensor.ModSensorTypes;
 import fun.wich.entity.ai.task.FollowMobWithIntervalTask;
 import fun.wich.entity.ai.task.GoTowardsLookTargetTask;
 import fun.wich.entity.ai.task.RandomLookAroundTask;
@@ -28,7 +29,7 @@ import java.util.function.Predicate;
 public class CamelBrain {
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_MODULES = ImmutableList.of(ModMemoryModules.IS_PANICKING, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.TEMPTING_PLAYER, MemoryModuleType.TEMPTATION_COOLDOWN_TICKS, ModMemoryModules.GAZE_COOLDOWN_TICKS, MemoryModuleType.IS_TEMPTED, MemoryModuleType.BREED_TARGET, MemoryModuleType.NEAREST_VISIBLE_ADULT);
 	public static Brain.Profile<CamelEntity> createProfile() {
-		ImmutableList<SensorType<? extends Sensor<? super CamelEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, ModBase.CAMEL_TEMPTATIONS_SENSOR.get(), SensorType.NEAREST_ADULT);
+		ImmutableList<SensorType<? extends Sensor<? super CamelEntity>>> SENSORS = ImmutableList.of(SensorType.NEAREST_LIVING_ENTITIES, SensorType.HURT_BY, ModSensorTypes.CAMEL_TEMPTATIONS_SENSOR.get(), SensorType.NEAREST_ADULT);
 		return Brain.createProfile(MEMORY_MODULES, SENSORS);
 	}
 	protected static Brain<?> create(Brain<CamelEntity> brain) {
@@ -51,7 +52,7 @@ public class CamelBrain {
 	private static void addIdleActivities(Brain<CamelEntity> brain) {
 		brain.setTaskList(Activity.IDLE, ImmutableList.of(
 				Pair.of(0, new FollowMobWithIntervalTask(EntityType.PLAYER, UniformIntProvider.create(30, 60), 6.0f)),
-				Pair.of(1, new BreedTask(ModBase.CAMEL_ENTITY, 1.0f)), Pair.of(2, new TemptTask(entity -> 2.5f)),
+				Pair.of(1, new BreedTask(ModEntityType.CAMEL_ENTITY, 1.0f)), Pair.of(2, new TemptTask(entity -> 2.5f)),
 				Pair.of(3, new WalkTowardsClosestAdultTask<>(5, 16, 2.5f)),
 				Pair.of(4, new RandomLookAroundTask(UniformIntProvider.create(150, 250), 30.0f, 0.0f, 0.0f)),
 				Pair.of(5, new RandomTask<>(ImmutableMap.of(MemoryModuleType.WALK_TARGET, MemoryModuleState.VALUE_ABSENT), ImmutableList.of(

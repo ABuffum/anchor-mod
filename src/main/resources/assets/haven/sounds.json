@@ -282,11 +282,17 @@
   "item.pouch.empty_silverfish": { "subtitle": "subtitles.item.pouch.empty_silverfish", "sounds": [ { "name": "haven:item.pouch.fill", "type": "event" } ] },
   "item.pouch.fill_silverfish": { "subtitle": "subtitles.item.pouch.fill_silverfish", "sounds": [ { "name": "haven:item.pouch.fill", "type": "event" } ] },
   
-  "entity.hedgehog.ambient": { "subtitle": "subtitles.entity.hedgehog.ambient", "sounds": [ { "name": "entity.rabbit.ambient", "type": "event" } ] },
+  "entity.hedgehog.ambient": { "subtitle": "subtitles.entity.hedgehog.ambient", "sounds": [ "haven:mob/hedgehog/idle1", "haven:mob/hedgehog/idle2", "haven:mob/hedgehog/idle3" ] },
   "entity.hedgehog.death": { "subtitle": "subtitles.entity.hedgehog.death", "sounds": [ { "name": "entity.rabbit.death", "type": "event" } ] },
   "entity.hedgehog.hurt": { "subtitle": "subtitles.entity.hedgehog.hurt", "sounds": [ { "name": "entity.rabbit.hurt", "type": "event" } ] },
-  "entity.hedgehog.step": { "subtitle": "subtitles.block.generic.footsteps", "sounds": [ { "name": "entity.rabbit.step", "type": "event" } ] },
+  "entity.hedgehog.step": { "subtitle": "subtitles.block.generic.footsteps", "sounds": [ "haven:mob/hedgehog/step1", "haven:mob/hedgehog/step2", "haven:mob/hedgehog/step3", "haven:mob/hedgehog/step4", "haven:mob/hedgehog/step5" ] },
   "entity.hedgehog.sniff": { "subtitle": "subtitles.entity.hedgehog.sniff", "sounds": [ { "name": "mob/fox/sniff1", "volume": 0.6 }, { "name": "mob/fox/sniff2", "volume": 0.6 }, { "name": "mob/fox/sniff3", "volume": 0.6 }, { "name": "mob/fox/sniff4", "volume": 0.6 } ] },
+  "entity.hedgehog.roll": { "subtitle": "subtitles.entity.hedgehog.roll", "sounds": [ "haven:mob/hedgehog/roll1", "haven:mob/hedgehog/roll2", "haven:mob/hedgehog/roll3", "haven:mob/hedgehog/roll4", "haven:mob/hedgehog/roll5" ] },
+  
+  "entity.red_panda.ambient": { "subtitle": "subtitles.entity.red_panda.ambient", "sounds": [ "haven:mob/red_panda/idle1", "haven:mob/red_panda/idle2", "haven:mob/red_panda/idle3", "haven:mob/red_panda/idle4" ] },
+  "entity.red_panda.death": { "subtitle": "subtitles.entity.red_panda.death", "sounds": [ "haven:mob/red_panda/equip" ] },
+  "entity.red_panda.hurt": { "subtitle": "subtitles.entity.red_panda.hurt", "sounds": [ { "name": "entity.panda.sneeze", "type": "event" } ] },
+  "entity.red_panda.step": { "subtitle": "subtitles.block.generic.footsteps", "sounds": [ "haven:mob/red_panda/step1", "haven:mob/red_panda/step2", "haven:mob/red_panda/step3", "haven:mob/red_panda/step4", "haven:mob/red_panda/step5", "haven:mob/red_panda/step6" ] },
   
   "entity.piranha.ambient": { "sounds": [ { "name": "haven:silent" } ] },
   "entity.piranha.death": { "subtitle": "subtitles.entity.piranha.death", "sounds": [ { "name": "entity.salmon.death", "type": "event" } ] },
@@ -426,6 +432,14 @@
   "entity.iceologer.no": { "subtitle": "subtitles.entity.iceologer.no", "sounds": [ { "name":  "mob/villager/no1", "pitch":  0.8 }, { "name":  "mob/villager/no2", "pitch":  0.8 }, { "name":  "mob/villager/no3", "pitch":  0.8 } ] },
   "entity.iceologer.ice_fall_small": { "subtitle": "subtitles.entity.iceologer.ice_fall_small", "sounds": [ "haven:mob/iceologer/ice_fall_small" ] },
   "entity.iceologer.ice_fall_big": { "subtitle": "subtitles.entity.iceologer.ice_fall_big", "sounds": [ "haven:mob/iceologer/ice_fall_big" ] },
+  
+  "entity.mountaineer.ambient": { "subtitle": "subtitles.entity.mountaineer.ambient", "sounds": [ "haven:mob/mountaineer/idle1", "haven:mob/mountaineer/idle2", "haven:mob/mountaineer/idle3", "haven:mob/mountaineer/idle4" ] },
+  "entity.mountaineer.attack": { "subtitle": "subtitles.entity.mountaineer.attack", "sounds": [ "haven:mob/mountaineer/attack1", "haven:mob/mountaineer/attack2", "haven:mob/mountaineer/attack3", "haven:mob/mountaineer/attack4" ] },
+  "entity.mountaineer.celebrate": { "subtitle": "subtitles.entity.mountaineer.celebrate", "sounds": [ { "name": "entity.vindicator.celebrate", "type":  "event" } ] },
+  "entity.mountaineer.death": { "subtitle": "subtitles.entity.mountaineer.death", "sounds": [ "haven:mob/mountaineer/death1", "haven:mob/mountaineer/death2", "haven:mob/mountaineer/death3", "haven:mob/mountaineer/death3" ] },
+  "entity.mountaineer.hurt": { "subtitle": "subtitles.entity.mountaineer.hurt", "sounds": [ "haven:mob/mountaineer/hurt1", "haven:mob/mountaineer/hurt2", "haven:mob/mountaineer/hurt3", "haven:mob/mountaineer/hurt4", "haven:mob/mountaineer/hurt5" ] },
+  "entity.mountaineer.yes": { "subtitle": "subtitles.entity.mountaineer.yes", "sounds": [ { "name":  "mob/villager/yes1", "pitch":  0.8 }, { "name":  "mob/villager/yes2", "pitch":  0.8 }, { "name":  "mob/villager/yes3", "pitch":  0.8 } ] },
+  "entity.mountaineer.no": { "subtitle": "subtitles.entity.mountaineer.no", "sounds": [ { "name":  "mob/villager/no1", "pitch":  0.8 }, { "name":  "mob/villager/no2", "pitch":  0.8 }, { "name":  "mob/villager/no3", "pitch":  0.8 } ] },
   
   "entity.mage.ambient": { "subtitle": "subtitles.entity.mage.ambient", "sounds": [ "haven:mob/enchanter/idle1", "haven:mob/enchanter/idle2", "haven:mob/enchanter/idle3" ] },
   "entity.mage.attack": { "subtitle": "subtitles.entity.mage.attack", "sounds": [ "haven:mob/enchanter/attack1", "haven:mob/enchanter/attack2", "haven:mob/enchanter/attack3" ] },

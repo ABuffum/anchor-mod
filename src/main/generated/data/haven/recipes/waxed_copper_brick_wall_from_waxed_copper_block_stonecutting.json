@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:waxed_copper_block"
-  },
-  "result": "haven:waxed_copper_brick_wall",
-  "count": 4
-}

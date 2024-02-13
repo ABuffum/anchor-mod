@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/plushie/cat",
-  "textures": {
-    "all": "haven:block/calico_cat_plushie",
-    "particle": "haven:block/calico_cat_plushie"
-  }
-}

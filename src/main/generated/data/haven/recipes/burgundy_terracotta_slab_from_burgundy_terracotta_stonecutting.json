@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:burgundy_terracotta"
-  },
-  "result": "haven:burgundy_terracotta_slab",
-  "count": 2
-}

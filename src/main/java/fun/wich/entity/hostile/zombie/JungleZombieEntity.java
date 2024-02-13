@@ -1,6 +1,6 @@
 package fun.wich.entity.hostile.zombie;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -20,7 +20,7 @@ public class JungleZombieEntity extends ZombieEntity {
 	public JungleZombieEntity(EntityType<? extends JungleZombieEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	public JungleZombieEntity(World world) { super(ModBase.JUNGLE_ZOMBIE_ENTITY, world); }
+	public JungleZombieEntity(World world) { super(ModEntityType.JUNGLE_ZOMBIE_ENTITY, world); }
 
 	@Override
 	protected void initCustomGoals() {

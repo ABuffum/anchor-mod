@@ -2,6 +2,7 @@ package fun.wich.entity.passive.sheep;
 
 import fun.wich.ModBase;
 import fun.wich.ModId;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
@@ -37,7 +38,7 @@ public class RainbowSheepEntity extends SheepEntity implements Shearable {
 	@Override
 	public DyeColor getColor() { return DyeColor.WHITE; }
 	@Override
-	public RainbowSheepEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModBase.RAINBOW_SHEEP_ENTITY.create(serverWorld); }
+	public RainbowSheepEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModEntityType.RAINBOW_SHEEP_ENTITY.create(serverWorld); }
 	@Override
 	public boolean canBreedWith(AnimalEntity other) {
 		if (other == this) return false;

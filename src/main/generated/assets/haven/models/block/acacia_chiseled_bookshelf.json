@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/template_chiseled_bookshelf_inventory",
-  "textures": {
-    "top": "haven:block/acacia_chiseled_bookshelf_top",
-    "front": "haven:block/acacia_chiseled_bookshelf_empty",
-    "side": "haven:block/acacia_chiseled_bookshelf_side"
-  }
-}

@@ -1,6 +1,7 @@
 package fun.wich.entity.passive;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.goal.llama.EatFernGoal;
 import fun.wich.entity.ai.goal.llama.FrolicGoal;
 import fun.wich.sound.ModSoundEvents;
@@ -18,9 +19,7 @@ public class JollyLlamaEntity extends LlamaEntity {
 	public JollyLlamaEntity(EntityType<? extends JollyLlamaEntity> entityType, World world) { super(entityType, world); }
 
 	@Override
-	protected LlamaEntity createChild() {
-		return ModBase.JOLLY_LLAMA_ENTITY.create(this.world);
-	}
+	protected LlamaEntity createChild() { return ModEntityType.JOLLY_LLAMA_ENTITY.create(this.world); }
 
 	@Override
 	protected void initGoals() {

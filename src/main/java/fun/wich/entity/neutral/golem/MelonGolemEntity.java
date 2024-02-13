@@ -1,6 +1,7 @@
 package fun.wich.entity.neutral.golem;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.projectile.MelonSeedProjectileEntity;
@@ -47,7 +48,7 @@ public class MelonGolemEntity extends GolemEntity implements Shearable, RangedAt
 		this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.add(4, new LookAroundGoal(this));
 		this.targetSelector.add(1, new FollowTargetGoal<>(this, MobEntity.class, 10, true, false, entity -> entity instanceof Monster));
-		this.targetSelector.add(1, MobHostilityPower.makeHostilityGoal(this, ModBase.MELON_GOLEM_ENTITY));
+		this.targetSelector.add(1, MobHostilityPower.makeHostilityGoal(this, ModEntityType.MELON_GOLEM_ENTITY));
 	}
 	public static DefaultAttributeContainer.Builder createMelonGolemAttributes() {
 		return MobEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 4.0D).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.20000000298023224D);

@@ -1,6 +1,6 @@
 package fun.wich.block;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.passive.frog.TadpoleEntity;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.block.Block;
@@ -83,7 +83,7 @@ public class FrogspawnBlock extends Block {
 	private void spawnTadpoles(ServerWorld world, BlockPos pos, Random random) {
 		int i = random.nextInt(MAX_TADPOLES - MIN_TADPOLES) + MIN_TADPOLES;
 		for (int j = 1; j <= i; ++j) {
-			TadpoleEntity tadpoleEntity = ModBase.TADPOLE_ENTITY.create(world);
+			TadpoleEntity tadpoleEntity = ModEntityType.TADPOLE_ENTITY.create(world);
 			double d = pos.getX() + this.getSpawnOffset(random);
 			double e = pos.getZ() + this.getSpawnOffset(random);
 			int k = random.nextInt(361);

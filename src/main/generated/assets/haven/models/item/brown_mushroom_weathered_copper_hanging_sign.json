@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "haven:item/brown_mushroom_weathered_copper_hanging_sign"
-  }
-}

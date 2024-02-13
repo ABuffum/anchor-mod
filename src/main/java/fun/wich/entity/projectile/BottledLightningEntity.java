@@ -1,6 +1,7 @@
 package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
@@ -17,8 +18,8 @@ import net.minecraft.world.World;
 public class BottledLightningEntity extends ThrownItemEntity {
 	private boolean summonedLighting = false;
 	public BottledLightningEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
-	public BottledLightningEntity(World world, LivingEntity owner) { super(ModBase.BOTTLED_LIGHTNING_ENTITY, owner, world); }
-	public BottledLightningEntity(World world, double x, double y, double z) { super(ModBase.BOTTLED_LIGHTNING_ENTITY, x, y, z, world); }
+	public BottledLightningEntity(World world, LivingEntity owner) { super(ModEntityType.BOTTLED_LIGHTNING_ENTITY, owner, world); }
+	public BottledLightningEntity(World world, double x, double y, double z) { super(ModEntityType.BOTTLED_LIGHTNING_ENTITY, x, y, z, world); }
 
 	@Override
 	protected Item getDefaultItem() { return ModBase.BOTTLED_LIGHTNING_ITEM; }

@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "haven:dogwood_wood"
-  },
-  "result": "haven:dogwood_wood_slab",
-  "count": 2
-}

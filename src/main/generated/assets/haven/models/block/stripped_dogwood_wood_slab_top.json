@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/stripped_dogwood_log",
-    "top": "haven:block/stripped_dogwood_log",
-    "side": "haven:block/stripped_dogwood_log"
-  }
-}

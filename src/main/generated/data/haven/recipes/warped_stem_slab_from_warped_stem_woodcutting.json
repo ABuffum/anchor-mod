@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "minecraft:warped_stem"
-  },
-  "result": "haven:warped_stem_slab",
-  "count": 2
-}

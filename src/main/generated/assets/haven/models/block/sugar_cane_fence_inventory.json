@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/custom_fence_inventory",
-  "textures": {
-    "particle": "haven:block/sugar_cane_fence_particle",
-    "texture": "haven:block/sugar_cane_fence"
-  }
-}

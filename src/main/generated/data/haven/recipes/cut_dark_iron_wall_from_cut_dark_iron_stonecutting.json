@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:cut_dark_iron"
-  },
-  "result": "haven:cut_dark_iron_wall",
-  "count": 1
-}

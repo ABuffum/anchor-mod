@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "haven:stripped_charred_wood"
-  },
-  "result": "haven:stripped_charred_wood_slab",
-  "count": 2
-}

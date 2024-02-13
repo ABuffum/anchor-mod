@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "minecraft:mangrove_wood"
-  },
-  "result": "haven:mangrove_wood_slab",
-  "count": 2
-}

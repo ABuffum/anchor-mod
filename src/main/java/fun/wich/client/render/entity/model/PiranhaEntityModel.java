@@ -1,6 +1,6 @@
 package fun.wich.client.render.entity.model;
 
-import fun.wich.entity.hostile.piranha.PiranhaEntity;
+import fun.wich.entity.hostile.PiranhaEntity;
 import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.EntityModel;

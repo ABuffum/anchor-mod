@@ -4,6 +4,7 @@ import fun.wich.ModBase;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
+import fun.wich.entity.variants.CatVariant;
 import fun.wich.item.basic.ModDyeItem;
 import fun.wich.util.dye.ModDyeColor;
 import fun.wich.util.dye.ModDyedCollar;
@@ -18,6 +19,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,11 +27,16 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CatEntity.class)
 public abstract class CatEntityMixin extends TameableEntity implements ModDyedCollar, EntityWithBloodType {
 	@Shadow @Final private static TrackedData<Integer> COLLAR_COLOR;
+
+	@Shadow public abstract int getCatType();
+
+	@Shadow @Final private static TrackedData<Integer> CAT_TYPE;
 
 	protected CatEntityMixin(EntityType<? extends TameableEntity> entityType, World world) { super(entityType, world); }
 
@@ -83,6 +90,22 @@ public abstract class CatEntityMixin extends TameableEntity implements ModDyedCo
 				else dyed.SetModCollarColor(((ModDyedCollar)passiveEntity).GetModCollarColor());
 			}
 		}
+	}
+
+	@Inject(method="setCatType", at=@At("HEAD"), cancellable=true)
+	private void OverrideSetCatVariant(int type, CallbackInfo ci) {
+		CatVariant[] variants = CatVariant.values();
+		if (type >= 0 && type < variants.length) {
+			this.dataTracker.set(CAT_TYPE, type);
+			ci.cancel();
+		}
+	}
+
+	@Inject(method="getTexture", at=@At("HEAD"), cancellable=true)
+	private void OverrideGetCatVariantTexture(CallbackInfoReturnable<Identifier> cir) {
+		CatVariant[] variants = CatVariant.values();
+		int type = this.getCatType();
+		if (type >= 0 && type < variants.length) cir.setReturnValue(variants[type].texture);
 	}
 
 	@Override public BloodType GetDefaultBloodType() { return ModBase.CAT_BLOOD_TYPE; }

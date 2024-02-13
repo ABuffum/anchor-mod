@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/outer_stairs",
-  "textures": {
-    "bottom": "haven:block/dogwood_planks",
-    "top": "haven:block/dogwood_planks",
-    "side": "haven:block/dogwood_planks"
-  }
-}

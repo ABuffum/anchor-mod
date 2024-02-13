@@ -1,6 +1,7 @@
 package fun.wich.block.sculk;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.event.ModVibrationListener;
 import fun.wich.util.SculkUtil;
 import net.minecraft.block.*;
@@ -81,7 +82,7 @@ public class ModSculkSensorBlock extends BlockWithEntity implements Waterloggabl
 
 	@Override
 	public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-		if (!world.isClient() && SculkSensorBlock.isInactive(state) && entity.getType() != ModBase.WARDEN_ENTITY) {
+		if (!world.isClient() && SculkSensorBlock.isInactive(state) && entity.getType() != ModEntityType.WARDEN_ENTITY) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
 			if (blockEntity instanceof ExtendedSculkEntity sculk) {
 				sculk.setLastVibrationFrequency(1);

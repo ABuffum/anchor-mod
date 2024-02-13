@@ -1,7 +1,9 @@
 package fun.wich.entity.passive;
 
 import fun.wich.ModBase;
+import fun.wich.block.StrawberryBushBlock;
 import fun.wich.damage.ModEntityDamageSource;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.Pouchable;
 import fun.wich.entity.ai.goal.ModMeleeAttackGoal;
@@ -10,6 +12,7 @@ import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.origins.power.MobHostilityPower;
 import fun.wich.origins.power.ScareMobPower;
+import fun.wich.registry.ModEntityRegistry;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.block.*;
 import net.minecraft.entity.*;
@@ -56,10 +59,10 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 				|| target instanceof EndermiteEntity
 				|| target instanceof BeeEntity
 				|| (target instanceof SpiderEntity && canTargetSpider(target, type))
-				|| MobHostilityPower.shouldBeHostile(target, ModBase.HEDGEHOG_ENTITY);
+				|| MobHostilityPower.shouldBeHostile(target, ModEntityType.HEDGEHOG_ENTITY);
 	}
 	private boolean canTargetSpider(LivingEntity target, EntityType<?> type) {
-		if (type == EntityType.CAVE_SPIDER || type == ModBase.JUMPING_SPIDER_ENTITY) return true;
+		if (type == EntityType.CAVE_SPIDER || type == ModEntityType.JUMPING_SPIDER_ENTITY) return true;
 		List<HedgehogEntity> allies = world.getEntitiesByClass(HedgehogEntity.class,
 				Box.of(target.getPos(), 10, 10, 10),
 				e -> e.isAlive() && !e.isInvisible());
@@ -71,7 +74,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 		this.goalSelector.add(2, new AnimalMateGoal(this, 1.0D));
 		this.goalSelector.add(3, new FleeEntityGoal<>(this, FoxEntity.class, 8, 1.6, 1.4));
 		this.goalSelector.add(3, new FleeEntityGoal<>(this, WolfEntity.class, 8, 1.6, 1.4, (entity) -> !((WolfEntity)entity).isTamed()));
-		this.goalSelector.add(3, ScareMobPower.makeFleeGoal(this, 8, 1.6, 1.4, ModBase.HEDGEHOG_ENTITY));
+		this.goalSelector.add(3, ScareMobPower.makeFleeGoal(this, 8, 1.6, 1.4, ModEntityType.HEDGEHOG_ENTITY));
 		this.goalSelector.add(4, new TemptGoal(this, 1.0D, BREEDING_INGREDIENT, false));
 		this.targetSelector.add(4, new FollowTargetGoal<>(this, LivingEntity.class, 10, false, false, this::canHedgehogTarget));
 		this.goalSelector.add(5, new MoveToHuntGoal(this, 12, 1.5D) {
@@ -97,7 +100,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 				.add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0F);
 	}
 	@Override
-	public HedgehogEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModBase.HEDGEHOG_ENTITY.create(serverWorld); }
+	public HedgehogEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) { return ModEntityType.HEDGEHOG_ENTITY.create(serverWorld); }
 	public boolean isBreedingItem(ItemStack stack) { return BREEDING_INGREDIENT.test(stack); }
 	public boolean damage(DamageSource source, float amount) {
 		if (this.isInvulnerableTo(source)) return false;
@@ -131,7 +134,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 		return Pouchable.tryPouch(player, hand, this).orElse(super.interactMob(player, hand));
 	}
 	@Override
-	public ItemStack getPouchItem() { return new ItemStack(ModBase.HEDGEHOG_POUCH); }
+	public ItemStack getPouchItem() { return new ItemStack(ModEntityRegistry.HEDGEHOG_POUCH); }
 	@Override
 	public boolean isFromPouch() { return this.dataTracker.get(FROM_POUCH); }
 	@Override
@@ -170,7 +173,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 		protected boolean isTargetPos(WorldView world, BlockPos pos) {
 			BlockState blockState = world.getBlockState(pos);
 			return blockState.isOf(Blocks.SWEET_BERRY_BUSH) && blockState.get(SweetBerryBushBlock.AGE) >= 2
-					//|| blockState.isOf(ModBase.STRAWBERRY_BUSH) && blockState.get(StrawberryBushBlock.AGE) > 2
+					|| blockState.isOf(ModBase.STRAWBERRY_BUSH) && blockState.get(StrawberryBushBlock.AGE) > 2
 					|| CaveVines.hasBerries(blockState);
 		}
 		public void tick() {
@@ -187,7 +190,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 			if (HedgehogEntity.this.world.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
 				BlockState blockState = HedgehogEntity.this.world.getBlockState(this.targetPos);
 				if (blockState.isOf(Blocks.SWEET_BERRY_BUSH)) this.pickSweetBerries(blockState);
-				//else if (blockState.isOf(ModBase.STRAWBERRY_BUSH)) this.pickStrawberries(blockState);
+				else if (blockState.isOf(ModBase.STRAWBERRY_BUSH)) this.pickStrawberries(blockState);
 				else if (CaveVines.hasBerries(blockState)) this.pickGlowBerries(blockState);
 			}
 		}
@@ -205,7 +208,7 @@ public class HedgehogEntity extends AnimalEntity implements Pouchable, EntityWit
 		}
 		private void pickStrawberries(BlockState state) {
 			HedgehogEntity.this.playSound(SoundEvents.BLOCK_SWEET_BERRY_BUSH_PICK_BERRIES, 1.0F, 1.0F);
-			//HedgehogEntity.this.world.setBlockState(this.targetPos, state.with(StrawberryBushBlock.AGE, 2), Block.NOTIFY_LISTENERS);
+			HedgehogEntity.this.world.setBlockState(this.targetPos, state.with(StrawberryBushBlock.AGE, 2), Block.NOTIFY_LISTENERS);
 		}
 		public boolean canStart() { return super.canStart(); }
 		public void start() { this.timer = 0; super.start(); }

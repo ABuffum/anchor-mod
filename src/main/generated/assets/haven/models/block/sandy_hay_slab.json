@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/sandy_hay_planks",
-    "top": "haven:block/sandy_hay_planks",
-    "side": "haven:block/sandy_hay_planks"
-  }
-}

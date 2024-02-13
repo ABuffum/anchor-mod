@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:dark_iron_block"
-  },
-  "result": "haven:dark_iron_bricks",
-  "count": 1
-}

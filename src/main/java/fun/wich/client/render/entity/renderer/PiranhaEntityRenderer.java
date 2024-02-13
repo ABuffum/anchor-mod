@@ -3,7 +3,7 @@ package fun.wich.client.render.entity.renderer;
 import fun.wich.ModId;
 import fun.wich.client.render.entity.ModEntityModelLayers;
 import fun.wich.client.render.entity.model.PiranhaEntityModel;
-import fun.wich.entity.hostile.piranha.PiranhaEntity;
+import fun.wich.entity.hostile.PiranhaEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.EntityRendererFactory;

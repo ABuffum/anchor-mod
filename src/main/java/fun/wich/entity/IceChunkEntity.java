@@ -1,6 +1,5 @@
 package fun.wich.entity;
 
-import fun.wich.ModBase;
 import fun.wich.damage.ModDamageSource;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.block.*;
@@ -29,7 +28,7 @@ public class IceChunkEntity extends Entity {
 		super(type, world);
 	}
 	public IceChunkEntity(World world, double x, double y, double z) {
-		super(ModBase.ICE_CHUNK_ENTITY, world);
+		super(ModEntityType.ICE_CHUNK_ENTITY, world);
 		this.inanimate = true;
 		this.setPosition(x, y, z);
 		this.setVelocity(Vec3d.ZERO);

@@ -20,6 +20,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.decoration.painting.PaintingMotive;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -156,16 +157,29 @@ public class ModRegistry {
 	public static StatusEffect Register(String path, StatusEffect value, List<String> translations) {
 		int length = translations.size();
 		Identifier id = ModId.ID(path);
-		if (length == 0) throw new RuntimeException("Must provide at least one translation for Status Effect: " + id);
-		ModBase.EN_US.TranslationKeys.put(Util.createTranslationKey("effect", id), translations.get(0));
+		for (int i = 0; i < LANGUAGE_CACHES.length; i++) {
+			if (length <= i) throw new RuntimeException("Missing translation for Language: " + LANGUAGE_CACHES[i].getLanguageCode() + " & Effect: " + id);
+			LANGUAGE_CACHES[i].TranslationKeys.put(Util.createTranslationKey("effect", id), translations.get(i));
+		}
 		return Registry.register(Registry.STATUS_EFFECT, id, value);
 	}
 	public static Enchantment Register(String path, Enchantment value, List<String> translations) {
 		int length = translations.size();
 		Identifier id = ModId.ID(path);
-		if (length == 0) throw new RuntimeException("Must provide at least one translation for Enchantment: " + id);
-		ModBase.EN_US.TranslationKeys.put(Util.createTranslationKey("enchantment", id), translations.get(0));
+		for (int i = 0; i < LANGUAGE_CACHES.length; i++) {
+			if (length <= i) throw new RuntimeException("Missing translation for Language: " + LANGUAGE_CACHES[i].getLanguageCode() + " & Enchantment: " + id);
+			LANGUAGE_CACHES[i].TranslationKeys.put(Util.createTranslationKey("enchantment", id), translations.get(i));
+		}
 		return Registry.register(Registry.ENCHANTMENT, id, value);
+	}
+	public static EntityAttribute Register(String path, EntityAttribute attribute, List<String> translations) {
+		int length = translations.size();
+		Identifier id = ModId.ID(path);
+		for (int i = 0; i < LANGUAGE_CACHES.length; i++) {
+			if (length <= i) throw new RuntimeException("Missing translation for Language: " + LANGUAGE_CACHES[i].getLanguageCode() + " & Attribute: " + id);
+			LANGUAGE_CACHES[i].TranslationKeys.put(Util.createTranslationKey("attribute.name.", id), translations.get(i));
+		}
+		return Registry.register(Registry.ATTRIBUTE, ModId.ID(path), attribute);
 	}
 	public static int BIOME_RAW_ID = 11111000;
 	public static Biome Register(RegistryKey<Biome> key, Biome biome) {

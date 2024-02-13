@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/black_nether_bricks",
-    "top": "haven:block/black_nether_bricks",
-    "side": "haven:block/black_nether_bricks"
-  }
-}

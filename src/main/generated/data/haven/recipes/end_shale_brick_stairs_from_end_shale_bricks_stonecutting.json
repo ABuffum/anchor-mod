@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:end_shale_bricks"
-  },
-  "result": "haven:end_shale_brick_stairs",
-  "count": 1
-}

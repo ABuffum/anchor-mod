@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/flint_block",
-    "top": "haven:block/flint_block",
-    "side": "haven:block/flint_block"
-  }
-}

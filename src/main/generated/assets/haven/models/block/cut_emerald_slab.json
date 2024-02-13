@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/cut_emerald",
-    "top": "haven:block/cut_emerald",
-    "side": "haven:block/cut_emerald"
-  }
-}

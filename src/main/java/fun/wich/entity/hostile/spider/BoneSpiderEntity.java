@@ -1,7 +1,7 @@
 package fun.wich.entity.hostile.spider;
 
-import fun.wich.ModBase;
 import fun.wich.entity.ModDataHandlers;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.projectile.BoneShardEntity;
 import fun.wich.origins.power.MobHostilityPower;
 import fun.wich.sound.ModSoundEvents;
@@ -72,7 +72,7 @@ public class BoneSpiderEntity extends SpiderEntity implements RangedAttackMob {
 		this.targetSelector.add(3, new FollowTargetGoal<>(this, IronGolemEntity.class, true));
 		//this.goalSelector.add(3, new PounceAtTargetGoal(this, 0.4f));
 		//this.goalSelector.add(4, new AttackGoal(this));
-		this.targetSelector.add(3, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, e -> MobHostilityPower.shouldBeHostile(e, ModBase.BONE_SPIDER_ENTITY)));
+		this.targetSelector.add(3, new FollowTargetGoal<>(this, LivingEntity.class, 10, true, false, e -> MobHostilityPower.shouldBeHostile(e, ModEntityType.BONE_SPIDER_ENTITY)));
 		this.goalSelector.add(4, new BoneSpiderShootGoal(this, 1, MAX_FIRE_TIME + 20, 15));
 	}
 

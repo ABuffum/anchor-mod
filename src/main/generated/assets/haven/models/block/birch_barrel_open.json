@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "haven:block/birch_barrel_top_open",
-    "bottom": "haven:block/birch_barrel_bottom",
-    "side": "haven:block/birch_barrel_side"
-  }
-}

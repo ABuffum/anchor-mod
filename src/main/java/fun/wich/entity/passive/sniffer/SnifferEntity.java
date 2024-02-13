@@ -4,6 +4,7 @@ import com.mojang.serialization.Dynamic;
 import fun.wich.ModBase;
 import fun.wich.client.render.entity.animation.AnimationState;
 import fun.wich.entity.ModDataHandlers;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.ModMemoryModules;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
@@ -310,7 +311,7 @@ public class SnifferEntity extends AnimalEntity implements EntityWithBloodType {
 	@Override
 	public void setBaby(boolean baby) { this.setBreedingAge(baby ? -48000 : 0); }
 	@Override
-	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) { return ModBase.SNIFFER_ENTITY.create(world); }
+	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) { return ModEntityType.SNIFFER_ENTITY.create(world); }
 
 	@Override
 	public boolean canBreedWith(AnimalEntity other) {

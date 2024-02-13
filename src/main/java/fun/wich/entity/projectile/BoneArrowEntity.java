@@ -2,6 +2,7 @@ package fun.wich.entity.projectile;
 
 import fun.wich.ModBase;
 import fun.wich.ModId;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -39,7 +40,7 @@ public class BoneArrowEntity extends ModArrowEntity {
 		Entity entity = entityHitResult.getEntity();
 		EntityType<?> type = entity.getType();
 		if (type.isIn(EntityTypeTags.SKELETONS) || type == EntityType.SKELETON_HORSE
-				|| type == ModBase.BONE_SPIDER_ENTITY || ModBase.IS_SKELETON_POWER.isActive(entity)) {
+				|| type == ModEntityType.BONE_SPIDER_ENTITY || ModBase.IS_SKELETON_POWER.isActive(entity)) {
 			this.setDamage(this.getDamage() * 0.4);
 		}
 		super.onEntityHit(entityHitResult);

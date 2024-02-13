@@ -2,6 +2,7 @@ package fun.wich.mixins.entity.hostile;
 
 import com.google.common.collect.Maps;
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModMerchant;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.ai.goal.StopAndLookAtTradingEntityGoal;
@@ -121,17 +122,35 @@ public abstract class RaiderEntityMixin extends PatrolEntity implements ModMerch
 			else if (type == EntityType.VINDICATOR) rearm = new ItemStack(Items.IRON_AXE);
 			else if (type == EntityType.ILLUSIONER) rearm = new ItemStack(Items.BOW);
 			if (rearm != null) {
-				tradeOfferList.add(new TradeOffer(rearm, new ItemStack(Items.EMERALD, 8), 1, 10, 0.05f));
+				ItemStack finalRearm = rearm;
+				if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getOriginalFirstBuyItem().isOf(finalRearm.getItem()))) {
+					tradeOfferList.add(new TradeOffer(rearm, new ItemStack(Items.EMERALD, 8), 1, 10, 0.05f));
+				}
+			}
+			if (type == ModEntityType.MOUNTAINEER_ENTITY) {
+				if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getOriginalFirstBuyItem().isOf(ModBase.MOUNTAINEER_AXE))) {
+					tradeOfferList.add(new TradeOffer(new ItemStack(ModBase.MOUNTAINEER_AXE), new ItemStack(Items.EMERALD, 8), 1, 10, 0.05f));
+				}
+				if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getOriginalFirstBuyItem().isOf(ModBase.GOLD_MOUNTAINEER_AXE))) {
+					tradeOfferList.add(new TradeOffer(new ItemStack(ModBase.GOLD_MOUNTAINEER_AXE), new ItemStack(Items.EMERALD, 8), 1, 10, 0.05f));
+				}
+				if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getOriginalFirstBuyItem().isOf(ModBase.DIAMOND_MOUNTAINEER_AXE))) {
+					tradeOfferList.add(new TradeOffer(new ItemStack(ModBase.DIAMOND_MOUNTAINEER_AXE), new ItemStack(Items.EMERALD, 8), 1, 10, 0.05f));
+				}
 			}
 		}
 		//Allow raid captain promotions / demotions
 		ItemStack OMINOUS_BANNER = Raid.getOminousBanner();
 		ItemStack stack = this.getEquippedStack(EquipmentSlot.HEAD);
 		if (!stack.isEmpty() && ItemStack.areEqual(stack, OMINOUS_BANNER)) {
-			tradeOfferList.add(new TradeOffer(new ItemStack(Items.EMERALD, 16), Raid.getOminousBanner(), 1, 10, 0.05f));
+			if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getSellItem().isOf(Items.WHITE_BANNER))) {
+				tradeOfferList.add(new TradeOffer(new ItemStack(Items.EMERALD, 16), OMINOUS_BANNER, 1, 10, 0.05f));
+			}
 		}
 		else {
-			tradeOfferList.add(new TradeOffer(OMINOUS_BANNER, new ItemStack(Items.EMERALD, 4), 1, 10, 0.05f));
+			if (tradeOfferList.stream().noneMatch(tradeOffer -> tradeOffer.getOriginalFirstBuyItem().isOf(Items.WHITE_BANNER))) {
+				tradeOfferList.add(new TradeOffer(OMINOUS_BANNER, new ItemStack(Items.EMERALD, 4), 1, 10, 0.05f));
+			}
 		}
 		return tradeOfferList;
 	}
@@ -145,8 +164,9 @@ public abstract class RaiderEntityMixin extends PatrolEntity implements ModMerch
 		map.put(EntityType.ILLUSIONER, new Pair<>(ModSoundEvents.ENTITY_ILLUSIONER_YES, ModSoundEvents.ENTITY_ILLUSIONER_NO));
 		map.put(EntityType.EVOKER, new Pair<>(ModSoundEvents.ENTITY_EVOKER_YES, ModSoundEvents.ENTITY_EVOKER_NO));
 		map.put(EntityType.WITCH, new Pair<>(ModSoundEvents.ENTITY_WITCH_YES, ModSoundEvents.ENTITY_WITCH_NO));
-		map.put(ModBase.ICEOLOGER_ENTITY, new Pair<>(ModSoundEvents.ENTITY_ICEOLOGER_YES, ModSoundEvents.ENTITY_ICEOLOGER_NO));
-		map.put(ModBase.MAGE_ENTITY, new Pair<>(ModSoundEvents.ENTITY_MAGE_YES, ModSoundEvents.ENTITY_MAGE_NO));
+		map.put(ModEntityType.ICEOLOGER_ENTITY, new Pair<>(ModSoundEvents.ENTITY_ICEOLOGER_YES, ModSoundEvents.ENTITY_ICEOLOGER_NO));
+		map.put(ModEntityType.MOUNTAINEER_ENTITY, new Pair<>(ModSoundEvents.ENTITY_MOUNTAINEER_YES, ModSoundEvents.ENTITY_MOUNTAINEER_NO));
+		map.put(ModEntityType.MAGE_ENTITY, new Pair<>(ModSoundEvents.ENTITY_MAGE_YES, ModSoundEvents.ENTITY_MAGE_NO));
 	});
 
 	private static final Map<EntityType<?>, Factory[]> TYPE_TO_TRADE_MAP = Util.make(Maps.newHashMap(), map -> {
@@ -156,7 +176,7 @@ public abstract class RaiderEntityMixin extends PatrolEntity implements ModMerch
 				new SellEnchantedToolFactory(Items.CROSSBOW, 3, 3, 15)
 		});
 		map.put(EntityType.VINDICATOR, new Factory[] {
-				new SellItemFactory(Items.IRON_AXE, 3, 12, 1),
+				new SellItemFactory(Items.IRON_AXE, 3, 1, 1),
 				new SellEnchantedToolFactory(Items.IRON_AXE, 1, 3, 10, 0.2f)
 		});
 		map.put(EntityType.ILLUSIONER, new Factory[] {
@@ -183,14 +203,21 @@ public abstract class RaiderEntityMixin extends PatrolEntity implements ModMerch
 				new SellPotionHoldingItemFactory(Items.GLASS_BOTTLE, 1, Items.SPLASH_POTION, 1, 12, 4, 30, Potions.WEAKNESS),
 				new SellPotionHoldingItemFactory(Items.GLASS_BOTTLE, 1, Items.SPLASH_POTION, 1, 12, 4, 30, Potions.HARMING)
 		});
-		map.put(ModBase.ICEOLOGER_ENTITY, new Factory[] {
+		map.put(ModEntityType.ICEOLOGER_ENTITY, new Factory[] {
 				new SellItemFactory(Items.SNOWBALL, 1, 16, 12, 1),
 				new SellItemFactory(Items.ICE, 1, 1, 16, 2),
 				new SellItemFactory(Items.PACKED_ICE, 2, 1, 8, 4),
 				new SellItemFactory(Items.BLUE_ICE, 4, 1, 4, 8),
 				new SellItemFactory(Items.POWDER_SNOW_BUCKET, 6, 1, 6, 10)
 		});
-		map.put(ModBase.MAGE_ENTITY, new Factory[] {
+		map.put(ModEntityType.MOUNTAINEER_ENTITY, new Factory[] {
+				new SellItemFactory(Items.ICE, 1, 1, 16, 2),
+				new SellItemFactory(Items.PACKED_ICE, 2, 1, 8, 4),
+				new SellItemFactory(Items.STONE, 1, 8, 8, 2),
+				new SellItemFactory(ModBase.MOUNTAINEER_AXE, 4, 1, 1),
+				new SellEnchantedToolFactory(ModBase.MOUNTAINEER_AXE, 2, 3, 10, 0.2f)
+		});
+		map.put(ModEntityType.MAGE_ENTITY, new Factory[] {
 				new EnchantBookFactory(1),
 				new EnchantBookFactory(5),
 				new EnchantBookFactory(10),

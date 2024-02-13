@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/plushie/creeper",
-  "textures": {
-    "all": "haven:block/creeper_plushie",
-    "particle": "haven:block/creeper_plushie"
-  }
-}

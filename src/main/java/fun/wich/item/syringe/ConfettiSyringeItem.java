@@ -3,6 +3,7 @@ package fun.wich.item.syringe;
 import fun.wich.ModBase;
 import fun.wich.ModConfig;
 import fun.wich.damage.ModDamageSource;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.passive.sheep.RainbowSheepEntity;
 import fun.wich.haven.HavenMod;
@@ -45,7 +46,7 @@ public class ConfettiSyringeItem extends BaseSyringeItem {
 				if (!sheep.world.isClient()) {
 					((ServerWorld)sheep.world).spawnParticles(ParticleTypes.EXPLOSION, sheep.getX(), sheep.getBodyY(0.5D), sheep.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
 					sheep.discard();
-					RainbowSheepEntity sheepEntity = ModBase.RAINBOW_SHEEP_ENTITY.create(sheep.world);
+					RainbowSheepEntity sheepEntity = ModEntityType.RAINBOW_SHEEP_ENTITY.create(sheep.world);
 					if (sheepEntity != null) {
 						sheepEntity.refreshPositionAndAngles(sheep.getX(), sheep.getY(), sheep.getZ(), sheep.getYaw(), sheep.getPitch());
 						sheepEntity.setHealth(sheep.getHealth());

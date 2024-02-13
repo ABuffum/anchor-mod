@@ -27,7 +27,9 @@ public enum ModToolMaterials implements ToolMaterial, FactoryToolMaterial {
 	OBSIDIAN(MiningLevels.DIAMOND, 1561, 8, 3, 10, () -> Ingredient.ofItems(Items.OBSIDIAN),
 			5, -3, -3, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F, 6, -3),
 	QUARTZ(MiningLevels.STONE, 450, 4, 1.5F, 12, () -> Ingredient.ofItems(Items.QUARTZ),
-			5, -3, -1, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F, 6, -3);
+			5, -3, -1, 0, 1, -2.8F, 1.5F, -3, 3, -2.4F, 6, -3),
+	STRONG_GOLD(MiningLevels.IRON, 250, 12.0f, 0.0f, 22, () -> Ingredient.ofItems(Items.GOLD_INGOT),
+			6, -3, 0, -3, 1, -2.8F, 1.5F, -3, 3, -2.4F, 7, -3);
 
 	private final int miningLevel;
 	private final int itemDurability;
@@ -97,6 +99,8 @@ public enum ModToolMaterials implements ToolMaterial, FactoryToolMaterial {
 	public float getPickaxeSpeed() { return this.picSpd; }
 	public float getShovelDamage() { return this.shvDmg; }
 	public float getShovelSpeed() { return this.shvSpd; }
+	public float getStoneaxeDamage() { return (this.axeDmg + this.picDmg) / 2f; }
+	public float getStoneaxeSpeed() { return (this.axeSpd + this.picSpd) / 2f; }
 	public int getSwordDamage() { return this.swdDmg; }
 	public float getSwordSpeed() { return this.swdSpd; }
 }

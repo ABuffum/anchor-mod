@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:smooth_dripstone"
-  },
-  "result": "haven:smooth_dripstone_wall",
-  "count": 1
-}

@@ -8,6 +8,7 @@ import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.passive.chicken.FancyChickenEntity;
 import fun.wich.entity.passive.chicken.SlimeChickenEntity;
 import fun.wich.gen.data.tag.ModItemTags;
+import fun.wich.registry.ModEntityRegistry;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -69,7 +70,7 @@ public abstract class ChickenEntityMixin extends AnimalEntity implements Pouchab
 		return Pouchable.tryPouch(player, hand, this).orElse(super.interactMob(player, hand));
 	}
 	@Override
-	public ItemStack getPouchItem() { return new ItemStack(ModBase.CHICKEN_POUCH); }
+	public ItemStack getPouchItem() { return new ItemStack(ModEntityRegistry.CHICKEN_POUCH); }
 	@Override
 	public boolean isFromPouch() { return this.dataTracker.get(FROM_POUCH); }
 	@Override

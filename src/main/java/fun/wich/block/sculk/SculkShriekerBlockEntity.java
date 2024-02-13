@@ -4,6 +4,7 @@ import com.mojang.serialization.Dynamic;
 import fun.wich.ModBase;
 import fun.wich.ModGameRules;
 import fun.wich.ModId;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ModNbtKeys;
 import fun.wich.entity.hostile.warden.WardenEntity;
 import fun.wich.event.ModGameEvent;
@@ -156,7 +157,7 @@ public class SculkShriekerBlockEntity extends BlockEntity implements ModVibratio
 			mutable.set(pos, j, 6, k);
 			if (!world.getWorldBorder().contains(mutable)) continue;
 			if (!findWardenSpawnPos(world, mutable)) continue;
-			warden = ModBase.WARDEN_ENTITY.create(world, null, null, null, mutable, SpawnReason.TRIGGERED, false, false);
+			warden = ModEntityType.WARDEN_ENTITY.create(world, null, null, null, mutable, SpawnReason.TRIGGERED, false, false);
 			if (warden == null) continue;
 			if (warden.canSpawn(world, SpawnReason.TRIGGERED) && warden.canSpawn(world)) {
 				world.spawnEntityAndPassengers(warden);

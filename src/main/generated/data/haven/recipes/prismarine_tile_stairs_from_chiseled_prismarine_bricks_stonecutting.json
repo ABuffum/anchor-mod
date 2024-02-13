@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "haven:chiseled_prismarine_bricks"
-  },
-  "result": "haven:prismarine_tile_stairs",
-  "count": 1
-}

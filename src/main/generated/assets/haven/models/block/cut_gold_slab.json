@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab",
-  "textures": {
-    "bottom": "haven:block/cut_gold",
-    "top": "haven:block/cut_gold",
-    "side": "haven:block/cut_gold"
-  }
-}

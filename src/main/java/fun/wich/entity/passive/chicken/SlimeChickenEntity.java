@@ -1,6 +1,7 @@
 package fun.wich.entity.passive.chicken;
 
 import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import net.minecraft.entity.EntityType;
@@ -20,7 +21,7 @@ public class SlimeChickenEntity extends ChickenEntity implements EntityWithBlood
 	public SlimeChickenEntity(EntityType<? extends ChickenEntity> entityType, World world) { super(entityType, world); }
 
 	public SlimeChickenEntity createChild(ServerWorld serverWorld, PassiveEntity passiveEntity) {
-		return ModBase.SLIME_CHICKEN_ENTITY.create(serverWorld);
+		return ModEntityType.SLIME_CHICKEN_ENTITY.create(serverWorld);
 	}
 
 	@Override

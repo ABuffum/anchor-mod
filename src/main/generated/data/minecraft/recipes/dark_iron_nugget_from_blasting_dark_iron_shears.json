@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "haven:dark_iron_shears"
-  },
-  "result": "haven:dark_iron_nugget",
-  "experience": 0.1,
-  "cookingtime": 100
-}

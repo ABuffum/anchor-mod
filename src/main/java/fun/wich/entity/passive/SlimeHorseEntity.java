@@ -2,6 +2,7 @@ package fun.wich.entity.passive;
 
 import fun.wich.ModBase;
 import fun.wich.effect.ModStatusEffects;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.mixins.entity.passive.HorseBaseEntityInvoker;
@@ -163,7 +164,7 @@ public class SlimeHorseEntity extends HorseBaseEntity implements EntityWithBlood
 	@Override
 	@Nullable
 	public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
-		return ModBase.SLIME_HORSE_ENTITY.create(world);
+		return ModEntityType.SLIME_HORSE_ENTITY.create(world);
 	}
 
 	@Override

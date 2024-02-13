@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/template_bed",
-  "textures": {
-    "particle": "haven:block/glow_lichen_block"
-  }
-}

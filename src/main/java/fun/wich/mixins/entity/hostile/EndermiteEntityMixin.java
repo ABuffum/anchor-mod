@@ -6,6 +6,7 @@ import fun.wich.entity.Pouchable;
 import fun.wich.entity.blood.BloodType;
 import fun.wich.entity.blood.EntityWithBloodType;
 import fun.wich.entity.passive.HedgehogEntity;
+import fun.wich.registry.ModEntityRegistry;
 import fun.wich.sound.ModSoundEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.FleeEntityGoal;
@@ -52,7 +53,7 @@ public abstract class EndermiteEntityMixin extends HostileEntity implements Enti
 		return Pouchable.tryPouch(player, hand, this).orElse(super.interactMob(player, hand));
 	}
 	@Override
-	public ItemStack getPouchItem() { return new ItemStack(ModBase.ENDERMITE_POUCH); }
+	public ItemStack getPouchItem() { return new ItemStack(ModEntityRegistry.ENDERMITE_POUCH); }
 	@Override
 	public boolean isFromPouch() { return this.dataTracker.get(FROM_POUCH); }
 	@Override

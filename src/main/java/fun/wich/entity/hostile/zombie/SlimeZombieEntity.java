@@ -1,7 +1,7 @@
 package fun.wich.entity.hostile.zombie;
 
-import fun.wich.ModBase;
 import fun.wich.effect.ModStatusEffects;
+import fun.wich.entity.ModEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -21,7 +21,7 @@ public class SlimeZombieEntity extends ZombieEntity {
 	public SlimeZombieEntity(EntityType<? extends SlimeZombieEntity> entityType, World world) {
 		super(entityType, world);
 	}
-	public SlimeZombieEntity(World world) { super(ModBase.SLIME_ZOMBIE_ENTITY, world); }
+	public SlimeZombieEntity(World world) { super(ModEntityType.SLIME_ZOMBIE_ENTITY, world); }
 
 	@Override
 	protected void initCustomGoals() {

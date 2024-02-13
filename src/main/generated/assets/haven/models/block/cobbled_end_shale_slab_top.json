@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/cobbled_end_shale",
-    "top": "haven:block/cobbled_end_shale",
-    "side": "haven:block/cobbled_end_shale"
-  }
-}

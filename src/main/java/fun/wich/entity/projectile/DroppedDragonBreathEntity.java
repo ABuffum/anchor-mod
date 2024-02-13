@@ -1,6 +1,6 @@
 package fun.wich.entity.projectile;
 
-import fun.wich.ModBase;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.cloud.DragonBreathCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 public class DroppedDragonBreathEntity extends ThrownItemEntity {
 	public DroppedDragonBreathEntity(EntityType<? extends ThrownItemEntity> entityType, World world) { super(entityType, world); }
-	public DroppedDragonBreathEntity(World world, LivingEntity owner) { super(ModBase.DROPPED_DRAGON_BREATH_ENTITY, owner, world); }
-	public DroppedDragonBreathEntity(World world, double x, double y, double z) { super(ModBase.DROPPED_DRAGON_BREATH_ENTITY, x, y, z, world); }
+	public DroppedDragonBreathEntity(World world, LivingEntity owner) { super(ModEntityType.DROPPED_DRAGON_BREATH_ENTITY, owner, world); }
+	public DroppedDragonBreathEntity(World world, double x, double y, double z) { super(ModEntityType.DROPPED_DRAGON_BREATH_ENTITY, x, y, z, world); }
 
 	@Override
 	protected Item getDefaultItem() { return Items.AIR; }

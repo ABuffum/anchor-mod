@@ -14,5 +14,5 @@ import org.spongepowered.asm.mixin.Mixin;
 public abstract class PolarBearEntityMixin extends AnimalEntity implements Angerable, EntityWithBloodType {
 	protected PolarBearEntityMixin(EntityType<? extends AnimalEntity> entityType, World world) { super(entityType, world); }
 
-	@Override public BloodType GetDefaultBloodType() { return ModBase.POLAR_BEAR_BLOOD_TYPE; }
+	@Override public BloodType GetDefaultBloodType() { return ModBase.BEAR_BLOOD_TYPE; }
 }

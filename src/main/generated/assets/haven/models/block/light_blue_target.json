@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "haven:block/light_blue_target_top",
-    "side": "haven:block/light_blue_target_side"
-  }
-}

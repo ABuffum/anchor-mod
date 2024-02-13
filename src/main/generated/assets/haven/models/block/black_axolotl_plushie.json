@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/plushie/axolotl",
-  "textures": {
-    "all": "haven:block/black_axolotl_plushie",
-    "particle": "haven:block/black_axolotl_plushie"
-  }
-}

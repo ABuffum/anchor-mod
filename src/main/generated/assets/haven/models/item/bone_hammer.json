@@ -1,6 +1,0 @@
-{
-  "parent": "haven:item/_template_simple_hammer",
-  "textures": {
-    "texture": "haven:item/bone_hammer"
-  }
-}

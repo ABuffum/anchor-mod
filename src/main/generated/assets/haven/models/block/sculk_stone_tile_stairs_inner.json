@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "haven:block/sculk_stone_tiles",
-    "top": "haven:block/sculk_stone_tiles",
-    "side": "haven:block/sculk_stone_tiles"
-  }
-}

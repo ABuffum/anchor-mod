@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "haven:block/sandy_sandy_prismarine",
-    "top": "haven:block/sandy_sandy_prismarine",
-    "side": "haven:block/sandy_sandy_prismarine"
-  }
-}

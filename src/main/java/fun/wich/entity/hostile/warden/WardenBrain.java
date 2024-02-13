@@ -8,6 +8,7 @@ import com.mojang.serialization.Dynamic;
 import fun.wich.ModBase;
 import fun.wich.entity.ModActivities;
 import fun.wich.entity.ai.ModMemoryModules;
+import fun.wich.entity.ai.sensor.ModSensorTypes;
 import fun.wich.entity.ai.task.DismountVehicleTask;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.*;
@@ -28,7 +29,7 @@ public class WardenBrain {
 	public static final int ROAR_DURATION = MathHelper.ceil(84.0f);
 	private static final int SNIFF_DURATION = MathHelper.ceil(83.2f);
 	public static final int DIG_COOLDOWN = 1200;
-	private static final List<SensorType<? extends Sensor<? super WardenEntity>>> SENSORS = List.of(SensorType.NEAREST_PLAYERS, ModBase.WARDEN_ENTITY_SENSOR.get());
+	private static final List<SensorType<? extends Sensor<? super WardenEntity>>> SENSORS = List.of(SensorType.NEAREST_PLAYERS, ModSensorTypes.WARDEN_ENTITY_SENSOR.get());
 	private static final List<MemoryModuleType<?>> MEMORY_MODULES = List.of(MemoryModuleType.MOBS, MemoryModuleType.VISIBLE_MOBS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_TARGETABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_NEMESIS, MemoryModuleType.LOOK_TARGET, MemoryModuleType.WALK_TARGET, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.PATH, MemoryModuleType.ATTACK_TARGET, MemoryModuleType.ATTACK_COOLING_DOWN, MemoryModuleType.NEAREST_ATTACKABLE, ModMemoryModules.ROAR_TARGET, ModMemoryModules.DISTURBANCE_LOCATION, ModMemoryModules.RECENT_PROJECTILE, ModMemoryModules.IS_SNIFFING, ModMemoryModules.IS_EMERGING, ModMemoryModules.ROAR_SOUND_DELAY, ModMemoryModules.DIG_COOLDOWN, ModMemoryModules.ROAR_SOUND_COOLDOWN, ModMemoryModules.SNIFF_COOLDOWN, ModMemoryModules.TOUCH_COOLDOWN, ModMemoryModules.VIBRATION_COOLDOWN, ModMemoryModules.SONIC_BOOM_COOLDOWN, ModMemoryModules.SONIC_BOOM_SOUND_COOLDOWN, ModMemoryModules.SONIC_BOOM_SOUND_DELAY);
 	private static final Task<WardenEntity> RESET_DIG_COOLDOWN_TASK = new Task<WardenEntity>(ImmutableMap.of(ModMemoryModules.DIG_COOLDOWN, MemoryModuleState.REGISTERED)){
 		@Override

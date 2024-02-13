@@ -1,7 +1,0 @@
-{
-  "parent": "haven:block/plushie/chicken",
-  "textures": {
-    "all": "haven:block/amber_chicken_plushie",
-    "particle": "haven:block/amber_chicken_plushie"
-  }
-}

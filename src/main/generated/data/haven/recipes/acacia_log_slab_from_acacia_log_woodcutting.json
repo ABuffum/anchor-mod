@@ -1,8 +1,0 @@
-{
-  "type": "haven:woodcutting",
-  "ingredient": {
-    "item": "minecraft:acacia_log"
-  },
-  "result": "haven:acacia_log_slab",
-  "count": 2
-}

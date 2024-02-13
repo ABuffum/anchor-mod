@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/template_glass_pane_side",
-  "textures": {
-    "pane": "haven:block/mint_stained_glass",
-    "edge": "haven:block/mint_stained_glass_pane_top"
-  }
-}

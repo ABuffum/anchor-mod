@@ -2,8 +2,8 @@ package fun.wich.entity.passive.sniffer;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import fun.wich.ModBase;
 import fun.wich.entity.ModActivities;
+import fun.wich.entity.ModEntityType;
 import fun.wich.entity.ai.ModMemoryModules;
 import fun.wich.entity.ai.task.GoTowardsLookTargetTask;
 import net.minecraft.entity.EntityType;
@@ -60,7 +60,7 @@ public class SnifferBrain {
 						Pair.of(new GoTowardsLookTargetTask<>(entity -> true, 3, 1.0f), 2),
 						Pair.of(new ScentingTask(40, 80), 1),
 						Pair.of(new SniffingTask(40, 80), 1),
-						Pair.of(new BreedTask(ModBase.SNIFFER_ENTITY, 1.0f), 1),
+						Pair.of(new BreedTask(ModEntityType.SNIFFER_ENTITY, 1.0f), 1),
 						Pair.of(new FollowMobTask(EntityType.PLAYER, 6.0f), 1),
 						Pair.of(new StrollTask(1.0f), 1),
 						Pair.of(new WaitTask(5, 20), 2))))),

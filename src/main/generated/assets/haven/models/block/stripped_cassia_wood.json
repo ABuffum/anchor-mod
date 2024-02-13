@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "haven:block/stripped_cassia_log",
-    "side": "haven:block/stripped_cassia_log"
-  }
-}
