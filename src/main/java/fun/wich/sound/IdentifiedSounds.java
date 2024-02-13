@@ -358,7 +358,7 @@ public class IdentifiedSounds {
 //				/* Mod */ SMOOTH_CHISELED_POLISHED_BLACKSTONE.asBlock());
 		Register("blackstone_tiles", List.of(EN_US.Tiles(EN_US.Blackstone())), /* Mod */ POLISHED_BLACKSTONE_TILES.asBlock(),
 				POLISHED_BLACKSTONE_TILE_STAIRS.asBlock(), POLISHED_BLACKSTONE_TILE_SLAB.asBlock(), POLISHED_BLACKSTONE_TILE_WALL.asBlock());
-		Register("blast_furnace", List.of(EN_US.Furnace(EN_US.Blast())), Blocks.SMOKER);
+		Register("blast_furnace", List.of(EN_US.Furnace(EN_US.Blast())), Blocks.BLAST_FURNACE);
 		Register("bone_ladder", List.of(EN_US.Ladder(EN_US.Bone())), /* Mod */ BONE_LADDER.asBlock());
 		Register("bookshelf", List.of(EN_US.Bookshelf()), Blocks.BOOKSHELF, /* Mod */ ACACIA_BOOKSHELF.asBlock(), BIRCH_BOOKSHELF.asBlock(),
 				DARK_OAK_BOOKSHELF.asBlock(), JUNGLE_BOOKSHELF.asBlock(), SPRUCE_BOOKSHELF.asBlock(),

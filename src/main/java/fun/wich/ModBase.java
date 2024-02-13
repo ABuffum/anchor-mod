@@ -1698,7 +1698,6 @@ public class ModBase implements ModInitializer {
 	public static final Item ONION_JUICE = MakeDrink(4, 0.5F);
 	public static final Item POTATO_JUICE = MakeDrink(4, 0.5F);
 	public static final Item PUMPKIN_JUICE = MakeDrink(4, 0.5F);
-	public static final Item SEA_PICKLE_JUICE = MakeDrink(4, 0.5F);
 	public static final Item STRAWBERRY_JUICE = MakeDrink(4, 0.5F);
 	public static final Item SWEET_BERRY_JUICE = MakeDrink(4, 0.5F);
 	public static final Item TOMATO_JUICE = MakeDrink(4, 0.5F);
@@ -1735,7 +1734,6 @@ public class ModBase implements ModInitializer {
 	public static final Item ONION_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item POTATO_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item PUMPKIN_SMOOTHIE = MakeDrink(5, 0.5F);
-	public static final Item SEA_PICKLE_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item STRAWBERRY_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item SWEET_BERRY_SMOOTHIE = MakeDrink(5, 0.5F);
 	public static final Item TOMATO_SMOOTHIE = MakeDrink(5, 0.5F);
@@ -6136,7 +6134,6 @@ public class ModBase implements ModInitializer {
 		RegisterJuice("potato_juice", POTATO_JUICE, Items.POTATO, List.of(EN_US.Juice(EN_US.Potato())));
 		RegisterJuice("pumpkin_juice", PUMPKIN_JUICE, Items.PUMPKIN, List.of(EN_US.Juice(EN_US.Pumpkin())));
 		JuicerBlock.JUICE_MAP.put(ModBase.WHITE_PUMPKIN::asItem, PUMPKIN_JUICE);
-		RegisterJuice("sea_pickle_juice", SEA_PICKLE_JUICE, Items.SEA_PICKLE, List.of(EN_US.Juice(EN_US.Pickle(EN_US.Sea()))));
 		RegisterJuice("strawberry_juice", STRAWBERRY_JUICE, STRAWBERRY, List.of(EN_US.Juice(EN_US.Strawberry())));
 		RegisterJuice("sweet_berry_juice", SWEET_BERRY_JUICE, Items.SWEET_BERRIES, List.of(EN_US.Juice(EN_US.Berry(EN_US.Sweet()))));
 		RegisterJuice("tomato_juice", TOMATO_JUICE, ItemsRegistry.TOMATO.get(), List.of(EN_US.Juice(EN_US.Tomato())));
@@ -6164,7 +6161,6 @@ public class ModBase implements ModInitializer {
 		Register("onion_smoothie", ONION_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Onion())));
 		Register("potato_smoothie", POTATO_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Potato())));
 		Register("pumpkin_smoothie", PUMPKIN_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Pumpkin())));
-		Register("sea_pickle_smoothie", SEA_PICKLE_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Pickle(EN_US.Sea()))));
 		Register("strawberry_smoothie", STRAWBERRY_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Strawberry())));
 		Register("sweet_berry_smoothie", SWEET_BERRY_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Berry(EN_US.Sweet()))));
 		Register("tomato_smoothie", TOMATO_SMOOTHIE, List.of(EN_US.Smoothie(EN_US.Tomato())));
